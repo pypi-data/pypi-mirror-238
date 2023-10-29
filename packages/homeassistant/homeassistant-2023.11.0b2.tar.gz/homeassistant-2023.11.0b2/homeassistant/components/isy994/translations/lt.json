@@ -1,0 +1,86 @@
+{
+    "config": {
+        "step": {
+            "reauth_confirm": {
+                "description": "{host} kredencialai nebegalioja.",
+                "title": "I\u0161 naujo autentifikuokite savo ISY"
+            },
+            "user": {
+                "data": {
+                    "password": "Slapta\u017eodis"
+                }
+            }
+        }
+    },
+    "services": {
+        "delete_zwave_lock_user_code": {
+            "name": "I\u0161trinkite Z-Wave Lock vartotojo kod\u0105"
+        },
+        "get_zwave_parameter": {
+            "fields": {
+                "parameter": {
+                    "description": "Parametro numeris, kur\u012f reikia gauti i\u0161 \u012frenginio.",
+                    "name": "Parametras"
+                }
+            },
+            "name": "Gaukite \u201eZ-Wave\u201c parametr\u0105"
+        },
+        "rename_node": {
+            "fields": {
+                "name": {
+                    "description": "Naujas pavadinimas, naudojamas ISY.",
+                    "name": "Naujas Vardas"
+                }
+            },
+            "name": "Pervardykite mazg\u0105 ISY"
+        },
+        "send_node_command": {
+            "fields": {
+                "command": {
+                    "description": "Komanda, kuri\u0105 reikia si\u0173sti \u012f \u012frengin\u012f.",
+                    "name": "Komanda"
+                }
+            },
+            "name": "Si\u0173sti mazgo komand\u0105"
+        },
+        "send_program_command": {
+            "fields": {
+                "address": {
+                    "description": "Valdomos programos adresas (naudokite adres\u0105 arba pavadinim\u0105).",
+                    "name": "Adresas"
+                },
+                "command": {
+                    "description": "Turi b\u016bti i\u0161si\u0173sta ISY programos komanda.",
+                    "name": "Komanda"
+                },
+                "isy": {
+                    "name": "ISY"
+                },
+                "name": {
+                    "description": "Valdomos programos pavadinimas (naudokite adres\u0105 arba pavadinim\u0105)."
+                }
+            }
+        },
+        "send_raw_node_command": {
+            "fields": {
+                "command": {
+                    "name": "Komanda"
+                }
+            }
+        },
+        "set_zwave_lock_user_code": {
+            "fields": {
+                "user_num": {
+                    "name": "Vartotojo numeris"
+                }
+            }
+        },
+        "set_zwave_parameter": {
+            "fields": {
+                "size": {
+                    "name": "Dydis"
+                }
+            }
+        }
+    }
+}

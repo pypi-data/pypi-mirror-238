@@ -1,0 +1,145 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_atmospheric_pressure": "Nykyinen {entity_name}-ilmakeh\u00e4n paine",
+            "is_battery_level": "Nykyinen {entity_name} akun varaustaso",
+            "is_carbon_monoxide": "{entity_name} t\u00e4m\u00e4nhetkinen h\u00e4k\u00e4pitoisuus",
+            "is_humidity": "Nykyinen {entity_name} kosteus",
+            "is_illuminance": "Nykyinen {entity_name} valoisuus",
+            "is_power": "Nykyinen {entity_name} teho",
+            "is_pressure": "Nykyinen {entity_name} paine",
+            "is_signal_strength": "Nykyinen {entity_name} signaalin voimakkuus",
+            "is_temperature": "Nykyinen {entity_name} l\u00e4mp\u00f6tila",
+            "is_value": "Nykyinen {entity_name} arvo"
+        },
+        "trigger_type": {
+            "apparent_power": "{entity_name} n\u00e4enn\u00e4inen teho muuttuu",
+            "aqi": "{entity_name} ilmanlaatuindeksi muuttuu",
+            "atmospheric_pressure": "{entity_name} ilmakeh\u00e4n paine muuttuu",
+            "battery_level": "{entity_name} akun varaustaso muuttuu",
+            "carbon_dioxide": "{entity_name} hiilidioksidipitoisuus muuttuu",
+            "carbon_monoxide": "{entity_name} h\u00e4k\u00e4pitoisuus muuttuu",
+            "current": "{entity_name} virta muuttuu",
+            "data_rate": "{entity_name} tiedonsiirtonopeus muuttuu",
+            "data_size": "{entity_name} datakoko muuttuu",
+            "distance": "{entity_name} et\u00e4isyys muuttuu",
+            "duration": "{entity_name} kesto muuttuu",
+            "energy": "{entity_name} energia muuttuu",
+            "frequency": "{entity_name} taajuus muuttuu",
+            "gas": "{entity_name} kaasu muuttuu",
+            "humidity": "{entity_name} kosteus muuttuu",
+            "illuminance": "{entity_name} valoisuus muuttuu",
+            "irradiance": "{entity_name} s\u00e4teilytaso muuttuu",
+            "moisture": "{entity_name} kosteus muuttuu",
+            "monetary": "{entity_name} raha muuttuu",
+            "nitrogen_dioxide": "{entity_name} typpidioksidipitoisuus muuttuu",
+            "nitrogen_monoxide": "{entity_name} typpimonoksidipitoisuus muuttuu",
+            "nitrous_oxide": "{entity_name} typpioksiduulipitoisuus muuttuu",
+            "ozone": "{entity_name} otsonipitoisuus muuttuu",
+            "ph": "{entity_name} pH-taso muuttuu",
+            "pm1": "{entity_name} PM1-pitoisuus muuttuu",
+            "pm10": "{entity_name} PM10-pitoisuus muuttuu",
+            "pm25": "{entity_name} PM2,5-pitoisuus muuttuu",
+            "power": "{entity_name} teho muuttuu",
+            "power_factor": "{entity_name} tehokerroin muuttuu",
+            "precipitation": "{entity_name} sadem\u00e4\u00e4r\u00e4 muuttuu",
+            "precipitation_intensity": "{entity_name} sateen voimakkuus muuttuu",
+            "pressure": "{entity_name} paine muuttuu",
+            "reactive_power": "{entity_name} reaktiivinen teho muuttuu",
+            "signal_strength": "{entity_name} signaalin voimakkuus muuttuu",
+            "sound_pressure": "{entity_name} \u00e4\u00e4nenpaine muuttuu",
+            "speed": "{entity_name} nopeus muuttuu",
+            "sulphur_dioxide": "{entity_name} rikkidioksidipitoisuus muuttuu",
+            "temperature": "{entity_name} l\u00e4mp\u00f6tila muuttuu",
+            "value": "{entity_name} arvo muuttuu",
+            "volatile_organic_compounds": "{entity_name} haihtuvien orgaanisten yhdisteiden pitoisuus muuttuu",
+            "volatile_organic_compounds_parts": "{entity_name} haihtuvien orgaanisten yhdisteiden pitoisuus muuttuu",
+            "voltage": "{entity_name} j\u00e4nnite muuttuu",
+            "volume": "{entity_name} \u00e4\u00e4nenvoimakkuus muuttuu",
+            "water": "{entity_name} vesi muuttuu",
+            "weight": "{entity_name} paino muuttuu",
+            "wind_speed": "{entity_name} tuulennopeus muuttuu"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "state_attributes": {
+                "options": {
+                    "name": "Mahdolliset tilat"
+                },
+                "state_class": {
+                    "name": "Tilan luokka",
+                    "state": {
+                        "measurement": "Mittaus",
+                        "total": "Yhteens\u00e4",
+                        "total_increasing": "Nousu yhteens\u00e4"
+                    }
+                }
+            }
+        },
+        "atmospheric_pressure": {
+            "name": "Ilmakeh\u00e4n paine"
+        },
+        "carbon_monoxide": {
+            "name": "H\u00e4k\u00e4"
+        },
+        "energy": {
+            "name": "Energia"
+        },
+        "energy_storage": {
+            "name": "Varastoitu energia"
+        },
+        "frequency": {
+            "name": "Taajuus"
+        },
+        "humidity": {
+            "name": "Kosteus"
+        },
+        "illuminance": {
+            "name": "Valaistusvoimakkuus"
+        },
+        "moisture": {
+            "name": "Kosteus"
+        },
+        "monetary": {
+            "name": "Saldo"
+        },
+        "power": {
+            "name": "Teho"
+        },
+        "power_factor": {
+            "name": "Tehokerroin"
+        },
+        "pressure": {
+            "name": "Paine"
+        },
+        "reactive_power": {
+            "name": "Loisteho"
+        },
+        "signal_strength": {
+            "name": "Signaalin voimakkuus"
+        },
+        "sound_pressure": {
+            "name": "\u00c4\u00e4nenpaine"
+        },
+        "speed": {
+            "name": "Nopeus"
+        },
+        "temperature": {
+            "name": "L\u00e4mp\u00f6tila"
+        },
+        "voltage": {
+            "name": "J\u00e4nnite"
+        },
+        "volume": {
+            "name": "Tilavuus"
+        },
+        "volume_storage": {
+            "name": "Varastoitu tilavuus"
+        },
+        "water": {
+            "name": "Vesi"
+        }
+    },
+    "title": "Sensori"
+}

@@ -1,0 +1,78 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "menu_options": {
+                    "hubv1": "Hub versija 1 (iki 2014 m.)",
+                    "hubv2": "Hub versija 2",
+                    "plm": "\u201ePowerLink\u201c modemas (PLM)"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "change_hub_config": {
+                "data": {
+                    "password": "Slapta\u017eodis"
+                }
+            },
+            "change_plm_config": {
+                "description": "Pakeiskite Insteon PLM ry\u0161io informacij\u0105."
+            },
+            "init": {
+                "data": {
+                    "change_plm_config": "Pakeiskite PLM konfig\u016bracij\u0105."
+                },
+                "menu_options": {
+                    "add_override": "Prid\u0117ti \u012frenginio nepaisym\u0105.",
+                    "add_x10": "Prid\u0117kite X10 \u012frengin\u012f.",
+                    "change_hub_config": "Pakeiskite koncentratoriaus konfig\u016bracij\u0105.",
+                    "change_plm_config": "Pakeiskite PLM konfig\u016bracij\u0105.",
+                    "remove_override": "Pa\u0161alinkite \u012frenginio nepaisym\u0105.",
+                    "remove_x10": "Pa\u0161alinkite X10 \u012frengin\u012f."
+                }
+            }
+        }
+    },
+    "services": {
+        "print_all_link_database": {
+            "fields": {
+                "entity_id": {
+                    "description": "Spausdintino \u012frenginio pavadinimas.",
+                    "name": "Subjektas"
+                }
+            },
+            "name": "Spausdinti vis\u0105 nuorod\u0173 duomen\u0173 baz\u0119"
+        },
+        "print_im_all_link_database": {
+            "description": "Spausdina \u201eAll-Link\u201c duomen\u0173 baz\u0119, skirt\u0105 INSTEON modemui (IM)."
+        },
+        "scene_off": {
+            "fields": {
+                "group": {
+                    "name": "Grup\u0117"
+                }
+            }
+        },
+        "scene_on": {
+            "fields": {
+                "group": {
+                    "name": "Grup\u0117"
+                }
+            }
+        },
+        "x10_all_lights_on": {
+            "description": "Siun\u010diama X10 komanda \"Visi \u017eibintai \u012fjungti\"."
+        },
+        "x10_all_units_off": {
+            "fields": {
+                "housecode": {
+                    "description": "X10 namo kodas.",
+                    "name": "Nam\u0173 kodas"
+                }
+            },
+            "name": "X10 visi \u012frenginiai i\u0161jungti"
+        }
+    }
+}

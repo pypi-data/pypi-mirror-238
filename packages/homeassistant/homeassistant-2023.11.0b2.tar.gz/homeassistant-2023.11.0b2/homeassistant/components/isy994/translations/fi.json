@@ -1,0 +1,34 @@
+{
+    "config": {
+        "error": {
+            "invalid_host": "Palvelimen osoite ei ollut t\u00e4ydess\u00e4 URL-muodossa, esim. http://192.168.10.100:80"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "URL",
+                    "password": "Salasana",
+                    "tls": "ISY-ohjaimen TLS-versio.",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignore_string": "Ohita merkkijono",
+                    "restore_light_state": "Valon kirkkauden palauttaminen",
+                    "variable_sensor_string": "Muuttuva anturin merkkijono"
+                },
+                "title": "ISY994-asetukset"
+            }
+        }
+    },
+    "services": {
+        "rename_node": {
+            "description": "Nime\u00e4\u00e4 ISY:n solmun tai ryhm\u00e4n (tilanteen) uudelleen. Huomautus: t\u00e4m\u00e4 ei automaattisesti muuta Home Assistant Entity Name tai Entity ID:t\u00e4 vastaavaksi. Entiteetin nimi ja ID p\u00e4ivittyv\u00e4t vasta, kun kutsut `isy994.reload` tai k\u00e4ynnist\u00e4t Home Assistantin uudelleen, ja VAIN JOS et ole jo mukauttanut nime\u00e4 Home Assistantissa."
+        }
+    }
+}
