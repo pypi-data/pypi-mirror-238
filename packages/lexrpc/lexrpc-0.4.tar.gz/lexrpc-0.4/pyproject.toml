@@ -1,0 +1,55 @@
+# https://packaging.python.org/en/latest/tutorials/packaging-projects/
+
+[build-system]
+requires = ['setuptools>=68.0']
+build-backend = 'setuptools.build_meta'
+
+# Getting these next two sections and MANIFEST.in just right so that they
+# include the *.json files in lexrpc/lexicons/ but exclude other directories was
+# a huge amount of pain. setuptools's support for pyproject.toml is confusing
+# and immature. Be careful changing them!
+[tool.setuptools.package-data]
+'*' = ['*.json']
+
+[tool.setuptools.packages.find]
+where = ['.']
+
+[project]
+name = 'lexrpc'
+version = '0.4'
+authors = [
+    { name='Ryan Barrett', email='lexrpc@ryanb.org' },
+]
+description = "Python implementation of AT Protocol's XRPC + Lexicon"
+readme = 'README.md'
+requires-python = '>=3.7'
+keywords = ['XRPC', 'Lexicon', 'AT Protocol', 'ATP']
+dependencies = [
+    'dag-cbor',
+    'jsonschema>=4.0',
+    'requests>=2.0',
+    'simple-websocket',
+    # we don't directly depend on typing-extensions; this is only here because
+    # 4.6.0 introduced an incompatibility with the typing-validation package
+    # that's still not fixed yet.
+    # https://github.com/hashberg-io/typing-validation/issues/1
+    'typing-extensions<4.6.0',
+]
+classifiers = [
+    'Programming Language :: Python :: 3',
+    'License :: Public Domain',
+    'Operating System :: OS Independent',
+    'Intended Audience :: Developers',
+    'Development Status :: 3 - Alpha',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+]
+
+[project.urls]
+'Homepage' = 'https://github.com/snarfed/lexrpc'
+'Documentation' = 'https://lexrpc.readthedocs.io/'
+
+[project.optional-dependencies]
+flask = [
+    'Flask>=2.0',
+    'flask-sock',
+]
