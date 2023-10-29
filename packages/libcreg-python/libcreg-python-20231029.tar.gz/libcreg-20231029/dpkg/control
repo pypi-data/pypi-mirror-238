@@ -1,0 +1,65 @@
+Source: libcreg
+Priority: extra
+Maintainer: Joachim Metz <joachim.metz@gmail.com>
+Build-Depends: debhelper (>= 9), dh-autoreconf, dh-python, pkg-config, python3-dev, python3-setuptools, libfuse-dev
+Standards-Version: 4.1.4
+Section: libs
+Homepage: https://github.com/libyal/libcreg
+Vcs-Git: https://github.com/libyal/libcreg.git
+
+Package: libcreg
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libcreg1
+Replaces: libcreg1
+Suggests: libcreg-dbg
+Description: Library to access the Windows 9x/Me Registry File (CREG) format
+ libcreg is a library to access the Windows 9x/Me Registry File (CREG) format.
+
+Package: libcreg-dbg
+Architecture: any
+Section: debug
+Depends: libcreg (= ${binary:Version}), ${misc:Depends}
+Description: Debugging symbols for libcreg
+ Debugging symbols for libcreg.
+
+Package: libcreg-dev
+Section: libdevel
+Architecture: any
+Depends: libcreg (= ${binary:Version}), ${misc:Depends}
+Description: Header files and libraries for developing applications for libcreg
+ Header files and libraries for developing applications for libcreg.
+
+Package: libcreg-tools
+Section: utils
+Architecture: any
+Depends: libcreg (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libcreg-utils
+Replaces: libcreg-utils
+Description: Several tools for reading Windows 9x/Me Registry Files (CREG)
+ Several tools for reading Windows 9x/Me Registry Files (CREG).
+
+Package: libcreg-tools-dbg
+Section: debug
+Architecture: any
+Depends: libcreg-tools (= ${binary:Version}), ${misc:Depends}
+Description: Debugging symbols for libcreg-tools
+ Debugging symbols for libcreg-tools.
+
+Package: libcreg-python3
+Section: python
+Architecture: any
+Depends: libcreg (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Conflicts: python3-libcreg
+Replaces: python3-libcreg
+Suggests: libcreg-python3-dbg
+Description: Python 3 bindings for libcreg
+ Python 3 bindings for libcreg.
+
+Package: libcreg-python3-dbg
+Section: debug
+Architecture: any
+Depends: libcreg-python3 (= ${binary:Version}), ${misc:Depends}
+Description: Debugging symbols for libcreg-python3
+ Debugging symbols for libcreg-python3.
+
