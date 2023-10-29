@@ -1,0 +1,1 @@
+from pyfortiztp.core.api import Api as api
