@@ -1,0 +1,5 @@
+__version__ = "0.2"
+__author__ = "ArrancarDev"
+__description__ = "String manipulation package that makes your life easier"
+__repository__ = "https://github.com/ArrancarDev/stringsan"
+__email__ = "arrancar.dev@outlook.com"
