@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "aia_fairness"
+version = "0.0.4"
+authors = [
+  { name="Jan Aalmoes", email="jan.aalmoes@protonmail.com" },
+  { name="Vasisht Duddu" }
+]
+description = "Various attributes inferences attacks tested against fairness enforcing mechanisms"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+]
+dependencies = ["wget", "Pillow", "requests", "folktables", "ucimlrepo", "kaggle", "matplotlib", "scikit-learn", "torch", "torchvision","fairlearn", "fairgrad", "silence_tensorflow", "tensorflow"]
+
+[project.urls]
+"Homepage" = "https://gitlab.inria.fr/jaalmoes/aia_fairness"
+"Bug Tracker" = "https://gitlab.inria.fr/jaalmoes/aia_fairness/issues"
+
