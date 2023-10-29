@@ -1,0 +1,80 @@
+[tool]
+[tool.poetry]
+name = "grugstream"
+version = "0.0.13"
+homepage = "https://github.com/thejaminator/grugstream"
+description = "The grugstream library provides an easy way to work with asynchronous/ reactive / streaming programming."
+authors = ["James Chua <chuajamessh@gmail.com>"]
+readme = "README.md"
+license =  "MIT"
+classifiers=[
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: MIT License',
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+]
+packages = [
+    { include = "grugstream" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+slist = "*"
+anyio = "^3.3.0"
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+target-version = ['py311']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+line-length = 120
+
+# Ignore `E501` line length in these
+[tool.ruff.extend-per-file-ignores]
+"tests/*" = ["E501"]
+
+
+
+
+[tool.pyright]
+exclude = ["venv", "scripts/demo_cache"]
+
+strictListInference = true
+strictDictionaryInference = true
+strictSetInference = true
+reportFunctionMemberAccess = true
+reportUnknownParameterType = true
+reportIncompatibleMethodOverride = true
+reportIncompatibleVariableOverride = true
+reportInconsistentConstructorType = true
+reportOverlappingOverload = true
+reportConstantRedefinition = true
+reportImportCycles = true
+reportPropertyTypeMismatch = true
+reportMissingTypeArgument = true
+reportUnnecessaryCast = true
+reportUnnecessaryComparison = true
+reportUnnecessaryContains = true
+reportUnusedExpression = true
+reportMatchNotExhaustive = true
+reportShadowedImports = true
