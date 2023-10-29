@@ -1,0 +1,38 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "Leiskite {entity_name} valyti",
+            "dock": "Leiskite {entity_name} gr\u012f\u017eti \u012f stotel\u0119"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} valo",
+            "is_docked": "{entity_name} yra stotel\u0117je"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} prad\u0117jo valyti",
+            "docked": "{entity_name} stotel\u0117je"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "state": {
+                "error": "Klaida",
+                "off": "I\u0161jungta"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class_url": {
+            "description": "Tinkintas integravimas \u201e {platform} \u201c i\u0161ple\u010dia nebenaudojam\u0105 bazin\u0119 klas\u0119 \u201eVacuumEntity\u201c, o ne \u201eStateVacuumEntity\u201c. \n\n Sukurkite prane\u0161im\u0105 apie rikt\u0105 adresu {issue_tracker} . \n\n Kai bus pasiekiama atnaujinta \u201e {platform} \u201c versija, \u012fdiekite j\u0105 ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105."
+        }
+    },
+    "services": {
+        "turn_off": {
+            "description": "Sustabdo esam\u0105 valymo u\u017eduot\u012f ir gr\u012f\u017eta \u012f dok\u0105."
+        },
+        "turn_on": {
+            "description": "Pradeda nauj\u0105 valymo u\u017eduot\u012f."
+        }
+    },
+    "title": "Dulki\u0173 siurblys"
+}

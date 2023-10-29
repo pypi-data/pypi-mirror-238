@@ -1,0 +1,22 @@
+{
+    "services": {
+        "alarm_keypress": {
+            "fields": {
+                "entity_id": {
+                    "description": "Laukaistavan h\u00e4lytyskeskuksen nimi."
+                }
+            }
+        },
+        "invoke_custom_function": {
+            "description": "Mahdollistaa DSC-paneeleilla varustettujen k\u00e4ytt\u00e4jien k\u00e4ynnist\u00e4\u00e4 PGM-l\u00e4hd\u00f6n (1-4). Huomaa, ett\u00e4 sinun on m\u00e4\u00e4ritett\u00e4v\u00e4 h\u00e4lytyspaneelin \"koodi\"-parametri, jotta t\u00e4m\u00e4 toimii.\n.",
+            "fields": {
+                "partition": {
+                    "description": "H\u00e4lytyspaneelin osio PGM-l\u00e4hd\u00f6n k\u00e4ynnist\u00e4miseksi. Tyypillisesti t\u00e4m\u00e4 on vain \"1\".\n."
+                },
+                "pgm": {
+                    "description": "H\u00e4lytyspaneelin laukaistava PGM-numero."
+                }
+            }
+        }
+    }
+}
