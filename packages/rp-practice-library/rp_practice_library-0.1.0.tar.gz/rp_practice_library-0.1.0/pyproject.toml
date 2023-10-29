@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "rp-practice-library"
+version = "0.1.0"
+description = "A Learning Exercise"
+license = "MIT"
+authors = ["Robert Portelli <github@robertportelli.com>"]
+maintainers = ["Robert Portelli <github@robertportelli.com>"]
+readme = "README.md"
+homepage = "https://github.com/robert-portelli3"
+repository = ""
+packages = [{include = "new_library", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.1.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
