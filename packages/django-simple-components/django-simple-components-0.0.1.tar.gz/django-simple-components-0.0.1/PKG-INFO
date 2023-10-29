@@ -1,0 +1,76 @@
+Metadata-Version: 2.1
+Name: django-simple-components
+Version: 0.0.1
+Summary: A small package to easily create components inside your templates without saving them in the templates folder.
+Author-email: Pavel Kutsenko <zebartcoc@gmail.com>
+Project-URL: Homepage, https://github.com/paqstd-dev/django-simple-components
+Project-URL: Bug Tracker, https://github.com/paqstd-dev/django-simple-components/issues
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.1
+Classifier: Framework :: Django :: 4.2
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Django Simple Components
+
+Django Simple Components is a small package to easily create components inside your templates without saving them in the templates folder.
+
+## Quick start
+
+0. Install package from pypi:
+```bash
+pip install django-simple-components
+```
+
+1. Add `simple_components` to your INSTALLED_APPS setting like this:
+```python
+INSTALLED_APPS = [
+    ...,
+    "simple_components",
+]
+```
+
+2. Add `simple_components` to your template like this:
+```html
+{% load simple_components %}
+
+{% set_component "first_component" %}
+    <div class="card">
+        <h3>{{ title }}</h3>
+        <p>{{ description }}</p>
+    </div>
+{% end_set_component %}
+
+<div class="card-list">
+    {% component "first_component" title="Hello world!" description="Some text..." %}
+    {% component "first_component"
+        title="Some lines"
+        description="Other text..."
+    %}
+
+    {% with value="this text will be capitalized later" %}
+        {% component "first_component" title=123 description=value|capfirst %}
+    {% endwith %}
+</div>
+```
+
+3. Hooray! Everything is ready to use it.
+
+## Contributing
+If you would like to suggest a new feature, you can create an issue on the GitHub repository for this project. 
+If you'd like to contribute code, you can fork the repository and submit a pull request with your changes.
+
+## License
+This project is licensed under the MIT License. See the LICENSE file for more information.
