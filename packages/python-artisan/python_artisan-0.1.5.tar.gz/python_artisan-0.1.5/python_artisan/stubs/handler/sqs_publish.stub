@@ -1,0 +1,17 @@
+import json
+import os
+
+from app.services.queue import Queue as SQS
+
+
+def main(event, context):
+    sqs = SQS()
+    url = os.environ.get("SQS_QUEUE_URL")
+
+    # Implement your code here...
+
+    {{ sqs_trigger }}
+
+    return {
+        "StatusCode": 200
+    }

@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "python-artisan"
+version = "0.1.5"
+description = "Artisan CLI for Python Developer in AWS serverless"
+authors = ["nerdmonkey <sydel.palinlin@gmail.com>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+typer = {extras = ["all"], version = "^0.9.0"}
+black = "^23.9.1"
+isort = "^5.12.0"
+pytest = "^7.4.2"
+flake8 = "^6.1.0"
+requests = "^2.31.0"
+alembic = "^1.12.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.scripts]
+artisan = "python_artisan.main:app"
