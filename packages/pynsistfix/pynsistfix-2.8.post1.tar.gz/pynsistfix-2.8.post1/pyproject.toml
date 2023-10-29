@@ -1,0 +1,45 @@
+[build-system]
+requires = ["flit_core"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "pynsistfix"
+authors = [
+    {name = "Thomas Kluyver", email = "thomas@kluyver.me.uk"},
+]
+readme = "README.rst"
+requires-python = ">=3.6"
+dependencies = [
+    "requests",
+    "requests_download",
+    "jinja2",
+    "yarg",
+    "distlib >=0.3"
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Environment :: Win32 (MS Windows)",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development",
+    "Topic :: System :: Installation/Setup",
+    "Topic :: System :: Software Distribution",
+]
+dynamic = ['version', 'description']
+
+[tool.flit.module]
+name = "nsist"
+
+[project.optional-dependencies]
+test = [
+    "testpath",
+    "responses",
+]
+
+[project.scripts]
+pynsist = "nsist:main"
+
+[project.urls]
+Home = "https://github.com/embykeeper/pynsist-fix"
+Documentation = "https://pynsist.readthedocs.io/en/latest/"
+Source = "https://github.com/takluyver/pynsist"
