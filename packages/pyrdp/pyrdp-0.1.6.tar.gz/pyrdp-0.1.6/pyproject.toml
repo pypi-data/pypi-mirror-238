@@ -1,0 +1,29 @@
+[tool.pdm.dev-dependencies]
+dev = [
+    "pytest>=7.3.1",
+]
+
+[project]
+name = "pyrdp"
+version = "0.1.6"
+description = "Simple Rammer-Douglas-Peuker algorithm implementation."
+authors = [
+    { name = "Florian Stasse", email = "f.stasse@skipperndt.com" },
+]
+dependencies = [
+    "numpy>=1.23.4",
+]
+requires-python = ">=3.8"
+readme = "README.md"
+
+[project.license]
+text = "MIT"
+
+[project.urls]
+Repository = "https://github.com/FlorianStasse/rdp-algo/"
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
