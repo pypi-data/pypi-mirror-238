@@ -1,0 +1,1 @@
+from mathesis.system.intuitionistic import sequent_calculus
