@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+sources = ["src"]
+
+[project]
+name = "py-encry"
+version = "0.1.3"
+authors = [
+  { name="Carl Harrison", email="carl.harrison@elev.ga.ntig.se" },
+  { name="Simon", email="google@gmail.com"}
+]
+description = "A Library for encryption and decryption of images"
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+dependencies = [
+    "pillow",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Py-Enc/py-enc"
+"Bug Tracker" = "https://github.com/Py-Enc/py-enc/issues"
