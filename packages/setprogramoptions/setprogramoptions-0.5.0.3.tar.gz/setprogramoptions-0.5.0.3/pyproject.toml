@@ -1,0 +1,68 @@
+[tool.poetry]
+name = "setprogramoptions"
+description = "Program options configuration file reader using ConfigParserEnhanced."
+version = "0.5.0.3"
+license = "LICENSE"
+readme = "README.md"
+keywords = [
+    "Utility",
+    "Bash",
+    "Configuration",
+    "ConfigParserEnhanced",
+    "ConfigParser"
+]
+authors = [
+    "William McLendon <wcmclen@sandia.gov>"
+]
+homepage      = "https://github.com/sandialabs/SetProgramOptions"
+documentation = "https://setprogramoptions.readthedocs.io/en/latest/"
+repository    = "https://github.com/sandialabs/SetProgramOptions"
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Developers',
+    'Intended Audience :: System Administrators',
+    'Intended Audience :: Other Audience',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3 :: Only',
+    'License :: OSI Approved :: BSD License',
+]
+packages = [
+    { include = 'setprogramoptions', from = 'src' }
+]
+include = [ "CHANGELOG.md" ]
+
+
+[tool.poetry.urls]
+CI     = "https://github.com/sandialabs/SetProgramOptions/actions"
+Issues = "https://github.com/sandialabs/SetProgramOptions/issues"
+
+
+[tool.poetry.dependencies]
+python = "^3.6"
+configparser = "^5.0"
+configparserenhanced = "^0.8"
+
+
+[tool.poetry.dev-dependencies]
+mock = "^4.0"
+pytest = "^6.2"
+pytest-cov = "^2.11"
+Sphinx = "^3.5"
+sphinx-argparse = "^0.2"
+sphinx-rtd-theme = "^0.5"
+
+
+[tool.pycodestyle]
+statistics = true
+
+
+[build-system]
+requires = ["poetry-core>=1.0"]
+build-backend = "poetry.core.masonry.api"
+
+
