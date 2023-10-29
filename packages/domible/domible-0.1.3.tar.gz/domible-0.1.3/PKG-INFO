@@ -1,0 +1,42 @@
+Metadata-Version: 2.1
+Name: domible
+Version: 0.1.3
+Summary: python classes to create accessible HTML elements and documents 
+Home-page: https://joeldodson.github.io/domible
+License: MIT
+Keywords: html,accessibility,a11y,web development,frontend,server side rendering,SSR
+Author: Joel Dodson
+Author-email: joeldodson@gmail.com
+Maintainer: BlindGumption
+Maintainer-email: blindgumption@gmail.com
+Requires-Python: >=3.10,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Provides-Extra: dicli
+Requires-Dist: beautifulsoup4 (>=4.12.2,<5.0.0) ; extra == "dicli"
+Requires-Dist: jsonloggeriso8601datetime (>=1.0.3,<2.0.0) ; extra == "dicli"
+Requires-Dist: requests (>=2.31.0,<3.0.0) ; extra == "dicli"
+Requires-Dist: typer (>=0.9.0,<0.10.0) ; extra == "dicli"
+Project-URL: Documentation, https://joeldodson.github.io/domible
+Project-URL: Repository, https://github.com/joeldodson/domible
+Description-Content-Type: text/markdown
+
+# domible
+
+Domible is a set of Python classes used to generate HTML documents and elements of arbitrary complexity.
+
+The basic idea behind domible is fairly simple, HTML elements are represented as Python objects.
+When an element object is evaluated, it renders the text of the HTML element.
+Objects can contain other element objects which will also evaluate to text when the containing object is evaluated.
+
+Through this process of composition and recursive rendering,
+domible can be used to programmatically create HTML elements
+of arbitrary complexity directly in your Python code.
+
+Go to the
+[Domible Documentation](https://joeldodson.github.io/domible)
+for details and examples.
+
+
