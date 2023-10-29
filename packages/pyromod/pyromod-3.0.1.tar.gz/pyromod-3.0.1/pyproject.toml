@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "pyromod"
+version = "3.0.1"
+description = "A monkeypatcher add-on for Pyrogram that does conversation handling"
+authors = ["usernein"]
+license = "LGPLv3+"
+readme = "README.md"
+
+[tool.black]
+line-length = 79
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pyrogram = ">=1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
