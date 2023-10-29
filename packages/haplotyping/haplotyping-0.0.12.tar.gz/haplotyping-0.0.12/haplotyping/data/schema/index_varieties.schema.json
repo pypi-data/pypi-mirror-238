@@ -1,0 +1,85 @@
+{
+  "fields": [
+    {
+      "name": "uid",
+      "type": "string",
+      "constraints": {
+        "required": true,
+        "unique": true
+      }
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "constraints": {
+        "required": true,
+        "enum": ["variety","species"]
+      }
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "yearMin",
+      "type": "integer"
+    },
+    {
+      "name": "yearMax",
+      "type": "integer"
+    },
+    {
+      "name": "origin",
+      "type": "string"
+    },
+    {
+      "name": "speciesId",
+      "type": "integer"
+    },
+    {
+      "name": "breederId",
+      "type": "integer"
+    }
+  ],
+  "primaryKey": [
+    "uid"
+  ],
+  "foreignKeys": [
+    {
+      "fields": [
+        "speciesId"
+      ],
+      "reference": {
+        "resource": "index_species",
+        "fields": [
+          "id"
+        ]
+      }
+    },
+    {
+      "fields": [
+        "breederId"
+      ],
+      "reference": {
+        "resource": "index_breeders",
+        "fields": [
+          "id"
+        ]
+      }
+    },
+    {
+      "fields": [
+        "origin"
+      ],
+      "reference": {
+        "resource": "index_countries",
+        "fields": [
+          "code"
+        ]
+      }
+    }
+  ],
+  "missingValues": [
+    ""
+  ]
+}
