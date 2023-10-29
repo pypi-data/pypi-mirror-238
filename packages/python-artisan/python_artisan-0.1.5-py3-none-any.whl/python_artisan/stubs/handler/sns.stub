@@ -1,0 +1,10 @@
+import json
+
+def main(event, context):
+    sns_message = json.loads(event['Records'][0]['Sns']['Message'])
+
+    # Implement your code here...
+
+    return {
+        "StatusCode": 200
+    }

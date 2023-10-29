@@ -1,0 +1,42 @@
+import json
+import os
+
+from app.services.queue import Queue as SQS
+
+
+def main(event, context):
+    sqs = SQS()
+    url = os.environ.get("SQS_QUEUE_URL")
+
+
+    {{ sqs_listen }}
+
+
+        # Implement your code here...
+
+
+        if receipt_handle:
+                response = sqs.delete(
+                    url = url,
+                    receipt_handle = receipt_handle
+                )
+
+                return {
+                    "status_code": 200,
+                    "body": json.dumps({
+                        "message": "Data parsed successfully"
+                    })
+                }
+        else:
+                print("Error deleting the message")
+
+                return {
+                    "status_code": 200,
+                    "body": json.dumps({
+                        "message": "Error deleting the message"
+                    })
+                }
+
+    return {
+        "StatusCode": 200
+    }
