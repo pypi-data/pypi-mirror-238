@@ -1,0 +1,48 @@
+name: Deploy demo presentation
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Make demo page
+        run: |
+          python tools/fetch_revealjs.py
+          pip install ".[screenshot,demo]"
+          playwright install
+          make -C demo demo
+        env:
+          GTAGJS_IDS: ${{ secrets.GTAGJS_IDS }}
+          DEMO_URL_BASE: "https://attakei.github.io/sphinx-revealjs/"
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: demo/_build/demo/
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
