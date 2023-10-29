@@ -1,0 +1,72 @@
+Metadata-Version: 2.1
+Name: rsmime
+Version: 0.5.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Rust
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: MacOS :: MacOS X
+Requires-Dist: maturin ; extra == 'dev'
+Requires-Dist: mkdocs-autorefs ==0.5.0 ; extra == 'dev'
+Requires-Dist: mkdocs-material ==9.4.7 ; extra == 'dev'
+Requires-Dist: mkdocstrings[python] ==0.23.0 ; extra == 'dev'
+Requires-Dist: black ==23.10.1 ; extra == 'dev'
+Provides-Extra: dev
+License-File: LICENSE.md
+Summary: Rust powered package for signing data in S/MIME format
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
+
+# rsmime
+
+Rust powered Python package for signing data in S/MIME format
+
+## Usage
+
+### Install
+```
+pip install rsmime
+```
+
+### Sign
+```py
+import rsmime
+
+raw_data = b'data to sign'
+
+try:
+    signed_data = rsmime.sign('some.crt', 'some.key', raw_data)
+except (rsmime.SignError, rsmime.CertificateError) as e:
+    print("Failed to sign:", e)
+
+print(signed_data.decode())
+```
+
+```
+MIME-Version: 1.0
+Content-Disposition: attachment; filename="smime.p7m"
+Content-Type: application/x-pkcs7-mime; smime-type=signed-data; name="smime.p7m"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0B
+...
+SwxRisLtodx8YQ7VoOLFi9FNoia3SsJtCnu2hILeobjPTnPCAL+8N2bc22MX44mc
+AAAAAAAA
+```
+
+### Verify
+```py
+import rsmime
+
+try:
+    raw_data = rsmime.verify(signed_data)
+except rsmime.VerifyError as e:
+    print("Failed to verify:", e)
+
+print(raw_data.decode())
+```
+
+```
+data to sign
+```
