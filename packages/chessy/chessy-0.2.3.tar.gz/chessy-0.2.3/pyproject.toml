@@ -1,0 +1,86 @@
+[tool.poetry]
+name = "chessy"
+version = "0.2.3"
+description = "A simple chess engine"
+authors = ["Guilherme Vasconcelos"]
+license = "AGPL-3.0-or-later"
+readme = "README.md"
+repository = "https://github.com/Guilherme-Vasconcelos/chessy"
+keywords = ["chess"]
+classifiers = [
+    "Environment :: Console",
+    "Topic :: Games/Entertainment :: Board Games"
+]
+include = [
+    "LICENSE.txt",
+    "pyproject.toml"
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.6.1"
+black = "^23.10.0"
+ruff = "^0.1.0"
+pytest = "^7.4.2"
+
+[tool.poetry.scripts]
+chessy = "chessy.core.__main__:main"
+prof = "chessy.prof.__main__:main"
+
+[tool.mypy]
+strict = true
+# Same as poetry.
+python_version = "3.11"
+
+[tool.ruff]
+# Check more groups at https://docs.astral.sh/ruff/rules/
+select = [
+    "F",
+    "E",
+    "W",
+    "I",
+    "N",
+    "UP",
+    "S",
+    "BLE",
+    "B",
+    "A",
+    "C4",
+    "DTZ",
+    "FA",
+    "ISC",
+    "ICN",
+    "G",
+    "PIE",
+    "T20",
+    "SIM",
+    "ARG",
+    "PTH",
+    "PL",
+    "PERF",
+    "RUF",
+]
+# Same as black.
+line-length = 88
+# Same as poetry.
+target-version = "py311"
+ignore = [
+    # Tests aside, I use asserts only for declaring states that are known to be true (preconditions, postconditions
+    # and invariants). If these states aren't met, it's a bug. Relying on buggy behavior is non-specified behavior,
+    # so it doesn't matter if the behavior varies between production and development.
+    "S101",
+]
+unfixable = [
+    # Better DX: these fixes usually delete WIP code.
+    "F401",
+    "F841",
+]
+
+[tool.ruff.pycodestyle]
+ignore-overlong-task-comments = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
