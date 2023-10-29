@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{super()}}|Microblog{% endblock %}
+{% block content %}
+    {% for post in pages %}
+        <div class="microblog-post"> 
+            {{ post.content }}
+            <p>on {{ post.date }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
