@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Fmtree Visualizer</title>
+    {{bootstrap_css}}
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      img {
+        padding: 3em;
+        /* width: 30%; */
+      }
+      .image-container {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+      }
+
+      .image-container > img {
+        flex: 25%;
+        max-width: 25%;
+        padding: 0 4px;
+        cursor: pointer;
+      }
+      
+      .modal-body > img {
+        width: 100%; 
+      }
+
+      details {
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+        width: 100%;
+        position: relative;
+        margin-left: 3rem;
+      }
+
+      details::before {
+        width: 5px;
+        height: 100%;
+        position: absolute;
+        margin-left: -2rem;
+        background-color: rgba(50, 50, 50, 0.7);
+        content: '';
+      }
+
+      #setting {
+        background-color: #fff;
+        padding-top: 0.3rem;
+        padding-bottom: 1rem;
+      }
+
+      @media (max-width: 1200px) {
+        .image-container > img {
+          flex: 30%;
+          max-width: 30%;
+        }
+      }
+
+      @media (max-width: 800px) {
+        .image-container > img {
+          flex: 50%;
+          max-width: 50%;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .image-container {
+          flex-direction: column;
+        }
+        .image-container > img {
+          flex: 100%;
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-lg">
+      <h1>Fmtree Visualizer</h1>
+      <div id="setting" class="row sticky-top">
+        <div class="col-lg-6">
+          <label for="image-width-input">Image Width</label>
+          <input
+            id="image-width-input"
+            class="form-control"
+            placeholder="Image Width Percentage"
+            type="number"
+            value="25"
+          />
+        </div>
+        <div class="form-check form-switch col-lg-6">
+          <input type="checkbox" id="toggle" />
+          <label for="toggle">Show All</label>
+        </div>
+      </div>
+      <div id="root" class="image-container"></div>
+
+
+      <div class="modal fade" id="image-details-modal" tabindex="-1" aria-labelledby="image-details-modal-Label" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="image-details-modal-Label"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="img-details-modal-body" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{bootstrap_js}}
+
+    {{jquery_js}}
+
+    <script>
+      // helpers
+      function bytesToSize(bytes) {
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+        if (bytes === 0) return 'n/a'
+        const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
+        if (i === 0) return `${bytes} ${sizes[i]})`
+        return `${(bytes / (1024 ** i)).toFixed(1)} ${sizes[i]}`
+      }
+    </script>
+
+    <script>
+      const data = {{data}}
+      const root_folder = data.filename;
+      const dataMap = new Map();
+      const constructNode = (node) => {
+        if (node.children && node.children.length !== 0) {
+          const container = $('<div />')
+            .attr('id', `id-${node.id}`)
+            .addClass('image-container');
+          const children = node.children.sort(function(a, b){
+            return a.children.length - b.children.length;
+          });
+
+          for (const child of children) {
+            container.append(constructNode(child));
+          }
+          const details_summary =
+            node.path === '.'
+              ? root_folder
+              : node.path;
+          const details = $(
+            `<details><summary>${details_summary}</summary></details>`
+          );
+          container.appendTo(details);
+          return details;
+        } else {
+          dataMap[node.id] = node;
+          return $('<img />')
+            .attr('src',  node.path)
+            .attr('id', `id-${node.id}`)
+            .addClass('img-thumbnail');
+        }
+      };
+      $('#root').append(constructNode(data));
+      $('details').first().attr('open', true);
+      {% if show_all == true %}
+        $('details').attr('open', true);
+      {% endif %}
+      $('#toggle').on('click', (e) => {
+        if (e.target.checked) {
+          $('details').attr('open', true);
+        } else {
+          $('details').attr('open', false);
+        }
+      });
+      $('#image-width-input').on('input', function (e) {
+        $('.image-container > img').css('max-width', `${e.target.value}%`);
+      });
+
+      // show image details
+      $(".image-container > img").on('click', function(e) {
+        const target = e.target;
+        var imgDetailModal = new bootstrap.Modal(document.getElementById('image-details-modal'), {
+          keyboard: false
+        })
+        const id = target.id.substring(3, target.id.length)
+        const imgData = dataMap[id];
+        $("#img-details-modal-body").html("");
+        const img = $('<img />')
+            .attr('src', imgData.path)
+            .attr('id', `id-${id}-detail`)
+            .addClass('img-thumbnail');
+        $("#img-details-modal-body").append(img)
+        $("#image-details-modal-Label").html(imgData.filename)
+        $("#img-details-modal-body").append(`<p><strong>File Location: </strong><code>${imgData.path}</code></p>`)
+        $("#img-details-modal-body").append(`<p><strong>File Size: </strong>${bytesToSize(imgData.st_size)}</p>`)
+        imgDetailModal.show();
+      })
+
+      // keyboard shortcuts
+      document.addEventListener('keydown', (e) => {
+        if (e.code === 'ArrowUp') {
+          $("#image-width-input").val(parseInt($("#image-width-input").val()) + 1)
+          $("#image-width-input").trigger('input');
+        } else if (e.code === 'ArrowDown') {
+          $("#image-width-input").val(parseInt($("#image-width-input").val()) - 1)
+          $("#image-width-input").trigger('input');
+        } else if (e.code === 'KeyS') {
+          document.getElementById("toggle").checked = !document.getElementById("toggle").checked;
+          if (document.getElementById("toggle").checked) {
+            $('details').attr('open', true);
+          } else {
+            $('details').attr('open', false);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
