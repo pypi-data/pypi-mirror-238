@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "biobabel"
+version = "0.5.5"
+authors = [
+  { name="Floris van Vugt", email="ftvanvugt@gmail.com" },
+]
+description = "Python wrapper for reading major bio/physiology data formats (e.g. ECG, PPG, EDA) into a unified accessible interface"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "h5py","numpy","pyxdf","matplotlib","bioread","opensignalsreader","pandas","pybdf","pyedflib"
+]
+
+[project.scripts]
+# Command line interface entrypoint scripts
+biobabel = "biobabel:display"
+
+[project.urls]
+"Homepage" = "https://github.com/florisvanvugt/biobabel"
+
+
