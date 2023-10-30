@@ -1,0 +1,30 @@
+[project]
+name = "aciclean"
+description = "ACIClean is a tool that helps you clean up your Cisco ACI infrastructure by detecting and reporting on unused objects."
+version = "v0.1.7"
+authors = [
+    { name = "Oliver Fueckert", email = "oliver@cubinet.de" }
+]
+dependencies = [
+    "click",
+]
+dynamic = ['readme']
+
+[project.optional-dependencies]
+sdk = [
+    # "acicobra @ https://github.com/cubinet-code/aci_cobra_sdk/raw/main/acicobra-5.2.7.0.7-py2.py3-none-any.whl",
+    # "acimodel @ https://github.com/cubinet-code/aci_cobra_sdk/raw/main/acimodel-5.2.7.0.7-py2.py3-none-any.whl",
+]
+dev = [
+    "build",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+readme = {file = "README.rst"}
+
+[project.scripts]
+aciclean = "aciclean:run"
