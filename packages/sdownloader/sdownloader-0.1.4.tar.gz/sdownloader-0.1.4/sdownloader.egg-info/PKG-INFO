@@ -1,0 +1,73 @@
+Metadata-Version: 2.1
+Name: sdownloader
+Version: 0.1.4
+Summary: A little program to download given list of matrices from SuiteSparse.
+Home-page: https://github.com/talhaokur/sdownloader
+Author: Talha Okur
+Author-email: talhao@acm.org
+License: MIT
+Project-URL: Source, https://github.com/talhaokur/sdownloader
+Project-URL: Tracker, https://github.com/talhaokur/sdownloader/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Intended Audience :: Science/Research
+Requires-Python: >=3
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+Suite Downloader
+===============
+
+This is a small program that helps you to download given list of matrices from the
+[SuiteSparse matrix collection](https://sparse.tamu.edu/) <sup>[1]</sup>.
+
+### Installation
+##### Install from source
+``` sh
+git clone https://github.com/talhaokur/sdownloader.git
+cd sdownloader
+pip3 install -r requirements.txt
+python3 setup.py install
+
+```
+
+##### Install from PyPI
+``` sh
+pip3 install sdownloader
+```
+
+### Usage
+``` sh
+usage: sdownloader [-h] (-f LIST_FILE | -m M) [-d DESTINATION] [-V] [-v]
+
+Data downloader from SparseSuite.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f LIST_FILE, --list-file LIST_FILE
+                        matrix name list file destination.
+  -m M                  matrix names. Example: `sdownloader -m
+                        "HB/1138_bus;FIDAP/ex37"`
+  -d DESTINATION, --destination DESTINATION
+                        destination path. Optional, default=current working
+                        directory.
+  -v, --verbose         toggle verbose mode.
+  -V, --version         show program's version number and exit
+```
+
+To download more than one matrix with `-m` argument, split names with semicolon.
+
+**Examples:**
+``` sh
+sdownloader -m "HB/1138_bus;FIDAP/ex37" -d data
+sdownloader -f data.txt -d data
+```
+
+### References
+[1]: Timothy  A.  Davis  and  Yifan  Hu.  “The  University  of Florida  Sparse  Matrix  Collection”.  In: ACM  Trans. Math. Softw. 38.1 (Dec. 2011), 1:1–1:25. ISSN : 0098-3500. DOI : 10.1145/2049662.2049663. URL : http://doi.acm.org/10.1145/2049662.2049663 . 
+
+
