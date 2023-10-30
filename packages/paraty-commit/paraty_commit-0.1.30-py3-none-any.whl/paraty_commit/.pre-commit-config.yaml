@@ -1,0 +1,30 @@
+repos:
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: bash -c 'pylint "$@"'
+        language: system
+        verbose: true
+        types: [python]
+        args:
+          [
+            "-rn",
+            "-sn",
+            "--rcfile=pylintrc",
+            "--jobs=0",
+            "--fail-on=R,C,W,E,F",
+            "--output-format=colorized",
+            "--msg-template='{msg_id}:{line:4d}: [{obj}] {msg}'"
+          ]
+        exclude: tests(/\w*)*/functional/|tests/input|tests(/\w*)*data/|doc/
+        language_version: python:3.8
+  - repo: git@bitbucket.org:paraty/check_with_last_score.git
+    rev: latest
+    verbose: true
+    hooks:
+      - id: check_with_last_score
+        stages: [commit]
+        verbose: true
+        additional_dependencies: [pylint==2.15.10, GitPython, colorama, rich]
+        language_version: python:3.8
