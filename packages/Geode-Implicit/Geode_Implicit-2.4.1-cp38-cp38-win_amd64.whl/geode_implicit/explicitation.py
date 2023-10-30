@@ -1,0 +1,12 @@
+#
+# Copyright (c) 2019 - 2023 Geode-solutions. All rights reserved.
+#
+
+import opengeode_geosciences
+import geode_conversion
+import geode_background
+import geode_explicit
+
+from .bin.geode_implicit_py_explicitation import *
+
+ImplicitExplicitationLibrary.initialize()
