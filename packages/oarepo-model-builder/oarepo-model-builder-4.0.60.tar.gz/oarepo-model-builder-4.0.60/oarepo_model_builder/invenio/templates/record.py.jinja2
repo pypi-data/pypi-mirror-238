@@ -1,0 +1,34 @@
+from invenio_records.systemfields import ConstantField
+from invenio_records_resources.records.systemfields import IndexField
+
+{{ vars.pid.provider_class|imports }}
+{{ vars.pid.field_class|imports }}
+{{ vars.pid.context_class|imports }}
+
+{{ vars.record_metadata.class|imports }}
+{{ vars.record_dumper.class|imports }}
+{{ vars.record|imports }}
+
+class {{ vars.record|class_header }}:
+{% if not vars.record_metadata.skip %}
+    model_cls = {{ vars.record_metadata.class|base_name }}
+{% endif %}
+{% if not vars.json_schema_settings.skip %}
+    schema = ConstantField("$schema", "{{ settings.schema_server }}{{ vars.json_schema_settings.name }}")
+{% endif %}
+{% if not vars.mapping.skip %}
+    index = IndexField("{{ vars.mapping.index }}")
+{% endif %}
+{% if not vars.pid.skip %}
+    pid = {{ vars.pid.field_class|base_name }}(
+        provider={{ vars.pid.provider_class|base_name }},
+        context_cls={{ vars.pid.context_class|base_name }}{% if vars.pid.field_args %},
+        {{ vars.pid.field_args|generate_list }}
+    {% endif %}
+    )
+{% endif %}
+{% if not vars.record_dumper.skip %}
+    dumper = {{ vars.record_dumper.class|base_name }}()
+{% endif %}
+
+{{ vars.record|extra_code }}
