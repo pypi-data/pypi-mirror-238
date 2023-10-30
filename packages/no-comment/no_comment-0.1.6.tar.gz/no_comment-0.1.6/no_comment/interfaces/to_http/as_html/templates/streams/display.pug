@@ -1,0 +1,180 @@
+//- No Comment --- Comment any resource on the web!
+//- Copyright © 2023 Bioneland
+//-
+//- This program is free software: you can redistribute it and/or modify
+//- it under the terms of the GNU Affero General Public License as
+//- published by the Free Software Foundation, either version 3 of the
+//- License, or (at your option) any later version.
+//-
+//- This program is distributed in the hope that it will be useful,
+//- but WITHOUT ANY WARRANTY; without even the implied warranty of
+//- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//- GNU Affero General Public License for more details.
+//-
+//- You should have received a copy of the GNU Affero General Public License
+//- along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+extends layout
+
+block links
+    link(rel="alternate" type="application/rss+xml" title="RSS feed" href=url_for("streams.display", stream_id=stream.id, format="rss"))
+    link(rel="alternate" type="application/atom+xml" title="ATOM feed" href=url_for("streams.display", stream_id=stream.id, format="atom"))
+    link(rel="alternate" type="application/feed+json" title="JSON feed" href=url_for("streams.display", stream_id=stream.id, format="json"))
+
+block title
+  title #{stream.title} | NoComment
+
+block content
+  section.section
+    .container
+
+  section.section
+    .container
+      .buttons.is-pulled-right
+        if user
+          a.button.is-danger(href=url_for("auth.logout"))
+            span.icon.has-text-white: i.icon-logout(aria-hidden="true")
+            span Log out
+        else
+            a.button.is-info(href=url_for("auth.login")) Log in
+
+      h1.title.is-1
+        | #{stream.title} 
+        span.is-size-6.is-italic.has-text-grey by #{stream.author}
+      h2.subtitle= stream.description
+
+  section.section
+    .container
+      if user
+        .tabs.is-toggle.is-fullwidth.mb-0
+          ul
+            li.is-active
+              a
+                span.icon.has-text-white: i.icon-add(aria-hidden="true")
+                span Add
+            li
+              a
+                span.icon: i.icon-search(aria-hidden="true")
+                span Search
+            li
+              a
+                span.icon: i.icon-manage(aria-hidden="true")
+                span Manage
+
+        .box
+          #form
+            block form
+              form(
+                method="POST"
+                action=""
+                hx-post=""
+                hx-target="#form"
+              )
+                - var current_url = filter or url
+                - var disabled = true if filter else false
+                if filter
+                  input(type="hidden" name="url" value=filter)
+                .field
+                  label.label(for="url") URL
+                  .control
+                    input.input(
+                      type="url"
+                      id="url"
+                      name="url"
+                      value=current_url
+                      placeholder="The URL of the resource to comment"
+                      disabled=disabled
+                    )
+                .field
+                  label.label(for="text")
+                    | Text 
+                    span.is-size-7 (max. #{text_max_length})
+                  .control
+                    textarea.textarea(type="text" id="text" name="text" maxlength=text_max_length)= text
+                .field.is-expended
+                  .control
+                    button.button.is-success.is-fullwidth(_="on click add .is-loading")
+                      span.icon.has-text-white: i.icon-add(aria-hidden="true")
+                      span Add comment
+
+                if comment_id
+                  article.message.is-success
+                    .message-body Comment added!
+
+                if error
+                  article.message.is-danger
+                    .message-body= error
+
+  section.section
+    .container
+      .is-pulled-right
+        a(
+          aria-label="Access Atom feed."
+          href=url_for("streams.display", stream_id=stream.id, format="atom")
+        )
+          span.icon.is-medium: i.icon-feed(title="Access Atom feed." aria-hidden="true")
+
+      h2.title.is-4
+        | Comments
+        if filter
+          span.is-size-7
+            | filtered on 
+            a(href=filter)= filter
+            |
+            a.button.is-outline-link.is-small.ml-1.mt-1(
+              href=url_for("streams.display", stream_id=stream.id)
+            ) Remove filter
+
+
+      if comments|length == 0:
+        article.message.is-info(_="on commentAdded from body remove me")
+          .message-body No comment on this stream yet!
+
+      #comments.comments(hx-get="" hx-trigger="commentAdded from:body")
+        block comments
+          mixin comment_content(comment)
+            .card-content
+              .is-pulled-right
+                span.icon.is-small: i.icon-clock(
+                  title=comment.created_at aria-hidden="true"
+                )
+                span.sr-only Created at #{comment.created_at}
+
+              .text !{comment.text}
+
+              if not filter
+                .card-footer
+                  //- FIXME why `p` does not take all the horizontal space?!
+                  p(style="width: 100%")
+                    a.url.is-pulled-right(aria-label="Filter" href="?url=#{comment.url}")
+                      span.icon.is-small: i.icon-filter(
+                        title="Only display comments about this URL." aria-hidden="true"
+                      )
+                    a.url(href=comment.url)= comment.url
+          //- end comment_content
+
+          each comment in comments
+            if loop.last
+              .comment.card.mb-2(
+                hx-get=pager.next
+                hx-trigger="revealed"
+                hx-swap="beforeend"
+                hx-target="#comments"
+                hx-indicator="#indicator"
+              )
+                +comment_content(comment)
+            else
+              .comment.card.mb-2
+                +comment_content(comment)
+
+      #indicator.buttons.is-centered.mt-3.htmx-indicator.is-hidden(_="on load remove .is-hidden")
+        button.button.is-white.is-loading Loading indicator
+
+      if pager.previous or pager.next:
+        .buttons.is-centered.mt-3(_="on load remove me")
+          if pager.previous:
+            a#previous-page.button.is-link(href=pager.previous)
+              span Previous
+          if pager.next and comments|length >= pager.PAGE_SIZE:
+            a#next-page.button.is-link(href=pager.next)
+              span Next

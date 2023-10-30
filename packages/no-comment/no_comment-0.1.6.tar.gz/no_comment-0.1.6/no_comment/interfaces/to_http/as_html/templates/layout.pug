@@ -1,0 +1,51 @@
+//- No Comment --- Comment any resource on the web!
+//- Copyright © 2023 Bioneland
+//-
+//- This program is free software: you can redistribute it and/or modify
+//- it under the terms of the GNU Affero General Public License as
+//- published by the Free Software Foundation, either version 3 of the
+//- License, or (at your option) any later version.
+//-
+//- This program is distributed in the hope that it will be useful,
+//- but WITHOUT ANY WARRANTY; without even the implied warranty of
+//- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//- GNU Affero General Public License for more details.
+//-
+//- You should have received a copy of the GNU Affero General Public License
+//- along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+include mixins/flash_messages
+
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    block title
+      title No Comment
+
+    link(rel="icon" type="image/svg" href=url_for("static", filename="img/favicon.svg"))
+    link(rel="stylesheet" href=url_for("static", filename="css/bulma@0.9.4.min.css"))
+    link(rel="stylesheet" href=url_for("static", filename="css/no-comment.css"))
+    block links
+
+    script(src=url_for("static", filename="js/htmx@1.9.5.min.js") defer)
+    script(src=url_for("static", filename="js/hyperscript@0.9.9.min.js") defer)
+    block head_scripts
+  body
+    .page
+      - var messages = get_flashed_messages(with_categories=true)
+      +flash_messages(messages)
+
+      block content
+
+    footer.footer
+      .content.has-text-centered
+        p
+          span Version #{version} © 2023 Bioneland.
+          br
+          span Code is licensed under #[a(href="https://www.gnu.org/licenses/agpl-3.0.fr.html") AGPL].
+          br
+          span Time zone used to display time is #[kbd #{timezone}].
+
+    block scripts

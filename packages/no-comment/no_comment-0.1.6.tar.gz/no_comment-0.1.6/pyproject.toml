@@ -1,0 +1,73 @@
+[tool.poetry]
+name = "no-comment"
+version = "0.1.6"
+description = "Comment any resource on the web!"
+authors = ["Tanguy Le Carrour <tanguy@bioneland.org>"]
+license = "AGPL-3.0-or-later"
+readme = "README.md"
+
+include = [
+    "no_comment/infrastructure/flask/static/css/*.css",
+]
+exclude = [
+    "**/*_spec.py",
+    "**/*_test.py",
+    "**/conftest.py",
+    "no_comment/test_factories.py",
+]
+
+[tool.poetry.scripts]
+no-comment = "no_comment.configuration.cli:cli"
+
+[tool.poetry.group.main.dependencies]
+python = "^3.9"
+bl3d = "^0.4.1"
+bl-seth = "^0.2.0"
+click = "^8.1.3"
+Flask = "^2.2.2"
+jinja2-fragments = "^0.3.0"
+markdown = "^3.5"
+pyotp = {version = "^2.8.0", optional = true}
+pypugjs = "^5.9.12"
+SQLAlchemy = "^2.0.17"
+tzdata = "^2023.3"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.12.0"
+flake8 = "^6.0.0"
+invoke = "^1.7.3"
+isort = "^5.11.4"
+libsass = "^0.22.0"
+termcolor = "^2.2.0"
+
+[tool.poetry.group.test.dependencies]
+beautifulsoup4 = "^4.11.1"
+mamba = "^0.11.2"
+mypy = "^0.991"
+pytest = "^7.2.0"
+robber = "^1.1.5"
+types-setuptools = "^65.6.0"
+types-markdown = "^3.5.0.0"
+
+[tool.poetry.extras]
+totp = ["pyotp"]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.black]
+line-length = 89
+
+[[tool.mypy.overrides]]
+module = [
+    "bs4.*",
+    "jinja2_fragments.*",
+    "mamba.*",
+    "robber.*",
+]
+ignore_missing_imports = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

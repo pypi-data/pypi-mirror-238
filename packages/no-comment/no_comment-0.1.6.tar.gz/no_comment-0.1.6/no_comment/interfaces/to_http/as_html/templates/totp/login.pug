@@ -1,0 +1,52 @@
+//- No Comment --- Comment any resource on the web!
+//- Copyright © 2023 Bioneland
+//-
+//- This program is free software: you can redistribute it and/or modify
+//- it under the terms of the GNU Affero General Public License as
+//- published by the Free Software Foundation, either version 3 of the
+//- License, or (at your option) any later version.
+//-
+//- This program is distributed in the hope that it will be useful,
+//- but WITHOUT ANY WARRANTY; without even the implied warranty of
+//- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//- GNU Affero General Public License for more details.
+//-
+//- You should have received a copy of the GNU Affero General Public License
+//- along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+extends layout
+
+block title
+  title Log into NoComment
+
+block content
+  section.section
+    .container
+      h1.title.is-3 Log into NoComment
+
+      article.message.is-info
+        p.message-body Log in using TOTP.
+
+      .columns
+        .column
+        .column.has-text-centered
+          form#form.box(
+            method="POST"
+            _="on load focus() the first <input/> in me"
+          )
+            .field
+              label.label One-time password
+              .control
+                input.input.has-text-centered.is-size-5(
+                  type="string"
+                  name="password"
+                  maxlength="6"
+                  pattern="[\d]{6}"
+                  oninvalid="#{'setCustomValidity(\'Only numbers are allowed!\')'}"
+                  style="width: 7rem"
+                  _="on keyup if the length of my value is 6 submit() the #form"
+                )
+            .field
+              .control
+                button.button.is-primary(type="submit") Log in
+        .column
