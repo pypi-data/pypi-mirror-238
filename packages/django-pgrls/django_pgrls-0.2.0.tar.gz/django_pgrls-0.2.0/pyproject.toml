@@ -1,0 +1,75 @@
+[tool.poetry]
+name = "django-pgrls"
+version = "0.2.0"
+description = "Django multi-tenancy through Postgres row level security"
+authors = ["Lorenzo Peña <lorinkoz@gmail.com>"]
+license = "MIT"
+readme = "README.rst"
+repository = "https://github.com/lorinkoz/django-pgrls"
+documentation = "https://django-pgrls.readthedocs.io/"
+keywords = [
+    "django",
+    "tenants",
+    "postgres",
+    "multi-tenancy",
+    "row level security",
+    "RLS",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: Django",
+    "Framework :: Django :: 5.0",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.2"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-django = "*"
+ruff = "*"
+sphinx = "<7"
+sphinx_rtd_theme = "*"
+
+[tool.ruff]
+select = ["I", "E", "F"]
+line-length = 100
+ignore = [
+    "E501", # line-too-long
+    "W191", # tab-indentation
+]
+
+[tool.ruff.isort]
+combine-as-imports = true
+known-first-party = ["django_pgrls"]
+
+[tool.mypy]
+strict_optional = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["psycopg.*", "psycopg2.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+    "docs.*",
+    "django_pgrls.contrib.*",
+    "django_pgrls.postgresql.*",
+    "sandbox.*",
+]
+ignore_errors = true
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "sandbox.settings"
+django_find_project = false
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
