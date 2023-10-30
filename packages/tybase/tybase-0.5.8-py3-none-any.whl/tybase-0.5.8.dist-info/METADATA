@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: tybase
+Version: 0.5.8
+Summary: 修复视频合并
+Home-page: https://github.com/yourusername/your_package
+Author: Tuya
+Author-email: 353335447@qq.com
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.10
+Description-Content-Type: text/markdown
+Requires-Dist: setuptools
+Requires-Dist: opencv-python
+Requires-Dist: Pillow
+Requires-Dist: redis
+Requires-Dist: celery
+Requires-Dist: loguru
+Requires-Dist: openpyxl
+Requires-Dist: requests
+Requires-Dist: python-dotenv
+Requires-Dist: retrying
+Requires-Dist: pymysql
+Requires-Dist: mysql-connector-python
+Requires-Dist: sqlalchemy
+Requires-Dist: pandas
+Requires-Dist: langchain
+Requires-Dist: openai
+Requires-Dist: oss2
+Requires-Dist: google-auth
+Requires-Dist: google-auth-oauthlib
+Requires-Dist: google-auth-httplib2
+Requires-Dist: google-api-python-client
+
+### 新增百度的关键词汇总
+
+位置 : baidu.kw_tools.py
+
+1. KeywordSummary
+2. KeywordAggregator
+
+### Langchain相关工具的封装
+
+1. eg1-生成prompt
+
+### Mysql工具的使用
+
+```python
+from db import MysqlDB
+
+MyDB = MysqlDB(keys=["promotion_id"], uri="")
+# logger.debug(df.columns)  # df的列? 为什么没有过滤好?
+MyDB.update(df, table_name)
+```
