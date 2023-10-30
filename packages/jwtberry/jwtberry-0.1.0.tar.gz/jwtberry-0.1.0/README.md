@@ -1,0 +1,1 @@
+# JWT Authentication for Django Strawberry GraphQl 
