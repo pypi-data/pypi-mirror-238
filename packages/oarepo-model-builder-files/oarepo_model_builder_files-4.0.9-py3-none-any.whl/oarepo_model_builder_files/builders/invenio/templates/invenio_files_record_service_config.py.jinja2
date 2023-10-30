@@ -1,0 +1,5 @@
+{{ metadata_record.record.class|generate_import }}
+{{ vars.service_config|imports }}
+
+class {{ vars.service_config|class_header }}:
+    record_cls = {{ metadata_record.record.class|base_name }}
