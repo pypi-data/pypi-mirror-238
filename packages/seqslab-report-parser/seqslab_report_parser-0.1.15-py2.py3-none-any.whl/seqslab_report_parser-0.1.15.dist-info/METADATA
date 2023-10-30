@@ -1,0 +1,145 @@
+Metadata-Version: 2.1
+Name: seqslab-report-parser
+Version: 0.1.15
+Summary: Atgenomix SeqsLab Report Parser
+Home-page: https://github.com/AnomeGAP/Report-Parser
+Author: Sid Weng
+Author-email: sid.weng@atgenomix.com
+License: Apache License, Version 2.0
+Project-URL: Documentation, https://docs.atgenomix.com/
+Project-URL: Repository, https://github.com/atgenomix/Report-Parser.git
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: pip >=22.0.4
+Requires-Dist: PyMuPDF ==1.22.3
+Requires-Dist: biopython ==1.81
+Requires-Dist: contextlib2 ==21.6.0
+Requires-Dist: mysql-connector-python ==8.1.0
+Requires-Dist: numpy ==1.24.4
+Requires-Dist: protobuf ==4.21.12
+Requires-Dist: pyfaidx ==0.7.2.1
+Requires-Dist: pyhgvs ==0.11.1
+Requires-Dist: schema ==0.7.5
+Requires-Dist: six ==1.16.0
+Requires-Dist: importlib-resources ==6.1.0
+
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+
+This package provides a unified command line interface to Atgenomix SeqsLab, a cloud-native biomedical informatics (BioMed IT) platform.
+
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#install-the-seqslab-cli">Install the SeqsLab CLI</a> </li>
+        <li><a href="#basic-commands">Basic Commands</a></li>
+      </ul>
+    <li><a href="#getting-help">Getting Help</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#more-resources">More Resources</a></li>
+  </ol>
+</details>
+
+## Getting Started
+
+### Prerequisites
+
+* Python 3.8 or later
+
+* [PyMuPDF](https://github.com/pymupdf/PyMuPDF)
+* [pyfaidx](https://github.com/mdshw5/pyfaidx/)
+* [pyhgvs](https://github.com/counsyl/hgvs)
+
+
+### Install the SeqsLab Report Parser
+  ```bash
+  pip install seqslab-report-parser
+  ```
+
+### Basic Commands
+#### Parse PDF Report (single)
+
+  ```bash
+  report-parser single -i {INPUT_DIR} --ref {FASTA_PATH} --ref_fa {FASTA_IDX_PATH} --ref_gene {REF_GENE_PATH} --trans_cds {TRANSCRIPT_CDS_PATH} --ens_to_nm {ENS_TO_NM_MAPPING_PATH}
+  ```
+
+* -m: optional, generate MAF info
+* -v: optional, generate VCF file
+
+#### Parse PDF Report (batch)
+
+  ```bash
+  report-parser batch -i {INPUT_DIR} -o {OUTPUT_DIR} --ref {FASTA_PATH} --ref_fa {FASTA_IDX_PATH} --ref_gene {REF_GENE_PATH} --trans_cds {TRANSCRIPT_CDS_PATH} --ens_to_nm {ENS_TO_NM_MAPPING_PATH}
+  ```
+
+* -m: optional, generate MAF info
+* -v: optional, generate VCF file
+
+#### Generate genes.refGene
+
+  ```bash
+  report-parser gen-ref-gene --output {REF_GENE_PATH}
+  ```
+
+#### Generate Transcript CDS
+
+  ```bash
+  report-parser gen-cds --output {TRANSCRIPT_CDS_PATH} --gen_code {GEN_CODE_PATH} --ref {FASTA_PATH}
+  ```
+
+#### Help documentation
+To view help documentation, use one of the following:
+
+```bash
+report-parser -h
+```
+
+## Getting Help
+The best way to interact with our team is through GitHub. You can open an issue and choose from one of our templates for guidance, bug reports, or feature requests.
+
+Please check for open similar issues before opening another one.
+
+## More Resources
+
+
+## Contributing
+
+The repository currently does not accept contributions but will eventually be opened to the community.
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-url]: https://github.com/AnomeGAP/seqslab-cli/graphs/contributors
+
+[stars-url]: https://github.com/AnomeGAP/seqslab-cli/stargazers
+
+[issues-url]: https://github.com/AnomeGAP/seqslab-cli/issues
+
+[license-url]: https://github.com/AnomeGAP/seqslab-cli/blob/main/LICENSE.txt
+
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+
+[linkedin-url]: https://www.linkedin.com/company/atgenomix
+
+[product-screenshot]: https://github.com/AnomeGAP/seqslab-cli/blob/main/Atgenomix%20SeqsLab%20V3.png
+
+
