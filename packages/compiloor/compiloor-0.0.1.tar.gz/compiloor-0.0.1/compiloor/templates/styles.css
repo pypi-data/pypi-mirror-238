@@ -1,0 +1,215 @@
+@font-face {
+    font-family: "Computer Modern";
+    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunss.otf');
+}
+@font-face {
+    font-family: "Computer Modern";
+    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunsx.otf');
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Computer Modern";
+    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunsi.otf');
+    font-style: italic, oblique;
+}
+@font-face {
+    font-family: "Computer Modern";
+    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunbxo.otf');
+    font-weight: bold;
+    font-style: italic, oblique;
+}
+
+body {
+    --primary-text-color: #212529;
+    --bold--weight: 700;
+    color: var(--primary-text-color) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+@page {
+  size: A4;
+  margin: 10%;
+
+}
+
+@media print {
+    section, .code-border, .finding {
+        page-break-inside: avoid;
+    }
+
+}
+
+
+@page :first {
+  margin: 0;
+}
+
+#report-title-wrapper {
+    text-align: center;
+    font-size: 1.5em !important;
+    width: 100%;
+    height: 100vh;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#report-title-author {
+    display: flex;
+    flex-direction: column;
+    font-weight: 900 !important;
+    font-size: 84px !important;
+    margin-bottom: 10%;
+}
+
+#report-title-protocol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-weight: var(--bold--weight) !important;
+    font-size: 28px !important;
+}
+
+.thin-heading {
+    font-weight: 400 !important;
+}
+
+.paragraph-heading {
+    font-weight: var(--bold--weight) !important;
+    font-size: 1.65em !important;
+    margin-top: 32px;
+    page-break-after: avoid;
+}
+
+.paragraph-subheading{
+    font-weight: var(--bold--weight) !important;
+    font-size: 1.45em !important;
+    margin-top: 32px;
+}
+
+.report-title-protocol {
+    margin: 12px 0;    
+    width: 80%;
+}
+
+.report-title-author-border {
+    border-bottom: 1px solid #212529;
+    width: 100%;
+    margin: 12px auto;
+}
+
+.code-border {
+    height: min-content;
+    border: 1px solid var(--primary-text-color);
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-top: 0% !important;
+    padding-bottom: 0% !important;
+    margin: 0% !important;
+    /* margin: 10px !important; */
+}
+
+.table-wrapper {
+    margin: 96px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+  border-collapse: collapse;
+  width: max-content;
+  min-width: 48%;
+  max-width: 100% !important;
+  border: 1px solid var(--primary-text-color);
+
+}
+
+th, tr, td {
+    max-width: max-content;
+    white-space: ellipsis;
+    border: 1px solid var(--primary-text-color);
+}
+
+th, td {
+  padding: 8px 12px;
+  text-align: left;
+}
+
+th {
+  font-weight: var(--bold--weight) !important;
+}
+
+.no-wrap-column {
+    white-space: nowrap;
+}
+
+.bold-text {
+    font-weight: var(--bold--weight) !important;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.sub-paragraph {
+    /* Indent it */
+    margin-left: 8px;
+}
+
+.sub-paragraph h3 {
+    font-weight: 400 !important;
+    font-size: 0.95em !important;
+}
+
+.sub-sub-paragraph {
+    margin-left: 16px;
+    font-weight: 400 !important;
+    font-size: 0.80em !important;
+}
+
+#contents {
+    page-break-after: always;
+}
+
+.section-wrapper {
+    height: max-content;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-wrapper h3 {
+    margin: 1%;
+    padding: 0;
+}
+
+.section-wrapper p {
+    font-size: 17px; 
+    margin: 0;
+    padding: 0;
+}
+
+.findings h1 {
+    font-weight: var(--bold--weight) !important;
+    font-size: 1.25em !important;
+}
+
+.findings h2 {
+    font-weight: var(--bold--weight) !important;
+    font-size: 1.15em !important;
+}
+
+.page-break-after {
+    page-break-after: always;
+}
