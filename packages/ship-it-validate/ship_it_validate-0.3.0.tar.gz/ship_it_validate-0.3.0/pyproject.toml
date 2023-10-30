@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "ship-it-validate"
+version = "0.3.0"
+description = "low-code authentication and billing"
+authors = ["Ship It <info@ship-it.app>"]
+readme = "README.md"
+homepage = "https://ship-it.app"
+documentation = "https://docs.ship-it.app"
+
+[tool.poetry.dependencies]
+python = "^3.8.1"
+jwt = "^1.3.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.10.1"
+mypy = "^1.6.1"
+isort = "^5.12.0"
+flake8 = "^6.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 79
+target-version = ['py311']
+
+[tool.isort]
+profile = "black"
+line_length = 79
+src_paths = ["ship_it_validate"]
+
+[tool.pylint]
+max-line-length = 79
