@@ -1,0 +1,20 @@
+"""
+Modules comprising the layered behavioral architecture modeling the nervous system,body and metabolism
+"""
+
+from .oscillator import *
+from .basic import *
+from .feeder import *
+from .crawler import *
+from .sensor import *
+from .memory import *
+from .turner import *
+from .crawl_bend_interference import *
+from .intermitter import Intermitter, BranchIntermitter, NengoIntermitter
+from .locomotor import *
+from .brain import *
+
+__displayname__ = 'Modular behavioral architecture'
+
+
+
