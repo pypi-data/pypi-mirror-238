@@ -1,0 +1,72 @@
+Metadata-Version: 2.1
+Name: django-pgrls
+Version: 0.2.0
+Summary: Django multi-tenancy through Postgres row level security
+Home-page: https://github.com/lorinkoz/django-pgrls
+License: MIT
+Keywords: django,tenants,postgres,multi-tenancy,row level security,RLS
+Author: Lorenzo Peña
+Author-email: lorinkoz@gmail.com
+Requires-Python: >=3.10,<4.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 5.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: django (>=4.2,<5.0)
+Project-URL: Documentation, https://django-pgrls.readthedocs.io/
+Project-URL: Repository, https://github.com/lorinkoz/django-pgrls
+Description-Content-Type: text/x-rst
+
+
+django-pgrls
+============
+
+.. image:: https://img.shields.io/badge/packaging-poetry-purple.svg
+      :alt: Packaging: Poetry
+      :target: https://python-poetry.org/
+
+.. image:: https://github.com/lorinkoz/django-pgrls/workflows/code/badge.svg
+      :alt: Build status
+      :target: https://github.com/lorinkoz/django-pgrls/actions
+
+.. image:: https://readthedocs.org/projects/django-pgrls/badge/?version=latest
+      :alt: Documentation status
+      :target: https://django-pgrls.readthedocs.io/
+
+.. image:: https://coveralls.io/repos/github/lorinkoz/django-pgrls/badge.svg?branch=master
+      :alt: Code coverage
+      :target: https://coveralls.io/github/lorinkoz/django-pgrls?branch=master
+
+.. image:: https://badge.fury.io/py/django-pgrls.svg
+      :alt: PyPi version
+      :target: https://badge.fury.io/py/django-pgrls
+
+.. image:: https://pepy.tech/badge/django-pgrls/month
+      :alt: Downloads
+      :target: https://pepy.tech/project/django-pgrls
+
+|
+
+This app uses Postgres row level security to support data multi-tenancy in a
+single Django project. `Row level security`_ allows automatic row filtering on
+the database side.
+
+.. _Row level security: https://www.postgresql.org/docs/current/ddl-rowsecurity.html
+
+Documentation
+-------------
+
+https://django-pgrls.readthedocs.io/
+
+Contributing
+------------
+
+- Join the discussion at https://github.com/lorinkoz/django-pgrls/discussions.
+- PRs are welcome! If you have questions or comments, please use the discussions
+  link above.
+- To run the test suite run ``make``. The tests for this project live inside a
+  small django project called ``sandbox``.
+
