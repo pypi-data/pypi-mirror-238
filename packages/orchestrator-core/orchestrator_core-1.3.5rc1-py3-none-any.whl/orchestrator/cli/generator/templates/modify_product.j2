@@ -1,0 +1,115 @@
+{# Modify workflow -#}
+
+from collections.abc import Generator
+from pydantic_forms.core import ReadOnlyField
+from typing import Optional
+
+import structlog
+
+from orchestrator.forms import FormPage
+from orchestrator.forms.validators import OrganisationId, Divider, MigrationSummary
+from orchestrator.types import FormGenerator, State, UUIDstr, SubscriptionLifecycle
+from orchestrator.workflow import StepList, begin, step
+from orchestrator.workflows.utils import modify_workflow
+from orchestrator.workflows.steps import set_status
+
+from {{ product_types_module }}.{{ product.variable }} import {{ product.type }}, {{ product.type }}Provisioning
+{% if validation_imports %}
+from surf.workflows.{{ product.variable }}.shared.forms import {{ validation_imports | join(", ") }}
+{% endif %}
+
+{% include 'additional_modify_imports.j2' %}
+
+logger = structlog.get_logger(__name__)
+
+
+def initial_input_form_generator(subscription_id: UUIDstr) -> FormGenerator:
+    subscription = {{ product.type }}.from_subscription(subscription_id)
+    {{ product_block.name }} = subscription.{{ product_block.name }}
+
+    # TODO fill in additional fields if needed
+
+    class Modify{{ product.type }}Form(FormPage):
+        organisation: OrganisationId = subscription.customer_id  # type: ignore
+{% include "additional_modify_input_fields.j2" ignore missing %}
+
+        divider_1: Divider
+
+        {% for field in product_block.fields if not field.modifiable is defined -%}
+        {{ field.name }}: {{ field.type }} = ReadOnlyField({{ product_block.name }}.{{ field.name }})
+        {% endfor -%}
+
+        {% for field in product_block.fields if field.modifiable is defined -%}
+        {{ field.name }}: {% if field.required in ["active"] -%}Optional[{{ field.type }}]{% else -%}{{ field.type }}{% endif %} = {{ product_block.name }}.{{ field.name }}
+        {% endfor -%}
+
+{% for validation in validations %}
+        _validate_{{ validation.validation.id }}: classmethod = {{ validation.validation.id }}_validator()
+{% endfor %}
+
+    user_input = yield Modify{{ product.type }}Form
+    user_input_dict = user_input.dict()
+
+    yield from create_summary_form(user_input_dict, subscription)
+
+    return user_input_dict | {"subscription": subscription}
+
+
+def create_summary_form(user_input: dict, subscription: {{ product.type }}) -> Generator:
+    product_summary_fields = [{% for field in product_block.fields %} "{{ field.name }}",{% endfor -%}]
+
+    before = [str(getattr(subscription.{{ product_block.variable }}, nm)) for nm in product_summary_fields]
+    after = [str(user_input[nm]) for nm in product_summary_fields]
+
+    class ProductSummary(MigrationSummary):
+        data = {
+            "labels": product_summary_fields,
+            "headers": ["Before", "After"],
+            "columns": [before, after],
+        }
+
+    class SummaryForm(FormPage):
+        class Config:
+            title = f"{subscription.product.name} Summary"
+
+        product_summary: ProductSummary
+        divider_1: Divider
+
+    # TODO fill in additional details if needed
+
+    yield SummaryForm
+
+
+@step("Update subscription")
+def update_subscription(
+    subscription: {{ product.type }}Provisioning,
+    {% for field in product_block.fields if field.modifiable is defined -%}
+    {{ field.name }}: {% if field.required in ["active"] %}Optional[{{ field.type }}]{% else %}{{ field.type }}{% endif %},
+    {% endfor -%}) -> State:
+    # TODO: get all modified fields
+    {% for field in product_block.fields if field.modifiable is defined -%}
+    subscription.{{ product_block.name }}.{{ field.name }} = {{ field.name }}
+    {% endfor -%}
+
+    return {"subscription": subscription}
+
+
+@step("Update subscription description")
+def update_subscription_description(subscription: {{ product.type }}) -> State:
+    subscription.description = subscription_description(subscription)
+    return {"subscription": subscription}
+
+
+{% include 'additional_create_steps.j2' %}
+
+
+@modify_workflow("Modify {{ product.name }}", initial_input_form=initial_input_form_generator, additional_steps=additional_steps)
+def modify_{{ product.variable }}() -> StepList:
+    return (
+        begin
+        >> set_status(SubscriptionLifecycle.PROVISIONING)
+        >> update_subscription
+        >> update_subscription_description
+        # TODO add additional steps if needed
+        >> set_status(SubscriptionLifecycle.ACTIVE)
+    )
