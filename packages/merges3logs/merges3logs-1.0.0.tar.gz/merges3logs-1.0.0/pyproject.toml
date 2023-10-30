@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "merges3logs"
+version = "1.0.0"
+description = "Download cloudfront logs from S3 and merge them into a single log file for the day."
+keywords = ["aws", "s3", "logfile"]
+readme = "README.md"
+license = { file = "LICENSE" }
+maintainers = [{ name = "Sean Reifschneider", email = "jafo00@gmail.com" }]
+authors = [{ name = "Sean Reifschneider", email = "jafo00@gmail.com" }]
+requires-python = ">=3.8"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
+  "Natural Language :: English"
+]
+dependencies = [
+  "boto3",
+  "click",
+]
+
+[project.scripts]
+merges3logs = "merges3logs:main"
+
+[project.optional-dependencies]
+test = ["pytest"]
+lint = ["black", "mypy", "ruff"]
+
+[project.urls]
+Source = "https://github.com/linsomniac/merges3logs"
