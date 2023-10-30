@@ -1,0 +1,295 @@
+/* Base Styles */
+body, html, svg {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #282c34; /* Obsidian background color */
+}
+
+/* Links */
+.link {
+    stroke: #abb2bf; /* Lighter link color */
+    stroke-opacity: 0.3;
+    transition: stroke-opacity 0.2s ease-in-out, stroke 0.2s, stroke-width 0.2s;
+    /*filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3)); !* SVG filter for box shadow *!*/
+}
+
+.link:hover {
+    stroke: #ffffff; /* Lighter link color */
+    stroke-opacity: 1;
+    /*stroke-width: 2px;*/
+    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 1)); /* SVG filter for box shadow */
+}
+
+/* Nodes */
+.circle {
+    stroke: rgba(0, 0, 0, 0.3);
+    stroke-width: 2px;
+    transition: box-shadow 0.2s ease-in-out, stroke-width 0.2s ease-in-out, stroke 0.2s ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow */
+}
+
+.circle:hover {
+    stroke: #adbcff;
+    stroke-width: 2.5px;
+}
+
+.circle:focus {
+    color: red;
+    stroke: #ffffff;
+    stroke-width: 2.5px;
+}
+
+/* Labels */
+.label-group {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.2s ease-in-out;
+}
+
+.label-text {
+    fill: #abb2bf; /* Lighter text color */
+    color: #abb2bf;
+    /*visibility: hidden; !* By default, hide the text *!*/
+}
+
+.label-bg {
+    background-color: rgba(0, 0, 0, 0.3); /* Bluish-grayish-darkish background */
+    /*backdrop-filter: blur(5px); !* Apply the blur effect *!*/
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Tooltips */
+.tooltip {
+    position: absolute;
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.3); /* Bluish-grayish-darkish background */
+    backdrop-filter: blur(5px); /* Apply the blur effect */
+    color: #dcdcdc; /* Light gray text */
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Status Bar */
+.status-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* Bluish-grayish-darkish background */
+    backdrop-filter: blur(5px); /* Apply the blur effect */
+    color: #dcdcdc; /* Light gray text */
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2); /* Shadow at the bottom */
+    padding: 3px 5px;
+    z-index: 1000;
+}
+
+#status-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.status-label {
+    font-weight: bold;
+    color: #999999;
+    /*margin: 0 5px 0 5px;*/
+}
+
+.status-bar-label {
+    margin: 0 5px 0 5px;
+}
+
+.path {
+    font-family: monospace;
+    color: #ff9c5a;
+    cursor: pointer;
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    background-color: rgba(30, 30, 30, 0.3);
+    backdrop-filter: blur(5px);
+    color: #dcdcdc;
+    border: 2px solid #202020;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.2s ease-in-out;
+    padding: 20px 10px 10px 20px;
+    margin: 8px 5px;
+    max-width: 30%;
+    max-height: 50%;
+    z-index: 999;
+    overflow: auto;
+}
+
+.overlay:hover {
+    box-shadow: 0 0 10px rgba(255, 156, 90, 0.3);
+}
+
+h2 {
+    color: #ff9c5a;
+    margin-top: 10px;
+}
+
+.overlay>div {
+    padding: 3px 5px;
+}
+
+.overlay>.overlay-data {
+    padding: 3px 10px;
+}
+
+.scrollable-list {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+/* Banners */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: opacity 1s ease-in-out;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 1;
+}
+
+.error-banner {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ff0000;
+    /*border: 2px solid #000000;*/
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 20px;
+    transition: opacity 1s ease-in-out;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 1;
+}
+
+/* Legend */
+.legend-circle {
+    width: 20px;
+    height: 20px;
+    background-color: rgb(31, 119, 180);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.legend-item {
+    display: flex;
+    flex-direction: row;
+    vertical-align: center;
+}
+
+/* STALKER button */
+.stalker-button {
+    background-color: #444;
+    border: 2px solid #777;
+    color: #eee;
+    font-family: 'Arial', sans-serif;  /* You can replace this with a more rugged font if you have one */
+    font-size: 12px;
+    padding: 5px 10px;
+    margin: 5px 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    /*transition: all 0.3s ease-in;*/
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    outline: none;
+}
+
+.stalker-button:hover {
+    background-color: #555;
+    border-color: #888;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.7);
+}
+
+.stalker-button:active {
+    background-color: #333;
+    border-color: #666;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+    transform: scale(0.98);
+}
+
+/* Tweaks with ids */
+#svg-legend {
+    width: 25px;
+    height: 20px;
+}
+
+#overall-stats {
+    top: 225px;
+    left: 0;
+}
+
+#legend {
+    top: 0;
+    left: 0;
+}
+
+#details {
+    top: 0;
+    right: 0;
+    width: 25%;
+    max-height: 91%;
+}
+
+/*******/
+/* Loading message container */
+.loading-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.2); /* Background color with transparency */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow */
+    z-index: 9999;
+}
+
+.radiation-symbol {
+    width: 200px; /* Adjust the size as needed */
+    height: 200px; /* Adjust the size as needed */
+}
+
+/* Loading symbol (radiation symbol) */
+.loading-symbol {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: rotation 2s linear infinite, pulse 1.5s infinite;
+}
+
+/* Loading text */
+.loading-message p {
+    font-size: 20pt;
+    color: #fff; /* Text color */
+    margin: 20px 20px 10px;
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+

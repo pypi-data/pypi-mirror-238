@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3.js File Overlaps Visualization</title>
+    <!--    <link rel="stylesheet" href="styles.css">-->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div id="status-bar" class="status-bar">
+    <div id="status-content">
+        <div class="status-label">Status bar</div>
+    </div>
+</div>
+
+<div id="overall-stats" class="overlay">
+    <h2>Overall Stats</h2>
+    <table>
+        <tbody>
+        <tr>
+            <td class="status-label">Nodes (Files):</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td class="status-label">Links (Duplicates):</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td class="status-label">Total Duplicates:</td>
+            <td>0</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="legend" class="overlay">
+    <h2>Legend</h2>
+    <div class="legend-item">
+        <svg id="svg-legend">
+            <g class="node" transform="translate(12.5,10)">
+                <circle r="7" class="circle" style="fill: rgb(31, 119, 180);"></circle>
+            </g>
+        </svg>
+        <div class="legend-label">&nbsp;- Nodes (Files)</div>
+    </div>
+    <div class="legend-item">
+        <!-- Link line here -->
+        <svg id="svg-legend">
+            <line class="link" stroke-width="7.615773105863909" x1="3.9668105921197" y1="5.94242643288266"
+                  x2="20.28503239344536" y2="15.03946082603545" style="stroke: rgb(148, 103, 189);"></line>
+        </svg>
+        <div class="legend-label">&nbsp;- Links (Duplicates)</div>
+    </div>
+    <div class="legend-item">
+        <div class="legend-label">Link color - uniq set of duplicates</div>
+    </div>
+    <div class="legend-item">
+        <!--        <input type="c">Link color - uniq set of duplicates</input>-->
+        <label>
+            <input type="checkbox" id="show-all-files"/>
+            Show all files (even without dups)
+        </label>
+    </div>
+    <div class="legend-item" id="legend-grey-files" style="opacity: 0">
+        <svg id="svg-legend">
+            <g class="node" transform="translate(12.5,10)">
+                <circle r="7" class="circle" style="fill: rgba(0,0,0,0.35);"></circle>
+            </g>
+        </svg>
+        <div class="legend-label">&nbsp;- No-dup files</div>
+    </div>
+</div>
+
+<div id="details" class="overlay">
+    <h2>Details</h2>
+    <div class="status-label">Click on any node/link to see the details</div>
+</div>
+
+<div class="loading-message">
+    <div class="loading-symbol">
+        <img class="radiation-symbol" src="/static/radiation.svg" alt="" />
+    </div>
+    <p>Loading...</p>
+</div>
+
+<div id="tooltip" class="tooltip"></div>
+<script type="module" src="/static/script.js"></script>
+</body>
+</html>
