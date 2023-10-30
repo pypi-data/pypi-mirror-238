@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: qcis-sim
+Version: 0.1.0
+Summary: simulation tools for QCIS
+Author: Yusheng Yang
+Author-email: yangys@arclightquantum.com
+License: MIT
+Platform: python 3.8+
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+
+A simulator for QCIS.
+
+```python
+from qcis_sim import run
+
+
+qcis_str = """
+H Q22
+H Q27
+X Q27
+Y Q27
+Z Q27
+S Q27
+SD Q27
+T Q27
+TD Q27
+CZ Q27 Q22
+B Q1 Q4
+I Q1 0.1
+RX Q22 0.2
+RY Q22 0.2
+RZ Q10 0.2
+
+M Q22
+M Q27
+"""
+
+
+print(run(qcis_str, shots=100, topo=True))
+# topo: topological check
+```
