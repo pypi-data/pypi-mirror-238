@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "stocaching"
+version = "0.2.0"
+description = "A tiny library for stochastic dataset caching in PyTorch."
+authors = ["C Jones <cj1917@ic.ac.uk>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+# NB: torch 2.1.0 has a known issue:
+# https://stackoverflow.com/questions/76327419/valueerror-libcublas-so-0-9-not-found-in-the-system-path
+# an easy workaround for development is just to reinstall with pip
+# this does not affect users of this library
+torch = "^2.1.0"
+numpy = "^1.26.1"
+
+
+[tool.poetry.group.dev.dependencies]
+torchvision = "^0.16.0"
+tqdm = "^4.66.1"
+matplotlib = "^3.8.0"
+pandas = "^2.1.1"
+seaborn = "^0.13.0"
+pytest = "^7.4.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
