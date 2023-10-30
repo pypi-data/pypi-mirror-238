@@ -1,0 +1,32 @@
+//- No Comment --- Comment any resource on the web!
+//- Copyright © 2023 Bioneland
+//-
+//- This program is free software: you can redistribute it and/or modify
+//- it under the terms of the GNU Affero General Public License as
+//- published by the Free Software Foundation, either version 3 of the
+//- License, or (at your option) any later version.
+//-
+//- This program is distributed in the hope that it will be useful,
+//- but WITHOUT ANY WARRANTY; without even the implied warranty of
+//- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//- GNU Affero General Public License for more details.
+//-
+//- You should have received a copy of the GNU Affero General Public License
+//- along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+extends layout
+
+block content
+  section.section
+    .container
+      h1.title.is-1 Root
+
+      h4.title.is-4 List of streams
+
+      ul.stream-list
+        each stream in streams
+          li.box
+            a(href=url_for("streams.display", stream_id=stream.id))
+              h5.title.is-5= stream.title
+              p= stream.description
+
