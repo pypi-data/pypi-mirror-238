@@ -1,0 +1,36 @@
+.keep-together {
+    page-break-inside: avoid;
+}
+
+.break-before {
+    page-break-before: always;
+}
+
+.break-after {
+    page-break-after: always;
+}
+
+pre {
+    font-size:12px;
+    /* line-height: 50%; */
+    white-space: pre-line;
+}
+
+@page {
+    @bottom-right{
+        content: "# " counter(page) " of " counter(pages);
+    }
+}
+
+img {
+    transform: scale(1.1);
+    padding:10px;
+    vertical-align: top;
+}
+
+.small-font {
+    font-size: 10px;
+}
+code {
+    word-wrap:break-word;
+}

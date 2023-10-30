@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<head>
+</head>
+
+<body>
+    <h3>Key Archive: {{key_label}}</h3>
+    <h5>Generated at: {{ timestamp }} </h5>
+
+    <div>
+        <pre>
+            {{ ascii_key }}
+        </pre>
+    </div>
+
+    <div>
+        <pre>-----BEGIN PRIVATE QR CODES-----</pre>
+
+        {% for img in qr_images %}
+        <img src="data:image/jpeg;base64,{{img.decode('ascii') | safe}}" />
+        {% endfor %}
+
+        <pre>-----END PRIVATE QR CODES-----</pre>
+    </div>
+
+    <div>
+        <h5>Key Decomposition</h5>
+
+        <div class="small-font">
+
+            <p>Key Type: <code>{{ key_type }}</code> Key Size (bits): <code>{{ key_size }}</code></p>
+
+            <p>Secret Number: <code>{{ secret_number }}</code></p>
+            <p>Public point: <code>{{ public_point }}</code></p>
+
+            <small>
+                Note: the first OCTET of the public point bytestring denotes whether the key
+                is compressed or uncompressed. The uncompressed form is indicated by
+                <code>0x04</code> and the
+                compressed form is indicated by either
+                <code>0x02</code> or
+                <code>0x03</code>.
+            </small>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<head>
+</head>
+
+<body>
+
+    <h3> GnuPG Key Archive - 0x{{ key_id }}</h3>
+    <h5>Archived at: {{ timestamp }} </h5>
+
+    <div>
+
+        <pre>-----BEGIN PRIVATE QR CODES-----</pre>
+
+        {% for img in qr_images %}
+        <img src="data:image/jpeg;base64,{{ img.decode('ascii') | safe }}" />
+        {% endfor %}
+
+        <pre>-----END PRIVATE QR CODES-----</pre>
+
+    </div>
+
+    <div class="keep-together">
+
+        <pre>-----BEGIN PUBLIC QR CODES-----</pre>
+
+        {% for img in public_qr_images %}
+        <img src="data:image/jpeg;base64,{{ img.decode('ascii') | safe }}" />
+        {% endfor %}
+
+        <pre>-----END PUBLIC QR CODES-----</pre>
+
+
+    </div>
+
+
+    <div class="break-before">
+        <h5>Key Password: ______________________________________ </h5>
+
+        <pre>
+            {{ ascii_key }}
+        </pre>
+    </div>
+
+    <div>
+        <pre>
+            {{ public_key_ascii }}
+        </pre>
+    </div>
+
+
+    <div class="break-before">
+        <pre>
+        {{ paperkey_b16 }}
+        </pre>
+
+    </div>
+
+</body>
+
+</html>

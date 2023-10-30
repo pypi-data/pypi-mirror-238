@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "secrets-to-paper"
+version = "0.0.13"
+description = "A command line tool to help with key-to-paper and paper-to-key."
+authors = ["Jared Vacanti <jaredvacanti@gmail.com>"]
+license = "MIT"
+readme = 'README.md'
+
+include = ["docs/_build/man/secrets-to-paper.1"]
+
+repository = "https://salsa.debian.org/jvacanti/secrets-to-paper.git"
+homepage = "https://salsa.debian.org/jvacanti/secrets-to-paper"
+
+keywords = ['paperkey', 'gpg', 'secrets-to-paper']
+
+[tool.poetry.dependencies]
+python = "^3.10"
+click = "^8.1.7"
+pillow = "^10.1.0"
+cryptography = "^41.0.5"
+pdfplumber = "^0.10.3"
+pyzbar = "^0.1.9"
+qrcode = "^7.4.2"
+jinja2 = "^3.1.2"
+weasyprint = "^60.1"
+opencv-python = "^4.8.1.78"
+opencv-contrib-python = "^4.8.1.78"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4.3"
+black = "^23.10.1"
+Sphinx = "^7.2.6"
+furo = "^2023.9.10"
+coverage = "^7.3.2"
+mypy = "^1.6.1"
+types-qrcode = "^7.4.0.0"
+types-pillow = "^10.1.0.0"
+
+[tool.poetry.scripts]
+stp = 'secrets_to_paper.stp:stp'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
