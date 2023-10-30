@@ -1,0 +1,1545 @@
+; ==========================================================================
+; "dictSuffixes"
+; Portions (c) 2002-2004 QAMUS LLC (www.qamus.org), 
+; (c) 2002-2004 Trustees of the University of Pennsylvania 
+; 
+; LDC USER AGREEMENT
+; 
+; Use of this version of the Buckwalter Arabic Morphological Analyzer Version 2
+; distributed by the Linguistic Data Consortium (LDC) of the University of 
+; Pennsylvania is governed by the following terms: 
+; 
+; This User Agreement is provided by the Linguistic Data Consortium as a 
+; condition of accepting the databases named or described herein. 
+; 
+; This Agreement describes the terms between User/User's Research Group and 
+; Linguistic Data Consortium (LDC), in which User will receive material, as 
+; specified below, from LDC. The terms of this Agreement supercede the terms of 
+; any previous Membership Agreement in regard to the Buckwalter Arabic 
+; Morphological Analyzer Version 2.
+; 
+; Under this agreement User will receive one or more CD-ROM discs, DVDs, 
+; electronic files or other media as appropriate, containing linguistic tools, 
+; speech, video, and/or text data. User agrees to use the material received 
+; under this agreement only for non-commercial linguistic education and research
+; purposes. Unless explicitly permitted herein, User shall have no right to 
+; copy, redistribute, transmit, publish or otherwise use the LDC Databases for 
+; any other purpose and User further agrees not to disclose, copy, or 
+; re-distribute the material to others outside of User's research group. 
+; 
+; Government use, including any use within or among government organizations and
+; use by government contractors to produce or evaluate resources and 
+; technologies for government use, is permitted under this license.
+; 
+; Organizations interested in licensing the Buckwalter Arabic Morphological 
+; Analyzer Version 2 for commercial use should contact: 
+; 
+;    QAMUS LLC 
+;    448 South 48th St. 
+;    Philadelphia, PA 19143 
+;    ATTN: Tim Buckwalter 
+;    email: license@qamus.org
+; 
+; Except for Government use as specified above, commercial uses of this corpus 
+; include, but are not limited to, imbedded use of the Analyzer, Analyzer 
+; methods, Analyzer derived works, Analyzer output data, algorithms, lexicons, 
+; and downloaded data in a commercial product or a fee for service project; 
+; use of the Analyzer, Analyzer methods, Analyzer derived works, Analyzer 
+; output data, algorithms, and downloaded data to create or develop a 
+; commercial product or perform a fee for service project; use of Analyzer, 
+; Analyzer methods, Analyzer derived works, Analyzer output data, algorithms, 
+; lexicons, and downloaded data as a development tool to measure performance of
+; a commercial product or work product developed on a fee for service basis; 
+; redistribution of Analyzer, Analyzer methods, Analyzer derived works, Analyzer 
+; output data, algorithms, lexicons and downloaded data to any third party for 
+; imbedding in a commercial product or fee for service project, for deriving a 
+; commercial product or fee for service project, or for measuring the 
+; performance of a commercial product or fee for service project.
+; 
+; USER ACKNOWLEDGES AND AGREES THAT "CORPORA RECEIVED" ARE PROVIDED ON AN "AS-IS"
+; BASIS AND THAT LDC, ITS HOST INSTITUTION THE UNIVERSITY OF PENNSYLVANIA, AND 
+; ITS DATA PROVIDERS AND CORPUS AUTHORS MAKE NO REPRESENTATIONS OR WARRANTIES OF 
+; ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES 
+; OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR CONFORMITY WITH 
+; WHATEVER DOCUMENTATION IS PROVIDED. IN NO EVENT SHALL LDC, ITS HOST 
+; INSTITUTION, DATA PROVIDORS OR CORPUS AUTHORS BE LIABLE FOR SPECIAL, DIRECT, 
+; INDIRECT, CONSEQUENTIAL, PUNITIVE, INCIDENTAL OR OTHER DAMAGES, LOSSES, COSTS, 
+; CHARGES, CLAIMS, DEMANDS, FEES OR EXPENSES OF ANY NATURE OR KIND ARISING IN ANY
+; WAY FROM THE FURNISHING OF OR USER'S USE OF THE CORPORA RECEIVED. 
+; 
+; ==================================================================
+; Contents: Each entry consists of four tab-delimited fields:
+; (1) the suffix (or concatenation of suffixes) WITHOUT short vowels and diacritics
+; (2) the suffix (or concatenation of suffixes) WITH    short vowels and diacritics
+; (3) its morphological category (for controlling its compatibility with prefixes & stems)
+; (4) its English gloss(es): includes POS data within tags <pos>...</pos>
+; ==========================================================================
+;
+; null suffix (all fields empty except for morph_category)
+		Suff-0	
+;
+; imperative (CV = command verb; PV = perfect verb; IV = imperfect verb)
+		CVSuff-0_voc	<pos>(null)/CVSUFF_SUBJ:2MS</pos>
+		CVSuff-o	you                   <pos>o/CVSUFF_SUBJ:2MS</pos>
+h	hu	CVSuff-oh	you + it/him          <pos>o/CVSUFF_SUBJ:2MS+hu/CVSUFF_DO:3MS</pos>
+hmA	humA	CVSuff-oh	you + them (both)     <pos>o/CVSUFF_SUBJ:2MS+humA/CVSUFF_DO:3D</pos>
+hm	hum	CVSuff-oh	you + them            <pos>o/CVSUFF_SUBJ:2MS+hum/CVSUFF_DO:3MP</pos>
+hA	hA	CVSuff-oh	you + it/them/her     <pos>o/CVSUFF_SUBJ:2MS+hA/CVSUFF_DO:3FS</pos>
+hn	hun~a	CVSuff-oh	you + them            <pos>o/CVSUFF_SUBJ:2MS+hun~a/CVSUFF_DO:3FP</pos>
+k	ka	CVSuff-oh	you + you            <pos>o/CVSUFF_SUBJ:2MS+ka/CVSUFF_DO:2MS</pos>
+ny	niy	CVSuff-oh	you + me              <pos>o/CVSUFF_SUBJ:2MS+niy/CVSUFF_DO:1S</pos>
+nny	naniy	CVSuff-noh	you + me              <pos>na/CVSUFF_SUBJ:2FP+niy/CVSUFF_DO:1S</pos>
+nA	nA	CVSuff-oh	you + us              <pos>o/CVSUFF_SUBJ:2MS+nA/CVSUFF_DO:1P</pos>
+h	hi	CVSuff-nh	you + it/him          <pos>o/CVSUFF_SUBJ:2MS+hu/CVSUFF_DO:3MS</pos>
+hmA	himA	CVSuff-nh	you + them (both)     <pos>o/CVSUFF_SUBJ:2MS+humA/CVSUFF_DO:3D</pos>
+hm	him	CVSuff-nh	you + them            <pos>o/CVSUFF_SUBJ:2MS+hum/CVSUFF_DO:3MP</pos>
+hA	hA	CVSuff-nh	you + it/them/her     <pos>o/CVSUFF_SUBJ:2MS+hA/CVSUFF_DO:3FS</pos>
+hn	hin~a	CVSuff-nh	you + them            <pos>o/CVSUFF_SUBJ:2MS+hun~a/CVSUFF_DO:3FP</pos>
+ny	niy	CVSuff-nh	you + me              <pos>(null)/CVSUFF_SUBJ:2MS+niy/CVSUFF_DO:1S</pos>
+nA	nA	CVSuff-nh	you + me              <pos>(null)/CVSUFF_SUBJ:2MS+nA/CVSUFF_DO:1P</pos>
+;
+; perfect verb, -a suffix
+	a	PVSuff-a	he/it                 <pos>a/PVSUFF_SUBJ:3MS</pos>
+;
+; perfect verb, null suffix: banaY
+		PVSuff-0a	he/it                 <pos>(null)/PVSUFF_SUBJ:3MS</pos>
+; perfect verb, null suffix: banA-h, daEA-h
+h	hu	PVSuff-0ah	he/it + it/him          <pos>(null)/PVSUFF_SUBJ:3MS+hu/PVSUFF_DO:3MS</pos>
+hmA	humA	PVSuff-0ah	he/it + them (both)     <pos>(null)/PVSUFF_SUBJ:3MS+humA/PVSUFF_DO:3D</pos>
+hm	hum	PVSuff-0ah	he/it + them            <pos>(null)/PVSUFF_SUBJ:3MS+hum/PVSUFF_DO:3MP</pos>
+hA	hA	PVSuff-0ah	he/it + it/them/her     <pos>(null)/PVSUFF_SUBJ:3MS+hA/PVSUFF_DO:3FS</pos>
+hn	hun~a	PVSuff-0ah	he/it + them            <pos>(null)/PVSUFF_SUBJ:3MS+hun~a/PVSUFF_DO:3FP</pos>
+k	ka	PVSuff-0ah	he/it + you <pos>(null)/PVSUFF_SUBJ:3MS+ka/PVSUFF_DO:2MS</pos>
+k	ki	PVSuff-0ah	he/it + you <pos>(null)/PVSUFF_SUBJ:3MS+ki/PVSUFF_DO:2FS</pos>
+kmA	kumA	PVSuff-0ah	he/it + you <pos>(null)/PVSUFF_SUBJ:3MS+kumA/PVSUFF_DO:2D</pos>
+km	kum	PVSuff-0ah	he/it + you <pos>(null)/PVSUFF_SUBJ:3MS+kum/PVSUFF_DO:2MP</pos>
+kn	kun~a	PVSuff-0ah	he/it + you <pos>(null)/PVSUFF_SUBJ:3MS+kun~a/PVSUFF_DO:2FP</pos>
+ny	niy	PVSuff-0ah	he/it + me              <pos>(null)/PVSUFF_SUBJ:3MS+niy/PVSUFF_DO:1S</pos>
+nA	nA	PVSuff-0ah	he/it + us              <pos>(null)/PVSUFF_SUBJ:3MS+nA/PVSUFF_DO:1P</pos>
+;
+;
+; =====================================================================
+; NOUN SUFFIXES
+; =====================================================================
+;
+mA	mA	NSuff-mA	what <pos>mA/REL_PEON</pos>
+;
+; ==========
+; fem. dual: acc./gen. (ACCGEN)
+tyn	atayoni	NSuff-tayn	two <pos>atayoni/NSUFF</pos>
+tyn	atayoni	NSuff-tayn0	 <pos>atayoni/NSUFF</pos>
+;
+; ==========
+; feminine dual: nom.
+tAn	atAni	NSuff-atAn	two <pos>atAni/NSUFF</pos>
+tAn	atAni	NSuff-atAn0	 <pos>atAni/NSUFF</pos>
+;
+; ==========
+; feminine dual: poss., nom.
+tA	atA	NSuff-atAh	two                         <pos>atA/NSUFF</pos>
+tA	atA	NSuff-atAh00	                         <pos>atA/NSUFF</pos>
+tAh	atAhu	NSuff-atAh	two + his/its               <pos>atA/NSUFF+hu/POSS_PRON_3MS</pos>
+tAhmA	atAhumA	NSuff-atAh	two + their                 <pos>atA/NSUFF+humA/POSS_PRON_3D</pos>
+tAhm	atAhum	NSuff-atAh	two + their                 <pos>atA/NSUFF+hum/POSS_PRON_3MP</pos>
+tAhA	atAhA	NSuff-atAh	two + its/their/her         <pos>atA/NSUFF+hA/POSS_PRON_3FS</pos>
+tAhn	atAhun~a	NSuff-atAh	two + their                 <pos>atA/NSUFF+hun~a/POSS_PRON_3FP</pos>
+tAk	atAka	NSuff-atAh	two + your <pos>atA/NSUFF+ka/POSS_PRON_2MS</pos>
+tAk	atAki	NSuff-atAh	two + your <pos>atA/NSUFF+ki/POSS_PRON_2FS</pos>
+tAkmA	atAkumA	NSuff-atAh	two + your <pos>atA/NSUFF+kumA/POSS_PRON_2D</pos>
+tAkm	atAkum	NSuff-atAh	two + your <pos>atA/NSUFF+kum/POSS_PRON_2MP</pos>
+tAkn	atAkun~a	NSuff-atAh	two + your <pos>atA/NSUFF+kun~a/POSS_PRON_2FP</pos>
+tAy	atAya	NSuff-atAh	two + my                    <pos>atA/NSUFF+ya/POSS_PRON_1S</pos>
+tAnA	atAnA	NSuff-atAh	two + our                   <pos>atA/NSUFF+nA/POSS_PRON_1P</pos>
+;
+; ==========
+; feminine dual: poss., acc./gen. (ACCGEN)
+ty	atayo	NSuff-tay	two                    <pos>atayo/NSUFF</pos>
+ty	atayo	NSuff-tay00	                    <pos>atayo/NSUFF</pos>
+tyh	atayohi	NSuff-tay	two + his/its          <pos>atayo/NSUFF+hi/POSS_PRON_3MS</pos>
+tyhmA	atayohimA	NSuff-tay	two + their            <pos>atayo/NSUFF+himA/POSS_PRON_3D</pos>
+tyhm	atayohim	NSuff-tay	two + their            <pos>atayo/NSUFF+him/POSS_PRON_3MP</pos>
+tyhA	atayohA	NSuff-tay	two + its/their/her    <pos>atayo/NSUFF+hA/POSS_PRON_3FS</pos>
+tyhn	atayohin~a	NSuff-tay	two + their            <pos>atayo/NSUFF+hin~a/POSS_PRON_3FP</pos>
+tyk	atayoka	NSuff-tay	two + your <pos>atayo/NSUFF+ka/POSS_PRON_2MS</pos>
+tyk	atayoki	NSuff-tay	two + your <pos>atayo/NSUFF+ki/POSS_PRON_2FS</pos>
+tykmA	atayokumA	NSuff-tay	two + your <pos>atayo/NSUFF+kumA/POSS_PRON_2D</pos>
+tykm	atayokum	NSuff-tay	two + your <pos>atayo/NSUFF+kum/POSS_PRON_2MP</pos>
+tykn	atayokun~a	NSuff-tay	two + your <pos>atayo/NSUFF+kun~a/POSS_PRON_2FP</pos>
+ty	atay~a	NSuff-tay	two + my               <pos>atayo/NSUFF+ya/POSS_PRON_1S</pos>
+tynA	atayonA	NSuff-tay	two + our              <pos>atayo/NSUFF+nA/POSS_PRON_1P</pos>
+;
+ty	atayo	NSuff-tay	two                    <pos>atayo/NSUFF</pos>
+tyh	atayohi	NSuff-tay	two + his/its          <pos>atayo/NSUFF+hi/POSS_PRON_3MS</pos>
+tyhmA	atayohimA	NSuff-tay	two + their            <pos>atayo/NSUFF+himA/POSS_PRON_3D</pos>
+tyhm	atayohim	NSuff-tay	two + their            <pos>atayo/NSUFF+him/POSS_PRON_3MP</pos>
+tyhA	atayohA	NSuff-tay	two + its/their/her    <pos>atayo/NSUFF+hA/POSS_PRON_3FS</pos>
+tyhn	atayohin~a	NSuff-tay	two + their            <pos>atayo/NSUFF+hin~a/POSS_PRON_3FP</pos>
+tyk	atayoka	NSuff-tay	two + your <pos>atayo/NSUFF+ka/POSS_PRON_2MS</pos>
+tyk	atayoki	NSuff-tay	two + your <pos>atayo/NSUFF+ki/POSS_PRON_2FS</pos>
+tykmA	atayokumA	NSuff-tay	two + your <pos>atayo/NSUFF+kumA/POSS_PRON_2D</pos>
+tykm	atayokum	NSuff-tay	two + your <pos>atayo/NSUFF+kum/POSS_PRON_2MP</pos>
+tykn	atayokun~a	NSuff-tay	two + your <pos>atayo/NSUFF+kun~a/POSS_PRON_2FP</pos>
+ty	atay~a	NSuff-tay	two + my               <pos>atayo/NSUFF+ya/POSS_PRON_1S</pos>
+tynA	atayonA	NSuff-tay	two + our              <pos>atayo/NSUFF+nA/POSS_PRON_1P</pos>
+;
+; ==========
+; fem.sg.
+p	ap	NSuff-ap	           <pos>ap/NSUFF</pos>
+	~a	NSuff-~a	me                <pos>~a/POSS_PRON_1S</pos>
+;y	~a	NSuff-~a	me                <pos>~a/POSS_PRON_1S</pos> 
+;
+;=== case
+;p	apu	NSuff-apu	<pos>ap/NSUFF</pos>
+;p	apa	NSuff-apa	<pos>ap/NSUFF</pos>
+;p	api	NSuff-api	<pos>ap/NSUFF</pos>
+;p	apN	NSuff-apN	<pos>ap/NSUFF</pos>
+p	ap	NSuff-apF	<pos>ap/NSUFF</pos>
+;p	apK	NSuff-apK	<pos>ap/NSUFF</pos>
+; diptote: bi+>noqar+ap+a
+;p	apa	NSuff-apa_gen	<pos>ap/NSUFF</pos>
+; ==========
+; fem.sg. poss. (without case ending)
+;th	athu	NSuff-ath	his/its             <pos>at/NSUFF+hu/POSS_PRON_3MS</pos>
+;thmA	athumA	NSuff-ath	their               <pos>at/NSUFF+humA/POSS_PRON_3D</pos>
+;thm	athum	NSuff-ath	their               <pos>at/NSUFF+hum/POSS_PRON_3MP</pos>
+;thA	athA	NSuff-ath	its/their/her       <pos>at/NSUFF+hA/POSS_PRON_3FS</pos>
+;thn	athun~a	NSuff-ath	their               <pos>at/NSUFF+hun~a/POSS_PRON_3FP</pos>
+;tk	atka	NSuff-ath	your    <pos>at/NSUFF+ka/POSS_PRON_2MS</pos>
+;tk	atki	NSuff-ath	your    <pos>at/NSUFF+ki/POSS_PRON_2FS</pos>
+;tkmA	atkumA	NSuff-ath	your    <pos>at/NSUFF+kumA/POSS_PRON_2D</pos>
+;tkm	atkum	NSuff-ath	your    <pos>at/NSUFF+kum/POSS_PRON_2MP</pos>
+;tkn	atkun~a	NSuff-ath	your    <pos>at/NSUFF+kun~a/POSS_PRON_2FP</pos>
+ty	atiy	NSuff-ath	my                  <pos>at/NSUFF+iy/POSS_PRON_1S</pos>
+;tnA	atnA	NSuff-ath	our                 <pos>at/NSUFF+nA/POSS_PRON_1P</pos>
+;
+;=== case (keep one instance of "atiy" if you comment out the above set)
+th	atuhu	NSuff-ath	his/its          <pos>at/NSUFF+hu/POSS_PRON_3MS</pos>
+thmA	atuhumA	NSuff-ath	their            <pos>at/NSUFF+humA/POSS_PRON_3D</pos>
+thm	atuhum	NSuff-ath	their            <pos>at/NSUFF+hum/POSS_PRON_3MP</pos>
+thA	atuhA	NSuff-ath	its/their/her    <pos>at/NSUFF+hA/POSS_PRON_3FS</pos>
+thn	atuhun~a	NSuff-ath	their            <pos>at/NSUFF+hun~a/POSS_PRON_3FP</pos>
+tk	atuka	NSuff-ath	your <pos>at/NSUFF+ka/POSS_PRON_2MS</pos>
+tk	atuki	NSuff-ath	your <pos>at/NSUFF+ki/POSS_PRON_2FS</pos>
+tkmA	atukumA	NSuff-ath	your <pos>at/NSUFF+kumA/POSS_PRON_2D</pos>
+tkm	atukum	NSuff-ath	your <pos>at/NSUFF+kum/POSS_PRON_2MP</pos>
+tkn	atukun~a	NSuff-ath	your <pos>at/NSUFF+kun~a/POSS_PRON_2FP</pos>
+tnA	atunA	NSuff-ath	our              <pos>at/NSUFF+nA/POSS_PRON_1P</pos>
+;
+th	atuhu	NSuff-atuh	his/its          <pos>at/NSUFF+hu/POSS_PRON_3MS</pos>
+thmA	atuhumA	NSuff-atuh	their            <pos>at/NSUFF+humA/POSS_PRON_3D</pos>
+thm	atuhum	NSuff-atuh	their            <pos>at/NSUFF+hum/POSS_PRON_3MP</pos>
+thA	atuhA	NSuff-atuh	its/their/her    <pos>at/NSUFF+hA/POSS_PRON_3FS</pos>
+thn	atuhun~a	NSuff-atuh	their            <pos>at/NSUFF+hun~a/POSS_PRON_3FP</pos>
+tk	atuka	NSuff-atuh	your <pos>at/NSUFF+ka/POSS_PRON_2MS</pos>
+tk	atuki	NSuff-atuh	your <pos>at/NSUFF+ki/POSS_PRON_2FS</pos>
+tkmA	atukumA	NSuff-atuh	your <pos>at/NSUFF+kumA/POSS_PRON_2D</pos>
+tkm	atukum	NSuff-atuh	your <pos>at/NSUFF+kum/POSS_PRON_2MP</pos>
+tkn	atukun~a	NSuff-atuh	your <pos>at/NSUFF+kun~a/POSS_PRON_2FP</pos>
+tnA	atunA	NSuff-atuh	our              <pos>at/NSUFF+nA/POSS_PRON_1P</pos>
+;
+th	atahu	NSuff-ath	his/its         <pos>at/NSUFF+hu/POSS_PRON_3MS</pos>
+thmA	atahumA	NSuff-ath	their           <pos>at/NSUFF+humA/POSS_PRON_3D</pos>
+thm	atahum	NSuff-ath	their           <pos>at/NSUFF+hum/POSS_PRON_3MP</pos>
+thA	atahA	NSuff-ath	its/their/her   <pos>at/NSUFF+hA/POSS_PRON_3FS</pos>
+thn	atahun~a	NSuff-ath	their           <pos>at/NSUFF+hun~a/POSS_PRON_3FP</pos>
+tk	ataka	NSuff-ath	your <pos>at/NSUFF+ka/POSS_PRON_2MS</pos>
+tk	ataki	NSuff-ath	your <pos>at/NSUFF+ki/POSS_PRON_2FS</pos>
+tkmA	atakumA	NSuff-ath	your <pos>at/NSUFF+kumA/POSS_PRON_2D</pos>
+tkm	atakum	NSuff-ath	your <pos>at/NSUFF+kum/POSS_PRON_2MP</pos>
+tkn	atakun~a	NSuff-ath	your <pos>at/NSUFF+kun~a/POSS_PRON_2FP</pos>
+tnA	atanA	NSuff-ath	our             <pos>at/NSUFF+nA/POSS_PRON_1P</pos>
+;
+th	atahu	NSuff-atha	his/its         <pos>at/NSUFF+hu/POSS_PRON_3MS</pos>
+thmA	atahumA	NSuff-atha	their           <pos>at/NSUFF+humA/POSS_PRON_3D</pos>
+thm	atahum	NSuff-atha	their           <pos>at/NSUFF+hum/POSS_PRON_3MP</pos>
+thA	atahA	NSuff-atha	its/their/her   <pos>at/NSUFF+hA/POSS_PRON_3FS</pos>
+thn	atahun~a	NSuff-atha	their           <pos>at/NSUFF+hun~a/POSS_PRON_3FP</pos>
+tk	ataka	NSuff-atha	your <pos>at/NSUFF+ka/POSS_PRON_2MS</pos>
+tk	ataki	NSuff-atha	your <pos>at/NSUFF+ki/POSS_PRON_2FS</pos>
+tkmA	atakumA	NSuff-atha	your <pos>at/NSUFF+kumA/POSS_PRON_2D</pos>
+tkm	atakum	NSuff-atha	your <pos>at/NSUFF+kum/POSS_PRON_2MP</pos>
+tkn	atakun~a	NSuff-atha	your <pos>at/NSUFF+kun~a/POSS_PRON_2FP</pos>
+tnA	atanA	NSuff-atha	our             <pos>at/NSUFF+nA/POSS_PRON_1P</pos>
+;
+th	atihi	NSuff-ath	his/its         <pos>at/NSUFF+hi/POSS_PRON_3MS</pos>
+thmA	atihimA	NSuff-ath	their           <pos>at/NSUFF+himA/POSS_PRON_3D</pos>
+thm	atihim	NSuff-ath	their           <pos>at/NSUFF+him/POSS_PRON_3MP</pos>
+thA	atihA	NSuff-ath	its/their/her   <pos>at/NSUFF+hA/POSS_PRON_3FS</pos>
+thn	atihin~a	NSuff-ath	their           <pos>at/NSUFF+hin~a/POSS_PRON_3FP</pos>
+tk	atika	NSuff-ath	your <pos>at/NSUFF+ka/POSS_PRON_2MS</pos>
+tk	atiki	NSuff-ath	your <pos>at/NSUFF+ki/POSS_PRON_2FS</pos>
+tkmA	atikumA	NSuff-ath	your <pos>at/NSUFF+kumA/POSS_PRON_2D</pos>
+tkm	atikum	NSuff-ath	your <pos>at/NSUFF+kum/POSS_PRON_2MP</pos>
+tkn	atikun~a	NSuff-ath	your <pos>at/NSUFF+kun~a/POSS_PRON_2FP</pos>
+tnA	atinA	NSuff-ath	our             <pos>at/NSUFF+nA/POSS_PRON_1P</pos>
+;
+th	atihi	NSuff-atih	his/its         <pos>at/NSUFF+hi/POSS_PRON_3MS</pos>
+thmA	atihimA	NSuff-atih	their           <pos>at/NSUFF+himA/POSS_PRON_3D</pos>
+thm	atihim	NSuff-atih	their           <pos>at/NSUFF+him/POSS_PRON_3MP</pos>
+thA	atihA	NSuff-atih	its/their/her   <pos>at/NSUFF+hA/POSS_PRON_3FS</pos>
+thn	atihin~a	NSuff-atih	their           <pos>at/NSUFF+hin~a/POSS_PRON_3FP</pos>
+tk	atika	NSuff-atih	your <pos>at/NSUFF+ka/POSS_PRON_2MS</pos>
+tk	atiki	NSuff-atih	your <pos>at/NSUFF+ki/POSS_PRON_2FS</pos>
+tkmA	atikumA	NSuff-atih	your <pos>at/NSUFF+kumA/POSS_PRON_2D</pos>
+tkm	atikum	NSuff-atih	your <pos>at/NSUFF+kum/POSS_PRON_2MP</pos>
+tkn	atikun~a	NSuff-atih	your <pos>at/NSUFF+kun~a/POSS_PRON_2FP</pos>
+tnA	atinA	NSuff-atih	our             <pos>at/NSUFF+nA/POSS_PRON_1P</pos>
+;
+;
+;
+; ==========
+; masc.du., acc./gen. (ACCGEN)
+yn	ayoni	NSuff-ayn	two               <pos>ayoni/NSUFF</pos>
+yn	ayoni	NSuff-ayn0	               <pos>ayoni/NSUFF</pos>
+;
+; ==========
+; masc.du., acc./gen., poss.
+y	ayo	NSuff-ayh	two                   <pos>ayo/NSUFF</pos>
+y	ayo	NSuff-ayh00	                   <pos>ayo/NSUFF</pos>
+yh	ayohi	NSuff-ayh	two + his/its         <pos>ayo/NSUFF+hi/POSS_PRON_3MS</pos>
+yhmA	ayohimA	NSuff-ayh	two + their           <pos>ayo/NSUFF+himA/POSS_PRON_3D</pos>
+yhm	ayohim	NSuff-ayh	two + their           <pos>ayo/NSUFF+him/POSS_PRON_3MP</pos>
+yhA	ayohA	NSuff-ayh	two + its/their/her   <pos>ayo/NSUFF+hA/POSS_PRON_3FS</pos>
+yhn	ayohin~a	NSuff-ayh	two + their           <pos>ayo/NSUFF+hin~a/POSS_PRON_3FP</pos>
+yk	ayoka	NSuff-ayh	two + your <pos>ayo/NSUFF+ka/POSS_PRON_2MS</pos>
+yk	ayoki	NSuff-ayh	two + your <pos>ayo/NSUFF+ki/POSS_PRON_2FS</pos>
+ykmA	ayokumA	NSuff-ayh	two + your <pos>ayo/NSUFF+kumA/POSS_PRON_2D</pos>
+ykm	ayokum	NSuff-ayh	two + your <pos>ayo/NSUFF+kum/POSS_PRON_2MP</pos>
+ykn	ayokun~a	NSuff-ayh	two + your <pos>ayo/NSUFF+kun~a/POSS_PRON_2FP</pos>
+y	ay~a	NSuff-ayh	two + my              <pos>ayo/NSUFF+ya/POSS_PRON_1S</pos>
+ynA	ayonA	NSuff-ayh	two + our             <pos>ayo/NSUFF+nA/POSS_PRON_1P</pos>
+;
+y	ayo	NSuff-ayh	two                   <pos>ayo/NSUFF</pos>
+yh	ayohi	NSuff-ayh	two + his/its         <pos>ayo/NSUFF+hi/POSS_PRON_3MS</pos>
+yhmA	ayohimA	NSuff-ayh	two + their           <pos>ayo/NSUFF+himA/POSS_PRON_3D</pos>
+yhm	ayohim	NSuff-ayh	two + their           <pos>ayo/NSUFF+him/POSS_PRON_3MP</pos>
+yhA	ayohA	NSuff-ayh	two + its/their/her   <pos>ayo/NSUFF+hA/POSS_PRON_3FS</pos>
+yhn	ayohin~a	NSuff-ayh	two + their           <pos>ayo/NSUFF+hin~a/POSS_PRON_3FP</pos>
+yk	ayoka	NSuff-ayh	two + your <pos>ayo/NSUFF+ka/POSS_PRON_2MS</pos>
+yk	ayoki	NSuff-ayh	two + your <pos>ayo/NSUFF+ki/POSS_PRON_2FS</pos>
+ykmA	ayokumA	NSuff-ayh	two + your <pos>ayo/NSUFF+kumA/POSS_PRON_2D</pos>
+ykm	ayokum	NSuff-ayh	two + your <pos>ayo/NSUFF+kum/POSS_PRON_2MP</pos>
+ykn	ayokun~a	NSuff-ayh	two + your <pos>ayo/NSUFF+kun~a/POSS_PRON_2FP</pos>
+y	ay~a	NSuff-ayh	two + my              <pos>ayo/NSUFF+ya/POSS_PRON_1S</pos>
+ynA	ayonA	NSuff-ayh	two + our             <pos>ayo/NSUFF+nA/POSS_PRON_1P</pos>
+;
+; ==========
+; masc.acc., indef.
+A	AF	NSuff-AF	
+	F	NSuff-F	
+AF	AF	NSuff-AF	
+FA	AF	NSuff-AF	
+;
+; ==========
+; "-Ani" masc.du., nom.
+An	Ani	NSuff-An	two                        <pos>Ani/NSUFF</pos>
+An	Ani	NSuff-An0	                        <pos>Ani/NSUFF</pos>
+;
+; ==========
+; masc.du., nom., poss.
+A	A	NSuff-Ah	two                        <pos>A/NSUFF</pos>
+A	A	NSuff-Ah00	                        <pos>A/NSUFF</pos>
+Ah	Ahu	NSuff-Ah	two + its/his              <pos>A/NSUFF+hu/POSS_PRON_3MS</pos>
+AhmA	AhumA	NSuff-Ah	two + their                <pos>A/NSUFF+humA/POSS_PRON_3D</pos>
+Ahm	Ahum	NSuff-Ah	two + their                <pos>A/NSUFF+hum/POSS_PRON_3MP</pos>
+AhA	AhA	NSuff-Ah	two + its/their/her        <pos>A/NSUFF+hA/POSS_PRON_3FS</pos>
+Ahn	Ahun~a	NSuff-Ah	two + their                <pos>A/NSUFF+hun~a/POSS_PRON_3FP</pos>
+Ak	Aka	NSuff-Ah	two + your     <pos>A/NSUFF+ka/POSS_PRON_2MS</pos>
+Ak	Aki	NSuff-Ah	two + your     <pos>A/NSUFF+ki/POSS_PRON_2FS</pos>
+AkmA	AkumA	NSuff-Ah	two + your     <pos>A/NSUFF+kumA/POSS_PRON_2D</pos>
+Akm	Akum	NSuff-Ah	two + your     <pos>A/NSUFF+kum/POSS_PRON_2MP</pos>
+Akn	Akun~a	NSuff-Ah	two + your     <pos>A/NSUFF+kun~a/POSS_PRON_2FP</pos>
+Ay	Aya	NSuff-Ah	two + my                   <pos>A/NSUFF+ya/POSS_PRON_1S</pos>
+AnA	AnA	NSuff-Ah	two + our                  <pos>A/NSUFF+nA/POSS_PRON_1P</pos>
+;
+; ==========
+; fem.pl.
+At	At	NSuff-At	          <pos>At/NSUFF</pos>
+hAt	hAt	NSuff-At	          <pos>hAt/NSUFF</pos>
+;
+;=== case
+;At	Atu	NSuff-Atu	<pos>At/NSUFF</pos>
+;At	Ati	NSuff-Ati_acc	<pos>At/NSUFF</pos>
+;At	Ati	NSuff-Ati_gen	<pos>At/NSUFF</pos>
+;At	AtN	NSuff-AtN	<pos>At/NSUFF</pos>
+;At	AtK	NSuff-AtK_acc	<pos>At/NSUFF</pos>
+;At	AtK	NSuff-AtK_gen	<pos>At/NSUFF</pos>
+;
+; ==========
+; fem.pl., poss. (no case ending)
+;Ath	Ath	NSuff-Ath	its/his              <pos>At/NSUFF+hu/POSS_PRON_3MS</pos>
+;AthmA	AthmA	NSuff-Ath	their                <pos>At/NSUFF+humA/POSS_PRON_3D</pos>
+;Athm	Athm	NSuff-Ath	their                <pos>At/NSUFF+hum/POSS_PRON_3MP</pos>
+;AthA	AthA	NSuff-Ath	its/their/her        <pos>At/NSUFF+hA/POSS_PRON_3FS</pos>
+;Athn	Athn~a	NSuff-Ath	their                <pos>At/NSUFF+hun~a/POSS_PRON_3FP</pos>
+;Atk	Atka	NSuff-Ath	your     <pos>At/NSUFF+ka/POSS_PRON_2MS</pos>
+;Atk	Atki	NSuff-Ath	your     <pos>At/NSUFF+ki/POSS_PRON_2FS</pos>
+;AtkmA	AtkumA	NSuff-Ath	your     <pos>At/NSUFF+kumA/POSS_PRON_2D</pos>
+;Atkm	Atkum	NSuff-Ath	your     <pos>At/NSUFF+kum/POSS_PRON_2MP</pos>
+;Atkn	Atkun~a	NSuff-Ath	your     <pos>At/NSUFF+kun~a/POSS_PRON_2FP</pos>
+Aty	Atiy	NSuff-Ath	my                   <pos>At/NSUFF+iy/POSS_PRON_1S</pos>
+;AtnA	AtnA	NSuff-Ath	our                  <pos>At/NSUFF+nA/POSS_PRON_1P</pos>
+;
+;=== case (keep one instance of "Atiy" if you comment out the above set)
+Ath	Atuhu	NSuff-Ath	its/his          <pos>At/NSUFF+hu/POSS_PRON_3MS</pos>
+AthmA	AtuhumA	NSuff-Ath	their            <pos>At/NSUFF+humA/POSS_PRON_3D</pos>
+Athm	Atuhum	NSuff-Ath	their            <pos>At/NSUFF+hum/POSS_PRON_3MP</pos>
+AthA	AtuhA	NSuff-Ath	its/their/her    <pos>At/NSUFF+hA/POSS_PRON_3FS</pos>
+Athn	Atuhun~a	NSuff-Ath	their            <pos>At/NSUFF+hun~a/POSS_PRON_3FP</pos>
+Atk	Atuka	NSuff-Ath	your <pos>At/NSUFF+ka/POSS_PRON_2MS</pos>
+Atk	Atuki	NSuff-Ath	your <pos>At/NSUFF+ki/POSS_PRON_2FS</pos>
+AtkmA	AtukumA	NSuff-Ath	your <pos>At/NSUFF+kumA/POSS_PRON_2D</pos>
+Atkm	Atukum	NSuff-Ath	your <pos>At/NSUFF+kum/POSS_PRON_2MP</pos>
+Atkn	Atukun~a	NSuff-Ath	your <pos>At/NSUFF+kun~a/POSS_PRON_2FP</pos>
+AtnA	AtunA	NSuff-Ath	our              <pos>At/NSUFF+nA/POSS_PRON_1P</pos>
+;
+Ath	Atuhu	NSuff-Atuh	its/his          <pos>At/NSUFF+hu/POSS_PRON_3MS</pos>
+AthmA	AtuhumA	NSuff-Atuh	their            <pos>At/NSUFF+humA/POSS_PRON_3D</pos>
+Athm	Atuhum	NSuff-Atuh	their            <pos>At/NSUFF+hum/POSS_PRON_3MP</pos>
+AthA	AtuhA	NSuff-Atuh	its/their/her    <pos>At/NSUFF+hA/POSS_PRON_3FS</pos>
+Athn	Atuhun~a	NSuff-Atuh	their            <pos>At/NSUFF+hun~a/POSS_PRON_3FP</pos>
+Atk	Atuka	NSuff-Atuh	your <pos>At/NSUFF+ka/POSS_PRON_2MS</pos>
+Atk	Atuki	NSuff-Atuh	your <pos>At/NSUFF+ki/POSS_PRON_2FS</pos>
+AtkmA	AtukumA	NSuff-Atuh	your <pos>At/NSUFF+kumA/POSS_PRON_2D</pos>
+Atkm	Atukum	NSuff-Atuh	your <pos>At/NSUFF+kum/POSS_PRON_2MP</pos>
+Atkn	Atukun~a	NSuff-Atuh	your <pos>At/NSUFF+kun~a/POSS_PRON_2FP</pos>
+AtnA	AtunA	NSuff-Atuh	our              <pos>At/NSUFF+nA/POSS_PRON_1P</pos>
+;
+Ath	Atihi	NSuff-Atih	its/his          <pos>At/NSUFF+hi/POSS_PRON_3MS</pos>
+AthmA	AtihimA	NSuff-Atih	their            <pos>At/NSUFF+himA/POSS_PRON_3D</pos>
+Athm	Atihim	NSuff-Atih	their            <pos>At/NSUFF+him/POSS_PRON_3MP</pos>
+AthA	AtihA	NSuff-Atih	its/their/her    <pos>At/NSUFF+hA/POSS_PRON_3FS</pos>
+Athn	Atihin~a	NSuff-Atih	their            <pos>At/NSUFF+hin~a/POSS_PRON_3FP</pos>
+Atk	Atika	NSuff-Atih	your <pos>At/NSUFF+ka/POSS_PRON_2MS</pos>
+Atk	Atiki	NSuff-Atih	your <pos>At/NSUFF+ki/POSS_PRON_2FS</pos>
+AtkmA	AtikumA	NSuff-Atih	your <pos>At/NSUFF+kumA/POSS_PRON_2D</pos>
+Atkm	Atikum	NSuff-Atih	your <pos>At/NSUFF+kum/POSS_PRON_2MP</pos>
+Atkn	Atikun~a	NSuff-Atih	your <pos>At/NSUFF+kun~a/POSS_PRON_2FP</pos>
+AtnA	AtinA	NSuff-Atih	our              <pos>At/NSUFF+nA/POSS_PRON_1P</pos>
+;
+Ath	Atihi	NSuff-Ath	its/his          <pos>At/NSUFF+hi/POSS_PRON_3MS</pos>
+AthmA	AtihimA	NSuff-Ath	their            <pos>At/NSUFF+himA/POSS_PRON_3D</pos>
+Athm	Atihim	NSuff-Ath	their            <pos>At/NSUFF+him/POSS_PRON_3MP</pos>
+AthA	AtihA	NSuff-Ath	its/their/her    <pos>At/NSUFF+hA/POSS_PRON_3FS</pos>
+Athn	Atihin~a	NSuff-Ath	their            <pos>At/NSUFF+hin~a/POSS_PRON_3FP</pos>
+Atk	Atika	NSuff-Ath	your <pos>At/NSUFF+ka/POSS_PRON_2MS</pos>
+Atk	Atiki	NSuff-Ath	your <pos>At/NSUFF+ki/POSS_PRON_2FS</pos>
+AtkmA	AtikumA	NSuff-Ath	your <pos>At/NSUFF+kumA/POSS_PRON_2D</pos>
+Atkm	Atikum	NSuff-Ath	your <pos>At/NSUFF+kum/POSS_PRON_2MP</pos>
+Atkn	Atikun~a	NSuff-Ath	your <pos>At/NSUFF+kun~a/POSS_PRON_2FP</pos>
+AtnA	AtinA	NSuff-Ath	our              <pos>At/NSUFF+nA/POSS_PRON_1P</pos>
+;
+; fem.pl. for stems ending in >: mn$> -At = mn$|t
+;|t	|t	NSuff-|t	          <pos>At/NSUFF</pos>
+;
+;=== case
+|t	|tu	NSuff-|tu	      <pos>At/NSUFF</pos>
+|t	|ti	NSuff-|ti	      <pos>At/NSUFF</pos>
+|t	|ti	NSuff-|ti	      <pos>At/NSUFF</pos>
+|t	|tN	NSuff-|tN	        <pos>At/NSUFF</pos>
+|t	|tK	NSuff-|tK	        <pos>At/NSUFF</pos>
+|t	|tK	NSuff-|tK	        <pos>At/NSUFF</pos>
+;
+; ==========
+; fem.pl., poss.
+;|th	|th	NSuff-|th	its/his          <pos>|t/NSUFF+hu/POSS_PRON_3MS</pos>
+;|thmA	|thmA	NSuff-|th	their            <pos>|t/NSUFF+humA/POSS_PRON_3D</pos>
+;|thm	|thm	NSuff-|th	their            <pos>|t/NSUFF+hum/POSS_PRON_3MP</pos>
+;|thA	|thA	NSuff-|th	its/their/her    <pos>|t/NSUFF+hA/POSS_PRON_3FS</pos>
+;|thn	|thn~a	NSuff-|th	their            <pos>|t/NSUFF+hun~a/POSS_PRON_3FP</pos>
+;|tk	|tka	NSuff-|th	your             <pos>|t/NSUFF+ka/POSS_PRON_2MS</pos>
+;|tk	|tki	NSuff-|th	your             <pos>|t/NSUFF+ki/POSS_PRON_2FS</pos>
+;|tkmA	|tkumA	NSuff-|th	your             <pos>|t/NSUFF+kumA/POSS_PRON_2D</pos>
+;|tkm	|tkum	NSuff-|th	your             <pos>|t/NSUFF+kum/POSS_PRON_2MP</pos>
+;|tkn	|tkun~a	NSuff-|th	your             <pos>|t/NSUFF+kun~a/POSS_PRON_2FP</pos>
+|ty	|tiy	NSuff-|th	my               <pos>|t/NSUFF+iy/POSS_PRON_1S</pos>
+;|tnA	|tnA	NSuff-|th	our              <pos>|t/NSUFF+nA/POSS_PRON_1P</pos>
+;
+;=== case (keep one instance of "|tiy" if you comment out the above set)
+|th	|tuhu	NSuff-|th	its/his            <pos>|t/NSUFF+hu/POSS_PRON_3MS</pos>
+|thmA	|tuhumA	NSuff-|th	their              <pos>|t/NSUFF+humA/POSS_PRON_3D</pos>
+|thm	|tuhum	NSuff-|th	their              <pos>|t/NSUFF+hum/POSS_PRON_3MP</pos>
+|thA	|tuhA	NSuff-|th	its/their/her      <pos>|t/NSUFF+hA/POSS_PRON_3FS</pos>
+|thn	|tuhun~a	NSuff-|th	their              <pos>|t/NSUFF+hun~a/POSS_PRON_3FP</pos>
+|tk	|tuka	NSuff-|th	your   <pos>|t/NSUFF+ka/POSS_PRON_2MS</pos>
+|tk	|tuki	NSuff-|th	your   <pos>|t/NSUFF+ki/POSS_PRON_2FS</pos>
+|tkmA	|tukumA	NSuff-|th	your   <pos>|t/NSUFF+kumA/POSS_PRON_2D</pos>
+|tkm	|tukum	NSuff-|th	your   <pos>|t/NSUFF+kum/POSS_PRON_2MP</pos>
+|tkn	|tukun~a	NSuff-|th	your   <pos>|t/NSUFF+kun~a/POSS_PRON_2FP</pos>
+|tnA	|tunA	NSuff-|th	our                <pos>|t/NSUFF+nA/POSS_PRON_1P</pos>
+;
+|th	|tihi	NSuff-|th	+ its/his            <pos>|t/NSUFF+hi/POSS_PRON_3MS</pos>
+|thmA	|tihimA	NSuff-|th	+ their              <pos>|t/NSUFF+himA/POSS_PRON_3D</pos>
+|thm	|tihim	NSuff-|th	+ their              <pos>|t/NSUFF+him/POSS_PRON_3MP</pos>
+|thA	|tihA	NSuff-|th	+ its/their/her      <pos>|t/NSUFF+hA/POSS_PRON_3FS</pos>
+|thn	|tihin~a	NSuff-|th	+ their              <pos>|t/NSUFF+hin~a/POSS_PRON_3FP</pos>
+|tk	|tika	NSuff-|th	+ your   <pos>|t/NSUFF+ka/POSS_PRON_2MS</pos>
+|tk	|tiki	NSuff-|th	+ your   <pos>|t/NSUFF+ki/POSS_PRON_2FS</pos>
+|tkmA	|tikumA	NSuff-|th	+ your   <pos>|t/NSUFF+kumA/POSS_PRON_2D</pos>
+|tkm	|tikum	NSuff-|th	+ your   <pos>|t/NSUFF+kum/POSS_PRON_2MP</pos>
+|tkn	|tikun~a	NSuff-|th	+ your   <pos>|t/NSUFF+kun~a/POSS_PRON_2FP</pos>
+|tnA	|tinA	NSuff-|th	+ our                <pos>|t/NSUFF+nA/POSS_PRON_1P</pos>
+;
+|th	|tihi	NSuff-|th	+ its/his            <pos>|t/NSUFF+hi/POSS_PRON_3MS</pos>
+|thmA	|tihimA	NSuff-|th	+ their              <pos>|t/NSUFF+himA/POSS_PRON_3D</pos>
+|thm	|tihim	NSuff-|th	+ their              <pos>|t/NSUFF+him/POSS_PRON_3MP</pos>
+|thA	|tihA	NSuff-|th	+ its/their/her      <pos>|t/NSUFF+hA/POSS_PRON_3FS</pos>
+|thn	|tihin~a	NSuff-|th	+ their              <pos>|t/NSUFF+hin~a/POSS_PRON_3FP</pos>
+|tk	|tika	NSuff-|th	+ your   <pos>|t/NSUFF+ka/POSS_PRON_2MS</pos>
+|tk	|tiki	NSuff-|th	+ your   <pos>|t/NSUFF+ki/POSS_PRON_2FS</pos>
+|tkmA	|tikumA	NSuff-|th	+ your   <pos>|t/NSUFF+kumA/POSS_PRON_2D</pos>
+|tkm	|tikum	NSuff-|th	+ your   <pos>|t/NSUFF+kum/POSS_PRON_2MP</pos>
+|tkn	|tikun~a	NSuff-|th	+ your   <pos>|t/NSUFF+kun~a/POSS_PRON_2FP</pos>
+|tnA	|tinA	NSuff-|th	+ our                <pos>|t/NSUFF+nA/POSS_PRON_1P</pos>
+;
+; ==========
+; poss.pron (does not include "-iy")
+h	hu	NSuff-h	its/his                    <pos>hu/POSS_PRON_3MS</pos>
+hmA	humA	NSuff-h	their                      <pos>humA/POSS_PRON_3D</pos>
+hm	hum	NSuff-h	their                      <pos>hum/POSS_PRON_3MP</pos>
+hA	hA	NSuff-h	its/their/her              <pos>hA/POSS_PRON_3FS</pos>
+hn	hun~a	NSuff-h	their                      <pos>hun~a/POSS_PRON_3FP</pos>
+k	ka	NSuff-h	your           <pos>ka/POSS_PRON_2MS</pos>
+k	ki	NSuff-h	your      <pos>ki/POSS_PRON_2FS</pos>
+kmA	kumA	NSuff-h	your      <pos>kumA/POSS_PRON_2D</pos>
+km	kum	NSuff-h	your      <pos>kum/POSS_PRON_2MP</pos>
+kn	kun~a	NSuff-h	your      <pos>kun~a/POSS_PRON_2FP</pos>
+nA	nA	NSuff-h	our                        <pos>nA/POSS_PRON_1P</pos>
+;
+; vowel harmony forms (preceeded by finally weak _iy: __iy+hi)
+h	hi	NSuff-hi	its/his                    <pos>hi/POSS_PRON_3MS</pos>
+hmA	himA	NSuff-hi	their                      <pos>himA/POSS_PRON_3D</pos>
+hm	him	NSuff-hi	their                      <pos>him/POSS_PRON_3MP</pos>
+hA	hA	NSuff-hi	its/their/her              <pos>hA/POSS_PRON_3FS</pos>
+hn	hin~a	NSuff-hi	their                      <pos>hin~a/POSS_PRON_3FP</pos>
+k	ka	NSuff-hi	your           <pos>ka/POSS_PRON_2MS</pos>
+k	ki	NSuff-hi	your      <pos>ki/POSS_PRON_2FS</pos>
+kmA	kumA	NSuff-hi	your      <pos>kumA/POSS_PRON_2D</pos>
+km	kum	NSuff-hi	your      <pos>kum/POSS_PRON_2MP</pos>
+kn	kun~a	NSuff-hi	your      <pos>kun~a/POSS_PRON_2FP</pos>
+nA	nA	NSuff-hi	our                        <pos>nA/POSS_PRON_1P</pos>
+;
+; vowel harmony forms (preceeded by finally weak _iy: __iy+hi)
+h	hi	NSuff-hip	its/his                    <pos>hi/POSS_PRON_3MS</pos>
+hmA	himA	NSuff-hip	their                      <pos>himA/POSS_PRON_3D</pos>
+hm	him	NSuff-hip	their                      <pos>him/POSS_PRON_3MP</pos>
+hA	hA	NSuff-hip	its/their/her              <pos>hA/POSS_PRON_3FS</pos>
+hn	hin~a	NSuff-hip	their                      <pos>hin~a/POSS_PRON_3FP</pos>
+k	ka	NSuff-hip	your           <pos>ka/POSS_PRON_2MS</pos>
+k	ki	NSuff-hip	your      <pos>ki/POSS_PRON_2FS</pos>
+kmA	kumA	NSuff-hip	your      <pos>kumA/POSS_PRON_2D</pos>
+km	kum	NSuff-hip	your      <pos>kum/POSS_PRON_2MP</pos>
+kn	kun~a	NSuff-hip	your      <pos>kun~a/POSS_PRON_2FP</pos>
+nA	nA	NSuff-hip	our                        <pos>nA/POSS_PRON_1P</pos>
+;
+nA	nA	NSuff-nA	our                        <pos>nA/POSS_PRON_1P</pos>
+;
+h	hu	NSuff-ha	its/his                    <pos>hu/POSS_PRON_3MS</pos>
+hmA	humA	NSuff-ha	their                      <pos>humA/POSS_PRON_3D</pos>
+hm	hum	NSuff-ha	their                      <pos>hum/POSS_PRON_3MP</pos>
+hA	hA	NSuff-ha	its/their/her              <pos>hA/POSS_PRON_3FS</pos>
+hn	hun~a	NSuff-ha	their                      <pos>hun~a/POSS_PRON_3FP</pos>
+k	ka	NSuff-ha	your           <pos>ka/POSS_PRON_2MS</pos>
+k	ki	NSuff-ha	your      <pos>ki/POSS_PRON_2FS</pos>
+kmA	kumA	NSuff-ha	your      <pos>kumA/POSS_PRON_2D</pos>
+km	kum	NSuff-ha	your      <pos>kum/POSS_PRON_2MP</pos>
+kn	kun~a	NSuff-ha	your      <pos>kun~a/POSS_PRON_2FP</pos>
+nA	nA	NSuff-ha	our                        <pos>nA/POSS_PRON_1P</pos>
+;
+;=== case
+h	uhu	NSuff-uh	its/his                    <pos>hu/POSS_PRON_3MS</pos>
+hmA	uhumA	NSuff-uh	their                      <pos>humA/POSS_PRON_3D</pos>
+hm	uhum	NSuff-uh	their                      <pos>hum/POSS_PRON_3MP</pos>
+hA	uhA	NSuff-uh	its/their/her              <pos>hA/POSS_PRON_3FS</pos>
+hn	uhun~a	NSuff-uh	their                      <pos>hun~a/POSS_PRON_3FP</pos>
+k	uka	NSuff-uh	your           <pos>ka/POSS_PRON_2MS</pos>
+k	uki	NSuff-uh	your      <pos>ki/POSS_PRON_2FS</pos>
+kmA	ukumA	NSuff-uh	your      <pos>kumA/POSS_PRON_2D</pos>
+km	ukum	NSuff-uh	your      <pos>kum/POSS_PRON_2MP</pos>
+kn	ukun~a	NSuff-uh	your      <pos>kun~a/POSS_PRON_2FP</pos>
+nA	unA	NSuff-uh	our                        <pos>nA/POSS_PRON_1P</pos>
+;
+h	ihi	NSuff-ih	its/his                    <pos>hi/POSS_PRON_3MS</pos>
+hmA	ihimA	NSuff-ih	their                      <pos>himA/POSS_PRON_3D</pos>
+hm	ihim	NSuff-ih	their                      <pos>him/POSS_PRON_3MP</pos>
+hA	ihA	NSuff-ih	its/their/her              <pos>hA/POSS_PRON_3FS</pos>
+hn	ihin~a	NSuff-ih	their                      <pos>hin~a/POSS_PRON_3FP</pos>
+k	uka	NSuff-ih	your           <pos>ka/POSS_PRON_2MS</pos>
+k	uki	NSuff-ih	your      <pos>ki/POSS_PRON_2FS</pos>
+nA	nA	NSuff-ih	our                        <pos>nA/POSS_PRON_1P</pos>
+;
+; ==========
+; masc.pl., gen./acc.
+yn	iyna	NSuff-iyna_acc	<pos>iyna/NSUFF</pos>
+yn	iyna	NSuff-iyna_gen	<pos>iyna/NSUFF</pos>
+;
+; ========== 
+; masc.pl., gen./acc., poss.
+y	iy	NSuff-iyh	       <pos>iy/NSUFF</pos>
+yh	iyhi	NSuff-iyh	his;its          <pos>iy/NSUFF+hi/POSS_PRON_3MS</pos>
+yhmA	iyhimA	NSuff-iyh	their            <pos>iy/NSUFF+himA/POSS_PRON_3D</pos>
+yhm	iyhim	NSuff-iyh	their            <pos>iy/NSUFF+him/POSS_PRON_3MP</pos>
+yhA	iyhA	NSuff-iyh	its;their;her    <pos>iy/NSUFF+hA/POSS_PRON_3FS</pos>
+yhn	iyhin~a	NSuff-iyh	their            <pos>iy/NSUFF+hin~a/POSS_PRON_3FP</pos>
+yk	iyka	NSuff-iyh	your <pos>iy/NSUFF+ka/POSS_PRON_2MS</pos>
+yk	iyki	NSuff-iyh	your <pos>iy/NSUFF+ki/POSS_PRON_2FS</pos>
+ykmA	iykumA	NSuff-iyh	your <pos>iy/NSUFF+kumA/POSS_PRON_2D</pos>
+ykm	iykum	NSuff-iyh	your <pos>iy/NSUFF+kum/POSS_PRON_2MP</pos>
+ykn	iykun~a	NSuff-iyh	your <pos>iy/NSUFF+kun~a/POSS_PRON_2FP</pos>
+y	iy~a	NSuff-iyh	my               <pos>iy/NSUFF+ya/POSS_PRON_1S</pos>
+ynA	iynA	NSuff-iyh	our              <pos>iy/NSUFF+nA/POSS_PRON_1P</pos>
+;
+y	iy	NSuff-iyh	       <pos>iy/NSUFF</pos>
+yh	iyhi	NSuff-iyh	his;its          <pos>iy/NSUFF+hi/POSS_PRON_3MS</pos>
+yhmA	iyhimA	NSuff-iyh	their            <pos>iy/NSUFF+himA/POSS_PRON_3D</pos>
+yhm	iyhim	NSuff-iyh	their            <pos>iy/NSUFF+him/POSS_PRON_3MP</pos>
+yhA	iyhA	NSuff-iyh	its;their;her    <pos>iy/NSUFF+hA/POSS_PRON_3FS</pos>
+yhn	iyhin~a	NSuff-iyh	their            <pos>iy/NSUFF+hin~a/POSS_PRON_3FP</pos>
+yk	iyka	NSuff-iyh	your <pos>iy/NSUFF+ka/POSS_PRON_2MS</pos>
+yk	iyki	NSuff-iyh	your <pos>iy/NSUFF+ki/POSS_PRON_2FS</pos>
+ykmA	iykumA	NSuff-iyh	your <pos>iy/NSUFF+kumA/POSS_PRON_2D</pos>
+ykm	iykum	NSuff-iyh	your <pos>iy/NSUFF+kum/POSS_PRON_2MP</pos>
+ykn	iykun~a	NSuff-iyh	your <pos>iy/NSUFF+kun~a/POSS_PRON_2FP</pos>
+y	iy~a	NSuff-iyh	my               <pos>iy/NSUFF+ya/POSS_PRON_1S</pos>
+ynA	iynA	NSuff-iyh	our              <pos>iy/NSUFF+nA/POSS_PRON_1P</pos>
+;
+; ==========
+; 1st person pos.pron.
+y	iy	NSuff-iy	my                         <pos>iy/POSS_PRON_1S</pos>
+y	iy	NSuff-iyp	my                         <pos>iy/POSS_PRON_1S</pos>
+; EaSA+ya
+y	ya	NSuff-ya	my                         <pos>ya/POSS_PRON_1S</pos>
+;
+; ==========
+; "-Ani" as |-ni: maboda|-ni
+n	ni	NSuff-|-ni	two                        <pos>Ani/NSUFF</pos>
+;
+		NSuff-|h	two                        <pos>A/NSUFF</pos>
+h	hu	NSuff-|h	two + its/his              <pos>A/NSUFF+hu/POSS_PRON_3MS</pos>
+hmA	humA	NSuff-|h	two + their                <pos>A/NSUFF+humA/POSS_PRON_3D</pos>
+hm	hum	NSuff-|h	two + their                <pos>A/NSUFF+hum/POSS_PRON_3MP</pos>
+hA	hA	NSuff-|h	two + its/their/her        <pos>A/NSUFF+hA/POSS_PRON_3FS</pos>
+hn	hun~a	NSuff-|h	two + their                <pos>A/NSUFF+hun~a/POSS_PRON_3FP</pos>
+k	ka	NSuff-|h	two + your     <pos>A/NSUFF+ka/POSS_PRON_2MS</pos>
+k	ki	NSuff-|h	two + your     <pos>A/NSUFF+ki/POSS_PRON_2FS</pos>
+kmA	kumA	NSuff-|h	two + your     <pos>A/NSUFF+kumA/POSS_PRON_2D</pos>
+km	kum	NSuff-|h	two + your     <pos>A/NSUFF+kum/POSS_PRON_2MP</pos>
+kn	kun~a	NSuff-|h	two + your     <pos>A/NSUFF+kun~a/POSS_PRON_2FP</pos>
+y	ya	NSuff-|h	two + my                   <pos>A/NSUFF+ya/POSS_PRON_1S</pos>
+nA	nA	NSuff-|h	two + our                  <pos>A/NSUFF+nA/POSS_PRON_1P</pos>
+;
+; ==========
+; masc.pl., nom.
+wn	uwna	NSuff-wn	            <pos>uwna/NSUFF</pos>
+;
+; ==========
+; masc.pl., nom., poss.
+w	uw	NSuff-wh	            <pos>uw/NSUFF</pos>
+wh	uwhu	NSuff-wh	+ his;its         <pos>uw/NSUFF+hu/POSS_PRON_3MS</pos>
+whmA	uwhumA	NSuff-wh	+ their           <pos>uw/NSUFF+humA/POSS_PRON_3D</pos>
+whm	uwhum	NSuff-wh	+ their           <pos>uw/NSUFF+hum/POSS_PRON_3MP</pos>
+whA	uwhA	NSuff-wh	+ its;their;her   <pos>uw/NSUFF+hA/POSS_PRON_3FS</pos>
+whn	uwhun~a	NSuff-wh	+ their           <pos>uw/NSUFF+hun~a/POSS_PRON_3FP</pos>
+wk	uwka	NSuff-wh	+ your <pos>uw/NSUFF+ka/POSS_PRON_2MS</pos>
+wk	uwki	NSuff-wh	+ your <pos>uw/NSUFF+ki/POSS_PRON_2FS</pos>
+wkmA	uwkumA	NSuff-wh	+ your <pos>uw/NSUFF+kumA/POSS_PRON_2D</pos>
+wkm	uwkum	NSuff-wh	+ your <pos>uw/NSUFF+kum/POSS_PRON_2MP</pos>
+wkn	uwkun~a	NSuff-wh	+ your <pos>uw/NSUFF+kun~a/POSS_PRON_2FP</pos>
+y	iy~a	NSuff-wh	+ my              <pos>iy/NSUFF+~a/POSS_PRON_1S</pos>
+wnA	uwnA	NSuff-wh	+ our             <pos>uw/NSUFF+nA/POSS_PRON_1P</pos>
+;
+;
+;
+; =====================================================================
+; PERFECT VERB SUFFIXES
+; =====================================================================
+; ==========
+; perfect verb DO pron.: Subject is +a 3rd pers.masc.sg, and what remains is the Direct Object
+; (this category is incompatible with any PV stem marked as intransitive)
+;
+h	ahu	PVSuff-ah	he/it + it/him         <pos>a/PVSUFF_SUBJ:3MS+hu/PVSUFF_DO:3MS</pos>
+hmA	ahumA	PVSuff-ah	he/it + them (both)    <pos>a/PVSUFF_SUBJ:3MS+humA/PVSUFF_DO:3D</pos>
+hm	ahum	PVSuff-ah	he/it + them           <pos>a/PVSUFF_SUBJ:3MS+hum/PVSUFF_DO:3MP</pos>
+hA	ahA	PVSuff-ah	he/it + it/them/her    <pos>a/PVSUFF_SUBJ:3MS+hA/PVSUFF_DO:3FS</pos>
+hn	ahun~a	PVSuff-ah	he/it + them           <pos>a/PVSUFF_SUBJ:3MS+hun~a/PVSUFF_DO:3FP</pos>
+k	aka	PVSuff-ah	he/it + you <pos>a/PVSUFF_SUBJ:3MS+ka/PVSUFF_DO:2MS</pos>
+k	aki	PVSuff-ah	he/it + you            <pos>a/PVSUFF_SUBJ:3MS+ki/PVSUFF_DO:2FS</pos>
+kmA	akumA	PVSuff-ah	he/it + you (both)     <pos>a/PVSUFF_SUBJ:3MS+kumA/PVSUFF_DO:2D</pos>
+km	akum	PVSuff-ah	he/it + you            <pos>a/PVSUFF_SUBJ:3MS+kum/PVSUFF_DO:2MP</pos>
+kn	akun~a	PVSuff-ah	he/it + you            <pos>a/PVSUFF_SUBJ:3MS+kun~a/PVSUFF_DO:2FP</pos>
+ny	aniy	PVSuff-ah	he/it + me             <pos>a/PVSUFF_SUBJ:3MS+niy/PVSUFF_DO:1S</pos>
+nA	anA	PVSuff-ah	he/it + us             <pos>a/PVSUFF_SUBJ:3MS+nA/PVSUFF_DO:1P</pos>
+;
+; ==========
+; perfect verb, suffix begins with consonant "n" so it elides with stems
+; ending in "n" (e.g. kun-~A, rather than kun-nA). Also, as a consonant,
+; it goes only with short stem of hollow verbs (e.g. qul+na qul+nA)
+n	ona	PVSuff-n	they [fem.pl.]      <pos>na/PVSUFF_SUBJ:3FP</pos>
+nA	onA	PVSuff-n	we                  <pos>nA/PVSUFF_SUBJ:1P</pos>
+;----------------------------------------------------------------------------------------------------------------------------
+	~a	PVSuff-~n	they [fem.pl.]      <pos>na/PVSUFF_SUBJ:3FP</pos>
+A	~A	PVSuff-~n	we                  <pos>nA/PVSUFF_SUBJ:1P</pos>
+;
+; ==========
+; perfect verb suffixes that begin with consonant "n" + DO
+; (these are incompatible with intrans. verbs)
+nh	onahu	PVSuff-nh	they + it/him                              <pos>na/PVSUFF_SUBJ:3FP+hu/PVSUFF_DO:3MS</pos>
+nhmA	onahumA	PVSuff-nh	they + (both of) them                      <pos>na/PVSUFF_SUBJ:3FP+humA/PVSUFF_DO:3D</pos>
+nhm	onahum	PVSuff-nh	they + them                                <pos>na/PVSUFF_SUBJ:3FP+hum/PVSUFF_DO:3MP</pos>
+nhA	onahA	PVSuff-nh	they + it/them/her                         <pos>na/PVSUFF_SUBJ:3FP+hA/PVSUFF_DO:3FS</pos>
+nhn	onahun~a	PVSuff-nh	they + them                                <pos>na/PVSUFF_SUBJ:3FP+hun~a/PVSUFF_DO:3FP</pos>
+nk	onaka	PVSuff-nh	they + you                                 <pos>na/PVSUFF_SUBJ:3FP+ka/PVSUFF_DO:2MS</pos>
+nk	onaki	PVSuff-nh	they + you                                 <pos>na/PVSUFF_SUBJ:3FP+ki/PVSUFF_DO:2FS</pos>
+nkmA	onakumA	PVSuff-nh	they + you                                 <pos>na/PVSUFF_SUBJ:3FP+kumA/PVSUFF_DO:2D</pos>
+nkm	onakum	PVSuff-nh	they + you                                 <pos>na/PVSUFF_SUBJ:3FP+kum/PVSUFF_DO:2MP</pos>
+nkn	onakun~a	PVSuff-nh	they + you                                 <pos>na/PVSUFF_SUBJ:3FP+kun~a/PVSUFF_DO:2FP</pos>
+nny	onaniy	PVSuff-nh	they + me                                  <pos>na/PVSUFF_SUBJ:3FP+niy/PVSUFF_DO:1S</pos>
+nnA	onanA	PVSuff-nh	they + us                                  <pos>na/PVSUFF_SUBJ:3FP+nA/PVSUFF_DO:1P</pos>
+;----------------------------------------------------------------------------------------------------------------------------
+h	~ahu	PVSuff-~nh	they + it/him                              <pos>na/PVSUFF_SUBJ:3FP+hu/PVSUFF_DO:3MS</pos>
+hmA	~ahumA	PVSuff-~nh	they + (both of) them                      <pos>na/PVSUFF_SUBJ:3FP+humA/PVSUFF_DO:3D</pos>
+hm	~ahum	PVSuff-~nh	they + them                                <pos>na/PVSUFF_SUBJ:3FP+hum/PVSUFF_DO:3MP</pos>
+hA	~ahA	PVSuff-~nh	they + it/them/her                         <pos>na/PVSUFF_SUBJ:3FP+hA/PVSUFF_DO:3FS</pos>
+hn	~ahun~a	PVSuff-~nh	they + them                                <pos>na/PVSUFF_SUBJ:3FP+hun~a/PVSUFF_DO:3FP</pos>
+k	~aka	PVSuff-~nh	they + you                                 <pos>na/PVSUFF_SUBJ:3FP+ka/PVSUFF_DO:2MS</pos>
+k	~aki	PVSuff-~nh	they + you                                 <pos>na/PVSUFF_SUBJ:3FP+ki/PVSUFF_DO:2FS</pos>
+kmA	~akumA	PVSuff-~nh	they + you                                 <pos>na/PVSUFF_SUBJ:3FP+kumA/PVSUFF_DO:2D</pos>
+km	~akum	PVSuff-~nh	they + you                                 <pos>na/PVSUFF_SUBJ:3FP+kum/PVSUFF_DO:2MP</pos>
+kn	~akun~a	PVSuff-~nh	they + you                                 <pos>na/PVSUFF_SUBJ:3FP+kun~a/PVSUFF_DO:2FP</pos>
+ny	~aniy	PVSuff-~nh	they + me                                  <pos>na/PVSUFF_SUBJ:3FP+niy/PVSUFF_DO:1S</pos>
+nA	~anA	PVSuff-~nh	they + us                                  <pos>na/PVSUFF_SUBJ:3FP+nA/PVSUFF_DO:1P</pos>
+;===========
+nAh	onAhu	PVSuff-nh	we + it/him                                <pos>nA/PVSUFF_SUBJ:1P+hu/PVSUFF_DO:3MS</pos>
+nAhmA	onAhumA	PVSuff-nh	we + (both of) them                        <pos>nA/PVSUFF_SUBJ:1P+humA/PVSUFF_DO:3D</pos>
+nAhm	onAhum	PVSuff-nh	we + them                                  <pos>nA/PVSUFF_SUBJ:1P+hum/PVSUFF_DO:3MP</pos>
+nAhA	onAhA	PVSuff-nh	we + it/them/her                           <pos>nA/PVSUFF_SUBJ:1P+hA/PVSUFF_DO:3FS</pos>
+nAhn	onAhun~a	PVSuff-nh	we + them                                  <pos>nA/PVSUFF_SUBJ:1P+hun~a/PVSUFF_DO:3FP</pos>
+nAk	onAka	PVSuff-nh	we + you                                   <pos>nA/PVSUFF_SUBJ:1P+ka/PVSUFF_DO:2MS</pos>
+nAk	onAki	PVSuff-nh	we + you                                   <pos>nA/PVSUFF_SUBJ:1P+ki/PVSUFF_DO:2FS</pos>
+nAkmA	onAkumA	PVSuff-nh	we + you                                   <pos>nA/PVSUFF_SUBJ:1P+kumA/PVSUFF_DO:2D</pos>
+nAkm	onAkum	PVSuff-nh	we + you                                   <pos>nA/PVSUFF_SUBJ:1P+kum/PVSUFF_DO:2MP</pos>
+nAkn	onAkun~a	PVSuff-nh	we + you                                   <pos>nA/PVSUFF_SUBJ:1P+kun~a/PVSUFF_DO:2FP</pos>
+;----------------------------------------------------------------------------------------------------------------------------
+Ah	~Ahu	PVSuff-~nh	we + it/him                                <pos>nA/PVSUFF_SUBJ:1P+hu/PVSUFF_DO:3MS</pos>
+AhmA	~AhumA	PVSuff-~nh	we + (both of) them                        <pos>nA/PVSUFF_SUBJ:1P+humA/PVSUFF_DO:3D</pos>
+Ahm	~Ahum	PVSuff-~nh	we + them                                  <pos>nA/PVSUFF_SUBJ:1P+hum/PVSUFF_DO:3MP</pos>
+AhA	~AhA	PVSuff-~nh	we + it/them/her                           <pos>nA/PVSUFF_SUBJ:1P+hA/PVSUFF_DO:3FS</pos>
+Ahn	~Ahun~a	PVSuff-~nh	we + them                                  <pos>nA/PVSUFF_SUBJ:1P+hun~a/PVSUFF_DO:3FP</pos>
+Ak	~Aka	PVSuff-~nh	we + you                                   <pos>nA/PVSUFF_SUBJ:1P+ka/PVSUFF_DO:2MS</pos>
+Ak	~Aki	PVSuff-~nh	we + you                                   <pos>nA/PVSUFF_SUBJ:1P+ki/PVSUFF_DO:2FS</pos>
+AkmA	~AkumA	PVSuff-~nh	we + you                                   <pos>nA/PVSUFF_SUBJ:1P+kumA/PVSUFF_DO:2D</pos>
+Akm	~Akum	PVSuff-~nh	we + you                                   <pos>nA/PVSUFF_SUBJ:1P+kum/PVSUFF_DO:2MP</pos>
+Akn	~Akun~a	PVSuff-~nh	we + you                                   <pos>nA/PVSUFF_SUBJ:1P+kun~a/PVSUFF_DO:2FP</pos>
+;
+; ==========
+; perfect verb suffixes that begin with the consonant "t", which elides with verb stems ending in "t" (e.g. >avobat+tu).
+; Also, as a consonant, it attaches only to short-stem form of hollow verbs:
+;  e.g. qul+tu, qul+ta, qul+ti, qul+tumA, qul+tun~a, qul+tum
+t	otu	PVSuff-t	I                            <pos>tu/PVSUFF_SUBJ:1S</pos>
+t	ota	PVSuff-t	you               <pos>ta/PVSUFF_SUBJ:2MS</pos>
+t	oti	PVSuff-t	you [fem.sg.]                <pos>ti/PVSUFF_SUBJ:2FS</pos>
+tmA	otumA	PVSuff-t	you [du.]                    <pos>tumA/PVSUFF_SUBJ:2D</pos>
+tm	otum	PVSuff-t	you               <pos>tum/PVSUFF_SUBJ:2MP</pos>
+tn	otun~a	PVSuff-t	you [fem.pl.]                <pos>tun~a/PVSUFF_SUBJ:2FP</pos>
+;----------------------------------------------------------------------------------------------------------------------------
+	~u	PVSuff-~t	I                            <pos>tu/PVSUFF_SUBJ:1S</pos>
+	~a	PVSuff-~t	you               <pos>ta/PVSUFF_SUBJ:2MS</pos>
+	~i	PVSuff-~t	you [fem.sg.]                <pos>ti/PVSUFF_SUBJ:2FS</pos>
+mA	~umA	PVSuff-~t	you [du.]                    <pos>tumA/PVSUFF_SUBJ:2D</pos>
+m	~um	PVSuff-~t	you               <pos>tum/PVSUFF_SUBJ:2MP</pos>
+n	~un~a	PVSuff-~t	you [fem.pl.]                <pos>tun~a/PVSUFF_SUBJ:2FP</pos>
+;
+; ==========
+; perfect verb suffixes that begin with consonant "t" + DO
+th	otuhu	PVSuff-th	I + it/him                     <pos>tu/PVSUFF_SUBJ:1S+hu/PVSUFF_DO:3MS</pos>
+thmA	otuhumA	PVSuff-th	I + them (both)                <pos>tu/PVSUFF_SUBJ:1S+humA/PVSUFF_DO:3D</pos>
+thm	otuhum	PVSuff-th	I + them                       <pos>tu/PVSUFF_SUBJ:1S+hum/PVSUFF_DO:3MP</pos>
+thA	otuhA	PVSuff-th	I + it/them/her                <pos>tu/PVSUFF_SUBJ:1S+hA/PVSUFF_DO:3FS</pos>
+thn	otuhun~a	PVSuff-th	I + them                       <pos>tu/PVSUFF_SUBJ:1S+hun~a/PVSUFF_DO:3FP</pos>
+;----------------------------------------------------------------------------------------------------------------------------
+h	~uhu	PVSuff-~th	I + it/him                     <pos>tu/PVSUFF_SUBJ:1S+hu/PVSUFF_DO:3MS</pos>
+hmA	~uhumA	PVSuff-~th	I + them (both)                <pos>tu/PVSUFF_SUBJ:1S+humA/PVSUFF_DO:3D</pos>
+hm	~uhum	PVSuff-~th	I + them                       <pos>tu/PVSUFF_SUBJ:1S+hum/PVSUFF_DO:3MP</pos>
+hA	~uhA	PVSuff-~th	I + it/them/her                <pos>tu/PVSUFF_SUBJ:1S+hA/PVSUFF_DO:3FS</pos>
+hn	~uhun~a	PVSuff-~th	I + them                       <pos>tu/PVSUFF_SUBJ:1S+hun~a/PVSUFF_DO:3FP</pos>
+; ==========
+th	otahu	PVSuff-th	you + it/him                               <pos>ta/PVSUFF_SUBJ:2MS+hu/PVSUFF_DO:3MS</pos>
+thmA	otahumA	PVSuff-th	you + them (both)                          <pos>ta/PVSUFF_SUBJ:2MS+humA/PVSUFF_DO:3D</pos>
+thm	otahum	PVSuff-th	you + them                                 <pos>ta/PVSUFF_SUBJ:2MS+hum/PVSUFF_DO:3MP</pos>
+thA	otahA	PVSuff-th	you + it/them/her                          <pos>ta/PVSUFF_SUBJ:2MS+hA/PVSUFF_DO:3FS</pos>
+thn	otahun~a	PVSuff-th	you + them                                 <pos>ta/PVSUFF_SUBJ:2MS+hun~a/PVSUFF_DO:3FP</pos>
+;----------------------------------------------------------------------------------------------------------------------------
+h	~ahu	PVSuff-~th	you + it/him                               <pos>ta/PVSUFF_SUBJ:2MS+hu/PVSUFF_DO:3MS</pos>
+hmA	~ahumA	PVSuff-~th	you + them (both)                          <pos>ta/PVSUFF_SUBJ:2MS+humA/PVSUFF_DO:3D</pos>
+hm	~ahum	PVSuff-~th	you + them                                 <pos>ta/PVSUFF_SUBJ:2MS+hum/PVSUFF_DO:3MP</pos>
+hA	~ahA	PVSuff-~th	you + it/them/her                          <pos>ta/PVSUFF_SUBJ:2MS+hA/PVSUFF_DO:3FS</pos>
+hn	~ahun~a	PVSuff-~th	you + them                                 <pos>ta/PVSUFF_SUBJ:2MS+hun~a/PVSUFF_DO:3FP</pos>
+; ==========
+th	otihi	PVSuff-th	you [fem.sg.] + it/him                               <pos>ti/PVSUFF_SUBJ:2FS+hi/PVSUFF_DO:3MS</pos>
+thmA	otihimA	PVSuff-th	you [fem.sg.] + them (both)                          <pos>ti/PVSUFF_SUBJ:2FS+himA/PVSUFF_DO:3D</pos>
+thm	otihim	PVSuff-th	you [fem.sg.] + them                                 <pos>ti/PVSUFF_SUBJ:2FS+him/PVSUFF_DO:3MP</pos>
+thA	otihA	PVSuff-th	you [fem.sg.] + it/them/her                          <pos>ti/PVSUFF_SUBJ:2FS+hA/PVSUFF_DO:3FS</pos>
+thn	otihin~a	PVSuff-th	you [fem.sg.] + them                                 <pos>ti/PVSUFF_SUBJ:2FS+hin~a/PVSUFF_DO:3FP</pos>
+;----------------------------------------------------------------------------------------------------------------------------
+h	~ihi	PVSuff-~th	you [fem.sg.] + it/him                               <pos>ti/PVSUFF_SUBJ:2FS+hi/PVSUFF_DO:3MS</pos>
+hmA	~ihimA	PVSuff-~th	you [fem.sg.] + them (both)                          <pos>ti/PVSUFF_SUBJ:2FS+himA/PVSUFF_DO:3D</pos>
+hm	~ihim	PVSuff-~th	you [fem.sg.] + them                                 <pos>ti/PVSUFF_SUBJ:2FS+him/PVSUFF_DO:3MP</pos>
+hA	~ihA	PVSuff-~th	you [fem.sg.] + it/them/her                          <pos>ti/PVSUFF_SUBJ:2FS+hA/PVSUFF_DO:3FS</pos>
+hn	~ihin~a	PVSuff-~th	you [fem.sg.] + them                                 <pos>ti/PVSUFF_SUBJ:2FS+hin~a/PVSUFF_DO:3FP</pos>
+; ==========
+tk	otuka	PVSuff-th	I + you                                    <pos>tu/PVSUFF_SUBJ:1S+ka/PVSUFF_DO:2MS</pos>
+tk	otuki	PVSuff-th	I + you                                    <pos>tu/PVSUFF_SUBJ:1S+ki/PVSUFF_DO:2FS</pos>
+tkmA	otukumA	PVSuff-th	I + you (both)                             <pos>tu/PVSUFF_SUBJ:1S+kumA/PVSUFF_DO:2D</pos>
+tkm	otukum	PVSuff-th	I + you (pl.)                              <pos>tu/PVSUFF_SUBJ:1S+kum/PVSUFF_DO:2MP</pos>
+tkn	otukun~a	PVSuff-th	I + you (women)                            <pos>tu/PVSUFF_SUBJ:1S+kun~a/PVSUFF_DO:2FP</pos>
+;----------------------------------------------------------------------------------------------------------------------------
+k	~uka	PVSuff-~th	I + you                                    <pos>tu/PVSUFF_SUBJ:1S+ka/PVSUFF_DO:2MS</pos>
+k	~uki	PVSuff-~th	I + you                                    <pos>tu/PVSUFF_SUBJ:1S+ki/PVSUFF_DO:2FS</pos>
+kmA	~ukumA	PVSuff-~th	I + you (both)                             <pos>tu/PVSUFF_SUBJ:1S+kumA/PVSUFF_DO:2D</pos>
+km	~ukum	PVSuff-~th	I + you (pl.)                              <pos>tu/PVSUFF_SUBJ:1S+kum/PVSUFF_DO:2MP</pos>
+kn	~ukun~a	PVSuff-~th	I + you (women)                            <pos>tu/PVSUFF_SUBJ:1S+kun~a/PVSUFF_DO:2FP</pos>
+; ==========
+tny	otaniy	PVSuff-th	you + me                                   <pos>ta/PVSUFF_SUBJ:2MS+niy/PVSUFF_DO:1S</pos>
+tnA	otanA	PVSuff-th	you + us                                   <pos>ta/PVSUFF_SUBJ:2MS+nA/PVSUFF_DO:1P</pos>
+;----------------------------------------------------------------------------------------------------------------------------
+ny	~aniy	PVSuff-~th	you + me                                   <pos>ta/PVSUFF_SUBJ:2MS+niy/PVSUFF_DO:1S</pos>
+nA	~anA	PVSuff-~th	you + us                                   <pos>ta/PVSUFF_SUBJ:2MS+nA/PVSUFF_DO:1P</pos>
+; ==========
+tny	otiniy	PVSuff-th	you [fem.sg.] + me                                   <pos>ti/PVSUFF_SUBJ:2FS+niy/PVSUFF_DO:1S</pos>
+tnA	otinA	PVSuff-th	you [fem.sg.] + us                                   <pos>ti/PVSUFF_SUBJ:2FS+nA/PVSUFF_DO:1P</pos>
+;----------------------------------------------------------------------------------------------------------------------------
+ny	~iniy	PVSuff-~th	you [fem.sg.] + me                                   <pos>ti/PVSUFF_SUBJ:2FS+niy/PVSUFF_DO:1S</pos>
+nA	~inA	PVSuff-~th	you [fem.sg.] + us                                   <pos>ti/PVSUFF_SUBJ:2FS+nA/PVSUFF_DO:1P</pos>
+; ==========
+tmAh	otumAhu	PVSuff-th	you [du.] + it/him                               <pos>tumA/PVSUFF_SUBJ:2D+hu/PVSUFF_DO:3MS</pos>
+tmAhmA	otumAhumA	PVSuff-th	you [du.] + them (both)                          <pos>tumA/PVSUFF_SUBJ:2D+humA/PVSUFF_DO:3D</pos>
+tmAhm	otumAhum	PVSuff-th	you [du.] + them                                 <pos>tumA/PVSUFF_SUBJ:2D+hum/PVSUFF_DO:3MP</pos>
+tmAhA	otumAhA	PVSuff-th	you [du.] + it/them/her                          <pos>tumA/PVSUFF_SUBJ:2D+hA/PVSUFF_DO:3FS</pos>
+tmAhn	otumAhun~a	PVSuff-th	you [du.] + them                                 <pos>tumA/PVSUFF_SUBJ:2D+hun~a/PVSUFF_DO:3FP</pos>
+tmAny	otumAniy	PVSuff-th	you [du.] + me                                   <pos>tumA/PVSUFF_SUBJ:2D+niy/PVSUFF_DO:1S</pos>
+tmAnA	otumAnA	PVSuff-th	you [du.] + us                                   <pos>tumA/PVSUFF_SUBJ:2D+nA/PVSUFF_DO:1P</pos>
+;----------------------------------------------------------------------------------------------------------------------------
+mAh	~umAhu	PVSuff-~th	you [du.] + it/him                               <pos>tumA/PVSUFF_SUBJ:2D+hu/PVSUFF_DO:3MS</pos>
+mAhmA	~umAhumA	PVSuff-~th	you [du.] + them (both)                          <pos>tumA/PVSUFF_SUBJ:2D+humA/PVSUFF_DO:3D</pos>
+mAhm	~umAhum	PVSuff-~th	you [du.] + them                                 <pos>tumA/PVSUFF_SUBJ:2D+hum/PVSUFF_DO:3MP</pos>
+mAhA	~umAhA	PVSuff-~th	you [du.] + it/them/her                          <pos>tumA/PVSUFF_SUBJ:2D+hA/PVSUFF_DO:3FS</pos>
+mAhn	~umAhun~a	PVSuff-~th	you [du.] + them                                 <pos>tumA/PVSUFF_SUBJ:2D+hun~a/PVSUFF_DO:3FP</pos>
+mAny	~umAniy	PVSuff-~th	you [du.] + me                                   <pos>tumA/PVSUFF_SUBJ:2D+niy/PVSUFF_DO:1S</pos>
+mAnA	~umAnA	PVSuff-~th	you [du.] + us                                   <pos>tumA/PVSUFF_SUBJ:2D+nA/PVSUFF_DO:1P</pos>
+; ==========
+tmwh	otumuwhu	PVSuff-th	you + it/him                               <pos>tum/PVSUFF_SUBJ:2MP+hu/PVSUFF_DO:3MS</pos>
+tmwhmA	otumuwhumA	PVSuff-th	you + them (both)                          <pos>tum/PVSUFF_SUBJ:2MP+humA/PVSUFF_DO:3D</pos>
+tmwhm	otumuwhum	PVSuff-th	you + them                                 <pos>tum/PVSUFF_SUBJ:2MP+hum/PVSUFF_DO:3MP</pos>
+tmwhA	otumuwhA	PVSuff-th	you + it/them/her                          <pos>tum/PVSUFF_SUBJ:2MP+hA/PVSUFF_DO:3FS</pos>
+tmwhn	otumuwhun~a	PVSuff-th	you + them                                 <pos>tum/PVSUFF_SUBJ:2MP+hun~a/PVSUFF_DO:3FP</pos>
+tmwny	otumuwniy	PVSuff-th	you + me                                   <pos>tum/PVSUFF_SUBJ:2MP+niy/PVSUFF_DO:1S</pos>
+tmwnA	otumuwnA	PVSuff-th	you + us                                   <pos>tum/PVSUFF_SUBJ:2MP+nA/PVSUFF_DO:1P</pos>
+;----------------------------------------------------------------------------------------------------------------------------
+mwh	~umuwhu	PVSuff-~th	you + it/him                               <pos>tum/PVSUFF_SUBJ:2MP+hu/PVSUFF_DO:3MS</pos>
+mwhmA	~umuwhumA	PVSuff-~th	you + them (both)                          <pos>tum/PVSUFF_SUBJ:2MP+humA/PVSUFF_DO:3D</pos>
+mwhm	~umuwhum	PVSuff-~th	you + them                                 <pos>tum/PVSUFF_SUBJ:2MP+hum/PVSUFF_DO:3MP</pos>
+mwhA	~umuwhA	PVSuff-~th	you + it/them/her                          <pos>tum/PVSUFF_SUBJ:2MP+hA/PVSUFF_DO:3FS</pos>
+mwhn	~umuwhun~a	PVSuff-~th	you + them                                 <pos>tum/PVSUFF_SUBJ:2MP+hun~a/PVSUFF_DO:3FP</pos>
+mwny	~umuwniy	PVSuff-~th	you + me                                   <pos>tum/PVSUFF_SUBJ:2MP+niy/PVSUFF_DO:1S</pos>
+mwnA	~umuwnA	PVSuff-~th	you + us                                   <pos>tum/PVSUFF_SUBJ:2MP+nA/PVSUFF_DO:1P</pos>
+; ==========
+tnh	otun~ahu	PVSuff-th	you [fem.pl.] + it/him                               <pos>tun~a/PVSUFF_SUBJ:2FP+hu/PVSUFF_DO:3MS</pos>
+tnhmA	otun~ahumA	PVSuff-th	you [fem.pl.] + them (both)                          <pos>tun~a/PVSUFF_SUBJ:2FP+humA/PVSUFF_DO:3D</pos>
+tnhm	otun~ahum	PVSuff-th	you [fem.pl.] + them                                 <pos>tun~a/PVSUFF_SUBJ:2FP+hum/PVSUFF_DO:3MP</pos>
+tnhA	otun~ahA	PVSuff-th	you [fem.pl.] + it/them/her                          <pos>tun~a/PVSUFF_SUBJ:2FP+hA/PVSUFF_DO:3FS</pos>
+tnhn	otun~ahun~a	PVSuff-th	you [fem.pl.] + them                                 <pos>tun~a/PVSUFF_SUBJ:2FP+hun~a/PVSUFF_DO:3FP</pos>
+tnny	otun~aniy	PVSuff-th	you [fem.pl.] + me                                   <pos>tun~a/PVSUFF_SUBJ:2FP+niy/PVSUFF_DO:1S</pos>
+tnnA	otun~anA	PVSuff-th	you [fem.pl.] + us                                   <pos>tun~a/PVSUFF_SUBJ:2FP+nA/PVSUFF_DO:1P</pos>
+;----------------------------------------------------------------------------------------------------------------------------
+nh	~un~ahu	PVSuff-~th	you [fem.pl.] + it/him                               <pos>tun~a/PVSUFF_SUBJ:2FP+hu/PVSUFF_DO:3MS</pos>
+nhmA	~un~ahumA	PVSuff-~th	you [fem.pl.] + them (both)                          <pos>tun~a/PVSUFF_SUBJ:2FP+humA/PVSUFF_DO:3D</pos>
+nhm	~un~ahum	PVSuff-~th	you [fem.pl.] + them                                 <pos>tun~a/PVSUFF_SUBJ:2FP+hum/PVSUFF_DO:3MP</pos>
+nhA	~un~ahA	PVSuff-~th	you [fem.pl.] + it/them/her                          <pos>tun~a/PVSUFF_SUBJ:2FP+hA/PVSUFF_DO:3FS</pos>
+nhn	~un~ahun~a	PVSuff-~th	you [fem.pl.] + them                                 <pos>tun~a/PVSUFF_SUBJ:2FP+hun~a/PVSUFF_DO:3FP</pos>
+nny	~un~aniy	PVSuff-~th	you [fem.pl.] + me                                   <pos>tun~a/PVSUFF_SUBJ:2FP+niy/PVSUFF_DO:1S</pos>
+nnA	~un~anA	PVSuff-~th	you [fem.pl.] + us                                   <pos>tun~a/PVSUFF_SUBJ:2FP+nA/PVSUFF_DO:1P</pos>
+;
+; ==========
+; perfect verb suffixes that begin with vowel ("-at" "-atA")
+t	at	PVSuff-at	it/they/she                              <pos>at/PVSUFF_SUBJ:3FS</pos>
+tA	atA	PVSuff-at	they (both)                              <pos>atA/PVSUFF_SUBJ:3FD</pos>
+;
+; ==========
+; perfect verb suffixes that begin with vowel + DO
+th	atohu	PVSuff-ath	it/they/she + it/him                       <pos>at/PVSUFF_SUBJ:3FS+hu/PVSUFF_DO:3MS</pos>
+thmA	atohumA	PVSuff-ath	it/they/she + them (both)                  <pos>at/PVSUFF_SUBJ:3FS+humA/PVSUFF_DO:3D</pos>
+thm	atohum	PVSuff-ath	it/they/she + them                         <pos>at/PVSUFF_SUBJ:3FS+hum/PVSUFF_DO:3MP</pos>
+thA	atohA	PVSuff-ath	it/they/she + it/them/her                  <pos>at/PVSUFF_SUBJ:3FS+hA/PVSUFF_DO:3FS</pos>
+thn	atohun~a	PVSuff-ath	it/they/she + them                         <pos>at/PVSUFF_SUBJ:3FS+hun~a/PVSUFF_DO:3FP</pos>
+tk	atoka	PVSuff-ath	it/they/she + you                          <pos>at/PVSUFF_SUBJ:3FS+ka/PVSUFF_DO:2MS</pos>
+tk	atoki	PVSuff-ath	it/they/she + you                          <pos>at/PVSUFF_SUBJ:3FS+ki/PVSUFF_DO:2FS</pos>
+tkmA	atokumA	PVSuff-ath	it/they/she + you (both)                   <pos>at/PVSUFF_SUBJ:3FS+kumA/PVSUFF_DO:2D</pos>
+tkm	atokum	PVSuff-ath	it/they/she + you                          <pos>at/PVSUFF_SUBJ:3FS+kum/PVSUFF_DO:2MP</pos>
+tkn	atokun~a	PVSuff-ath	it/they/she + you                          <pos>at/PVSUFF_SUBJ:3FS+kun~a/PVSUFF_DO:2FP</pos>
+tny	atoniy	PVSuff-ath	it/they/she + me                           <pos>at/PVSUFF_SUBJ:3FS+niy/PVSUFF_DO:1S</pos>
+tnA	atonA	PVSuff-ath	it/they/she + us                           <pos>at/PVSUFF_SUBJ:3FS+nA/PVSUFF_DO:1P</pos>
+;
+tAh	atAhu	PVSuff-ath	they (both) + it/him                       <pos>atA/PVSUFF_SUBJ:3FD+hu/PVSUFF_DO:3MS</pos>
+tAhmA	atAhumA	PVSuff-ath	they (both) + them (both)                  <pos>atA/PVSUFF_SUBJ:3FD+humA/PVSUFF_DO:3D</pos>
+tAhm	atAhum	PVSuff-ath	they (both) + them                         <pos>atA/PVSUFF_SUBJ:3FD+hum/PVSUFF_DO:3MP</pos>
+tAhA	atAhA	PVSuff-ath	they (both) + it/them/her                  <pos>atA/PVSUFF_SUBJ:3FD+hA/PVSUFF_DO:3FS</pos>
+tAhn	atAhun~a	PVSuff-ath	they (both) + them                         <pos>atA/PVSUFF_SUBJ:3FD+hun~a/PVSUFF_DO:3FP</pos>
+tAk	atAka	PVSuff-ath	they (both) + you                          <pos>atA/PVSUFF_SUBJ:3FD+ka/PVSUFF_DO:2MS</pos>
+tAk	atAki	PVSuff-ath	they (both) + you                          <pos>atA/PVSUFF_SUBJ:3FD+ki/PVSUFF_DO:2FS</pos>
+tAkmA	atAkumA	PVSuff-ath	they (both) + you (both)                   <pos>atA/PVSUFF_SUBJ:3FD+kumA/PVSUFF_DO:2D</pos>
+tAkm	atAkum	PVSuff-ath	they (both) + you                          <pos>atA/PVSUFF_SUBJ:3FD+kum/PVSUFF_DO:2MP</pos>
+tAkn	atAkun~a	PVSuff-ath	they (both) + you                          <pos>atA/PVSUFF_SUBJ:3FD+kun~a/PVSUFF_DO:2FP</pos>
+tAny	atAniy	PVSuff-ath	they (both) + me                           <pos>atA/PVSUFF_SUBJ:3FD+niy/PVSUFF_DO:1S</pos>
+tAnA	atAnA	PVSuff-ath	they (both) + us                           <pos>atA/PVSUFF_SUBJ:3FD+nA/PVSUFF_DO:1P</pos>
+;
+; ==========
+; perfect verb suffixes that begin with long vowel "-A" (i.e. masc.du.)
+A	A	PVSuff-A	they (both)                       <pos>A/PVSUFF_SUBJ:3MD</pos>
+; null  bada>-A = bada|
+		PVSuff-|	they (both)                       <pos>A/PVSUFF_SUBJ:3MD</pos>
+		CVSuff-|	they (both)                       <pos>A/CVSUFF_SUBJ:2D</pos>
+;
+; ==========
+; perfect verb suffixes that begin with long vowel "-A"  + DO
+Ah	Ahu	PVSuff-Ah	they (both) + it/him                <pos>A/PVSUFF_SUBJ:3MD+hu/PVSUFF_DO:3MS</pos>
+AhmA	AhumA	PVSuff-Ah	they (both) + them (both)           <pos>A/PVSUFF_SUBJ:3MD+humA/PVSUFF_DO:3D</pos>
+Ahm	Ahum	PVSuff-Ah	they (both) + them                  <pos>A/PVSUFF_SUBJ:3MD+hum/PVSUFF_DO:3MP</pos>
+AhA	AhA	PVSuff-Ah	they (both) + it/them/her           <pos>A/PVSUFF_SUBJ:3MD+hA/PVSUFF_DO:3FS</pos>
+Ahn	Ahun~a	PVSuff-Ah	they (both) + them                  <pos>A/PVSUFF_SUBJ:3MD+hun~a/PVSUFF_DO:3FP</pos>
+Ak	Aka	PVSuff-Ah	they (both) + you                   <pos>A/PVSUFF_SUBJ:3MD+ka/PVSUFF_DO:2MS</pos>
+Ak	Aki	PVSuff-Ah	they (both) + you                   <pos>A/PVSUFF_SUBJ:3MD+ki/PVSUFF_DO:2FS</pos>
+AkmA	AkumA	PVSuff-Ah	they (both) + you (both)            <pos>A/PVSUFF_SUBJ:3MD+kumA/PVSUFF_DO:2D</pos>
+Akm	Akum	PVSuff-Ah	they (both) + you                   <pos>A/PVSUFF_SUBJ:3MD+kum/PVSUFF_DO:2MP</pos>
+Akn	Akun~a	PVSuff-Ah	they (both) + you                   <pos>A/PVSUFF_SUBJ:3MD+kun~a/PVSUFF_DO:2FP</pos>
+Any	Aniy	PVSuff-Ah	they (both) + me                    <pos>A/PVSUFF_SUBJ:3MD+niy/PVSUFF_DO:1S</pos>
+AnA	AnA	PVSuff-Ah	they (both) + us                    <pos>A/PVSUFF_SUBJ:3MD+nA/PVSUFF_DO:1P</pos>
+;---------------------------------------------------------------------------------------------------------------------------
+; null  bada>-Ahu = bada|-hu
+h	hu	PVSuff-|h	they (both) + it/him                <pos>A/PVSUFF_SUBJ:3MD+hu/PVSUFF_DO:3MS</pos>
+hmA	humA	PVSuff-|h	they (both) + them (both)           <pos>A/PVSUFF_SUBJ:3MD+humA/PVSUFF_DO:3D</pos>
+hm	hum	PVSuff-|h	they (both) + them                  <pos>A/PVSUFF_SUBJ:3MD+hum/PVSUFF_DO:3MP</pos>
+hA	hA	PVSuff-|h	they (both) + it/them/her           <pos>A/PVSUFF_SUBJ:3MD+hA/PVSUFF_DO:3FS</pos>
+hn	hun~a	PVSuff-|h	they (both) + them                  <pos>A/PVSUFF_SUBJ:3MD+hun~a/PVSUFF_DO:3FP</pos>
+k	ka	PVSuff-|h	they (both) + you                   <pos>A/PVSUFF_SUBJ:3MD+ka/PVSUFF_DO:2MS</pos>
+k	ki	PVSuff-|h	they (both) + you                   <pos>A/PVSUFF_SUBJ:3MD+ki/PVSUFF_DO:2FS</pos>
+kmA	kumA	PVSuff-|h	they (both) + you (both)            <pos>A/PVSUFF_SUBJ:3MD+kumA/PVSUFF_DO:2D</pos>
+km	kum	PVSuff-|h	they (both) + you                   <pos>A/PVSUFF_SUBJ:3MD+kum/PVSUFF_DO:2MP</pos>
+kn	kun~a	PVSuff-|h	they (both) + you                   <pos>A/PVSUFF_SUBJ:3MD+kun~a/PVSUFF_DO:2FP</pos>
+ny	niy	PVSuff-|h	they (both) + me                    <pos>A/PVSUFF_SUBJ:3MD+niy/PVSUFF_DO:1S</pos>
+nA	nA	PVSuff-|h	they (both) + us                    <pos>A/PVSUFF_SUBJ:3MD+nA/PVSUFF_DO:1P</pos>
+;
+; ==========
+; perfect verb suffixes that begin with long vowel "-w" (i.e. masc.pl.)
+wA	uwA	PVSuff-uwA	they                                    <pos>uwA/PVSUFF_SUBJ:3MP</pos>
+wA	awoA	PVSuff-awA	they                                    <pos>awoA/PVSUFF_SUBJ:3MP</pos>
+;
+;-----------
+; Imperative verb suffixes that begin with long vowel "-uw" (Antum)
+wA	uwA	CVSuff-wA	you [masc.pl]                                     <pos>uwA/CVSUFF_SUBJ:2MP</pos>
+wA	uwA	CVSuff-wAo	you [masc.pl]                                     <pos>awAo/CVSUFF_SUBJ:2MP</pos>
+; with direct object
+wh	uwhu	CVSuff-wh	you [masc.pl] + it/him                              <pos>uw/CVSUFF_SUBJ:2MP+hu/CVSUFF_DO:3MS</pos>
+whmA	uwhumA	CVSuff-wh	you [masc.pl] + them (both)                         <pos>uw/CVSUFF_SUBJ:2MP+humA/CVSUFF_DO:3D</pos>
+whm	uwhum	CVSuff-wh	you [masc.pl] + them                                <pos>uw/CVSUFF_SUBJ:2MP+hum/CVSUFF_DO:3MP</pos>
+whA	uwhA	CVSuff-wh	you [masc.pl] + it/them/her                         <pos>uw/CVSUFF_SUBJ:2MP+hA/CVSUFF_DO:3FS</pos>
+whn	uwhun~a	CVSuff-wh	you [masc.pl] + them                                <pos>uw/CVSUFF_SUBJ:2MP+hun~a/CVSUFF_DO:3FP</pos>
+wny	uwniy	CVSuff-wh	you [masc.pl] + me                                  <pos>uw/CVSUFF_SUBJ:2MP+niy/CVSUFF_DO:1S</pos>
+wnA	uwnA	CVSuff-wh	you [masc.pl] + us                                  <pos>uw/CVSUFF_SUBJ:2MP+nA/CVSUFF_DO:1P</pos>
+;
+; Imperative verb suffixes that begin with long vowel "-iw" (Anti)
+y	iy	CVSuff-y	you                                     <pos>iy/CVSUFF_SUBJ:2FS</pos>
+y	ayo	CVSuff-yo	you                                     <pos>ayo/CVSUFF_SUBJ:2FS</pos>
+; with direct object
+yh	iyhi	CVSuff-yh	you [fem.sg.] + it/him                              <pos>iy/CVSUFF_SUBJ:2FS+hi/CVSUFF_DO:3MS</pos>
+yhmA	iyhimA	CVSuff-yh	you [fem.sg.] + them (both)                         <pos>iy/CVSUFF_SUBJ:2FS+himA/CVSUFF_DO:3D</pos>
+yhm	iyhim	CVSuff-yh	you [fem.sg.] + them                                <pos>iy/CVSUFF_SUBJ:2FS+him/CVSUFF_DO:3MP</pos>
+yhA	iyhA	CVSuff-yh	you [fem.sg.] + it/them/her                         <pos>iy/CVSUFF_SUBJ:2FS+hA/CVSUFF_DO:3FS</pos>
+yhn	iyhin~a	CVSuff-yh	you [fem.sg.] + them                                <pos>iy/CVSUFF_SUBJ:2FS+hin~a/CVSUFF_DO:3FP</pos>
+yny	iyniy	CVSuff-yh	you [fem.sg.] + me                                  <pos>iy/CVSUFF_SUBJ:2FS+niy/CVSUFF_DO:1S</pos>
+ynA	iynA	CVSuff-yh	you [fem.sg.] + us                                  <pos>iy/CVSUFF_SUBJ:2FS+nA/CVSUFF_DO:1P</pos>
+;
+yh	ayohi	CVSuff-yoh	you [fem.sg.] + it/him                              <pos>ayo/CVSUFF_SUBJ:2FS+hi/CVSUFF_DO:3MS</pos>
+yhmA	ayohimA	CVSuff-yoh	you [fem.sg.] + them (both)                         <pos>ayo/CVSUFF_SUBJ:2FS+himA/CVSUFF_DO:3D</pos>
+yhm	ayohim	CVSuff-yoh	you [fem.sg.] + them                                <pos>ayo/CVSUFF_SUBJ:2FS+him/CVSUFF_DO:3MP</pos>
+yhA	ayohA	CVSuff-yoh	you [fem.sg.] + it/them/her                         <pos>ayo/CVSUFF_SUBJ:2FS+hA/CVSUFF_DO:3FS</pos>
+yhn	ayohin~a	CVSuff-yoh	you [fem.sg.] + them                                <pos>ayo/CVSUFF_SUBJ:2FS+hin~a/CVSUFF_DO:3FP</pos>
+yny	ayoniy	CVSuff-yoh	you [fem.sg.] + me                                  <pos>ayo/CVSUFF_SUBJ:2FS+niy/CVSUFF_DO:1S</pos>
+ynA	ayonA	CVSuff-yoh	you [fem.sg.] + us                                  <pos>ayo/CVSUFF_SUBJ:2FS+nA/CVSUFF_DO:1P</pos>
+;
+; ==========
+; perfect verb suffixes that begin with long vowel "-uw" + DO
+wh	uwhu	PVSuff-uwh	they + it/him                              <pos>uw/PVSUFF_SUBJ:3MP+hu/PVSUFF_DO:3MS</pos>
+whmA	uwhumA	PVSuff-uwh	they + them (both)                         <pos>uw/PVSUFF_SUBJ:3MP+humA/PVSUFF_DO:3D</pos>
+whm	uwhum	PVSuff-uwh	they + them                                <pos>uw/PVSUFF_SUBJ:3MP+hum/PVSUFF_DO:3MP</pos>
+whA	uwhA	PVSuff-uwh	they + it/them/her                         <pos>uw/PVSUFF_SUBJ:3MP+hA/PVSUFF_DO:3FS</pos>
+whn	uwhun~a	PVSuff-uwh	they + them                                <pos>uw/PVSUFF_SUBJ:3MP+hun~a/PVSUFF_DO:3FP</pos>
+wk	uwka	PVSuff-uwh	they + you                                 <pos>uw/PVSUFF_SUBJ:3MP+ka/PVSUFF_DO:2MS</pos>
+wk	uwki	PVSuff-uwh	they + you                                 <pos>uw/PVSUFF_SUBJ:3MP+ki/PVSUFF_DO:2FS</pos>
+wkmA	uwkumA	PVSuff-uwh	they + you (both)                          <pos>uw/PVSUFF_SUBJ:3MP+kumA/PVSUFF_DO:2D</pos>
+wkm	uwkum	PVSuff-uwh	they + you                                 <pos>uw/PVSUFF_SUBJ:3MP+kum/PVSUFF_DO:2MP</pos>
+wkn	uwkun~a	PVSuff-uwh	they + you                                 <pos>uw/PVSUFF_SUBJ:3MP+kun~a/PVSUFF_DO:2FP</pos>
+wny	uwniy	PVSuff-uwh	they + me                                  <pos>uw/PVSUFF_SUBJ:3MP+niy/PVSUFF_DO:1S</pos>
+wnA	uwnA	PVSuff-uwh	they + us                                  <pos>uw/PVSUFF_SUBJ:3MP+nA/PVSUFF_DO:1P</pos>
+;
+wh	awohu	PVSuff-awh	they + it/him                              <pos>aw/PVSUFF_SUBJ:3MP+hu/PVSUFF_DO:3MS</pos>
+whmA	awohumA	PVSuff-awh	they + them (both)                         <pos>aw/PVSUFF_SUBJ:3MP+humA/PVSUFF_DO:3D</pos>
+whm	awohum	PVSuff-awh	they + them                                <pos>aw/PVSUFF_SUBJ:3MP+hum/PVSUFF_DO:3MP</pos>
+whA	awohA	PVSuff-awh	they + it/them/her                         <pos>aw/PVSUFF_SUBJ:3MP+hA/PVSUFF_DO:3FS</pos>
+whn	awohun~a	PVSuff-awh	they + them                                <pos>aw/PVSUFF_SUBJ:3MP+hun~a/PVSUFF_DO:3FP</pos>
+wk	awoka	PVSuff-awh	they + you                                 <pos>aw/PVSUFF_SUBJ:3MP+ka/PVSUFF_DO:2MS</pos>
+wk	awoki	PVSuff-awh	they + you                                 <pos>aw/PVSUFF_SUBJ:3MP+ki/PVSUFF_DO:2FS</pos>
+wkmA	awokumA	PVSuff-awh	they + you (both)                          <pos>aw/PVSUFF_SUBJ:3MP+kumA/PVSUFF_DO:2D</pos>
+wkm	awokum	PVSuff-awh	they + you                                 <pos>aw/PVSUFF_SUBJ:3MP+kum/PVSUFF_DO:2MP</pos>
+wkn	awokun~a	PVSuff-awh	they + you                                 <pos>aw/PVSUFF_SUBJ:3MP+kun~a/PVSUFF_DO:2FP</pos>
+wny	awoniy	PVSuff-awh	they + me                                  <pos>aw/PVSUFF_SUBJ:3MP+niy/PVSUFF_DO:1S</pos>
+wnA	awonA	PVSuff-awh	they + us                                  <pos>aw/PVSUFF_SUBJ:3MP+nA/PVSUFF_DO:1P</pos>
+;
+;
+;
+; =====================================================================
+; IMPERFECT VERB SUFFIXES
+; =====================================================================
+; ==========
+; imperfect Verb Mood Markers:
+; null suffix of __iy, __uw, __aY: ya-boniy ya-doEuw ya-boqaY
+		IVSuff-0_ind	<pos>(null)/IVSUFF</pos>
+; null suffix of __aY: ya-boqaY yu-doEaY
+		IVSuff-0_sub	<pos>(null)/IVSUFF</pos>
+; null suffix of __i, __u, __a: ya-boni ya-doEu ya-boqa yu-doEa 
+		IVSuff-0_jus	<pos>(null)/IVSUFF</pos>
+;=== mood: indicative (mrfwE bAlDmp)
+	u	IVSuff-u	<pos>u/IVSUFF</pos>
+;=== mood: subjunctive (mnSwb bAlftHp)
+	a	IVSuff-a	<pos>a/IVSUFF</pos>
+;=== mood: jussive (mjzwm bAlskwn)
+	o	IVSuff-o	<pos>o/IVSUFF</pos>
+;--- doubled: ya+tim~+a
+	a	IVSuff-a_jus	<pos>a/IVSUFF</pos>
+; ===========
+; imperfect verb DO pronouns, compatible with all prefixes:
+; subject of verb: undefined (A---h, n---h, t---h, y---h)
+;
+; suffixes with null mood markers
+;=== mood: indicative: ya-boniy-hi
+h	hi	IVSuff-hi_ind	it/him       <pos>(null)/IVSUFF+hi/IVSUFF_DO:3MS</pos>
+hmA	himA	IVSuff-hi_ind	them (both)  <pos>(null)/IVSUFF+himA/IVSUFF_DO:3D</pos>
+hm	him	IVSuff-hi_ind	them         <pos>(null)/IVSUFF+him/IVSUFF_DO:3MP</pos>
+hA	hA	IVSuff-hi_ind	it/them/her  <pos>(null)/IVSUFF+hA/IVSUFF_DO:3FS</pos>
+hn	hin~a	IVSuff-hi_ind	them         <pos>(null)/IVSUFF+hin~a/IVSUFF_DO:3FP</pos>
+;=== mood: jussive: lam ya-boni-hi
+h	hi	IVSuff-hi_jus	it/him       <pos>(null)/IVSUFF+hi/IVSUFF_DO:3MS</pos>
+hmA	himA	IVSuff-hi_jus	them (both)  <pos>(null)/IVSUFF+himA/IVSUFF_DO:3D</pos>
+hm	him	IVSuff-hi_jus	them         <pos>(null)/IVSUFF+him/IVSUFF_DO:3MP</pos>
+hA	hA	IVSuff-hi_jus	it/them/her  <pos>(null)/IVSUFF+hA/IVSUFF_DO:3FS</pos>
+hn	hin~a	IVSuff-hi_jus	them         <pos>(null)/IVSUFF+hin~a/IVSUFF_DO:3FP</pos>
+;=== mood: indicative: ya-doEuw-hu ya-bokA-hu
+h	hu	IVSuff-h_ind	it/him       <pos>(null)/IVSUFF+hu/IVSUFF_DO:3MS</pos>
+hmA	humA	IVSuff-h_ind	them (both)  <pos>(null)/IVSUFF+humA/IVSUFF_DO:3D</pos>
+hm	hum	IVSuff-h_ind	them         <pos>(null)/IVSUFF+hum/IVSUFF_DO:3MP</pos>
+hA	hA	IVSuff-h_ind	it/them/her  <pos>(null)/IVSUFF+hA/IVSUFF_DO:3FS</pos>
+hn	hun~a	IVSuff-h_ind	them         <pos>(null)/IVSUFF+hun~a/IVSUFF_DO:3FP</pos>
+;=== mood: subjunctive: liya-bokA-hu
+h	hu	IVSuff-h_sub	it/him       <pos>(null)/IVSUFF+hu/IVSUFF_DO:3MS</pos>
+hmA	humA	IVSuff-h_sub	them (both)  <pos>(null)/IVSUFF+humA/IVSUFF_DO:3D</pos>
+hm	hum	IVSuff-h_sub	them         <pos>(null)/IVSUFF+hum/IVSUFF_DO:3MP</pos>
+hA	hA	IVSuff-h_sub	it/them/her  <pos>(null)/IVSUFF+hA/IVSUFF_DO:3FS</pos>
+hn	hun~a	IVSuff-h_sub	them         <pos>(null)/IVSUFF+hun~a/IVSUFF_DO:3FP</pos>
+;=== mood: jussive: lam ya-boka-hu
+h	hu	IVSuff-h_jus	it/him       <pos>(null)/IVSUFF+hu/IVSUFF_DO:3MS</pos>
+hmA	humA	IVSuff-h_jus	them (both)  <pos>(null)/IVSUFF+humA/IVSUFF_DO:3D</pos>
+hm	hum	IVSuff-h_jus	them         <pos>(null)/IVSUFF+hum/IVSUFF_DO:3MP</pos>
+hA	hA	IVSuff-h_jus	it/them/her  <pos>(null)/IVSUFF+hA/IVSUFF_DO:3FS</pos>
+hn	hun~a	IVSuff-h_jus	them         <pos>(null)/IVSUFF+hun~a/IVSUFF_DO:3FP</pos>
+;
+; suffixes with short vowel mood marker
+;=== mood: indicative (mrfwE bAlDmp)
+h	uhu	IVSuff-uh	it/him       <pos>u/IVSUFF+hu/IVSUFF_DO:3MS</pos>
+hmA	uhumA	IVSuff-uh	them (both)  <pos>u/IVSUFF+humA/IVSUFF_DO:3D</pos>
+hm	uhum	IVSuff-uh	them         <pos>u/IVSUFF+hum/IVSUFF_DO:3MP</pos>
+hA	uhA	IVSuff-uh	it/them/her  <pos>u/IVSUFF+hA/IVSUFF_DO:3FS</pos>
+hn	uhun~a	IVSuff-uh	them         <pos>u/IVSUFF+hun~a/IVSUFF_DO:3FP</pos>
+;=== mood: subjunctive (mnSwb bAlftHp)
+h	ahu	IVSuff-ah	it/him       <pos>a/IVSUFF+hu/IVSUFF_DO:3MS</pos>
+hmA	ahumA	IVSuff-ah	them (both)  <pos>a/IVSUFF+humA/IVSUFF_DO:3D</pos>
+hm	ahum	IVSuff-ah	them         <pos>a/IVSUFF+hum/IVSUFF_DO:3MP</pos>
+hA	ahA	IVSuff-ah	it/them/her  <pos>a/IVSUFF+hA/IVSUFF_DO:3FS</pos>
+hn	ahun~a	IVSuff-ah	them         <pos>a/IVSUFF+hun~a/IVSUFF_DO:3FP</pos>
+;=== mood: jussive (mjzwm bAlskwn)
+h	ohu	IVSuff-oh	it/him       <pos>o/IVSUFF+hu/IVSUFF_DO:3MS</pos>
+hmA	ohumA	IVSuff-oh	them (both)  <pos>o/IVSUFF+humA/IVSUFF_DO:3D</pos>
+hm	ohum	IVSuff-oh	them         <pos>o/IVSUFF+hum/IVSUFF_DO:3MP</pos>
+hA	ohA	IVSuff-oh	it/them/her  <pos>o/IVSUFF+hA/IVSUFF_DO:3FS</pos>
+hn	ohun~a	IVSuff-oh	them         <pos>o/IVSUFF+hun~a/IVSUFF_DO:3FP</pos>
+;    doubled: yu+tim~+ahu
+h	ahu	IVSuff-ah_jus	it/him       <pos>a/IVSUFF+hu/IVSUFF_DO:3MS</pos>
+hmA	ahumA	IVSuff-ah_jus	them (both)  <pos>a/IVSUFF+humA/IVSUFF_DO:3D</pos>
+hm	ahum	IVSuff-ah_jus	them         <pos>a/IVSUFF+hum/IVSUFF_DO:3MP</pos>
+hA	ahA	IVSuff-ah_jus	it/them/her  <pos>a/IVSUFF+hA/IVSUFF_DO:3FS</pos>
+hn	ahun~a	IVSuff-ah_jus	them         <pos>a/IVSUFF+hun~a/IVSUFF_DO:3FP</pos>
+;
+; ==========
+; imperfect verb DO pronouns: 2nd person
+; (incompatible with 2nd pers. prefixes: e.g. t---k)
+; subject of verb: 1st or 3rd
+;
+; suffixes with null mood markers
+;=== mood: indicative: yu-EoTiy-k ya-bokA-k
+k	ka	IVSuff-k_ind	you  <pos>(null)/IVSUFF+ka/IVSUFF_DO:2MS</pos>
+k	ki	IVSuff-k_ind	you  <pos>(null)/IVSUFF+ki/IVSUFF_DO:2FS</pos>
+kmA	kumA	IVSuff-k_ind	you  <pos>(null)/IVSUFF+kumA/IVSUFF_DO:2D</pos>
+km	kum	IVSuff-k_ind	you  <pos>(null)/IVSUFF+kum/IVSUFF_DO:2MP</pos>
+kn	kun~a	IVSuff-k_ind	you  <pos>(null)/IVSUFF+kun~a/IVSUFF_DO:2FP</pos>
+;=== mood: subjunctive: liya-bokA-k
+k	ka	IVSuff-k_sub	you  <pos>(null)/IVSUFF+ka/IVSUFF_DO:2MS</pos>
+k	ki	IVSuff-k_sub	you  <pos>(null)/IVSUFF+ki/IVSUFF_DO:2FS</pos>
+kmA	kumA	IVSuff-k_sub	you  <pos>(null)/IVSUFF+kumA/IVSUFF_DO:2D</pos>
+km	kum	IVSuff-k_sub	you  <pos>(null)/IVSUFF+kum/IVSUFF_DO:2MP</pos>
+kn	kun~a	IVSuff-k_sub	you  <pos>(null)/IVSUFF+kun~a/IVSUFF_DO:2FP</pos>
+;=== mood: jussive: lam yu-EoTi-k  ya-boka-k
+k	ka	IVSuff-k_jus	you  <pos>(null)/IVSUFF+ka/IVSUFF_DO:2MS</pos>
+k	ki	IVSuff-k_jus	you  <pos>(null)/IVSUFF+ki/IVSUFF_DO:2FS</pos>
+kmA	kumA	IVSuff-k_jus	you  <pos>(null)/IVSUFF+kumA/IVSUFF_DO:2D</pos>
+km	kum	IVSuff-k_jus	you  <pos>(null)/IVSUFF+kum/IVSUFF_DO:2MP</pos>
+kn	kun~a	IVSuff-k_jus	you  <pos>(null)/IVSUFF+kun~a/IVSUFF_DO:2FP</pos>
+;
+; suffixes with short vowel mood marker
+;=== mood: indicative
+k	uka	IVSuff-uk	you  <pos>u/IVSUFF+ka/IVSUFF_DO:2MS</pos>
+k	uki	IVSuff-uk	you  <pos>u/IVSUFF+ki/IVSUFF_DO:2FS</pos>
+kmA	ukumA	IVSuff-uk	you  <pos>u/IVSUFF+kumA/IVSUFF_DO:2D</pos>
+km	ukum	IVSuff-uk	you  <pos>u/IVSUFF+kum/IVSUFF_DO:2MP</pos>
+kn	ukun~a	IVSuff-uk	you  <pos>u/IVSUFF+kun~a/IVSUFF_DO:2FP</pos>
+;=== mood: subjunctive
+k	aka	IVSuff-ak	you  <pos>a/IVSUFF+ka/IVSUFF_DO:2MS</pos>
+k	aki	IVSuff-ak	you  <pos>a/IVSUFF+ki/IVSUFF_DO:2FS</pos>
+kmA	akumA	IVSuff-ak	you  <pos>a/IVSUFF+kumA/IVSUFF_DO:2D</pos>
+km	akum	IVSuff-ak	you  <pos>a/IVSUFF+kum/IVSUFF_DO:2MP</pos>
+kn	akun~a	IVSuff-ak	you  <pos>a/IVSUFF+kun~a/IVSUFF_DO:2FP</pos>
+;=== mood: jussive
+k	oka	IVSuff-ok	you  <pos>o/IVSUFF+ka/IVSUFF_DO:2MS</pos>
+k	oki	IVSuff-ok	you  <pos>o/IVSUFF+ki/IVSUFF_DO:2FS</pos>
+kmA	okumA	IVSuff-ok	you  <pos>o/IVSUFF+kumA/IVSUFF_DO:2D</pos>
+km	okum	IVSuff-ok	you  <pos>o/IVSUFF+kum/IVSUFF_DO:2MP</pos>
+kn	okun~a	IVSuff-ok	you  <pos>o/IVSUFF+kun~a/IVSUFF_DO:2FP</pos>
+;    doubled: yu+tim~+ak
+k	aka	IVSuff-ak_jus	you  <pos>a/IVSUFF+ka/IVSUFF_DO:2MS</pos>
+k	aki	IVSuff-ak_jus	you  <pos>a/IVSUFF+ki/IVSUFF_DO:2FS</pos>
+kmA	akumA	IVSuff-ak_jus	you  <pos>a/IVSUFF+kumA/IVSUFF_DO:2D</pos>
+km	akum	IVSuff-ak_jus	you  <pos>a/IVSUFF+kum/IVSUFF_DO:2MP</pos>
+kn	akun~a	IVSuff-ak_jus	you  <pos>a/IVSUFF+kun~a/IVSUFF_DO:2FP</pos>
+;
+; ==========
+; imperfect verb DO pronouns: 1st person
+; (incompatible with 1st person prefixes; e.g. A---ny, n---nA)
+; subject of verb: 2nd or 3rd
+;
+; suffixes with null mood markers
+;=== mood: indicative: yu-EoTiy-niy ya-bokA-nA
+ny	niy	IVSuff-ny-nA_ind	me       <pos>(null)/IVSUFF+niy/IVSUFF_DO:1S</pos>
+nA	nA	IVSuff-ny-nA_ind	us       <pos>(null)/IVSUFF+nA/IVSUFF_DO:1P</pos>
+;=== mood: subjunctive: liya-bokA-niy
+ny	niy	IVSuff-ny-nA_sub	me       <pos>(null)/IVSUFF+niy/IVSUFF_DO:1S</pos>
+nA	nA	IVSuff-ny-nA_sub	us       <pos>(null)/IVSUFF+nA/IVSUFF_DO:1P</pos>
+;=== mood: jussive: lam yu-EoTi-niy  ya-boka-nA
+ny	niy	IVSuff-ny-nA_jus	me       <pos>(null)/IVSUFF+niy/IVSUFF_DO:1S</pos>
+nA	nA	IVSuff-ny-nA_jus	us       <pos>(null)/IVSUFF+nA/IVSUFF_DO:1P</pos>
+;
+; suffixes with short vowel mood marker
+;=== mood: indicative: ya-Eorif-uniy yu-xATib-unA
+ny	uniy	IVSuff-uny-nA	me       <pos>u/IVSUFF+niy/IVSUFF_DO:1S</pos>
+nA	unA	IVSuff-uny-nA	us       <pos>u/IVSUFF+nA/IVSUFF_DO:1P</pos>
+;=== mood: subjunctive: liya-Eorif-aniy liyu-xATib-anA
+ny	aniy	IVSuff-any-nA	me       <pos>a/IVSUFF+niy/IVSUFF_DO:1S</pos>
+nA	anA	IVSuff-any-nA	us       <pos>a/IVSUFF+nA/IVSUFF_DO:1P</pos>
+;=== mood: jussive: lam ya-Eorif-oniy yu-xATib-onA yu-Hobib-onA
+ny	oniy	IVSuff-ony-nA	me       <pos>o/IVSUFF+niy/IVSUFF_DO:1S</pos>
+nA	onA	IVSuff-ony-nA	us       <pos>o/IVSUFF+nA/IVSUFF_DO:1P</pos>
+; for stems ending in __n: yu-barohin-~iy yu-barohin-~A
+y	~iy	IVSuff-~ny-nA	me       <pos>o/IVSUFF+niy/IVSUFF_DO:1S</pos>
+A	~A	IVSuff-~ny-nA	us       <pos>o/IVSUFF+nA/IVSUFF_DO:1P</pos>
+;    doubled: lam yu-Hib~-anA
+ny	aniy	IVSuff-any-nA_jus	me       <pos>a/IVSUFF+niy/IVSUFF_DO:1S</pos>
+nA	anA	IVSuff-any-nA_jus	us       <pos>a/IVSUFF+nA/IVSUFF_DO:1P</pos>
+;
+; ==========
+; imperfect verb suffix that begins with consonant "n"
+; (as a consonant, it goes with short hollow stems (ta+qul+na) and long doubled (ta+morur+na)
+; mood: undefined (indicative/subjunctive/jussive)
+; subject of verb: 2nd or 3rd (Antun~a or hun~a)
+n	ona	IVSuff-n	    <pos>na/IVSUFF_SUBJ:FP</pos>
+;
+	~a	IVSuff-~n	    <pos>na/IVSUFF_SUBJ:FP</pos>
+;
+	~a	CVSuff-n~	me    <pos>na/CVSUFF_SUBJ:2FP</pos>
+n	ona	CVSuff-n	you    <pos>na/CVSUFF_SUBJ:2FP</pos>
+nh	ona	CVSuff-n	you + it/him    <pos>na/CVSUFF_SUBJ:2FP+hu/CVSUFF_DO:3MS</pos>
+nhA	ona	CVSuff-n	you + it/them/her    <pos>na/CVSUFF_SUBJ:2FP+hA/CVSUFF_DO:3FS</pos>
+nhmA	ona	CVSuff-n	you + them (both)    <pos>na/CVSUFF_SUBJ:2FP+huA/CVSUFF_DO:3MD</pos>
+nhm	ona	CVSuff-n	you + them (both)    <pos>na/CVSUFF_SUBJ:2FP+hum/CVSUFF_DO:3MP</pos>
+nhm	ona	CVSuff-n	you + them (both)    <pos>na/CVSUFF_SUBJ:2FP+hun~a/CVSUFF_DO:3FP</pos>
+;
+; ==========
+; imperfect verb suffixes that begin with consonant "n" + 3rd/2nd pers. DO (y---n, t---n)
+; (3rd or 1st person suffixes are incompatible with 1st pers. prefixes: e.g. A---nny, n---nnA)
+; mood: undefined (indicative/subjunctive/jussive)
+; subject of verb: 2nd or 3rd (Antun~a or hun~a)
+nh	onahu	IVSuff-nh	it/him          <pos>na/IVSUFF_SUBJ:FP+hu/IVSUFF_DO:3MS</pos>
+nhmA	onahumA	IVSuff-nh	them (both)     <pos>na/IVSUFF_SUBJ:FP+humA/IVSUFF_DO:3D</pos>
+nhm	onahum	IVSuff-nh	them            <pos>na/IVSUFF_SUBJ:FP+hum/IVSUFF_DO:3MP</pos>
+nhA	onahA	IVSuff-nh	it/them/her     <pos>na/IVSUFF_SUBJ:FP+hA/IVSUFF_DO:3FS</pos>
+nhn	onahun~a	IVSuff-nh	them            <pos>na/IVSUFF_SUBJ:FP+hun~a/IVSUFF_DO:3FP</pos>
+nny	onaniy	IVSuff-nh	me              <pos>na/IVSUFF_SUBJ:FP+niy/IVSUFF_DO:1S</pos>
+nnA	onanA	IVSuff-nh	us              <pos>na/IVSUFF_SUBJ:FP+nA/IVSUFF_DO:1P</pos>
+;
+h	~ahu	IVSuff-~nh	it/him          <pos>na/IVSUFF_SUBJ:FP+hu/IVSUFF_DO:3MS</pos>
+hmA	~ahumA	IVSuff-~nh	them (both)     <pos>na/IVSUFF_SUBJ:FP+humA/IVSUFF_DO:3D</pos>
+hm	~ahum	IVSuff-~nh	them            <pos>na/IVSUFF_SUBJ:FP+hum/IVSUFF_DO:3MP</pos>
+hA	~ahA	IVSuff-~nh	it/them/her     <pos>na/IVSUFF_SUBJ:FP+hA/IVSUFF_DO:3FS</pos>
+hn	~ahun~a	IVSuff-~nh	them            <pos>na/IVSUFF_SUBJ:FP+hun~a/IVSUFF_DO:3FP</pos>
+ny	~aniy	IVSuff-~nh	me              <pos>na/IVSUFF_SUBJ:FP+niy/IVSUFF_DO:1S</pos>
+nA	~anA	IVSuff-~nh	us              <pos>na/IVSUFF_SUBJ:FP+nA/IVSUFF_DO:1P</pos>
+;
+; ==========
+; imperfect verb suffixes that begin with consonant "n" + 2nd pers. DO
+; (2nd person DO are incompatible with 2nd pers. prefix: e.g. t---nk)
+; mood: undefined (indicative/subjunctive/jussive)
+; subject of verb: 3rd (hun~a)
+nk	onaka	IVSuff-nk	you  <pos>na/IVSUFF_SUBJ:3FP+ka/IVSUFF_DO:2MS</pos>
+nk	onaki	IVSuff-nk	you  <pos>na/IVSUFF_SUBJ:3FP+ki/IVSUFF_DO:2FS</pos>
+nkmA	onakumA	IVSuff-nk	you  <pos>na/IVSUFF_SUBJ:3FP+kumA/IVSUFF_DO:2D</pos>
+nkm	onakum	IVSuff-nk	you  <pos>na/IVSUFF_SUBJ:3FP+kum/IVSUFF_DO:2MP</pos>
+nkn	onakun~a	IVSuff-nk	you  <pos>na/IVSUFF_SUBJ:3FP+kun~a/IVSUFF_DO:2FP</pos>
+;
+k	~aka	IVSuff-~nk	you  <pos>na/IVSUFF_SUBJ:3FP+ka/IVSUFF_DO:2MS</pos>
+k	~aki	IVSuff-~nk	you  <pos>na/IVSUFF_SUBJ:3FP+ki/IVSUFF_DO:2FS</pos>
+kmA	~akumA	IVSuff-~nk	you  <pos>na/IVSUFF_SUBJ:3FP+kumA/IVSUFF_DO:2D</pos>
+km	~akum	IVSuff-~nk	you  <pos>na/IVSUFF_SUBJ:3FP+kum/IVSUFF_DO:2MP</pos>
+kn	~akun~a	IVSuff-~nk	you  <pos>na/IVSUFF_SUBJ:3FP+kun~a/IVSUFF_DO:2FP</pos>
+;
+; ==========
+; imperfect verb suffix that begins with vowel "-A" (du., 2nd or 3rd pers.: t---A, y---A)
+; (it's incompatible with 1st pers. prefix: e.g. A---A, n---A)
+; mood: subjunctive or jussive
+; subject of verb: 2nd or 3rd (AntumA or humA)
+A	A	IVSuff-A	    <pos>A/IVSUFF_SUBJ:D</pos>
+A	A	CVSuff-A	you (both)    <pos>A/CVSUFF_SUBJ:2D</pos>
+Ah	Ahu	CVSuff-A	you (both) + it/him          <pos>A/CVSUFF_SUBJ:2D+hu/IVSUFF_DO:3MS</pos>
+AhmA	AhumA	CVSuff-A	you (both) + them (both)     <pos>A/CVSUFF_SUBJ:2D+humA/CVSUFF_DO:3D</pos>
+Ahm	Ahum	CVSuff-A	you (both) + them            <pos>A/CVSUFF_SUBJ:2D+hum/CVSUFF_DO:3MP</pos>
+AhA	AhA	CVSuff-A	you (both) + it/them/her     <pos>A/CVSUFF_SUBJ:2D+hA/CVSUFF_DO:3FS</pos>
+Ahn	Ahun~a	CVSuff-A	you (both) + them            <pos>A/CVSUFF_SUBJ:2D+hun~a/CVSUFF_DO:3FP</pos>
+Any	Aniy	CVSuff-A	you (both) + me              <pos>A/CVSUFF_SUBJ:2D+niy/CVSUFF_DO:1S</pos>
+AnA	AnA	CVSuff-A	you (both) + us              <pos>A/CVSUFF_SUBJ:2D+nA/CVSUFF_DO:1P</pos>
+; ya-boda|
+		IVSuff-|	    <pos>A/IVSUFF_SUBJ:D</pos>
+;
+; ==========
+; imperfect verb suffixes that begin with long vowel "-A" (du.) + DO
+; mood: subjunctive or jussive
+; subject of verb: 2nd or 3rd (AntumA or humA)
+Ah	Ahu	IVSuff-Ah	[du.] + it/him          <pos>A/IVSUFF_SUBJ:D+hu/IVSUFF_DO:3MS</pos>
+AhmA	AhumA	IVSuff-Ah	[du.] + them (both)     <pos>A/IVSUFF_SUBJ:D+humA/IVSUFF_DO:3D</pos>
+Ahm	Ahum	IVSuff-Ah	[du.] + them            <pos>A/IVSUFF_SUBJ:D+hum/IVSUFF_DO:3MP</pos>
+AhA	AhA	IVSuff-Ah	[du.] + it/them/her     <pos>A/IVSUFF_SUBJ:D+hA/IVSUFF_DO:3FS</pos>
+Ahn	Ahun~a	IVSuff-Ah	[du.] + them            <pos>A/IVSUFF_SUBJ:D+hun~a/IVSUFF_DO:3FP</pos>
+Any	Aniy	IVSuff-Ah	[du.] + me              <pos>A/IVSUFF_SUBJ:D+niy/IVSUFF_DO:1S</pos>
+AnA	AnA	IVSuff-Ah	[du.] + us              <pos>A/IVSUFF_SUBJ:D+nA/IVSUFF_DO:1P</pos>
+;
+h	hu	IVSuff-|h	[du.] + it/him          <pos>A/IVSUFF_SUBJ:D+hu/IVSUFF_DO:3MS</pos>
+hmA	humA	IVSuff-|h	[du.] + them (both)     <pos>A/IVSUFF_SUBJ:D+humA/IVSUFF_DO:3D</pos>
+hm	hum	IVSuff-|h	[du.] + them            <pos>A/IVSUFF_SUBJ:D+hum/IVSUFF_DO:3MP</pos>
+hA	hA	IVSuff-|h	[du.] + it/them/her     <pos>A/IVSUFF_SUBJ:D+hA/IVSUFF_DO:3FS</pos>
+hn	hun~a	IVSuff-|h	[du.] + them            <pos>A/IVSUFF_SUBJ:D+hun~a/IVSUFF_DO:3FP</pos>
+ny	niy	IVSuff-|h	[du.] + me              <pos>A/IVSUFF_SUBJ:D+niy/IVSUFF_DO:1S</pos>
+nA	nA	IVSuff-|h	[du.] + us              <pos>A/IVSUFF_SUBJ:D+nA/IVSUFF_DO:1P</pos>
+;
+; ==========
+; (2nd person DO are incompatible with 2nd pers. prefix: e.g. t---Ak)
+; mood: subjunctive or jussive
+; subject of verb: 3rd (humA masc/fem: y---Ak, t---Ak)
+Ak	Aka	IVSuff-Ak	[du.] + you  <pos>A/IVSUFF_SUBJ:3D+ka/IVSUFF_DO:2MS</pos>
+Ak	Aki	IVSuff-Ak	[du.] + you  <pos>A/IVSUFF_SUBJ:3D+ki/IVSUFF_DO:2FS</pos>
+AkmA	AkumA	IVSuff-Ak	[du.] + you  <pos>A/IVSUFF_SUBJ:3D+kumA/IVSUFF_DO:2D</pos>
+Akm	Akum	IVSuff-Ak	[du.] + you  <pos>A/IVSUFF_SUBJ:3D+kum/IVSUFF_DO:2MP</pos>
+Akn	Akun~a	IVSuff-Ak	[du.] + you  <pos>A/IVSUFF_SUBJ:3D+kun~a/IVSUFF_DO:2FP</pos>
+;
+k	ka	IVSuff-|k	[du.] + you  <pos>A/IVSUFF_SUBJ:3D+ka/IVSUFF_DO:2MS</pos>
+k	ki	IVSuff-|k	[du.] + you  <pos>A/IVSUFF_SUBJ:3D+ki/IVSUFF_DO:2FS</pos>
+kmA	kumA	IVSuff-|k	[du.] + you  <pos>A/IVSUFF_SUBJ:3D+kumA/IVSUFF_DO:2D</pos>
+km	kum	IVSuff-|k	[du.] + you  <pos>A/IVSUFF_SUBJ:3D+kum/IVSUFF_DO:2MP</pos>
+kn	kun~a	IVSuff-|k	[du.] + you  <pos>A/IVSUFF_SUBJ:3D+kun~a/IVSUFF_DO:2FP</pos>
+;
+; ==========
+; imperfect verb suffix that begins with vowel "-A" (du.indic.)
+; (as a vowel, it combines with the long stem of hollow verb:eg. y+quwl+An)
+; (and is incompatible with subjunctive prefix "li-")
+; mood: indicative
+; subject of verb: 3rd or 2nd (y---An, t---An)
+An	Ani	IVSuff-An	    <pos>Ani/IVSUFF_SUBJ:D</pos>
+; ya-boda|-ni
+n	ni	IVSuff-|n	    <pos>Ani/IVSUFF_SUBJ:D</pos>
+;
+; ==========
+; imperfect verb suffix that begins with vowel "-A" (du.indic.) + DO
+; mood: indicative
+; subject of verb: 3rd or 2nd (y---Anh, t---Anh)
+Anh	Anihi	IVSuff-Anh	[du.] + it/him          <pos>Ani/IVSUFF_SUBJ:D+hi/IVSUFF_DO:3MS</pos>
+AnhmA	AnihimA	IVSuff-Anh	[du.] + them (both)     <pos>Ani/IVSUFF_SUBJ:D+himA/IVSUFF_DO:3D</pos>
+Anhm	Anihim	IVSuff-Anh	[du.] + them            <pos>Ani/IVSUFF_SUBJ:D+him/IVSUFF_DO:3MP</pos>
+AnhA	AnihA	IVSuff-Anh	[du.] + it/them/her     <pos>Ani/IVSUFF_SUBJ:D+hA/IVSUFF_DO:3FS</pos>
+Anhn	Anihin~a	IVSuff-Anh	[du.] + them            <pos>Ani/IVSUFF_SUBJ:D+hin~a/IVSUFF_DO:3FP</pos>
+Anny	Aniniy	IVSuff-Anh	[du.] + me              <pos>Ani/IVSUFF_SUBJ:D+niy/IVSUFF_DO:1S</pos>
+AnnA	AninA	IVSuff-Anh	[du.] + us              <pos>Ani/IVSUFF_SUBJ:D+nA/IVSUFF_DO:1P</pos>
+;
+nh	nihi	IVSuff-|nh	[du.] + it/him          <pos>Ani/IVSUFF_SUBJ:D+hi/IVSUFF_DO:3MS</pos>
+nhmA	nihimA	IVSuff-|nh	[du.] + them (both)     <pos>Ani/IVSUFF_SUBJ:D+himA/IVSUFF_DO:3D</pos>
+nhm	nihim	IVSuff-|nh	[du.] + them            <pos>Ani/IVSUFF_SUBJ:D+him/IVSUFF_DO:3MP</pos>
+nhA	nihA	IVSuff-|nh	[du.] + it/them/her     <pos>Ani/IVSUFF_SUBJ:D+hA/IVSUFF_DO:3FS</pos>
+nhn	nihin~a	IVSuff-|nh	[du.] + them            <pos>Ani/IVSUFF_SUBJ:D+hin~a/IVSUFF_DO:3FP</pos>
+nny	niniy	IVSuff-|nh	[du.] + me              <pos>Ani/IVSUFF_SUBJ:D+niy/IVSUFF_DO:1S</pos>
+nnA	ninA	IVSuff-|nh	[du.] + us              <pos>Ani/IVSUFF_SUBJ:D+nA/IVSUFF_DO:1P</pos>
+;
+; ==========
+; (2nd person DO are incompatible with 2nd pers. prefix: e.g. t---Ak)
+; mood: indicative
+; subject of verb: 3rd (humA masc/fem: y---Ak, t---Ak)
+Ank	Anika	IVSuff-Ank	[du.] + you  <pos>Ani/IVSUFF_SUBJ:3D+ka/IVSUFF_DO:2MS</pos>
+Ank	Aniki	IVSuff-Ank	[du.] + you  <pos>Ani/IVSUFF_SUBJ:3D+ki/IVSUFF_DO:2FS</pos>
+AnkmA	AnikumA	IVSuff-Ank	[du.] + you  <pos>Ani/IVSUFF_SUBJ:3D+kumA/IVSUFF_DO:2D</pos>
+Ankm	Anikum	IVSuff-Ank	[du.] + you  <pos>Ani/IVSUFF_SUBJ:3D+kum/IVSUFF_DO:2MP</pos>
+Ankn	Anikun~a	IVSuff-Ank	[du.] + you  <pos>Ani/IVSUFF_SUBJ:3D+kun~a/IVSUFF_DO:2FP</pos>
+;
+nk	nika	IVSuff-|nk	[du.] + you  <pos>Ani/IVSUFF_SUBJ:3D+ka/IVSUFF_DO:2MS</pos>
+nk	niki	IVSuff-|nk	[du.] + you  <pos>Ani/IVSUFF_SUBJ:3D+ki/IVSUFF_DO:2FS</pos>
+nkmA	nikumA	IVSuff-|nk	[du.] + you  <pos>Ani/IVSUFF_SUBJ:3D+kumA/IVSUFF_DO:2D</pos>
+nkm	nikum	IVSuff-|nk	[du.] + you  <pos>Ani/IVSUFF_SUBJ:3D+kum/IVSUFF_DO:2MP</pos>
+nkn	nikun~a	IVSuff-|nk	[du.] + you  <pos>Ani/IVSUFF_SUBJ:3D+kun~a/IVSUFF_DO:2FP</pos>
+;
+; ==========
+; imperfect verb suffix that begins with vowel "-uw"
+; mood: subjunctive or jussive
+; subject of verb: masc.pl 2nd or 3rd (Antum or hum)
+wA	uwA	IVSuff-wA	    <pos>uwA/IVSUFF_SUBJ:MP</pos>
+; ya-xo$aY --> ya-xo$-awoA
+wA	awoA	IVSuff-awA	    <pos>awoA/IVSUFF_SUBJ:MP</pos>
+;
+; ==========
+; imperfect verb suffixes that begin with vowel "-uw" + DO
+; mood: subjunctive or jussive
+; subject of verb: masc.pl 2nd or 3rd (Antum or hum)
+wh	uwhu	IVSuff-wh	+ it/him          <pos>uw/IVSUFF_SUBJ:MP+hu/IVSUFF_DO:3MS</pos>
+whmA	uwhumA	IVSuff-wh	+ them (both)     <pos>uw/IVSUFF_SUBJ:MP+humA/IVSUFF_DO:3D</pos>
+whm	uwhum	IVSuff-wh	+ them            <pos>uw/IVSUFF_SUBJ:MP+hum/IVSUFF_DO:3MP</pos>
+whA	uwhA	IVSuff-wh	+ it/them/her     <pos>uw/IVSUFF_SUBJ:MP+hA/IVSUFF_DO:3FS</pos>
+whn	uwhun~a	IVSuff-wh	+ them            <pos>uw/IVSUFF_SUBJ:MP+hun~a/IVSUFF_DO:3FP</pos>
+wny	uwniy	IVSuff-wh	+ me              <pos>uw/IVSUFF_SUBJ:MP+niy/IVSUFF_DO:1S</pos>
+wnA	uwnA	IVSuff-wh	+ us              <pos>uw/IVSUFF_SUBJ:MP+nA/IVSUFF_DO:1P</pos>
+; ya-xo$-awohu
+wh	awohu	IVSuff-awh	+ it/him          <pos>awo/IVSUFF_SUBJ:MP+hu/IVSUFF_DO:3MS</pos>
+whmA	awohumA	IVSuff-awh	+ them (both)     <pos>awo/IVSUFF_SUBJ:MP+humA/IVSUFF_DO:3D</pos>
+whm	awohum	IVSuff-awh	+ them            <pos>awo/IVSUFF_SUBJ:MP+hum/IVSUFF_DO:3MP</pos>
+whA	awohA	IVSuff-awh	+ it/them/her     <pos>awo/IVSUFF_SUBJ:MP+hA/IVSUFF_DO:3FS</pos>
+whn	awohun~a	IVSuff-awh	+ them            <pos>awo/IVSUFF_SUBJ:MP+hun~a/IVSUFF_DO:3FP</pos>
+wny	awoniy	IVSuff-awh	+ me              <pos>awo/IVSUFF_SUBJ:MP+niy/IVSUFF_DO:1S</pos>
+wnA	awonA	IVSuff-awh	+ us              <pos>awo/IVSUFF_SUBJ:MP+nA/IVSUFF_DO:1P</pos>
+;
+; ==========
+; imperfect verb suffixes that begin with vowel "-uw" + 2nd pers. DO
+; (they are incompatible with 2nd person prefix: e.g. ta---wk)
+; mood: subjunctive or jussive
+; subject of verb: masc.pl 3rd (hum)
+wk	uwka	IVSuff-wk	+ you  <pos>uw/IVSUFF_SUBJ:3MP+ka/IVSUFF_DO:2MS</pos>
+wk	uwki	IVSuff-wk	+ you  <pos>uw/IVSUFF_SUBJ:3MP+ki/IVSUFF_DO:2FS</pos>
+wkmA	uwkumA	IVSuff-wk	+ you  <pos>uw/IVSUFF_SUBJ:3MP+kumA/IVSUFF_DO:2D</pos>
+wkm	uwkum	IVSuff-wk	+ you  <pos>uw/IVSUFF_SUBJ:3MP+kum/IVSUFF_DO:2MP</pos>
+wkn	uwkun~a	IVSuff-wk	+ you  <pos>uw/IVSUFF_SUBJ:3MP+kun~a/IVSUFF_DO:2FP</pos>
+; ya-xo$-awoka
+wk	awoka	IVSuff-awk	+ you  <pos>awo/IVSUFF_SUBJ:3MP+ka/IVSUFF_DO:2MS</pos>
+wk	awoki	IVSuff-awk	+ you  <pos>awo/IVSUFF_SUBJ:3MP+ki/IVSUFF_DO:2FS</pos>
+wkmA	awokumA	IVSuff-awk	+ you  <pos>awo/IVSUFF_SUBJ:3MP+kumA/IVSUFF_DO:2D</pos>
+wkm	awokum	IVSuff-awk	+ you  <pos>awo/IVSUFF_SUBJ:3MP+kum/IVSUFF_DO:2MP</pos>
+wkn	awokun~a	IVSuff-awk	+ you  <pos>awo/IVSUFF_SUBJ:3MP+kun~a/IVSUFF_DO:2FP</pos>
+;
+; ==========
+; imperfect verb suffix that begins with vowel "-uwna" (indic.)
+; mood: indicative
+; subject of verb: masc.pl 2nd or 3rd (Antum or hum)
+wn	uwna	IVSuff-wn	    <pos>uwna/IVSUFF_SUBJ:MP</pos>
+; ya-xo$-awona
+wn	awona	IVSuff-awn	    <pos>awona/IVSUFF_SUBJ:MP</pos>
+;
+; ========== former: S049
+; imperfect verb suffixes that begin with vowel "-uwna" (indic.) + DO
+; (incompatible with subjunctive li-)
+; mood: indicative
+; subject of verb: masc.pl 2nd or 3rd (Antum or hum)
+wnh	uwnahu	IVSuff-wnh	+ it/him          <pos>uwna/IVSUFF_SUBJ:MP+hu/IVSUFF_DO:3MS</pos>
+wnhmA	uwnahumA	IVSuff-wnh	+ them (both)     <pos>uwna/IVSUFF_SUBJ:MP+humA/IVSUFF_DO:3D</pos>
+wnhm	uwnahum	IVSuff-wnh	+ them            <pos>uwna/IVSUFF_SUBJ:MP+hum/IVSUFF_DO:3MP</pos>
+wnhA	uwnahA	IVSuff-wnh	+ it/them/her     <pos>uwna/IVSUFF_SUBJ:MP+hA/IVSUFF_DO:3FS</pos>
+wnhn	uwnahun~a	IVSuff-wnh	+ them            <pos>uwna/IVSUFF_SUBJ:MP+hun~a/IVSUFF_DO:3FP</pos>
+wnny	uwnaniy	IVSuff-wnh	+ me              <pos>uwna/IVSUFF_SUBJ:MP+niy/IVSUFF_DO:1S</pos>
+wnnA	uwnanA	IVSuff-wnh	+ us              <pos>uwna/IVSUFF_SUBJ:MP+nA/IVSUFF_DO:1P</pos>
+; ya-bok-awonahu
+wnh	awonahu	IVSuff-awnh	+ it/him          <pos>awona/IVSUFF_SUBJ:MP+hu/IVSUFF_DO:3MS</pos>
+wnhmA	awonahumA	IVSuff-awnh	+ them (both)     <pos>awona/IVSUFF_SUBJ:MP+humA/IVSUFF_DO:3D</pos>
+wnhm	awonahum	IVSuff-awnh	+ them            <pos>awona/IVSUFF_SUBJ:MP+hum/IVSUFF_DO:3MP</pos>
+wnhA	awonahA	IVSuff-awnh	+ it/them/her     <pos>awona/IVSUFF_SUBJ:MP+hA/IVSUFF_DO:3FS</pos>
+wnhn	awonahun~a	IVSuff-awnh	+ them            <pos>awona/IVSUFF_SUBJ:MP+hun~a/IVSUFF_DO:3FP</pos>
+wnny	awonaniy	IVSuff-awnh	+ me              <pos>awona/IVSUFF_SUBJ:MP+niy/IVSUFF_DO:1S</pos>
+wnnA	awonanA	IVSuff-awnh	+ us              <pos>awona/IVSUFF_SUBJ:MP+nA/IVSUFF_DO:1P</pos>
+;
+; ==========
+; imperfect verb suffixes that begin with vowel "-uwna" (indic.) + 2nd person DO
+; (they are incompatible with 2nd pers. prefix: e.g. ta---wnk)
+; mood: indicative
+; subject of verb: masc.pl 3rd (hum)
+wnk	uwnaka	IVSuff-wnk	+ you  <pos>uwna/IVSUFF_SUBJ:3MP+ka/IVSUFF_DO:2MS</pos>
+wnk	uwnaki	IVSuff-wnk	+ you  <pos>uwna/IVSUFF_SUBJ:3MP+ki/IVSUFF_DO:2FS</pos>
+wnkmA	uwnakumA	IVSuff-wnk	+ you  <pos>uwna/IVSUFF_SUBJ:3MP+kumA/IVSUFF_DO:2D</pos>
+wnkm	uwnakum	IVSuff-wnk	+ you  <pos>uwna/IVSUFF_SUBJ:3MP+kum/IVSUFF_DO:2MP</pos>
+wnkn	uwnakun~a	IVSuff-wnk	+ you  <pos>uwna/IVSUFF_SUBJ:3MP+kun~a/IVSUFF_DO:2FP</pos>
+; ya-bok-awonaka
+wnk	awonaka	IVSuff-awnk	+ you  <pos>awona/IVSUFF_SUBJ:3MP+ka/IVSUFF_DO:2MS</pos>
+wnk	awonaki	IVSuff-awnk	+ you  <pos>awona/IVSUFF_SUBJ:3MP+ki/IVSUFF_DO:2FS</pos>
+wnkmA	awonakumA	IVSuff-awnk	+ you  <pos>awona/IVSUFF_SUBJ:3MP+kumA/IVSUFF_DO:2D</pos>
+wnkm	awonakum	IVSuff-awnk	+ you  <pos>awona/IVSUFF_SUBJ:3MP+kum/IVSUFF_DO:2MP</pos>
+wnkn	awonakun~a	IVSuff-awnk	+ you  <pos>awona/IVSUFF_SUBJ:3MP+kun~a/IVSUFF_DO:2FP</pos>
+;
+; ==========
+; imperfect verb suffix that begins with vowel "-iy" (subjunctive/jussive)
+; (it's compatible only with "ta-" prefix: e.g. ta---iy)
+; mood: subjunctive or jussive
+; subject of verb: 2nd fem.sg. (Anti)
+y	iy	IVSuff-y	    <pos>iy/IVSUFF_SUBJ:2FS</pos>
+; ta-bok-ayo
+y	ayo	IVSuff-ay	    <pos>ayo/IVSUFF_SUBJ:2FS</pos>
+;
+; ==========
+; imperfect verb suffix that begins with vowel "-iy" (subjunctive/jussive) + DO
+; mood: subjunctive or jussive
+; subject of verb: 2nd fem.sg. (Anti)
+yh	iyhi	IVSuff-yh	it/him          <pos>iy/IVSUFF_SUBJ:2FS+hi/IVSUFF_DO:3MS</pos>
+yhmA	iyhimA	IVSuff-yh	them (both)     <pos>iy/IVSUFF_SUBJ:2FS+himA/IVSUFF_DO:3D</pos>
+yhm	iyhim	IVSuff-yh	them            <pos>iy/IVSUFF_SUBJ:2FS+him/IVSUFF_DO:3MP</pos>
+yhA	iyhA	IVSuff-yh	it/them/her     <pos>iy/IVSUFF_SUBJ:2FS+hA/IVSUFF_DO:3FS</pos>
+yhn	iyhin~a	IVSuff-yh	them            <pos>iy/IVSUFF_SUBJ:2FS+hin~a/IVSUFF_DO:3FP</pos>
+yny	iyniy	IVSuff-yh	me              <pos>iy/IVSUFF_SUBJ:2FS+niy/IVSUFF_DO:1S</pos>
+ynA	iynA	IVSuff-yh	us              <pos>iy/IVSUFF_SUBJ:2FS+nA/IVSUFF_DO:1P</pos>
+; ta-bok-ayohi
+yh	ayohi	IVSuff-ayh	it/him          <pos>ayo/IVSUFF_SUBJ:2FS+hi/IVSUFF_DO:3MS</pos>
+yhmA	ayohimA	IVSuff-ayh	them (both)     <pos>ayo/IVSUFF_SUBJ:2FS+himA/IVSUFF_DO:3D</pos>
+yhm	ayohim	IVSuff-ayh	them            <pos>ayo/IVSUFF_SUBJ:2FS+him/IVSUFF_DO:3MP</pos>
+yhA	ayohA	IVSuff-ayh	it/them/her     <pos>ayo/IVSUFF_SUBJ:2FS+hA/IVSUFF_DO:3FS</pos>
+yhn	ayohin~a	IVSuff-ayh	them            <pos>ayo/IVSUFF_SUBJ:2FS+hin~a/IVSUFF_DO:3FP</pos>
+yny	ayoniy	IVSuff-ayh	me              <pos>ayo/IVSUFF_SUBJ:2FS+niy/IVSUFF_DO:1S</pos>
+ynA	ayonA	IVSuff-ayh	us              <pos>ayo/IVSUFF_SUBJ:2FS+nA/IVSUFF_DO:1P</pos>
+;
+; ==========
+; imperfect verb suffix that begins with vowel "-iyna" (indic.)
+; (it's incompatible with subjunctive prefix "li-")
+; mood: indicative
+; subject of verb: 2nd fem.sg. (Anti)
+yn	iyna	IVSuff-yn	    <pos>iyna/IVSUFF_SUBJ:2FS</pos>
+; ta-bok-ayona
+yn	ayona	IVSuff-ayn	    <pos>ayona/IVSUFF_SUBJ:2FS</pos>
+;
+; ==========
+; imperfect verb suffix that begins with vowel "-iyna" (indic.) + DO
+; mood: indicative
+; subject of verb: 2nd fem.sg. (Anti)
+ynh	iynahu	IVSuff-ynh	it/him          <pos>iyna/IVSUFF_SUBJ:2FS+hu/IVSUFF_DO:3MS</pos>
+ynhmA	iynahumA	IVSuff-ynh	them (both)     <pos>iyna/IVSUFF_SUBJ:2FS+humA/IVSUFF_DO:3D</pos>
+ynhm	iynahum	IVSuff-ynh	them            <pos>iyna/IVSUFF_SUBJ:2FS+hum/IVSUFF_DO:3MP</pos>
+ynhA	iynahA	IVSuff-ynh	it/them/her     <pos>iyna/IVSUFF_SUBJ:2FS+hA/IVSUFF_DO:3FS</pos>
+ynhn	iynahun~a	IVSuff-ynh	them            <pos>iyna/IVSUFF_SUBJ:2FS+hun~a/IVSUFF_DO:3FP</pos>
+ynny	iynaniy	IVSuff-ynh	me              <pos>iyna/IVSUFF_SUBJ:2FS+niy/IVSUFF_DO:1S</pos>
+ynnA	iynanA	IVSuff-ynh	us              <pos>iyna/IVSUFF_SUBJ:2FS+nA/IVSUFF_DO:1P</pos>
+; ta-bok-ayonahu
+ynh	ayonahu	IVSuff-aynh	it/him          <pos>ayona/IVSUFF_SUBJ:2FS+hu/IVSUFF_DO:3MS</pos>
+ynhmA	ayonahumA	IVSuff-aynh	them (both)     <pos>ayona/IVSUFF_SUBJ:2FS+humA/IVSUFF_DO:3D</pos>
+ynhm	ayonahum	IVSuff-aynh	them            <pos>ayona/IVSUFF_SUBJ:2FS+hum/IVSUFF_DO:3MP</pos>
+ynhA	ayonahA	IVSuff-aynh	it/them/her     <pos>ayona/IVSUFF_SUBJ:2FS+hA/IVSUFF_DO:3FS</pos>
+ynhn	ayonahun~a	IVSuff-aynh	them            <pos>ayona/IVSUFF_SUBJ:2FS+hun~a/IVSUFF_DO:3FP</pos>
+ynny	ayonaniy	IVSuff-aynh	me              <pos>ayona/IVSUFF_SUBJ:2FS+niy/IVSUFF_DO:1S</pos>
+ynnA	ayonanA	IVSuff-aynh	us              <pos>ayona/IVSUFF_SUBJ:2FS+nA/IVSUFF_DO:1P</pos>
+;
+; =====================================================================
+; FUNCTION-WORD SUFFIXES
+; =====================================================================
+; <ilay-, Ealay-, laday-, fiy-
+h	hi	FWSuff-hi	it/him            <pos>hi/POSS_PRON_3MS</pos>    
+hmA	himA	FWSuff-hi	them (both)       <pos>himA/POSS_PRON_3D</pos>   
+hm	him	FWSuff-hi	them  <pos>him/PRON_3MP</pos>   
+hA	hA	FWSuff-hi	it/them/her       <pos>hA/POSS_PRON_3FS</pos>
+hn	hin~a	FWSuff-hi	them  <pos>hin~a/PRON_3FP</pos> 
+;===============================================================================
+; >an~a, bi>an~a, <in~a, ka>an~a, li>an~a, l`kin~a "he"
+h	hu	FWSuff-hu-hep	it/he             <pos>hu/POSS_PRON_3MS</pos>    
+hmA	humA	FWSuff-hu-hep	they (both)       <pos>humA/POSS_PRON_3D</pos>   
+hm	hum	FWSuff-hu-hep	they  <pos>hum/POSS_PRON_3MP</pos>
+hA	hA	FWSuff-hu-hep	it/they/she       <pos>hA/POSS_PRON_3FS</pos>   
+hn	hun~a	FWSuff-hu-hep	they  <pos>hun~a/POSS_PRON_3FP</pos> 
+kmA	kumA	FWSuff-hu-hep	your      <pos>kumA/POSS_PRON_2D</pos>
+km	kum	FWSuff-hu-hep	your      <pos>kum/POSS_PRON_2MP</pos>
+kn	kun~a	FWSuff-hu-hep	your      <pos>kun~a/POSS_PRON_2FP</pos>
+nA	nA	FWSuff-hu-hep	our                        <pos>nA/POSS_PRON_1P</pos>
+k	ka	FWSuff-hu-hep	you   <pos>ka/POSS_PRON_2MS</pos>    
+k	ki	FWSuff-hu-hep	you   <pos>ki/POSS_PRON_2FS</pos>
+;===============================================================================
+; lakum lahu lahA
+h	hu	FWSuff-hu-he	it/he             <pos>hu/POSS_PRON_3MS</pos>    
+hmA	humA	FWSuff-hu-he	they (both)       <pos>humA/POSS_PRON_3D</pos>   
+hm	hum	FWSuff-hu-he	they  <pos>hum/POSS_PRON_3MP</pos>
+hA	hA	FWSuff-hu-he	it/they/she       <pos>hA/POSS_PRON_3FS</pos>   
+hn	hun~a	FWSuff-hu-he	they  <pos>hun~a/POSS_PRON_3FP</pos> 
+;-----------------------------------------------------
+; Ean, min, ladun -- "him"
+h	hu	FWSuff-hu-him	it/him            <pos>hu/POSS_PRON_3MS</pos>    
+hmA	humA	FWSuff-hu-him	them (both)       <pos>humA/POSS_PRON_3D</pos>   
+hm	hum	FWSuff-hu-him	them  <pos>hum/POSS_PRON_3MP</pos>
+hA	hA	FWSuff-hu-him	it/them/her       <pos>hA/POSS_PRON_3FS</pos>   
+hn	hun~a	FWSuff-hu-him	them  <pos>hun~a/POSS_PRON_3FP</pos> 
+;===============================================================================
+; <ilay-, Ealay-, laday-, fiy-
+; >an~a, bi>an~a, <in~a, ka>an~a, li>an~a, l`kin~a
+; Ean, min, ladun
+k	ka	FWSuff-k	you   <pos>ka/POSS_PRON_2MS</pos>    
+k	ki	FWSuff-k	you   <pos>ki/POSS_PRON_2FS</pos>    
+kmA	kumA	FWSuff-k	you (both)        <pos>kumA/POSS_PRON_2D</pos>   
+km	kum	FWSuff-k	you   <pos>kum/POSS_PRON_2MP</pos>   
+kn	kun~a	FWSuff-k	you   <pos>kun~a/POSS_PRON_2FP</pos> 
+;===============================================================================
+; <ilay-, Ealay-, laday-, fiy- "me"
+		FWSuff-0	  
+	~a	FWSuff-~a	me                <pos>~a/POSS_PRON_1S</pos>   
+;-----------------------------------------------------
+y	ya	FWSuff-ya	me                <pos>ya/POSS_PRON_1S</pos>     
+;-----------------------------------------------------
+; >an~a, bi>an~a, <in~a, ka>an~a, li>an~a, l`kin~a "I"
+ny	niy	FWSuff-niy-I	I                 <pos>niy/POSS_PRON_1S</pos>
+;-----------------------------------------------------
+ny	niy	FWSuff-niy-me	me                <pos>niy/POSS_PRON_1S</pos>
+;-----------------------------------------------------
+; >an~, bi>an~, <in~, ka>an~, li>an~, l`kin~ "I"
+y	iy	FWSuff-iy-I	I                 <pos>iy/POSS_PRON_1S</pos>
+;-----------------------------------------------------
+; maEa, baEoda, bayona, Einoda, etc
+y	iy	FWSuff-iy-me	me                <pos>iy/POSS_PRON_1S</pos>
+;-----------------------------------------------------
+; Ean, min, ladun "me"
+y	~iy	FWSuff-~iy	me                <pos>~iy/POSS_PRON_1S</pos>
+;===============================================================================
+; <ilay-, Ealay-, laday-, fiy- "us"
+nA	nA	FWSuff-nA-us	us    <pos>nA/POSS_PRON_1P</pos>     
+; >an~a, bi>an~a, <in~a, ka>an~a, li>an~a, l`kin~a "we"
+nA	nA	FWSuff-nA-we	we    <pos>nA/POSS_PRON_1P</pos>     
+A	nA	FWSuff-A-we	we    <pos>A/POSS_PRON_1P</pos>     
+;-----------------------------------------------------
+; >an~, bi>an~, <in~, ka>an~, li>an~, l`kin~ -- "we"
+;A	A	FWSuff-A	we                <pos>A/POSS_PRON_1P</pos>
+;-----------------------------------------------------
+; Ean, min, ladun -- "us"
+A	~A	FWSuff-~A	us                <pos>~A/POSS_PRON_1P</pos>
+;
+; =============================================================================
