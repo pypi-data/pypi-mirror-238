@@ -1,0 +1,55 @@
+[tool.poetry]
+name = "pokesage"
+version = "0.3.0"
+description = "Pokemon Playing AI training tools built with a modern, async, type-hinting stack"
+authors = ["Trevor Wieland <trevor_wieland@mac.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/trevorWieland/pokesage"
+documentation = "https://trevorwieland.github.io/pokesage/"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.13"
+pydantic = "^2.4.2"
+aiohttp = "3.9.0b0"
+tqdm = "^4.66.1"
+beartype = "^0.16.2"
+poketypes = "^0.2.1"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+notebook = "^7.0.4"
+isort = "^5.12.0"
+black = "^23.9.1"
+flake8 = "^6.1.0"
+flake8-pydocstyle = "^0.2.2"
+pydoclint = {extras = ["flake8"], version = "^0.3.8"}
+mkdocs = "^1.5.3"
+mkdocstrings = {extras = ["python"], version = "^0.23.0"}
+mkdocs-material = "^9.4.6"
+flake8-pyproject = "^1.2.3"
+flake8-bugbear = "^23.9.16"
+flake8-async = "^22.11.14"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry_bumpversion.file."pokesage/__init__.py"]
+
+[tool.flake8]
+max-line-length = 120
+count = true
+per-file-ignores = [
+    '__init__.py:F401',
+    '__init__.py:D104',
+]
+style = 'google'
+extend-ignore = ['D107']
+
+[tool.pydoclint]
+style = 'google'
+allow-init-docstring = true
