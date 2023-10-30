@@ -1,0 +1,69 @@
+[tool.poetry]
+name = "mathtext"
+version = "2.0.3"
+authors = [
+    "Greg Thompson <greg@tangibleai.com>",
+    "Sebastian Larson <sebastianlarson22@gmail.com>",
+    "Çetin ÇAKIR <cetincakirtr@gmail.com>",
+    "Vlad Snisar <snisarvlad04@gmail.com",
+    "Hobson Lane <gitlab@totalgood.com>",
+    "Maria Dyshel <maria@tangibleai.com>",]
+description = "Natural Language Understanding (text processing) for math symbols, digits, and words with a Gradio user interface and REST API."
+readme = "README.md"
+license = "AGPL-3.0-or-later"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Operating System :: OS Independent",
+]
+repository = "https://gitlab.com/tangibleai/community/mathtext"
+
+[tool.poetry.dependencies]
+boto3 = "^1.28"  # six jmespath python-dateutil s3transfer
+editdistance = "^0.6.2"  # NO DEPENDENCIES!
+google-cloud-storage = ">=2.10.0"  # google-auth protobuf cachetools
+# matplotlib = "^3.8"  # pyparsing fonttools pillow packaging python-dateutil six
+pandas-gbq = ">=0.19.2"  # pandas oauthlib requests requests-oathlib proto-plus urllib3 pyarrow pytz python-dateutil
+python = ">=3.9"  # FIXME GT: HL upgraded 3.8->3.9 ConvoHub requires at least 3.9. this may break mathtext 
+python-dotenv = ">=0.21"
+scikit-image = ">=0.20.0"
+sentence-transformers = ">=2.2.2"  # transformers joblib torch torchvision scikit-learn scipy typing-extensions jinja2 urllib3 Pillow pyyaml regex huggingface-hub MarkupSafe
+seaborn = "^0.13.0"  # pandas fonttools matplotlib numpy contourpy cycler pillow packaging python-dateutil pytz tzdata six
+spacy = "^3.7"  # FIXME GT: HL upgraded and libralized ">=3.4.4"->"^3.7" to match ConvoHub
+unidecode = ">=1.3.6"
+
+# # IMPORTANT: This may be required in any packages that install mathtext as a dependency
+# [tool.poetry.dependencies.en_core_web_sm]
+# url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.4.1/en_core_web_sm-3.4.1.tar.gz"
+
+[tool.poetry.dev-dependencies]
+jupyter = ">=1.0.0"  # jupyter installs: matplotlib-inline *BUT NOT* matplotlib
+build = "*"
+pytest-cov = "*"
+twine = "*"
+virtualenv = "*"
+wheel = "*"
+toml = "*"
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules"
+doctest_optionflags = "NORMALIZE_WHITESPACE ELLIPSIS"
+testpaths = [
+    "mathtext",
+    "tests"
+]
+
+# [tool.poetry.dependencies.en-core-web-sm]
+# url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.4.1/en_core_web_sm-3.4.1-py3-none-any.whl"
+# WARNING!!! MUST RUN:
+# python -m spacy download en_core_web_sm
+# OR:
+# pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.4.1/en_core_web_sm-3.4.1-py3-none-any.whl
+
+[build-system]
+requires = ["poetry-core>=1.7.0"]
+build-backend = "poetry.core.masonry.api"
