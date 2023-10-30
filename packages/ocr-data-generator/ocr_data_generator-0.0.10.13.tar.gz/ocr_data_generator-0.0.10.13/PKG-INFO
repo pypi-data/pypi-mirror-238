@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: ocr_data_generator
+Version: 0.0.10.13
+Summary: A small example package
+Home-page: https://github.com/pypa/sampleproject
+Author: baiyigali
+Author-email: 1304646911@qq.com
+Project-URL: Bug Tracker, https://github.com/pypa/sampleproject/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+
+# windows
+```text
+docker build -t ocr_data_generator -f docker/Dockerfile .
+docker run -it --rm --name ocr_data_generator -v .\:/code ocr_data_generator bash
+
+```
