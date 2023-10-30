@@ -1,0 +1,83 @@
+[tool.poetry]
+name = "abuse_whois"
+version = "0.8.4"
+description = "Find where to report a domain for abuse"
+authors = ["Manabu Niseki <manabu.niseki@gmail.com>"]
+license = "MIT"
+homepage = "https://github.com/ninoseki/abuse_whois"
+repository = "https://github.com/ninoseki/abuse_whois"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+asyncache = ">=0.3,<1.0"
+asyncer = ">=0.0.2,<1.0"
+asyncwhois = ">=1.0.8,<2.0"
+azuma = "^0.3"
+cachetools = "^5.3"
+fastapi = ">=0.100,<1.0"
+gunicorn = { version = "^21.2", optional = true }
+loguru = ">=0.7,<1.0"
+orjson = ">=3.9,<4.0"
+pydantic = "^2.0"
+pyhumps = "^3.8"
+PyYAML = "^6.0"
+returns = "^0.22.0"
+stamina = "^23.1"
+tldextract = "^5.0"
+typer = ">=0.9,<1.0"
+uvicorn = { extras = ["standard"], version = "^0.23", optional = true }
+validators = ">=0.22,<1.0"
+
+[tool.poetry.group.dev.dependencies]
+autoflake = "^2.2"
+autopep8 = "^2.0"
+black = "^23.7"
+coveralls = "^3.3"
+mypy = "^1.5"
+pre-commit = "^3.3"
+pytest = "^7.4"
+pytest-asyncio = "^0.21"
+pytest-cov = "^4.1"
+pytest-mock = "^3.11"
+pytest-pretty = "^1.2"
+pytest-randomly = "^3.15"
+pyupgrade = "^3.10"
+
+[tool.poetry.extras]
+api = ["uvicorn", "gunicorn"]
+
+[tool.poetry.scripts]
+abuse_whois = "abuse_whois.main:app"
+
+[tool.poetry-dynamic-versioning]
+enable = false
+
+[build-system]
+requires = ["poetry-core", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[tool.ruff]
+select = [
+  "ASYNC", # flake8-async
+  "B",     # flake8-bugbear
+  "C",     # flake8-comprehensions
+  "E",     # pycodestyle errors
+  "F",     # pyflakes
+  "I",     # isort
+  "N",     # pep8-naming
+  "RET",   # flake8-return
+  "RUF",   # Ruff-specific rules
+  "SIM",   # flake8-simplify
+  "T20",   # flake8-print
+  "W",     # pycodestyle warnings
+]
+ignore = [
+  "E501", # line too long, handled by black
+]
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]

@@ -1,0 +1,12 @@
+title: Hostinger
+description: A whois rule for Hostinger
+contact:
+  provider: Hostinger
+  address: abuse@hostinger.com
+detection:
+  selection:
+    rawText|contains:
+      - "abuse@hostinger.com"
+  condition: selection
+logsource:
+  product: abuse_whois
