@@ -1,0 +1,20 @@
+global-include *.txt *.cpp *.hpp *.h *.py *.html *.csv *.pyx
+
+include pytest.ini
+recursive-include pyqstrat *.gz
+recursive-include apidocs *.rst
+recursive-include pyqstrat *.rst
+recursive-include pyqstrat *.sh
+
+recursive-exclude pyqstrat/notebooks *.py
+recursive-include pyqstrat/notebooks *.ipynb
+
+prune dist
+prune docs
+
+# Patterns to exclude from any directory
+global-exclude *~
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude .git
+global-exclude *.ipynb_checkpoints*
