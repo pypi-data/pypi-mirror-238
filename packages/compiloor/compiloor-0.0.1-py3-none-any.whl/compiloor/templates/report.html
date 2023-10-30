@@ -1,0 +1,154 @@
+<html>
+    <head>
+        {{stylesheet}}
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/aaaakshat/cm-web-fonts@latest/fonts.css">
+
+    </head>
+    <body>
+        <section>
+            <section id="report-title-wrapper">
+                <div id="report-title-author">
+                    <h1>
+                        {{config.title}}
+                    </h1>
+                </div>
+                <div class="report-title-protocol">
+                    <div class="report-title-author-border"></div>
+                    <h2 id="report-title-protocol">{{config.protocol_name}}</h2>
+                    <div class="report-title-author-border"></div>
+                </div>
+                <div class="report-title-protocol">
+                    <h4>Conducted by {{config.author}}</h4>
+                    <h5 class="thin-heading">{{config.date}}</h5>
+                </div>
+            </section>
+            <section id="contents">
+                <h1 class="paragraph-heading">Contents</h1>
+                <a href="#section-1">
+                    <div class="section-wrapper">
+                        <h3>1. About {{config.author}}</h3>
+                        {{section_1_page}}
+                    </div>
+                </a>
+                <a href="#section-2">
+                    <div class="section-wrapper">
+                        <h3>2. Disclaimer</h3>
+                        {{section_2_page}}
+                    </div>
+                </a>
+                <a href="#section-3">
+                    <div class="section-wrapper">
+                        <h3>3. Introduction</h3>
+                        {{section_3_page}}
+                    </div>
+                </a>
+                <a href="#section-4">
+                    <div class="section-wrapper">
+                        <h3>4. Risk Classification</h3>
+                        {{section_4_page}}
+                    </div>
+                </a>
+                <div class="sub-paragraph">
+                    <a href="#section-4-1">
+                        <div class="section-wrapper">
+                            <h3>4.1. Impact</h3>
+                            {{section_4.1_page}}
+                        </div>
+                    </a>
+                    <a href="#section-4-2">
+                        <div class="section-wrapper">
+                            <h3>4.2. Likelihood</h3>
+                            {{section_4.2_page}}
+                        </div>
+                    </a>
+                    <a href="#section-4-3">
+                        <div class="section-wrapper">
+                            <h3>4.3. Action required for severity levels</h3>
+                            {{section_4.3_page}}
+                        </div>
+                    </a>
+                </div>
+                <a href="#section-5">
+                    <div class="section-wrapper">
+                        <h3>
+                            5. Executive Summary
+                        </h3>
+                        {{section_5_page}}
+                    </div>
+                </a>
+                <a href="#section-6">
+                    <div class="section-wrapper">
+                        <h3>
+                            6. Findings
+                        </h3>
+                        {{section_6_page}}
+                    </div>
+                </a>
+                <div class="sub-paragraph">
+                    {{report_legend}}
+                </div>
+            </section>
+            <section id="section-1">
+                <h1 class="paragraph-heading">1. About {{config.author}}</h1>
+                <p>{{config.about_content}}</p>
+            </section>
+            <sectio id="section-2">
+                <h1 class="paragraph-heading">2. Disclaimer</h1>
+                <p>{{config.disclaimer_content}}.</p>
+            </sectio>
+            <section id="section-3">
+                <h1 class="paragraph-heading">3. Introduction</h1>
+                <p>{{config.introduction_content}}</p>
+            </section>
+            <section id="section-4">
+                <h1 class="paragraph-heading">4. Risk Classification</h1>
+                {{severity_classification_table}}
+            </section>
+                <section id="section-4-1">
+                    <h2 class="paragraph-subheading">4.1. Impact</h2>
+                    <p>
+                        <ul>
+                            <li>High - leads to a significant material loss of assets in the protocol or significantly harms a group of users.</li>
+                            <li>Medium - only a small amount of funds can be lost (such as leakage of value) or a core functionality of the protocol is affected.</li>
+                            <li>Low - can lead to any kind of unexpected behavior with some of the protocol's functionalities that's not so critical.</li>
+                        </ul>
+                    </p>
+                </section>
+                <section id="section-4-2">
+                    <h2 class="paragraph-subheading">4.2. Likelihood</h2>
+                    <p>
+                        <ul>
+                            <li>High - attack path is possible with reasonable assumptions that mimic on-chain conditions, and the cost of the attack is relatively low compared to the amount of funds that can be stolen or lost.</li>
+                            <li>Medium - only a conditionally incentivized attack vector, but still relatively likely.</li>
+                            <li>Low - has too many or too unlikely assumptions or requires a significant stake by the attacker with little or no incentive.</li>
+                        </ul>
+                    </p>
+                </section>
+                <section id="section-4-3">
+                    <h2 class="paragraph-subheading">4.3. Action required for severity levels</h2>
+                    <p>
+                        <ul>
+                            <li>Critical - Must fix as soon as possible (if already deployed)</li>
+                            <li>High - Must fix (before deployment if not already deployed)</li>
+                            <li>Medium - Should fix</li>
+                            <li>Low - Could fix</li>
+                        </ul>
+                    </p>
+                </section>
+            <section id="section-5">
+                <h1 class="paragraph-heading">5. Executive Summary</h1>
+                <p>
+                    Over the course of the security review, {{config.author}} engaged with {{config.company_name}} to review {{config.protocol_name}}.
+                    In this period of time a total of <b>{{total_findings_amount}}</b> issues were uncovered.                
+                    {{information_table}}
+                    {{findings_count_table}}
+                    {{findings_summary_table}}
+                </p>
+            </section>
+            <section id="section-6">
+                <h1 class="paragraph-heading">6. Findings</h1>
+                <section>{{findings}}</section>
+            </section>
+        </section>
+    </body>
+</html>
