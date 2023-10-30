@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "ollama-cli"
+version = "0.1.2"
+description = ""
+authors = ["Promotos <promotos@gmx.de>"]
+readme = "README.md"
+license = "Apache-2.0"
+keywords = ["ollama", "command line interface"]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+
+[tool.poetry.scripts]
+ollama-cli = "ollama_cli.ollama_cli:run"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
