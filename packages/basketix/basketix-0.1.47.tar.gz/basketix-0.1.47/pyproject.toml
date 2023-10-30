@@ -1,0 +1,22 @@
+[build-system]
+requires = [ "poetry-core",]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "basketix"
+version = "0.1.47"
+description = ""
+authors = [ "tlartigau <thomas.lartigau@atinternet.com>",]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+boto3 = "^1.26.69"
+python-dateutil = "^2.8.2"
+pytz = "^2022.7.1"
+isoweek = "^1.3.3"
+typing-extensions = "^4.4.0"
+
+[tool.poetry.group.dev.dependencies]
+toml = "^0.10.2"
+semver = "^2.13.0"
