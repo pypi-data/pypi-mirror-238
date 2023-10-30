@@ -1,0 +1,36 @@
+[project]
+name = "greptimeai"
+version = "0.1.4"
+description = "Observability tool for LLM application"
+authors = [
+    { name = "Greptime", email = "info@greptime.com" },
+]
+dependencies = [
+    "langchain>=0.0.285",
+    "opentelemetry-api>=1.20.0",
+    "opentelemetry-sdk>=1.20.0",
+    "opentelemetry-exporter-otlp-proto-http>=1.20.0",
+]
+keywords = [
+    "greptime",
+    "observability",
+    "monitoring",
+    "llm",
+    "langchain",
+    "openai"
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "ruff>=0.1.3",
+]
+
+[tool.rye.scripts]
+test = { cmd = "python -m unittest discover tests/langchain -v" }
