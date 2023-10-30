@@ -1,0 +1,919 @@
+; ==========================================================================
+; "dictPrefixes"
+; Portions (c) 2002-2004 QAMUS LLC (www.qamus.org), 
+; (c) 2002-2004 Trustees of the University of Pennsylvania 
+; 
+; LDC USER AGREEMENT
+; 
+; Use of this version of the Buckwalter Arabic Morphological Analyzer Version 2
+; distributed by the Linguistic Data Consortium (LDC) of the University of 
+; Pennsylvania is governed by the following terms: 
+; 
+; This User Agreement is provided by the Linguistic Data Consortium as a 
+; condition of accepting the databases named or described herein. 
+; 
+; This Agreement describes the terms between User/User's Research Group and 
+; Linguistic Data Consortium (LDC), in which User will receive material, as 
+; specified below, from LDC. The terms of this Agreement supercede the terms of 
+; any previous Membership Agreement in regard to the Buckwalter Arabic 
+; Morphological Analyzer Version 2.
+; 
+; Under this agreement User will receive one or more CD-ROM discs, DVDs, 
+; electronic files or other media as appropriate, containing linguistic tools, 
+; speech, video, and/or text data. User agrees to use the material received 
+; under this agreement only for non-commercial linguistic education and research
+; purposes. Unless explicitly permitted herein, User shall have no right to 
+; copy, redistribute, transmit, publish or otherwise use the LDC Databases for 
+; any other purpose and User further agrees not to disclose, copy, or 
+; re-distribute the material to others outside of User's research group. 
+; 
+; Government use, including any use within or among government organizations and
+; use by government contractors to produce or evaluate resources and 
+; technologies for government use, is permitted under this license.
+; 
+; Organizations interested in licensing the Buckwalter Arabic Morphological 
+; Analyzer Version 2 for commercial use should contact: 
+; 
+;    QAMUS LLC 
+;    448 South 48th St. 
+;    Philadelphia, PA 19143 
+;    ATTN: Tim Buckwalter 
+;    email: license@qamus.org
+; 
+; Except for Government use as specified above, commercial uses of this corpus 
+; include, but are not limited to, imbedded use of the Analyzer, Analyzer 
+; methods, Analyzer derived works, Analyzer output data, algorithms, lexicons, 
+; and downloaded data in a commercial product or a fee for service project; 
+; use of the Analyzer, Analyzer methods, Analyzer derived works, Analyzer 
+; output data, algorithms, and downloaded data to create or develop a 
+; commercial product or perform a fee for service project; use of Analyzer, 
+; Analyzer methods, Analyzer derived works, Analyzer output data, algorithms, 
+; lexicons, and downloaded data as a development tool to measure performance of
+; a commercial product or work product developed on a fee for service basis; 
+; redistribution of Analyzer, Analyzer methods, Analyzer derived works, Analyzer 
+; output data, algorithms, lexicons and downloaded data to any third party for 
+; imbedding in a commercial product or fee for service project, for deriving a 
+; commercial product or fee for service project, or for measuring the 
+; performance of a commercial product or fee for service project.
+; 
+; USER ACKNOWLEDGES AND AGREES THAT "CORPORA RECEIVED" ARE PROVIDED ON AN "AS-IS"
+; BASIS AND THAT LDC, ITS HOST INSTITUTION THE UNIVERSITY OF PENNSYLVANIA, AND 
+; ITS DATA PROVIDERS AND CORPUS AUTHORS MAKE NO REPRESENTATIONS OR WARRANTIES OF 
+; ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES 
+; OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR CONFORMITY WITH 
+; WHATEVER DOCUMENTATION IS PROVIDED. IN NO EVENT SHALL LDC, ITS HOST 
+; INSTITUTION, DATA PROVIDORS OR CORPUS AUTHORS BE LIABLE FOR SPECIAL, DIRECT, 
+; INDIRECT, CONSEQUENTIAL, PUNITIVE, INCIDENTAL OR OTHER DAMAGES, LOSSES, COSTS, 
+; CHARGES, CLAIMS, DEMANDS, FEES OR EXPENSES OF ANY NATURE OR KIND ARISING IN ANY
+; WAY FROM THE FURNISHING OF OR USER'S USE OF THE CORPORA RECEIVED. 
+; 
+; ==================================================================
+; Contents: Each entry consists of four tab-delimited fields:
+; (1) the prefix (or concatenation of prefixes) WITHOUT short vowels and diacritics
+; (2) the prefix (or concatenation of prefixes) WITH    short vowels and diacritics
+; (3) its morphological category (for controlling its compatibility with stems & suffixes)
+; (4) its English gloss(es): includes POS data within tags <pos>...</pos>
+; ==========================================================================
+;
+; The first category is the null prefix (has a null gloss as well):
+		Pref-0	
+;
+; conjunctions
+w	wa	Pref-Wa	and <pos>wa/CONJ</pos>
+f	fa	Pref-Wa	and;so <pos>fa/CONJ</pos>
+w	wa	Pref-wa	and <pos>wa/CONJ</pos>
+f	fa	Pref-fa	and;so <pos>fa/CONJ</pos>
+;
+; prepositions
+; incompatible with noun suffix categories that are "nominative"
+b	bi	NPref-Bi	by;with <pos>bi/PREP</pos>
+b	bi	NPref-Bi-PR	by;with <pos>bi/PREP</pos>
+k	ka	NPref-Bi	like;such as <pos>ka/PREP</pos>
+k	ka	NPref-Bi-PR	like;such as <pos>ka/PREP</pos>
+; concatenations
+wb	wabi	NPref-Bi	and + by/with <pos>wa/CONJ+bi/PREP</pos>
+wb	wabi	NPref-Bi-PR	and + by/with <pos>wa/CONJ+bi/PREP</pos>
+fb	fabi	NPref-Bi	and + by/with <pos>fa/CONJ+bi/PREP</pos>
+fb	fabi	NPref-Bi-PR	and + by/with <pos>fa/CONJ+bi/PREP</pos>
+wk	waka	NPref-Bi	and + like/such as <pos>wa/CONJ+ka/PREP</pos>
+wk	waka	NPref-Bi-PR	and + like/such as <pos>wa/CONJ+ka/PREP</pos>
+fk	faka	NPref-Bi	and + like/such as <pos>fa/CONJ+ka/PREP</pos>
+fk	faka	NPref-Bi-PR	and + like/such as <pos>fa/CONJ+ka/PREP</pos>
+;
+; preposition li- (precedes nouns)
+; incompatible with noun suffix categories that are "nominative"
+l	li	NPref-Li	for/to <pos>li/PREP</pos>
+l	la	NPref-La-PR	for/to <pos>la/PREP</pos>
+wl	wala	NPref-La-PR	and + for/to <pos>wa/CONJ+la/PREP</pos>
+fl	fala	NPref-La-PR	and + for/to <pos>fa/CONJ+la/PREP</pos>
+; conj. + prep. li-
+wl	wali	NPref-Li	and + for/to <pos>wa/CONJ+li/PREP</pos>
+fl	fali	NPref-Li	and + for/to <pos>fa/CONJ+li/PREP</pos>
+;
+; emphatic particle la- (precedes nouns)
+; incompatible with suffix feature "genitive/accusative"
+l	la	NPref-La	indeed/truly <pos>la/EMPH_PART</pos>
+wl	wala	NPref-WaLa	and + for/to <pos>wa/CONJ+la/EMPH_PART</pos>
+fl	fala	NPref-WaLa	and + for/to <pos>fa/CONJ+la/EMPH_PART</pos>
+;
+; mA REL_PRTN & NEG_PART (precedes nouns)
+;mA	mA	NPref-mA	what <pos>mA/REL_PEON</pos>
+;mA	mA	NPref-mA	not <pos>mA/NEG_PART</pos>
+;mA	mA	NPref-mA	what/which <pos>mA/INTERROG_PART</pos>
+;
+;mAAl	mA	NPref-mA-Al	what <pos>mA/REL_PEON+Al/DET</pos>
+;mAAl	mA	NPref-mA-Al	not <pos>mA/NEG_PART+Al/DET</pos>
+;mAAl	mA	NPref-mA-Al	what/which <pos>mA/INTERROG_PART+Al/DET</pos>
+;
+;mAb	mAbi	NPref-mA-Bi	what <pos>mA/REL_PEON+bi/PREP</pos>
+;mAb	mAbi	NPref-mA-Bi	not <pos>mA/NEG_PART+bi/PREP</pos>
+;mAb	mAbi	NPref-mA-Bi	what/which <pos>mA/INTERROG_PART+bi/PREP</pos>
+;
+; definite article (incompatible with all poss.pron. sufixes)
+Al	Al	NPref-Al	the <pos>Al/DET</pos>
+; conj. + def.art
+wAl	waAl	NPref-Al	and + the        <pos>wa/CONJ+Al/DET</pos>
+fAl	faAl	NPref-Al	and/so + the     <pos>fa/CONJ+Al/DET</pos>
+;
+; prep. + def.art.
+bAl	biAl	NPref-BiAl	with/by + the                     <pos>bi/PREP+Al/DET</pos>
+kAl	kaAl	NPref-BiAl	like/such as + the                <pos>ka/PREP+Al/DET</pos>
+; conj. + prep. + def.art.
+wbAl	wabiAl	NPref-BiAl	and + with/by + the       <pos>wa/CONJ+bi/PREP+Al/DET</pos>
+fbAl	fabiAl	NPref-BiAl	and/so + with/by + the    <pos>fa/CONJ+bi/PREP+Al/DET</pos>
+wkAl	wakaAl	NPref-BiAl	and + like/such as + the  <pos>wa/CONJ+ka/PREP+Al/DET</pos>
+fkAl	fakaAl	NPref-BiAl	and + like/such as + the  <pos>fa/CONJ+ka/PREP+Al/DET</pos>
+;
+; li- + def.art.
+ll	lil	NPref-Lil	to/for + the                      <pos>li/PREP+Al/DET</pos>
+wll	walil	NPref-Lil	and + to/for + the        <pos>wa/CONJ+li/PREP+Al/DET</pos>
+fll	falil	NPref-Lil	and/so + to/for + the     <pos>fa/CONJ+li/PREP+Al/DET</pos>
+;
+; li- + def.art. (for stems beginning with "l",; eg. liqA': llqA' = li-liqA' or li-Al-liqA'
+l	li	NPref-LiAl	to/for + the                      <pos>li/PREP+Al/DET</pos>
+wl	wali	NPref-LiAl	and + to/for + the        <pos>wa/CONJ+li/PREP+Al/DET</pos>
+fl	fali	NPref-LiAl	and/so + to/for + the     <pos>fa/CONJ+li/PREP+Al/DET</pos>
+;
+; result clause particle (laam jawaab al-sharT -- precedes perfect verb)
+l	la	PVPref-La	would have <pos>la/RC_PART</pos>
+;mA	mA	PVPref-mA	what <pos>mA/REL_PRON</pos>
+;mA	mA	PVPref-mA	not <pos>mA/NEG_PART</pos>
+;mA	mA	PVPref-mA	how...! <pos>mA/INTERJ</pos>
+;
+;-------------------------------------------------------------------------------------------------
+; imperfect verb prefix: 3rd pers.masc.sg. (huwa)
+y	ya	IVPref-hw-ya	he/it <pos>ya/IV3MS</pos>
+y	yu	IVPref-hw-yu	he/it <pos>yu/IV3MS</pos>
+>y	>aya	IVPref-INTERROG->aya	is/are + he/it <pos>>a/INTERROG_PART+ya/IV3MS</pos>
+>sy	>asaya	IVPref-INTERROG-saya	is/are + will + he/it <pos>>a/INTERROG_PART+sa/FUT+ya/IV3MS</pos>
+wy	waya	IVPref-hw-ya	and + he/it <pos>wa/CONJ+ya/IV3MS</pos>
+wy	wayu	IVPref-hw-yu	and + he/it <pos>wa/CONJ+yu/IV3MS</pos>
+fy	faya	IVPref-hw-ya	and/so + he/it <pos>fa/CONJ+ya/IV3MS</pos>
+fy	fayu	IVPref-hw-yu	and/so + he/it <pos>fa/CONJ+yu/IV3MS</pos>
+sy	saya	IVPref-sa-hw-ya	will + he/it <pos>sa/FUT+ya/IV3MS</pos>
+sy	sayu	IVPref-sa-hw-yu	will + he/it <pos>sa/FUT+yu/IV3MS</pos>
+wsy	wasaya	IVPref-sa-hw-ya	and + will + he/it <pos>wa/CONJ+sa/FUT+ya/IV3MS</pos>
+wsy	wasayu	IVPref-sa-hw-yu	and + will + he/it <pos>wa/CONJ+sa/FUT+yu/IV3MS</pos>
+fsy	fasaya	IVPref-sa-hw-ya	and/so + will + he/it <pos>fa/CONJ+sa/FUT+ya/IV3MS</pos>
+fsy	fasayu	IVPref-sa-hw-yu	and/so + will + he/it <pos>fa/CONJ+sa/FUT+yu/IV3MS</pos>
+; neg.part. lA
+;lAy	lAya	IVPref-hw-ya	not + he/it <pos>lA/NEG_PART+ya/IV3MS</pos>
+;lAy	lAyu	IVPref-hw-yu	not + he/it <pos>lA/NEG_PART+yu/IV3MS</pos>
+;wlAy	walAya	IVPref-hw-ya	and + not + he/it <pos>wa/CONJ+lA/NEG_PART+ya/IV3MS</pos>
+;wlAy	walAyu	IVPref-hw-yu	and + not + he/it <pos>wa/CONJ+lA/NEG_PART+yu/IV3MS</pos>
+;flAy	falAya	IVPref-hw-ya	and/so + not + he/it <pos>fa/CONJ+lA/NEG_PART+ya/IV3MS</pos>
+;flAy	falAyu	IVPref-hw-yu	and/so + not + he/it <pos>fa/CONJ+lA/NEG_PART+yu/IV3MS</pos>
+; neg.part. mA
+;mAy	mAya	IVPref-hw-ya	not + he/it <pos>mA/NEG_PART+ya/IV3MS</pos>
+;mAy	mAyu	IVPref-hw-yu	not + he/it <pos>mA/NEG_PART+yu/IV3MS</pos>
+;wmAy	wamAya	IVPref-hw-ya	and + not + he/it <pos>wa/CONJ+mA/NEG_PART+ya/IV3MS</pos>
+;wmAy	wamAyu	IVPref-hw-yu	and + not + he/it <pos>wa/CONJ+mA/NEG_PART+yu/IV3MS</pos>
+;fmAy	famAya	IVPref-hw-ya	and/so + not + he/it <pos>fa/CONJ+mA/NEG_PART+ya/IV3MS</pos>
+;fmAy	famAyu	IVPref-hw-yu	and/so + not + he/it <pos>fa/CONJ+mA/NEG_PART+yu/IV3MS</pos>
+;mAy	mAya	IVPref-hw-ya	not + he/it <pos>mA/REL_PRON+ya/IV3MS</pos>
+;mAy	mAyu	IVPref-hw-yu	not + he/it <pos>mA/REL_PRON+yu/IV3MS</pos>
+;wmAy	wamAya	IVPref-hw-ya	and + not + he/it <pos>wa/CONJ+mA/REL_PRON+ya/IV3MS</pos>
+;wmAy	wamAyu	IVPref-hw-yu	and + not + he/it <pos>wa/CONJ+mA/REL_PRON+yu/IV3MS</pos>
+;fmAy	famAya	IVPref-hw-ya	and/so + not + he/it <pos>fa/CONJ+mA/REL_PRON+ya/IV3MS</pos>
+;fmAy	famAyu	IVPref-hw-yu	and/so + not + he/it <pos>fa/CONJ+mA/REL_PRON+yu/IV3MS</pos>
+;
+; imperfect verb prefix: 3rd pers.du. (humA) masc.
+y	ya	IVPref-hmA-ya	they (both) <pos>ya/IV3MD</pos>
+y	yu	IVPref-hmA-yu	they (both) <pos>yu/IV3MD</pos>
+wy	waya	IVPref-hmA-ya	and + they (both) <pos>wa/CONJ+ya/IV3MD</pos>
+wy	wayu	IVPref-hmA-yu	and + they (both) <pos>wa/CONJ+yu/IV3MD</pos>
+fy	faya	IVPref-hmA-ya	and/so + they (both) <pos>fa/CONJ+ya/IV3MD</pos>
+fy	fayu	IVPref-hmA-yu	and/so + they (both) <pos>fa/CONJ+yu/IV3MD</pos>
+sy	saya	IVPref-sa-hmA-ya	will + they (both) <pos>sa/FUT+ya/IV3MD</pos>
+sy	sayu	IVPref-sa-hmA-yu	will + they (both) <pos>sa/FUT+yu/IV3MD</pos>
+wsy	wasaya	IVPref-sa-hmA-ya	and + will + they (both) <pos>wa/CONJ+sa/FUT+ya/IV3MD</pos>
+wsy	wasayu	IVPref-sa-hmA-yu	and + will + they (both) <pos>wa/CONJ+sa/FUT+yu/IV3MD</pos>
+fsy	fasaya	IVPref-sa-hmA-ya	and/so + will + they (both) <pos>fa/CONJ+sa/FUT+ya/IV3MD</pos>
+fsy	fasayu	IVPref-sa-hmA-yu	and/so + will + they (both) <pos>fa/CONJ+sa/FUT+yu/IV3MD</pos>
+; neg.part. lA
+lAy	lAya	IVPref-hmA-ya	not + they (both) <pos>lA/NEG_PART+ya/IV3MD</pos>
+lAy	lAyu	IVPref-hmA-yu	not + they (both) <pos>lA/NEG_PART+yu/IV3MD</pos>
+wlAy	walAya	IVPref-hmA-ya	and + not + they (both) <pos>wa/CONJ+lA/NEG_PART+ya/IV3MD</pos>
+wlAy	walAyu	IVPref-hmA-yu	and + not + they (both) <pos>wa/CONJ+lA/NEG_PART+yu/IV3MD</pos>
+flAy	falAya	IVPref-hmA-ya	and/so + not + they (both) <pos>fa/CONJ+lA/NEG_PART+ya/IV3MD</pos>
+flAy	falAyu	IVPref-hmA-yu	and/so + not + they (both) <pos>fa/CONJ+lA/NEG_PART+yu/IV3MD</pos>
+; neg.part. mA
+;mAy	mAya	IVPref-hmA-ya	not + they (both) <pos>mA/NEG_PART+ya/IV3MD</pos>
+;mAy	mAyu	IVPref-hmA-yu	not + they (both) <pos>mA/NEG_PART+yu/IV3MD</pos>
+;wmAy	wamAya	IVPref-hmA-ya	and + not + they (both) <pos>wa/CONJ+mA/NEG_PART+ya/IV3MD</pos>
+;wmAy	wamAyu	IVPref-hmA-yu	and + not + they (both) <pos>wa/CONJ+mA/NEG_PART+yu/IV3MD</pos>
+;fmAy	famAya	IVPref-hmA-ya	and/so + not + they (both) <pos>fa/CONJ+mA/NEG_PART+ya/IV3MD</pos>
+;fmAy	famAyu	IVPref-hmA-yu	and/so + not + they (both) <pos>fa/CONJ+mA/NEG_PART+yu/IV3MD</pos>
+;mAy	mAya	IVPref-hmA-ya	not + they (both) <pos>mA/REL_PRON+ya/IV3MD</pos>
+;mAy	mAyu	IVPref-hmA-yu	not + they (both) <pos>mA/REL_PRON+yu/IV3MD</pos>
+;wmAy	wamAya	IVPref-hmA-ya	and + not + they (both) <pos>wa/CONJ+mA/REL_PRON+ya/IV3MD</pos>
+;wmAy	wamAyu	IVPref-hmA-yu	and + not + they (both) <pos>wa/CONJ+mA/REL_PRON+yu/IV3MD</pos>
+;fmAy	famAya	IVPref-hmA-ya	and/so + not + they (both) <pos>fa/CONJ+mA/REL_PRON+ya/IV3MD</pos>
+;fmAy	famAyu	IVPref-hmA-yu	and/so + not + they (both) <pos>fa/CONJ+mA/REL_PRON+yu/IV3MD</pos>
+;
+; imperfect verb prefix: 3rd pers.masc.pl. (hum)
+y	ya	IVPref-hm-ya	they (people) <pos>ya/IV3MP</pos>
+y	yu	IVPref-hm-yu	they (people) <pos>yu/IV3MP</pos>
+wy	waya	IVPref-hm-ya	and + they (people) <pos>wa/CONJ+ya/IV3MP</pos>
+wy	wayu	IVPref-hm-yu	and + they (people) <pos>wa/CONJ+yu/IV3MP</pos>
+fy	faya	IVPref-hm-ya	and/so + they (people) <pos>fa/CONJ+ya/IV3MP</pos>
+fy	fayu	IVPref-hm-yu	and/so + they (people) <pos>fa/CONJ+yu/IV3MP</pos>
+sy	saya	IVPref-sa-hm-ya	will + they (people) <pos>sa/FUT+ya/IV3MP</pos>
+sy	sayu	IVPref-sa-hm-yu	will + they (people) <pos>sa/FUT+yu/IV3MP</pos>
+wsy	wasaya	IVPref-sa-hm-ya	and + will + they (people) <pos>wa/CONJ+sa/FUT+ya/IV3MP</pos>
+wsy	wasayu	IVPref-sa-hm-yu	and + will + they (people) <pos>wa/CONJ+sa/FUT+yu/IV3MP</pos>
+fsy	fasaya	IVPref-sa-hm-ya	and/so + will + they (people) <pos>fa/CONJ+sa/FUT+ya/IV3MP</pos>
+fsy	fasayu	IVPref-sa-hm-yu	and/so + will + they (people) <pos>fa/CONJ+sa/FUT+yu/IV3MP</pos>
+; neg.part. lA
+lAy	lAya	IVPref-hm-ya	not + they (people) <pos>lA/NEG_PART+ya/IV3MP</pos>
+lAy	lAyu	IVPref-hm-yu	not + they (people) <pos>lA/NEG_PART+yu/IV3MP</pos>
+wlAy	walAya	IVPref-hm-ya	and + not + they (people) <pos>wa/CONJ+lA/NEG_PART+ya/IV3MP</pos>
+wlAy	walAyu	IVPref-hm-yu	and + not + they (people) <pos>wa/CONJ+lA/NEG_PART+yu/IV3MP</pos>
+flAy	falAya	IVPref-hm-ya	and/so + not + they (people) <pos>fa/CONJ+lA/NEG_PART+ya/IV3MP</pos>
+flAy	falAyu	IVPref-hm-yu	and/so + not + they (people) <pos>fa/CONJ+lA/NEG_PART+yu/IV3MP</pos>
+; neg.part. mA
+;mAy	mAya	IVPref-hm-ya	not + they (people) <pos>mA/NEG_PART+ya/IV3MP</pos>
+;mAy	mAyu	IVPref-hm-yu	not + they (people) <pos>mA/NEG_PART+yu/IV3MP</pos>
+;wmAy	wamAya	IVPref-hm-ya	and + not + they (people) <pos>wa/CONJ+mA/NEG_PART+ya/IV3MP</pos>
+;wmAy	wamAyu	IVPref-hm-yu	and + not + they (people) <pos>wa/CONJ+mA/NEG_PART+yu/IV3MP</pos>
+;fmAy	famAya	IVPref-hm-ya	and/so + not + they (people) <pos>fa/CONJ+mA/NEG_PART+ya/IV3MP</pos>
+;fmAy	famAyu	IVPref-hm-yu	and/so + not + they (people) <pos>fa/CONJ+mA/NEG_PART+yu/IV3MP</pos>
+;mAy	mAya	IVPref-hm-ya	not + they (people) <pos>mA/REL_PRON+ya/IV3MP</pos>
+;mAy	mAyu	IVPref-hm-yu	not + they (people) <pos>mA/REL_PRON+yu/IV3MP</pos>
+;wmAy	wamAya	IVPref-hm-ya	and + not + they (people) <pos>wa/CONJ+mA/REL_PRON+ya/IV3MP</pos>
+;wmAy	wamAyu	IVPref-hm-yu	and + not + they (people) <pos>wa/CONJ+mA/REL_PRON+yu/IV3MP</pos>
+;fmAy	famAya	IVPref-hm-ya	and/so + not + they (people) <pos>fa/CONJ+mA/REL_PRON+ya/IV3MP</pos>
+;fmAy	famAyu	IVPref-hm-yu	and/so + not + they (people) <pos>fa/CONJ+mA/REL_PRON+yu/IV3MP</pos>
+;
+; imperfect verb prefix: 3rd pers.fem.pl. (hun~a)
+y	ya	IVPref-hn-ya	they (women) <pos>ya/IV3FP</pos>
+y	yu	IVPref-hn-yu	they (women) <pos>yu/IV3FP</pos>
+wy	waya	IVPref-hn-ya	and + they (women) <pos>wa/CONJ+ya/IV3FP</pos>
+wy	wayu	IVPref-hn-yu	and + they (women) <pos>wa/CONJ+yu/IV3FP</pos>
+fy	faya	IVPref-hn-ya	and/so + they (women) <pos>fa/CONJ+ya/IV3FP</pos>
+fy	fayu	IVPref-sa-hn-yu	and/so + they (women) <pos>fa/CONJ+yu/IV3FP</pos>
+sy	saya	IVPref-sa-hn-ya	will + they (women) <pos>sa/FUT+ya/IV3FP</pos>
+sy	sayu	IVPref-sa-hn-yu	will + they (women) <pos>sa/FUT+yu/IV3FP</pos>
+wsy	wasaya	IVPref-sa-hn-ya	and + will + they (women) <pos>wa/CONJ+sa/FUT+ya/IV3FP</pos>
+wsy	wasayu	IVPref-sa-hn-yu	and + will + they (women) <pos>wa/CONJ+sa/FUT+yu/IV3FP</pos>
+fsy	fasaya	IVPref-sa-hn-ya	and/so + will + they (women) <pos>fa/CONJ+sa/FUT+ya/IV3FP</pos>
+fsy	fasayu	IVPref-sa-hn-yu	and/so + will + they (women) <pos>fa/CONJ+sa/FUT+yu/IV3FP</pos>
+; neg.part. lA
+lAy	lAya	IVPref-hn-ya	not + they (women) <pos>lA/NEG_PART+ya/IV3FP</pos>
+lAy	lAyu	IVPref-hn-yu	not + they (women) <pos>lA/NEG_PART+yu/IV3FP</pos>
+wlAy	walAya	IVPref-hn-ya	and + not + they (women) <pos>wa/CONJ+lA/NEG_PART+ya/IV3FP</pos>
+wlAy	walAyu	IVPref-hn-yu	and + not + they (women) <pos>wa/CONJ+lA/NEG_PART+yu/IV3FP</pos>
+flAy	falAya	IVPref-hn-ya	and/so + not + they (women) <pos>fa/CONJ+lA/NEG_PART+ya/IV3FP</pos>
+flAy	falAyu	IVPref-hn-yu	and/so + not + they (women) <pos>fa/CONJ+lA/NEG_PART+yu/IV3FP</pos>
+; neg.part. mA
+;mAy	mAya	IVPref-hn-ya	not + they (women) <pos>mA/NEG_PART+ya/IV3FP</pos>
+;mAy	mAyu	IVPref-hn-yu	not + they (women) <pos>mA/NEG_PART+yu/IV3FP</pos>
+;wmAy	wamAya	IVPref-hn-ya	and + not + they (women) <pos>wa/CONJ+mA/NEG_PART+ya/IV3FP</pos>
+;wmAy	wamAyu	IVPref-hn-yu	and + not + they (women) <pos>wa/CONJ+mA/NEG_PART+yu/IV3FP</pos>
+;fmAy	famAya	IVPref-hn-ya	and/so + not + they (women) <pos>fa/CONJ+mA/NEG_PART+ya/IV3FP</pos>
+;fmAy	famAyu	IVPref-hn-yu	and/so + not + they (women) <pos>fa/CONJ+mA/NEG_PART+yu/IV3FP</pos>
+;mAy	mAya	IVPref-hn-ya	not + they (women) <pos>mA/REL_PRON+ya/IV3FP</pos>
+;mAy	mAyu	IVPref-hn-yu	not + they (women) <pos>mA/REL_PRON+yu/IV3FP</pos>
+;wmAy	wamAya	IVPref-hn-ya	and + not + they (women) <pos>wa/CONJ+mA/REL_PRON+ya/IV3FP</pos>
+;wmAy	wamAyu	IVPref-hn-yu	and + not + they (women) <pos>wa/CONJ+mA/REL_PRON+yu/IV3FP</pos>
+;fmAy	famAya	IVPref-hn-ya	and/so + not + they (women) <pos>fa/CONJ+mA/REL_PRON+ya/IV3FP</pos>
+;fmAy	famAyu	IVPref-hn-yu	and/so + not + they (women) <pos>fa/CONJ+mA/REL_PRON+yu/IV3FP</pos>
+;-------------------------
+; subjunctive li- + imperfect verb prefix: 3rd pers.masc.sg. (huwa)
+ly	liya	IVPref-hw-liya	for + him/it to <pos>li/SUB+ya/IV3MS</pos>
+ly	liyu	IVPref-hw-liyu	for + him/it to <pos>li/SUB+yu/IV3MS</pos>
+wly	waliya	IVPref-hw-liya	and + for + him/it to <pos>wa/CONJ+li/SUB+ya/IV3MS</pos>
+wly	waliyu	IVPref-hw-liyu	and + for + him/it to <pos>wa/CONJ+li/SUB+yu/IV3MS</pos>
+fly	faliya	IVPref-hw-liya	and/so + for + him/it to <pos>fa/CONJ+li/SUB+ya/IV3MS</pos>
+fly	faliyu	IVPref-hw-liyu	and/so + for + him/it to <pos>fa/CONJ+li/SUB+yu/IV3MS</pos>
+; subjunctive li- + imperfect verb prefix: 3rd pers.masc.du. (humA)
+ly	liya	IVPref-hmA-liya	for + them (both) to <pos>li/SUB+ya/IV3MD</pos>
+ly	liyu	IVPref-hmA-liyu	for + them (both) to <pos>li/SUB+yu/IV3MD</pos>
+wly	waliya	IVPref-hmA-liya	and + for + them (both) to <pos>wa/CONJ+li/SUB+ya/IV3MD</pos>
+wly	waliyu	IVPref-hmA-liyu	and + for + them (both) to <pos>wa/CONJ+li/SUB+yu/IV3MD</pos>
+fly	faliya	IVPref-hmA-liya	and/so + for + them (both) to <pos>fa/CONJ+li/SUB+ya/IV3MD</pos>
+fly	faliyu	IVPref-hmA-liyu	and/so + for + them (both) to <pos>fa/CONJ+li/SUB+yu/IV3MD</pos>
+; subjunctive li- + imperfect verb prefix: 3rd pers.masc.pl. (hum)
+ly	liya	IVPref-hm-liya	for + them (people) to <pos>li/SUB+ya/IV3MP</pos>
+ly	liyu	IVPref-hm-liyu	for + them (people) to <pos>li/SUB+yu/IV3MP</pos>
+wly	waliya	IVPref-hm-liya	and + for + them (people) to <pos>wa/CONJ+li/SUB+ya/IV3MP</pos>
+wly	waliyu	IVPref-hm-liyu	and + for + them (people) to <pos>wa/CONJ+li/SUB+yu/IV3MP</pos>
+fly	faliya	IVPref-hm-liya	and/so + for + them (people) to <pos>fa/CONJ+li/SUB+ya/IV3MP</pos>
+fly	faliyu	IVPref-hm-liyu	and/so + for + them (people) to <pos>fa/CONJ+li/SUB+yu/IV3MP</pos>
+; subjunctive li- + imperfect verb prefix: 3rd pers.fem.pl. (hun~a)
+ly	liya	IVPref-hn-liya	for + them (women) to <pos>li/SUB+ya/IV3FP</pos>
+ly	liyu	IVPref-hn-liyu	for + them (women) to <pos>li/SUB+yu/IV3FP</pos>
+wly	waliya	IVPref-hn-liya	and + for + them (women) to <pos>wa/CONJ+li/SUB+ya/IV3FP</pos>
+wly	waliyu	IVPref-hn-liyu	and + for + them (women) to <pos>wa/CONJ+li/SUB+yu/IV3FP</pos>
+fly	faliya	IVPref-hn-liya	and/so + for + them (women) to <pos>fa/CONJ+li/SUB+ya/IV3FP</pos>
+fly	faliyu	IVPref-hn-liyu	and/so + for + them (women) to <pos>fa/CONJ+li/SUB+yu/IV3FP</pos>
+;-------------------------
+; jussive li- + imperfect verb prefix: 3rd pers.masc.sg. (huwa)
+ly	liya	IVPref-hw-liya_jus	let + him/it   <pos>li/JUS+ya/IV3MS</pos>
+ly	liyu	IVPref-hw-liyu_jus	let + him/it   <pos>li/JUS+yu/IV3MS</pos>
+wly	waloya	IVPref-hw-liya_jus	and + let + him/it  <pos>wa/CONJ+li/JUS+ya/IV3MS</pos>
+wly	waloyu	IVPref-hw-liyu_jus	and + let + him/it  <pos>wa/CONJ+li/JUS+yu/IV3MS</pos>
+fly	faloya	IVPref-hw-liya_jus	and/so + let + him/it  <pos>fa/CONJ+li/JUS+ya/IV3MS</pos>
+fly	faloyu	IVPref-hw-liyu_jus	and/so + let + him/it  <pos>fa/CONJ+li/JUS+yu/IV3MS</pos>
+; jussive li- + imperfect verb prefix: 3rd pers.masc.du. (humA)
+ly	liya	IVPref-hmA-liya_jus	let + them (both)  <pos>li/JUS+ya/IV3MD</pos>
+ly	liyu	IVPref-hmA-liyu_jus	let + them (both)  <pos>li/JUS+yu/IV3MD</pos>
+wly	waloya	IVPref-hmA-liya_jus	and + let + them (both)  <pos>wa/CONJ+li/JUS+ya/IV3MD</pos>
+wly	waloyu	IVPref-hmA-liyu_jus	and + let + them (both)  <pos>wa/CONJ+li/JUS+yu/IV3MD</pos>
+fly	faloya	IVPref-hmA-liya_jus	and/so + let + them (both)  <pos>fa/CONJ+li/JUS+ya/IV3MD</pos>
+fly	faloyu	IVPref-hmA-liyu_jus	and/so + let + them (both)  <pos>fa/CONJ+li/JUS+yu/IV3MD</pos>
+; jussive li- + imperfect verb prefix: 3rd pers.masc.pl. (hum)
+ly	liya	IVPref-hm-liya_jus	let + them (people)  <pos>li/JUS+ya/IV3MP</pos>
+ly	liyu	IVPref-hm-liyu_jus	let + them (people)  <pos>li/JUS+yu/IV3MP</pos>
+wly	waloya	IVPref-hm-liya_jus	and + let + them (people)  <pos>wa/CONJ+li/JUS+ya/IV3MP</pos>
+wly	waloyu	IVPref-hm-liyu_jus	and + let + them (people)  <pos>wa/CONJ+li/JUS+yu/IV3MP</pos>
+fly	faloya	IVPref-hm-liya_jus	and/so + let + them (people)  <pos>fa/CONJ+li/JUS+ya/IV3MP</pos>
+fly	faloyu	IVPref-hm-liyu_jus	and/so + let + them (people)  <pos>fa/CONJ+li/JUS+yu/IV3MP</pos>
+; jussive li- + imperfect verb prefix: 3rd pers.fem.pl. (hun~a)
+ly	liya	IVPref-hn-liya_jus	let + them (women)  <pos>li/JUS+ya/IV3FP</pos>
+ly	liyu	IVPref-hn-liyu_jus	let + them (women)  <pos>li/JUS+yu/IV3FP</pos>
+wly	waloya	IVPref-hn-liya_jus	and + let + them (women)  <pos>wa/CONJ+li/JUS+ya/IV3FP</pos>
+wly	waloyu	IVPref-hn-liyu_jus	and + let + them (women)  <pos>wa/CONJ+li/JUS+yu/IV3FP</pos>
+fly	faloya	IVPref-hn-liya_jus	and/so + let + them (women)  <pos>fa/CONJ+li/JUS+ya/IV3FP</pos>
+fly	faloyu	IVPref-hn-liyu_jus	and/so + let + them (women)  <pos>fa/CONJ+li/JUS+yu/IV3FP</pos>
+;-------------------------
+; imperfect verb prefix: 3rd pers.fem.sg. (hiya)
+t	ta	IVPref-hy-ta	it/they/she <pos>ta/IV3FS</pos>
+t	tu	IVPref-hy-tu	it/they/she <pos>tu/IV3FS</pos>
+wt	wata	IVPref-hy-ta	and + it/they/she <pos>wa/CONJ+ta/IV3FS</pos>
+wt	watu	IVPref-hy-tu	and + it/they/she <pos>wa/CONJ+tu/IV3FS</pos>
+ft	fata	IVPref-hy-ta	and/so + it/they/she <pos>fa/CONJ+ta/IV3FS</pos>
+ft	fatu	IVPref-sa-hy-tu	and/so + it/they/she <pos>fa/CONJ+tu/IV3FS</pos>
+st	sata	IVPref-sa-hy-ta	will + it/they/she <pos>sa/FUT+ta/IV3FS</pos>
+st	satu	IVPref-sa-hy-tu	will + it/they/she <pos>sa/FUT+tu/IV3FS</pos>
+wst	wasata	IVPref-sa-hy-ta	and + will + it/they/she <pos>wa/CONJ+sa/FUT+ta/IV3FS</pos>
+wst	wasatu	IVPref-sa-hy-tu	and + will + it/they/she <pos>wa/CONJ+sa/FUT+tu/IV3FS</pos>
+fst	fasata	IVPref-sa-hy-ta	and/so + will + it/they/she <pos>fa/CONJ+sa/FUT+ta/IV3FS</pos>
+fst	fasatu	IVPref-sa-hy-tu	and/so + will + it/they/she <pos>fa/CONJ+sa/FUT+tu/IV3FS</pos>
+; neg.part. lA
+lAt	lAta	IVPref-hy-ta	not + it/they/she <pos>lA/NEG_PART+ta/IV3FS</pos>
+lAt	lAtu	IVPref-hy-tu	not + it/they/she <pos>lA/NEG_PART+tu/IV3FS</pos>
+wlAt	walAta	IVPref-hy-ta	and + not + it/they/she <pos>wa/CONJ+lA/NEG_PART+ta/IV3FS</pos>
+wlAt	walAtu	IVPref-hy-tu	and + not + it/they/she <pos>wa/CONJ+lA/NEG_PART+tu/IV3FS</pos>
+flAt	falAta	IVPref-hy-ta	and/so + not + it/they/she <pos>fa/CONJ+lA/NEG_PART+ta/IV3FS</pos>
+flAt	falAtu	IVPref-hy-tu	and/so + not + it/they/she <pos>fa/CONJ+lA/NEG_PART+tu/IV3FS</pos>
+; neg.part. mA
+;mAt	mAta	IVPref-hy-ta	not + it/they/she <pos>mA/NEG_PART+ta/IV3FS</pos>
+;mAt	mAtu	IVPref-hy-tu	not + it/they/she <pos>mA/NEG_PART+tu/IV3FS</pos>
+;wmAt	wamAta	IVPref-hy-ta	and + not + it/they/she <pos>wa/CONJ+mA/NEG_PART+ta/IV3FS</pos>
+;wmAt	wamAtu	IVPref-hy-tu	and + not + it/they/she <pos>wa/CONJ+mA/NEG_PART+tu/IV3FS</pos>
+;fmAt	famAta	IVPref-hy-ta	and/so + not + it/they/she <pos>fa/CONJ+mA/NEG_PART+ta/IV3FS</pos>
+;fmAt	famAtu	IVPref-hy-tu	and/so + not + it/they/she <pos>fa/CONJ+mA/NEG_PART+tu/IV3FS</pos>
+;mAt	mAta	IVPref-hy-ta	not + it/they/she <pos>mA/REL_PRON+ta/IV3FS</pos>
+;mAt	mAtu	IVPref-hy-tu	not + it/they/she <pos>mA/REL_PRON+tu/IV3FS</pos>
+;wmAt	wamAta	IVPref-hy-ta	and + not + it/they/she <pos>wa/CONJ+mA/REL_PRON+ta/IV3FS</pos>
+;wmAt	wamAtu	IVPref-hy-tu	and + not + it/they/she <pos>wa/CONJ+mA/REL_PRON+tu/IV3FS</pos>
+;fmAt	famAta	IVPref-hy-ta	and/so + not + it/they/she <pos>fa/CONJ+mA/REL_PRON+ta/IV3FS</pos>
+;fmAt	famAtu	IVPref-hy-tu	and/so + not + it/they/she <pos>fa/CONJ+mA/REL_PRON+tu/IV3FS</pos>
+;
+; imperfect verb prefix: 2nd pers.masc.sg. (Anta)
+t	ta	IVPref-Anta-ta	you [masc.sg.] <pos>ta/IV2MS</pos>
+t	tu	IVPref-Anta-tu	you [masc.sg.] <pos>tu/IV2MS</pos>
+wt	wata	IVPref-Anta-ta	and + you [masc.sg.] <pos>wa/CONJ+ta/IV2MS</pos>
+wt	watu	IVPref-Anta-tu	and + you [masc.sg.] <pos>wa/CONJ+tu/IV2MS</pos>
+ft	fata	IVPref-Anta-ta	and/so + you [masc.sg.] <pos>fa/CONJ+ta/IV2MS</pos>
+ft	fatu	IVPref-sa-Anta-tu	and/so + you [masc.sg.] <pos>fa/CONJ+tu/IV2MS</pos>
+st	sata	IVPref-sa-Anta-ta	will + you [masc.sg.] <pos>sa/FUT+ta/IV2MS</pos>
+st	satu	IVPref-sa-Anta-tu	will + you [masc.sg.] <pos>sa/FUT+tu/IV2MS</pos>
+wst	wasata	IVPref-sa-Anta-ta	and + will + you [masc.sg.] <pos>wa/CONJ+sa/FUT+ta/IV2MS</pos>
+wst	wasatu	IVPref-sa-Anta-tu	and + will + you [masc.sg.] <pos>wa/CONJ+sa/FUT+tu/IV2MS</pos>
+fst	fasata	IVPref-sa-Anta-ta	and/so + will + you [masc.sg.] <pos>fa/CONJ+sa/FUT+ta/IV2MS</pos>
+fst	fasatu	IVPref-sa-Anta-tu	and/so + will + you [masc.sg.] <pos>fa/CONJ+sa/FUT+tu/IV2MS</pos>
+; neg.part. lA
+lAt	lAta	IVPref-Anta-ta	not + you [masc.sg.] <pos>lA/NEG_PART+ta/IV2MS</pos>
+lAt	lAtu	IVPref-Anta-tu	not + you [masc.sg.] <pos>lA/NEG_PART+tu/IV2MS</pos>
+wlAt	walAta	IVPref-Anta-ta	and + not + you [masc.sg.] <pos>wa/CONJ+lA/NEG_PART+ta/IV2MS</pos>
+wlAt	walAtu	IVPref-Anta-tu	and + not + you [masc.sg.] <pos>wa/CONJ+lA/NEG_PART+tu/IV2MS</pos>
+flAt	falAta	IVPref-Anta-ta	and/so + not + you [masc.sg.] <pos>fa/CONJ+lA/NEG_PART+ta/IV2MS</pos>
+flAt	falAtu	IVPref-Anta-tu	and/so + not + you [masc.sg.] <pos>fa/CONJ+lA/NEG_PART+tu/IV2MS</pos>
+; neg.part. mA
+;mAt	mAta	IVPref-Anta-ta	not + you [masc.sg.] <pos>mA/NEG_PART+ta/IV2MS</pos>
+;mAt	mAtu	IVPref-Anta-tu	not + you [masc.sg.] <pos>mA/NEG_PART+tu/IV2MS</pos>
+;wmAt	wamAta	IVPref-Anta-ta	and + not + you [masc.sg.] <pos>wa/CONJ+mA/NEG_PART+ta/IV2MS</pos>
+;wmAt	wamAtu	IVPref-Anta-tu	and + not + you [masc.sg.] <pos>wa/CONJ+mA/NEG_PART+tu/IV2MS</pos>
+;fmAt	famAta	IVPref-Anta-ta	and/so + not + you [masc.sg.] <pos>fa/CONJ+mA/NEG_PART+ta/IV2MS</pos>
+;fmAt	famAtu	IVPref-Anta-tu	and/so + not + you [masc.sg.] <pos>fa/CONJ+mA/NEG_PART+tu/IV2MS</pos>
+;mAt	mAta	IVPref-Anta-ta	not + you [masc.sg.] <pos>mA/REL_PRON+ta/IV2MS</pos>
+;mAt	mAtu	IVPref-Anta-tu	not + you [masc.sg.] <pos>mA/REL_PRON+tu/IV2MS</pos>
+;wmAt	wamAta	IVPref-Anta-ta	and + not + you [masc.sg.] <pos>wa/CONJ+mA/REL_PRON+ta/IV2MS</pos>
+;wmAt	wamAtu	IVPref-Anta-tu	and + not + you [masc.sg.] <pos>wa/CONJ+mA/REL_PRON+tu/IV2MS</pos>
+;fmAt	famAta	IVPref-Anta-ta	and/so + not + you [masc.sg.] <pos>fa/CONJ+mA/REL_PRON+ta/IV2MS</pos>
+;fmAt	famAtu	IVPref-Anta-tu	and/so + not + you [masc.sg.] <pos>fa/CONJ+mA/REL_PRON+tu/IV2MS</pos>
+;
+; imperfect verb prefix: 2nd pers.du. (AntumA)
+t	ta	IVPref-AntmA-ta	you (both) <pos>ta/IV2D</pos>
+t	tu	IVPref-AntmA-tu	you (both) <pos>tu/IV2D</pos>
+wt	wata	IVPref-AntmA-ta	and + you (both) <pos>wa/CONJ+ta/IV2D</pos>
+wt	watu	IVPref-AntmA-tu	and + you (both) <pos>wa/CONJ+tu/IV2D</pos>
+ft	fata	IVPref-AntmA-ta	and/so + you (both) <pos>fa/CONJ+ta/IV2D</pos>
+ft	fatu	IVPref-sa-AntmA-tu	and/so + you (both) <pos>fa/CONJ+tu/IV2D</pos>
+st	sata	IVPref-sa-AntmA-ta	will + you (both) <pos>sa/FUT+ta/IV2D</pos>
+st	satu	IVPref-sa-AntmA-tu	will + you (both) <pos>sa/FUT+tu/IV2D</pos>
+wst	wasata	IVPref-sa-AntmA-ta	and + will + you (both) <pos>wa/CONJ+sa/FUT+ta/IV2D</pos>
+wst	wasatu	IVPref-sa-AntmA-tu	and + will + you (both) <pos>wa/CONJ+sa/FUT+tu/IV2D</pos>
+fst	fasata	IVPref-sa-AntmA-ta	and/so + will + you (both) <pos>fa/CONJ+sa/FUT+ta/IV2D</pos>
+fst	fasatu	IVPref-sa-AntmA-tu	and/so + will + you (both) <pos>fa/CONJ+sa/FUT+tu/IV2D</pos>
+; neg.part. lA
+lAt	lAta	IVPref-AntmA-ta	not + you (both) <pos>lA/NEG_PART+ta/IV2D</pos>
+lAt	lAtu	IVPref-AntmA-tu	not + you (both) <pos>lA/NEG_PART+tu/IV2D</pos>
+wlAt	walAta	IVPref-AntmA-ta	and + not + you (both) <pos>wa/CONJ+lA/NEG_PART+ta/IV2D</pos>
+wlAt	walAtu	IVPref-AntmA-tu	and + not + you (both) <pos>wa/CONJ+lA/NEG_PART+tu/IV2D</pos>
+flAt	falAta	IVPref-AntmA-ta	and/so + not + you (both) <pos>fa/CONJ+lA/NEG_PART+ta/IV2D</pos>
+flAt	falAtu	IVPref-AntmA-tu	and/so + not + you (both) <pos>fa/CONJ+lA/NEG_PART+tu/IV2D</pos>
+; neg.part. mA
+;mAt	mAta	IVPref-AntmA-ta	not + you (both) <pos>mA/NEG_PART+ta/IV2D</pos>
+;mAt	mAtu	IVPref-AntmA-tu	not + you (both) <pos>mA/NEG_PART+tu/IV2D</pos>
+;wmAt	wamAta	IVPref-AntmA-ta	and + not + you (both) <pos>wa/CONJ+mA/NEG_PART+ta/IV2D</pos>
+;wmAt	wamAtu	IVPref-AntmA-tu	and + not + you (both) <pos>wa/CONJ+mA/NEG_PART+tu/IV2D</pos>
+;fmAt	famAta	IVPref-AntmA-ta	and/so + not + you (both) <pos>fa/CONJ+mA/NEG_PART+ta/IV2D</pos>
+;fmAt	famAtu	IVPref-AntmA-tu	and/so + not + you (both) <pos>fa/CONJ+mA/NEG_PART+tu/IV2D</pos>
+;mAt	mAta	IVPref-AntmA-ta	not + you (both) <pos>mA/REL_PRON+ta/IV2D</pos>
+;mAt	mAtu	IVPref-AntmA-tu	not + you (both) <pos>mA/REL_PRON+tu/IV2D</pos>
+;wmAt	wamAta	IVPref-AntmA-ta	and + not + you (both) <pos>wa/CONJ+mA/REL_PRON+ta/IV2D</pos>
+;wmAt	wamAtu	IVPref-AntmA-tu	and + not + you (both) <pos>wa/CONJ+mA/REL_PRON+tu/IV2D</pos>
+;fmAt	famAta	IVPref-AntmA-ta	and/so + not + you (both) <pos>fa/CONJ+mA/REL_PRON+ta/IV2D</pos>
+;fmAt	famAtu	IVPref-AntmA-tu	and/so + not + you (both) <pos>fa/CONJ+mA/REL_PRON+tu/IV2D</pos>
+;
+; imperfect verb prefix: 3rd pers.fem.du. (humA)
+t	ta	IVPref-hmA-ta	they (both) [fem.du.] <pos>ta/IV3FD</pos>
+t	tu	IVPref-hmA-tu	they (both) [fem.du.] <pos>tu/IV3FD</pos>
+wt	wata	IVPref-hmA-ta	and + they (both) [fem.du.] <pos>wa/CONJ+ta/IV3FD</pos>
+wt	watu	IVPref-hmA-tu	and + they (both) [fem.du.] <pos>wa/CONJ+tu/IV3FD</pos>
+ft	fata	IVPref-hmA-ta	and/so + they (both) [fem.du.] <pos>fa/CONJ+ta/IV3FD</pos>
+ft	fatu	IVPref-hmA-tu	and/so + they (both) [fem.du.] <pos>fa/CONJ+tu/IV3FD</pos>
+st	sata	IVPref-sa-hmA-ta	will + they (both) [fem.du.] <pos>sa/FUT+ta/IV3FD</pos>
+st	satu	IVPref-sa-hmA-tu	will + they (both) [fem.du.] <pos>sa/FUT+tu/IV3FD</pos>
+wst	wasata	IVPref-sa-hmA-ta	and + will + they (both) [fem.du.] <pos>wa/CONJ+sa/FUT+ta/IV3FD</pos>
+wst	wasatu	IVPref-sa-hmA-tu	and + will + they (both) [fem.du.] <pos>wa/CONJ+sa/FUT+tu/IV3FD</pos>
+fst	fasata	IVPref-sa-hmA-ta	and/so + will + they (both) [fem.du.] <pos>fa/CONJ+sa/FUT+ta/IV3FD</pos>
+fst	fasatu	IVPref-sa-hmA-tu	and/so + will + they (both) [fem.du.] <pos>fa/CONJ+sa/FUT+tu/IV3FD</pos>
+; neg.part. lA
+lAt	lAta	IVPref-hmA-ta	not + they (both) [fem.du.] <pos>lA/NEG_PART+ta/IV3FD</pos>
+lAt	lAtu	IVPref-hmA-tu	not + they (both) [fem.du.] <pos>lA/NEG_PART+tu/IV3FD</pos>
+wlAt	walAta	IVPref-hmA-ta	and + not + they (both) [fem.du.] <pos>wa/CONJ+lA/NEG_PART+ta/IV3FD</pos>
+wlAt	walAtu	IVPref-hmA-tu	and + not + they (both) [fem.du.] <pos>wa/CONJ+lA/NEG_PART+tu/IV3FD</pos>
+flAt	falAta	IVPref-hmA-ta	and/so + not + they (both) [fem.du.] <pos>fa/CONJ+lA/NEG_PART+ta/IV3FD</pos>
+flAt	falAtu	IVPref-hmA-tu	and/so + not + they (both) [fem.du.] <pos>fa/CONJ+lA/NEG_PART+tu/IV3FD</pos>
+; neg.part. mA
+;mAt	mAta	IVPref-hmA-ta	not + they (both) [fem.du.] <pos>mA/NEG_PART+ta/IV3FD</pos>
+;mAt	mAtu	IVPref-hmA-tu	not + they (both) [fem.du.] <pos>mA/NEG_PART+tu/IV3FD</pos>
+;wmAt	wamAta	IVPref-hmA-ta	and + not + they (both) [fem.du.] <pos>wa/CONJ+mA/NEG_PART+ta/IV3FD</pos>
+;wmAt	wamAtu	IVPref-hmA-tu	and + not + they (both) [fem.du.] <pos>wa/CONJ+mA/NEG_PART+tu/IV3FD</pos>
+;fmAt	famAta	IVPref-hmA-ta	and/so + not + they (both) [fem.du.] <pos>fa/CONJ+mA/NEG_PART+ta/IV3FD</pos>
+;fmAt	famAtu	IVPref-hmA-tu	and/so + not + they (both) [fem.du.] <pos>fa/CONJ+mA/NEG_PART+tu/IV3FD</pos>
+;mAt	mAta	IVPref-hmA-ta	not + they (both) [fem.du.] <pos>mA/REL_PRON+ta/IV3FD</pos>
+;mAt	mAtu	IVPref-hmA-tu	not + they (both) [fem.du.] <pos>mA/REL_PRON+tu/IV3FD</pos>
+;wmAt	wamAta	IVPref-hmA-ta	and + not + they (both) [fem.du.] <pos>wa/CONJ+mA/REL_PRON+ta/IV3FD</pos>
+;wmAt	wamAtu	IVPref-hmA-tu	and + not + they (both) [fem.du.] <pos>wa/CONJ+mA/REL_PRON+tu/IV3FD</pos>
+;fmAt	famAta	IVPref-hmA-ta	and/so + not + they (both) [fem.du.] <pos>fa/CONJ+mA/REL_PRON+ta/IV3FD</pos>
+;fmAt	famAtu	IVPref-hmA-tu	and/so + not + they (both) [fem.du.] <pos>fa/CONJ+mA/REL_PRON+tu/IV3FD</pos>
+;
+; imperfect verb prefix: 2nd pers.fem.sg. (Anti)
+t	ta	IVPref-Anti-ta	you [fem.sg.] <pos>ta/IV2FS</pos>
+t	tu	IVPref-Anti-tu	you [fem.sg.] <pos>tu/IV2FS</pos>
+wt	wata	IVPref-Anti-ta	and + you [fem.sg.] <pos>wa/CONJ+ta/IV2FS</pos>
+wt	watu	IVPref-Anti-tu	and + you [fem.sg.] <pos>wa/CONJ+tu/IV2FS</pos>
+ft	fata	IVPref-Anti-ta	and/so + you [fem.sg.] <pos>fa/CONJ+ta/IV2FS</pos>
+ft	fatu	IVPref-Anti-tu	and/so + you [fem.sg.] <pos>fa/CONJ+tu/IV2FS</pos>
+st	sata	IVPref-sa-Anti-ta	will + you [fem.sg.] <pos>sa/FUT+ta/IV2FS</pos>
+st	satu	IVPref-sa-Anti-tu	will + you [fem.sg.] <pos>sa/FUT+tu/IV2FS</pos>
+wst	wasata	IVPref-sa-Anti-ta	and + will + you [fem.sg.] <pos>wa/CONJ+sa/FUT+ta/IV2FS</pos>
+wst	wasatu	IVPref-sa-Anti-tu	and + will + you [fem.sg.] <pos>wa/CONJ+sa/FUT+tu/IV2FS</pos>
+fst	fasata	IVPref-sa-Anti-ta	and/so + will + you [fem.sg.] <pos>fa/CONJ+sa/FUT+ta/IV2FS</pos>
+fst	fasatu	IVPref-sa-Anti-tu	and/so + will + you [fem.sg.] <pos>fa/CONJ+sa/FUT+tu/IV2FS</pos>
+; neg.part. lA
+lAt	lAta	IVPref-Anti-ta	not + you [fem.sg.] <pos>lA/NEG_PART+ta/IV2FS</pos>
+lAt	lAtu	IVPref-Anti-tu	not + you [fem.sg.] <pos>lA/NEG_PART+tu/IV2FS</pos>
+wlAt	walAta	IVPref-Anti-ta	and + not + you [fem.sg.] <pos>wa/CONJ+lA/NEG_PART+ta/IV2FS</pos>
+wlAt	walAtu	IVPref-Anti-tu	and + not + you [fem.sg.] <pos>wa/CONJ+lA/NEG_PART+tu/IV2FS</pos>
+flAt	falAta	IVPref-Anti-ta	and/so + not + you [fem.sg.] <pos>fa/CONJ+lA/NEG_PART+ta/IV2FS</pos>
+flAt	falAtu	IVPref-Anti-tu	and/so + not + you [fem.sg.] <pos>fa/CONJ+lA/NEG_PART+tu/IV2FS</pos>
+; neg.part. mA
+;mAt	mAta	IVPref-Anti-ta	not + you [fem.sg.] <pos>mA/NEG_PART+ta/IV2FS</pos>
+;mAt	mAtu	IVPref-Anti-tu	not + you [fem.sg.] <pos>mA/NEG_PART+tu/IV2FS</pos>
+;wmAt	wamAta	IVPref-Anti-ta	and + not + you [fem.sg.] <pos>wa/CONJ+mA/NEG_PART+ta/IV2FS</pos>
+;wmAt	wamAtu	IVPref-Anti-tu	and + not + you [fem.sg.] <pos>wa/CONJ+mA/NEG_PART+tu/IV2FS</pos>
+;fmAt	famAta	IVPref-Anti-ta	and/so + not + you [fem.sg.] <pos>fa/CONJ+mA/NEG_PART+ta/IV2FS</pos>
+;fmAt	famAtu	IVPref-Anti-tu	and/so + not + you [fem.sg.] <pos>fa/CONJ+mA/NEG_PART+tu/IV2FS</pos>
+;mAt	mAta	IVPref-Anti-ta	not + you [fem.sg.] <pos>mA/REL_PRON+ta/IV2FS</pos>
+;mAt	mAtu	IVPref-Anti-tu	not + you [fem.sg.] <pos>mA/REL_PRON+tu/IV2FS</pos>
+;wmAt	wamAta	IVPref-Anti-ta	and + not + you [fem.sg.] <pos>wa/CONJ+mA/REL_PRON+ta/IV2FS</pos>
+;wmAt	wamAtu	IVPref-Anti-tu	and + not + you [fem.sg.] <pos>wa/CONJ+mA/REL_PRON+tu/IV2FS</pos>
+;fmAt	famAta	IVPref-Anti-ta	and/so + not + you [fem.sg.] <pos>fa/CONJ+mA/REL_PRON+ta/IV2FS</pos>
+;fmAt	famAtu	IVPref-Anti-tu	and/so + not + you [fem.sg.] <pos>fa/CONJ+mA/REL_PRON+tu/IV2FS</pos>
+;
+; imperfect verb prefix: 2nd pers.masc.pl. (Antum)
+t	ta	IVPref-Antm-ta	you [masc.pl.] <pos>ta/IV2MP</pos>
+t	tu	IVPref-Antm-tu	you [masc.pl.] <pos>tu/IV2MP</pos>
+wt	wata	IVPref-Antm-ta	and + you [masc.pl.] <pos>wa/CONJ+ta/IV2MP</pos>
+wt	watu	IVPref-Antm-tu	and + you [masc.pl.] <pos>wa/CONJ+tu/IV2MP</pos>
+ft	fata	IVPref-Antm-ta	and/so + you [masc.pl.] <pos>fa/CONJ+ta/IV2MP</pos>
+ft	fatu	IVPref-Antm-tu	and/so + you [masc.pl.] <pos>fa/CONJ+tu/IV2MP</pos>
+st	sata	IVPref-sa-Antm-ta	will + you [masc.pl.] <pos>sa/FUT+ta/IV2MP</pos>
+st	satu	IVPref-sa-Antm-tu	will + you [masc.pl.] <pos>sa/FUT+tu/IV2MP</pos>
+wst	wasata	IVPref-sa-Antm-ta	and + will + you [masc.pl.] <pos>wa/CONJ+sa/FUT+ta/IV2MP</pos>
+wst	wasatu	IVPref-sa-Antm-tu	and + will + you [masc.pl.] <pos>wa/CONJ+sa/FUT+tu/IV2MP</pos>
+fst	fasata	IVPref-sa-Antm-ta	and/so + will + you [masc.pl.] <pos>fa/CONJ+sa/FUT+ta/IV2MP</pos>
+fst	fasatu	IVPref-sa-Antm-tu	and/so + will + you [masc.pl.] <pos>fa/CONJ+sa/FUT+tu/IV2MP</pos>
+; neg.part. lA
+lAt	lAta	IVPref-Antm-ta	not + you [masc.pl.] <pos>lA/NEG_PART+ta/IV2MP</pos>
+lAt	lAtu	IVPref-Antm-tu	not + you [masc.pl.] <pos>lA/NEG_PART+tu/IV2MP</pos>
+wlAt	walAta	IVPref-Antm-ta	and + not + you [masc.pl.] <pos>wa/CONJ+lA/NEG_PART+ta/IV2MP</pos>
+wlAt	walAtu	IVPref-Antm-tu	and + not + you [masc.pl.] <pos>wa/CONJ+lA/NEG_PART+tu/IV2MP</pos>
+flAt	falAta	IVPref-Antm-ta	and/so + not + you [masc.pl.] <pos>fa/CONJ+lA/NEG_PART+ta/IV2MP</pos>
+flAt	falAtu	IVPref-Antm-tu	and/so + not + you [masc.pl.] <pos>fa/CONJ+lA/NEG_PART+tu/IV2MP</pos>
+; neg.part. mA
+;mAt	mAta	IVPref-Antm-ta	not + you [masc.pl.] <pos>mA/NEG_PART+ta/IV2MP</pos>
+;mAt	mAtu	IVPref-Antm-tu	not + you [masc.pl.] <pos>mA/NEG_PART+tu/IV2MP</pos>
+;wmAt	wamAta	IVPref-Antm-ta	and + not + you [masc.pl.] <pos>wa/CONJ+mA/NEG_PART+ta/IV2MP</pos>
+;wmAt	wamAtu	IVPref-Antm-tu	and + not + you [masc.pl.] <pos>wa/CONJ+mA/NEG_PART+tu/IV2MP</pos>
+;fmAt	famAta	IVPref-Antm-ta	and/so + not + you [masc.pl.] <pos>fa/CONJ+mA/NEG_PART+ta/IV2MP</pos>
+;fmAt	famAtu	IVPref-Antm-tu	and/so + not + you [masc.pl.] <pos>fa/CONJ+mA/NEG_PART+tu/IV2MP</pos>
+;mAt	mAta	IVPref-Antm-ta	not + you [masc.pl.] <pos>mA/REL_PRON+ta/IV2MP</pos>
+;mAt	mAtu	IVPref-Antm-tu	not + you [masc.pl.] <pos>mA/REL_PRON+tu/IV2MP</pos>
+;wmAt	wamAta	IVPref-Antm-ta	and + not + you [masc.pl.] <pos>wa/CONJ+mA/REL_PRON+ta/IV2MP</pos>
+;wmAt	wamAtu	IVPref-Antm-tu	and + not + you [masc.pl.] <pos>wa/CONJ+mA/REL_PRON+tu/IV2MP</pos>
+;fmAt	famAta	IVPref-Antm-ta	and/so + not + you [masc.pl.] <pos>fa/CONJ+mA/REL_PRON+ta/IV2MP</pos>
+;fmAt	famAtu	IVPref-Antm-tu	and/so + not + you [masc.pl.] <pos>fa/CONJ+mA/REL_PRON+tu/IV2MP</pos>
+;
+; imperfect verb prefix: 2nd pers.fem.pl. (Antun~a)
+t	ta	IVPref-Antn-ta	you [fem.pl.] <pos>ta/IV2FP</pos>
+t	tu	IVPref-Antn-tu	you [fem.pl.] <pos>tu/IV2FP</pos>
+wt	wata	IVPref-Antn-ta	and + you [fem.pl.] <pos>wa/CONJ+ta/IV2FP</pos>
+wt	watu	IVPref-Antn-tu	and + you [fem.pl.] <pos>wa/CONJ+tu/IV2FP</pos>
+ft	fata	IVPref-Antn-ta	and/so + you [fem.pl.] <pos>fa/CONJ+ta/IV2FP</pos>
+ft	fatu	IVPref-Antn-tu	and/so + you [fem.pl.] <pos>fa/CONJ+tu/IV2FP</pos>
+st	sata	IVPref-sa-Antn-ta	will + you [fem.pl.] <pos>sa/FUT+ta/IV2FP</pos>
+st	satu	IVPref-sa-Antn-tu	will + you [fem.pl.] <pos>sa/FUT+tu/IV2FP</pos>
+wst	wasata	IVPref-sa-Antn-ta	and + will + you [fem.pl.] <pos>wa/CONJ+sa/FUT+ta/IV2FP</pos>
+wst	wasatu	IVPref-sa-Antn-tu	and + will + you [fem.pl.] <pos>wa/CONJ+sa/FUT+tu/IV2FP</pos>
+fst	fasata	IVPref-sa-Antn-ta	and/so + will + you [fem.pl.] <pos>fa/CONJ+sa/FUT+ta/IV2FP</pos>
+fst	fasatu	IVPref-sa-Antn-tu	and/so + will + you [fem.pl.] <pos>fa/CONJ+sa/FUT+tu/IV2FP</pos>
+; neg.part. lA
+lAt	lAta	IVPref-Antn-ta	not + you [fem.pl.] <pos>lA/NEG_PART+ta/IV2FP</pos>
+lAt	lAtu	IVPref-Antn-tu	not + you [fem.pl.] <pos>lA/NEG_PART+tu/IV2FP</pos>
+wlAt	walAta	IVPref-Antn-ta	and + not + you [fem.pl.] <pos>wa/CONJ+lA/NEG_PART+ta/IV2FP</pos>
+wlAt	walAtu	IVPref-Antn-tu	and + not + you [fem.pl.] <pos>wa/CONJ+lA/NEG_PART+tu/IV2FP</pos>
+flAt	falAta	IVPref-Antn-ta	and/so + not + you [fem.pl.] <pos>fa/CONJ+lA/NEG_PART+ta/IV2FP</pos>
+flAt	falAtu	IVPref-Antn-tu	and/so + not + you [fem.pl.] <pos>fa/CONJ+lA/NEG_PART+tu/IV2FP</pos>
+; neg.part. mA
+;mAt	mAta	IVPref-Antn-ta	not + you [fem.pl.] <pos>mA/NEG_PART+ta/IV2FP</pos>
+;mAt	mAtu	IVPref-Antn-tu	not + you [fem.pl.] <pos>mA/NEG_PART+tu/IV2FP</pos>
+;wmAt	wamAta	IVPref-Antn-ta	and + not + you [fem.pl.] <pos>wa/CONJ+mA/NEG_PART+ta/IV2FP</pos>
+;wmAt	wamAtu	IVPref-Antn-tu	and + not + you [fem.pl.] <pos>wa/CONJ+mA/NEG_PART+tu/IV2FP</pos>
+;fmAt	famAta	IVPref-Antn-ta	and/so + not + you [fem.pl.] <pos>fa/CONJ+mA/NEG_PART+ta/IV2FP</pos>
+;fmAt	famAtu	IVPref-Antn-tu	and/so + not + you [fem.pl.] <pos>fa/CONJ+mA/NEG_PART+tu/IV2FP</pos>
+;mAt	mAta	IVPref-Antn-ta	not + you [fem.pl.] <pos>mA/REL_PRON+ta/IV2FP</pos>
+;mAt	mAtu	IVPref-Antn-tu	not + you [fem.pl.] <pos>mA/REL_PRON+tu/IV2FP</pos>
+;wmAt	wamAta	IVPref-Antn-ta	and + not + you [fem.pl.] <pos>wa/CONJ+mA/REL_PRON+ta/IV2FP</pos>
+;wmAt	wamAtu	IVPref-Antn-tu	and + not + you [fem.pl.] <pos>wa/CONJ+mA/REL_PRON+tu/IV2FP</pos>
+;fmAt	famAta	IVPref-Antn-ta	and/so + not + you [fem.pl.] <pos>fa/CONJ+mA/REL_PRON+ta/IV2FP</pos>
+;fmAt	famAtu	IVPref-Antn-tu	and/so + not + you [fem.pl.] <pos>fa/CONJ+mA/REL_PRON+tu/IV2FP</pos>
+;-------------------
+; subjunctive li- + imperfect verb prefix: 3rd pers.fem.sg. (hiya)
+lt	lita	IVPref-hy-lita	for + it/them/her to <pos>li/SUB+ta/IV3FS</pos>
+lt	litu	IVPref-hy-litu	for + it/them/her to <pos>li/SUB+tu/IV3FS</pos>
+wlt	walita	IVPref-hy-lita	and + for + it/them/her to <pos>wa/CONJ+li/SUB+ta/IV3FS</pos>
+wlt	walitu	IVPref-hy-litu	and + for + it/them/her to <pos>wa/CONJ+li/SUB+tu/IV3FS</pos>
+flt	falita	IVPref-hy-lita	and/so + for + it/them/her to <pos>fa/CONJ+li/SUB+ta/IV3FS</pos>
+flt	falitu	IVPref-hy-litu	and/so + for + it/them/her to <pos>fa/CONJ+li/SUB+tu/IV3FS</pos>
+;
+; subjunctive li- + imperfect verb prefix: 2nd pers.masc.sg. (Anta)
+lt	lita	IVPref-Anta-lita	for + you [masc.sg.] to <pos>li/SUB+ta/IV2MS</pos>
+lt	litu	IVPref-Anta-litu	for + you [masc.sg.] to <pos>li/SUB+tu/IV2MS</pos>
+wlt	walita	IVPref-Anta-lita	and + for + you [masc.sg.] to <pos>wa/CONJ+li/SUB+ta/IV2MS</pos>
+wlt	walitu	IVPref-Anta-litu	and + for + you [masc.sg.] to <pos>wa/CONJ+li/SUB+tu/IV2MS</pos>
+flt	falita	IVPref-Anta-lita	and/so + for + you [masc.sg.] to <pos>fa/CONJ+li/SUB+ta/IV2MS</pos>
+flt	falitu	IVPref-Anta-litu	and/so + for + you [masc.sg.] to <pos>fa/CONJ+li/SUB+tu/IV2MS</pos>
+;
+; subjunctive li- + imperfect verb prefix: 2nd pers.du. (AntumA)
+lt	lita	IVPref-AntmA-lita	for + you (both) to <pos>li/SUB+ta/IV2D</pos>
+lt	litu	IVPref-AntmA-litu	for + you (both) to <pos>li/SUB+tu/IV2D</pos>
+wlt	walita	IVPref-AntmA-lita	and + for + you (both) to <pos>wa/CONJ+li/SUB+ta/IV2D</pos>
+wlt	walitu	IVPref-AntmA-litu	and + for + you (both) to <pos>wa/CONJ+li/SUB+tu/IV2D</pos>
+flt	falita	IVPref-AntmA-lita	and/so + for + you (both) to <pos>fa/CONJ+li/SUB+ta/IV2D</pos>
+flt	falitu	IVPref-AntmA-litu	and/so + for + you (both) to <pos>fa/CONJ+li/SUB+tu/IV2D</pos>
+;
+; subjunctive li- + imperfect verb prefix: 3rd pers.fem.du. (humA)
+lt	lita	IVPref-hmA-lita	for + them (both) [fem.du.] to <pos>li/SUB+ta/IV3FD</pos>
+lt	litu	IVPref-hmA-litu	for + them (both) [fem.du.] to <pos>li/SUB+tu/IV3FD</pos>
+wlt	walita	IVPref-hmA-lita	and + for + them (both) [fem.du.] to <pos>wa/CONJ+li/SUB+ta/IV3FD</pos>
+wlt	walitu	IVPref-hmA-litu	and + for + them (both) [fem.du.] to <pos>wa/CONJ+li/SUB+tu/IV3FD</pos>
+flt	falita	IVPref-hmA-lita	and/so + for + them (both) [fem.du.] to <pos>fa/CONJ+li/SUB+ta/IV3FD</pos>
+flt	falitu	IVPref-hmA-litu	and/so + for + them (both) [fem.du.] to <pos>fa/CONJ+li/SUB+tu/IV3FD</pos>
+;
+; subjunctive li- + imperfect verb prefix: 2nd pers.fem.sg. (Anti)
+lt	lita	IVPref-Anti-lita	for + you [fem.sg.] to <pos>li/SUB+ta/IV2FS</pos>
+lt	litu	IVPref-Anti-litu	for + you [fem.sg.] to <pos>li/SUB+tu/IV2FS</pos>
+wlt	walita	IVPref-Anti-lita	and + for + you [fem.sg.] to <pos>wa/CONJ+li/SUB+ta/IV2FS</pos>
+wlt	walitu	IVPref-Anti-litu	and + for + you [fem.sg.] to <pos>wa/CONJ+li/SUB+tu/IV2FS</pos>
+flt	falita	IVPref-Anti-lita	and/so + for + you [fem.sg.] to <pos>fa/CONJ+li/SUB+ta/IV2FS</pos>
+flt	falitu	IVPref-Anti-litu	and/so + for + you [fem.sg.] to <pos>fa/CONJ+li/SUB+tu/IV2FS</pos>
+;
+; subjunctive li- + imperfect verb prefix: 2nd pers.masc.pl. (Antum)
+lt	lita	IVPref-Antm-lita	for + you [masc.pl.] to <pos>li/SUB+ta/IV2MP</pos>
+lt	litu	IVPref-Antm-litu	for + you [masc.pl.] to <pos>li/SUB+tu/IV2MP</pos>
+wlt	walita	IVPref-Antm-lita	and + for + you [masc.pl.] to <pos>wa/CONJ+li/SUB+ta/IV2MP</pos>
+wlt	walitu	IVPref-Antm-litu	and + for + you [masc.pl.] to <pos>wa/CONJ+li/SUB+tu/IV2MP</pos>
+flt	falita	IVPref-Antm-lita	and/so + for + you [masc.pl.] to <pos>fa/CONJ+li/SUB+ta/IV2MP</pos>
+flt	falitu	IVPref-Antm-litu	and/so + for + you [masc.pl.] to <pos>fa/CONJ+li/SUB+tu/IV2MP</pos>
+;
+; subjunctive li- + imperfect verb prefix: 2nd pers.fem.pl. (Antun~a)
+lt	lita	IVPref-Antn-lita	for + you [fem.pl.] to <pos>li/SUB+ta/IV2FP</pos>
+lt	litu	IVPref-Antn-litu	for + you [fem.pl.] to <pos>li/SUB+tu/IV2FP</pos>
+wlt	walita	IVPref-Antn-lita	and + for + you [fem.pl.] to <pos>wa/CONJ+li/SUB+ta/IV2FP</pos>
+wlt	walitu	IVPref-Antn-litu	and + for + you [fem.pl.] to <pos>wa/CONJ+li/SUB+tu/IV2FP</pos>
+flt	falita	IVPref-Antn-lita	and/so + for + you [fem.pl.] to <pos>fa/CONJ+li/SUB+ta/IV2FP</pos>
+flt	falitu	IVPref-Antn-litu	and/so + for + you [fem.pl.] to <pos>fa/CONJ+li/SUB+tu/IV2FP</pos>
+;---------------
+; jussive li- + imperfect verb prefix: 3rd pers.fem.sg. (hiya)
+lt	lita	IVPref-hy-lita_jus	let + it/them/her <pos>li/JUS+ta/IV3FS</pos>
+lt	litu	IVPref-hy-litu_jus	let + it/them/her <pos>li/JUS+tu/IV3FS</pos>
+wlt	walota	IVPref-hy-lita_jus	and + let + it/them/her <pos>wa/CONJ+li/JUS+ta/IV3FS</pos>
+wlt	walotu	IVPref-hy-litu_jus	and + let + it/them/her <pos>wa/CONJ+li/JUS+tu/IV3FS</pos>
+flt	falota	IVPref-hy-lita_jus	and/so + let + it/them/her <pos>fa/CONJ+li/JUS+ta/IV3FS</pos>
+flt	falotu	IVPref-hy-litu_jus	and/so + let + it/them/her <pos>fa/CONJ+li/JUS+tu/IV3FS</pos>
+; jussive li- + imperfect verb prefix: 2nd pers.masc.sg. (Anta)
+lt	lita	IVPref-Anta-lita_jus	let + you [masc.sg.] <pos>li/JUS+ta/IV2MS</pos>
+lt	litu	IVPref-Anta-litu_jus	let + you [masc.sg.] <pos>li/JUS+tu/IV2MS</pos>
+wlt	walota	IVPref-Anta-lita_jus	and + let + you [masc.sg.] <pos>wa/CONJ+li/JUS+ta/IV2MS</pos>
+wlt	walotu	IVPref-Anta-litu_jus	and + let + you [masc.sg.] <pos>wa/CONJ+li/JUS+tu/IV2MS</pos>
+flt	falota	IVPref-Anta-lita_jus	and/so + let + you [masc.sg.] <pos>fa/CONJ+li/JUS+ta/IV2MS</pos>
+flt	falotu	IVPref-Anta-litu_jus	and/so + let + you [masc.sg.] <pos>fa/CONJ+li/JUS+tu/IV2MS</pos>
+; jussive li- + imperfect verb prefix: 2nd pers.du. (AntumA)
+lt	lita	IVPref-AntmA-lita_jus	let + you (both) <pos>li/JUS+ta/IV2D</pos>
+lt	litu	IVPref-AntmA-litu_jus	let + you (both) <pos>li/JUS+tu/IV2D</pos>
+wlt	walota	IVPref-AntmA-lita_jus	and + let + you (both) <pos>wa/CONJ+li/JUS+ta/IV2D</pos>
+wlt	walotu	IVPref-AntmA-litu_jus	and + let + you (both) <pos>wa/CONJ+li/JUS+tu/IV2D</pos>
+flt	falota	IVPref-AntmA-lita_jus	and/so + let + you (both) <pos>fa/CONJ+li/JUS+ta/IV2D</pos>
+flt	falotu	IVPref-AntmA-litu_jus	and/so + let + you (both) <pos>fa/CONJ+li/JUS+tu/IV2D</pos>
+; jussive li- + imperfect verb prefix: 3rd pers.fem.du. (humA)
+lt	lita	IVPref-hmA-lita_jus	let + them (both) [fem.du.] <pos>li/JUS+ta/IV3FD</pos>
+lt	litu	IVPref-hmA-litu_jus	let + them (both) [fem.du.] <pos>li/JUS+tu/IV3FD</pos>
+wlt	walota	IVPref-hmA-lita_jus	and + let + them (both) [fem.du.] <pos>wa/CONJ+li/JUS+ta/IV3FD</pos>
+wlt	walotu	IVPref-hmA-litu_jus	and + let + them (both) [fem.du.] <pos>wa/CONJ+li/JUS+tu/IV3FD</pos>
+flt	falota	IVPref-hmA-lita_jus	and/so + let + them (both) [fem.du.] <pos>fa/CONJ+li/JUS+ta/IV3FD</pos>
+flt	falotu	IVPref-hmA-litu_jus	and/so + let + them (both) [fem.du.] <pos>fa/CONJ+li/JUS+tu/IV3FD</pos>
+; jussive li- + imperfect verb prefix: 2nd pers.fem.sg. (Anti)
+lt	lita	IVPref-Anti-lita_jus	let + you [fem.sg.] <pos>li/JUS+ta/IV2FS</pos>
+lt	litu	IVPref-Anti-litu_jus	let + you [fem.sg.] <pos>li/JUS+tu/IV2FS</pos>
+wlt	walota	IVPref-Anti-lita_jus	and + let + you [fem.sg.] <pos>wa/CONJ+li/JUS+ta/IV2FS</pos>
+wlt	walotu	IVPref-Anti-litu_jus	and + let + you [fem.sg.] <pos>wa/CONJ+li/JUS+tu/IV2FS</pos>
+flt	falota	IVPref-Anti-lita_jus	and/so + let + you [fem.sg.] <pos>fa/CONJ+li/JUS+ta/IV2FS</pos>
+flt	falotu	IVPref-Anti-litu_jus	and/so + let + you [fem.sg.] <pos>fa/CONJ+li/JUS+tu/IV2FS</pos>
+; jussive li- + imperfect verb prefix: 2nd pers.masc.pl. (Antum)
+lt	lita	IVPref-Antm-lita_jus	let + you [masc.pl.] <pos>li/JUS+ta/IV2MP</pos>
+lt	litu	IVPref-Antm-litu_jus	let + you [masc.pl.] <pos>li/JUS+tu/IV2MP</pos>
+wlt	walota	IVPref-Antm-lita_jus	and + let + you [masc.pl.] <pos>wa/CONJ+li/JUS+ta/IV2MP</pos>
+wlt	walotu	IVPref-Antm-litu_jus	and + let + you [masc.pl.] <pos>wa/CONJ+li/JUS+tu/IV2MP</pos>
+flt	falota	IVPref-Antm-lita_jus	and/so + let + you [masc.pl.] <pos>fa/CONJ+li/JUS+ta/IV2MP</pos>
+flt	falotu	IVPref-Antm-litu_jus	and/so + let + you [masc.pl.] <pos>fa/CONJ+li/JUS+tu/IV2MP</pos>
+; jussive li- + imperfect verb prefix: 2nd pers.fem.pl. (Antun~a)
+lt	lita	IVPref-Antn-lita_jus	let + you [fem.pl.] <pos>li/JUS+ta/IV2FP</pos>
+lt	litu	IVPref-Antn-litu_jus	let + you [fem.pl.] <pos>li/JUS+tu/IV2FP</pos>
+wlt	walota	IVPref-Antn-lita_jus	and + let + you [fem.pl.] <pos>wa/CONJ+li/JUS+ta/IV2FP</pos>
+wlt	walotu	IVPref-Antn-litu_jus	and + let + you [fem.pl.] <pos>wa/CONJ+li/JUS+tu/IV2FP</pos>
+flt	falota	IVPref-Antn-lita_jus	and/so + let + you [fem.pl.] <pos>fa/CONJ+li/JUS+ta/IV2FP</pos>
+flt	falotu	IVPref-Antn-litu_jus	and/so + let + you [fem.pl.] <pos>fa/CONJ+li/JUS+tu/IV2FP</pos>
+;
+;---------------
+; interrogative part as prefix
+;---------------
+; imperfect verb prefix: 1st pers.sg. (AnA)
+>	>a	IVPref-AnA->a	I <pos>>a/IV1S</pos>
+>	>u	IVPref-AnA->u	I <pos>>u/IV1S</pos>
+w>	wa>a	IVPref-AnA->a	and + I <pos>wa/CONJ+>a/IV1S</pos>
+w>	wa>u	IVPref-AnA->u	and + I <pos>wa/CONJ+>u/IV1S</pos>
+f>	fa>a	IVPref-AnA->a	and/so + I <pos>fa/CONJ+>a/IV1S</pos>
+f>	fa>u	IVPref-AnA->u	and/so + I <pos>fa/CONJ+>u/IV1S</pos>
+s>	sa>a	IVPref-sa-AnA->a	will + I <pos>sa/FUT+>a/IV1S</pos>
+s>	sa>u	IVPref-sa-AnA->u	will + I <pos>sa/FUT+>u/IV1S</pos>
+ws>	wasa>a	IVPref-sa-AnA->a	and + will + I <pos>wa/CONJ+sa/FUT+>a/IV1S</pos>
+ws>	wasa>u	IVPref-sa-AnA->u	and + will + I <pos>wa/CONJ+sa/FUT+>u/IV1S</pos>
+fs>	fasa>a	IVPref-sa-AnA->a	and/so + will + I <pos>fa/CONJ+sa/FUT+>a/IV1S</pos>
+fs>	fasa>u	IVPref-sa-AnA->u	and/so + will + I <pos>fa/CONJ+sa/FUT+>u/IV1S</pos>
+; neg.part. lA
+lA>	lA>a	IVPref-AnA->a	not + I <pos>lA/NEG_PART+>a/IV1S</pos>
+lA>	lA>u	IVPref-AnA->u	not + I <pos>lA/NEG_PART+>u/IV1S</pos>
+wlA>	walA>a	IVPref-AnA->a	and + not + I <pos>wa/CONJ+lA/NEG_PART+>a/IV1S</pos>
+wlA>	walA>u	IVPref-AnA->u	and + not + I <pos>wa/CONJ+lA/NEG_PART+>u/IV1S</pos>
+flA>	falA>a	IVPref-AnA->a	and/so + not + I <pos>fa/CONJ+lA/NEG_PART+>a/IV1S</pos>
+flA>	falA>u	IVPref-AnA->u	and/so + not + I <pos>fa/CONJ+lA/NEG_PART+>u/IV1S</pos>
+;---------------------- CV_Prefixes --------------------
+A	{i	CVPref-AFP	 <pos>{i/CV_SUBJ:2FP</pos>
+wA	{i	CVPref-AFP	 <pos>wa/CONJ+{i/CV_SUBJ:2FP</pos>
+fA	{i	CVPref-AFP	 <pos>wa/CONJ+{i/CV_SUBJ:2FP</pos>
+A	{i	CVPref-AFS	 <pos>{i/CV_SUBJ:2FS</pos>
+wA	{i	CVPref-AFS	 <pos>wa/CONJ+{i/CV_SUBJ:2FS</pos>
+fA	{i	CVPref-AFS	 <pos>fa/CONJ+{i/CV_SUBJ:2FS</pos>
+A	{i	CVPref-AMS	 <pos>{i/CV_SUBJ:2MS</pos>
+wA	{i	CVPref-AMS	 <pos>wa/CONJ+{i/CV_SUBJ:2MS</pos>
+fA	{i	CVPref-AMS	 <pos>fa/CONJ+{i/CV_SUBJ:2MS</pos>
+A	{i	CVPref-AD	 <pos>{i/CV_SUBJ:2D</pos>
+wA	{i	CVPref-AD	 <pos>wa/CONJ+{i/CV_SUBJ:2D</pos>
+fA	{i	CVPref-AD	 <pos>fa/CONJ+{i/CV_SUBJ:2D</pos>
+A	{i	CVPref-AMP	 <pos>{i/CV_SUBJ:2MP</pos>
+wA	{i	CVPref-AMP	 <pos>wa/CONJ+{i/CV_SUBJ:2MP</pos>
+fA	{i	CVPref-AMP	 <pos>fa/CONJ+{i/CV_SUBJ:2MP</pos>
+;
+A	{u	CVPref-AuFP	 <pos>{u/CV_SUBJ:2FP</pos>
+wA	{u	CVPref-AuFP	 <pos>wa/CONJ+{u/CV_SUBJ:2FP</pos>
+fA	{u	CVPref-AuFP	 <pos>fa/CONJ+{u/CV_SUBJ:2FP</pos>
+A	{u	CVPref-AuFS	 <pos>{u/CV_SUBJ:2FS</pos>
+wA	{u	CVPref-AuFS	 <pos>wa/CONJ+{u/CV_SUBJ:2FS</pos>
+fA	{u	CVPref-AuFS	 <pos>fa/CONJ+{u/CV_SUBJ:2FS</pos>
+A	{u	CVPref-AuMP	 <pos>{u/CV_SUBJ:2MP</pos>
+wA	{u	CVPref-AuMP	 <pos>wa/CONJ+{u/CV_SUBJ:2MP</pos>
+fA	{u	CVPref-AuMP	 <pos>fa/CONJ+{u/CV_SUBJ:2MP</pos>
+A	{u	CVPref-AuD	 <pos>{u/CV_SUBJ:2D</pos>
+wA	{u	CVPref-AuD	 <pos>wa/CONJ+{u/CV_SUBJ:2D</pos>
+fA	{u	CVPref-AuD	 <pos>fa/CONJ+{u/CV_SUBJ:2D</pos>
+A	{u	CVPref-AuMS	 <pos>{u/CV_SUBJ:2MS</pos>
+wA	{u	CVPref-AuMS	 <pos>wa/CONJ+{u/CV_SUBJ:2MS</pos>
+fA	{u	CVPref-AuMS	 <pos>fa/CONJ+{u/CV_SUBJ:2MS</pos>
+;--------------------------------
+; neg.part. mA
+;mA>	mA>a	IVPref-AnA->a	not + I <pos>mA/NEG_PART+>a/IV1S</pos>
+;mA>	mA>u	IVPref-AnA->u	not + I <pos>mA/NEG_PART+>u/IV1S</pos>
+;wmA>	wamA>a	IVPref-AnA->a	and + not + I <pos>wa/CONJ+mA/NEG_PART+>a/IV1S</pos>
+;wmA>	wamA>u	IVPref-AnA->u	and + not + I <pos>wa/CONJ+mA/NEG_PART+>u/IV1S</pos>
+;fmA>	famA>a	IVPref-AnA->a	and/so + not + I <pos>fa/CONJ+mA/NEG_PART+>a/IV1S</pos>
+;fmA>	famA>u	IVPref-AnA->u	and/so + not + I <pos>fa/CONJ+mA/NEG_PART+>u/IV1S</pos>
+;mA>	mA>a	IVPref-AnA->a	not + I <pos>mA/REL_PRON+>a/IV1S</pos>
+;mA>	mA>u	IVPref-AnA->u	not + I <pos>mA/REL_PRON+>u/IV1S</pos>
+;wmA>	wamA>a	IVPref-AnA->a	and + not + I <pos>wa/CONJ+mA/REL_PRON+>a/IV1S</pos>
+;wmA>	wamA>u	IVPref-AnA->u	and + not + I <pos>wa/CONJ+mA/REL_PRON+>u/IV1S</pos>
+;fmA>	famA>a	IVPref-AnA->a	and/so + not + I <pos>fa/CONJ+mA/REL_PRON+>a/IV1S</pos>
+;fmA>	famA>u	IVPref-AnA->u	and/so + not + I <pos>fa/CONJ+mA/REL_PRON+>u/IV1S</pos>
+; orthographic variants
+;A	>a	IVPref-AnA->a	I <pos>>a/IV1S</pos>
+;A	>u	IVPref-AnA->u	I <pos>>u/IV1S</pos>
+;wA	wa>a	IVPref-AnA->a	and + I <pos>wa/CONJ+>a/IV1S</pos>
+;wA	wa>u	IVPref-AnA->u	and + I <pos>wa/CONJ+>u/IV1S</pos>
+;fA	fa>a	IVPref-AnA->a	and/so + I <pos>fa/CONJ+>a/IV1S</pos>
+;fA	fa>u	IVPref-AnA->u	and/so + I <pos>fa/CONJ+>u/IV1S</pos>
+;sA	sa>a	IVPref-AnA->a	will + I <pos>sa/FUT+>a/IV1S</pos>
+;sA	sa>u	IVPref-AnA->u	will + I <pos>sa/FUT+>u/IV1S</pos>
+;wsA	wasa>a	IVPref-AnA->a	and + will + I <pos>wa/CONJ+sa/FUT+>a/IV1S</pos>
+;wsA	wasa>u	IVPref-AnA->u	and + will + I <pos>wa/CONJ+sa/FUT+>u/IV1S</pos>
+;fsA	fasa>a	IVPref-AnA->a	and/so + will + I <pos>fa/CONJ+sa/FUT+>a/IV1S</pos>
+;fsA	fasa>u	IVPref-AnA->u	and/so + will + I <pos>fa/CONJ+sa/FUT+>u/IV1S</pos>
+; neg.part. lA
+;lAA	lA>a	IVPref-AnA->a	not + I <pos>lA/NEG_PART+>a/IV1S</pos>
+;lAA	lA>u	IVPref-AnA->u	not + I <pos>lA/NEG_PART+>u/IV1S</pos>
+;wlAA	walA>a	IVPref-AnA->a	and + not + I <pos>wa/CONJ+lA/NEG_PART+>a/IV1S</pos>
+;wlAA	walA>u	IVPref-AnA->u	and + not + I <pos>wa/CONJ+lA/NEG_PART+>u/IV1S</pos>
+;flAA	falA>a	IVPref-AnA->a	and/so + not + I <pos>fa/CONJ+lA/NEG_PART+>a/IV1S</pos>
+;flAA	falA>u	IVPref-AnA->u	and/so + not + I <pos>fa/CONJ+lA/NEG_PART+>u/IV1S</pos>
+; neg.part. mA
+;mAA	mA>a	IVPref-AnA->a	not + I <pos>mA/NEG_PART+>a/IV1S</pos>
+;mAA	mA>u	IVPref-AnA->u	not + I <pos>mA/NEG_PART+>u/IV1S</pos>
+;wmAA	wamA>a	IVPref-AnA->a	and + not + I <pos>wa/CONJ+mA/NEG_PART+>a/IV1S</pos>
+;wmAA	wamA>u	IVPref-AnA->u	and + not + I <pos>wa/CONJ+mA/NEG_PART+>u/IV1S</pos>
+;fmAA	famA>a	IVPref-AnA->a	and/so + not + I <pos>fa/CONJ+mA/NEG_PART+>a/IV1S</pos>
+;fmAA	famA>u	IVPref-AnA->u	and/so + not + I <pos>fa/CONJ+mA/NEG_PART+>u/IV1S</pos>
+;mAA	mA>a	IVPref-AnA->a	not + I <pos>mA/REL_PRON+>a/IV1S</pos>
+;mAA	mA>u	IVPref-AnA->u	not + I <pos>mA/REL_PRON+>u/IV1S</pos>
+;wmAA	wamA>a	IVPref-AnA->a	and + not + I <pos>wa/CONJ+mA/REL_PRON+>a/IV1S</pos>
+;wmAA	wamA>u	IVPref-AnA->u	and + not + I <pos>wa/CONJ+mA/REL_PRON+>u/IV1S</pos>
+;fmAA	famA>a	IVPref-AnA->a	and/so + not + I <pos>fa/CONJ+mA/REL_PRON+>a/IV1S</pos>
+;fmAA	famA>u	IVPref-AnA->u	and/so + not + I <pos>fa/CONJ+mA/REL_PRON+>u/IV1S</pos>;
+; imperfect verb prefix: 1st pers.sg. (AnA) -- special orthography with hamza
+|	|	IVPref-AnA-|	I <pos>|/IV1S</pos>
+w|	wa|	IVPref-AnA-|	and + I <pos>wa/CONJ+|/IV1S</pos>
+f|	fa|	IVPref-AnA-|	and/so + I <pos>fa/CONJ+|/IV1S</pos>
+s|	sa|	IVPref-sa-AnA-|	will + I <pos>sa/FUT+|/IV1S</pos>
+ws|	wasa|	IVPref-sa-AnA-|	and + will + I <pos>wa/CONJ+sa/FUT+|/IV1S</pos>
+fs|	fasa|	IVPref-sa-AnA-|	and/so + will + I <pos>fa/CONJ+sa/FUT+|/IV1S</pos>
+; neg.part. lA
+lA|	lA|	IVPref-AnA-|	not + I <pos>lA/NEG_PART+|/IV1S</pos>
+wlA|	walA|	IVPref-AnA-|	and + not + I <pos>wa/CONJ+lA/NEG_PART+|/IV1S</pos>
+flA|	falA|	IVPref-AnA-|	and/so + not + I <pos>fa/CONJ+lA/NEG_PART+|/IV1S</pos>
+; neg.part. mA
+;mA|	mA|	IVPref-AnA-|	not + I <pos>mA/NEG_PART+|/IV1S</pos>
+;wmA|	wamA|	IVPref-AnA-|	and + not + I <pos>wa/CONJ+mA/NEG_PART+|/IV1S</pos>
+;fmA|	famA|	IVPref-AnA-|	and/so + not + I <pos>fa/CONJ+mA/NEG_PART+|/IV1S</pos>
+;mA|	mA|	IVPref-AnA-|	not + I <pos>mA/REL_PRON+|/IV1S</pos>
+;wmA|	wamA|	IVPref-AnA-|	and + not + I <pos>wa/CONJ+mA/REL_PRON+|/IV1S</pos>
+;fmA|	famA|	IVPref-AnA-|	and/so + not + I <pos>fa/CONJ+mA/REL_PRON+|/IV1S</pos>
+; orthographic variants
+;A	|	IVPref-AnA-|	I <pos>|/IV1S</pos>
+wA	wa|	IVPref-AnA-|	and + I <pos>wa/CONJ+|/IV1S</pos>
+fA	fa|	IVPref-AnA-|	and/so + I <pos>fa/CONJ+|/IV1S</pos>
+sA	sa|	IVPref-sa-AnA-|	will + I <pos>sa/FUT+|/IV1S</pos>
+wsA	wasa|	IVPref-sa-AnA-|	and + will + I <pos>wa/CONJ+sa/FUT+|/IV1S</pos>
+fsA	fasa|	IVPref-sa-AnA-|	and/so + will + I <pos>fa/CONJ+sa/FUT+|/IV1S</pos>
+; neg.part. lA
+lAA	lA|	IVPref-AnA-|	not + I <pos>lA/NEG_PART+|/IV1S</pos>
+wlAA	walA|	IVPref-AnA-|	and + not + I <pos>wa/CONJ+lA/NEG_PART+|/IV1S</pos>
+flAA	falA|	IVPref-AnA-|	and/so + not + I <pos>fa/CONJ+lA/NEG_PART+|/IV1S</pos>
+; neg.part. mA
+;mAA	mA|	IVPref-AnA-|	not + I <pos>mA/NEG_PART+|/IV1S</pos>
+;wmAA	wamA|	IVPref-AnA-|	and + not + I <pos>wa/CONJ+mA/NEG_PART+|/IV1S</pos>
+;fmAA	famA|	IVPref-AnA-|	and/so + not + I <pos>fa/CONJ+mA/NEG_PART+|/IV1S</pos>
+;mAA	mA|	IVPref-AnA-|	not + I <pos>mA/REL_PRON+|/IV1S</pos>
+;wmAA	wamA|	IVPref-AnA-|	and + not + I <pos>wa/CONJ+mA/REL_PRON+|/IV1S</pos>
+;fmAA	famA|	IVPref-AnA-|	and/so + not + I <pos>fa/CONJ+mA/REL_PRON+|/IV1S</pos>
+;
+;--------------------
+; subjunctive li- + imperfect verb prefix: 1st pers.sg. (AnA)
+l>	li>a	IVPref-AnA-li>a	for + me to <pos>li/SUB+>a/IV1S</pos>
+l>	li>u	IVPref-AnA-li>u	for + me to <pos>li/SUB+>u/IV1S</pos>
+wl>	wali>a	IVPref-AnA-li>a	and + for + me to <pos>wa/CONJ+li/SUB+>a/IV1S</pos>
+wl>	wali>u	IVPref-AnA-li>u	and + for + me to <pos>wa/CONJ+li/SUB+>u/IV1S</pos>
+fl>	fali>a	IVPref-AnA-li>a	and/so + for + me to <pos>fa/CONJ+li/SUB+>a/IV1S</pos>
+fl>	fali>u	IVPref-AnA-li>u	and/so + for + me to <pos>fa/CONJ+li/SUB+>u/IV1S</pos>
+; orthographic variants
+;lA	li>a	IVPref-AnA-li>a	for + me to <pos>li/SUB+>a/IV1S</pos>
+;lA	li>u	IVPref-AnA-li>u	for + me to <pos>li/SUB+>u/IV1S</pos>
+;wlA	wali>a	IVPref-AnA-li>a	and + for + me to <pos>wa/CONJ+li/SUB+>a/IV1S</pos>
+;wlA	wali>u	IVPref-AnA-li>u	and + for + me to <pos>wa/CONJ+li/SUB+>u/IV1S</pos>
+;flA	fali>a	IVPref-AnA-li>a	and/so + for + me to <pos>fa/CONJ+li/SUB+>a/IV1S</pos>
+;flA	fali>u	IVPref-AnA-li>u	and/so + for + me to <pos>fa/CONJ+li/SUB+>u/IV1S</pos>
+;
+; subjunctive li- + imperfect verb prefix: 1st pers.sg. (AnA) -- special orthography with hamza
+l|	li|	IVPref-AnA-li|	for + me to <pos>li/SUB+|/IV1S</pos>
+wl|	wali|	IVPref-AnA-li|	and + for + me to <pos>wa/CONJ+li/SUB+|/IV1S</pos>
+fl|	fali|	IVPref-AnA-li|	and/so + for + me to <pos>fa/CONJ+li/SUB+|/IV1S</pos>
+; orthographic variants
+;lA	li|	IVPref-AnA-li|	for + me to <pos>li/SUB+|/IV1S</pos>
+;wlA	wali|	IVPref-AnA-li|	and + for + me to <pos>wa/CONJ+li/SUB+|/IV1S</pos>
+;flA	fali|	IVPref-AnA-li|	and/so + for + me to <pos>fa/CONJ+li/SUB+|/IV1S</pos>
+;--------------------
+;
+; imperfect verb prefix: 1st pers.pl. (naHnu)
+n	na	IVPref-nHn-na	we <pos>na/IV1P</pos>
+n	nu	IVPref-nHn-nu	we <pos>nu/IV1P</pos>
+wn	wana	IVPref-nHn-na	and + we <pos>wa/CONJ+na/IV1P</pos>
+wn	wanu	IVPref-nHn-nu	and + we <pos>wa/CONJ+nu/IV1P</pos>
+fn	fana	IVPref-nHn-na	and/so + we <pos>fa/CONJ+na/IV1P</pos>
+fn	fanu	IVPref-nHn-nu	and/so + we <pos>fa/CONJ+nu/IV1P</pos>
+sn	sana	IVPref-sa-nHn-na	will + we <pos>sa/FUT+na/IV1P</pos>
+sn	sanu	IVPref-sa-nHn-nu	will + we <pos>sa/FUT+nu/IV1P</pos>
+wsn	wasana	IVPref-sa-nHn-na	and + will + we <pos>wa/CONJ+sa/FUT+na/IV1P</pos>
+wsn	wasanu	IVPref-sa-nHn-nu	and + will + we <pos>wa/CONJ+sa/FUT+nu/IV1P</pos>
+fsn	fasana	IVPref-sa-nHn-na	and/so + will + we <pos>fa/CONJ+sa/FUT+na/IV1P</pos>
+fsn	fasanu	IVPref-sa-nHn-nu	and/so + will + we <pos>fa/CONJ+sa/FUT+nu/IV1P</pos>
+; neg.part. lA
+lAn	lAna	IVPref-nHn-na	not + we <pos>lA/NEG_PART+na/IV1P</pos>
+lAn	lAnu	IVPref-nHn-nu	not + we <pos>lA/NEG_PART+nu/IV1P</pos>
+wlAn	walAna	IVPref-nHn-na	and + not + we <pos>wa/CONJ+lA/NEG_PART+na/IV1P</pos>
+wlAn	walAnu	IVPref-nHn-nu	and + not + we <pos>wa/CONJ+lA/NEG_PART+nu/IV1P</pos>
+flAn	falAna	IVPref-nHn-na	and/so + not + we <pos>fa/CONJ+lA/NEG_PART+na/IV1P</pos>
+flAn	falAnu	IVPref-nHn-nu	and/so + not + we <pos>fa/CONJ+lA/NEG_PART+nu/IV1P</pos>
+; neg.part. mA
+;mAn	mAna	IVPref-nHn-na	not + we <pos>mA/NEG_PART+na/IV1P</pos>
+;mAn	mAnu	IVPref-nHn-nu	not + we <pos>mA/NEG_PART+nu/IV1P</pos>
+;wmAn	wamAna	IVPref-nHn-na	and + not + we <pos>wa/CONJ+mA/NEG_PART+na/IV1P</pos>
+;wmAn	wamAnu	IVPref-nHn-nu	and + not + we <pos>wa/CONJ+mA/NEG_PART+nu/IV1P</pos>
+;fmAn	famAna	IVPref-nHn-na	and/so + not + we <pos>fa/CONJ+mA/NEG_PART+na/IV1P</pos>
+;fmAn	famAnu	IVPref-nHn-nu	and/so + not + we <pos>fa/CONJ+mA/NEG_PART+nu/IV1P</pos>
+;mAn	mAna	IVPref-nHn-na	not + we <pos>mA/REL_PRON+na/IV1P</pos>
+;mAn	mAnu	IVPref-nHn-nu	not + we <pos>mA/REL_PRON+nu/IV1P</pos>
+;wmAn	wamAna	IVPref-nHn-na	and + not + we <pos>wa/CONJ+mA/REL_PRON+na/IV1P</pos>
+;wmAn	wamAnu	IVPref-nHn-nu	and + not + we <pos>wa/CONJ+mA/REL_PRON+nu/IV1P</pos>
+;fmAn	famAna	IVPref-nHn-na	and/so + not + we <pos>fa/CONJ+mA/REL_PRON+na/IV1P</pos>
+;fmAn	famAnu	IVPref-nHn-nu	and/so + not + we <pos>fa/CONJ+mA/REL_PRON+nu/IV1P</pos>
+;---------
+; subjunctive li- + imperfect verb prefix: 1st pers.pl. (naHnu)
+ln	lina	IVPref-nHn-lina	for + us to <pos>li/SUB+na/IV1P</pos>
+ln	linu	IVPref-nHn-linu	for + us to <pos>li/SUB+nu/IV1P</pos>
+wln	walina	IVPref-nHn-lina	and + for + us to <pos>wa/CONJ+li/SUB+na/IV1P</pos>
+wln	walinu	IVPref-nHn-linu	and + for + us to <pos>wa/CONJ+li/SUB+nu/IV1P</pos>
+fln	falina	IVPref-nHn-lina	and/so + for + us to <pos>fa/CONJ+li/SUB+na/IV1P</pos>
+fln	falinu	IVPref-nHn-linu	and/so + for + us to <pos>fa/CONJ+li/SUB+nu/IV1P</pos>
+;------
+; jussive li- + imperfect verb prefix: 1st pers.pl. (naHnu)
+ln	lina	IVPref-nHn-lina_jus	let + us  <pos>li/JUS+na/IV1P</pos>
+ln	linu	IVPref-nHn-linu_jus	let + us  <pos>li/JUS+nu/IV1P</pos>
+wln	walona	IVPref-nHn-lina_jus	and + let + us  <pos>wa/CONJ+li/JUS+na/IV1P</pos>
+wln	walonu	IVPref-nHn-linu_jus	and + let + us  <pos>wa/CONJ+li/JUS+nu/IV1P</pos>
+fln	falona	IVPref-nHn-lina_jus	and/so + let + us  <pos>fa/CONJ+li/JUS+na/IV1P</pos>
+fln	falonu	IVPref-nHn-linu_jus	and/so + let + us  <pos>fa/CONJ+li/JUS+nu/IV1P</pos>
+;
+; =============================================================================
