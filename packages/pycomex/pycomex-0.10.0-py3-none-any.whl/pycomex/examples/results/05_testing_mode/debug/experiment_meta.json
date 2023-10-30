@@ -1,0 +1,11 @@
+{
+    "base_path": "/media/ssd/Programming/pycomex/pycomex/examples",
+    "description": "\n\n**MOTIVATION**\n\nThere are few things worse than having a really long running experiment raise an exception on one of \nthe very last few lines of code - potentially rendering hours or days of computational time useless.\nAlthough a real annoyance when conducting computation experiments, it turns out this scenario \nactually happens quite a lot.\n\nOften an experiment already works and one just wants to add some additional feature - perhaphs \nonly some additional plotting - to the very end of it, but a spelling error somehow slips into that \ncode. One executes the experiment assuming it will work - since it did so before the modification - \nonly to realize that it crashed at the very last stage.\n\n**TESTING**\n\nTo mitiage this issue, it's a good practice to always run a *testing* version of the experiment \nbefore submitting it for the final run on a cluster or the like. \n\nIn such a testing version, we ideally want as much of the experiment code to execute as possible \nwith minimal runtime. With experiments becoming slightly more complex, setting up such a testing \nscenario often times can't be done by changing a single line of code - often times it is necessary \nto change multiple parameters or even execute some custom code.\n\nThe PyComex framework provides some features of convenience to seamlessly support this testing practice, \nwhich will be explained in this example module.\n\n",
+    "duration": 0.4010641574859619,
+    "end_time": 1698420980.698612,
+    "has_error": false,
+    "namespace": "results/05_testing_mode",
+    "short_description": "",
+    "start_time": 1698420980.2975478,
+    "status": "done"
+}
