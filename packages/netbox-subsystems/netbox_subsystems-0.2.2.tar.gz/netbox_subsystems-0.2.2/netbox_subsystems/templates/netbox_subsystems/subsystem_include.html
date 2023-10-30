@@ -1,0 +1,52 @@
+{% load helpers %}
+
+<div class="card">
+  <h5 class="card-header">
+      Документы
+  </h5>
+  <div class="card-body">
+    {% if subsystems %}
+        <table class="table table-hover">
+            <tr>
+                <th>Название</th>
+                <th>Система</th>
+                <th>В составе подсистемы</th>
+                <th>SSID</th>
+                <th></th>
+            </tr>
+            {% for system in systems %}
+            <tr>
+                <td>
+                      {{ system.name }}
+                </td>
+                <td>{{ system.system }}</td>
+                <td>{{ system.parent }}</td>
+                <td>{{ system.security_id }}</td>
+                <td class="text-end noprint">
+                    <a href="{% url 'plugins:netbox_subsystems:subsystem' pk=system.pk %}" class="btn btn-primary btn-sm lh-1" title="Просмотреть">
+                        <i class="mdi mdi-book" aria-hidden="true"></i>
+                      </a>
+                      <a href="{% url 'plugins:netbox_subsystems:subsystem_edit' pk=system.pk %}?return_url={% url 'tenancy:tenant' pk=object.pk %}" class="btn btn-warning btn-sm lh-1" title="Редактировать">
+                        <i class="mdi mdi-pencil" aria-hidden="true"></i>
+                      </a>
+                      <a href="{% url 'plugins:netbox_subsystems:subsystem_delete' pk=system.pk %}?return_url={% url 'tenancy:tenant' pk=object.pk %}" class="btn btn-danger btn-sm lh-1" title="Удалить">
+                        <i class="mdi mdi-trash-can-outline" aria-hidden="true"></i>
+                      </a>
+                  </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+    <div class="text-muted">
+        Нет
+    </div>
+    {% endif %}
+  </div>
+  <div class="card-footer text-end noprint">
+      <a href="{% url 'plugins:netbox_subsystems:subsystem_add' %}?tenant={{ object.pk }}&return_url={% url 'tenancy:tenant' pk=object.pk %}" class="btn btn-primary btn-sm">
+          <i class="mdi mdi-plus-thick" aria-hidden="true"></i>
+          Создать подсистему
+      </a>
+  </div>
+
+</div>

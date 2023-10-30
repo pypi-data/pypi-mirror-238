@@ -1,0 +1,123 @@
+{% extends 'generic/object.html' %}
+{% load helpers %}
+{% block content %}
+<div class="row mb-3">
+  <div class="col col-md-6">
+    <div class="card">
+      <h5 class="card-header">Подсистема</h5>
+      <div class="card-body">
+        <table class="table table-hover attr-table">
+          <tr>
+            <th scope="row">Название</th>
+            <td>{{ object.name|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Система</th>
+            <td><a href="{% url 'plugins:netbox_subsystems:system' pk=object.system.pk %}">{{ object.system }}</a></td>
+          </tr>
+          <tr>
+            <th scope="row">security_id</th>
+            <td>{{ object.security_id|placeholder }}</td>
+          </tr>
+          <tr>
+            <td>В составе подсистемы</td>
+            <td>{{ object.parent|linkify|placeholder }}</td>
+          </tr>
+          <tr>
+            <td>Описание</td>
+            <td>{{ object.description|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Короткое именование</th>
+            <td>{{ object.slug|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Gitlab</th>
+            <td>{{ object.gitlab|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Wiki</th>
+            <td>{{ object.wiki|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Уровень критичности ИС</th>
+            <td>{% badge object.get_critical_level_display bg_color=object.get_document_type_color %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Категория персональных данных</th>
+            <td>{% badge object.get_pers_data_category_display bg_color=object.get_document_type_color %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Перечень конфиденциальной информации</th>
+            <td>{% badge object.get_confidential_info_display bg_color=object.get_document_type_color %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Дата ввода в эксплуатацию</th>
+            <td>{{ object.comm_date|date:"d.m.Y" }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Приказ ввода в эксплуатацию</th>
+            <td>{{ object.com_order|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Технологии</th>
+            <td>{{ object.technologies|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Технологии развертывания</th>
+            <td>{{ object.dev_technologies|placeholder }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Коробочное решение</th>
+            <td>{% if object.is_box_solution %}Да{% else %}Нет{% endif %}</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Система на аутсорсе</th>
+            <td>{% if object.is_otsrc_sys %}Да{% else %}Нет{% endif %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Администрирование системы на аутсорсе</th>
+            <td>{% if object.is_otsrc_adm %}Да{% else %}Нет{% endif %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Поддержка системы на аутсорсе</th>
+            <td>{% if object.is_otsrc_supis_otsrc_sup %}Да{% else %}Нет{% endif %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Доступно ли решение из сети Интернет</th>
+            <td>{% if object.is_internet %}Да{% else %}Нет{% endif %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Доступ из сети других организаций ЕИРЖС</th>
+            <td>{% if object.is_able_eirjs %}Да{% else %}Нет{% endif %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Есть ли API и используется ли API у решения</th>
+            <td>{% if object.is_able_api %}Да{% else %}Нет{% endif %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Нужен ли API доступ из сети Интернет</th>
+            <td>{% if object.is_api_internet %}Да{% else %}Нет{% endif %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Доступ из сети подрядчика, контрагента</th>
+            <td>{% if object.is_cont_access %}Да{% else %}Нет{% endif %}</td>
+          </tr>
+          <tr>
+            <th scope="row">Обработка конф информации</th>
+            <td>{% if object.is_conf_info %}Да{% else %}Нет{% endif %}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    {% include 'inc/panels/custom_fields.html' %}
+  </div>
+  <div class="col col-md-6">
+    {% include 'inc/panels/related_objects.html' %}
+    {% include 'inc/panels/tags.html' %}
+    {% include 'inc/panels/comments.html' %}
+
+  </div>
+</div>
+{% endblock content %}

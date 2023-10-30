@@ -1,0 +1,32 @@
+{% load helpers %}
+
+<div class="card">
+  <h5 class="card-header">Системы</h5>
+  <ul class="list-group list-group-flush">
+
+    <a href="{% url 'plugins:netbox_subsystems:systemgroup_list' %}?{{ filter_param }}={{ object.pk }}" class="list-group-item list-group-item-action d-flex justify-content-between">
+        Группы систем
+          {% if systemgroups_count %}
+            <span class="badge bg-primary rounded-pill">{{ systemgroups_count }}</span>
+          {% else %}
+            <span class="badge bg-light rounded-pill">&mdash;</span>
+          {% endif %}
+      </a>
+    <a href="{% url 'plugins:netbox_subsystems:system_list' %}?{{ filter_param }}={{ object.pk }}" class="list-group-item list-group-item-action d-flex justify-content-between">
+      Системы
+        {% if systems_count %}
+          <span class="badge bg-primary rounded-pill">{{ systems_count }}</span>
+        {% else %}
+          <span class="badge bg-light rounded-pill">&mdash;</span>
+        {% endif %}
+    </a>
+    <a href="{% url 'plugins:netbox_subsystems:subsystem_list' %}?{{ filter_param }}={{ object.pk }}" class="list-group-item list-group-item-action d-flex justify-content-between">
+      Подсистемы
+        {% if subsystems_count %}
+          <span class="badge bg-primary rounded-pill">{{ subsystems_count }}</span>
+        {% else %}
+          <span class="badge bg-light rounded-pill">&mdash;</span>
+        {% endif %}
+    </a>
+  </ul>
+</div>
