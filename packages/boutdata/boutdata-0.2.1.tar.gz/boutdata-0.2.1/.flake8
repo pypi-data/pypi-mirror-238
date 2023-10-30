@@ -1,0 +1,10 @@
+[flake8]
+ignore =
+    # 'ambiguous variable names' forbids using 'I', 'O' or 'l'
+    E741
+    # 'line break before binary operator', but this is allowed and useful inside brackets
+    W503
+    # 'whitespace before ':'', but black formats some slice expressions with space before ':'
+    E203
+    # line length, let black handle it
+    E501
