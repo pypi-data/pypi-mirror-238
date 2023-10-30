@@ -1,0 +1,35 @@
+hydra:
+  run:
+    dir: /tmp/jamdk/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  hydra_logging:
+    disable_existing_loggers: true
+  sweep:
+    dir: /tmp/jamdk/multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+# docker image name
+img: qinsheng/lab_dev
+# name for the container
+name: daily
+# set memory of docker
+memory:
+
+# whether use x11
+x: true
+# share the network with host
+network: host
+port:
+
+user: false # whether set correct user permission
+# whether mount jam into the container
+jam: false
+# whether mount ssh into the container
+ssh: false
+
+# over write the default entrypoint
+file: container.yaml
+
+# mount:
+#  /home/user: /home/user
+
+# env:
+#  HOME: /home/user
