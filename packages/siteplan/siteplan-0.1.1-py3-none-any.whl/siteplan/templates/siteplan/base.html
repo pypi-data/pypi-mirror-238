@@ -1,0 +1,51 @@
+{% load mix %}
+{% load static %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website</title>
+    {% block head_js %}{% endblock %}
+    <!-- Include Tailwind CSS v3 -->
+    {% block head_css %}
+    {% compress css %}
+    <link href="{% static 'siteplan/css/input.css' %}" rel="stylesheet" type="text/tailwindcss">
+    {% endcompress %}
+    {% endblock %}
+</head>
+<body class="bg-gradient-to-t from-slate-100 via-blue-100 to-stone-400" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+    <!-- Header -->
+    <header class="text-white ml-10 py-4 flex ">
+        <div class="container mx-auto">
+              <h1 class="text-6xl font-bold text-white-900">Siteplan</h1>
+              <p class="text-lg text-gray-500">Start small, grow big</p>
+        </div>
+    </header>
+
+    <!-- Body -->
+    {% block content %}
+    {% endblock %}
+
+    <!-- Footer -->
+    <footer class="text-white py-4">
+      <div class="text-center mt-8">
+        <a id="btn-learn-more" hx-post="/hello/" hx-confirm class="bg-white text-blue-900 hover:bg-gray-300 text-xl font-semibold py-3 px-6 rounded-full inline-block transition duration-300 ease-in-out">
+            Learn More
+        </a>
+      </div>
+    </footer>
+
+    <!-- Copyright Notice -->
+    <div class="text-gray-900 text-center py-2">
+        &copy; 2023 Kamal Mustafa. All Rights Reserved.
+    </div>
+
+</body>
+{% compress js %}
+<script src="{% static 'siteplan/js/main.js' %}" type="text/javascript"></script>
+{% endcompress %}
+</html>
