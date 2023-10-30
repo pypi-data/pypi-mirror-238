@@ -1,0 +1,49 @@
+{"config" : 
+{"base_image" : "alpine",
+ "base_tag" : "3.18.2",
+ "need_special_tags" : {"install_from_testing" : "edge"},
+
+ "builder_default_binaries_dir": "/tmp/runner_root_dir", 
+ "runner_binaries_dir" : "/",
+
+ "build_stages" : {
+    "rc" :       {"build_script" : "",
+                  "file_path" : "./build_stage_templates/alpine/rc/Dockerfile_plan9_build_stage.jinja"
+                 }
+ },
+
+ "commands" : {
+      "install_from_main_and_community" : {
+       "file_path" : "/command_templates/apk.jinja",
+       "supported_parameters" : ["bash",
+                                 "dash",
+                                 "fish",
+                                 "zsh",
+                                 "ion-shell",
+                                 "tcsh",
+                                 "oksh",
+                                 "loksh",
+                                 "yash",
+                                 "rssh"
+                                ]
+         },
+      "install_from_testing" : {
+       "file_path" : "/command_templates/alpine-apk-testing.jinja",
+       "supported_parameters" : ["elvish",
+                                 "hilbish",
+                                 "nsh",
+                                 "xonsh",
+                                 "mrsh",
+                                 "imrsh",
+                                 "nushell"
+                              ]
+         }
+                              },
+
+ "commands_order" : ["install_from_main_and_community",
+                     "install_from_testing",
+                     "build_stages"
+                    ],
+ "unused_parameters_command" : "install_from_main_and_community"
+}
+}

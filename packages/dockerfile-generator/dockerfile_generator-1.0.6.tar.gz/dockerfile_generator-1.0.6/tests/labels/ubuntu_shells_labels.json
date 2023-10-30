@@ -1,0 +1,39 @@
+{"config" : 
+{"LABEL_1" : "author=\"Dockerfile_generator\"",
+ "LABEL_2" : "version=\"7.8.9\"",
+ "LABEL_3" : "description=\"A Ubuntu Jammy Docker image with a range of different shells installed, and these labels, built using Dockerfile.jinja and ubuntu_shells_labels.json\"",  
+ "base_image" : "ubuntu",
+ "base_tag" : "jammy",
+ "need_special_tags" : {},
+
+ "builder_default_binaries_dir": "/tmp/runner_root_dir", 
+ "runner_binaries_dir" : "/",
+
+ "build_stages" : {
+ },
+
+ "commands" : {
+      "install_from_default_repos" : {
+          "file_path" : "/command_templates/apt-get.jinja",
+          "supported_parameters" : [
+                                 "csh",
+                                 "tcsh",
+                                 "ksh",
+                                 "zsh",
+                                 "fish",
+                                 "ash",
+                                 "dash",
+                                 "yash",
+                                 "rc",
+                                 "mksh"
+                                ]
+            }
+     },
+
+ "commands_order" : ["install_from_default_repos",
+                     "build_stages"
+                    ],
+ "unused_parameters_command" : "install_from_default_repos"
+
+}
+}
