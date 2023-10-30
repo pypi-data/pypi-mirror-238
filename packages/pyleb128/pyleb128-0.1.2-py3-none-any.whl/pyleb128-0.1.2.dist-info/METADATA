@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: pyleb128
+Version: 0.1.2
+Summary: Powerful little-endian base-128 encoding/decoding library for Python 3.
+Home-page: https://github.com/yntha/pyleb128
+License: GPL-3.0-or-later
+Author: yntha
+Author-email: bguznvjk@gmail.com
+Requires-Python: >=3.11,<4.0
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Description-Content-Type: text/markdown
+
+# pyleb128
+Powerful little-endian base-128 encoding/decoding library for Python 3.
+</br>
+</br>
+Supports the following types:
+* Unsigned LEB128
+* Signed LEB128
+* Unsigned LEB128 +1 ([ULEB128P1](https://source.android.com/docs/core/runtime/dex-format#leb128))
+
+# Example Usage
+```python
+from pyleb128 import uleb128, sleb128
+
+# unsigned
+print(uleb128.decode(b'\xff\xff\x03'))  # 65535
+print(uleb128.decode(b'\xff\xff\x03').encoded)  # b'\xff\xff\x03'
+print(uleb128.decode(b'\xff\xff\x03', p1 = True))  # decode with as ULEB128P1
+
+# signed
+print(sleb128.decode(b'\xf3\xff\xff\xff\x0f'))  # -13
+print(uleb128.decode(b'\xf3\xff\xff\xff\x0f').encoded)  # b'\xf3\xff\xff\xff\x0f'
+```
