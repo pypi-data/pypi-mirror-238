@@ -1,0 +1,54 @@
+[tool.poetry]
+name = "canokey-manager"
+version = "5.2.0rc2"
+description = "Tool for managing your CanoKey configuration."
+authors = ["Dain Nilsson <dain@yubico.com>", "Yuxiang Zhang <yuxiang.zhang@tuna.tsinghua.edu.cn>"]
+license = "BSD"
+homepage = "https://github.com/canokeys/yubikey-manager"
+repository = "https://github.com/canokeys/yubikey-manager"
+keywords = ["canokey", "piv", "fido"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: End Users/Desktop",
+  "Topic :: Security :: Cryptography",
+  "Topic :: Utilities"
+]
+include = [
+  { path = "COPYING", format = "sdist"},
+  { path = "NEWS", format = "sdist"},
+  { path = "README.adoc", format = "sdist"},
+  "man/",
+  "tests/",
+]
+packages = [
+  { include = "yubikit" },
+  { include = "ykman" },
+]
+
+
+[tool.poetry.dependencies]
+python = "^3.7"
+cryptography = ">=3.0, <44"
+pyscard = "^2.0"
+fido2 = "^1.0"
+click = "^8.0"
+pywin32 = {version = ">=223", platform = "win32"}
+keyring = "^23.4"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.2"
+makefun = "^1.9.5"
+pyinstaller = {version = "^5.7", python = "<3.12"}
+Sphinx = {version = "^7.1", python = ">=3.8"}
+sphinx-rtd-theme = {version = "^1.2.2", python = ">=3.8"}
+sphinx-autodoc-typehints = {version = "^1.2.4", python = ">=3.8"}
+
+[tool.poetry.scripts]
+ckman = "ykman._cli.__main__:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
