@@ -1,0 +1,70 @@
+#!python
+
+import argparse
+import json
+import os
+import sys
+import shutil
+
+__version__ = '0.0.1'
+
+state = dict()
+
+def get_args():
+    def_state = os.getenv('NEWCAT_STATE', '/tmp/.newcat.state')
+    parser = argparse.ArgumentParser(description=f'newcat version {__version__}. print / cat only new lines in log files')
+    parser.add_argument('-s','--state',metavar='PATH', default=def_state, help=f'path to state file. default: {def_state}')
+    parser.add_argument('files', metavar='LOGFILE', nargs='+', help='log file(s) to read')
+    return parser.parse_args()
+
+def cat(path: str, filestate: dict) -> None:
+    with open(path ,"r") as fh:
+
+        if not file_rewritten(path, filestate):
+            fh.seek(filestate['pos'])
+
+        shutil.copyfileobj(fsrc=fh, fdst=sys.stdout)
+        filestate['pos'] = fh.tell()
+
+def create_state(path):
+    s = dict()
+    stat = os.stat(path)
+    s['pos'] = 0
+    s['st_ino'] = stat.st_ino
+    return s
+
+def file_rewritten(path: str, oldstate: dict) -> bool:
+
+    stat = os.stat(path)
+
+    if oldstate['st_ino'] != stat.st_ino:
+        return True
+
+    if oldstate['pos'] > stat.st_size:
+        return True
+    
+    return False
+
+def main():
+    global state
+    args=get_args()
+
+    try:
+        with open(args.state) as fh:
+            state = json.load(fh)
+    except FileNotFoundError:
+        state = dict()
+    for file in args.files:
+        file = os.path.realpath(file)
+
+        if file not in state or file_rewritten(file, state[file]):
+            state[file] = create_state(file)
+        
+        cat(file, state[file])
+
+
+    with open(args.state, "w") as fh:
+        json.dump(state, fh, indent=4, sort_keys=True)
+
+if __name__ == '__main__':
+    main()
