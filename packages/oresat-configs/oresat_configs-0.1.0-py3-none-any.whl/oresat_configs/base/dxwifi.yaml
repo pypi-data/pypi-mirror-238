@@ -1,0 +1,23 @@
+objects:
+  - index: 0x4000
+    name: status
+    data_type: uint8
+    description: the dxwifi status
+    access_type: rw
+
+  - index: 0x4001
+    name: radio
+    object_type: record
+    subindexes:
+      - subindex: 0x1
+        name: temperature
+        data_type: int8
+        description: the temperature of the radio in celsius
+        access_type: ro
+
+tpdos:
+  - num: 3
+    fields:
+      - [status]
+      - [radio, temperature]
+    delay_ms: 1000

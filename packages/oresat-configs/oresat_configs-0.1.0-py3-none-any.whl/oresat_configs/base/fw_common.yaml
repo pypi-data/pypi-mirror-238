@@ -1,0 +1,75 @@
+std_objects:
+  - device_type
+  - error_register
+  - cob_id_sync
+  - communication_cycle_period
+  - identity
+  - cob_id_emergency_message
+  - consumer_heartbeat_time
+  - producer_heartbeat_time
+  - sdo_server_parameter
+  - scet
+  - utc
+
+objects:
+  - index: 0x3000
+    name: satellite_id
+    data_type: uint8
+    description: the unique oresat satellite id
+    access_type: const
+
+  - index: 0x3001
+    name: flight_mode
+    data_type: bool
+    description: card is in flight mode
+    access_type: ro
+    default: true
+
+  - index: 0x3002
+    name: versions
+    object_type: record
+    subindexes:
+      - subindex: 0x1
+        name: hw_version
+        data_type: str
+        description: card hw version
+        access_type: const
+        default: "0.0"
+
+      - subindex: 0x2
+        name: configs_version
+        data_type: str
+        description: oresat configs version
+        access_type: const
+        default: "0.0.0"
+  
+      # subindex 0x3 reserved
+
+      - subindex: 0x4
+        name: fw_version
+        data_type: str
+        description: app fw version
+        access_type: const
+        default: "0.0.0"
+
+  - index: 0x3003
+    name: system
+    object_type: record
+    subindexes:
+      # subindex 0x1 reserved for reset
+      # subindex 0x2 reserved for storage_percent
+      # subindex 0x3 reserved for ram_percent
+      # subindex 0x4 reserved for unix_time
+      # subindex 0x5 reserved for uptime
+      # subindex 0x6 reserved for power_cycles
+
+      - subindex: 0x7
+        name: temperature
+        data_type: int8
+        description: the temperature of the processor in celsius
+        access_type: ro
+
+      - subindex: 0x8
+        name: vrefint
+        data_type: uint8
+        access_type: ro
