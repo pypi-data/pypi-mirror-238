@@ -1,0 +1,26 @@
+Metadata-Version: 2.1
+Name: goe-prometheus
+Version: 0.2.2
+Summary: 
+Author: Michael Helmling
+Author-email: michaelhelmling@posteo.de
+Requires-Python: >=3.10,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: goe (>=0.2.2,<0.3.0)
+Requires-Dist: prometheus-client (>=0.17.1,<0.18.0)
+Requires-Dist: pyyaml (>=6.0.1,<7.0.0)
+Description-Content-Type: text/markdown
+
+# Prometheus Exporter for go-e Charger and Controller Metrics
+
+The goe-prometheus package allows to export metrics of [go-e](https://go-e.com)
+wallbox chargers and controller for [Prometheus](https://prometheus.io).
+
+It uses the [goe](https://pypi.org/project/goe/) package to query device APIs.
+
+## Get Started
+
+- create `config.yaml` for your devices (see [checked-in example](./config.yaml))
+- run `pipx run goe-prometheus`
