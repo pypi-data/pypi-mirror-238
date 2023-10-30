@@ -1,0 +1,60 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pyglide"]
+
+[project]
+name = "pyglide"
+version = "0.0.07"
+authors = [
+  { name="B7M", email="ibsnetwork001@gmail.com" },
+]
+license = { file = "LICENSE" }
+description = "`PyGlide` (Python Guided Learning through Interactive Digital Education) is a python package for generating live notebooks where you can learn the content by listening to and reading from the slides at the same time you can write and execute yourown code from the slides in real time."
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+    "jupyter",
+    "jupyterlab",
+    "nbconvert",
+    "nbformat",
+    "gtts",
+    "click",
+    'tomli; python_version < "3.11"',]
+keywords = [
+    "notebook",
+    "live",
+    "code",
+    "py-scripts"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/B7M/pyglide"
+
+[project.scripts]
+pyglide = "pyglide.__main__:main"
+
+
+[tool.bumpver]
+current_version = "0.0.07"
+version_pattern = "MAJOR.MINOR.PATCH[PYTAGNUM]"
+commit_message = "bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = true
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'version = "{version}"',
+]
+"README.md" = [
+    "{version}",
+    "{pep440_version}",
+]
+"src/pyglide/__init__.py" = ["{version}"]
