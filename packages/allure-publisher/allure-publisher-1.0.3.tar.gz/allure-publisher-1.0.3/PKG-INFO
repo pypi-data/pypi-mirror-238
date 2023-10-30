@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: allure-publisher
+Version: 1.0.3
+Summary: Утилита для публикации результатов тестов в приемник allure-report-service
+Home-page: https://github.com/Gwinkamp/allure-results-publisher
+Author: Gwinkamp
+License: MIT
+Keywords: tools
+Classifier: Topic :: Utilities
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: typer>=0.7.0
+Requires-Dist: httpx>=0.25.0
+
+# Allure Results Publisher
+
+Утилита для публикации результатов тестирования в [Allure Report Service](https://github.com/Gwinkamp/allure-report-service)
+
+## Установка
+
+```bash
+pip install allure-publisher
+```
+
+## Запуск
+
+Справка:
+```bash
+python -m allure_publisher --help
+```
+
+Пример запуска:
+```bash
+python -m allure_publisher http://localhost:1155 path/to/results 
+```
