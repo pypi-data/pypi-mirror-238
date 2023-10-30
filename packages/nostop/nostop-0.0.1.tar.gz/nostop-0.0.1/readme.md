@@ -1,0 +1,1 @@
+to use this libary just put a string into the nostop.nostop() function
