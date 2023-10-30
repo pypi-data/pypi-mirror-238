@@ -1,0 +1,56 @@
+[package]
+name = "git-cliff-core"
+version = "1.4.0" # managed by release.sh
+description = "Core library of git-cliff"
+authors = ["git-cliff contributors <git-cliff@protonmail.com>"]
+license = "MIT OR Apache-2.0"
+homepage = "https://github.com/orhun/git-cliff"
+repository = "https://github.com/orhun/git-cliff"
+keywords = ["changelog", "generator", "conventional", "commit"]
+edition = "2021"
+rust-version = "1.70.0"
+
+[features]
+default = ["repo"]
+## Enable parsing commits from a git repository.
+## You can turn this off if you already have the commits to put in the
+## changelog and you don't need `git-cliff` to parse them.
+repo = ["dep:git2", "dep:glob", "dep:indexmap"]
+
+[dependencies]
+glob = { version = "0.3.1", optional = true }
+regex= "1.10.2"
+log= "0.4.19"
+thiserror = "1.0.50"
+serde = { version = "1.0.190", features = ["derive"] }
+serde_json = "1.0.107"
+serde_regex = "1.1.0"
+tera = "1.19.1"
+indexmap = { version = "2.0.2", optional = true }
+toml = "0.8.6"
+lazy-regex = "3.0.2"
+next_version = "0.2.9"
+semver = "1.0.20"
+document-features = { version = "0.2.7", optional = true }
+
+[dependencies.git2]
+version = "0.18.1"
+default-features = false
+optional = true
+
+[dependencies.config]
+version = "0.13.3"
+default-features = false
+features = ["toml", "yaml"]
+
+[dependencies.git-conventional]
+version = "0.12.4"
+features = ["serde"]
+
+[dependencies.rust-embed]
+version = "8.0.0"
+features = ["debug-embed"]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
