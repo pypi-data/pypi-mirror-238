@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "ollama-cli"
+version = "0.1.1"
+description = ""
+authors = ["Promotos <promotos@gmx.de>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.31.0"
+
+[tool.poetry.scripts]
+ollama-cli = "ollama_cli.ollama_cli:run"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
