@@ -1,0 +1,65 @@
+[project]
+name = "pylibrb"
+version = "0.1.0"
+description = "Python bindings for the RubberBand library"
+
+authors = [{ name = "Paweł Głomski", email = "pglomski.dev@gmail.com" }]
+urls.Homepage = "https://github.com/pawel-glomski/pylibrb"
+
+requires-python = ">=3.8, <3.12"
+dependencies = ['numpy']
+
+readme = "README.md"
+license.text = "GPLv2"
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+]
+
+
+# Build system stuff
+
+[build-system]
+requires = ["scikit-build-core >=0.6", "nanobind >=1.5.2"]
+build-backend = "scikit_build_core.build"
+
+[tool.scikit-build]
+cmake.build-type = "Release"
+
+# CMAKE_TOOLCHAIN_FILE should be set by the user
+# or libraries should be discoverable by `pkg-config` and `find_package()`
+cmake.args = [
+    # "-DCMAKE_TOOLCHAIN_FILE=./pylibrb_vcpkg/scripts/buildsystems/vcpkg.cmake",
+    "-DCMAKE_BUILD_TYPE=Release", # this MUST match cmake.build-type
+]
+
+# Setuptools-style build caching in a local directory
+build-dir = "build/{wheel_tag}"
+
+# Build stable ABI wheels for CPython 3.12+
+wheel.py-api = "cp312"
+
+sdist.exclude = ["tests/", "pylibrb_vcpkg/"]
+
+
+[tool.cibuildwheel]
+build-verbosity = 1
+skip = ["pp*", "*musllinux*"]
+
+environment.CMAKE_TOOLCHAIN_FILE = "./pylibrb_vcpkg/scripts/buildsystems/vcpkg.cmake"
+
+# Run pytest to ensure that the package was correctly built
+test-command = "pytest {project}/tests"
+test-requires = "pytest"
+
+[tool.cibuildwheel.linux]
+archs = ["auto64"]
+
+[tool.cibuildwheel.windows]
+archs = ["auto64"]
+
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "arm64"]
+environment.MACOSX_DEPLOYMENT_TARGET = "10.14"
+environment.CMAKE_TOOLCHAIN_FILE = "./pylibrb_vcpkg/scripts/buildsystems/vcpkg.cmake"
