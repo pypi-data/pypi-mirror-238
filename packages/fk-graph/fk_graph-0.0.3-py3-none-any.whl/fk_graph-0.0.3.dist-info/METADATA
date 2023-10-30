@@ -1,0 +1,37 @@
+Metadata-Version: 2.1
+Name: fk-graph
+Version: 0.0.3
+Summary: Visualise the graphs hidden within relational databases
+Project-URL: Homepage, https://github.com/MrCurtis/fk-graph
+Author: John C Thomas, Rahman Gawa
+Author-email: Andrew Curtis <fk.graph@fastmail.com>
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: dash>=2.13
+Requires-Dist: flask>=2.2
+Requires-Dist: networkx>=3.1
+Requires-Dist: pandas>=2.1
+Requires-Dist: plotly>=5.16
+Requires-Dist: sqlalchemy>=2.0.22
+Description-Content-Type: text/markdown
+
+FK-Graph
+========
+
+Visualise the graphs hidden within relational databases.
+
+Schemas can sometimes fail to reflect the full complexity of the relationships in a 
+populated database, especially when the data has been added manually over a period of time.
+
+This application creates a graph of foreign key relations in a populated database and 
+can be used to generate a plotly figure, or interactive dash app, showing these relations.
+
+To install:
+-----------
+
+```
+pip install fk-graph
+```
