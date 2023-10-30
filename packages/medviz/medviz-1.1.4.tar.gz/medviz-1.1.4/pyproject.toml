@@ -1,0 +1,54 @@
+# https://peps.python.org/pep-0621/
+# https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "medviz"
+dynamic = ["version"]
+authors = [{ name = "Mohsen Hariri", email = "mohsen.hariri@case.eud" }]
+description = "Medical Image Visualization Tool 🐍🚀🎉🦕"
+# version = "0.4.4"
+keywords = ["MRI", "CT"]
+license = { text = "GPL-3.0 License" }
+# https://github.com/pypi/warehouse/issues/869
+readme = "README.rst"
+requires-python = ">=3.6"
+classifiers = [
+  "Programming Language :: Python :: 3.8",
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  'importlib-metadata; python_version<"3.8"',
+  "numpy >= 1.19.5",
+  "pandas >= 1.2.4",
+  "matplotlib >= 3.3.4",
+  "nibabel >= 3.2.1",
+  "imageio >= 2.9.0",
+  "scikit-image >= 0.18.3",
+  "tabulate >= 0.8.9",
+  "pydicom >= 2.1.2",
+  "SimpleITK >= 2.1.1",
+  "mahotas >= 1.4.11",
+]
+
+[tool.setuptools]
+packages = ["medviz", "medviz.utils" , "medviz.multimodal", "medviz.feats", "medviz.preprocess"]
+
+
+[tool.setuptools.dynamic]
+# version = { attr = "medviz.__version__" }
+version = {file = ["VERSION"]}
+
+[tool.black]
+line-length = 88
+target-version = ["py38"]
+
+[tool.ruff]
+
+[tool.isort]
+profile = "black"
+known_first_party = "medviz"
+skip_glob = ["**/__init__.py"]
