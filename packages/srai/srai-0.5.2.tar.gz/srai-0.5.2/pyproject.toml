@@ -1,0 +1,258 @@
+[project]
+name = "srai"
+version = "0.5.2"
+description = "A set of python modules for geospatial machine learning and data mining"
+authors = [
+    { name = "Piotr Gramacki", email = "pgramacki@kraina.ai" },
+    { name = "Kacper Leśniara", email = "klesniara@kraina.ai" },
+    { name = "Kamil Raczycki", email = "kraczycki@kraina.ai" },
+    { name = "Szymon Woźniak", email = "swozniak@kraina.ai" },
+]
+dependencies = [
+    "pandas",
+    "geopandas",
+    "shapely",
+    "h3>=4.0.0b1",
+    "numpy",
+    "geoparquet",
+    "pyfunctional",
+    "rtree",
+    "pyarrow",
+    "topojson",
+    "tqdm",
+    "s2",
+    "typeguard",
+    "requests",
+    "h3ronpy>=0.18.0",
+]
+requires-python = ">=3.8"
+readme = "README.md"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: Apache Software License",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: Unix",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+]
+
+[project.license]
+text = "Apache-2.0"
+
+[project.urls]
+Homepage = "https://kraina-ai.github.io/srai"
+Repository = "https://github.com/kraina-ai/srai"
+Documentation = "https://kraina-ai.github.io/srai"
+Changelog = "https://github.com/kraina-ai/srai/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+osm = [
+    "osmium",
+    "osmnx",
+    "overpass",
+    "pillow",
+    "beautifulsoup4",
+]
+voronoi = [
+    "pymap3d",
+    "haversine",
+    "scipy",
+    "spherical-geometry",
+]
+gtfs = [
+    "gtfs-kit",
+]
+plotting = [
+    "folium",
+    "mapclassify",
+    "matplotlib",
+    "plotly",
+    "kaleido<=0.2.1",
+]
+torch = [
+    "pytorch-lightning",
+    "torch",
+]
+all = [
+    "srai[osm,voronoi,gtfs,plotting,torch]",
+]
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "bumpver",
+    "types-requests",
+]
+lint = [
+    "pre-commit",
+    "black[jupyter]",
+    "mypy",
+    "docformatter[tomli]",
+    "ruff",
+]
+test = [
+    "pytest",
+    "tox-pdm",
+    "pytest-mock",
+    "requests-mock",
+    "pytest-check",
+    "pytest-parametrization",
+    "pytest-xdist",
+]
+visualization = [
+    "keplergl",
+    "matplotlib",
+]
+docs = [
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocs-mermaid2-plugin",
+    "mkdocstrings[python]",
+    "mkdocs-jupyter",
+    "ipykernel",
+    "mkdocs-gen-files",
+    "mkdocs-awesome-pages-plugin",
+    "mike",
+    "scikit-learn",
+    "umap-learn",
+]
+performance = [
+    "scalene",
+]
+license = [
+    "licensecheck",
+]
+
+[tool.pdm.scripts]
+post_install = "pre-commit install"
+
+[tool.black]
+line-length = 100
+target-version = [
+    "py38",
+    "py39",
+    "py310",
+    "py311",
+]
+preview = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+select = [
+    "E",
+    "W",
+    "F",
+    "UP",
+    "D",
+    "I",
+    "B",
+    "NPY",
+    "YTT",
+    "Q",
+    "PLE",
+    "PLW",
+    "PIE",
+    "TID",
+    "ISC",
+    "TCH",
+]
+ignore = [
+    "D212",
+]
+extend-exclude = [
+    "old",
+]
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.ruff.pycodestyle]
+max-doc-length = 100
+
+[tool.mypy]
+strict = true
+show_column_numbers = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_return_any = true
+
+[tool.docformatter]
+syntax = "google"
+black = true
+recursive = true
+wrap-summaries = 100
+wrap-descriptions = 100
+tab-width = 4
+blank = false
+pre-summary-newline = true
+close-quotes-on-newline = true
+wrap-one-line = true
+
+[tool.bumpver]
+current_version = "0.5.2"
+version_pattern = "MAJOR.MINOR.PATCH[PYTAGNUM]"
+commit_message = "chore: bump version {old_version} -> {new_version}"
+commit = true
+tag = false
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    "^current_version = \"{version}\"$",
+    "^version = \"{version}\"$",
+]
+"srai/__init__.py" = [
+    "^__version__ = \"{version}\"$",
+]
+"CITATION.cff" = [
+    "^version: {version}$",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
+log_cli = true
+
+[tool.licensecheck]
+using = "requirements"
+zero = false
+ignore_licenses = [
+    "UNKNOWN",
+]
+ignore_packages = [
+    "srai",
+    "scalene",
+    "docformatter",
+    "pymap3d",
+    "mkdocs-jupyter",
+    "nvidia-cublas-cu11",
+    "nvidia-cuda-cupti-cu11",
+    "nvidia-cuda-nvrtc-cu11",
+    "nvidia-cuda-runtime-cu11",
+    "nvidia-cudnn-cu11",
+    "nvidia-cufft-cu11",
+    "nvidia-curand-cu11",
+    "nvidia-cusolver-cu11",
+    "nvidia-cusparse-cu11",
+    "nvidia-nccl-cu11",
+    "nvidia-nvtx-cu11",
+]
