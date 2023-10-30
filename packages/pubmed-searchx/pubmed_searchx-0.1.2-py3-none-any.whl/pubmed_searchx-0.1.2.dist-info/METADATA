@@ -1,0 +1,26 @@
+Metadata-Version: 2.1
+Name: pubmed-searchx
+Version: 0.1.2
+Summary: Pubmed Search
+Author-email: AnhND <nguyenanh.nda@gmail.com>
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: beautifulsoup4 >=4.12.2
+Requires-Dist: lxml >=4.9.3
+Requires-Dist: requests >=2.31.0
+Requires-Dist: tqdm >=4.66.1
+
+### Example
+
+```shell
+    from pubmed_searchx import gene_search
+    pairs = [("corin", "depression")]
+    output_file = "out.json" # Set to None if do not write to file
+    info_list, return_code = gene_search(pairs, authors=True, title=True,
+    year=True, pubmed_id=True, path_out=output_file)  
+     
+```
