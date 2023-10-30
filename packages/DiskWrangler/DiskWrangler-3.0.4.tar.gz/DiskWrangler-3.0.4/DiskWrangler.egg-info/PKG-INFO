@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: DiskWrangler
+Version: 3.0.4
+Summary: Cenbe's Commodore 64 Disk Image Explorer
+Author-email: Glenn Holmer <cenbe@protonmail.com>
+Project-URL: Repository, https://gitlab.com/Cenbe/DiskWrangler.git
+Keywords: Commodore,GEOS
+Classifier: Programming Language :: Python :: 3
+Classifier: Development Status :: 4 - Beta
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Requires-Dist: jproperties>=2.1.1
+Requires-Dist: d64py>=3.0.0
+Requires-Dist: d64gfx>=3.0.0
+Requires-Dist: PyQt6<6.5.0,>=6.4.0
+Requires-Dist: PyQt6-Qt6<6.5.0,>=6.4.0
+Requires-Dist: PyQt6-sip>=13.5.0
+Requires-Dist: importlib-metadata; python_version >= "3.11"
+
+### This is Cenbe's Disk Wrangler, an explorer for Commodore 64 disk images.
+
+To install, follow these steps:
+
+* You must have the Python 3 and the Qt6 libraries installed for your operating system. On Debian Linux, for example, these are the packages you want to install:
+
+    * python3.11-venv
+    * python3-pyqt6 (pulls in needed Qt6 packages)
+
+* Install from PyPI:
+
+    * pip install DiskWrangler
