@@ -1,0 +1,61 @@
+Metadata-Version: 2.1
+Name: ubi-population-tool
+Version: 0.14.4
+Summary: Tool for populating ubi repositories
+Home-page: https://github.com/release-engineering/ubi-population-tool
+Author: 
+Author-email: 
+License: GNU General Public License
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests
+Requires-Dist: more-executors >2.1.0
+Requires-Dist: ubi-config >=2.2.0
+Requires-Dist: pyrsistent
+Requires-Dist: pubtools-pulplib >=2.34.2
+Requires-Dist: attrs
+Requires-Dist: fastpurge
+Requires-Dist: urllib3 <2
+
+
+
+A command-line tool for populating ubi repositories.
+
+# Cli usage
+
+Cli can be run by *ubipop* with arguments:
+
+- positional arguments:
+  - content_sets: list of content sets to be processed
+
+- optional arguments:
+  - -h, --help: show this help message and exit
+  - --pulp-hostname HOSTNAME: hostname of Pulp server
+  - --user USER: username for authentication to Pulp
+  - --password PASSWORD: password for authentication to Pulp
+  - --dry-run: if True, print pulp actions only, do not execute
+
+# Development
+-----------
+
+Patches may be contributed via pull requests to
+https://github.com/release-engineering/ubi-population-tool
+
+All changes must pass the automated test suite, along with various static
+checks.
+
+The [Black](https://black.readthedocs.io/) code style is enforced.
+Enabling autoformatting via a pre-commit hook is recommended:
+
+```
+pip install -r requirements-dev.txt
+pre-commit install
+```
+
