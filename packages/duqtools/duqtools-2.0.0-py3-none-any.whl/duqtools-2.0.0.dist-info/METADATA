@@ -1,0 +1,108 @@
+Metadata-Version: 2.1
+Name: duqtools
+Version: 2.0.0
+Summary: Dynamic uncertainty quantification for Tokamak reactor simulations modelling
+Author: Victor Azizi, Aaron Ho
+Author-email: Stef Smeets <s.smeets@esciencecenter.nl>
+License: Apache 2.0 License
+Project-URL: homepage, https://github.com/duqtools/duqtools
+Project-URL: issues, https://github.com/duqtools/duqtools/issues
+Project-URL: documentation, https://duqtools.readthedocs.io
+Project-URL: changelog, https://github.com/duqtools/duqtools/releases
+Keywords: modelling,uncertainty-quantification,tokamak,fusion-reactor
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Natural Language :: English
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: altair >=5.0
+Requires-Dist: click
+Requires-Dist: gitpython
+Requires-Dist: jetto-tools >=1.8.8
+Requires-Dist: jinja2 >=3.0
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: pydantic >=2.0
+Requires-Dist: pydantic-yaml >=1.0
+Requires-Dist: scipy >=1.09
+Requires-Dist: streamlit >=1.18
+Requires-Dist: tqdm
+Requires-Dist: typing-extensions
+Requires-Dist: xarray
+Requires-Dist: importlib-resources ; python_version < "3.10"
+Provides-Extra: develop
+Requires-Dist: bump2version ; extra == 'develop'
+Requires-Dist: ruff ; extra == 'develop'
+Requires-Dist: pre-commit ; extra == 'develop'
+Requires-Dist: yapf ; extra == 'develop'
+Requires-Dist: mypy ; extra == 'develop'
+Requires-Dist: coverage[toml] ; extra == 'develop'
+Requires-Dist: nbmake ; extra == 'develop'
+Requires-Dist: pytest ; extra == 'develop'
+Requires-Dist: pytest-dependency ; extra == 'develop'
+Requires-Dist: pycodestyle ; extra == 'develop'
+Provides-Extra: docs
+Requires-Dist: matplotlib ; extra == 'docs'
+Requires-Dist: jinja2 ; extra == 'docs'
+Requires-Dist: markdown-include ; extra == 'docs'
+Requires-Dist: mkdocs ; extra == 'docs'
+Requires-Dist: mkdocs-click ; extra == 'docs'
+Requires-Dist: mkdocs-jupyter ; extra == 'docs'
+Requires-Dist: mkdocs-gen-files ; extra == 'docs'
+Requires-Dist: mkdocs-material ; extra == 'docs'
+Requires-Dist: mkdocstrings[python] ; extra == 'docs'
+Provides-Extra: imas
+Requires-Dist: imas ; extra == 'imas'
+Provides-Extra: publishing
+Requires-Dist: twine ; extra == 'publishing'
+Requires-Dist: wheel ; extra == 'publishing'
+Requires-Dist: build ; extra == 'publishing'
+
+[![Documentation Status](https://readthedocs.org/projects/duqtools/badge/?version=latest)](https://duqtools.readthedocs.io/en/latest/?badge=latest)
+[![Tests](https://github.com/duqtools/duqtools/actions/workflows/test.yaml/badge.svg)](https://github.com/duqtools/duqtools/actions/workflows/test.yaml)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/duqtools)](https://pypi.org/project/duqtools/)
+[![PyPI](https://img.shields.io/pypi/v/duqtools.svg?style=flat)](https://pypi.org/project/duqtools/)
+[![DOI](https://zenodo.org/badge/492734189.svg)](https://zenodo.org/badge/latestdoi/492734189)
+![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/stefsmeets/ea916a5b3c3d9bc59065a7304e4ca707/raw/covbadge.json)
+
+
+![Duqtools banner](https://raw.githubusercontent.com/duqtools/duqtools/main/src/duqtools/data/logo.png)
+
+# Duqtools
+
+*Duqtools* is a tool for **D**ynamic **U**ndertainty **Q**uantification for Tokamak reactor simulations modelling.
+
+Features:
+
+- Set up 100s of simulation runs from a single template
+- Launch standard sets of sensitivity tests with minimal programming
+- Batch job submission and status tracking
+- Supports the Standardized Interface Data Structures (IDSs) data directory
+- Compare and visualize 100s of simulations in one overview
+- Display simulation results as confidence ranges and distributions
+
+*Duqtools* is currently under active development. It runs on linux only and requires the [ITER](http://iter.org/) Integrated Modeling and Analysis Suite ([IMAS](https://confluence.iter.org/display/IMP)).
+
+To install:
+
+```console
+pip install duqtools
+```
+
+The source code is available from [Github](https://github.com/duqtools/duqtools).
+
+Suggestions, improvements, and edits are most welcome.
+
+
+## Development
+
+Check out our [Contributing Guidelines](CONTRIBUTING.md#Getting-started-with-development) to get started with development.
