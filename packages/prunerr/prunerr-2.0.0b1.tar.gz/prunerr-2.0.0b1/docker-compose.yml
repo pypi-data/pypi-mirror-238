@@ -1,0 +1,98 @@
+# SPDX-FileCopyrightText: 2023 Ross Patterson <me@rpatterson.net>
+#
+# SPDX-License-Identifier: MIT
+
+# Minimal `$ docker compose` configuration to show the requirements for running prunerr
+# in containers.
+version: "3.8"
+
+services:
+  transmission:
+    image: "linuxserver/transmission"
+    container_name: "transmission"
+    # command:
+    #   # From `# pgrep -fla transmission`:
+    #   # `/usr/bin/transmission-daemon -g /config -c /watch -f`
+    #   - "transmission-daemon"
+    #   - "-g"
+    #   - "/config"
+    #   - "-c"
+    #   - "/watch"
+    #   - "-f"
+    #   # Enable debug logging
+    #   - "--log-debug"
+    environment:
+      TZ: "${TZ:-America/Los_Angeles}"
+      PUID: "${PUID:-1000}"
+      PGID: "${PGID:-100}"
+      USER: "${TRANSMISSION_USER:-transmission}"
+      PASS: "${TRANSMISSION_PASS}"
+    volumes:
+      # Exit the container if the core `s6-overlay` service fails.
+      # Replace with the correct path for your `$ docker compose ...` project.
+      # - "./s6/etc/s6-overlay/s6-rc.d/svc-transmission/finish:/etc/s6-overlay/s6-rc.d/svc-transmission/finish"
+      # Intended for use in the image
+      - "./transmission/config/:/config/"
+      # The volume on which Transmission's `download-dir` is stored
+      - type: bind
+        source: "${DOWNLOAD_VOLUME:-/media/Library/}"
+        target: "${DOWNLOAD_VOLUME:-/media/Library/}"
+        bind:
+          propagation: "shared"
+    # Transmission seems to be very poorly behaved when disk space is exhausted: items
+    # become corrupted, items lose track of their data/files, etc..  Guard against that,
+    # for example if Prunerr stops running for any reason, by shutting it down before
+    # disk space is exhausted.  Use the `HEALTHCHECK` to exit PID 1 with 0 status code
+    # before that happens.  The `on-failure` restart policy ensures that `# dockerd`
+    # won't restart the container again.
+    restart: "on-failure"
+    healthcheck:
+      # If the `transmission` service uses `network_mode: "service:..."`, such as a VPN,
+      # then it may become inaccessible on any IP other than `localhost` when the
+      # service whose network it uses is restarted.  As such, if the `transmission`
+      # service should be accessible from it's IP on the LAN set the `LAN_IP=...` in the
+      # `./.env` so that the `HEALTHCHECK` fails and the container is restart when that
+      # happens.
+      test: >-
+        test "$(df --output="avail" "${DOWNLOAD_DIR:-/media/Library/}" | tail -n +2)"
+        -gt "${CRITICAL_AVAIL:-1048576}" || /sbin/shutdown &&
+        curl -LI -X GET -u "${TRANSMISSION_USER:-transmission}:${TRANSMISSION_PASS}"
+        "http://${LAN_IP:-localhost}:9091/transmission/rpc/" |
+        grep '^X-Transmission-Session-Id: '
+    labels:
+      traefik.enable: true
+      # Un comment and set `TRANSMISSION_HOST` to proxy via Traefik
+      # traefik.http.routers.transmission.rule: "Host(`${TRANSMISSION_HOST}`)"
+      traefik.http.services.transmission.loadbalancer.server.port: 9091
+      traefik.http.routers.transmission.entrypoints: "websecure"
+      traefik.http.routers.transmission.tls.certresolver: "letsencrypt"
+
+  # See `./docker-compose-servarr.yml` for example Servarr configurations
+
+  ## Container for use by end users:
+  prunerr-daemon:
+    image: "registry.gitlab.com/rpatterson/prunerr"
+    container_name: "prunerr-daemon"
+    depends_on:
+      - "transmission"
+    environment:
+      TZ: "${TZ:-Etc/UTC}"
+      # Make the runtime user configurable in `./.env` to match permissions inside and
+      # outside the container.  Default to the common/standard main/first user and group
+      # IDs
+      PUID: "${PUID:-1000}"
+      PGID: "${PGID:-100}"
+      # Un-comment to get more verbose `DEBUG` logging
+      # DEBUG: "true"
+    volumes:
+      # Preserve user configuration, data, and caches between containers and variants:
+      - "${CHECKOUT_DIR:-.}/home/.config/:/home/prunerr/.config/"
+      - "${CHECKOUT_DIR:-.}/home/.local/share/:/home/prunerr/.local/share/"
+      - "${CHECKOUT_DIR:-.}/home/.cache/:/home/prunerr/.cache/"
+      # The volume on which Transmission's `download-dir` is stored
+      - type: bind
+        source: "${DOWNLOAD_VOLUME:-/media/Library/}"
+        target: "${DOWNLOAD_VOLUME:-/media/Library/}"
+        bind:
+          propagation: "shared"
+    restart: "unless-stopped"
