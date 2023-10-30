@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "quizofit"
+version = "0.1.0"
+description = "A Quiz App. Make a quiz out of stuff"
+authors = ["Geir Arne Hjelle <geirarne@realpython.com>"] 
+maintainers = ["Robert Portelli <github@robertportelli.com>"]
+readme = "README.md"
+packages = [{include = "quiz_app", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
