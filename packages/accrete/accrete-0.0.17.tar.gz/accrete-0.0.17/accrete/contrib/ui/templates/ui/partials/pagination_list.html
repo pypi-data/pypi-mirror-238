@@ -1,0 +1,28 @@
+{% load i18n %}
+<div id="list-pagination" class="field has-addons" style="min-width: 100%; max-width: 100%">
+    <p class="control">
+        <button class="button"
+                hx-get="{{ querystring }}&page={% if page.has_previous %}{{ page.previous_page_number }}{% else %}{{ paginator.num_pages }}{% endif %}"
+                hx-replace-url="true"
+                hx-select-oob="#content,#list-pagination,#panel-actions,#breadcrumbs"
+        >
+            <
+        </button>
+    </p>
+    <p class="control is-expanded">
+        <button class="button is-fullwidth px-1" style="white-space: normal">
+            <span class="{% if paginator.count > 9999 %}is-size-7{% endif %}">
+                {{ page.start_index }}-{{ page.end_index }} / {{ paginator.count }}
+            </span>
+        </button>
+    </p>
+    <p class="control">
+        <button class="button"
+                hx-get="{{ querystring }}&page={% if page.has_next %}{{ page.next_page_number }}{% else %}1{% endif %}"
+                hx-replace-url="true"
+                hx-select-oob="#content,#list-pagination,#panel-actions,#breadcrumbs"
+        >
+            >
+        </button>
+    </p>
+</div>
