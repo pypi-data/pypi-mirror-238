@@ -1,0 +1,28 @@
+
+
+
+#
+#	how to publish:
+#
+#		(rm -rf dist && python3 -m build --sdist && twine upload dist/*)
+#		(git add --all && git commit -m "botanical" && git push --set-upstream git@gitlab.com:reptilian_climates/modules_series_3/botanical.git climate)
+#
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "botanical"
+version = "0.0.1"
+description = "various botanical tools"
+readme = "module.txt"
+
+[tool.setuptools.packages.find]
+where = [ "fields/gardens" ]
+
+#
+#	https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+#
+[tool.setuptools.package-data]
+"*" = [ "*.html" ]
