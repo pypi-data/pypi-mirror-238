@@ -1,0 +1,82 @@
+# tubtools
+
+A collection of scrapers for the TU Berlin web services. They are mostly intended for purposes of automating reoccurring
+tasks in teaching at TU Berlin. We provide commandline utilities for convenient scripting.
+
+Login credentials can be saved securely using the `keyring` package.
+
+## Installation
+
+This is a python package that can be installed using `pip`:
+
+```sh
+git clone git@git.tu-berlin.de:tkn/tubtools.git
+cd tubtools
+sudo -H pip install .
+```
+
+## ISIS
+
+* Search for courses by name with `isis search`
+* Download assignment submissions for a course with `isis dl`
+  * Auto-extracts '.tar.gz' and 'zip' submissions
+  * By default, this assumes group submissions with one archive file
+* Look up course participants and their group membership with  `isis pt`
+* Download grading tables from a course e.g. to see who passed with `ìsis grading`
+* Modify group membership with `isis groups`
+
+## Moses
+
+* Look up a person on Moses with `moses ppl` including their email and student id. Batch processing of emails / student
+  id / usernames with the `--batch` flag, e.g. if you have a list of student ids and want to email them.
+
+NOTE: This requires administrator role in Moses. You should see the 'Administration' tab in the top.
+
+## Examples
+
+```bash
+# Find course id of `Rechnernetze und Verteilte Systeme (no login required)
+isis search "Rechnernetze und Verteilte Systeme"
+
+# Count number of participants in course 21032
+isis pt -u MyUserName -r 'Teilnehmer/in' 21032 | wc -l 
+
+# Find all group members of group T01G01
+isis pt -u MyUserName -G "T01G01" 21032
+
+# This is also possible with the groups command
+# Probably faster, but less detailed information 
+isis groups -u MyUserName -g "T01G01" --show 21032
+
+# You can add somebody to a group via their email
+isis groups -u MyUserName -g "T01G01" --add braeuer@tu-berlin.de 21032
+
+# ..or via their student id (if you are a TU Berlin staff member) 
+isis groups -u MyUserName -g "T01G01" --add 349829 21032
+
+# A batch mode is also available, which might be useful for assigning lots of ppl to one group 
+isis groups -u MyUserName -g "QISPOS-angemeldet" --batch-add 21032 < ids_from_qispos.txt
+
+# Download all group submissions for a selected assignment (interactive)
+isis dl -u MyUserName 21032 
+
+# Copy the student id of all students that passed more than 3 out of 5 programming 
+# assignments in the RNVS course to the clipboard
+
+isis grading -u MyUserName --no-feedback -f "Abgabe" 21032 \
+| awk -F "," '$8 + $9 + $10 + $11 + $12 >= 3 {print $6}' \
+| sed 's/^16900//g' \
+| xclip -selection clipboard
+
+# This filters all gradings that start with 'Abgabe'.
+# awk sums the relevant columns and prints the student id
+# sed filters the irrelevant prefix 16900
+# xclip puts it into the clipboard
+
+# Get the emails to all student ids that you have in a file
+moses ppl -u MyUserName --batch id --extended < need_to_be_notified.txt
+
+# Find out who is named Bräuer in the university
+moses ppl -u MyUserName --surname Bräuer
+
+```
