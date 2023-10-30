@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: vsdfft
+Version: 1.1.0
+Summary: Collection of Discrete/Fast Fourier Transform VapourSynth functions
+Author: Setsugen no ao
+Author-email: setsugen@setsugen.dev
+Maintainer: Setsugen no ao
+Maintainer-email: setsugen@setsugen.dev
+Project-URL: Source Code, https://github.com/Setsugennoao/vs-dfft
+Project-URL: Contact, https://discord.gg/setsugen
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: VapourSynth >=65
+Requires-Dist: numpy >=1.22.3
+Requires-Dist: pyFFTW >=0.13.0
+
+# vs-dfft
+
+Collection of Discrete/Fast Fourier Transform VapourSynth functions
+
+## How to use
+
+```py
+from vsdfft import FFTSpectrum
+
+src = ...
+
+spectrum = FFTSpectrum(src)
+```
+
+You can install [CuPy](https://docs.cupy.dev/en/stable/install.html) if you have an nvidia GPU to have a 5x speedup.
+
+## How to install
+
+Install `vsdfft` with the following command:
+
+```sh
+pip install vsdfft
+```
+
+Or if you want the latest git version, install it with this command:
+
+```sh
+pip install git+https://github.com/Setsugennoao/vs-dfft.git
+```
+
+<br>
