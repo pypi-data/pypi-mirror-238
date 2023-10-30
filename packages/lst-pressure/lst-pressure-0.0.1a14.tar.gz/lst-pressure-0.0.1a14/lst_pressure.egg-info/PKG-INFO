@@ -1,0 +1,131 @@
+Metadata-Version: 2.1
+Name: lst-pressure
+Version: 0.0.1a14
+Summary: Determine periods of "LST pressure" by querying for intersections between LST/Solar intervals
+Home-page: https://github.com/ska-sa/lst-pressure
+Author: Zach Smith
+Author-email: zsmith@sarao.ac.za
+License: Apache 2.0
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: astral==3.2
+Requires-Dist: astropy==5.2.2
+Requires-Dist: backports.zoneinfo==0.2.1
+Requires-Dist: build==1.0.3
+Requires-Dist: importlib-metadata==6.8.0
+Requires-Dist: intervaltree==3.1.0
+Requires-Dist: numpy==1.24.4
+Requires-Dist: packaging==23.2
+Requires-Dist: pyerfa==2.0.0.3
+Requires-Dist: pyproject-hooks==1.0.0
+Requires-Dist: pyyaml==6.0.1
+Requires-Dist: sortedcontainers==2.4.0
+Requires-Dist: tomli==2.0.1
+Requires-Dist: zipp==3.17.0
+
+# lst-pressure
+
+Python module for calculating LST pressure based on scheduled observations
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [API Docs](#api-docs)
+- [Motivation](#motivation)
+  - [Design](#design)
+  - [Normalizing intervals](#normalizing-intervals)
+- [Usage](#usage)
+  - [Installation](#installation)
+  - [API](#api)
+- [Local development](#local-development)
+  - [Testing](#testing)
+  - [Publishing](#publishing)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# [API Docs](https://ska-sa.github.io/lst-pressure/)
+
+# Motivation
+
+Observation blocks encompass various time-related constraints, notably the Local Sidereal Time (LST) window of a source rise/fall, and some constraints related to UTC. As LST and UTC time can diverge over a year, it can be hard to quickly identify candidate UTC times based on LST ranges in conjunction with constraints related to sun/UTC.
+
+This library should facilitate easily comparing intervals defined in LST with intervals defined in UTC. Essentially this library is an opinionated wrapper over a Python implementation of an [interval tree](https://en.wikipedia.org/wiki/Interval_tree) called [intervaltree](https://pypi.org/project/intervaltree/).
+
+## Design
+
+Each UTC day includes intervals in which an observation can be scheduled. These intervals are called:
+
+- `AVOID_SUNRISE`
+- `AVOID_SUNSET`
+- `AVOID_SUNRISE_SUNSET`
+- `NIGHT_ONLY`
+
+To identify the UTC intervals that satisfy scheduling constraints of observations, generate a list of LST intervals over `N` days, that are labelled with UTC information. For example:
+
+```
+[ lst_t0 : lst_t1 ]: { type: <AVOID_SUNRISE_SUNSET>, utc_0, utc_1 }
+[ lst_t0 : lst_t1 ]: { type, utc_0, utc_1 }
+[ lst_t0 : lst_t1 ]: { type, utc_0, utc_1 }
+[ lst_t0 : lst_t1 ]: { type, utc_0, utc_1 }
+[ lst_t0 : lst_t1 ]: { type, utc_0, utc_1 }
+... etc
+```
+
+Then, for an observation with an LST interval defined, query that list for all intervals that envelop the observation LST range. The resultant list can then be filtered by UTC-related information such as sunset/sunrise and other constraints, with the result being a list of UTC calendar days that a particular observation can be scheduled along with UTC start/end times for applicable observations. Done for many observations, it's easy to create a UTC calendar with potential observation events that can serve as the basis for more complicated scheduling logic (for example, picking the best observation to schedule on a particular day).
+
+## Normalizing intervals
+Intervals should strictly have `t1 > t0`, which means that in some cases intervals defined by two LST times must be normalized. For example, an LST range that begins on day0 and ends on day1 will have a start time that is higher than the end time. In this case, add a full LST day to the end time at both indexing time and at query time. There are some edge cases... Refer to the [index unit tests](/lstpressure/intervals/test_idx.py) to see which edge cases are currently handled.
+
+# Usage
+
+## Installation
+
+Install the package from [PyPi](https://pypi.org/project/lst-pressure/)
+
+```sh
+pip install lst-pressure
+```
+
+## API
+
+```python
+from lstpressure import Idx
+
+idx = Idx()
+
+for item in some_list:
+  begin = item.get('begin')
+  end = item.get('end')
+  idx.insert(begin, end, item)
+
+# Get all items that are contained in some interval
+idx.find_enveloping(start, end)
+
+# Get all items that are contain some interval
+idx.find_overlapping(start, end)
+```
+
+# Local development
+
+Ensure that you have Python v3.8.10 installed on your system, and then initiate the repository for local development with the following commands:
+
+```sh
+source env.sh
+```
+
+## Testing
+
+To test the codebase, run `pytest` in the terminal. For live testing, use the [`chomp`](https://github.com/guybedford/chomp#install) task runner. Install either via Cargo (Rust), or via NPM (Node.js)
+
+```sh
+source env.sh
+chomp --watch
+```
+
+## Publishing
+
+The publish workflow is described in [.github/workflows/publish.yml](.github/workflows/publish.yml), and is triggered on pushes to the `release` branch. The published package is available on [PyPI](https://pypi.org/project/lst-pressure/). Make sure to first increment the version in [setup.py](./setup.py) before pushing to the release branch.
