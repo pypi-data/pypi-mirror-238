@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "remotivelabs-cli"
+version = "0.0.1.rc1"
+description = ""
+authors = ["Johan Rask <johan.rask@remotivelabs.com>"]
+readme = "README.md"
+packages = [{include = "cli"}]
+
+[tool.poetry.dependencies]
+python = "~=3.9"
+typer = "~=0.9.0"
+remotivelabs-broker = ">=0.1.12"
+rich = "~=13.6.0"
+pyjwt = "~=2.6"
+zeroconf = "~=0.119.0"
+websocket-client ="~=1.6"
+plotext = "~=5.2"
+
+[tool.poetry.scripts]
+remotive = "cli.remotive:app"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
