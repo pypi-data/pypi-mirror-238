@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "octostudio"
+version = "0.3.0"
+description = ""
+authors = ["wwj718 <wuwenjie718@gmail.com>"]
+readme = "README.md"
+packages = [{include = "octostudio"}]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.13"
+adafruit-circuitpython-ble = "^10.0.4"
+microblocks-wifi-radio = "^0.4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+octostudio-microblocks-bridge = "octostudio.microblocks:main"
+octostudio-scratch-bridge = "octostudio.scratch:main"
+octostudio-snap-bridge = "octostudio.snap:main"
