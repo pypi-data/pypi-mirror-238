@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: chrispy
+Version: 0.2.0
+Summary: 
+License: MIT
+Author: PythonFZ
+Author-email: fabian.zills@web.de
+Requires-Python: >=3.9,<3.13
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Description-Content-Type: text/markdown
+
+# ChrisPy - Better Function Defaults
+
+> :warning: I do not recommend using this package anywhere, especially not inside other packages!
+
+Install with `pip install chrispy`
+
+```python
+import chrispy
+
+chrispy.BETTER_DEFAULTS["numpy.meshgrid"] = {
+    "kwargs": {
+        "indexing"="yx"
+    }
+}
+```
+
