@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=62"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fletchck"
+version = "1.0.3"
+description = "Machine monitor"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+keywords = ["system","monitor"]
+authors = [
+    {email = "ndf-zz@6-v.org", name = "Nathan Fraser"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Topic :: System :: Monitoring",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    "tornado>=6.3",
+    "passlib",
+    "APScheduler",
+    "cryptography",
+    "paramiko",
+    "argon2-cffi"
+]
+
+[project.urls]
+homepage = "https://github.com/ndf-zz/fletchck"
+
+[project.scripts]
+fletchck = "fletchck:main"
