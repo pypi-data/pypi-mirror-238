@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kalabash"
+dynamic = [
+   "version",
+   "dependencies",
+   "optional-dependencies"
+]
+authors = [
+  { name="Alphamonak Solutions", email="amonak@alphamonak.com" },
+]
+description = "Kalabash"
+readme = "README.rst"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Django :: 4.2",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: ISC License (ISCL)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Communications :: Email",
+    "Topic :: Internet :: WWW/HTTP",
+]
+keywords = ["email"]
+license = {file = "LICENSE"}
+
+[project.scripts]
+kalabash-cli = "kalabash:kalabash_admin"
+
+[project.urls]
+homepage = "https://alphamonak.com/"
+documentation = "https://kalabash.readthedocs.io/en/latest/"
+repository = "https://github.com/amonak/kalabash"
+
+[tool.setuptools.dynamic]
+version = {attr = "kalabash.version.get_version"}
