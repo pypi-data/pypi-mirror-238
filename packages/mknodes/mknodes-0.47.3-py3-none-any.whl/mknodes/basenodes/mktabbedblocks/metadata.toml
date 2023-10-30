@@ -1,0 +1,25 @@
+[metadata]
+name = "MkTabbedBlocks"
+icon = "mdi:tab"
+
+[requirements.extension."pymdownx.blocks.tab"]
+
+[examples.regular]
+title = "Regular"
+jinja = """
+{{ {"Tab 1": "Some markdown", "Tab 2": "Other Markdown"} | MkTabbedBlocks}}
+"""
+
+[examples.nested]
+title = "Nested"
+jinja = """
+{% set node = {"Tab 1": "Some markdown", "Tab 2": "Other Markdown"} | MkTabbedBlocks %}
+{{ {"Tabs": node, "Admonition": mk.MkAdmonition("Nested admonition")} | MkTabbedBlocks }}
+"""
+
+[output.markdown]
+template = """
+{% for item in node.items %}
+{{ item }}
+{% endfor %}
+"""

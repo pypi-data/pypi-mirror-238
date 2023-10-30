@@ -1,0 +1,11 @@
+[metadata]
+icon = "mdi:bash"
+status = "new"
+name = "MkArgParseHelp"
+
+[examples.git_changelog]
+title = "Changelog for git_changelog"
+jinja = """
+{% set parser = importlib.import_module("git_changelog.cli").get_parser() %}
+{{ parser | MkArgParseHelp }}
+"""
