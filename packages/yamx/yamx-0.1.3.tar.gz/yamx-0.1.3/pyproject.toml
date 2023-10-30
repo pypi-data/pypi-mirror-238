@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "yamx"
+version = "0.1.3"
+description = "YAML parser that supports jinja conditional expressions"
+
+license = "Apache-2.0"
+
+authors = [
+    "Eduard Trott <eduard.trott@workday.com>"
+]
+
+repository = "https://github.com/maybelinot/yamx"
+
+# README file(s) are used as the package description
+readme = ["README.md", "LICENSE"]
+
+# Keywords (translated to tags on the package index)
+keywords = ["yaml", "jinja", "language"]
+
+[tool.poetry.dependencies]
+# Compatible Python versions
+python = ">=3.8"
+
+# Standard dependencies with semver constraints
+attrs = "^23.1.0"
+jinja2 = "^3.1.2"
+immutables= "^0.19"
+"ruamel.yaml" = "0.17.32"
+"ruamel.yaml.string" = "0.1.0"
+
+
+[tool.poetry.group.test]
+optional = true
+[tool.poetry.group.test.dependencies]
+pytest = "^7.1.2"
+pytest-cov = "^3.0"
+
+[tool.isort]
+profile = "black"
+default_section = "THIRDPARTY"
+known_first_party = "yamx"
+known_third_party= "tests"
+sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
