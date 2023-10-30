@@ -1,0 +1,3 @@
+import kisa
+
+kisa.run()
