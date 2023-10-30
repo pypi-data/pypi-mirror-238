@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<body>
+    <h3>Key Archive: {{key_label}}</h3>
+    <h5>Generated at: {{ timestamp }} </h5>
+
+    <div>
+        <pre>
+            {{ ascii_key }}
+        </pre>
+    </div>
+
+    <div class="keep-together">
+        <pre>-----BEGIN PRIVATE QR CODES-----</pre>
+
+        {% for img in qr_images %}
+        <img src="data:image/jpeg;base64,{{img.decode('ascii') | safe}}" />
+        {% endfor %}
+
+        <pre>-----END PRIVATE QR CODES-----</pre>
+    </div>
+
+
+    <div>
+        <h5>Key Decomposition</h5>
+
+        <div class="small-font">
+
+            <p>Key Type: <code>{{ key_type }}</code> Key Size (bits): <code>{{ key_size }}</code></p>
+
+            <p class="keep-together"><strong>P</strong>: <code>{{ p }}</code></p>
+            <p class="keep-together"><strong>Q</strong>: <code>{{ q }}</code></p>
+
+            <p class="keep-together"><strong>PQ</strong> = (q - 1) mod p: <code>{{ d }}</code></p>
+            <p class="keep-together"><strong>DP1</strong> = d mod (p - 1): <code>{{ dmp1 }}</code></p>
+            <p class="keep-together"><strong>DQ1</strong> = d mod (q - 1): <code>{{ dmq1 }}</code></p>
+
+            <p class="keep-together"><strong>Modulus:</strong> <code>{{ n }}</code></p>
+            <p class="keep-together"><strong>Exponent:</strong> <code>{{ e }}</code></p>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
