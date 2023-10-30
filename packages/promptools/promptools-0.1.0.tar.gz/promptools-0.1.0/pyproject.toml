@@ -1,0 +1,52 @@
+[project]
+name = "promptools"
+version = "0.1.0"
+description = "useful utilities for prompt engineering"
+authors = [
+    { name = "Muspi Merol", email = "me@promplate.dev" },
+]
+dependencies = [
+    "partial-json-parser>=0.1.2.1",
+]
+requires-python = ">=3.7"
+readme = "README.md"
+classifiers = [
+    "Typing :: Typed",
+    "Framework :: Pydantic :: 2",
+    "Topic :: Utilities",
+    "Topic :: File Formats :: JSON",
+    "Topic :: Text Processing",
+    "Topic :: Text Processing :: Markup",
+    "Topic :: Text Processing :: Markup :: Markdown",
+    "Operating System :: OS Independent",
+]
+
+[project.license]
+text = "MIT"
+
+[project.optional-dependencies]
+validation = [
+    "pydantic>=2",
+]
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "isort",
+    "black",
+    "ipython",
+]
+
+[tool.pdm.scripts]
+i = "ipython"
+
+[tool.pdm.scripts.fmt]
+composite = [
+    "isort .",
+    "black .",
+]
