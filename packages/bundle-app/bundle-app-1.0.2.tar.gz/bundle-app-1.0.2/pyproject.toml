@@ -1,0 +1,45 @@
+[build-system]
+requires = [
+    "wheel>=0.38.4",
+    "setuptools>=68.0.0",
+    "toml>=0.10.0",
+    "jinja2>=3.1.2"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bundle-app"
+dynamic = ["version"]
+description = "Constructs a macOS App bundle with a python executable."
+readme = {file = "README.rst", content-type = "text/x-rst"}
+authors = [
+    { name="Marc Culler", email="culler@users.noreply.github.com" },
+    { name="Nathan M. Dunfield", email="nathan@dunfield.info" },
+    { name="Matthias Görner", email="enischte@gmail.com" },
+]
+maintainers = [
+    { name="Marc Culler", email="culler@users.noreply.github.com" },
+    { name="Nathan M. Dunfield", email="nathan@dunfield.info" },
+    { name="Matthias Görner", email="enischte@gmail.com" },
+]
+requires-python = ">=3.10"
+dependencies = ["toml>=0.10.0"]
+keywords = ["files", "metadata"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+    "Operating System :: MacOS",
+    "Programming Language :: Python",
+    "Topic :: Desktop Environment :: File Managers",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/3-manifolds/bundle_app"
+"Bug Tracker" = "https://github.com/3-manifolds/bundle_app/issues"
+
+[tool.setuptools.dynamic]
+version = {attr = "bundle_app.__version__"}
+
+[tool.setuptools.package-data]
+bundle_app = ["templates/*", "templates/main_ex/*"]
