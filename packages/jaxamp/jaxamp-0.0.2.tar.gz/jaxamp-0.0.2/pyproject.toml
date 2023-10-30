@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jaxamp"
+dynamic = ["version"]
+description = 'automatic mixed precision in JAX'
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Ashok Cutkosky", email = "ashok@cutkosky.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "equinox >= 0.11.0"
+]
+[project.optional-dependencies]
+dev = [
+    "pytest >=7.4.0",
+]
+[project.urls]
+Documentation = "https://github.com/acutkosky/jaxamp#readme"
+Issues = "https://github.com/acutkosky/jaxamp/issues"
+Source = "https://github.com/acutkosky/jaxamp"
+
+[tool.hatch.version]
+path = "src/jaxamp/__about__.py"
+
