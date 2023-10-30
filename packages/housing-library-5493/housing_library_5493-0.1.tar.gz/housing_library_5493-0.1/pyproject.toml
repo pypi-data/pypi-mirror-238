@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "housing_library_5493"
+version = "0.1"
+description = "Sample code for coding practice"
+readme = "README.md"
+authors = [{ 'name' = "Gayathri", 'email' = "gayathri.katta@tigeranalytics.com" }]
+
+ 
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+keywords = ["housing","data training"]
+ 
+dependencies = [ "numpy", "pandas", "scikit-learn"]
+ 
+requires-python = ">=3.11"
+
+[project.urls]
+Homepage = "https://github.com/GayathriKatta123/MLE-training"
+ 
+[project.scripts]
+ingest_data = "ingest_data:main"
+train = "train:main"
+score = "score:main"
