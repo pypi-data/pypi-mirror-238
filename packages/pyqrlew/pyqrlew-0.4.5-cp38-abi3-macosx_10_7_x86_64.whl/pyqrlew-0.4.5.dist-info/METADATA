@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: pyqrlew
+Version: 0.4.5
+Classifier: Programming Language :: Rust
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Dist: SQLAlchemy <2.0
+Requires-Dist: psycopg2 <3.0
+Requires-Dist: pymysql ~=1.0
+Requires-Dist: qrlew-datasets ~=0.4
+Requires-Dist: pandas ~=1.0
+Requires-Dist: importlib_resources <6.0
+Requires-Dist: pytest ~=7.0 ; extra == 'test'
+Requires-Dist: mypy ~=1.0 ; extra == 'test'
+Provides-Extra: test
+License-File: LICENSE
+Summary: A library to manipulate SQL queries, designed with privacy application in mind.
+Keywords: SQL,Privecy,Differential Privacy,AST,Intermediate Representation,Rust
+Author-email: Nicolas Grislain <ng@sarus.tech>
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
+Project-URL: homepage, https://qrlew.github.io
+Project-URL: documentation, https://pyqrlew.readthedocs.io
+Project-URL: repository, https://github.com/Qrlew/pyqrlew
+Project-URL: changelog, https://github.com/me/spam/blob/master/CHANGELOG.md
+
+# [Qrlew](https://qrlew.github.io/) framework (by [Sarus](https://www.sarus.tech/))
+Open source SQL manipulation framework written in Rust
+
+## What is [Qrlew](https://qrlew.github.io/)?
+[Qrlew](https://qrlew.github.io/) is an open source library that aims to parse and compile SQL queries into an Intermediate Representation (IR) that is well-suited for various rewriting tasks. Although it was originally designed for privacy-focused applications, it can be utilized for a wide range of purposes.
+
+### SQL Query IR
+[Qrlew](https://qrlew.github.io/) transforms a SQL query into a combination of simple operations such as Map, Reduce and Join that are applied to Tables. This representation simplifies the process of rewriting queries and reduces dependencies on the diverse range of syntactic constructs present in SQL.
+
+### Type Inference Engine
+Differential Privacy (DP) guaranrtees are hard to obtain without destroying too much information. In many mechanisms having prior bounds on values can improve the utility of DP results dramatically. By propagating types cleverly, [Qrlew](https://qrlew.github.io/) can returns bounds for all values.
+
+### Differential Privacy compiler
+[Qrlew](https://qrlew.github.io/) can compile SQL queries into Differentially Private ones. The process is inspired by Wilson et al. 2020. The complexity of the compilation process makes [Qrlew](https://qrlew.github.io/) IR very useful at delivering clean, readable and reliable code.
+
