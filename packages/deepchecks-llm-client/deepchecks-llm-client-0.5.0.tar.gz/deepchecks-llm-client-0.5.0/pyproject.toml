@@ -1,0 +1,15 @@
+[build-system]
+requires = [
+    "setuptools",
+    "dunamai",
+    "wheel",
+]
+
+[project]
+name = 'deepchecks-llm-client'
+dynamic = ['version']
+
+[project.optional-dependencies]
+langchin = [
+    "langchain>=0.0.313,<0.1",
+]
