@@ -1,0 +1,48 @@
+Metadata-Version: 2.1
+Name: ship-it-validate
+Version: 0.3.0
+Summary: low-code authentication and billing
+Home-page: https://ship-it.app
+Author: Ship It
+Author-email: info@ship-it.app
+Requires-Python: >=3.8.1,<4.0.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: jwt (>=1.3.1,<2.0.0)
+Project-URL: Documentation, https://docs.ship-it.app
+Description-Content-Type: text/markdown
+
+# Ship It Validate
+
+This package can be used to easily validate headers signed by [Ship It](https://ship-it.app).
+
+## Install
+
+```
+pip install ship-it-validate
+```
+
+## Usage
+
+Make sure to set the `SHIP_IT_PUBLIC_KEY` environment variable to the base64 encoded public key provided in the Ship It site configuration page.
+
+### Flask
+
+```python
+from ship_it_validate import validate
+from flask import request
+
+@app.before_request
+def before_request():
+    try:
+        validate(
+            request.headers.get('X-PROXY-SIGNATURE'),
+            request.headers.get('X-USER-SUB'),
+            request.headers.get('X-PROXY-TIMESTAMP'),
+        )
+    except ValueError as e:
+        app.logger.warning('Invalid Ship It signature: %s', e)
+        return "Unauthorized", 401
+```
