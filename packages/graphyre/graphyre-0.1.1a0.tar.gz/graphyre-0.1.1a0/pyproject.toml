@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "graphyre"
+version = "0.1.1a0"
+description = "GraphQL security testing tool"
+authors = ["Jack Sullivan <jack@divergent.codes>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/DivergentCodes/graphyre"
+repository = "https://github.com/DivergentCodes/graphyre"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.10.1"
+pytest = "^7.4.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
