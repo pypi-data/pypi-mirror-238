@@ -1,0 +1,31 @@
+
+profile_type: Hmode
+
+n_o: 10.  # Arbitrary units
+n_edge: 0.1  # The ratio of the core value to the edge value is all that really matters.
+NR: 40
+a1: 2.2   # Controls the core gradient:  bigger is flatter near the core
+a2: 1.2   # Controls the edge gradient: bigger is flatter near the edge
+
+r_ped: 0.97
+w_ped: 0.01
+n_ped: 8.
+
+# Noise parameters
+w_noise: .25
+shift_noise: 0.0
+
+# high definition/density pedestal
+hd_ped: True
+
+# outliers
+#  Take n_outlers points from the noise around and have them like f_outliers
+#  away from standard deviation
+n_outliers: 3
+f_outlier: 2
+
+# internal transport barrier
+itb: False
+r_itb: 0.5
+w_itb: 0.02
+n_itb: 1.0
