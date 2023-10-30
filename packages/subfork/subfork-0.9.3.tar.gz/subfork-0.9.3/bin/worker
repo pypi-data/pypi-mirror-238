@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+#
+# Copyright (c) 2022-2023 Subfork. All rights reserved.
+#
+# Example worker wrapper script that sources a virtualenv.
+#
+
+# define some variables
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+# make changes here
+WORKER_NAME=myapp
+SUBFORK_EXC=/usr/local/bin/subfork
+SUBFORK_CONFIG_FILE=/etc/$WORKER_NAME/subfork.yaml
+
+# source virtualenv
+#USE_VIRTUALENV=1  # set in worker.service file
+VENV_DIR=$SCRIPT_DIR/../venv/  # path to virtualenv dir
+ACTIVATE_EXC=$VENV_DIR/bin/activate  # virtualenv activate script
+if [[ "$USE_VIRTUALENV" == 1 ]]; then
+    if [ ! -d "$VENV_DIR" ]; then
+        echo "virtualenv not found: $VENV_DIR";
+        exit 1;
+    fi
+    source $ACTIVATE_EXC > /dev/null
+fi
+
+# export some env vars
+export SUBFORK_CONFIG_FILE=$SUBFORK_CONFIG_FILE
+
+# run the worker
+$SUBFORK_EXC worker "$@"
+
+echo "done"
