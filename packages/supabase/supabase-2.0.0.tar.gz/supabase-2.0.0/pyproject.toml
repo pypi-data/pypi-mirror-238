@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "supabase"
+version = "2.0.0"
+description = "Supabase client for Python."
+authors = ["Joel Lee <joel@joellee.org>", "Leon Fedden <leonfedden@gmail.com>", "Daniel Reinón García <danielreinon@outlook.com>", "Leynier Gutiérrez González <leynier41@gmail.com>", "Anand"]
+homepage = "https://github.com/supabase-community/supabase-py"
+repository = "https://github.com/supabase-community/supabase-py"
+documentation = "https://github.com/supabase-community/supabase-py"
+readme = "README.md"
+license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+postgrest = ">=0.10.8,<0.14.0"
+realtime = "^1.0.0"
+gotrue = "^1.0.4"
+httpx = "^0.24.0"
+storage3 = ">=0.5.3,<0.7.0"
+supafunc = "^0.3.0"
+
+[tool.poetry.dev-dependencies]
+pre-commit = "^3.5.0"
+black = "^23.10"
+pytest = "^7.4.2"
+flake8 = "^5.0.4"
+isort = "^5.10.1"
+pytest-cov = "^4.1.0"
+commitizen = "^3.12.0"
+python-semantic-release = "^8.3.0"
+python-dotenv = "^1.0.0"
+
+[tool.poetry.scripts]
+tests = 'poetry_scripts:run_tests'
+
+[tool.semantic_release]
+version_variables = ["supabase/__version__.py:__version__"]
+version_toml = ["pyproject.toml:tool.poetry.version"]
+major_on_zero = false
+commit_message = "chore(release): bump version to v{version}"
+build_command = "curl -sSL https://install.python-poetry.org | python - --preview && export PATH=\"/github/home/.local/bin:$PATH\" && poetry install && poetry build"
+upload_to_vcs_release = true
+branch = "main"
+changelog_components = "semantic_release.changelog.changelog_headers,semantic_release.changelog.compare_url"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
