@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "snakemake-executor-plugin-slurm"
+version = "0.1.1"
+description = "A Snakemake executor plugin for submitting jobs to a SLURM cluster."
+authors = [
+    "David Lähnemann <david.laehnemann@dkfz-heidelberg.de>",
+    "Johannes Koester <johannes.koester@uni-due.de>",
+    "Christian Meesters <meesters@uni-mainz.de>",
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+snakemake-interface-common = "^1.13.0"
+snakemake-interface-executor-plugins = "^7.0.0"
+snakemake-executor-plugin-slurm-jobstep = "^0.1.5"
+throttler = "^1.2.2"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+flake8 = "^6.1.0"
+coverage = "^7.3.1"
+pytest = "^7.4.2"
+snakemake = {git = "https://github.com/snakemake/snakemake.git"}
+
+[tool.coverage.run]
+omit = [".*", "*/site-packages/*", "Snakefile"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
