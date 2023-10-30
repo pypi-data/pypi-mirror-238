@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "fastfeatureflag"
+version = "0.4.0"
+description = "light-weight feature flags"
+authors = ["GreNait"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+toml = "^0.10.2"
+pytest-cov = "^4.1.0"
+mkdocs-autorefs = "^0.5.0"
+pymdown-extensions = "^10.1"
+mkdocstrings = {extras = ["python"], version = "^0.22.0"}
+mypy = "^1.4.1"
+commitizen = "^3.6.0"
+behave = "^1.2.6"
+mkdocs-material = "^9.1.21"
+mkdocs = "^1.5.2"
+pre-commit = "^3.3.3"
+dagger-io = "^0.8.1"
+bpython = "^0.24"
+mkdocs-git-revision-date-localized-plugin = "^1.2.0"
+pytest-watch = "^4.2.0"
+pytest = "^7.4.0"
+python-dotenv = "^1.0.0"
+jupyter = "^1.0.0"
+anyio = "^3.7.1"
+pylint = "^2.17.5"
+anybadge = "^1.14.0"
+types-toml = "^0.10.8.7"
+black = "^23.7.0"
+pytest-asyncio = "^0.21.1"
+twine = "^4.0.2"
+mkdocs-jupyter = "^0.24.6"
+ipytest = "^0.13.3"
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_scheme = "semver"
+version_provider = "poetry"
+update_changelog_on_bump = true
+major_version_zero = true
+annotated_tag = true
+
+[tool.mypy]
+exclude = ['.venv','tests','features']
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
