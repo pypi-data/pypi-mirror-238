@@ -1,0 +1,18 @@
+FROM python:${python_version}-slim as base
+
+LABEL vendor=${vendor}
+LABEL name="${name}"
+LABEL description="${description}"
+LABEL version="${version}"
+LABEL url="${url}"
+LABEL vcs-url="${vcs_url}"
+LABEL vcs-ref="${vcs_ref}"
+LABEL build-date-iso8601="${build_date}"
+
+WORKDIR /root
+
+COPY ${tar_path}/${tar_name} .
+RUN ["pip", "install", "${tar_name}[full]"]
+
+ENTRYPOINT ["b2"]
+CMD ["--help"]
