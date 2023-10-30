@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: archaea-simulation
+Version: 1.1.26
+Summary: Wrapper definitions for simulation tools.
+Home-page: https://github.com/archaeans/archaea-simulation
+License: Apache-2.0
+Keywords: geometry,simulation
+Author: Oğuzhan Koral
+Author-email: oguzhankoral@gmail.com
+Requires-Python: >=3.10,<4.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Requires-Dist: archaea (==1.1.26)
+Requires-Dist: specklepy (>=2.17.5,<3.0.0)
+Requires-Dist: vtk (>=9.2.6,<10.0.0)
+Project-URL: Repository, https://github.com/archaeans/archaea-simulation
+Description-Content-Type: text/markdown
+
+# Archaea Simulation
+
+Wrapper definitions for simulation tools.
+
+Motivation of creating this library is started with master thesis, departments of Computational
+Science and Engineering and Architecture at Istanbul Technical University. 
+Aim of thesis is to create scenarios for different environmental
+solvers like EnergyPlus and OpenFOAM to run them parallely on Linux environment.
+Preparation of these scenario files done by geometric [Archaea](https://github.com/archaeans/archaea) library.
+
+
+## Focused Simulation Tools
+
+- OpenFOAM: OpenFOAM requires stl geometries to run it's solvers
+behind the scenes. (Pre-Alpha)
+- EnergyPlus: EnergyPlus requires idf schema to run simulations. (MVP)
+- UWG: Urban weather generator is a solver to calculate effects on urban microclimate.
+It creates new .epw file for EnergyPlus simulations.
+
+Main idea behind this work is to be experimental and didactic. 
