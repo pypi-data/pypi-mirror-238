@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "Datascrubber"
+version = "0.1.3"
+authors = [
+  { name="Charles Muganga", email="mugangacharles5@gmail.com" },
+]
+description = "A data cleaning package and visualisation tool for data science projects"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    'pandas',
+    'numpy',
+    'matplotlib',
+    'seaborn',
+    'scipy',
+    'scikit-learn',
+    'missingno',
+    'openpyxl'
+]
+
+[project.urls]
+"Homepage" = "https://github.com/muganga-charles"
