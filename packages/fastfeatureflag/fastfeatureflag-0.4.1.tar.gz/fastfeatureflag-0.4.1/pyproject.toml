@@ -1,0 +1,69 @@
+[tool.poetry]
+name = "fastfeatureflag"
+version = "0.4.1"
+description = "light-weight feature flags"
+authors = ["GreNait"]
+license="MIT"
+repository="https://github.com/GreNait/fastfeatureflag"
+homepage="https://grenait.github.io/fastfeatureflag/"
+readme =  ["README.md", "LICENSE", "CHANGELOG.md"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+toml = "^0.10.2"
+python-dotenv = "^1.0.0"
+anyio = "^3.7.1"
+types-toml = "^0.10.8.7"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.3.3"
+commitizen = "^3.6.0"
+black = "^23.7.0"
+mypy = "^1.4.1"
+pylint = "^2.17.5"
+jupyter = "^1.0.0"
+bpython = "^0.24"
+twine = "^4.0.2"
+dagger-io = "^0.8.1"
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+mkdocs-material = "^9.1.21"
+mkdocs-git-revision-date-localized-plugin = "^1.2.0"
+mkdocstrings = {extras = ["python"], version = "^0.22.0"}
+mkdocs-jupyter = "^0.24.6"
+mkdocs-autorefs = "^0.5.0"
+pymdown-extensions = "^10.1"
+ipytest = "^0.13.3"
+anybadge = "^1.14.0"
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest-cov = "^4.1.0"
+pytest-watch = "^4.2.0"
+pytest = "^7.4.0"
+pytest-asyncio = "^0.21.1"
+behave = "^1.2.6"
+
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_scheme = "semver"
+version_provider = "poetry"
+update_changelog_on_bump = true
+annotated_tag = true
+
+[tool.mypy]
+exclude = ['.venv','tests','features']
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

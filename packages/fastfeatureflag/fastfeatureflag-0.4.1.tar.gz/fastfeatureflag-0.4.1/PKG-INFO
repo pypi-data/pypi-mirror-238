@@ -1,0 +1,127 @@
+Metadata-Version: 2.1
+Name: fastfeatureflag
+Version: 0.4.1
+Summary: light-weight feature flags
+Home-page: https://grenait.github.io/fastfeatureflag/
+License: MIT
+Author: GreNait
+Requires-Python: >=3.10,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: anyio (>=3.7.1,<4.0.0)
+Requires-Dist: python-dotenv (>=1.0.0,<2.0.0)
+Requires-Dist: toml (>=0.10.2,<0.11.0)
+Requires-Dist: types-toml (>=0.10.8.7,<0.11.0.0)
+Project-URL: Repository, https://github.com/GreNait/fastfeatureflag
+Description-Content-Type: text/markdown
+
+![Static Badge](https://img.shields.io/badge/Python_&#x1F49F;-orange?style=flat-square&logo=python&logoColor=white) [![Static Badge](https://img.shields.io/badge/documentation-blue?style=flat-square&logo=github)](https://grenait.github.io/fastfeatureflag/) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/fastfeatureflag?style=flat-square) ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/GreNait/fastfeatureflag/trunk?style=flat-square&color=orange) ![PyPI - Downloads](https://img.shields.io/pypi/dm/fastfeatureflag?style=flat-square&color=orange)
+
+[![PyPI version](https://badge.fury.io/py/fastfeatureflag.svg)](https://badge.fury.io/py/fastfeatureflag) ![pylint_badge](docs/badges/pylint.svg) ![unittest_badge](docs/badges/unittests.svg) ![mypy](docs/badges/mypy.svg)   ![PyPI - License](https://img.shields.io/pypi/l/fastfeatureflag)
+
+FastFeatureFlag is a lightweight tool to generate and use feature flags. Build in python for python. The key components are:
+
+- easy to add feature flag(s)
+- easily activate/deactivate features
+- naming/grouping flags
+- define custom response for flagged features
+- use environment variables as your on/off switch
+- manage feature flags with a simple toml file
+- define a shadow method which should be executed instead of your deactivated feature
+
+# &#x1F6E0; Installation
+
+```console
+pip install fastfeatureflag
+```
+
+```console
+poetry add fastfeatureflag
+```
+
+## &#127987; `flag` away ...
+
+&#x1F4A1;  _Take a look at the decorator `feature_flag()` - that is all you need._
+
+```python title="fast feature flags"
+from fastfeatureflag.feature_flag import feature_flag
+
+@feature_flag("off")
+def broken_feature():
+    return "I am broken"
+
+broken_feature()
+NotImplementedError: Feature not implemented
+```
+
+Copyright (c) 2012-2023 Sebastian Rieser <flyingsepl@googlemail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## 0.4.1 (2023-10-29)
+
+## 0.4.0 (2023-10-28)
+
+### Feat
+
+- **feature_flag**: enable `self` within decorated functions
+- **feature_flag**: pytest compatibility via `.pytest()`
+
+## 0.3.0 (2023-10-25)
+
+### Feat
+
+- **feature_flag**: use `shadow` to call a different function/method
+- **all**: feature flag configuration by file
+
+### Fix
+
+- **feature_flag_configuration**: updating and synchronising features
+
+### Refactor
+
+- **all/***: reduces complexity
+
+## 0.2.0 (2023-09-02)
+
+### Feat
+
+- **all**: featuer flag configuration by file
+- **flaggen**: load configuration
+
+### Refactor
+
+- **flaggen**: simplified code
+
+## 0.1.0 (2023-08-14)
+
+### Feat
+
+- **feature_flag**: add named feature
+
+### Fix
+
+- **flaggen**: improved the feuatre flag naming
+- **feauter_flag**: added stateful decorator
+- **flaggen,-docs**: added dynamic output to feature flag
+- **pyflag**: simple featue flag implementation
+
