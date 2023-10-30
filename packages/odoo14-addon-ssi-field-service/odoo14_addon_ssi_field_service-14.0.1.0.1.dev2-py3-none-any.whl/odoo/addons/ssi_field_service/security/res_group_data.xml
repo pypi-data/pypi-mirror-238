@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+<!-- Configurator -->
+<record id="field_service_type_group" model="res.groups">
+    <field name="name">Field Service Type</field>
+    <field name="category_id" ref="field_service_configurator_module_category" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<record id="field_service_role_group" model="res.groups">
+    <field name="name">Field Service Role</field>
+    <field name="category_id" ref="field_service_configurator_module_category" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<record id="field_service_role_set_group" model="res.groups">
+    <field name="name">Field Service Role Set</field>
+    <field name="category_id" ref="field_service_configurator_module_category" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<record id="field_service_time_slot_group" model="res.groups">
+    <field name="name">Field Service Time Slot</field>
+    <field name="category_id" ref="field_service_configurator_module_category" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<!-- Field Service Order: Workflow -->
+<record id="field_service_order_viewer_group" model="res.groups">
+    <field name="name">Viewer</field>
+    <field name="category_id" ref="field_service_order_module_category" />
+</record>
+
+<record id="field_service_order_user_group" model="res.groups">
+    <field name="name">User</field>
+    <field name="category_id" ref="field_service_order_module_category" />
+    <field name="implied_ids" eval="[(4, ref('field_service_order_viewer_group'))]" />
+</record>
+
+<record id="field_service_order_validator_group" model="res.groups">
+    <field name="name">Validator</field>
+    <field name="category_id" ref="field_service_order_module_category" />
+    <field name="implied_ids" eval="[(4, ref('field_service_order_user_group'))]" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<!-- Field Service Order: Data Ownership -->
+<record id="field_service_order_company_group" model="res.groups">
+    <field name="name">Company</field>
+    <field
+            name="category_id"
+            ref="field_service_order_data_ownership_module_category"
+        />
+</record>
+
+<record id="field_service_order_company_child_group" model="res.groups">
+    <field name="name">Company and All Child Companies</field>
+    <field
+            name="category_id"
+            ref="field_service_order_data_ownership_module_category"
+        />
+    <field name="implied_ids" eval="[(4, ref('field_service_order_company_group'))]" />
+</record>
+
+<record id="field_service_order_all_group" model="res.groups">
+    <field name="name">All</field>
+    <field
+            name="category_id"
+            ref="field_service_order_data_ownership_module_category"
+        />
+    <field
+            name="implied_ids"
+            eval="[(4, ref('field_service_order_company_child_group'))]"
+        />
+</record>
+
+<!-- Group Field Service Order: Workflow -->
+<record id="group_field_service_order_viewer_group" model="res.groups">
+    <field name="name">Viewer</field>
+    <field name="category_id" ref="group_field_service_order_module_category" />
+</record>
+
+<record id="group_field_service_order_user_group" model="res.groups">
+    <field name="name">User</field>
+    <field name="category_id" ref="group_field_service_order_module_category" />
+    <field
+            name="implied_ids"
+            eval="[(4, ref('group_field_service_order_viewer_group'))]"
+        />
+</record>
+
+<record id="group_field_service_order_validator_group" model="res.groups">
+    <field name="name">Validator</field>
+    <field name="category_id" ref="group_field_service_order_module_category" />
+    <field
+            name="implied_ids"
+            eval="[(4, ref('group_field_service_order_user_group'))]"
+        />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+
+<!-- Group Field Service Order: Data Ownership -->
+<record id="group_field_service_order_company_group" model="res.groups">
+    <field name="name">Company</field>
+    <field
+            name="category_id"
+            ref="group_field_service_order_data_ownership_module_category"
+        />
+</record>
+
+<record id="group_field_service_order_company_child_group" model="res.groups">
+    <field name="name">Company and All Child Companies</field>
+    <field
+            name="category_id"
+            ref="group_field_service_order_data_ownership_module_category"
+        />
+    <field
+            name="implied_ids"
+            eval="[(4, ref('group_field_service_order_company_group'))]"
+        />
+</record>
+
+<record id="group_field_service_order_all_group" model="res.groups">
+    <field name="name">All</field>
+    <field
+            name="category_id"
+            ref="group_field_service_order_data_ownership_module_category"
+        />
+    <field
+            name="implied_ids"
+            eval="[(4, ref('group_field_service_order_company_child_group'))]"
+        />
+</record>
+</odoo>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<record id="field_service_role_set_view_search" model="ir.ui.view">
+    <field name="name">field_service_role_set - search</field>
+    <field name="model">field_service_role_set</field>
+    <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data />
+    </field>
+</record>
+
+<record id="field_service_role_set_view_tree" model="ir.ui.view">
+    <field name="name">field_service_role_set - tree</field>
+    <field name="model">field_service_role_set</field>
+    <field name="inherit_id" ref="ssi_master_data_mixin.mixin_master_data_view_tree" />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data />
+    </field>
+</record>
+
+<record id="field_service_role_set_view_form" model="ir.ui.view">
+    <field name="name">field_service_role_set - form</field>
+    <field name="model">field_service_role_set</field>
+    <field name="inherit_id" ref="ssi_master_data_mixin.mixin_master_data_view_form" />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//page[1]" position="before">
+                <page name="team" string="Teams">
+                    <field name="team_ids">
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle" />
+                            <field name="role_id" />
+                            <field name="quantity" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="field_service_role_set_action" model="ir.actions.act_window">
+    <field name="name">Field Service Role Sets</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">field_service_role_set</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+        id="field_service_role_set_menu"
+        name="Role Sets"
+        parent="menu_field_service_configuration"
+        action="field_service_role_set_action"
+        groups="field_service_role_set_group"
+        sequence="120"
+    />
+
+</odoo>

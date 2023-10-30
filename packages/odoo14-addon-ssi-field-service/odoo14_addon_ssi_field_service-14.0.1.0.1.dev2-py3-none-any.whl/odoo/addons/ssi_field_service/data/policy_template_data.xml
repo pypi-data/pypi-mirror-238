@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0-standalone.html). -->
+<odoo>
+<data noupdate="0">
+<record id="policy_template_field_service_order" model="policy.template">
+    <field name="name">Standard</field>
+    <field name="model_id" ref="model_field_service_order" />
+    <field
+                name="state_field_id"
+                search="[('model_id.model','=','field_service_order'),('name','=','state')]"
+            />
+    <field name="sequence" eval="100" />
+    <field name="python_code">result=True</field>
+</record>
+
+<!-- Ready -->
+<record id="policy_template_field_service_order_ready" model="policy.template_detail">
+    <field name="template_id" ref="policy_template_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','field_service_order'),('name','=','ready_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','field_service_order'),('value','=','draft')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field name="group_ids" eval="[(6,0,[ref('field_service_order_user_group')])]" />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+<!-- Open -->
+<record id="policy_template_field_service_order_open" model="policy.template_detail">
+    <field name="template_id" ref="policy_template_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','field_service_order'),('name','=','open_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','field_service_order'),('value','=','ready')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field name="group_ids" eval="[(6,0,[ref('field_service_order_user_group')])]" />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+
+
+<!-- Confirm -->
+<record id="policy_template_field_service_order_confirm" model="policy.template_detail">
+    <field name="template_id" ref="policy_template_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','field_service_order'),('name','=','confirm_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','field_service_order'),('value','=','open')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field name="group_ids" eval="[(6,0,[ref('field_service_order_user_group')])]" />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+<!-- Restart Approval -->
+<record
+            id="policy_template_field_service_order_restart_approval"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','field_service_order'),('name','=','restart_approval_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','field_service_order'),('value','=','confirm')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('field_service_order_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+<!-- Approve -->
+<record id="policy_template_field_service_order_approve" model="policy.template_detail">
+    <field name="template_id" ref="policy_template_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','field_service_order'),('name','=','approve_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','field_service_order'),('value','=','confirm')]"
+            />
+    <field name="restrict_user" eval="0" />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if env.user.id in document.active_approver_user_ids.ids:
+    result = True</field>
+</record>
+
+<!-- Reject -->
+<record id="policy_template_field_service_order_reject" model="policy.template_detail">
+    <field name="template_id" ref="policy_template_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','field_service_order'),('name','=','reject_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','field_service_order'),('value','=','confirm')]"
+            />
+    <field name="restrict_user" eval="0" />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if env.user.id in document.active_approver_user_ids.ids:
+    result = True</field>
+</record>
+
+
+
+<!-- Cancel -->
+<record id="policy_template_field_service_order_cancel" model="policy.template_detail">
+    <field name="template_id" ref="policy_template_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','field_service_order'),('name','=','cancel_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','field_service_order'),('value','in',['draft','confirm','ready','open','done','terminate'])]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('field_service_order_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+<!-- Restart -->
+<record id="policy_template_field_service_order_restart" model="policy.template_detail">
+    <field name="template_id" ref="policy_template_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','field_service_order'),('name','=','restart_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','field_service_order'),('value','in',['cancel','reject'])]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('field_service_order_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+<!-- Terminate -->
+<record
+            id="policy_template_field_service_order_terminate"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','field_service_order'),('name','=','terminate_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','field_service_order'),('value','=','open')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field name="group_ids" eval="[(6,0,[ref('field_service_order_user_group')])]" />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+<!-- Manual Number -->
+<record
+            id="policy_template_field_service_order_manual_number"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','field_service_order'),('name','=','manual_number_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','field_service_order'),('value','=','draft')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('field_service_order_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+<!-- Group Field Service Order -->
+<record id="policy_template_group_field_service_order" model="policy.template">
+    <field name="name">Standard</field>
+    <field name="model_id" ref="model_group_field_service_order" />
+    <field
+                name="state_field_id"
+                search="[('model_id.model','=','group_field_service_order'),('name','=','state')]"
+            />
+    <field name="sequence" eval="100" />
+    <field name="python_code">result=True</field>
+</record>
+
+<!-- Confirm -->
+<record
+            id="policy_template_group_field_service_order_confirm"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_group_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','group_field_service_order'),('name','=','confirm_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','group_field_service_order'),('value','=','draft')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('group_field_service_order_user_group')])]"
+            />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+<!-- Restart Approval -->
+<record
+            id="policy_template_group_field_service_order_restart_approval"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_group_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','group_field_service_order'),('name','=','restart_approval_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','group_field_service_order'),('value','=','confirm')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('group_field_service_order_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+<!-- Approve -->
+<record
+            id="policy_template_group_field_service_order_approve"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_group_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','group_field_service_order'),('name','=','approve_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','group_field_service_order'),('value','=','confirm')]"
+            />
+    <field name="restrict_user" eval="0" />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if env.user.id in document.active_approver_user_ids.ids:
+    result = True</field>
+</record>
+
+<!-- Reject -->
+<record
+            id="policy_template_group_field_service_order_reject"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_group_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','group_field_service_order'),('name','=','reject_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','group_field_service_order'),('value','=','confirm')]"
+            />
+    <field name="restrict_user" eval="0" />
+    <field name="restrict_additional" eval="1" />
+    <field name="additional_python_code">result = False
+if env.user.id in document.active_approver_user_ids.ids:
+    result = True</field>
+</record>
+
+
+<!-- Done -->
+<record
+            id="policy_template_group_field_service_order_open"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_group_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','group_field_service_order'),('name','=','done_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','group_field_service_order'),('value','=','open')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('group_field_service_order_user_group')])]"
+            />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+<!-- Cancel -->
+<record
+            id="policy_template_group_field_service_order_cancel"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_group_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','group_field_service_order'),('name','=','cancel_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','group_field_service_order'),('value','in',['draft','confirm','open','done','terminate'])]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('group_field_service_order_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+<!-- Restart -->
+<record
+            id="policy_template_group_field_service_order_restart"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_group_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','group_field_service_order'),('name','=','restart_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','group_field_service_order'),('value','in',['cancel','reject'])]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('group_field_service_order_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+<!-- Terminate -->
+<record
+            id="policy_template_group_field_service_order_terminate"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_group_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','group_field_service_order'),('name','=','terminate_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','group_field_service_order'),('value','=','open')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('group_field_service_order_user_group')])]"
+            />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+<!-- Manual Number -->
+<record
+            id="policy_template_group_field_service_order_manual_number"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="policy_template_group_field_service_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','group_field_service_order'),('name','=','manual_number_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field
+                name="state_ids"
+                search="[('field_id.model_id.model','=','group_field_service_order'),('value','=','draft')]"
+            />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('group_field_service_order_validator_group')])]"
+            />
+    <field name="restrict_additional" eval="0" />
+</record>
+</data>
+</odoo>

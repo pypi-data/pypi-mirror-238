@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<record id="field_service_role_set1" model="field_service_role_set">
+    <field name="name">Small Cleaning Crew - (test)</field>
+    <field name="code">X001</field>
+</record>
+
+<record id="field_service_role_set1_team1" model="field_service_role_set.team">
+    <field name="set_id" ref="field_service_role_set1" />
+    <field name="role_id" ref="field_service_role1" />
+    <field name="quantity" eval="2" />
+    <field name="sequence" eval="1" />
+</record>
+
+<record id="field_service_role_set2" model="field_service_role_set">
+    <field name="name">Medium Cleaning Crew - (test)</field>
+    <field name="code">X002</field>
+</record>
+
+<record id="field_service_role_set2_team1" model="field_service_role_set.team">
+    <field name="set_id" ref="field_service_role_set2" />
+    <field name="role_id" ref="field_service_role1" />
+    <field name="quantity" eval="2" />
+    <field name="sequence" eval="1" />
+</record>
+
+<record id="field_service_role_set2_team2" model="field_service_role_set.team">
+    <field name="set_id" ref="field_service_role_set2" />
+    <field name="role_id" ref="field_service_role2" />
+    <field name="quantity" eval="1" />
+    <field name="sequence" eval="2" />
+</record>
+
+<record id="field_service_role_set3" model="field_service_role_set">
+    <field name="name">Large Cleaning Crew - (test)</field>
+    <field name="code">X003</field>
+</record>
+
+<record id="field_service_role_set3_team1" model="field_service_role_set.team">
+    <field name="set_id" ref="field_service_role_set3" />
+    <field name="role_id" ref="field_service_role1" />
+    <field name="quantity" eval="4" />
+    <field name="sequence" eval="1" />
+</record>
+
+<record id="field_service_role_set3_team2" model="field_service_role_set.team">
+    <field name="set_id" ref="field_service_role_set3" />
+    <field name="role_id" ref="field_service_role2" />
+    <field name="quantity" eval="2" />
+    <field name="sequence" eval="2" />
+</record>
+
+<record id="field_service_role_set3_team3" model="field_service_role_set.team">
+    <field name="set_id" ref="field_service_role_set3" />
+    <field name="role_id" ref="field_service_role3" />
+    <field name="quantity" eval="1" />
+    <field name="sequence" eval="3" />
+</record>
+
+</odoo>

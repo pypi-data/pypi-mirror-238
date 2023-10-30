@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="field_service_module_category" model="ir.module.category">
+    <field name="name">Field Service</field>
+</record>
+
+<record id="field_service_workflow_module_category" model="ir.module.category">
+    <field name="name">Field Service - Workflow</field>
+    <field name="parent_id" ref="field_service_module_category" />
+</record>
+
+<record id="field_service_data_ownership_module_category" model="ir.module.category">
+    <field name="name">Field Service - Data Ownership</field>
+    <field name="parent_id" ref="field_service_module_category" />
+</record>
+
+<record id="field_service_configurator_module_category" model="ir.module.category">
+    <field name="name">Field Service - Configurator</field>
+    <field name="parent_id" ref="field_service_module_category" />
+</record>
+
+<record id="field_service_wizard_module_category" model="ir.module.category">
+    <field name="name">Field Service - Wizard</field>
+    <field name="parent_id" ref="field_service_module_category" />
+</record>
+
+<record id="field_service_report_module_category" model="ir.module.category">
+    <field name="name">Field Service - Report</field>
+    <field name="parent_id" ref="field_service_module_category" />
+</record>
+
+<record id="field_service_order_module_category" model="ir.module.category">
+    <field name="name">Field Service Order</field>
+    <field name="parent_id" ref="field_service_workflow_module_category" />
+</record>
+
+<record
+        id="field_service_order_data_ownership_module_category"
+        model="ir.module.category"
+    >
+    <field name="name">Field Service Order</field>
+    <field name="parent_id" ref="field_service_data_ownership_module_category" />
+</record>
+
+<record id="group_field_service_order_module_category" model="ir.module.category">
+    <field name="name">Group Field Service Order</field>
+    <field name="parent_id" ref="field_service_workflow_module_category" />
+</record>
+
+<record
+        id="group_field_service_order_data_ownership_module_category"
+        model="ir.module.category"
+    >
+    <field name="name">Group Field Service Order</field>
+    <field name="parent_id" ref="field_service_data_ownership_module_category" />
+</record>
+</odoo>

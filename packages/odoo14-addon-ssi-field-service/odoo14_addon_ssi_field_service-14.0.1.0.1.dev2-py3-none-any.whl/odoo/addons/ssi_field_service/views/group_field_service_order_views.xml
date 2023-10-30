@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<record id="group_field_service_order_view_search" model="ir.ui.view">
+    <field name="name">group_field_service_order - search</field>
+    <field name="model">group_field_service_order</field>
+    <field
+            name="inherit_id"
+            ref="ssi_transaction_mixin.mixin_transaction_view_search"
+        />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+        </data>
+    </field>
+</record>
+
+<record id="group_field_service_order_view_tree" model="ir.ui.view">
+    <field name="name">group_field_service_order - tree</field>
+    <field name="model">group_field_service_order</field>
+    <field name="mode">primary</field>
+    <field name="inherit_id" ref="ssi_transaction_mixin.mixin_transaction_view_tree" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="partner_id" />
+                <field name="type_id" />
+                <field name="date" />
+                <field name="date_start" />
+                <field name="date_end" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="group_field_service_order_view_form" model="ir.ui.view">
+    <field name="name">group_field_service_order - form</field>
+    <field name="model">group_field_service_order</field>
+    <field name="mode">primary</field>
+    <field name="inherit_id" ref="ssi_transaction_mixin.mixin_transaction_view_form" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="partner_id" />
+                <field
+                        name="allowed_contact_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
+                <field
+                        name="contact_partner_id"
+                        widget="many2one_avatar"
+                        domain="[('id','in',allowed_contact_ids)]"
+                    />
+                <field
+                        name="allowed_location_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
+            </xpath>
+            <xpath expr="//group[@name='header_right']" position="inside">
+                <field name="date" />
+                <field name="date_start" />
+                <field name="date_end" />
+                <field name="type_id" />
+            </xpath>
+            <xpath expr="//page[1]" position="before">
+                <page name="recurring" string="Recurring Patterns">
+                    <field name="recurring_pattern_ids">
+                        <tree editable="bottom">
+                            <field name="date_start" />
+                            <field name="date_end" />
+                            <field
+                                    name="location_id"
+                                    domain="[('id','in',parent.allowed_location_ids)]"
+                                />
+                            <field name="frequency_id" />
+                            <field name="time_slot_id" />
+                            <field name="role_set_id" />
+                        </tree>
+                    </field>
+                </page>
+                <page name="order" string="Orders">
+                    <group name="order" colspan="4" col="2">
+                        <field name="order_status" />
+                    </group>
+                    <field name="order_ids" />
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="group_field_service_order_action" model="ir.actions.act_window">
+    <field name="name">Group Field Service Orders</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">group_field_service_order</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+        id="group_field_service_order_menu"
+        name="Group Orders"
+        parent="menu_root_field_service"
+        action="group_field_service_order_action"
+        groups="group_field_service_order_viewer_group"
+        sequence="110"
+    />
+
+</odoo>
