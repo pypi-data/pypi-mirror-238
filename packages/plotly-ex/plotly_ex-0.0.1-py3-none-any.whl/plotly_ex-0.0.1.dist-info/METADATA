@@ -1,0 +1,28 @@
+Metadata-Version: 2.1
+Name: plotly-ex
+Version: 0.0.1
+Summary: plotly extension
+Author-email: Fujihara Shunya <sierra.fujihara@gmail.com>
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: plotly <6,>=5.0
+
+# plotly_ex
+## Class/Method
+```python
+class make_subplots_wrapper:
+    """
+    fig_wrapper = plotly_ex.make_subplots_wrapper()
+    fig_wrapper.add_fig_sub(fig_sub=fig_sub1, fig_sub_title=fig_sub_title1, row=1, col=1, colspan=1, legendgroup=fig_sub_title1)
+    fig_wrapper.add_fig_sub(fig_sub=fig_sub2, fig_sub_title=fig_sub_title2, row=1, col=2, colspan=1, legendgroup=fig_sub_title2)
+    fig = fig_wrapper.build_fig(row_height=200)
+    fig.show()
+    """
+    def __init__(self, col_max:int=5) -> None:
+    def add_fig_sub(self, fig_sub, fig_sub_title:str=None, row:int=None, col:int=None, rowspan:int=1, colspan:int=1, secondary_y:bool=None, legendgroup:str=None) -> None:
+    def build_fig(self, row_height=250, shared_xaxes=False, shared_yaxes=False, font_size_default=14, coloraxis_colorscale=None, template='plotly_dark', **kwargs) -> go.Figure:
+```
