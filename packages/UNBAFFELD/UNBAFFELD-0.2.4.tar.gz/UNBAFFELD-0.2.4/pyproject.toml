@@ -1,0 +1,33 @@
+[build-system]
+requires = [
+    "setuptools >= 42",
+    "setuptools_scm[toml] >= 6.2",
+    "setuptools_scm_git_archive",
+    "wheel >= 0.29.0",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "unbaffeld/_version.py"
+git_describe_command = "git describe --dirty --tags --long --first-parent"
+
+[project]
+name = "UNBAFFELD"
+version = "v0.2.4"
+authors = [
+  { name="The EFIT-AI team", email="scott.e.kruger@gmail.com" },
+  { name="Scott Kruger", email="kruger@txcorp.com" },
+  { name="Jarrod Leddy", email="jleddy@txcorp.com" },
+]
+description = "UNified Bayesian Analysis Framework for Fusion ExperimentaL Data"
+readme = "README.rst"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://gitlab.com/efit-ai/unbaffeld"
+"Bug Tracker" = "https://gitlab.com/efit-ai/unbaffeld/-/issues"

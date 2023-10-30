@@ -1,0 +1,140 @@
+## Python-based pipeline for efit-ai/unbaffeld
+
+image: registry.gitlab.com/efit-ai/efitall/pybase
+
+stages:
+  - pause
+  - stage0
+  - stage1
+  - stage2
+  - stage3
+  - deploy
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+  GIT_STRATEGY: fetch
+  GIT_CLEAN_FLAGS: -ffdxq
+  TIMEOUT: 450 seconds
+
+# The most basic template that most tests will expand upon
+.test-basic:
+  interruptible: true
+  only:
+    refs:
+      # Can schedule tests from gitlab interface (CICD -> Schedules)
+      - schedules
+      # I'm not sure what this does
+      - api
+      # Can schedule tests from gitlab interface (CICD -> Pipelines -> Run pipeline)
+      - web
+      # Automatically start things for every MR
+      - merge_requests
+  dependencies: []
+  except:
+    variables:
+      - $UNBAFFELD_CI_SCHEDULED =~ /yes/
+
+wait-for-manual-trigger:
+  extends: .test-basic
+  stage: pause
+  when: manual
+  script:
+    - echo "Triggering pipeline"
+  allow_failure: false
+  after_script:
+    - date
+
+linter_python:
+  extends: .test-basic
+  stage: stage0
+  allow_failure: true
+  script:
+    - mypy -v --ignore-missing-imports --html-report mypy_log-html unbaffeld/database
+  after_script:
+    - date
+  artifacts:
+    name: "$CI_JOB_NAME"
+    when: always
+    paths:
+      - mypy_log-html
+    expire_in: 10 mins
+
+build_python:
+  extends: .test-basic
+  stage: stage1
+  script:
+    - python3 --version  # For debugging
+    - echo building tests with setup.py
+    - python3 setup.py build
+    - python3 setup.py sdist
+    - python3 setup.py bdist_wheel
+  after_script:
+    - date
+  artifacts:
+    name: "$CI_JOB_NAME"
+    when: always
+    paths:
+      - build/*
+    expire_in: 10 mins
+
+test_python:
+  extends: .test-basic
+  stage: stage2
+  image: registry.gitlab.com/efit-ai/efitall/gpflow
+  script:
+# Run pytest out of place
+    - mkdir pytest_log-txt && cd pytest_log-txt
+# use redirect as I am getting errors when trying --log-file, --log-level, etc. that it
+# is not a valid option
+    - pytest ../unbaffeld | tee pytest.log
+    - cat pytest.log
+  after_script:
+    - date
+  artifacts:
+    name: "$CI_JOB_NAME"
+    when: always
+    paths:
+      - pytest_log-txt/*
+    expire_in: 10 mins
+
+pages:  # this job name has special meaning to GitLab
+  stage: stage3
+  image: registry.gitlab.com/efit-ai/efitall/pydoc
+  interruptible: true
+  #variables:
+  #  PATH: /scratch/soft/bin:/scratch/soft/mpich/bin:/opt/rh/devtoolset-7/root/usr/bin:/usr/bin:/bin
+  script:
+    - cd docs
+    - make html
+    - mv _build/html ../public/
+  after_script:
+    - date
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: https://$CI_PROJECT_NAMESPACE.gitlab.io/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/public/html/index.html
+  artifacts:
+    paths:
+      - public
+  except:
+    variables:
+      - $UNBAFFELD_CI_SCHEDULED =~ /yes/
+
+build-package:
+  stage: deploy
+  image: python:3.7
+  before_script:
+    - python3 -m pip install --upgrade twine
+    - python3 -m pip install --upgrade build
+    - sed -i -e "s/v-latest/$CI_COMMIT_TAG/" setup.py
+    - cat setup.py
+    - sed -i -e "s/v-latest/$CI_COMMIT_TAG/" pyproject.toml
+    - cat pyproject.toml
+  variables:
+    TWINE_USERNAME: $PYPI_USERNAME
+    TWINE_PASSWORD: $PYPI_PASSWORD
+  script:
+    - python3 -m build
+    - python3 -m twine upload dist/*
+  only:
+    - tags
