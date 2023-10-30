@@ -1,0 +1,23 @@
+stages:
+  - "build"
+  - "test"
+
+build-package-job:
+  stage: "build"
+  script:
+    - echo "Environment Configuration"
+    - conda env create -f environment.yaml 
+    - pip install setup-tools
+
+# on merge-request run pre-commit
+
+test-code:
+  stage: test
+  script: 
+    - echo "INITIATING CODE TESTING"
+    - pytest tests/*
+    - test-coverage .
+    - echo "CODE TESTING DONE"
+
+# publish-to-pypi: if tagged; 
+# requires PYPI_API_TOKEN
