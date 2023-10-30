@@ -1,0 +1,35 @@
+Metadata-Version: 2.1
+Name: hapanapi
+Version: 0.31
+Summary: Simple Python Wrapper for scraping and accessing Hapana Data
+Home-page: https://github.com/REVL-Training/HapanaAPI
+Author: Liew Cher Don
+Author-email: liewcherdon@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.8
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# HapanaAPI
+Private Hapana library actions
+
+## Installation
+To install, simply use your virtualenv:
+
+```
+pip install hapanapi
+```
+
+## Repackaging Instructions
+
+To repackage, change the version number of the setup.py file
+
+```
+python3 setup.py bdist_wheel
+python3 -m twine upload dist/*
+```
+
+
