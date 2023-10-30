@@ -1,0 +1,86 @@
+[tool.poetry]
+name = "cmem-plugin-mattermost"
+version = "2.1.0"
+license = "Apache-2.0"
+description = "Send messages to Mattermost channels and users."
+authors = ["eccenca GmbH <cmempy-developer@eccenca.com>"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Plugins",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: Apache Software License",
+]
+readme = "README-public.md"
+keywords = [
+    "eccenca Corporate Memory", "plugin", "mattermost"
+]
+homepage = "https://github.com/eccenca/cmem-plugin-mattermost"
+
+[tool.poetry.dependencies]
+# if you need to change python version here, change it also in .python-version
+python = "^3.11"
+responses = "^0.23.1"
+
+[tool.poetry.dependencies.cmem-plugin-base]
+version = "^4.3.0"
+allow-prereleases = false
+
+[tool.poetry.group.dev.dependencies]
+bandit = "^1.7.5"
+black = "^23.3.0"
+coverage = "^7.2.3"
+defusedxml = "^0.7.1"
+flake8-formatter-junit-xml = "^0.0.6"
+# https://github.com/smarie/python-genbadge/issues/31
+pillow = "^9.5.0"
+genbadge = "^1.1.0"
+mypy = "^1.2.0"
+# https://github.com/rasjani/pylint-junit/issues/1
+pylint = "^2"
+pylint-junit = "^0.3.2"
+pytest = "^7.3.1"
+pytest-cov = "^4.0.0"
+pytest-memray = { version = "^1.4.0",  markers = "platform_system != 'Windows'" }
+safety = "^1.10.3"
+typed-ast = "^1.5.4"
+wheel = "^0.38.4"
+types-requests = "^2.28.11.8"
+pytest-docker-compose = "^3.2.1"
+# Downgrade pyyaml to resolve reported in 
+# https://github.com/yaml/pyyaml/issues/724
+pyyaml = "==5.3.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.poetry-dynamic-versioning]
+enable = false
+vcs = "git"
+dirty = true
+
+[tool.pylint.MASTER]
+load-plugins="pylint_junit"
+
+[tool.pylint.General]
+ignore = "version.py"
+
+[tool.pylint.'MESSAGES CONTROL']
+extension-pkg-whitelist = "pydantic"
+disable = "fixme"
+
+# https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html#pylint
+[tool.pylint.messages_control]
+disable = "R0903"
+
+[tool.pylint.format]
+max-line-length = "88"
+
+[tool.mypy]
+warn_return_any = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = "--docker-compose=./docker/docker-compose.yml"
+

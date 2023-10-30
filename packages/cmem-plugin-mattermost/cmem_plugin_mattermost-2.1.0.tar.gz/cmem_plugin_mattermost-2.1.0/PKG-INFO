@@ -1,0 +1,34 @@
+Metadata-Version: 2.1
+Name: cmem-plugin-mattermost
+Version: 2.1.0
+Summary: Send messages to Mattermost channels and users.
+Home-page: https://github.com/eccenca/cmem-plugin-mattermost
+License: Apache-2.0
+Keywords: eccenca Corporate Memory,plugin,mattermost
+Author: eccenca GmbH
+Author-email: cmempy-developer@eccenca.com
+Requires-Python: >=3.11,<4.0
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Plugins
+Classifier: Intended Audience :: Information Technology
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: cmem-plugin-base (>=4.3.0,<5.0.0)
+Requires-Dist: responses (>=0.23.1,<0.24.0)
+Description-Content-Type: text/markdown
+
+# cmem-plugin-mattermost
+
+Send messages to [Mattermost](https://mattermost.com/). channels and users.
+
+This is a plugin for [eccenca](https://eccenca.com) [Corporate Memory](https://documentation.eccenca.com).
+
+You can install it with the [cmemc](https://eccenca.com/go/cmemc) command line
+clients like this:
+
+```shell-session
+cmemc admin workspace python install cmem-plugin-mattermost
+```
+
