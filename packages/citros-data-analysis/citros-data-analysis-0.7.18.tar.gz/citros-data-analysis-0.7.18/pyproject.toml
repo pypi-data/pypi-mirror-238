@@ -1,0 +1,21 @@
+[tool.semantic_release]
+tag_format = "v{version}"
+version_variables = ["citros_data_analysis/__init__.py:__version__"]
+
+[tool.semantic_release.commit_parser_options]
+allowed_tags = [
+    "build",
+    "chore",
+    "ci",
+    "docs",
+    "feat",
+    "fix",
+    "perf",
+    "style",
+    "refactor",
+    "test",
+    "minor",
+    "patch"
+]
+minor_tags = ["feat", "minor"]
+patch_tags = ["fix", "perf", "patch"]
