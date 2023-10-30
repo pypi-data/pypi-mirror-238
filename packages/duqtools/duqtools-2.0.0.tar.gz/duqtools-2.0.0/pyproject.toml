@@ -1,0 +1,225 @@
+[build-system]
+requires = ["setuptools>=61.2"]
+build-backend = "setuptools.build_meta"
+
+# https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
+[project]
+name = "duqtools"
+version = "2.0.0"
+description = "Dynamic uncertainty quantification for Tokamak reactor simulations modelling"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+	{name = "Stef Smeets", email = "s.smeets@esciencecenter.nl"},
+	{name = "Victor Azizi"},
+	{name = "Aaron Ho"},
+]
+keywords = [
+    "modelling",
+    "uncertainty-quantification",
+    "tokamak",
+    "fusion-reactor",
+]
+license = {text = "Apache 2.0 License"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "altair >= 5.0",
+    "click",
+    "gitpython",
+    "importlib_resources; python_version<'3.10'",
+    "jetto-tools >= 1.8.8",
+    "jinja2 >= 3.0",
+    "numpy",
+    "pandas",
+    "pydantic >= 2.0",
+    "pydantic-yaml >= 1.0",
+    "scipy >= 1.09",
+    "streamlit >= 1.18",
+    "tqdm",
+    "typing-extensions",
+    "xarray",
+]
+
+[project.urls]
+homepage = "https://github.com/duqtools/duqtools"
+issues = "https://github.com/duqtools/duqtools/issues"
+documentation = "https://duqtools.readthedocs.io"
+changelog = "https://github.com/duqtools/duqtools/releases"
+
+[project.optional-dependencies]
+develop = [
+    "bump2version",
+    "ruff",
+    "pre-commit",
+    "yapf",
+    "mypy",
+    "coverage[toml]",
+    "nbmake",
+    "pytest",
+    "pytest-dependency",
+    "pycodestyle",
+]
+docs = [
+    "matplotlib",
+    "jinja2",
+    "markdown-include",
+    "mkdocs",
+    "mkdocs-click",
+    "mkdocs-jupyter",
+    "mkdocs-gen-files",
+    "mkdocs-material",
+    "mkdocstrings[python]",
+]
+publishing = [
+    "twine",
+    "wheel",
+    "build",
+]
+imas = ["imas"]
+
+[project.scripts]
+duqtools = "duqtools.cli:cli_entry"
+duqduq = "duqtools.large_scale_validation.cli:cli_entry"
+
+[tool.setuptools]
+zip-safe = false
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = true
+
+[tool.coverage.run]
+branch = true
+source = ["duqtools"]
+concurrency = ["multiprocessing"]
+data_file = ".coverage"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["tests/helpers"]
+
+
+[tool.mypy]
+plugins = "pydantic.mypy"
+ignore_missing_imports = true
+files = ["duqtools", "tests"]
+allow_redefinition = true
+
+[[tool.mypy.overrides]]
+module = ["yaml.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["pkg_resources.*"]
+ignore_missing_imports = true
+
+
+[tool.yapf]
+blank_line_before_nested_class_or_def = "True"
+
+[tool.ruff]
+# Enable Pyflakes `E` and `F` codes by default.
+select = [
+	"F",  # Pyflakes
+	"E",  # pycodestyle (error)
+	"W",    # pycodestyle (warning)
+	# "C90",  # mccabe
+	"I",    # isort
+	# "N",    # pep8-naming
+	# "D",    # pydocstyle
+	# "UP",   # pyupgrade
+	# "YTT",  # flake8-2020
+	# "ANN",  # flake8-annotations
+	# "S",    # flake8-bandit
+	# "BLE",  # flake8-blind-except
+	# "FBT",  # flake8-boolean-trap
+	# "B",    # flake8-bugbear
+	# "A",    # flake8-builtins
+	# "COM",  # flake8-commas
+	# "C4",   # flake8-comprehensions
+	# "DTZ",  # flake8-datetimez
+	# "T10",  # flake8-debugger
+	# "EM",   # flake8-errmsg
+	# "EXE",  # flake8-executable
+	# "ISC",  # flake8-implicit-str-concat
+	# "ICN",  # flake8-import-conventions
+	# "G",    # flake8-logging-format
+	# "INP",  # flake8-no-pep420
+	# "PIE",  # flake8-pie
+	# "T20",  # flake8-print
+	# "PT",   # flake8-pytest-style
+	# "Q",    # flake8-quotes
+	# "RET",  # flake8-return
+	# "SIM",  # flake8-simplify
+	# "TID",  # flake8-tidy-imports
+	# "TCH",  # flake8-type-checking
+	# "ARG",  # flake8-unused-arguments
+	# "PTH",  # flake8-use-pathlib
+	# "ERA",  # eradicate
+	# "PD",   # pandas-vet
+	# "PGH",  # pygrep-hooks
+	# "PL",   # Pylint
+	# "PLC",  # Convention
+	# "PLE",  # Error
+	# "PLR",  # Refactor
+	# "PLW",  # Warning
+	# "TRY",  # tryceratops
+]
+ignore = []
+
+# Allow autofix for all enabled rules (when `--fix`) is provided.
+fixable = ["A", "B", "C", "D", "E", "F", "I"]
+unfixable = []
+
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    ".venv",
+    "scripts",
+]
+per-file-ignores = {}
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+target-version = "py39"
+line-length = 96
+
+
+[tool.ruff.isort]
+known-first-party = ["duqtools"]
+required-imports = ["from __future__ import annotations"]
+
+[tool.isort]
+profile = "black"

@@ -1,0 +1,28 @@
+### Jetto/other variables
+
+- name: t_start
+- name: t_end
+- name: major_radius
+  type: jetto-variable
+  lookup:
+    doc: Reference major radius (R0)
+    keys:
+    - field: EquilEscoRefPanel.refMajorRadius
+      file: jetto.jset
+    - field: RMJ
+      file: jetto.in
+      section: NLIST1
+    name: major_radius
+    type: float
+- name: b_field
+  type: jetto-variable
+  lookup:
+    doc: B-field (B0)
+    keys:
+    - field: EquilEscoRefPanel.BField.ConstValue
+      file: jetto.jset
+    # - field: ???
+    #   file: jetto.in
+    #   section: NLIST1
+    name: b_field
+    type: float
