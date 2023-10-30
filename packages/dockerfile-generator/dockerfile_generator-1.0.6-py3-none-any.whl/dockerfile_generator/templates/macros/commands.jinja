@@ -1,0 +1,92 @@
+{% macro filter_unused_parameters_command_and_unallocated_parameters(
+                params,
+                config
+                ) -%}
+
+{% for command_name, other_command in config.commands.items() -%}
+
+{% if command_name == config.unused_parameters_command -%}
+{% continue -%}
+{% endif -%}
+
+{% for param in other_command.supported_parameters %}
+{% if param in params -%}
+{% do params.remove(param) -%}
+{% endif -%}
+{% endfor -%}
+
+{% endfor -%}
+
+{% for param in config.build_stages -%}
+{% if param in params -%}
+{% do params.remove(param) -%}
+{% endif -%}
+{% endfor -%}
+
+{% endmacro -%}
+
+
+{% set builder = namespace(
+                    name = none,
+                    previous = none,
+                    previous_binaries_dir = builder_default_binaries_dir,
+                    ) -%}
+
+
+
+{% macro render_commands(
+            params,
+            config,
+            builder_info = none
+            ) -%}
+{% if builder_info is none -%}
+    {% set builder_info = builder -%}
+{% endif -%}
+
+{% for name in config.commands_order -%}
+{% if name == "build_stages" -%}
+{% if builder_info.name is not none %}
+COPY --from={{ builder_info.name }} {{ builder_info.previous_binaries_dir }}/ {{ config.runner_binaries_dir }}
+
+{% endif -%}
+{% else -%}
+{% set command = config.commands[name] -%}
+{# If there are no supported parameters, render the format string verbatim,
+to support any hard coded Docker command, or to hardcode installation of
+params that are always needed for your app, so they can be omitted from params.
+-#}
+
+{# params are intended to be allowed to appear in multiple commands,
+and they are not restricted to RUN package_manager install ... 
+e.g. they can be used to setup ssh accounts for each shell.
+-#}
+
+{% if name == config.unused_parameters_command -%}
+{% set parameters = params|list() -%}
+{#
+The macro filter_unused_parameters_command_and_unallocated_parameters gathers 
+unallocated commands,
+together with commands allocated to unused_parameters_command, 
+into parameters.
+-#}
+{% do filter_unused_parameters_command_and_unallocated_parameters(
+                        parameters,
+                        config
+                        ) -%}
+{% else -%}
+{% set parameters = params|select("in", command.supported_parameters)|list() -%}
+{% endif -%}
+
+{% if parameters|length >= 1 or "supported_parameters" not in command or command.supported_parameters|length == 0 -%}
+{% if command.file_path|length >= 1 -%}
+{# versioned_param_list.render -> versioned_param_list.version_if_any_for_x_from
+   intentionally both supports params being a list and a dict -#}
+{% include command.file_path with context %}
+{% else -%}
+{{ command.string }}
+{% endif -%}
+{% endif %}
+
+{% endif -%}
+{% endfor -%}
+{% endmacro -%}

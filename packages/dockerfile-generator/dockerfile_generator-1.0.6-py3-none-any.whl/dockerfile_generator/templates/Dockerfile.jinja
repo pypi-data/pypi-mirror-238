@@ -1,0 +1,72 @@
+{# Template args:
+params: List[str]
+config: Config
+
+where:
+
+class Config(typing.TypedDict):
+    base_image : str
+    base_tag : str
+    need_special_tags : Dict[str, str]
+
+    builder_default_binaries_dir: str 
+    runner_binaries_dir : str
+
+    build_stages : Dict[str: typing.TypedDict('BuildStageConfig', {"build_script : str,
+                                                                   "file_path : str,
+                                                                  })]
+
+    commands : Dict[str: typing.TypedDict('CommandConfig', {"file_path : str",
+                                                            "supported_parameters" : Dict[str,str] | List[str],
+                                                           })]
+     
+
+    commands_order : List[str]
+    unused_parameters_command : str
+-#}
+{% set parameters = params.split()|list() -%}
+{% block base_image_and_tag -%}
+{% import 'macros/image_and_tag.jinja' as image_and_tag with context -%}
+{{ image_and_tag.render_image_and_tag_args(
+        parameters,
+        config
+        ) }}
+{% endblock base_image_and_tag -%}
+{% set builder = namespace(
+        name = none,
+        previous = none,
+        previous_binaries_dir = config.builder_default_binaries_dir
+        ) -%}
+
+{% block build_stages -%}
+
+{% import 'macros/build_stages.jinja' as build_stages -%}
+
+{% for parameter in config.build_stages|select("in", parameters) -%}
+    {{ build_stages.render_and_record_build_stage(
+                parameter,
+                config,
+                builder
+                ) }}
+{% endfor -%}
+
+{% endblock build_stages -%}
+
+FROM "${base_image}:${base_tag}" as runner
+
+ENV LANG=C.UTF8
+
+{% block labels -%}
+{% import 'macros/labels.jinja' as labels with context -%}
+{{ labels.render_labels(
+        config
+        ) -}}
+{% endblock labels -%}
+{% block runner_commands -%}
+{% import 'macros/commands.jinja' as commands -%}
+{{ commands.render_commands(
+        parameters,
+        config,
+        builder
+        ) }}
+{% endblock runner_commands -%}

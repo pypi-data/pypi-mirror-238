@@ -1,0 +1,33 @@
+{"config" : 
+{"base_image" : "ubuntu",
+ "base_tag" : "jammy",
+ "need_special_tags" : {},
+
+ "builder_default_binaries_dir": "/tmp/runner_root_dir", 
+ "runner_binaries_dir" : "/",
+
+ "build_stages" : {
+ },
+
+ "commands" : {
+      "install_from_default_repos" : {
+          "file_path" : "/command_templates/apt-get.jinja",
+          "supported_parameters" : [
+                                 "gcc",
+                                 "make",
+                                 "cmake",
+                                 "g++",
+                                 "libboost-dev",
+                                 "ca-certificates",
+                                 "git"
+                                ]
+          }
+     },
+
+ "commands_order" : ["install_from_default_repos",
+                     "build_stages"
+                    ],
+ "unused_parameters_command" : "install_from_default_repos"
+
+}
+}
