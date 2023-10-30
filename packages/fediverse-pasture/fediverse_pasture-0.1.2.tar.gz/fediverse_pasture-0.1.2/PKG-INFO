@@ -1,0 +1,67 @@
+Metadata-Version: 2.1
+Name: fediverse-pasture
+Version: 0.1.2
+Summary: Helpful tools to test Fediverse Applications
+Home-page: https://codeberg.org/helge/funfedidev
+License: MIT
+Author: Helge
+Author-email: helge.krueger@gmail.com
+Requires-Python: >=3.11,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Provides-Extra: runner
+Requires-Dist: bovine (>=0.5.0,<0.6.0)
+Requires-Dist: click (>=8.1.7,<9.0.0)
+Requires-Dist: pydantic (>=2.3.0,<3.0.0)
+Requires-Dist: quart (>=0.19.3,<0.20.0)
+Requires-Dist: tomli-w (>=1.0.0,<2.0.0)
+Requires-Dist: tortoise-orm (>=0.20.0,<0.21.0) ; extra == "runner"
+Requires-Dist: uvicorn (>=0.23.2,<0.24.0)
+Project-URL: Documentation, https://funfedi.dev/fediverse_pasture/python_package/
+Project-URL: Repository, https://codeberg.org/helge/funfedidev
+Description-Content-Type: text/markdown
+
+# Fediverse Pasture
+
+This python package contains tools to test Fediverse applications. This
+package uses [bovine](https://bovine.readthedocs.io/en/latest/) for a lot
+of the Fediverse related logic. It should also be noted that the aim here
+is to debug issues caused by federation, thus everything involves starting
+a webserver and running requests against it.
+
+## Usage
+
+For usage information, see the [documentation](https://funfedi.dev/fediverse_pasture/python_package/).
+
+## Development
+
+Install the necessary dependencies via
+
+```bash
+poetry install --with test,dev --all-extras
+```
+
+To lint and check code formatting run
+
+```bash
+poetry run ruff check .
+poetry run ruff format .
+```
+
+To test the code run
+
+```bash
+poetry run pytest
+```
+
+## Funding
+
+This code was created as part of [Fediverse Test Framework](https://nlnet.nl/project/FediverseTestFramework/).
+
+A project funded through the [NGI0 Core](https://nlnet.nl/core) Fund,
+a fund established by [NLnet](https://nlnet.nl/) with financial support from
+the European Commission's [Next Generation Internet](https://ngi.eu/) programme,
+under the aegis of DG Communications Networks, Content and Technology
+under grant agreement No 101092990.
+
