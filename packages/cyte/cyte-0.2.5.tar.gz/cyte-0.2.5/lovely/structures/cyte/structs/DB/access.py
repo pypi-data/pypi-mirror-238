@@ -1,0 +1,32 @@
+
+
+'''
+Accessing the core DB:
+
+	import cyte.structs.DB.access as access
+	structs_db = access.DB ()
+'''
+
+'''
+Accessing another DB (replica, etc.):
+
+	import cyte.structs.DB.access as access
+	import cyte.structs.DB.PATH as structs_DB_PATH
+	structs_DB = access.DB (
+		PATH = structs_DB_PATH.find ()
+	)
+'''
+
+from tinydb import TinyDB, Query
+import cyte.structs.DB.PATH as structs_DB_PATH
+
+def DB (
+	PATH = structs_DB_PATH.find (),
+	sort_keys = True
+):
+	DB = TinyDB (
+		PATH, 
+		sort_keys = sort_keys
+	)
+	
+	return DB;

@@ -1,0 +1,193 @@
+
+
+
+
+
+
+
+
+
+COMBINED data {
+	"CODE": PRIMARY KEY,
+	
+	"NIH data": {},
+	
+	"form 2": {
+		"product name":	"Iron Free Vegan Multivitamin & Mineral Supplement",
+		"DSLD ID": 249664,
+		
+		"brand": {
+			"name":	"PlantFusion"
+		},
+		
+		#
+		#	form.unit:
+		#		if:
+		#			len (netContents) == 1 and
+		#			netContents[0]["unit"] == "Tablet(s)" and 
+		#			physicalState ["langualCodeDescription"] == "Tablet or Pill" and
+		#			len (servingSizes) == 1 and
+		#			servingSizes [0] ["unit"] == "Tablet(s)"
+		#		then:
+		#			unit = "Tablet"
+		#
+		#	form.quantity:
+		#		if:
+		#			len (netContents == 1)
+		#		then:
+		#			quantity = netContents[0].quantity
+		#		
+		#
+		"form": {
+			"unit": "Tablet",
+			"quantity": 90
+		},
+		
+
+		"defined": {
+			#
+			#	This is necessary for composition calculations,
+			#	but recommendations should be determined elsewhere.
+			#
+			#	if:
+			#		len (netContents)  == 1 and
+			#
+			#		import cyte.integer.STRING_IS_integer as STRING_IS_integer
+			#		STRING_IS_integer.CHECK (servingsPerContainer)
+			#
+			#		len (servingSizes) == 1
+			#
+			#		servingSizes [0].minQuantity == servingSizes[0].maxQuantity
+			#
+			#		netContents [0].quantity / int (servingsPerContainer) == servingSizes[0].maxQuantity
+			#
+			#	then:
+			#		"quantity" = servingSizes[0].maxQuantity
+			#		"quantity" = 3
+			#
+			"serving size": {
+				"quantity": 3
+			},
+		},
+		
+		
+		"ingredients": {
+			"quantified": [{
+				#
+				#	ingredient ['name']
+				#
+				"name": "Vitamin D3",
+				
+				#
+				#	amount:
+				#		if:
+				#			len (ingredient ["quantity"])  == 1
+				#			ingredient ["quantity"][0]["servingSizeQuantity"] == defined ["serving size"]["quantity"]
+				#			Fraction (form.quantity, ingredient ["quantity"][0]["servingSizeQuantity"]).denominator == 1
+				#
+				#		then:
+				#			amount = ingredient ["quantity"][0]["quantity"] / defined ["serving size"]["quantity"]
+				#			amount = 20 / 3
+				#			amount = 6.666666666666667
+				#
+				#	unit:
+				#		unit = ingredient ["quantity"][0]["unit"]
+				#
+				#	per:
+				#		form.unit
+				#
+
+				
+				"quantity per form": {
+					"form": form.unit,
+					"amount": "20/3",
+					"unit": "mcg"
+				},
+				
+				"quantity per package": {
+					"amount": "30",
+					"unit": "mcg"
+				},
+				
+				#
+				#	Fraction (20, 3) == Fraction (1000000, 150000)
+				#
+				"quantity per form, in grams": {
+					"form": "Tablet",
+					"amount": "1/150000",
+					"unit": "g"
+				},
+				"quantity per form, in grams, equation": {
+					"form": "Tablet",
+					"equation": [{
+						"fraction": [ 20, 3 ]
+					},{
+						"operator": "*"
+					},{
+						"fraction": [ 1, 1e6 ]
+					}],
+					"unit": "g"
+				},
+				"quantity per form, in grams, python3": {
+					"form": "Tablet",
+					
+					#
+					#	exec ("from fractions import Fraction; RETURNS = Fraction (20, 3) * (10 ** -6)")
+					#
+					"amount python3": "Fraction (20, 3) * (10 ** -6)",
+					"unit": "g"
+				},
+				"quantity per form, in grams, string": {
+					"form": "Tablet",
+					"amount string": "(20/3) * 10^-6",
+					"unit": "g"
+				}
+			},{
+				"name": "Vitamin K2",
+				
+				#
+				#	amount =  85 / 3
+				#	amount =  28.333333333333332	
+				#
+				"quantity per form": {
+					"form": "Tablet",
+					"amount": 28.333333333333332,
+					"unit": "mcg"
+				}
+			}],
+			"unquantified": [
+				{
+					#
+					#	otheringredients.ingredients [0].name
+					#
+					"name": "Cellulose"
+				}
+			]
+		},
+		
+		"energy of quantified ingredients": {
+			"caculated per package, ignoring IU": {
+				
+			} 
+		},
+		
+		
+		"mass of quantified ingredients": {
+			"caculated per package, ignoring IU, in grams": {
+				"system international": {
+					#
+					#	for each quantified ingredient,
+					#	add the "quantity per form"
+					#
+					"amount": (20 / 3) + (85 / 3)
+					
+					#
+					#	This is the system internation unit of mass,
+					#	therefore this is built in.
+					#
+					"unit": "gram"
+				}
+			} 
+		}
+	}
+}
