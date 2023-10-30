@@ -1,0 +1,101 @@
+{%- macro track_title(track) -%}
+{%- if track.artist %}{{ track.artist }}: {% endif -%}
+{%- if track.title -%}
+{{ track.title }}
+{%- else -%}
+(Track {{loop.index}})
+{%- endif -%}
+{%- endmacro -%}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{album.artist}}: {{album.title}}</title>
+        <link rel="stylesheet" href="player.css">
+        <script src="player.js">
+        </script>
+    </head>
+    <body>
+        <header>
+            <div class="title">
+                <h1><a href="{{album.album_url}}" target="_blank" rel="noopener">{{album.title}}</a></h1>
+                <h2>by <a href="{{album.artist_url}}" target="_blank" rel="noopener">{{album.artist}}</a></h2>
+            </div>
+            <div class="player">
+                <audio controls></audio>
+                <button id="previous"></button>
+                <button id="next"></button>
+            </div>
+            <div id="nowplaying"></div>
+            {{album.artwork|artwork_img(id="coverart")}}
+        </header>
+        <main>
+            <table id="tracklist">
+                {% for track in album.tracks %}
+                <tr class="track{% if track.filename %} file{%endif %}{% if track.explicit %} explicit{% endif %}">
+
+                    <td class="idx">{{loop.index}}.</td>
+
+                    <td class="title">
+                        {%- if track.filename -%}
+                        <a class="name" href="{{track.filename}}">{{ track_title(track) }}</a>
+                        {%- else -%}
+                        <span class="name">{{ track_title(track) }}</span>
+                        {%- endif -%}
+
+                        {%- if track.artwork -%}
+                        {{track.artwork|artwork_img}}
+                        {%- endif -%}
+                    </td>
+
+                    <td class="disclosure">
+                        {%- if track.lyrics -%}
+                        <button data-disclosure="lyrics_{{loop.index}}">lyrics</button>
+                        {%- endif -%}
+                    </td>
+
+                    <td class="disclosure">
+                        {%- if track.about -%}
+                        <button data-disclosure="about_{{loop.index}}">info</button>
+                        {%- endif -%}
+                    </td>
+
+                    <td class="duration">
+                        {%- if track.duration -%}
+                            <time datetime="{{track.duration|datetime}}">{{track.duration|timestamp}}</time>
+                        {%- endif -%}
+                    </td>
+                </tr>
+
+                <tr class="extinfo">
+                    <td></td>
+                    <td colspan=3>
+                        {% if track.lyrics %}
+                        <input type="checkbox" id="lyrics_{{loop.index}}">
+                        <figure>
+                            <figcaption>Lyrics</figcaption>
+                            <div>{{track.lyrics|lyrics}}</div>
+                        </figure>
+                        {% endif %}
+
+                        {% if track.about %}
+                        <input type="checkbox" id="about_{{loop.index}}">
+                        <figure>
+                            <figcaption>About this track</figcaption>
+                            <div>{{track.about|markdown}}</div>
+                        </figure>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </main>
+        <footer>
+            {% if footer_text %}
+            {{footer_text}}
+            {% else %}
+            Powered by <a href="https://github.com/fluffy-critter/camptown">Camptown</a>
+            {% endif %}
+        </footer>
+    </body>
+</html>
