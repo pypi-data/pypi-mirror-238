@@ -1,0 +1,119 @@
+# 说明：如下配置的索引均从0开始计数，第1列为0、第2列为1，依此类推
+environment: production
+
+# 花名册配置
+manifest:
+  # 花名册文件路径
+  source_file_path: 花名册.xls
+  common_manager_name: 公共客户经理
+  common_branch_name: 分行公共
+  # Sheet名称
+  sheet_name: Sheet1
+  sheet_config:
+    # 表头行索引
+    header_row: 0
+    # 经理姓名列索引
+    name_column: A
+    # 所属团队列索引
+    branch_column: B
+    # 账号列索引
+    account_column: C
+    # 户名列索引
+    account_name_column: D
+
+# 公司业务
+corporate:
+  # 生成的目标Excel文件存放路径
+  target_directory: ./
+  # 目标文件名称
+  target_filename: 广州分行公司业务数据分析.xlsx
+  # 生成的Excel中按客户经理汇总的Sheet的名称
+  target_manager_summary_sheet_name: 客户经理汇总
+  # 生成的Excel中按账户汇总的Sheet的名称
+  target_account_summary_sheet_name: 账户汇总
+  # 生成的Excel中按客户经理汇总的Sheet的名称
+  target_branch_summary_sheet_name: 机构汇总
+  # 经理存款统计
+  deposit:
+    # 明确客户经理
+    manager:
+      # 是否启用分析，True：分析，False：不分析
+      enabled: true
+      # 业务分类类型说明
+      business_type: 客户经理存款统计
+      # 经理明细数据文件路径
+      source_file_path: 经理明细.xlsx
+      # 机构过滤，只选择名称中以广州分行为开头的机构
+      branch_filter: 广州分行
+      # 科目过滤
+      category_filters:
+        - 单位结构性存款
+        - 单位大额协议存款
+      # Sheet名称
+      sheet_name: First
+      sheet_config:
+        # 表头行索引
+        header_row: 0
+        # 经理姓名
+        name_column: C
+        # 账号
+        account_column: D
+        # 账号机构
+        account_branch_column: E
+        # 科目名
+        category_column: G
+        # 需要统计的列的索引与输出列名对
+        value_column_pairs:
+          # 列索引：输出的列名
+          J: 分配存款（经理）
+          K: 分配时期数（经理）
+        # 源数据导出，所有需要导出列的索引列表
+        export_column_list: [all]
+    # 公共客户经理
+    common:
+      # 是否启用分析，True：分析，False：不分析
+      enabled: true
+      # 业务分类类型说明
+      business_type: 公共客户经理存款统计
+      # 经理明细数据文件路径
+      source_file_path: 公共明细.xlsx
+      # 机构过滤，只选择名称中以广州分行为开头的机构
+      branch_filter: 广州分行
+      # 科目过滤
+      category_filters:
+        - 单位结构性存款
+        - 单位大额协议存款
+      # Sheet名称
+      sheet_name: First
+      sheet_config:
+        # 表头行索引
+        header_row: 0
+        # 经理姓名
+        name_column: C
+        # 账号
+        account_column: D
+        # 账号机构
+        account_branch_column: E
+        # 科目名
+        category_column: G
+        # 需要统计的列的索引与输出列名对
+        value_column_pairs:
+          # 列索引：输出的列名
+          J: 分配存款（公共）
+          K: 分配时期数（公共）
+        # 源数据导出，所有需要导出列的索引列表
+        export_column_list: [all]
+  # 按机构汇总分析
+  branch_summary:
+    # 是否启用分析，True：分析，False：不分析
+    enabled: true
+    # 业务分类类型说明
+    business_type: 机构汇总
+    # 大类汇总
+    business_type_summary:
+      分配存款:
+        - 分配存款（经理）
+        - 分配存款（公共）
+      分配时期数:
+        - 分配时期数（经理）
+        - 分配时期数（公共）
