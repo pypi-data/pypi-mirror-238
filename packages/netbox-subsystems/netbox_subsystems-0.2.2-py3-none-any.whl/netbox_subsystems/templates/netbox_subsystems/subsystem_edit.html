@@ -1,0 +1,44 @@
+{% extends 'generic/object_edit.html' %}
+{% load static %}
+{% load form_helpers %}
+{% load helpers %}
+
+{% block form %}
+    <div class="field-group my-5">
+      {% render_field form.name %}
+      {% render_field form.description %}
+      {% render_field form.slug %}
+      <div class="field-group my-1">
+        {% render_field form.system %}
+        {% render_field form.parent %}
+        {% render_field form.security_id %}
+        {% render_field form.gitlab %}
+        {% render_field form.wiki %}
+        {% render_field form.comm_date %}
+        {% render_field form.com_order %}
+        {% render_field form.confidential_info %}
+        {% render_field form.critical_level %}
+        {% render_field form.pers_data_category %}
+        {% render_field form.technologies %}
+        {% render_field form.dev_technologies %}
+        {% render_field form.is_box_solution %}
+        {% render_field form.is_otsrc_sys %}
+        {% render_field form.is_otsrc_sup %}
+        {% render_field form.is_otsrc_adm %}
+        {% render_field form.is_internet %}
+        {% render_field form.is_able_eirjs %}
+        {% render_field form.is_able_api %}
+        {% render_field form.is_api_internet %}
+        {% render_field form.is_cont_access %}
+        {% render_field form.is_conf_info %}
+        <div class="field-group my-5">
+            <div class="row mb-2">
+              <h5 class="text-center">Комментарии</h5>
+            </div>
+            {% render_field form.comments %}
+        </div>
+
+        {% render_field form.tags %}
+      </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% load helpers %}
+
+<div class="card">
+  <h5 class="card-header">
+      Группы систем
+  </h5>
+  <div class="card-body">
+    {% if systemgroups %}
+        <table class="table table-hover">
+            <tr>
+                <th>Название</th>
+                <th>В составе группы</th>
+                <th></th>
+            </tr>
+            {% for system in systems %}
+            <tr>
+                <td>
+                      {{ system.name }}
+                </td>
+                <td>{{ system.parent }}</td>
+                <td class="text-end noprint">
+                    <a href="{% url 'plugins:netbox_subsystems:systemgroup' pk=system.pk %}" class="btn btn-primary btn-sm lh-1" title="Просмотреть">
+                        <i class="mdi mdi-book" aria-hidden="true"></i>
+                      </a>
+                      <a href="{% url 'plugins:netbox_subsystems:systemgroup_edit' pk=system.pk %}?return_url={% url 'tenancy:tenant' pk=object.pk %}" class="btn btn-warning btn-sm lh-1" title="Редактировать">
+                        <i class="mdi mdi-pencil" aria-hidden="true"></i>
+                      </a>
+                      <a href="{% url 'plugins:netbox_subsystems:systemgroup_delete' pk=system.pk %}?return_url={% url 'tenancy:tenant' pk=object.pk %}" class="btn btn-danger btn-sm lh-1" title="Удалить">
+                        <i class="mdi mdi-trash-can-outline" aria-hidden="true"></i>
+                      </a>
+                  </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+    <div class="text-muted">
+        Нет
+    </div>
+    {% endif %}
+  </div>
+  <div class="card-footer text-end noprint">
+      <a href="{% url 'plugins:netbox_subsystems:systemgroup_add' %}?tenant={{ object.pk }}&return_url={% url 'tenancy:tenant' pk=object.pk %}" class="btn btn-primary btn-sm">
+          <i class="mdi mdi-plus-thick" aria-hidden="true"></i>
+          Создать подсистему
+      </a>
+  </div>
+
+</div>

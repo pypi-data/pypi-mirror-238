@@ -1,0 +1,47 @@
+{% extends 'generic/object.html' %}
+{% load helpers %}
+{% block content %}
+<div class="row mb-3">
+  <div class="col col-md-6">
+    <div class="card">
+      <h5 class="card-header">Подсистема</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Название</th>
+              <td>{{ object.name|placeholder }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Родительская группа</th>
+              <td>{{ object.parent|linkify|placeholder }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Короткое именование</th>
+              <td>{{ object.slug|placeholder }}</td>
+            </tr>
+            <tr>
+              <td>Описание</td>
+              <td>{{ object.description|placeholder }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% include 'inc/panels/tags.html' %}
+    </div>
+  <div class="col col-md-6">
+    {% include 'inc/panels/related_objects.html' %}
+    {% include 'inc/panels/custom_fields.html' %}
+  </div>
+  <div class="row mb-3">
+    <div class="col col-md-12">
+      <div class="card">
+        <h5 class="card-header">Подгруппы</h5>
+        <div class="card-body htmx-container table-responsive"
+          hx-get="{% url 'plugins:netbox_subsystems:systemgroup_list' %}?parent_id={{ object.pk }}"
+          hx-trigger="load">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
