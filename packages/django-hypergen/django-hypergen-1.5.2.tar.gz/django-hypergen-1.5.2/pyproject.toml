@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[tool.pyright]
+include = ["src", "examples"]
+exclude = [
+    "experiments",
+    "**/__pycache__",
+]
+venvPath ="~/.bender_venvs"
+venv = "hypergen"
+extraPaths = [
+    "/home/r/.bender_venvs/hypergen/lib/python3.9/site-packages/"
+]
+
+verboseOutput = true
+reportMissingImports = true
+reportMissingTypeStubs = true
+
+pythonVersion = "3.9"
+pythonPlatform = "Linux"
