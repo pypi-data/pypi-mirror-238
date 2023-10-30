@@ -1,0 +1,35 @@
+[project]
+name = "setuptools-ziglang"
+version = "0.0.4a"
+description = "Setuptools extension for building Python extensions with the Zig compiler"
+readme = {file = "README.md", content-type = "text/markdown"}
+license = {file = "LICENSE"}
+requires-python = ">=3.7"
+authors = [
+  {name = "February Cozzocrea", email = "february.cozzocrea@gmail.com"},
+]
+keywords = ["zig", "ziglang", "setuptools", "extension"]
+classifiers = [ 
+  "License :: OSI Approved :: MIT License",
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 2.7",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+
+[project.urls]
+Repository = "https://github.com/f-cozzocrea/setuptools-ziglang"
+Issues = "https://github.com/f-cozzocrea/setuptools-ziglang/issues"
+
+[build-system]
+requires = ["setuptools", "wheel", "ziglang"]
+build-backend = "setuptools.build_meta"
+
