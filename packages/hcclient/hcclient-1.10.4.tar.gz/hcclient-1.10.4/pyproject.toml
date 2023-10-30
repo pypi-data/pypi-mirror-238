@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "hcclient"
+version = "v1.10.4"
+description = "A terminal client for connecting to hack.chat"
+
+license = "Unlicense"
+
+authors = [
+    "AnnikaV9 <carrot.moncher@gmail.com>"
+]
+
+repository = "https://github.com/AnnikaV9/hcclient"
+homepage = "https://github.com/AnnikaV9/hcclient"
+
+# README file(s) are used as the package description
+readme = ["README.md", "LICENSE"]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+colorama = "0.4.6"
+jeepney = "0.8.0"
+loguru = "0.6.0"
+notify-py = "0.3.42"
+prompt-toolkit = "3.0.39"
+termcolor = "2.3.0"
+websocket-client = "1.5.3"
+wsaccel = "0.6.6"
+python-socks = "2.4.3"
+PyYAML = "6.0.1"
+
+[tool.poetry.scripts]
+hcclient = "hcclient.__main__:main"
