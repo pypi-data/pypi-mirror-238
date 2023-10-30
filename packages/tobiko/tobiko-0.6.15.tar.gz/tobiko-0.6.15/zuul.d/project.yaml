@@ -1,0 +1,51 @@
+- project:
+    templates:
+      - ansible-role-jobs
+      - build-openstack-docs-pti
+      - build-release-notes-jobs-python3
+      - check-requirements
+      - openstack-cover-jobs
+      - publish-to-pypi
+    check:
+      jobs:
+        # NOTE(slaweq): this UT job is from the openstack-python3-train-jobs
+        # template but we don't need to run py37 job and this is also in that
+        # template
+        - openstack-tox-py36
+        - devstack-tobiko-functional:
+            # NOTE(slaweq): OSP-16.2 is based on the stable/train but some
+            # projects, like e.g. Nova already EOL'ed stable/train so lets use
+            # stable/wallaby here instead
+            override-checkout: stable/wallaby
+            nodeset: openstack-single-node-focal
+            vars:
+              devstack_localrc:
+                USE_PYTHON3: true
+        - devstack-tobiko-sanity:
+            # NOTE(slaweq): OSP-16.2 is based on the stable/train but some
+            # projects, like e.g. Nova already EOL'ed stable/train so lets use
+            # stable/wallaby here instead
+            override-checkout: stable/wallaby
+            nodeset: openstack-single-node-focal
+            vars:
+              devstack_localrc:
+                USE_PYTHON3: true
+    gate:
+      jobs:
+        # NOTE(slaweq): this UT job is from the openstack-python3-train-jobs
+        # template but we don't need to run py37 job and this is also in that
+        # template
+        - openstack-tox-py36
+    periodic:
+      jobs:
+        - requirements-check:
+            voting: true
+    post:
+      jobs:
+        - tobiko-upload-git-mirror
+    release:
+      jobs:
+        - tobiko-upload-git-mirror
+    pre-release:
+      jobs:
+        - tobiko-upload-git-mirror
