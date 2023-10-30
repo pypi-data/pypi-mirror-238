@@ -1,0 +1,23 @@
+<div id="detail-pagination" class="field has-addons" style="width: 100%">
+    <p class="control">
+        <button class="button"
+                hx-get="{{ previous_object_url }}{{ querystring }}"
+                hx-replace-url="true"
+                hx-select-oob="#content,#detail-pagination,#panel-actions,#breadcrumbs"
+        ><
+        </button>
+
+    </p>
+    <p class="control is-expanded">
+        <button class="button is-fullwidth px-1" style="white-space: normal">
+            <span class="{% if total_objects > 99999 %}is-size-7{% endif %}">{{ current_object_idx }} / {{ total_objects }}</span>
+        </button>
+    </p>
+    <p class="control">
+        <button class="button" hx-get="{{ next_object_url }}{{ querystring }}"
+                hx-replace-url="true"
+                hx-select-oob="#content,#detail-pagination,#panel-actions,#breadcrumbs"
+        >>
+        </button>
+    </p>
+</div>
