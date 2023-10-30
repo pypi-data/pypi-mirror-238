@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "deltascf-aims"
+version = "0.6.0"
+description = "Application to test calculation of core holes in FHI-aims"
+authors = ["Dylan Morgan <dylan.morgan@warwick.ac.uk>"]
+readme = "README.md"
+packages = [{ include = "delta_scf" }]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "^1.24.1"
+pyyaml = "^6.0"
+click = "^8.1.6"
+ase = "^3.22.1"
+matplotlib = "^3.6.2"
+pytest = "^7.4.0"
+
+[tool.poetry.scripts]
+deltascf = 'delta_scf.cli:cli'
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
