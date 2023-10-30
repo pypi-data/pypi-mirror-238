@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: dobles
+Version: 2.0.0
+Summary: Test dobles for Python.
+Home-page: https://github.com/smartfastlabs/dobles
+License: MIT
+Keywords: testing,test dobles,mocks,mocking,stubs,stubbing
+Author: Jimmy Cuadra
+Author-email: jimmy@uber.com
+Maintainer: Todd Sifleet
+Maintainer-email: todd@smartfast.com
+Requires-Python: >=3.9,<4.0
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: Software Development :: Testing
+Project-URL: Repository, https://github.com/smartfastlabs/dobles
+Description-Content-Type: text/x-rst
+
+dobles
+=======
+
+**Fork of https://www.github.com/uber/doubles with support for python 3.8+**
+
+.. image:: https://badge.fury.io/py/dobles.svg
+    :target: http://badge.fury.io/py/dobles
+
+.. image:: https://travis-ci.org/smartfastlabs/dobles.svg?branch=master
+    :target: https://travis-ci.org/smartfastlabs/dobles
+
+.. image:: https://readthedocs.org/projects/dobles/badge/?version=latest
+    :target: https://dobles.readthedocs.io/en/latest/?badge=latest
+
+.. image:: https://coveralls.io/repos/github/smartfastlabs/dobles/badge.svg?branch=master
+    :target: https://coveralls.io/github/smartfastlabs/dobles?branch=master
+
+**dobles** is a Python package that provides test doubles for use in automated tests. 
+
+It provides functionality for stubbing, mocking, and verification of test doubles against the real objects they double.
+In contrast to the Mock package, it provides a clear, expressive syntax and better safety guarantees to prevent API
+drift and to improve confidence in tests using dobles. It comes with drop-in support for test suites run by Pytest or standard unittest.
+
+
+Documentation
+-------------
+
+Documentation is available at http://dobles.readthedocs.org/en/latest/.
+
+Development
+-----------
+
+Source code is available at https://github.com/smartfastlabs/dobles.
+
+To install the dependencies on a fresh clone of the repository, run ``make bootstrap``.
+
+To run the test suite, run ``make test``.
+
+To build the documentation locally, run ``make docs``.
+
+License
+-------
+
+MIT: http://opensource.org/licenses/MIT
+
