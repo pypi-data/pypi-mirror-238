@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "jupyter-formily"
+version = "0.0.5"
+description = "Integrates fomily to jupyter notebook, which base on anywidget"
+authors = ["zllin <mark@xmu.edu.cn>"]
+readme = "README.md"
+packages = [{include = "jupyter_formily"}]
+include = ["vendor/formily/dist/*.js", "vendor/formily/dist/*.css"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+anywidget = {extras = ["dev"], version = "0.7.0"}
+
+
+[[tool.poetry.source]]
+name = "ustc"
+url = "https://mirrors.aliyun.com/pypi/simple/"
+priority = "default"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
