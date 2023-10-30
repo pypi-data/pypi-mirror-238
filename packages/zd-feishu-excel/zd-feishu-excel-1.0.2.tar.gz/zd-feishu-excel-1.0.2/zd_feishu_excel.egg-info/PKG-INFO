@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: zd-feishu-excel
+Version: 1.0.2
+Summary: My short description for my project.
+Home-page: https://github.com/me/myproject
+Author: zhidonglv
+Author-email: 2907872121@qq.com
+License: MIT
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.6.0
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+
+1. 使用前需要先在飞书上创建一个应用，申请好权限，获得 appid， secret
+2. 拉一个只有自己的群，把应用机器人添加进去
+3. 把要编辑的飞书excel表发到群里
+4. 把 excel 的权限设置为对群成员可编辑
+5. 从 excel 表的链接中获得 ss_token 
+   如：https://aozalj10qx.feishu.cn/sheets/xxxxxxxx
+
+```shell
+# 源码安装
+rm -rf ./build # 删除原来的
+python3 setup.py install
+```
+
+```shell
+# pip 安装
+pip install zd-feishu-excel -i https://pypi.org/simple
+```
+
+```shell
+# 发布包
+python3 setup.py upload
+```
