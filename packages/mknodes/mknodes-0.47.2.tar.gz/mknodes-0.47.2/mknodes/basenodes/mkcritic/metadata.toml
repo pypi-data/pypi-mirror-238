@@ -1,0 +1,29 @@
+[metadata]
+icon = "mdi:format-text"
+name = "MkCritic"
+
+[requirements.extension."pymdownx.critic"]
+
+[examples.addition]
+title = "Addition"
+jinja = """
+{{ "Type `addition`" | MkCritic(typ="addition") }}
+"""
+
+[examples.deletion]
+title = "Deletion"
+jinja = """
+{{ "Type `deletion`" | MkCritic(typ="deletion") }}
+"""
+
+[examples.highlight]
+title = "Highlight"
+jinja = """
+{{ "Type `highlight`" | MkCritic(typ="highlight") }}
+"""
+
+[examples.comment]
+title = "Comment"
+jinja = """
+{{ "Type `comment`" | MkCritic(typ="comment") }}
+"""
