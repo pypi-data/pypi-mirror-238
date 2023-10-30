@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}{{super()}}| {{title}} {% endblock %}
+{% block content %}
+    {% include "components/page_title.html" %}
+    {% for post in pages %}
+        <div class="microblog-post"> 
+            {{ post.content }}
+            <p id="microblog-post-metadata">on {{ post.date }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
