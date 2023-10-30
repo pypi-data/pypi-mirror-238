@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: cutetext
+Version: 0.0.3
+Summary: Package to convert text to fanct text types
+Project-URL: Homepage, https://github.com/niranjanneeru/cute-text
+Project-URL: Bug Tracker, https://github.com/niranjanneeru/cute-text/issues
+Project-URL: Source, https://github.com/niranjanneeru/cute-text
+Author-email: Niranjan B <niranjannb7777@gmail.com>
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7
+Provides-Extra: tests
+Requires-Dist: pytest; extra == 'tests'
+Requires-Dist: pytest-cov; extra == 'tests'
+Description-Content-Type: text/markdown
+
+# Cute Text
+
+Text Converter - Can be used with chat bots
+
+1. Convert to Tiny Text
+    
+    Hello World! - ᴴᵉᶫᶫᵒ ᵂᵒʳᶫᵈ﹗
+2. Bubble Text
+
+    Hello World! - ⓗⓔⓛⓛⓞ ⓦⓞⓡⓛⓓ!
+3. Black Bubble Text
+
+    Hello World! - 🅗🅔🅛🅛🅞 🅦🅞🅡🅛🅓!
+4. Cursive Text
+
+    Hello World! - ℋℯ𝓁𝓁ℴ 𝒲ℴ𝓇𝓁𝒹!
+5. Double Struck Text
+
+    Hello World! - ℍ𝕖𝕝𝕝𝕠 𝕎𝕠𝕣𝕝𝕕!
+
+## Installation
+
+```bash
+pip install cutetext
+```
+
+## Documentation
+
+```python
+from cutetext import CuteTextConverter
+from cutetext import TINY_TEXT, BUBBLE_TEXT, BLACK_BUBBLE_TEXT, CURSIVE_TEXT, DOUBLE_STRUCK_TEXT
+
+print(CuteTextConverter().convert("Hello World!", TINY_TEXT))
+print(CuteTextConverter().convert("Hello World!", BUBBLE_TEXT))
+print(CuteTextConverter().convert("Hello World!", BLACK_BUBBLE_TEXT))
+print(CuteTextConverter().convert("Hello World!", CURSIVE_TEXT))
+print(CuteTextConverter().convert("Hello World!", DOUBLE_STRUCK_TEXT))
+```
