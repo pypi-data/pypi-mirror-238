@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+      {system_name} Был получен запрос на сброс пароля
+  </title>
+  <style>
+    .reset-button {{
+      background-color: grey;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 5px;
+    }}
+  </style>
+</head>
+<body>
+  <p>Привет, {name},</p>
+  <p>Мы заметили, что у вас возникли проблемы с доступом к учетной записи из-за забытого пароля.</p>
+  <p>Был получен запрос на сброс пароля, связанного с вашей учетной записью.</p>
+  
+  <p>Чтобы продолжить процесс сброса пароля, просто нажмите на кнопку ниже:</p>
+  <a href="https://devint.alif.tj/login/newpassword/{code}" class="reset-button">Сбросить пароль</a>
+  <p>Если кнопка не работает, вы можете вручную скопировать и вставить следующий URL в адресную строку вашего веб-браузера:</p>
+  <p>https://devint.alif.tj/login/newpassword/{code}</p>
+  
+  <p>С наилучшими пожеланиями,</p>
+  <p>Команда AlifTech</p>
+</body>
+</html>
+
