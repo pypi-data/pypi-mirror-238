@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "myChemTools"
+version = "0.1"
+description = "A package for building t5-antifungal website"
+authors = ["Yao-Chung Chen"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+
+[build-system]
+requires = ["poetry-core", "flit_core >=3.2, <4"]
+build-backend = ["poetry.core.masonry.api", "flit_core.buildapi"]
+
+[tool.pytest.ini_options]
+pythonpath = [
+    ".", "src",
+]
