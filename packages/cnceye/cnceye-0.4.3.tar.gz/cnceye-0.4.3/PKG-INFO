@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: cnceye
+Version: 0.4.3
+Summary: CMM python library
+Home-page: https://github.com/OpenCMM/cnceye
+License: MIT
+Keywords: cnc,cmm,milling,gcode
+Author: yuichiroaoki
+Author-email: 45054071+yuichiroaoki@users.noreply.github.com
+Requires-Python: >=3.11,<3.13
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: mysql-connector-python (>=8.1.0,<9.0.0)
+Project-URL: Repository, https://github.com/OpenCMM/cnceye
+Description-Content-Type: text/markdown
+
+# cnceye
+![Test](https://github.com/OpenCMM/cnceye/actions/workflows/ci.yml/badge.svg)
+
+cnceye measures the dimensions of a workpiece using the a laser triagulation sensor on a CNC machine.
+
+![a laser triagulation sensor](https://opencmm.xyz/assets/images/sensor-55b7cf98350f293eba2c2b9d593bdd4f.png)
+
+## Simulation with Blender
+Create test data
+
+Prerequisites 
+- Blender 3.6.1 or later
+
+```bash
+blender "blender/measure.blend" --background --python scripts/demo.py -- tests/fixtures/gcode/edge.gcode
+```
