@@ -1,0 +1,19 @@
+large-image>=1.25.1.dev72
+
+[:python_version < "3.8"]
+importlib-metadata<5
+
+[all]
+pillow-heif
+
+[all:python_version < "3.12"]
+pillow-jpls
+
+[all:python_version >= "3.7" and python_version < "3.12"]
+rawpy
+
+[all:python_version >= "3.8"]
+pillow-jxl-plugin
+
+[girder]
+girder-large-image>=1.25.1.dev72
