@@ -1,0 +1,64 @@
+Metadata-Version: 2.1
+Name: deltascf-aims
+Version: 0.6.0
+Summary: Application to test calculation of core holes in FHI-aims
+Author: Dylan Morgan
+Author-email: dylan.morgan@warwick.ac.uk
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: ase (>=3.22.1,<4.0.0)
+Requires-Dist: click (>=8.1.6,<9.0.0)
+Requires-Dist: matplotlib (>=3.6.2,<4.0.0)
+Requires-Dist: numpy (>=1.24.1,<2.0.0)
+Requires-Dist: pytest (>=7.4.0,<8.0.0)
+Requires-Dist: pyyaml (>=6.0,<7.0)
+Description-Content-Type: text/markdown
+
+# deltaSCF-aims
+
+An application to test the development of core level spectroscopy simulation methods in FHI-aims
+
+[![Python Package](https://github.com/maurergroup/deltascf-aims/actions/workflows/python-package.yml/badge.svg)](https://github.com/maurergroup/deltascf-aims/actions/workflows/python-package.yml)
+[![Dependency Review](https://github.com/maurergroup/deltascf-aims/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/maurergroup/deltascf-aims/actions/workflows/dependency-review.yml)
+
+## Installation
+
+Setup of a virtual environment is automated using poetry. Ensure poetry is installed with:
+
+```shell
+pip install poetry
+```
+
+It is recommended to use [pyenv](https://github.com/pyenv/pyenv) to manage the local python version, however this is not essential. If this is desired, then simply install and set the local python version. You should also tell poetry the environment you wish to use to create a virtual environment:
+
+```shell
+pyenv install 3.11.1
+pyenv local 3.11.1
+poetry env use 3.11
+```
+
+Then install the virtual environment:
+
+```shell
+poetry install
+```
+
+It is also necessary to have a compiled FHI-aims binary. The location needs to be specified and is then saved by the application. If you wish to change the binary name/location, simply invoke the app with the `-b` option.
+
+## Usage
+
+The click library has been used to parse command line arguments. To view all the options, firstly enter the poetry shell and run deltascf with the help flag:
+
+```shell
+poetry shell
+deltascf --help
+```
+
+If you do not wish to enter the shell, deltascf can also be run in a single command
+
+`poetry run deltascf --help`
+
