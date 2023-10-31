@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="6" time="8.010" timestamp="2023-10-30T12:04:43.936638" hostname="OLI-OMEN"><testcase classname="bumpversion" name="FLAKE8" time="0.049" /><testcase classname="src.pyconverters_speech.__init__" name="FLAKE8" time="0.026" /><testcase classname="src.pyconverters_speech.speech" name="FLAKE8" time="0.051" /><testcase classname="tests.test_speech" name="FLAKE8" time="0.036" /><testcase classname="tests.test_speech" name="test_speech_wav" time="1.601"><failure message="AttributeError: 'generator' object has no attribute 'pop'">def test_speech_wav():
+        model = SpeechConverter.get_model()
+        model_class = model.construct().__class__
+        assert model_class == SpeechParameters
+        converter = SpeechConverter()
+        parameters = SpeechParameters()
+        testdir = Path(__file__).parent
+        source = Path(testdir, 'data/2.wav')
+        with source.open("rb") as fin:
+&gt;           docs: List[Document] = converter.convert(UploadFile(source.name, fin, 'audio/wav'), parameters)
+
+tests/test_speech.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py38/lib/python3.8/site-packages/pyconverters_speech/speech.py:66: in convert
+    result = run_single(p, inputs)
+.tox/py38/lib/python3.8/site-packages/pyconverters_speech/speech.py:98: in run_single
+    model_outputs = p.forward(model_inputs)
+.tox/py38/lib/python3.8/site-packages/transformers/pipelines/base.py:990: in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;transformers.pipelines.automatic_speech_recognition.AutomaticSpeechRecognitionPipeline object at 0x7f3797af1370&gt;, model_inputs = &lt;generator object AutomaticSpeechRecognitionPipeline.preprocess at 0x7f37972c5c80&gt;
+
+    def _forward(self, model_inputs):
+&gt;       is_last = model_inputs.pop("is_last")
+E       AttributeError: 'generator' object has no attribute 'pop'
+
+.tox/py38/lib/python3.8/site-packages/transformers/pipelines/automatic_speech_recognition.py:349: AttributeError</failure></testcase><testcase classname="tests.test_speech" name="test_speech_webm" time="4.994"><failure message="KeyError: 'is_last'">def test_speech_webm():
+        model = SpeechConverter.get_model()
+        model_class = model.construct().__class__
+        assert model_class == SpeechParameters
+        converter = SpeechConverter()
+        parameters = SpeechParameters(model=TrfModel.wav2vec2_large_fr_voxpopuli_french)
+        testdir = Path(__file__).parent
+        source = Path(testdir, 'data/ae26ccf4-ea2b-4bc7-b112-9bdb00931577.webm')
+        with source.open("rb") as fin:
+&gt;           docs: List[Document] = converter.convert(UploadFile(source.name, fin, 'audio/webm'), parameters)
+
+tests/test_speech.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.tox/py38/lib/python3.8/site-packages/pyconverters_speech/speech.py:66: in convert
+    result = run_single(p, inputs)
+.tox/py38/lib/python3.8/site-packages/pyconverters_speech/speech.py:98: in run_single
+    model_outputs = p.forward(model_inputs)
+.tox/py38/lib/python3.8/site-packages/transformers/pipelines/base.py:990: in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+.tox/py38/lib/python3.8/site-packages/transformers/pipelines/automatic_speech_recognition.py:349: in _forward
+    is_last = model_inputs.pop("is_last")
+../../../.pyenv/versions/3.8.2/lib/python3.8/_collections_abc.py:795: in pop
+    value = self[key]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = {'input_values': tensor([[0.0007, 0.0007, 0.0007,  ..., 0.0039, 0.0011, 0.0014]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1]], dtype=torch.int32)}, key = 'is_last'
+
+    def __getitem__(self, key):
+        if key in self.data:
+            return self.data[key]
+        if hasattr(self.__class__, "__missing__"):
+            return self.__class__.__missing__(self, key)
+&gt;       raise KeyError(key)
+E       KeyError: 'is_last'
+
+../../../.pyenv/versions/3.8.2/lib/python3.8/collections/__init__.py:1003: KeyError</failure></testcase></testsuite></testsuites>
