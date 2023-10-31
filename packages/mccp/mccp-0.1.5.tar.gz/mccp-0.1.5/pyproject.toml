@@ -1,0 +1,31 @@
+[project]
+name = "mccp"
+version = "0.1.5"
+
+authors = [
+    { name = "wlinds", email = "w.lindstedt@gmail.com" },
+    { name = "Rufshod", email = "alexander@11a.se" }
+]
+
+description = "A Python package designed for capturing images from multiple cameras simultaneously. MCCP simplifies the process of data collection for machine learning models and setting up computer vision applications."
+
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+
+dependencies = ["opencv-python", "numpy", "pytest >= 3"]
+
+[project.urls]
+"Homepage" = "https://github.com/wlinds/mccp"
+"Bug Tracker" = "https://github.com/wlinds/mccp/issues"
+
+[build-system]
+requires = ["setuptools >= 61.0.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
