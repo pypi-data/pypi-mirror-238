@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pynumcalc"
+version = "0.1.0"
+description = "A Python package for numerical differential and integral calculus approximations."
+readme = "README.md"
+authors = [ { name = "Jacob Lee", email = "Jacob.J.Lee@outlook.com" } ]
+license = { file = "LICENSE" }
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+requires-python = ">=3.6"
+dependencies = []
+
+[project.urls]
+homepage = "https://github.com/JacobLee23/pynumcalc"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pynumcalc*"]
+exclude = ["pynumcalc.docs*"]
