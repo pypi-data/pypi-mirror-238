@@ -1,0 +1,19 @@
+
+{% if product.logo %}
+    <a href="{{ images.0.file.url }}"
+       data-fancybox="product-{{ product.pk }}">
+        <img src="{{ product.logo.url }}"
+             width="70" />
+    </a>
+    <div class="hidden">
+        {% for image in images|slice:'1:' %}
+            <a href="{{ image.file.url }}"
+               data-fancybox="product-{{ product.pk }}">
+                <img src="{{ image.file.url }}"
+                     width="70" />
+            </a>
+        {% endfor %}
+    </div>
+{% else %}
+    <img src="/static/img/no-image.png" style="max-width: 70px" />
+{% endif %}
