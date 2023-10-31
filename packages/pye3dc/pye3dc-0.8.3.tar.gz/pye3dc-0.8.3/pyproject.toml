@@ -1,0 +1,22 @@
+[tool.black]
+target-version = ['py38','py39','py310','py311','py312']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.pylint.messages_control]
+disable = "C0330, C0326"
+
+[tool.pyright]
+ignore = ["tools/*", "build/*", "dist/*", ".venv/*"]
+typeCheckingMode = "strict"
+reportUnknownVariableType = "warning"
+reportUnknownArgumentType = "warning"
+reportUnknownMemberType = "warning"
+reportUnknownParameterType = "warning"
