@@ -1,0 +1,64 @@
+Metadata-Version: 2.1
+Name: glvrd
+Version: 0.0.1
+Summary: Клиент к сервису glvrd.ru
+Author-email: Evgeniy Blinov <zheni-b@yandex.ru>
+Project-URL: Source, https://github.com/pomponchik/glvrd
+Classifier: Operating System :: OS Independent
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pageo ==0.2.0
+Requires-Dist: requests ==2.31.0
+Requires-Dist: webdriver-manager ==4.0.1
+
+# glvrd - неофициальный клиент к сервису glvrd.ru
+
+Это неофициальный и не production-ready клиент для замечательного сервиса проверки текстов - glvrd.ru. Работает в обход API, так что на особую скорость советую не расчитывать.
+
+Устанавливается так:
+
+```bash
+pip install glvrd
+```
+
+Пример кода:
+
+```python
+from glvrd import GlvrdClient
+
+client = GlvrdClient()
+text = 'Это неофициальный и не production-ready клиент для замечательного сервиса проверки текстов - glvrd.ru. Работает в обход API, так что на особую скорость советую не расчитывать.'
+estimate = client.estimate(text)
+
+print(estimate.estimate)
+for error_name, examples in estimate.errors.items():
+  print(f'{error_name}:')
+  for example in examples:
+    print(f'\t{example}')
+```
+
+... выдаст что-то вроде:
+
+```
+8.1
+Необъективная оценка:
+	замечательного
+Усилитель:
+	особую
+```
