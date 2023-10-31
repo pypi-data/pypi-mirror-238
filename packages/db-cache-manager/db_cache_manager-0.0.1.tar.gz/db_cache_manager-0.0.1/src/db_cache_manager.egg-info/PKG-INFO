@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: db-cache-manager
+Version: 0.0.1
+Summary: Custom database connector and cache manager with default support for fingerprinting and fingerprint lookups, DAG-like chains of identical rows, and cache tables that reference each other.
+Author-email: Ramtin Yazdanian <ramtin.yazdanian@epfl.ch>, Aitor Pérez <aitor.perez@epfl.ch>
+Project-URL: Homepage, https://github.com/epflgraph/db-cache-manager
+Project-URL: Bug Tracker, https://github.com/epflgraph/db-cache-manager/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas
+Requires-Dist: mysql-connector-python
+
+# DB and Cache Manager
+
+This package consists of a database connector class and an abstract cache manager class, which can be used to perform database operations and caching of computed results in a user-friendly way and with support for fingerprinting and automatic lookup of similar elements in the cache.
