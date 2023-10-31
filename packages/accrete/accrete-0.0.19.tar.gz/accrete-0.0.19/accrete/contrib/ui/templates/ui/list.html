@@ -1,0 +1,22 @@
+{% extends 'ui/layout.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block script %}
+    {{ block.super }}
+    <script src="{% static "js/filter.js" %}" defer type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="columns is-multiline">
+        {% for obj in page %}
+            <div class="column is-{{ column_width }}">
+                <div class="box p-2 pb-4 mb-1" style="word-break: break-word; height: 100%; border: solid #ccc 1px">
+                    {% block object_data %}
+                        {{ obj }}
+                    {% endblock %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
