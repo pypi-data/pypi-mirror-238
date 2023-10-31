@@ -1,0 +1,23 @@
+name: "Release gdrive-datastore"
+on:
+  workflow_dispatch:
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      REPO_OWNER: ${{ github.repository_owner}}
+      REPO_BRANCH: ${{ github.ref_name }}
+      SERVICE_ACCOUNT_KEY_JSON: ${{ secrets.SERVICE_ACCOUNT_KEY_JSON }}
+      GDRIVE_FOLDER: ${{ vars.GDRIVE_FOLDER }}
+      PYPIRC: ${{ secrets.PYPIRC }}
+    steps:
+    - uses: actions/checkout@v3
+    - run: "python -m pip install -r requirements.txt"
+    - run: "python -m pip install ."
+    - run: "pytest tests"
+    - run: 'echo "$PYPIRC" > ~/.pypirc'
+    - run: "python -m build"
+    - run: "python -m twine upload --repository testpypi dist/*"
+    - run: "python -m twine upload dist/*"
+
+
