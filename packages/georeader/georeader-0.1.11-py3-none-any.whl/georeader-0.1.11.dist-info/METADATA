@@ -1,0 +1,108 @@
+Metadata-Version: 2.1
+Name: georeader
+Version: 0.1.11
+Summary: Module for reading spatial data files and services
+Home-page: https://github.com/Improvement-Service/georeader
+Author: Nathan Atkinson
+Author-email: N00dlnate@gmail.com
+License: MIT
+Keywords: geo development
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: wheel
+Requires-Dist: requests
+Requires-Dist: pandas (>=1.4.3)
+Requires-Dist: shapely (<2,>=1.7)
+Requires-Dist: fiona (>=1.8.2)
+Requires-Dist: python-magic (>=0.4.27)
+Requires-Dist: python-magic-bin (>=0.4.14)
+Requires-Dist: geopandas (>=0.10.2)
+Requires-Dist: py7zr (>=0.20.6)
+Requires-Dist: validators (>=0.18.2)
+Requires-Dist: owslib (==0.27.2)
+Requires-Dist: pyshp (>=2.2.0)
+Requires-Dist: GDAL (>=3.4.3)
+Provides-Extra: dev
+Provides-Extra: test
+
+# GeoReader
+Georeader is a module used to read common spatial data formats such as Esri ShapeFiles, GeoPackage, Geography Markup Language, CSV, 
+GeoJSON, Web Feature Service, Esri Rest Service and Keyhole Markup Language. As well it can also hanlded compressed file type such as 7z, ZIP, KMZ files.
+
+This module makes use of other packages to read the data such as GeoPandas, Fiona, GDAL, and FastKMl.
+
+
+## Basic Usage
+
+```python
+>>> from georeader import GeoReader as gr
+>>> georeader = gr("./cities_borders.gpkg")
+
+# List layers.
+>>> georeader.list_layers()
+ ["Belfast", "Edinburgh", "London", ...]
+
+# Get Layer Count
+>>> georeader.get_layer_count()
+ 1000
+
+# Layer Functions 
+>>> layer = georeader.get_layer("Edinburgh")
+>>> layer.GetName()
+ "Edinburgh"
+ 
+>>> layer.get_schema()
+ ["id", "district", ...]
+ 
+>>> layer.get_feature_count()
+ 1234
+ 
+>>> type(layer.get_dataframe())
+ Geopandas.Dataframe
+
+```
+## Building Wheel file
+```shell
+> python .\setup.py bdist_wheel
+
+```
+
+## Installation
+
+```shell
+> pip install dist/georeader-*.*.*-py3-none-any.whl
+```
+There are Some issues installing Geopandas through git so will have to install manually.
+Navigate to https://www.lfd.uci.edu/~gohlke/pythonlibs/ in browser and download 
+the latest version of Fiona, Gdal and Shapely and pip install.
+
+tested Versions
+```python
+    "GDAL>=3.3.3",
+    "Fiona>=1.8.2",
+    "Shapely>=1.8.0"
+```
+once you have done that pip install geopandas :
+```shell
+> pip install geopandas
+```
+and hopefully you should be able to import georeader module as shown above.
+
+
+## Running the tests
+
+## Author
+
+## License
+
+None
+
+
+
+
