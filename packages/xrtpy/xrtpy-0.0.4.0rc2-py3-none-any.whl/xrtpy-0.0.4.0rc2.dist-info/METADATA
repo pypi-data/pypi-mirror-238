@@ -1,0 +1,117 @@
+Metadata-Version: 2.1
+Name: xrtpy
+Version: 0.0.4.0rc2
+Summary: A Python package for analyzing data from the X-Ray Telescope instrument onboard the Hinode spacecraft.
+Home-page: https://github.com/HinodeXRT/xrtpy
+Author: Joy Velasquez, Nick Murphy, and Jonathan Slavin
+Author-email: joy.velasquez@cfa.harvard.edu
+License: BSD 2-clause
+Keywords: solar physics
+Classifier: Development Status :: 3 - Alpha
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Scientific/Engineering :: Astronomy
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.9
+License-File: LICENSE
+Requires-Dist: astropy >=5.0.1
+Requires-Dist: cached-property >=1.5.2
+Requires-Dist: matplotlib >=3.4.0
+Requires-Dist: numpy >=1.22
+Requires-Dist: packaging
+Requires-Dist: scipy >=1.7.0
+Requires-Dist: sunpy >=3.0.0
+Requires-Dist: scikit-image >=0.16.2
+Provides-Extra: developer
+Requires-Dist: codespell ; extra == 'developer'
+Requires-Dist: pre-commit ; extra == 'developer'
+Requires-Dist: nox ; extra == 'developer'
+Requires-Dist: docutils >=0.18 ; extra == 'developer'
+Requires-Dist: ipykernel ; extra == 'developer'
+Requires-Dist: ipython ; extra == 'developer'
+Requires-Dist: jinja2 !=3.1 ; extra == 'developer'
+Requires-Dist: nbsphinx >=0.9 ; extra == 'developer'
+Requires-Dist: numpydoc >=1.2 ; extra == 'developer'
+Requires-Dist: pillow ; extra == 'developer'
+Requires-Dist: pygments >=2.11 ; extra == 'developer'
+Requires-Dist: sphinx >=6.0 ; extra == 'developer'
+Requires-Dist: sphinx-changelog >=1.3 ; extra == 'developer'
+Requires-Dist: sphinx-copybutton >=0.5 ; extra == 'developer'
+Requires-Dist: sphinx-gallery >=0.12 ; extra == 'developer'
+Requires-Dist: sphinx-hoverxref >=1.1 ; extra == 'developer'
+Requires-Dist: sphinx-issues >=3.0 ; extra == 'developer'
+Requires-Dist: sphinx-automodapi ; extra == 'developer'
+Requires-Dist: sphinx-rtd-theme >=1.2 ; extra == 'developer'
+Requires-Dist: sphinxcontrib-bibtex >=2.5 ; extra == 'developer'
+Requires-Dist: sunpy[net] >=3.0.0 ; extra == 'developer'
+Requires-Dist: towncrier >=22.12 ; extra == 'developer'
+Requires-Dist: dlint ; extra == 'developer'
+Requires-Dist: flake8 ; extra == 'developer'
+Requires-Dist: flake8-absolute-import ; extra == 'developer'
+Requires-Dist: flake8-rst-docstrings ; extra == 'developer'
+Requires-Dist: flake8-use-fstring ; extra == 'developer'
+Requires-Dist: pydocstyle ; extra == 'developer'
+Requires-Dist: pytest >=5.4.0 ; extra == 'developer'
+Requires-Dist: pytest-allclose ; extra == 'developer'
+Requires-Dist: pytest-xdist ; extra == 'developer'
+Provides-Extra: docs
+Requires-Dist: codespell ; extra == 'docs'
+Requires-Dist: pre-commit ; extra == 'docs'
+Requires-Dist: nox ; extra == 'docs'
+Requires-Dist: docutils >=0.18 ; extra == 'docs'
+Requires-Dist: ipykernel ; extra == 'docs'
+Requires-Dist: ipython ; extra == 'docs'
+Requires-Dist: jinja2 !=3.1 ; extra == 'docs'
+Requires-Dist: nbsphinx >=0.9 ; extra == 'docs'
+Requires-Dist: numpydoc >=1.2 ; extra == 'docs'
+Requires-Dist: pillow ; extra == 'docs'
+Requires-Dist: pygments >=2.11 ; extra == 'docs'
+Requires-Dist: sphinx >=6.0 ; extra == 'docs'
+Requires-Dist: sphinx-changelog >=1.3 ; extra == 'docs'
+Requires-Dist: sphinx-copybutton >=0.5 ; extra == 'docs'
+Requires-Dist: sphinx-gallery >=0.12 ; extra == 'docs'
+Requires-Dist: sphinx-hoverxref >=1.1 ; extra == 'docs'
+Requires-Dist: sphinx-issues >=3.0 ; extra == 'docs'
+Requires-Dist: sphinx-automodapi ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme >=1.2 ; extra == 'docs'
+Requires-Dist: sphinxcontrib-bibtex >=2.5 ; extra == 'docs'
+Requires-Dist: sunpy[net] >=3.0.0 ; extra == 'docs'
+Requires-Dist: towncrier >=22.12 ; extra == 'docs'
+Provides-Extra: extras
+Requires-Dist: codespell ; extra == 'extras'
+Requires-Dist: pre-commit ; extra == 'extras'
+Requires-Dist: nox ; extra == 'extras'
+Provides-Extra: tests
+Requires-Dist: codespell ; extra == 'tests'
+Requires-Dist: pre-commit ; extra == 'tests'
+Requires-Dist: nox ; extra == 'tests'
+Requires-Dist: dlint ; extra == 'tests'
+Requires-Dist: flake8 ; extra == 'tests'
+Requires-Dist: flake8-absolute-import ; extra == 'tests'
+Requires-Dist: flake8-rst-docstrings ; extra == 'tests'
+Requires-Dist: flake8-use-fstring ; extra == 'tests'
+Requires-Dist: pydocstyle ; extra == 'tests'
+Requires-Dist: pytest >=5.4.0 ; extra == 'tests'
+Requires-Dist: pytest-allclose ; extra == 'tests'
+Requires-Dist: pytest-xdist ; extra == 'tests'
+
+# XRTpy
+
+[![License](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](./LICENSE)
+[![GitHub Actions — CI](https://github.com/HinodeXRT/xrtpy/workflows/CI/badge.svg)](https://github.com/HinodeXRT/xrtpy/actions?query=workflow%3ACI+branch%3Amain)
+[![Read the Docs Status](https://readthedocs.org/projects/xrtpy/badge/?version=latest&logo=twitter)](http://xrtpy.readthedocs.io/en/latest/?badge=latest)
+[![astropy](http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat&logo=astropy)](http://www.astropy.org/)
+
+XRTpy is a Python package being developed for the analysis of observations
+made by the X-Ray Telescope (XRT) on the *Hinode* spacecraft.
+
+## Acknowledgements
+
+The development of XRTpy is supported by NASA contract NNM07AB07C to the
+Smithsonian Astrophysical Observatory.
