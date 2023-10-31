@@ -1,0 +1,61 @@
+---
+
+### An example configuration for autoscaling grid containers. This kind of container is similar to MAP-Elites grids,
+###  but with an automatic scaling of the domain of the feature descriptors so match the extrema of values encountered so far.
+### It can be used in problems where the domain of feature descriptors is not known in advance.
+### Each time that a recaling takes place, the autoscaling grid container will be reinitialized. First all individuals will be removed from the grid,
+###  then all individuals from parent containers will be added to the grid. As such, autoscaling grids need to rely on at least one other container
+###  to store all previously encountered individuals.
+
+
+# The random seed
+seed: 42
+
+# The name of the main algorithm (see below the description of 'algoQD')
+main_algorithm_name: algoQD
+
+# The list of all container.
+containers:
+    parentContainer:                             # We create a container that will contain ALL tested individuals
+        type: Container                          # A simple container, that will store ALL added individuals that are within bounds
+        name: parentContainer                    # The name of the container. Optional. Default to the parent key (here also 'cont0')
+        storage_type: orderedset                 # Faster than 'list' for large container
+        fitness_domain: [[0., 1.]]               # The domain of each fitness objective (here we only have one objective)
+        features_domain: [[0., 1.], [0., 1.]]    # The domain of each feature
+
+    cont0:
+        type: AutoScalingGrid                             # The type of the container
+        name: cont0                                       # The name of the container. Optional. Default to the parent key (here also 'cont0')
+        parents: [parentContainer]                        # The list of parent containers. Every individual added to `cont0` will be also forwarded to the parents
+        scaling_containers: [parentContainer]             # The list of containers used to store individuals added after a rescaling operation. If empty, will use the parents instead.
+        fitness_scaling: True                             # Whether to autoscale the fitness or not
+        features_scaling: True                            # Whether to autoscale the features or not
+        rescaling_period: 1000                            # When to perform the autoscaling operation. Here it's done every time 1000 individuals are added.
+        shape: [32, 32]                                   # The number of bins for each feature
+        max_items_per_bin: 1                              # The number of items in each bin of the grid
+        fitness_domain: [[-.inf, .inf]]                   # The domain of each fitness objective (here we only have one objective). Must be specified here even if the container will autoscale the domains, to set the number of fitness
+        features_domain: [[-.inf, .inf], [-.inf, .inf]]   # The initial domain of each feature. Must be specified here even if the container will autoscale the domains, to set the number of features
+
+
+# The list of all algorithms
+algorithms:
+    # Default parameter values for each algorithm
+    optimisation_task: minimisation   # We perform maximisation of all fitness objectives
+    dimension: 5                      # The number of dimensions of the problem. For rastrigin, any dimension >= 2 can be chosen
+    ind_domain: [0., 1.]              # The domain of each value of the genome (optional)
+    container: cont0                  # The container to use to store individuals told to the optimisers
+
+    # Then, we use an evolutionary algorithm that perform random search and polynomial mutations. This algorithm makes a trade-off between quality (finding good performing solutions) and diversity (find solutions corresponding to each bin of the grid)
+    algoQD:
+        type: RandomSearchMutPolyBounded
+        budget: 10000       # The total number of allowed evaluations for this algorithm
+        batch_size: 100     # The number of evaluations in each subsequent batch
+        sel_pb: 0.7         # The probability of performing selection+variation instead of initialising a new genome
+        init_pb: 0.3        # The probability of initiating a new genome instead of performing selection
+        mut_pb: 0.4         # The probability of mutating each value of the genome of a selected individual
+        eta: 20.            # The ETA parameter of the polynomial mutation (as defined in the origin NSGA-II paper by Deb.). It corresponds to the crowding degree of the mutation. A high ETA will produce mutants close to its parent, a small ETA will produce offspring with more changes.
+
+
+# MODELINE "{{{1
+# vim:expandtab:softtabstop=4:shiftwidth=4:fileencoding=utf-8
+# vim:foldmethod=marker
