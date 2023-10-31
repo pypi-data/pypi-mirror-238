@@ -1,0 +1,63 @@
+[build-system]
+requires = [
+    "setuptools>=64.0",
+    "setuptools_scm[toml]>=6.2"
+]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "ls336-ioc"
+authors = [
+    { name = "Matthias Rössle", email = "matthias.roessle@helmholtz-berlin.de" },
+    { name = "Florin Boariu", email = "florin.pt@rootshell.ro" },
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: POSIX :: Linux",
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering"
+]
+dependencies = [
+    "caproto",
+    "emmi>=0.1.3",
+    "pyvisa",
+    "pyvisa_py",
+    "parse",
+]
+dynamic = [
+	"version"
+]
+	
+description = "CAproto-based pure-Python EPICS IOC for the Lakeshore 336 temperature controller"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = []
+
+#project_urls = [
+#    Source Code = https://gitlab.com/codedump2/camagick
+#    Bug Tracker = https://gitlab.com/codedump2/camagick/-/issues
+#]
+
+[project.optional-dependencies]
+test = [
+     "pytest",
+     "pytest-cov"
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra"
+log_cli = true
+testpaths = [
+    "tests",
+]
+
+[tool.setuptools_scm]
+write_to = "src/fridge/_version.py"
+
+[project.scripts]
+ls336-ioc = "fridge.application:main"
