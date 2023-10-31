@@ -1,0 +1,71 @@
+try:
+    import os,sys
+    core_dir = os.path.dirname(os.path.abspath(__file__))
+    core_dir = core_dir.removesuffix('\\game')
+    core_dir = core_dir+"\\nenv\\_lib"
+    sys.path.append(core_dir)
+except ModuleNotFoundError:
+    import os
+    os.sys.exit()
+
+
+from Nebula import Nebula
+
+class NebulaMain:
+    def __init__(self):        
+        # create an entity
+        self.player = Nebula.coreObj.Entity(position=Nebula.core.VECTOR2(200,500), color=[50,20,40])
+        
+        # add attributes
+        self.player.speed = 100
+        
+        # add the entity to the renderer's scope
+        Nebula.Renderer.addEntity(
+            obj=self.player,
+            layerNumber=1
+        )
+
+        # change environment object attributes
+        Nebula.Camera.scroll_speed = 80
+
+    def update(self):
+        self.player.update() # update entity
+        Nebula.Camera.setTarget(self.player, Nebula.core.VECTOR2(list(Nebula.cfg['project']['screen size']))) # set camera target
+        Nebula.Renderer.addStaticRenderData(assetID=self.player._id, position=self.player.position, offset=Nebula.Renderer.camera.getOffset()) # update renderer data
+
+    @Nebula.core.logDebugReturn
+    def run(self):
+        while True:
+            keys = Nebula.pygame.key.get_pressed()
+
+            for e in Nebula.pygame.event.get():
+                if e.type == Nebula.pygame.QUIT:
+                    return "Game Closed\n"
+                    Nebula.core.os.sys.exit()
+                
+                if e.type == Nebula.pygame.KEYDOWN:
+                    if e.key == Nebula.pygame.K_p:
+                        pass
+                if e.type == Nebula.pygame.KEYUP:
+                    if e.key == Nebula.pygame.K_p:
+                        pass
+
+            if keys[Nebula.pygame.K_w]:
+                self.player.velocity.y = -self.player.speed * Nebula.DT
+            elif keys[Nebula.pygame.K_s]:
+                self.player.velocity.y = self.player.speed * Nebula.DT
+            else:
+                self.player.velocity.y = 0
+
+            if keys[Nebula.pygame.K_a]:
+                self.player.velocity.x = -self.player.speed * Nebula.DT
+            elif keys[Nebula.pygame.K_d]:
+                self.player.velocity.x = self.player.speed * Nebula.DT
+            else:
+                self.player.velocity.x = 0
+            
+            self.update()
+            Nebula.Renderer.render()
+            Nebula.sendFrame()
+
+NebulaMain().run()

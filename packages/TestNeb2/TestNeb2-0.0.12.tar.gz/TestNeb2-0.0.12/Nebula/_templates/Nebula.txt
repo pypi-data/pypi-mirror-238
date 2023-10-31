@@ -1,0 +1,40 @@
+try:
+    import _obj as coreObj
+    import _utils as core
+except ModuleNotFoundError:
+    mnf = str(input("~| ENGINE IMPORT ERROR...\nThere was an error while gathering Nebula.core\nPlease check that your installation directory contains the 'core' sub-directory.\nIf so, type 'fix' to open the Nebula Console.\nWhen the command line appears, type 'neb -fix ~core' to run the appropriate repair script.\nIf the problem persists, contact setoichi.\n~| ")) #cmd, flg, mod
+    if mnf in {"fix",}:
+        print("open Abyss Console\n")
+    import os
+    os.sys.exit()
+
+class Nebula:
+    def __init__(self):
+        self.DT = 0.0
+        self.core = core
+        self.coreObj = coreObj
+        self.pygame = self.core.pygame
+        self.Clock = self.pygame.time.Clock()
+        self.cfg = self.core.loadCFG(path=__file__, name=__name__)
+        self.Display = self.pygame.display.set_mode(self.cfg['project']['screen size'])
+        self.AssetManager = coreObj.AssetManager(env=self, maxCacheSize=450)
+        self.Camera = coreObj.Camera(
+            env=self,
+            level_size=self.cfg['project']['tilemap size'],
+            screen_size=self.cfg['project']['screen size'],
+            camera_speed=30,
+            scroll_interpolation=40
+        )
+        self.Renderer = coreObj.Renderer(
+            env=self,
+            display=self.Display,
+            layerCount=2,
+            assetManager=self.AssetManager
+        )
+    
+    def sendFrame(self):
+        self.DT = self.Clock.tick(self.cfg['project']['target FPS']) / 1000.0
+        self.pygame.display.update()
+        # self.pygame.display.update(self.Renderer.dirtyRects)
+
+Nebula = Nebula()
