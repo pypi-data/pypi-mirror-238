@@ -1,0 +1,20 @@
+from setuptools import setup
+
+setup(
+    name='TestNeb2',
+    version='0.0.11',    
+    description='An Engine For Building 2d Games With Python+Pygame-CE.',
+    url='https://github.com/setoyuma/NebulaEngine',
+    author='Setoichi',
+    author_email='setoichi.dev@gmail.com',
+    license='MIT',
+    packages=['Nebula'],
+    install_requires=[
+        'pygame-ce',
+    ],
+    classifiers=[
+        'Development Status :: 3 - Alpha'
+    ],
+    include_package_data=True,
+    include_dirs=["Nebula/_templates"]
+)
