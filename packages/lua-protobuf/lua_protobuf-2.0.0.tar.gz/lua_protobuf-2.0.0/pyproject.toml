@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "lua-protobuf"
+version = "2.0.0"
+description = "lua-protobuf provides a Lua interface to Google's Protocol Buffers"
+readme = "README.md"
+license = "Apache 2"
+authors = [
+    "Michael Medin <michael@medin.name>"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "License :: OSI Approved :: Apache Software License",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only"
+]
+
+[tool.poetry.dependencies]
+python = ">=3.0"
+protobuf = ">=3.0.0"
+
+
+[project.urls]
+Documentation = "http://github.com/mickem/lua-protobuf"
+Source = "http://github.com/mickem/lua-protobuf"
+Issues = "http://github.com/mickem/lua-protobuf/issues"
+History = "http://github.com/mickem/lua-protobuf"
+
+[tool.poetry.scripts]
+lua_protobuf = "lua_protobuf.protoc-gen-lua:main"
+
