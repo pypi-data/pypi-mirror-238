@@ -1,0 +1,58 @@
+[tool.poetry]
+name = "lea-cli"
+version = "0.2.3"
+description = "A minimalist alternative to dbt"
+authors = ["Max Halford <maxhalford25@gmail.com>"]
+packages = [
+    { include="lea", from="." },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+sqlglot = "^18.10.0"
+Jinja2 = "^3.1.2"
+typer = "^0.9.0"
+google-cloud-bigquery = "^3.11.4"
+db-dtypes = "^1.1.1"
+requests = "^2.31.0"
+python-dotenv = "^1.0.0"
+rich = "^13.5.3"
+tabulate = "^0.9.0"
+pandas-gbq = "^0.19.2"
+duckdb = "^0.9.0"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.21.2"
+pytest = "^7.4.2"
+pre-commit = "^3.5.0"
+black = "^23.9.1"
+ruff = "^0.1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+lea = "lea.main:app"
+
+[tool.black]
+line-length = 100
+target-version = ['py310']
+
+[tool.ruff]
+select = ["E", "F", "I", "UP"]  # https://beta.ruff.rs/docs/rules/
+line-length = 100
+target-version = 'py310'
+ignore = ["E501"]
+
+[tool.ruff.isort]
+required-imports = ["from __future__ import annotations"]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--doctest-modules",
+    "--doctest-glob=README.md",
+    "--ignore=examples",
+    "--verbose",
+    "--color=yes"
+]
