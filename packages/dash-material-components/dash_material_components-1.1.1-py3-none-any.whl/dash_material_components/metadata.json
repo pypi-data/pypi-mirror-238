@@ -1,0 +1,1492 @@
+{
+  "src/components/Dashboard.jsx": {
+    "description": "Main dasboard component, initializing a Material UI theme\nhttps://mui.com/customization/theming/",
+    "displayName": "Dashboard",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'dashboard'",
+          "computed": false
+        }
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": "Used to render elements inside the component"
+      },
+      "height": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Dashboard window height",
+        "defaultValue": {
+          "value": "'100vh'",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/display/Alert.jsx": {
+    "description": "Alert component",
+    "displayName": "Alert",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'alert'",
+          "computed": false
+        }
+      },
+      "severity": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'error'",
+              "computed": false
+            },
+            {
+              "value": "'warning'",
+              "computed": false
+            },
+            {
+              "value": "'info'",
+              "computed": false
+            },
+            {
+              "value": "'success'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Alert type",
+        "defaultValue": {
+          "value": "'error'",
+          "computed": false
+        }
+      },
+      "autoHide": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Automatically hide the alert (in ms)",
+        "defaultValue": {
+          "value": "5000",
+          "computed": false
+        }
+      },
+      "message": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Message to display",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/display/Box.jsx": {
+    "description": "Box component from Material UI\nhttps://mui.com/components/box/",
+    "displayName": "Box",
+    "methods": [],
+    "props": {
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": "Can be used to render elements inside the component"
+      },
+      "sx": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "All Material system properties are available via the `sx prop`\nAllow additional css styles to be applied to the component",
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/display/Table.jsx": {
+    "description": "Table component",
+    "displayName": "Table",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'table'",
+          "computed": false
+        }
+      },
+      "columns": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "exact",
+            "value": {
+              "field": {
+                "name": "string",
+                "description": "Column field",
+                "required": false
+              },
+              "width": {
+                "name": "number",
+                "description": "Column width",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": true,
+        "description": "Array of table columns to render"
+      },
+      "rows": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
+        },
+        "required": false,
+        "description": "Array of table rows to render"
+      },
+      "rowsPerPageOptions": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "number"
+          }
+        },
+        "required": false,
+        "description": "Table pagination setting",
+        "defaultValue": {
+          "value": "[10, 25, 50]",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/display/Typography.jsx": {
+    "description": "Typography component from Material UI\nhttps://mui.com/components/typography/",
+    "displayName": "Typography",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'text'",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Used to enable Dash-assigned component callback"
+      },
+      "component": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Typography HTML node type",
+        "defaultValue": {
+          "value": "'h6'",
+          "computed": false
+        }
+      },
+      "variant": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Typography variant",
+        "defaultValue": {
+          "value": "'h6'",
+          "computed": false
+        }
+      },
+      "text": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Text to display"
+      }
+    }
+  },
+  "src/components/inputs/Autocomplete.jsx": {
+    "description": "Autocomplete component",
+    "displayName": "Autocomplete",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'autocomplete'",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Used to enable Dash-assigned component callback"
+      },
+      "labelText": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Text to display above the slider form"
+      },
+      "size": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'small'",
+              "computed": false
+            },
+            {
+              "value": "'medium'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Mui TextField size parameter",
+        "defaultValue": {
+          "value": "'small'",
+          "computed": false
+        }
+      },
+      "variant": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'filled'",
+              "computed": false
+            },
+            {
+              "value": "'outlined'",
+              "computed": false
+            },
+            {
+              "value": "'standard'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Variant of mui input style",
+        "defaultValue": {
+          "value": "'outlined'",
+          "computed": false
+        }
+      },
+      "selected": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": "Current value",
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      },
+      "options": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": "Options to display"
+      },
+      "limitTags": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Limit number of selected values"
+      },
+      "freeSolo": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Enable free solo"
+      },
+      "groupByField": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Group options"
+      },
+      "multiple": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Enable multiple selection",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "width": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Component width",
+        "defaultValue": {
+          "value": "'100%'",
+          "computed": false
+        }
+      },
+      "margin": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Component margin",
+        "defaultValue": {
+          "value": "2",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/inputs/Calendar.jsx": {
+    "description": "Calendar component",
+    "displayName": "Calendar",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'calendar'",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Used to enable Dash-assigned component callback"
+      },
+      "labelText": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Text to display in the calendar form"
+      },
+      "helperText": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Text to display under the calendar form"
+      },
+      "width": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Width of calendar form",
+        "defaultValue": {
+          "value": "'100%'",
+          "computed": false
+        }
+      },
+      "margin": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Margin",
+        "defaultValue": {
+          "value": "2",
+          "computed": false
+        }
+      },
+      "maxDate": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Latest date available in the calendar",
+        "defaultValue": {
+          "value": "'2100-01-01'",
+          "computed": false
+        }
+      },
+      "minDate": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Earliest date available in the calendar",
+        "defaultValue": {
+          "value": "'1900-01-01'",
+          "computed": false
+        }
+      },
+      "disableFuture": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Disable future dates",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "disablePast": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Disable past dates",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "selected": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Active date selection",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "disableToolbar": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Disable toolbar",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/inputs/Dropdown.jsx": {
+    "description": "Dropdown component",
+    "displayName": "Dropdown",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'select'",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Used to enable Dash-assigned component callback"
+      },
+      "labelText": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Text to display in the dropdown form, when no items are selected"
+      },
+      "helperText": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Text to display under the dropdown form"
+      },
+      "width": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Width of dropdown form",
+        "defaultValue": {
+          "value": "'100%'",
+          "computed": false
+        }
+      },
+      "margin": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Margin of the component",
+        "defaultValue": {
+          "value": "2",
+          "computed": false
+        }
+      },
+      "options": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "number"
+              }
+            ]
+          }
+        },
+        "required": true,
+        "description": "Array of options to select in the dropdown form"
+      },
+      "multiple": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Allow multiple selections",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "selected": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "number"
+              }
+            ]
+          }
+        },
+        "required": false,
+        "description": "Active option selection",
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/inputs/InputText.jsx": {
+    "description": "InputText component",
+    "displayName": "InputText",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks"
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Used to enable Dash-assigned component callback"
+      },
+      "labelText": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Text to display above the slider form"
+      },
+      "value": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Current value",
+        "defaultValue": {
+          "value": "''",
+          "computed": false
+        }
+      },
+      "maxValue": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Maximum selection allowed in the slider",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "minValue": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Minimum selection allowed in the slider",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "precision": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of decimal places",
+        "defaultValue": {
+          "value": "2",
+          "computed": false
+        }
+      },
+      "inputType": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'text'",
+              "computed": false
+            },
+            {
+              "value": "'integer'",
+              "computed": false
+            },
+            {
+              "value": "'float'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Input type",
+        "defaultValue": {
+          "value": "'text'",
+          "computed": false
+        }
+      },
+      "multiline": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Multiline input",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "variant": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'filled'",
+              "computed": false
+            },
+            {
+              "value": "'outlined'",
+              "computed": false
+            },
+            {
+              "value": "'standard'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Variant of mui input style",
+        "defaultValue": {
+          "value": "'outlined'",
+          "computed": false
+        }
+      },
+      "maxLength": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Text length"
+      },
+      "autoFocus": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "autoFocus",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "size": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'small'",
+              "computed": false
+            },
+            {
+              "value": "'medium'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Mui TextField size parameter",
+        "defaultValue": {
+          "value": "'small'",
+          "computed": false
+        }
+      },
+      "width": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Component width",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "margin": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Component margin",
+        "defaultValue": {
+          "value": "2",
+          "computed": false
+        }
+      },
+      "adornmentLeft": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Adornment on the left of the input",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "adornmentRight": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Adornment on the right of the input",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Input disabled",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "error": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Input error",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/inputs/Slider.jsx": {
+    "description": "Slider component",
+    "displayName": "Slider",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'slider'",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Used to enable Dash-assigned component callback"
+      },
+      "labelText": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Text to display above the slider form"
+      },
+      "width": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Width of slider form",
+        "defaultValue": {
+          "value": "'100%'",
+          "computed": false
+        }
+      },
+      "margin": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Margin of the component",
+        "defaultValue": {
+          "value": "2",
+          "computed": false
+        }
+      },
+      "maxValue": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Maximum selection allowed in the slider",
+        "defaultValue": {
+          "value": "100",
+          "computed": false
+        }
+      },
+      "minValue": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Minimum selection allowed in the slider",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "stepValue": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Slider selection increment",
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "marks": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "exact",
+            "value": {
+              "value": {
+                "name": "number",
+                "description": "Mark value",
+                "required": false
+              },
+              "label": {
+                "name": "string",
+                "description": "Mark label",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": "Array of selection marks to display below the slider form"
+      },
+      "selected": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Active slider selection",
+        "defaultValue": {
+          "value": "50",
+          "computed": false
+        }
+      },
+      "inputType": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'integer'",
+              "computed": false
+            },
+            {
+              "value": "'float'",
+              "computed": false
+            },
+            {
+              "value": "null",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Input type, if set an input text is displayed alongside the slider",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "precision": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of decimal places",
+        "defaultValue": {
+          "value": "2",
+          "computed": false
+        }
+      },
+      "inputLeftAdornment": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "InputText LEFT adornment",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "inputRightAdornment": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "InputText RIGHT adornment",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/inputs/Toggle.jsx": {
+    "description": "Toggle component",
+    "displayName": "Toggle",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'toggle'",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Used to enable Dash-assigned component callback"
+      },
+      "orientation": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'horizontal'",
+              "computed": false
+            },
+            {
+              "value": "'vertical'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Toggle orientation (horizontal or vertical)",
+        "defaultValue": {
+          "value": "'horizontal'",
+          "computed": false
+        }
+      },
+      "options": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "number"
+              }
+            ]
+          }
+        },
+        "required": true,
+        "description": "Array of options to select through the toggle"
+      },
+      "selected": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Selected toggle index"
+      },
+      "margin": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Margin of the component",
+        "defaultValue": {
+          "value": "2",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/layout/NavBar.jsx": {
+    "description": "Dashboard navigation bar component\nhttps://mui.com/components/app-bar/",
+    "displayName": "NavBar",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'navbar'",
+          "computed": false
+        }
+      },
+      "title": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Dashboard navigation bar title"
+      }
+    }
+  },
+  "src/components/layout/Page.jsx": {
+    "description": "Page component, used to wrap section and card components\nDashboard > Page",
+    "displayName": "Page",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'page'",
+          "computed": false
+        }
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": "Used to render elements inside the component"
+      },
+      "orientation": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'columns'",
+              "computed": false
+            },
+            {
+              "value": "'rows'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Page general orientation (rows or columns)",
+        "defaultValue": {
+          "value": "'columns'",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/layout/Section.jsx": {
+    "description": "Section component\nDashboard > Page > Section",
+    "displayName": "Section",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'section'",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Used to enable Dash-assigned component callback"
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": "Used to render elements inside the component"
+      },
+      "cards": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "exact",
+            "value": {
+              "title": {
+                "name": "string",
+                "description": "Card title",
+                "required": false
+              },
+              "size": {
+                "name": "number",
+                "description": "Card size (0 < size <= 12)",
+                "required": false
+              },
+              "downloadable": {
+                "name": "bool",
+                "description": "Card dowloadable",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": "Array of cards to render as component children"
+      },
+      "size": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Section container size (0 < size <= 12)"
+      },
+      "orientation": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'columns'",
+              "computed": false
+            },
+            {
+              "value": "'rows'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Section general orientation (rows or columns)",
+        "defaultValue": {
+          "value": "'rows'",
+          "computed": false
+        }
+      },
+      "downloaded": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Section download counter",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/layout/SideBar.jsx": {
+    "description": "Sidebar component",
+    "displayName": "Sidebar",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'sidebar'",
+          "computed": false
+        }
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": "Used to render elements inside the component"
+      },
+      "settings": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "string"
+          }
+        },
+        "required": false,
+        "description": "Array of settings to render as component children"
+      },
+      "title": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Dashboard sidebar title",
+        "defaultValue": {
+          "value": "'Dashboard Settings'",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/components/layout/Tab.jsx": {
+    "description": "Tab component\nDashboard > Page > Section > Card > Tab\nhttps://github.com/danielfrg/jupyter-flex/blob/main/js/src/Section/index.js",
+    "displayName": "Tab",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Used to identify dash components in callbacks",
+        "defaultValue": {
+          "value": "'tab'",
+          "computed": false
+        }
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": "Used to render elements inside the component"
+      },
+      "tabs": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "exact",
+            "value": {
+              "label": {
+                "name": "string",
+                "description": "Element label",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": "Array of tabs to render as component children"
+      }
+    }
+  }
+}
