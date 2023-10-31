@@ -1,0 +1,134 @@
+Metadata-Version: 2.1
+Name: mycityco2-data-process
+Version: 0.2.1
+Summary: 
+Home-page: https://github.com/MyCityCO2/mycityco2-data-processing
+Author: Adam Bonnet
+Author-email: contact@mycityco2.org
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: bs4 (>=0.0.1,<0.0.2)
+Requires-Dist: discord-webhook (>=1.1.0,<2.0.0)
+Requires-Dist: docker (>=6.1.3,<7.0.0)
+Requires-Dist: gitpython (>=3.1.40,<4.0.0)
+Requires-Dist: loguru (>=0.7.0,<0.8.0)
+Requires-Dist: lxml (>=4.9.2,<5.0.0)
+Requires-Dist: multiprocess (>=0.70.14,<0.71.0)
+Requires-Dist: openpyxl (>=3.1.2,<4.0.0)
+Requires-Dist: otools-rpc (==0.5.0)
+Requires-Dist: pandas (>=2.0.2,<3.0.0)
+Requires-Dist: psycopg2-binary (>=2.9.6,<3.0.0)
+Requires-Dist: pydantic[dotenv] (>=1.10.8,<2.0.0)
+Requires-Dist: typer[all] (>=0.9.0,<0.10.0)
+Requires-Dist: xmltodict (>=0.13.0,<0.14.0)
+Project-URL: Repository, https://github.com/MyCityCO2/mycityco2-data-processing
+Description-Content-Type: text/markdown
+
+# MyCityCO2 Data Processing
+
+![GitHub CI](https://github.com/mycityco2/mycityco2-data-processing/actions/workflows/ci.yaml/badge.svg)
+[![License](https://img.shields.io/badge/License-AGPL%203.0-blue.svg)](LICENSE)
+
+## Table of Contents
+
+- [Description](#description)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## Description
+
+MyCityCO2 Data Processing is a Python package designed to facilitate the import and export of municipality data from a country into Odoo, a popular Enterprise Resource Planning (ERP) system. This package provides functionality to import data from municipalities, perform data processing tasks, and export the processed data to CSV format.
+
+## Features
+
+- Import data from various municipalities.
+- Process and analyze the imported data.
+- Export the processed data to CSV format.
+- Command-line for easy interaction.
+- Integration with Odoo ERP system.
+
+## Prerequisites
+
+- Python > 3.8
+- Access to an Odoo system (not optional)
+
+## Installation
+
+1. Clone this repository to your local machine:
+
+```bash
+git clone https://github.com/MyCityCO2/mycityco2-data-processing.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd mycityco2-data-processing
+```
+
+3. Run using poetry in dev mode:
+
+```bash
+poetry run mycityco2 run fr --departement=74
+```
+
+Or Install directly the package:
+
+```bash
+pip install mycityco2-data-process
+```
+
+## Usage
+
+MyCityCO2 Data Processing is designed to be run as a Command-Line Interface (CLI) application using the Typer module.
+
+To run the project, use the following command:
+
+```bash
+mycityco2 run <importer> --departement <departement>
+```
+
+For example:
+
+```bash
+mycityco2 run fr --departement 74
+```
+
+You can also use `--help` to get an overview of the project:
+
+```bash
+mycityco2 --help
+```
+
+## Contributing
+
+Contributions to MyCityCO2 Data Processing are welcomed. To add new features or fix bugs, please follow these steps:
+
+- Fork the mycityco2-data-processing repository on GitHub.
+- Create a new branch for your feature or bugfix: `git checkout -b my-new-feature-or-fix`.
+- Add your code and tests for the new feature or fix.
+- Commit your changes: `git commit -m 'Add my new feature or fix'`.
+- Push your changes to your forked repository: `git push origin my-new-feature-or-fix`.
+- Open a pull request to merge your changes into the main branch.
+- The maintainers will review your contribution as soon as possible!
+
+## License
+
+This project is licensed under the GNU Affero General Public License v3.0. Please refer to the LICENSE file for more information.
+
+## Contact
+
+For any inquiries, feedback, or issues, please contact:
+
+- Adam Bonnet (contact@mycityco2.org)
+- Remy Zulauff (contact@mycityco2.org)
+
