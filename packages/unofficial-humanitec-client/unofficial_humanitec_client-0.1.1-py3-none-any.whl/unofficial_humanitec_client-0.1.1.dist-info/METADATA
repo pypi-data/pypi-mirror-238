@@ -1,0 +1,69 @@
+Metadata-Version: 2.1
+Name: unofficial-humanitec-client
+Version: 0.1.1
+Summary: Generated Python Client for Humanitec API
+Home-page: https://gitlab.com/noordsestern/unofficial-humanitec-client
+Author: Markus Stahl
+License: EUPL 1.2
+Keywords: Swagger,Humanitec API
+Description-Content-Type: text/markdown
+Requires-Dist: urllib3 >=1.15
+Requires-Dist: six >=1.10
+Requires-Dist: certifi
+Requires-Dist: python-dateutil
+
+# Unofficial Client for Humanitec API
+
+Based on generated client with swagger-codegen. Contains a few tweaks to tackle generation bugs from swagger-codegen. [Full generated documentation](src/README.md) of generated client.
+
+This is for testing only. If you need to use a python-client in production, rather generate maintain one by yourself. 
+
+However, if you just need a python module ready to access Humanitec API, run:
+
+```
+pip install unofficial-humanitec-client
+```
+
+# Official Humanitec API Documentation
+
+See [official documentation](https://api-docs.humanitec.com/) for information provided directly by Humanitec.
+
+# License
+
+The original openapi specification is published under Apache 2 license. This generated client is published under EUROPEAN UNION PUBLIC LICENCE v. 1.2 
+
+-----
+
+# Trouble Shooting
+
+## Authentication
+
+Unfortunately, there is mix of missing security schemes in the original Humanitec specification (from version 0.24.1 on) and several bug in the swagger-codegen breaking the use of bearer authentication. As workaround use the folloying snippet:
+
+```python
+configuration = Configuration()
+configuration.api_key['Authorization']='<your humanitec api token>'
+configuration.api_key_prefix['Authorization']='Bearer'
+api_client = swagger_client.ApiClient(configuration=configuration)
+```
+
+Use that api_client as base client for every api_instance you create, i.e.
+
+```python
+def get_all_apps(org_id: str):
+    # Use api_client with bearer authentication configured
+    api_instance = swagger_client.ApplicationApi(api_client=api_client)
+
+    try:
+        # List all Applications in an Organization.
+        api_response = api_instance.orgs_org_id_apps_get(org_id)
+        print(api_response)
+    except ApiException as e:
+        print("Exception when calling ApplicationApi->orgs_org_id_apps_get: %s\n" % e)
+```
+
+## Invalid value for '<some method>', must not be 'None'
+
+Some endpoints cannot deal with null values. On the one side nullable fields are missing from the original Humanitec specification (0.24.1), but even when added, swagger-codegen still makes all fields required.
+
+Known endpoints running in to this bug are `delta` endpoints. In that case, you have to rely on `reuests` module, which begs the question why using a generated client at all...
