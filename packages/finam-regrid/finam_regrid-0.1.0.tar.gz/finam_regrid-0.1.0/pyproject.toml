@@ -1,0 +1,145 @@
+[build-system]
+requires = [
+    "hatchling>=1.8.0",
+    "hatch-vcs",
+]
+build-backend = "hatchling.build"
+
+[project]
+requires-python = ">=3.8"
+name = "finam_regrid"
+description = "FINAM ESMPy regridding adapters."
+authors = [{name = "FINAM Developers", email = "finam@ufz.de"}]
+readme = "README.md"
+license = "LGPL-3.0"
+dynamic = ["version"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    "Natural Language :: English",
+    "Operating System :: Unix",
+    "Operating System :: Microsoft",
+    "Operating System :: MacOS",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "numpy>=1.14.5",
+    "xarray>=2022.03",
+    "pyproj>=3.4",
+    "esmpy>=8.4",
+    "finam>=0.5.0",
+]
+
+[project.urls]
+Homepage = "https://FINAM-regrid.pages.ufz.de/"
+Documentation = "https://FINAM-regrid.pages.ufz.de/"
+Source = "https://git.ufz.de/FINAM/finam-regrid"
+Tracker = "https://git.ufz.de/FINAM/finam-regrid/-/issues"
+Changelog = "https://git.ufz.de/FINAM/finam-regrid/-/blob/main/finam-regrid/CHANGELOG.md"
+
+[project.optional-dependencies]
+doc = [
+    "sphinx>=6",
+    "pydata-sphinx-theme==0.13",
+    "numpydoc>=1.1",
+    "sphinx-design>=0.4",
+    "myst-parser>=1.0",
+    "docutils>=0.18", # mdinclude with myst
+]
+test = [
+    "pytest-cov>=3",
+    "pytest-benchmark[histogram]>=4.0",
+]
+
+[tool.setuptools]
+license-files = ["LICENSE"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.version]
+source = "vcs"
+fallback_version = "0.0.0.dev0"
+
+[tool.hatch.version.raw-options]
+local_scheme = "no-local-version"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/finam_regrid/_version.py"
+template = "__version__ = '{version}'"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/tests",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/finam_regrid"]
+
+[tool.black]
+exclude = "_version.py"
+target-version = [
+    "py38",
+    "py39"
+]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.coverage]
+[tool.coverage.run]
+source = ["finam_regrid"]
+omit = [
+    "*docs*",
+    "*examples*",
+    "*tests*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "def __str__",
+]
+
+[tool.pylint]
+[tool.pylint.master]
+extension-pkg-whitelist = [
+    "numpy",
+    "scipy",
+]
+ignore = [
+    "_version.py",
+]
+
+[tool.pylint.message_control]
+max-line-length = 120
+disable = [
+    "C0103", # ignore invalid-names like "x", "y"
+    "C0415", # ignore defered imports
+    "R0801", # ignore code duplications
+]
+
+[tool.pylint.reports]
+output-format = "colorized"
+
+[tool.pylint.design]
+max-args = 15
+max-locals = 20
+max-attributes = 15
+max-parents = 10
+min-public-methods = 0
