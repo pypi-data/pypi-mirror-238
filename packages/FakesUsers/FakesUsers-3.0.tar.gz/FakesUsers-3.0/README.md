@@ -1,0 +1,100 @@
+# FakesUsers
+FakesUsers - Python library that regenerates random names, phone numbers and addresses. For now, only the Russian generation is available, but over time we will add other generations.
+
+## Содержание
+- [New FakesUsers 3.0](#New-FakesUsers-3.0)
+- [Import](#Import)
+- [Basic Concepts](#Basic-Concept)
+- [Theory about library functions](#Theory-about-library-functions)
+- [Example code](#Example-Code)
+- [Information on creator](#Information-on-creator)
+
+## New FakesUsers 3.0
+On October 30, FakesUsers 3.0 was released, a more technologically advanced version 2.1. What's new in FakesUsers 3.0?
+
+1) New generation of email addresses
+2) New function
+```sh
+genRegion()
+```
+more about her later
+3) Fixed Bag
+4) Real email addresses have been removed (due to security)
+
+## Import
+In order to import the library, you need to install it :)
+Enter the cmd command to install this library
+```sh
+pip install FakesUsers
+```
+After that, in your file with the .py extension, write . . .
+```sh
+from FakesUsers import Fu
+fu = Fu()
+```
+
+## Basic Concept
+What commands are there in this library? This library has commands such as:
+Selecting a language for generation
+```sh
+genRegion()
+```
+
+Displaying a random male name
+```sh
+fakename_male()
+```
+
+Displaying a random female name
+```sh
+fakename_female()
+```
+
+Displaying a random phone number
+```sh
+fake_number()
+```
+
+Displaying a random addres
+```sh
+fake_addres()
+```
+
+And displaying a random email
+```sh
+fake_email()
+```
+
+## Theory about library functions
+genRegion('ru/en') - Selecting a language for generation
+fakename_male() - Generating a random male name
+fakename_female() - Generating a random female name
+fake_number() - Generating a random phone number
+fake_addres() - Generating a random addres
+fake_email() - Generating a random email
+
+
+## Example Code
+Let's look at a simple code that will output a random man's and woman's name, phone number and address
+Code
+```sh
+from FakesUsers import Fu
+
+fu = Fu()
+
+print(fu.fakename_male())
+print(fu.fakename_female())
+print(fu.fakenumber())
+print(fu.fakeaddres())
+```
+Result (Translation from Russian)
+```sh
+Dmitry Denisov
+Elizaveta Yarkova
++70033297583
+st. Griboyedova 90
+```
+
+## Information on creator
+filcher2011 == I've been a Python programmer for about 2 years now. He does small projects :)
+Telegram-channel: https://t.me/filchercode
