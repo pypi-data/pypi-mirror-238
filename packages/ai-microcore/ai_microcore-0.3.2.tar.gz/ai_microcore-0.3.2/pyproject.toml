@@ -1,0 +1,27 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "ai-microcore"
+readme = "README.md"
+dependencies = [
+    "openai~=0.28.1",
+    "python-dotenv~=1.0.0",
+    "Jinja2~=3.1.2",
+    "colorama~=0.4.6",
+    "PyYAML~=6.0",
+    "chardet~=5.2.0",
+]
+authors = [
+    { name = "Vitalii Stepanenko", email = "mail@vitalii.in" },
+]
+maintainers = [
+    { name = "Vitalii Stepanenko", email = "mail@vitalii.in" },
+]
+keywords = ["llm", "large language models", "ai", "similarity search", "ai search"]
+version = "0.3.2"
+dynamic = ["description"]
+
+[tool.flit.module]
+name = "microcore"
