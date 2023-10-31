@@ -1,0 +1,31 @@
+{% load static %} {% block extrahead %}
+<style>
+    .bookmark-item{
+        cursor: pointer;
+        color: rgb(65, 120, 147);
+    }
+    .bookmark-item:hover{
+        cursor: pointer;
+        color: rgb(65, 120, 200);
+    }
+    .bookmarked-item{
+        cursor: pointer;
+        color: rgb(65, 120, 147);
+    }
+    .bookmarked-item:hover{
+        cursor: pointer;
+        color: rgb(65, 120, 200);
+    }
+</style>
+<script src="{% static 'admin/js/bookmark-app.js' %}"></script>
+{% endblock %}
+<section class="module">
+  <div style="margin-bottom: 30px">
+    <table style="width: 100%">
+      <caption class="section">
+        Избранные
+      </caption>
+      <tbody id="bookmark-apps"></tbody>
+    </table>
+  </div>
+</section>
