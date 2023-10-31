@@ -1,0 +1,16 @@
+inputs:
+  text:
+    type: string
+    default: ASDF
+outputs:
+  output_prompt:
+    type: string
+    reference: ${repeat_my_prompt.output}
+nodes:
+- name: repeat_my_prompt
+  type: python
+  source:
+    type: code
+    path: tools/my_tool.py
+  inputs:
+    input_text: ${inputs.text}
