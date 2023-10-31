@@ -1,0 +1,34 @@
+{
+  "Level_target": [[3.0,3.0]],
+  "paraP": 5,
+  "paraI": 2,
+  "paraD": 4,
+  "updata_value": 4,
+  "pump_range": [10, 100],
+  "interval_minute": 10,
+  "pump_range_single": [30, 50],
+
+  "algo_system_spec": {
+    "module_summary": [
+      {
+        "enable": true,
+        "user_input": [false],
+        "ui": true,
+        "name": "排放池",
+        "tags": ["通道 1.设备 1.通道 1.设备 1.@LOCALMACHINE::.所有变量的列表.1#内回流泵电流"],
+        "alias": ["进水PHL"],
+        "units": ["mg/L"],
+        "targets": "Level_target"
+      }
+    ],
+
+    "MSET_aliases": {
+      "MSET_1": "生化池1-阀门1",
+      "MSET_2": "生化池1-阀门2"
+    },
+
+    "data_input_zone": {
+      "调节池-TN": 11
+    }
+  }
+}
