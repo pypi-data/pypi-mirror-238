@@ -1,0 +1,38 @@
+# [[file:org/pyproject.org::+begin_src toml][No heading:1]]
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+exclude = [".env",
+           "tests*",
+           "org"]
+
+[project]
+name = "orgweb"
+version = "0.0.5"
+authors = [
+  { name="Frederick Giasson", email="fred@fgiasson.com" },
+]
+description = "CLI Org-Mode Environment for WEB like development without Emacs"
+readme = "pypi-readme.md"
+requires-python = ">=3.10"
+license = {text = "GNU GPLv3"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "typer[all]",
+    "docker",
+    "watchdog",
+    "gitignore-parser"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/fgiasson/orgweb"
+"Bug Tracker" = "https://github.com/fgiasson/orgweb/issues"
+
+[project.scripts]
+orgweb = "orgweb.main:init"
+# No heading:1 ends here
