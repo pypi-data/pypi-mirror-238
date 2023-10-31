@@ -1,0 +1,34 @@
+site_name: YaTracker
+repo_url: https://github.com/Olegt0rr/YaTracker
+repo_name: Olegt0rr/YaTracker
+nav:
+  - О библиотеке: index.md
+  - С чего начать: howto.md
+  - Дополнительные возможности:
+    - Работа с пользовательскими полями: custom_fields.md
+
+
+theme:
+  name: material
+  language: ru
+
+  palette:
+    primary: blue
+
+  features:
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - mkdocstrings
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
