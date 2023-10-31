@@ -1,0 +1,64 @@
+[project]
+name = "apix"
+description = ""
+authors = [
+    { name = "Arwichok", email = "arwichok@gmail.com" },
+]
+dependencies = []
+requires-python = ">=3.8"
+readme = "README.md"
+dynamic = []
+version = "0.0.dev5"
+
+[project.license]
+text = "MIT"
+
+[project.optional-dependencies]
+base = [
+    "msgspec>=0.18.4",
+]
+
+[project.scripts]
+apix = "apix.cli:main"
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm.version]
+source = "scm"
+
+[tool.pdm.scripts]
+test = "pytest"
+mypy = "mypy ."
+ruff = "ruff src"
+ruff_fix = "ruff --fix src"
+
+[tool.pdm.scripts.apix]
+call = "apix.cli:main"
+
+[tool.pdm.dev-dependencies]
+lint = [
+    "mypy>=1.6.0",
+    "ruff>=0.0.292",
+]
+test = [
+    "pytest>=7.4.2",
+    "msgspec>=0.18.4",
+    "anyio>=4.0.0",
+    "pytest-asyncio>=0.21.1",
+    "httpx>=0.25.0",
+    "respx>=0.20.2",
+]
+
+[tool.mypy]
+ignore_missing_imports = true
+check_untyped_defs = true
+exclude = "tests"
+
+[tool.pytest.ini_options]
+addopts = [
+    "-v",
+]
