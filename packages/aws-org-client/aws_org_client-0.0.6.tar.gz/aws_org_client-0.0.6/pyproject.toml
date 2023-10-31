@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "aws-org-client"
+version = "0.0.6"
+description = "Browse and manage AWS identity and organization resources."
+authors = ["Sam Holden <sam.holden@digital.cabinet-office.gov.uk>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+moto = "^4.2.6"
+boto3 = "^1.28.66"
+typing-extensions = "^4.8.0"
+
+
+
+[tool.poetry.group.dev.dependencies]
+coverage = "^7.3.2"
+pylint = "^3.0.2"
+black = "^23.10.1"
+bandit = "^1.7.5"
+pytest = "^7.4.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
