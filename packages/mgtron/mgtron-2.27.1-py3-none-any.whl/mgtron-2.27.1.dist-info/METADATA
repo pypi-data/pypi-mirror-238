@@ -1,0 +1,168 @@
+Metadata-Version: 2.1
+Name: mgtron
+Version: 2.27.1
+Summary: Package for MGTron GUI, a user interface for signal generation
+Author-email: Christerpher Hunter <chunter@cellantenna.com>
+Project-URL: Source, https://github.com/cellantenna/mg_tron
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: POSIX :: Linux
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE.rst
+Requires-Dist: anyio ==3.7.1
+Requires-Dist: autopep8 ==2.0.4
+Requires-Dist: black ==23.7.0
+Requires-Dist: build ==0.10.0
+Requires-Dist: certifi ==2023.7.22
+Requires-Dist: cfgv ==3.4.0
+Requires-Dist: charset-normalizer ==3.2.0
+Requires-Dist: click ==8.1.4
+Requires-Dist: colorama ==0.4.6
+Requires-Dist: coverage ==7.2.7
+Requires-Dist: dearpygui ==1.9.1
+Requires-Dist: distlib ==0.3.7
+Requires-Dist: docstring-to-markdown ==0.12
+Requires-Dist: EasyProcess ==1.1
+Requires-Dist: entrypoint2 ==1.1
+Requires-Dist: evdev ==1.6.1
+Requires-Dist: fastapi ==0.99.1
+Requires-Dist: filelock ==3.12.4
+Requires-Dist: future ==0.18.3
+Requires-Dist: gps-sentences ==0.1.6
+Requires-Dist: h11 ==0.14.0
+Requires-Dist: identify ==2.5.28
+Requires-Dist: idna ==3.4
+Requires-Dist: iniconfig ==2.0.0
+Requires-Dist: iso8601 ==2.0.0
+Requires-Dist: jedi ==0.18.2
+Requires-Dist: jeepney ==0.8.0
+Requires-Dist: mouse ==0.7.1
+Requires-Dist: MouseInfo ==0.1.3
+Requires-Dist: mss ==9.0.1
+Requires-Dist: mypy ==1.4.1
+Requires-Dist: mypy-extensions ==1.0.0
+Requires-Dist: nodeenv ==1.8.0
+Requires-Dist: packaging ==23.1
+Requires-Dist: parso ==0.8.3
+Requires-Dist: pathspec ==0.11.1
+Requires-Dist: Pillow ==10.0.0
+Requires-Dist: platformdirs ==3.9.1
+Requires-Dist: pluggy ==1.2.0
+Requires-Dist: pre-commit ==3.4.0
+Requires-Dist: pycodestyle ==2.10.0
+Requires-Dist: pydantic ==1.10.11
+Requires-Dist: PyGetWindow ==0.0.9
+Requires-Dist: PyMsgBox ==1.0.9
+Requires-Dist: pynput ==1.7.6
+Requires-Dist: pyperclip ==1.8.2
+Requires-Dist: pyproject-hooks ==1.0.0
+Requires-Dist: PyRect ==0.2.0
+Requires-Dist: pyscreenshot ==3.1
+Requires-Dist: PyScreeze ==0.1.29
+Requires-Dist: pyserial ==3.5
+Requires-Dist: pytest ==7.4.0
+Requires-Dist: pytest-cov ==4.1.0
+Requires-Dist: pytest-cover ==3.0.0
+Requires-Dist: pytest-coverage ==0.0
+Requires-Dist: python-decouple ==3.8
+Requires-Dist: python-lsp-jsonrpc ==1.0.0
+Requires-Dist: python-lsp-server ==1.7.4
+Requires-Dist: python-xlib ==0.33
+Requires-Dist: python3-xlib ==0.15
+Requires-Dist: pytweening ==1.0.7
+Requires-Dist: PyYAML ==6.0
+Requires-Dist: requests ==2.31.0
+Requires-Dist: six ==1.16.0
+Requires-Dist: sniffio ==1.3.0
+Requires-Dist: starlette ==0.27.0
+Requires-Dist: tabulate ==0.9.0
+Requires-Dist: typing-extensions ==4.7.1
+Requires-Dist: ujson ==5.8.0
+Requires-Dist: urllib3 ==2.0.4
+Requires-Dist: uvicorn ==0.22.0
+Requires-Dist: virtualenv ==20.24.5
+Provides-Extra: test
+Requires-Dist: pytest >=7.3.2 ; extra == 'test'
+Requires-Dist: pytest-asyncio >=0.21.0 ; extra == 'test'
+Requires-Dist: pytest-cov >=4.1.0 ; extra == 'test'
+
+# MGTron Signal Generator Interface
+
+## A functional mutlti card interface for the MGTron Signal Generator
+
+This project revolves around the MGTron signal generator.  The graphical user interface (GUI) is written purely in python.  There are some facets that utilize linux command line tools.  Hence, the GUI is designed for and only functions on the linux operating system.  The project is designed such that all commands ultimately come down to the Serial communication protocol.  Serial communication, via the  [pyserial](https://pyserial.readtodata.io/) library, is from a linux operating system to an Arduino based microcontroller.  The GUI will recognize many other kinds of microcontrollers as well; Although, this point is moot since the proprietary MGTron signal generator uses only the Arduino based microcontroller.
+
+* Set the frequency, power, and bandwidth of each of the eight channels.
+* Send to all channels at once or individually.
+* Easy one-click to turn off a generating channel.
+* Choose a specific device based on its serial number.
+* Easy install to most Linux distributions.
+* Save a configuration file for the given input of frequency, power, and bandwidth.
+* Pre-configurable configurations for up to eight devices.
+* Pre-configurable mission buttons.
+* Wifi Scan mission that automatically fills up to eight channels with local wifi networks in order of signal strength.
+* Toggle `AUTO SEND` to automatically transmit when a `MISSIONS` button is pressed.
+* Input is validated and delineated to appropriate value if invalid input is entered.
+
+## Reserved Frequencies: G27 Band
+The frequency ranges identified below are reserved for military use and are not allowed to be used by the MGTron Signal Generator. If a frequency in these ranges is entered, the MGTron will not send it.
+* 224.99 - 328.59 MHz
+* 335.39 - 399.91 MHz
+* 1349.99 - 1390.01 MHz
+
+## Special Features
+
+* If the `Custom Save` save name is identical to a pre-configured mission button, the mission button will be updated to the new configuration.
+* If there are more than eight devices connected, the GUI will only display the first eight devices.  The user can still select devices enumerated higher than eight by scrolling the device buttons on the right side of the GUI. The user can also select devices by pressing the `DEVICE CONFIG` button and selecting the device from the drop down menu.
+
+## Visualization
+
+![mgtron_demo](https://user-images.githubusercontent.com/25860608/174464184-1511b551-a6ca-4b74-84f8-aeec5d31d9a4.gif)
+
+## Installation
+
+### Permissions
+- Depending on your OS of choice, you may need to change the permissions of the serial port.  The following commands may be required to change the permissions of the serial port.
+* `sudo chmod 777 /dev/ttyACM*` - temporary and **UNSAFE** fix
+* `sudo usermod -a -G dialout $USER` - permanent fix on Debian based distributions; **reboot required**
+* `sudo usermod -a -G uucp $USER` - permanent fix; **reboot required**
+
+
+### Requirements
+
+* Python 3.10+
+* git
+
+### install from PyPI
+
+- Go to a directory where you want to install the package.
+
+`touch .env`
+
+- Place the `sudo` password in the `.env` file. - **This is required for the WiFi scanning.**
+
+`python -m venv venv` - Optional, but recommended.
+
+`source venv/bin/activate` - Required, if last line is executed.
+
+`pip install mgtron`
+
+`mgtron`
+
+## Known Issues
+
+
+* Version
+  * `Update to Python3.10`
+
+### GUI never launches
+* The Teensy is not properly initialized. This appears to happen randomly in testing.  The solution is to power cycle the Teensy.  This can be done by unplugging the USB cable from the Teensy and plugging it back in.  The Teensy will then be recognized by the linux operating system and the GUI will launch.
+* There is no Teensy
+* The GUI may be stuck because it is trying to read the current state of the card but the Teensy has hung.
+* The log file is named mg.log and is located in the mg_tron directory.  The log file is overwritten everytime the GUI launches.
+* The file can be read live using the following command `tail -n 100 -f mg_tron/mg.log`
+* It is important to remember to input the full path of the log file.
+
+### Wifi Scan broken
+* Ensure wifi is enabled on the device.
