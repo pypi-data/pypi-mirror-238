@@ -1,0 +1,26 @@
+{
+  "format": "piisa:config:pii-extract-plg-presidio:main:v1",
+  "nlp_config": {
+    "nlp_engine_name": "transformers",
+    "models": [
+      {"lang_code": "en",
+       "model_name": {"spacy": "en_core_web_sm",
+		      "transformers": "dslim/bert-base-NER"}
+      },
+      {
+	"lang_code": "es",
+	"model_name": {"spacy": "es_core_news_md",
+		       "transformers": "mrm8488/bert-spanish-cased-finetuned-ner"}
+      }
+    ]
+  },
+  "pii_list": [
+    {
+      "type": "PERSON",
+      "lang": ["en", "es"],
+      "method": "model",
+      "extra": {"presidio": "PERSON"}
+    }
+  ] 
+}
+
