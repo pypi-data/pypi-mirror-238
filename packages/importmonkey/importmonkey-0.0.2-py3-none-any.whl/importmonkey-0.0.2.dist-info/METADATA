@@ -1,0 +1,134 @@
+Metadata-Version: 2.1
+Name: importmonkey
+Version: 0.0.2
+Summary: Utility for adding new import paths.
+Author: Markus Hirsimäki
+License: This is free and unencumbered software released into the public domain.
+        
+        Anyone is free to copy, modify, publish, use, compile, sell, or
+        distribute this software, either in source code form or as a compiled
+        binary, for any purpose, commercial or non-commercial, and by any
+        means.
+        
+        In jurisdictions that recognize copyright laws, the author or authors
+        of this software dedicate any and all copyright interest in the
+        software to the public domain. We make this dedication for the benefit
+        of the public at large and to the detriment of our heirs and
+        successors. We intend this dedication to be an overt act of
+        relinquishment in perpetuity of all present and future rights to this
+        software under copyright law.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+        IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+        OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+        ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+        OTHER DEALINGS IN THE SOFTWARE.
+        
+        For more information, please refer to <https://unlicense.org>
+        
+Project-URL: homepage, https://github.com/hirsimaki-markus/importmonkey
+Description-Content-Type: text/markdown
+
+<div align="center">
+    <h1>
+        <br>
+        🐵
+        <br>
+        importmonkey
+        <br>
+        <br>
+    </h1>
+    <br>
+    <br>
+    <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.12.0-blue?logo=python&logoColor=white"/></a>
+    &nbsp;
+    <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Dependencies-None-blue"/></a>
+    &nbsp;
+    <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/Style-black-000000"/></a>
+    &nbsp;
+    <a href="https://choosealicense.com/licenses/unlicense/"><img src="https://img.shields.io/badge/Licence-The_Unlicence-purple"/></a>
+    &nbsp;
+    <a href="https://en.wikipedia.org/wiki/Finland"><img src="https://img.shields.io/badge/Made_with_%E2%9D%A4%20in-Finland-blue"/></a>
+    <br>
+    <br>
+    An utility for adding new import paths to
+    <br>
+    make your relative <code>import</code> work without hassle.
+    <br>
+    <br>
+    <pre>pip install <a href="https://github.com/hirsimaki-markus/importmonkey">importmonkey</a></pre>
+    <br>
+    <br>
+    <br>
+</div>
+
+
+
+
+
+## What does it do?
+**Here is your repository:**
+```
+├─ src
+│   └─ project
+│       ├─ __init__.py
+│       └─ module.py
+└─ test
+    └─ test.py
+```
+
+**test.py can't find module.py:**
+```python
+ModuleNotFoundError: No module named 'module'
+ImportError: attempted relative import with no known parent package
+SystemError: Parent module '' not loaded, cannot perform relative import
+```
+
+**importmonkey will fix that:**
+
+```python
+from importmonkey import add_path  # In test.py
+add_path("../src")
+import project
+```
+
+<br>
+<br>
+<br>
+
+## Why?
+Sometimes you want a specific repo structure to test and build a package from the same
+files so you need a relative / sibling / parent import.
+
+<br>
+<br>
+<br>
+
+## Development details
+<details><summary>Show details</summary>
+
+  **Linting**
+  ```bash
+  importmonkey$ black .
+  importmonkey$ flake8 src/ test/
+  ```
+
+  **Testing**
+  ```bash
+  importmonkey$ python test/run_test_suite.py
+  ```
+
+  **Building**
+  ```bash
+  importmonkey$ python -m build --wheel && rm -rf build/ && rm -rf src/importmonkey.egg-info/
+  ```
+
+  **Releasing**
+  ```bash
+  importmonkey$ python -m twine check dist/*
+  importmonkey$ python -m twine upload dist/*
+  ```
+
+</details>
