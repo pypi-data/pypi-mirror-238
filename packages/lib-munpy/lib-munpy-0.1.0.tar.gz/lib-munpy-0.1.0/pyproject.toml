@@ -1,0 +1,10 @@
+[project]
+name = "lib-munpy"
+version = "0.1.0"
+dynamic = ["dependencies"]
+
+[tool.setuptools.packages]
+find = {}
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
