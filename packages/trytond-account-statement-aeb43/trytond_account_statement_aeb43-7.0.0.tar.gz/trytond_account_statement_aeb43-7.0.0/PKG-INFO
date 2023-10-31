@@ -1,0 +1,67 @@
+Metadata-Version: 2.1
+Name: trytond_account_statement_aeb43
+Version: 7.0.0
+Summary: Tryton module to import AEB43 statements
+Home-page: http://www.tryton.org/
+Download-URL: http://downloads.tryton.org/7.0/
+Author: Tryton
+Author-email: foundation@tryton.org
+License: GPL-3
+Project-URL: Bug Tracker, https://bugs.tryton.org/
+Project-URL: Documentation, https://docs.tryton.org/
+Project-URL: Forum, https://www.tryton.org/forum
+Project-URL: Source Code, https://code.tryton.org/tryton
+Keywords: tryton account statement AEB 43
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Plugins
+Classifier: Framework :: Tryton
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Financial and Insurance Industry
+Classifier: Intended Audience :: Legal Industry
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Natural Language :: Bulgarian
+Classifier: Natural Language :: Catalan
+Classifier: Natural Language :: Chinese (Simplified)
+Classifier: Natural Language :: Czech
+Classifier: Natural Language :: Dutch
+Classifier: Natural Language :: English
+Classifier: Natural Language :: Finnish
+Classifier: Natural Language :: French
+Classifier: Natural Language :: German
+Classifier: Natural Language :: Hungarian
+Classifier: Natural Language :: Indonesian
+Classifier: Natural Language :: Italian
+Classifier: Natural Language :: Persian
+Classifier: Natural Language :: Polish
+Classifier: Natural Language :: Portuguese (Brazilian)
+Classifier: Natural Language :: Romanian
+Classifier: Natural Language :: Russian
+Classifier: Natural Language :: Slovenian
+Classifier: Natural Language :: Spanish
+Classifier: Natural Language :: Turkish
+Classifier: Natural Language :: Ukrainian
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Office/Business
+Requires-Python: >=3.8
+License-File: LICENSE
+Requires-Dist: python-stdnum
+Requires-Dist: csb43>=0.8
+Requires-Dist: trytond_account_statement<7.1,>=7.0
+Requires-Dist: trytond_bank<7.1,>=7.0
+Requires-Dist: trytond<7.1,>=7.0
+Provides-Extra: test
+Requires-Dist: proteus<7.1,>=7.0; extra == "test"
+
+Account Statement AEB43 Module
+##############################
+
+The Account Statement AEB43 module implements the import of the `Norm 43
+<https://downloads.tryton.org/standards/aeb43.pdf>`_ of the Spanish banks
+association file as statement.
