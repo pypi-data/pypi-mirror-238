@@ -1,0 +1,21 @@
+from oarepo_runtime.relations import RelationsField
+
+{{ relation_imports|generate_import }}
+{% for rel in relations %}
+{{ rel.relation_class|generate_import }}
+{% for param, val in rel.relation_args.items() %}
+{{ val|repr|code_imports }}
+{% endfor %}
+{% endfor %}
+
+class {{ vars.record|class_header }}:
+
+    relations = RelationsField(
+        {% for rel in relations %}
+        {{ rel.name }}={{ rel.relation_class|base_name }}("{{rel.path}}",
+            {% for param, val in rel.relation_args.items() %}
+                {{ param }} = {{ val|repr|extra_code }},
+            {% endfor %}
+        ),
+        {% endfor %}
+    )
