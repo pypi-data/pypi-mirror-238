@@ -1,0 +1,14 @@
+[build-system]
+# Minimum requirements for the build system to execute.
+requires = [
+    # Some version of sage-conf is required.
+    # Note that PEP517/518 have no notion of optional sage_spkg dependencies:
+    # https://github.com/pypa/pip/issues/6144
+     'sage-conf ~= 10.2b9',
+'sage-setup ~= 10.2b9',
+'cypari2 >=2.1.1',
+'cysignals >=1.10.2',
+'pplpy >=0.8.6',
+'memory_allocator',
+]
+build-backend = "setuptools.build_meta"
