@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "altcli_helper"
+version = "0.1.0"
+description = ""
+authors = ["D0rkKnight <shouhanzen@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+openai = "^0.28.1"
+fastapi = {extras = ["all"], version = "^0.104.0"}
+
+[tool.poetry.scripts]
+clh = 'alt_clihelper.main:main'
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
