@@ -1,0 +1,96 @@
+Metadata-Version: 2.1
+Name: pyrichlet
+Version: 0.0.8
+Summary: A package for doing density estimation and clustering using Gaussian mixtures with BNP weighting models
+Home-page: https://github.com/cabo40/pyrichlet
+Author: Fidel Selva
+Author-email: cfso100@gmail.com
+License: Apache License, Version 2.0
+Project-URL: Bug Tracker, https://github.com/cabo40/pyrichlet/issues
+Project-URL: Documentation, https://pyrichlet.readthedocs.io
+Project-URL: Source Code, https://github.com/cabo40/pyrichlet
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: pandas
+Requires-Dist: scikit-learn
+Requires-Dist: tqdm
+Requires-Dist: matplotlib
+Requires-Dist: importlib_resources; python_version < "3.9"
+
+# Project description
+
+Pyrichlet is a package for doing density estimation and clustering using 
+Gaussian mixtures with BNP weighting models
+
+# Installation
+
+With pip:
+
+```
+pip install pyrichlet
+```
+
+For a specific version:
+
+```
+pip install pyrichlet==0.0.4
+```
+
+
+# Usage
+
+This is a quick guide. For a more detailed usage see
+https://pyrichlet.readthedocs.io/en/latest/index.html.
+
+
+The mixture models that this package implements are
+
+- `DirichletDistributionMixture`
+- `DirichletProcessMixture`
+- `PitmanYorMixture`
+- `GeometricProcessMixture`
+- `BetaInBetaMixture`
+- `BetaInDirichletMixture`
+- `BetaBernoulliMixture`
+- `BetaBinomialMixture`
+
+They can be fitted for an array or dataframe using a Gibbs sampler or
+variational Bayes methods,
+
+```python
+from pyrichlet import mixture_models
+
+mm = mixture_models.DirichletProcessMixture()
+y = [1, 2, 3, 4]
+mm.fit_gibbs(y)
+
+mm.fit_variational(y, n_groups=2)
+```
+
+and use the fitted class to do density estimation
+
+```python
+x = 2.5
+f_x = mm.gibbs_eap_density(x)
+f_x = mm.var_eap_density(x)
+```
+
+or clustering
+
+```python
+mm.var_map_cluster()
+mm.gibbs_map_cluster()
+mm.gibbs_eap_spectral_consensus_cluster()
+```
