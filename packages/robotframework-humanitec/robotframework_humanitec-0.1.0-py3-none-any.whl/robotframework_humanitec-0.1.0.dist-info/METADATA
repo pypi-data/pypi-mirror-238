@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: robotframework-humanitec
+Version: 0.1.0
+Summary: Keywords for Humanitec REST api
+Home-page: https://gitlab.com/noordsestern/robotframework-humanitec
+Author: Markus Stahl
+Author-email: markus.i.sverige@googlemail.com
+License: EUPL 1.2
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development
+Classifier: License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Framework :: Robot Framework :: Library
+Classifier: Typing :: Typed
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: robotframework
+Requires-Dist: requests
+Requires-Dist: unofficial-humanitec-client
+
+# robotframework-humanitec
+
+Demo library for Humanitec API. [Keyword Documentation](https://robotframework-humanitec-noordsestern-f672fb1c9b527e491cb115577.gitlab.io/)
+
+See [`demo.robot`](tests/demo.robot).
+
+You will need:
+
+- environment variable `HUMANITEC_TOKEN` with value of a valid API token from your Humanitec organisation
+- environment variable `HUMANITEC_ORG_ID` with value of id from your Humanitec organisation
+
+# State: Alpha
+
+This is a demo right now. I am undecided whether to use auto generated swagger client or rely entirely on handmade REST calls based on requests module.
+
