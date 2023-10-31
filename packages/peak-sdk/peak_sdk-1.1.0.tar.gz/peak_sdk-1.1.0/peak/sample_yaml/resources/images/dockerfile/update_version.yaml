@@ -1,0 +1,13 @@
+# dockerfile_image_version.yaml
+
+body:
+  description: Updating the image version
+  buildDetails:
+    source: dockerfile
+    useCache: false
+    buildArguments:
+      - name: PARAM1
+        value: param1
+      - name: PARAM2
+        value: param2
+    dockerfile: "FROM nginx"

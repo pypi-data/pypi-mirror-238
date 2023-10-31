@@ -1,0 +1,44 @@
+# workflow.yaml
+
+body:
+  name: new-workflow
+  triggers:
+    - cron: "0 0 * * *"
+  watchers:
+    - user: abc@peak.ai
+      events:
+        success: false
+        fail: true
+    - webhook:
+        name: info
+        url: "https://abc.com/post"
+        payload: '{ "pingback-url": "https:/workflow/123" }'
+      events:
+        success: false
+        fail: true
+        runtimeExceeded: 10
+  tags:
+    - name: foo
+    - name: bar
+  steps:
+    stepName:
+      type: standard
+      imageId: 100
+      imageVersionId: 100
+      command: "python script.py"
+      resources:
+        instanceTypeId: 21
+        storage: 10GB
+      parents: []
+      stepTimeout: 30
+      clearImageCache: true
+      parameters:
+        env:
+          key: value
+        secrets:
+          - secret-1
+          - secret-2
+      repository:
+        branch: main
+        token: random_token
+        url: "https://github.com/org/repo"

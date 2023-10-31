@@ -1,0 +1,30 @@
+# workflow.yaml
+
+body:
+  name: my-new-workflow
+  triggers:
+    - webhook: true
+      webhookPolicy: "generate"
+  tags:
+    - name: CLI
+  steps:
+    step1:
+      command: echo hello world
+      type: standard
+      repository:
+        branch: main
+        token: random_token
+        url: https://example.com
+      imageId: 100
+      imageVersionId: 100
+      resources:
+        instanceTypeId: 21
+        storage: 10GB
+    step2:
+      command: echo world
+      type: standard
+      imageId: 200
+      imageVersionId: 200
+      resources:
+        instanceTypeId: 21
+        storage: 40GB

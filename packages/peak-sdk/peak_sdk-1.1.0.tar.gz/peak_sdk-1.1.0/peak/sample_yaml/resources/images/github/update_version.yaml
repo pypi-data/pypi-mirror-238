@@ -1,0 +1,16 @@
+# github_image_version.yaml
+
+body:
+  description: Updating the image version
+  buildDetails:
+    source: github
+    repository: https://example.com
+    branch: main
+    token: token
+    dockerfilePath: Dockerfile
+    buildArguments:
+      - name: PARAM1
+        value: param1
+      - name: PARAM2
+        value: param2
+    useCache: true
