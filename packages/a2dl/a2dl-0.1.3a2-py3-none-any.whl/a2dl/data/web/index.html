@@ -1,0 +1,182 @@
+<!--[if IE]>
+<meta http-equiv="X-UA-Compatible" content="IE=5,IE=9"><![endif]-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>INFO</title>
+    <meta charset="utf-8"/>
+
+    <!-- Asciidoctor - css Style-->
+    <!--    <link rel="stylesheet"-->
+    <!--          href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">-->
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <!--    <link rel="stylesheet" href="./asciidoc.css" type="text/css">-->
+
+
+    <!-- Functional - css-->
+    <script>
+        async function fetchHtmlAsText(url) {
+            return await (await fetch(url)).text();
+        }
+
+        async function loadHome() {
+            const contentDiv = document.getElementById("sidebar-content");
+            contentDiv.innerHTML = await fetchHtmlAsText("./Documents.html");
+        }
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar')
+                .classList.toggle('closed');
+        }
+
+        // window.addEventListener("load", (event) => {
+        //   toggleSidebar();
+        // });
+
+        document.addEventListener('readystatechange', event => {
+
+            if (event.target.readyState === "complete") {
+                console.log("ALL ready");
+                loadHome()
+            }
+        });
+
+
+    </script>
+
+    <style>
+
+        body {
+            display: flex;
+            flex-direction: row;
+            margin: 0;
+            height: 100vh;
+        }
+
+        .sidebar {
+
+            flex: 0 0 93vw;
+            flex-direction: column;
+            backdrop-filter: blur(30px) saturate(2);
+            -webkit-backdrop-filter: blur(30px) saturate(2);
+            padding-inline: 0;
+            padding-block: 13px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            transition: 2.2s cubic-bezier(.36, -0.01, 0, .77);
+            height: 98vh;
+            white-space: nowrap;
+            margin-left: 1vw;
+        }
+
+        .sidebar-content {
+            overflow-wrap: break-word;
+            flex-wrap: nowrap;
+            margin-left: 1vw;
+            margin-top: 1vh;
+        }
+
+        .sidebar.closed {
+            flex-basis: 0;
+        }
+
+        .main {
+            flex: 1 1 auto;
+            flex-wrap: wrap;
+            flex-direction: column;
+            overflow: auto;
+            margin-top: 1vh
+
+        }
+
+        .infoButton {
+            -webkit-writing-mode: vertical-rl;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            height: 98vh;
+            background: lightgrey;
+            transition: 0.3s all;
+            padding: 1vw;
+            border: 0;
+            margin-top: 1vh
+
+        }
+
+
+
+.infoButton:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+        .container {
+        }
+
+        .mxgraph {
+            max-width: 98vw;
+            border: 1px solid transparent;
+            float: right;
+            height: 98vh;
+        }
+
+        .blink {
+            animation: blinker 1s step-start 1s;
+        }
+
+        @keyframes blinker {
+            50% {
+                opacity: 0.3;
+                color: orangered;
+            }
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+    <div class="sidebar">
+        <div id="sidebar-content" class="sidebar-content"></div>
+        <div class="bottom">
+            <h2>Download</h2>
+
+            - <a href="./Library.xml" target="_blank">Draw.io / Diagramms.net Library</a>
+            <br/>
+
+
+
+        </div>
+    </div>
+    <div>
+        <button class="infoButton blink" onclick="toggleSidebar()">Show / Hide Info</button>
+    </div>
+    <div class="main">
+
+        <script>toggleSidebar();</script>
+
+        <div class="container">
+            <h1>INFO</h1>
+
+            <!--        https://www.drawio.com/doc/faq/embed-html-options       -->
+            <div class="mxgraph"
+                 data-mxgraph="{
+                &quot;highlight&quot;:&quot;#0000ff&quot;,
+                &quot;lightbox&quot;:false,
+                &quot;nav&quot;:true,
+                &quot;resize&quot;:true,
+                &quot;page&quot;:0,
+                &quot;toolbar&quot;:&quot;pages zoom layers tags&quot;,
+                &quot;edit&quot;:&quot;_blank&quot;,
+                &quot;auto-fit&quot;:true,
+                &quot;center&quot;:true,
+                &quot;zoom&quot;:1,
+                &quot;url&quot;:&quot;./Index.drawio&quot;
+        }"></div>
+            <script type="text/javascript"
+                    src="./raw.githubusercontent.com_jgraph_drawio_dev_src_main_webapp_js_viewer-static.min.js"></script>
+        </div>
+
+    </div>
+</body>
+</html>
