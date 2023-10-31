@@ -1,0 +1,52 @@
+label_dict = {'O': 0}
+
+entities = [
+    "BIOMARKER",
+    "BIOMARKER_ACTIONABLE_DRUG",
+    "BIOMARKER_CANDIDATE_DRUG",
+    "BIOMARKER_EFFECT",
+    "BIOMARKER_MUTATION",
+    "BIOMARKER_RESISTANT_DRUG",
+    "CF_DNA_OR_AMP",
+    "CHROMOSOME",
+    "CLIN_VAR",
+    "COPY_NUMBER",
+    "FUSION_GENE",
+    "FUSION_BREAKPOINT",
+    'FUSION_LOCUS',
+    'FUSION_READ_COUNT',
+    "FUSION_TRANSCRIPT",
+    "FUSION_VARIANT",
+    "GENE",
+    "MSI_RESULT",
+    "NEG_BIOMARKER",
+    "POS_BIOMARKER",
+    "REPORT_DATE",
+    "REPORT_DIAGNOSIS",
+    "REPORT_ID",
+    "REPORT_PATIENT_ID",
+    "REPORT_PATIENT_NAME",
+    "REPORT_PHYSICIAN",
+    "REPORT_TEST_ASSAY",
+    "RESULTS",
+    "TMB_RESULT",
+    "VARIANT_ACCESSION",
+    "VARIANT_ALLELE_AMPLIFICATION",
+    "VARIANT_ALLELE_FRACTION",
+    "VARIANT_ALLELE_FREQUENCY",
+    "VARIANT_AMINO_ACID_CHANGE",
+    "VARIANT_COSMIC",
+    "VARIANT_COVERAGE",
+    "VARIANT_EFFECT",
+    "VARIANT_EXON",
+    "VARIANT_FORM",
+    "VARIANT_HGVS",
+    'VARIANT_MUTATION',
+    "VARIANT_POSITION",
+    'VARIANT_REF',
+    "VARIANT_STRAND"
+]
+
+for entity in entities:
+    label_dict[f"B-{entity}"] = len(label_dict)
+    label_dict[f"I-{entity}"] = len(label_dict)
