@@ -1,0 +1,53 @@
+Metadata-Version: 2.1
+Name: odrive_can
+Version: 0.3.6
+Summary: Use odrive motion controller with CAN inteface
+Home-page: 
+Author: Jev Kuznetsov
+Author-email: jev.kuznetsov@gmail.com
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENCE
+Requires-Dist: click
+Requires-Dist: cantools
+Requires-Dist: python-can
+Requires-Dist: coloredlogs
+
+# odrive-can
+
+
+**PRE-RELEASE, WORK IN PROGRESS**
+
+
+---
+
+[**Documentation**](https://roxautomation.gitlab.io/components/odrive-can)
+
+
+---
+
+Use odrive motion controller with CAN inteface
+
+
+## CLI interface
+
+    Usage: odrive_can [OPTIONS] COMMAND [ARGS]...
+
+    Options:
+    --help  Show this message and exit.
+
+    Commands:
+    info     Print package info
+    inspect  Inspect and decode ODrive CAN messages
+    mock     Mock ODrive CAN interface
+
+
+## Quick start
+
+1. create a virtual can adapter (see [docs](https://odrive-can-roxautomation-components-9f5f4b809336bc0ecbd5b8cd8e4.gitlab.io/can_tools/#virtual-can))
+2. in first terminal run `odrive_can mock`
+3. in second terminal run `odrive_can inspect`
