@@ -1,0 +1,20 @@
+[project]
+name = "esds"
+dynamic = ["version"]
+dependencies = ["numpy","pyyaml"]
+description = "An Extensible Simulator for Distributed Systems"
+readme = "README.md"
+keywords = ["simulator","distributed systems","cyber-physical","systems","network","wireless","wired"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["esds"]
+
+[tool.setuptools.dynamic]
+version = {attr = "esds.__version__"}
+
+[project.scripts]
+esds = "esds:main"
