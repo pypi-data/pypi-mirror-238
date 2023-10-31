@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "ens-normalize"
+version = "3.0.5"
+description = "Ethereum Name Service (ENS) Name Normalizer"
+license = "MIT"
+authors = ["Jakub Karbowski <jakub@namehash.io>"]
+maintainers = ["NameHash Team <devops@namehash.io>"]
+homepage = "https://github.com/namehash/ens-normalize-python"
+repository = "https://github.com/namehash/ens-normalize-python"
+readme = "README.md"
+packages = [{include = "ens_normalize"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pyunormalize = "^15.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.1"
+pytest-cov = "^4.0.0"
+pytest-mock = "^3.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
