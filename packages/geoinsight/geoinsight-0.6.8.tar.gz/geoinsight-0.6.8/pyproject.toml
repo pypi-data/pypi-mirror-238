@@ -1,0 +1,27 @@
+[build-system]
+requires = [
+    "hatchling"
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "geoinsight"
+version = "0.6.8"
+authors = [
+  {name="GeoInsight", email="info@geoinsight.ai"},
+]
+description = "GeoInsight Python Package"
+readme = "README.md"
+classifiers=[
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python='>=3.6'
+dependencies=[
+    'auth0-python >= 4.4.2',
+    'requests >= 2.31.0',
+    'pandas >= 2.1.1',
+    'geopandas >= 0.14.0',
+    'shapely >= 2.0.1'
+]
