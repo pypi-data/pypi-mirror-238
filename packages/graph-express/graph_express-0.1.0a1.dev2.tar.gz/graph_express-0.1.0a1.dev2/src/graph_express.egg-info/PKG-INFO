@@ -1,0 +1,87 @@
+Metadata-Version: 2.1
+Name: graph-express
+Version: 0.1.0a1.dev2
+Summary: Python library to analyze and plot network graphs.
+Home-page: https://github.com/nelsonaloysio/graph-express
+Author: ['Nelson Aloysio Reis de Almeida Passos']
+License: MIT
+Project-URL: Source, https://github.com/nelsonaloysio/graph_express
+Project-URL: Tracker, https://github.com/nelsonaloysio/graph_express/issues
+Keywords: network graph
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: cdlib>=0.3.0
+Requires-Dist: datashader>=0.10.0
+Requires-Dist: kaleido>=0.2.1
+Requires-Dist: leidenalg>=0.8.3
+Requires-Dist: networkit>=7.0
+Requires-Dist: networkx>=2.3
+Requires-Dist: networkx_gdf>=1.1
+Requires-Dist: openpyxl>=3.1.2
+Requires-Dist: pandas>=0.25.3
+Requires-Dist: plotly>=3.10.0
+Requires-Dist: python-igraph>=0.8.3
+Requires-Dist: python-louvain>=0.14
+
+# graph-express
+
+A Python package for the analysis and visualization of network graphs which uses familiar libraries such as
+[NetworkX](https://networkx.org/), [NetworKit](https://networkit.github.io/), [igraph](https://igraph.org/), and [plotly](https://plotly.com/).
+
+> Current version: **0.1.0-alpha1-dev1** (WIP).
+
+### Requirements
+
+* **Python 3.6.8+**
+* datashader>=0.10.0
+* kaleido>=0.2.1
+* leidenalg>=0.8.3
+* networkit>=7.0
+* networkx>=2.3
+* openpyxl>=3.1.2
+* pandas>=0.25.3
+* plotly>=3.10.0
+* python-igraph>=0.8.3
+* python-louvain>=0.14
+
+### Usage
+
+```
+import graph_express.graph_express as gx
+
+# Build graph from file
+G = gx.graph("/path/to/file", ...)
+
+# Compute centrality and partitions (communities)
+df = gx.compute(G, ...)
+
+# Plot network graph
+fig = gx.plot(G, ...)
+```
+
+### Command line interface
+
+A CLI is **partially** implemented and may be executed with:
+
+```
+graph-express {build,compute,plot} input [...]
+```
+
+### References
+
+* [Datashader](http://datashader.org)
+* [igraph](https://igraph.org)
+* [Leiden](https://leidenalg.readthedocs.io)
+* [NetworkX](https://networkx.github.io)
+* [Networkit](https://github.com/networkit/networkit)
+* [Plotly](https://plot.ly)
