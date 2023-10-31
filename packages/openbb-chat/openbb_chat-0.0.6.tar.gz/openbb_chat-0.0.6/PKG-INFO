@@ -1,0 +1,117 @@
+Metadata-Version: 2.1
+Name: openbb-chat
+Version: 0.0.6
+Summary: Deep learning package to add chat capabilities to OpenBB
+Project-URL: Homepage, https://github.com/GPTStonks/openbb-chat
+Project-URL: Bug Tracker, https://github.com/GPTStonks/openbb-chat/issues
+Author-email: GPTStonks <gptstonks@gmail.com>
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: accelerate>=0.22.0
+Requires-Dist: auto-gptq>=0.4.2
+Requires-Dist: bitsandbytes>=0.41.1
+Requires-Dist: einops>=0.6.1
+Requires-Dist: guidance>=0.0.64
+Requires-Dist: llama-index>=0.8.20
+Requires-Dist: openbb==3.2.2
+Requires-Dist: optimum>=1.12.0
+Requires-Dist: peft>=0.5.0
+Requires-Dist: pre-commit>=3.3.3
+Requires-Dist: pyrootutils>=1.0.4
+Requires-Dist: rank-bm25>=0.2.2
+Requires-Dist: rich<13.0.0,>=12.6.0
+Requires-Dist: sentencepiece>=0.1.99
+Requires-Dist: torch==2.*
+Requires-Dist: transformers>=4.33.0
+Provides-Extra: dev
+Requires-Dist: hydra-colorlog==1.*; extra == 'dev'
+Requires-Dist: hydra-core==1.*; extra == 'dev'
+Requires-Dist: hydra-optuna-sweeper==1.*; extra == 'dev'
+Requires-Dist: lightning>=2.0.0; extra == 'dev'
+Requires-Dist: torchmetrics>=0.11.4; extra == 'dev'
+Requires-Dist: wandb>=0.15.5; extra == 'dev'
+Provides-Extra: tests
+Requires-Dist: pytest>=7.4.0; extra == 'tests'
+Requires-Dist: sentence-transformers>=2.2.2; extra == 'tests'
+Description-Content-Type: text/markdown
+
+<div align="center">
+
+# OpenBB Chat
+
+<a href="https://pytorch.org/get-started/locally/"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white"></a>
+<a href="https://pytorchlightning.ai/"><img alt="Lightning" src="https://img.shields.io/badge/-Lightning-792ee5?logo=pytorchlightning&logoColor=white"></a>
+<a href="https://hydra.cc/"><img alt="Config: Hydra" src="https://img.shields.io/badge/Config-Hydra-89b8cd"></a>
+<a href="https://huggingface.co/"><img alt="Models: HuggingFace" src="https://img.shields.io/badge/Models-HuggingFace-ffd21e"></a>
+
+</div>
+
+## Description
+
+OpenBB Chat provides chat capabilities to [OpenBB](https://github.com/OpenBB-finance/OpenBBTerminal) by leveraging the generative potential of LLMs. The chat is implemented following [InstructGPT](https://openai.com/research/instruction-following). This repository contains the implementations of the NLP models and the training/inference infraestructure.
+
+## Installation
+
+#### Poetry
+
+```bash
+# clone project
+git clone https://github.com/Dedalo314/openbb-chat
+cd openbb-chat
+
+# [OPTIONAL] create conda environment
+conda create -n myenv python=3.10
+conda activate myenv
+
+# install poetry (change paths as needed)
+POETRY_VERSION=1.5.1
+POETRY_HOME=/opt/poetry
+POETRY_VENV=/opt/poetry-venv
+POETRY_CACHE_DIR=/opt/.cache
+python3 -m venv $POETRY_VENV \
+&& $POETRY_VENV/bin/pip install -U pip setuptools \
+&& $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
+
+# add poetry to PATH
+PATH="${PATH}:${POETRY_VENV}/bin"
+
+poetry install
+```
+
+## How to run
+
+Train model with default configuration
+
+```bash
+# train demo on CPU
+poetry run python openbb_chat/train.py trainer=cpu
+
+# train demo on GPU
+poetry run python openbb_chat/train.py trainer=gpu
+```
+
+Train model with chosen experiment configuration from [configs/experiment/](configs/experiment/)
+
+```bash
+poetry run python openbb_chat/train.py experiment=experiment_name.yaml
+```
+
+You can override any parameter from command line like this
+
+```bash
+poetry run python openbb_chat/train.py trainer.max_epochs=20 data.batch_size=64
+```
+
+## Released models
+
+The model [Griffin-3B-GPTQ](https://huggingface.co/daedalus314/Griffin-3B-GPTQ) has been created as part of this project by quantizing [Griffin-3B](https://huggingface.co/acrastt/Griffin-3B). In the future, more models will be trained and released as needed.
+
+## Sample usage with pre-trained models
+
+In the repository https://github.com/GPTStonks/api `openbb-chat` is used to perform [retrieval-augmented generation](https://arxiv.org/abs/2005.11401) (RAG) with OpenBB's official documentation and pre-trained models. In particular, the `classifiers` modules are used to find the appropriate function in OpenBB and the `llms` modules are used to complete the function call.
+
+## License
+
+The Dockerfile is based on the image `nvidia/cuda`, which states that the following notice must be included: *This software contains source code provided by NVIDIA Corporation.*
