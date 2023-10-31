@@ -1,0 +1,21 @@
+asyncio-atexit
+pyzmq
+dataclasses-json
+aioreactive
+
+[:sys_platform != "win32"]
+uvloop
+
+[:sys_platform == "win32"]
+winloop
+
+[test]
+pytest
+pytest-asyncio
+pytest-repeat
+pytest-lazy-fixture
+pytest-rerunfailures
+auto-changelog
+coveralls
+pre-commit
+bump2version
