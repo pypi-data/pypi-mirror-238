@@ -1,0 +1,162 @@
+{
+    "entity": {
+        "select": {
+            "led_brightness": {
+                "state": {
+                    "off": "I\u0161jungta"
+                }
+            }
+        }
+    },
+    "services": {
+        "fan_set_extra_features": {
+            "fields": {
+                "entity_id": {
+                    "name": "Subjekto ID"
+                },
+                "features": {
+                    "description": "Sveikasis skai\u010dius, \u017einomos reik\u0161m\u0117s yra 0 (numatytasis) ir 1 (turbo re\u017eimas).",
+                    "name": "Funkcijos"
+                }
+            },
+            "name": "Ventiliatoriaus rinkinio papildomos funkcijos"
+        },
+        "light_eyecare_mode_off": {
+            "fields": {
+                "entity_id": {
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "Lengvos aki\u0173 prie\u017ei\u016bros re\u017eimas i\u0161jungtas"
+        },
+        "light_eyecare_mode_on": {
+            "fields": {
+                "entity_id": {
+                    "name": "Subjekto ID"
+                }
+            }
+        },
+        "light_night_light_mode_off": {
+            "fields": {
+                "entity_id": {
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "Nakties \u0161viesos re\u017eimas i\u0161jungtas"
+        },
+        "light_night_light_mode_on": {
+            "fields": {
+                "entity_id": {
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "\u012ejungtas naktinio ap\u0161vietimo re\u017eimas"
+        },
+        "light_reminder_off": {
+            "fields": {
+                "entity_id": {
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "\u0160viesus priminimas i\u0161jungtas"
+        },
+        "light_reminder_on": {
+            "description": "\u012ejungia aki\u0173 nuovargio priminim\u0105 / prane\u0161im\u0105 (TIK EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Subjekto pavadinimas.",
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "\u012ejungtas lengvas priminimas"
+        },
+        "switch_set_power_mode": {
+            "fields": {
+                "entity_id": {
+                    "name": "Subjekto ID"
+                },
+                "mode": {
+                    "description": "Maitinimo re\u017eimas."
+                }
+            },
+            "name": "Perjunkite nustatyt\u0105 maitinimo re\u017eim\u0105"
+        },
+        "switch_set_power_price": {
+            "description": "Nustato elektros energijos kain\u0105.",
+            "fields": {
+                "entity_id": {
+                    "name": "Subjekto ID"
+                },
+                "mode": {
+                    "description": "Galios kaina."
+                }
+            },
+            "name": "Jungikli\u0173 komplekto galios kaina"
+        },
+        "switch_set_wifi_led_off": {
+            "description": "I\u0161junkite \u201eWi-Fi\u201c LED.",
+            "fields": {
+                "entity_id": {
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "Nustatytas jungiklis Wi-Fi LED i\u0161jungtas"
+        },
+        "switch_set_wifi_led_on": {
+            "description": "\u012ejungia wifi LED.",
+            "fields": {
+                "entity_id": {
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "\u012ejunkite \u201eWi-Fi\u201c LED"
+        },
+        "vacuum_clean_segment": {
+            "description": "Pradeda nurodyto (-\u0173) segmento (-\u0173) valym\u0105.",
+            "fields": {
+                "segments": {
+                    "description": "Segmentai.",
+                    "name": "Segmentai"
+                }
+            },
+            "name": "Dulki\u0173 valymo segmentas"
+        },
+        "vacuum_clean_zone": {
+            "fields": {
+                "repeats": {
+                    "name": "Pasikartoja"
+                },
+                "zone": {
+                    "name": "Zona"
+                }
+            },
+            "name": "Dulki\u0173 valymo zona"
+        },
+        "vacuum_goto": {
+            "description": "Eikite \u012f nurodytas koordinates.",
+            "fields": {
+                "x_coord": {
+                    "description": "X-koordinat\u0117.",
+                    "name": "X koordinat\u0117"
+                },
+                "y_coord": {
+                    "description": "Y-koordinat\u0117.",
+                    "name": "Y koordinat\u0117"
+                }
+            }
+        },
+        "vacuum_remote_control_move": {
+            "description": "Nuotoliniu b\u016bdu valdomas dulki\u0173 siurblys. Pirmiausia \u012fsitikinkite, kad j\u012f nustat\u0117te nuotolinio valdymo re\u017eimu naudodami \u201eremote_control_start\u201c.",
+            "fields": {
+                "duration": {
+                    "description": "Jud\u0117jimo trukm\u0117.",
+                    "name": "Trukm\u0117"
+                }
+            }
+        },
+        "vacuum_remote_control_stop": {
+            "description": "Sustabdo dulki\u0173 siurblio nuotolinio valdymo re\u017eim\u0105.",
+            "name": "Dulki\u0173 siurblio nuotolinio valdymo sustabdymas"
+        }
+    }
+}

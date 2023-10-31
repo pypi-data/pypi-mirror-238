@@ -1,0 +1,54 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Vandens \u0161ildytuvas",
+            "state": {
+                "eco": "Eco",
+                "electric": "Elektrinis",
+                "gas": "Dujos",
+                "high_demand": "Didel\u0117 paklausa",
+                "off": "I\u0161jungta",
+                "performance": "Spektaklis"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "I\u0161vykimo re\u017eimas",
+                    "state": {
+                        "off": "I\u0161jungta",
+                        "on": "\u012ejungta"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "\u012ejungiamas ir i\u0161jungiamas i\u0161vykimo re\u017eimas.",
+            "fields": {
+                "away_mode": {
+                    "description": "Nauja i\u0161vykimo re\u017eimo vert\u0117.",
+                    "name": "I\u0161vykimo re\u017eimas"
+                }
+            },
+            "name": "Nustatyti i\u0161vykimo re\u017eim\u0105"
+        },
+        "set_operation_mode": {
+            "description": "Nustato veikimo re\u017eim\u0105."
+        },
+        "set_temperature": {
+            "fields": {
+                "temperature": {
+                    "description": "Nauja tikslin\u0117 vandens \u0161ildytuvo temperat\u016bra.",
+                    "name": "Temperat\u016bra"
+                }
+            },
+            "name": "Nustatykite temperat\u016br\u0105"
+        },
+        "turn_off": {
+            "description": "I\u0161jungia vandens \u0161ildytuv\u0105."
+        },
+        "turn_on": {
+            "description": "\u012ejungia vandens \u0161ildytuv\u0105."
+        }
+    }
+}

@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_device": "Laite on jo m\u00e4\u00e4ritetty",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "lock_auth": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                }
+            },
+            "password": {
+                "data": {
+                    "password": "Salasana"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "light": {
+                "name": "Valo"
+            }
+        },
+        "cover": {
+            "cover": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "false": "Ongelma",
+                            "true": "Ok"
+                        }
+                    }
+                }
+            }
+        },
+        "humidifier": {
+            "humidifier": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "false": "Ongelma",
+                            "true": "Ok"
+                        }
+                    }
+                }
+            }
+        },
+        "lock": {
+            "lock": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "false": "Ongelma",
+                            "true": "Ok"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "humidity": {
+                "name": "Kosteus"
+            },
+            "power": {
+                "name": "Teho"
+            },
+            "temperature": {
+                "name": "L\u00e4mp\u00f6tila"
+            }
+        },
+        "switch": {
+            "bot": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "false": "Ongelma"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

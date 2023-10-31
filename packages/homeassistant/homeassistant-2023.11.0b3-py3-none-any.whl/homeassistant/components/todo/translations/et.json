@@ -1,0 +1,64 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "\u00dclesannete loend"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "L\u00f5petatud",
+                "needs_action": "Vajab tegevust"
+            }
+        }
+    },
+    "services": {
+        "create_item": {
+            "description": "Lisa uus \u00fclesannete loendi \u00fcksus.",
+            "fields": {
+                "status": {
+                    "description": "\u00dclesande \u00fcksuse olek v\u00f5i kinnitus.",
+                    "name": "Olek"
+                },
+                "summary": {
+                    "description": "\u00dclesande\u00fcksust kirjeldav l\u00fchikokkuv\u00f5te.",
+                    "name": "Kokkuv\u00f5te"
+                }
+            },
+            "name": "Loo \u00fclesannete loendi \u00fcksus"
+        },
+        "delete_item": {
+            "description": "Kustuta olemasolev \u00fclesannete loendi \u00fcksus kas selle kordumatu ID v\u00f5i kokkuv\u00f5tte j\u00e4rgi.",
+            "fields": {
+                "summary": {
+                    "description": "\u00dclesande\u00fcksust kirjeldav l\u00fchikokkuv\u00f5te.",
+                    "name": "Kokkuv\u00f5te"
+                },
+                "uid": {
+                    "description": "\u00dclesannete loendi \u00fcksuste kordumatud identifikaatorid.",
+                    "name": "\u00dclesannete \u00fcksuse kordumatud ID-d"
+                }
+            },
+            "name": "\u00dclesannete loendi \u00fcksuse kustutamine"
+        },
+        "update_item": {
+            "description": "V\u00e4rskenda olemasolevat \u00fclesandeloendi \u00fcksust selle kordumatu ID v\u00f5i kokkuv\u00f5tte p\u00f5hjal.",
+            "fields": {
+                "status": {
+                    "description": "\u00dclesande \u00fcksuse olek v\u00f5i kinnitus.",
+                    "name": "Olek"
+                },
+                "summary": {
+                    "description": "\u00dclesande\u00fcksust kirjeldav l\u00fchikokkuv\u00f5te.",
+                    "name": "Kokkuv\u00f5te"
+                },
+                "uid": {
+                    "description": "\u00dclesannete loendi \u00fcksuse kordumatu identifikaator.",
+                    "name": "\u00dclesande \u00fcksuse kordumatu ID"
+                }
+            },
+            "name": "V\u00e4rskenda \u00fclesannete loendi \u00fcksust"
+        }
+    },
+    "title": "\u00dclesannete loend"
+}

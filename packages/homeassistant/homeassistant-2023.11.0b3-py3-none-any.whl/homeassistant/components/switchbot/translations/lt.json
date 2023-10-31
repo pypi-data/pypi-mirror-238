@@ -1,0 +1,54 @@
+{
+    "config": {
+        "step": {
+            "lock_choose_method": {
+                "description": "\u201eSwitchBot\u201c u\u017erakt\u0105 \u201eHome Assistant\u201c galima nustatyti dviem skirtingais b\u016bdais. \n\n Rakto ID ir \u0161ifravimo rakt\u0105 galite \u012fvesti patys arba \u201eHome Assistant\u201c gali importuoti juos i\u0161 \u201eSwitchBot\u201c paskyros.",
+                "menu_options": {
+                    "lock_auth": "\u201eSwitchBot\u201c paskyra (rekomenduojama)",
+                    "lock_key": "\u012eveskite u\u017erakto \u0161ifravimo rakt\u0105 rankiniu b\u016bdu"
+                }
+            }
+        }
+    },
+    "entity": {
+        "humidifier": {
+            "humidifier": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "true": "GERAI"
+                        }
+                    }
+                }
+            }
+        },
+        "lock": {
+            "lock": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "true": "GERAI"
+                        }
+                    }
+                }
+            }
+        },
+        "switch": {
+            "bot": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "true": "GERAI"
+                        }
+                    },
+                    "switch_mode": {
+                        "state": {
+                            "false": "Momentinis",
+                            "true": "I\u0161traukti / i\u0161traukti"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

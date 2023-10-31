@@ -1,0 +1,43 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kamera",
+            "state": {
+                "idle": "Lepotilassa"
+            },
+            "state_attributes": {
+                "frontend_stream_type": {
+                    "name": "Striimin tyyppi",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Malli"
+                },
+                "motion_detection": {
+                    "state": {
+                        "false": "Ei k\u00e4yt\u00f6ss\u00e4",
+                        "true": "K\u00e4yt\u00f6ss\u00e4"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "turn_off": {
+            "name": "Sammuta"
+        },
+        "turn_on": {
+            "name": "Laita p\u00e4\u00e4lle"
+        }
+    },
+    "title": "Kamera"
+}
