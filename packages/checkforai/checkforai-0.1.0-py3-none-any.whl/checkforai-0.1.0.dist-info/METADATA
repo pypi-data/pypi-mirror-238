@@ -1,0 +1,35 @@
+Metadata-Version: 2.1
+Name: checkforai
+Version: 0.1.0
+Summary: 
+Author: Max Spero
+Author-email: mmspero@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: aiohttp (>=3.8.6,<4.0.0)
+Requires-Dist: aiounittest (>=1.4.2,<2.0.0)
+Requires-Dist: requests (>=2.31.0,<3.0.0)
+Description-Content-Type: text/markdown
+
+# checkfor.ai Python
+
+### Usage
+Install checkforai
+```
+pip install checkforai
+```
+
+Make a request
+```
+from checkforai import TextClassifier
+classifier = TextClassifier()
+result = classifier.predict(text)
+```
+
+Questions? Email me at max@checkfor.ai!
+
