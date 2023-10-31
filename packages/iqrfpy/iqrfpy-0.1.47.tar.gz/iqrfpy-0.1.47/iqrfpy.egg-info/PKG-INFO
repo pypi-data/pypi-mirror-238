@@ -1,0 +1,103 @@
+Metadata-Version: 2.1
+Name: iqrfpy
+Version: 0.1.47
+Summary: A python library for communication with IQRF Network
+Home-page: https://gitlab.iqrf.org/open-source/iqrf-sdk/libiqrf-python
+Author: Karel Hanák
+Author-email: karel.hanak@iqrf.org
+License: Apache-2.0
+Project-URL: Changelog, https://apidocs.iqrf.org/iqrfpy/latest/iqrfpy.html#changelog
+Project-URL: Documentation, https://apidocs.iqrf.org/iqrfpy/latest/iqrfpy.html
+Project-URL: Issues tracker, https://gitlab.iqrf.org/open-source/iqrf-sdk/libiqrf-python/-/issues
+Project-URL: Source code, https://gitlab.iqrf.org/open-source/iqrf-sdk/libiqrf-python
+Keywords: iqrf,dpa
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: crc>=4.3.0
+Requires-Dist: paho-mqtt>=1.6.1
+Requires-Dist: typeguard<=4.1.0,>=4.0.0
+Provides-Extra: test
+Requires-Dist: parameterized>=0.8.1; extra == "test"
+Requires-Dist: pytest>=7.2.2; extra == "test"
+Requires-Dist: pytest-cov>=4.0.0; extra == "test"
+Requires-Dist: pycodestyle>=2.10.0; extra == "test"
+Requires-Dist: pydocstyle>=6.3.0; extra == "test"
+Requires-Dist: pylint>=2.17.1; extra == "test"
+
+## What is iqrfpy?
+
+iqrfpy is a library that provides a python API for interacting with the IQRF network
+utilizing the [DPA framework](https://doc.iqrf.org/DpaTechGuide/) (DPA) or IQRF Gateway Daemon (Daemon) [JSON API](https://docs.iqrf.org/iqrf-gateway/user/daemon/api). Communication between a python runtime and the IQRF network is facilitated by transports.
+
+For communication with Daemon, only the MQTT transport is implemented at this time.
+However, this library provides an abstract transport class, allowing for custom communication implementations.
+
+The library provides classes for serialization of requests and deserialization of responses to message class objects.
+
+## Quick start
+
+iqrfpy can be installed using the pip utility:
+
+```bash
+python3 -m pip install -U iqrfpy
+```
+
+Example use:
+```python
+from iqrfpy.transports.mqtt_transport import MqttTransport, MqttTransportParams
+from iqrfpy.peripherals.coordinator.requests.bonded_devices import BondedDevicesRequest
+from iqrfpy.peripherals.coordinator.responses.bonded_devices import BondedDevicesResponse
+
+params = MqttTransportParams(
+    host=..., # MQTT broker host
+    port=..., # MQTT broker port
+    client_id=..., # MQTT client ID
+    request_topic=..., # Request topic that Daemon subscribes to
+    response_topic=..., # Response topic that Daemon publishes responses to
+    qos=1,
+    keepalive=25
+)
+transport = MqttTransport(params=params, auto_init=True)
+
+request = BondedDevicesRequest()
+response: BondedDevicesResponse = transport.send_and_receive(request=request, timeout=10)
+
+print(response.bonded)
+```
+
+The library also provides a single import solution for messages:
+```python
+from iqrfpy.transports.mqtt_transport import MqttTransport, MqttTransportParams
+from iqrfpy.messages import CoordinatorBondedDevicesReq, CoordinatorBondedDevicesRsp
+
+params = MqttTransportParams(
+    host=..., # MQTT broker host
+    port=..., # MQTT broker port
+    client_id=..., # MQTT client ID
+    request_topic=..., # Request topic that Daemon subscribes to
+    response_topic=..., # Response topic that Daemon publishes responses to
+    qos=1,
+    keepalive=25
+)
+transport = MqttTransport(params=params, auto_init=True)
+
+request = CoordinatorBondedDevicesReq()
+response: CoordinatorBondedDevicesRsp = transport.send_and_receive(request=request, timeout=10)
+
+print(response.bonded)
+```
+
+## Documentation
+
+For more information, check out our [API reference](https://apidocs.iqrf.org/iqrfpy/latest/iqrfpy.html).
