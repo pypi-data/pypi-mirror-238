@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: cjvt_conversion_utils
+Version: 0.3
+Summary: CJVT conversion utilities
+Home-page: https://gitea.cjvt.si/generic/conversion_utils
+Author: CJVT
+Author-email: pypi@cjvt.si
+License: MIT
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: lxml
+Requires-Dist: importlib_resources
+
+## CJVT conversion utilities
+
+This repository is intended for common conversions needed by CJVT developers. It can of course also
+be used more broadly, but most of the scripts (with the exception of `jos_msds_and_properties.py`)
+were written with specific tasks in mind, and may not generalise as expected. Use at your own risk.
+
+### JOS msds and properties
+
+You can use the Msd and Properties to encode, and convert between the two types in either direction
+(specifying both the input and output language (English or Slovene)) or just translate between
+English and Slovene. Example usage:
+
+```
+>>> from conversion_utils.jos_msds_and_properties import Converter, Msd, Properties
+>>> converter = Converter()
+>>> msd = Msd('Sozem', 'sl')
+>>> msd.code
+'Sozem'
+>>> msd.language
+'sl'
+>>> properties = converter.msd_to_properties(msd, 'en')
+>>> properties.category
+'noun'
+>>> properties.lexeme_feature_map
+{'type': 'common', 'gender': 'feminine'}
+>>> properties.form_feature_map
+{'number': 'singular', 'case': 'locative'}
+>>> properties.language
+'en'
+>>> msd2 = converter.properties_to_msd(properties, 'sl')
+>>> msd2 == msd
+True
+>>> print(converter.translate_msd(msd, 'en'))
+code=Ncfsl, language=en
+>>> print(converter.translate_properties(properties, 'sl'))
+language=sl, category=samostalnik, lexeme features={'vrsta': 'občno_ime', 'spol': 'ženski'}, form_features={'število': 'ednina', 'sklon': 'mestnik'}
+```
