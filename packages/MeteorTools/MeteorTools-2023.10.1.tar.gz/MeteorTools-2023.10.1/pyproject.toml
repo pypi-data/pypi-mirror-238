@@ -1,0 +1,99 @@
+# Copyright (C) 2018-2023 Mark McIntyre
+
+# pyproject.toml for building the PYPI library of python code
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "MeteorTools"
+version = "2023.10.1"
+description = "Python Tools for Meteor Data Analysis"
+readme = "meteortools/README.md"
+authors = [{ name = "Mark McIntyre", email = "markmcintyre99@googlemail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Astronomy"
+]
+keywords = ["meteors", "ukmon"]
+dependencies = [
+    "fastparquet",
+    "google-auth",
+    "google-auth-oauthlib",
+    "google-api-python-client",
+    "googleapis-common-protos",
+    "matplotlib==3.3.2 ; python_version <= '3.8' and platform_machine != 'aarch64'",
+    "matplotlib; python_version > '3.8' or platform_machine == 'aarch64'",
+    "numpy",
+    "oauthlib",
+    "pandas",
+    "Pillow",
+    "pytz",
+    "Shapely",
+    "simplekml",
+    "s3fs",
+    "xmltodict",
+    "requests",
+    "pyproj==1.9.6 ; python_version < '3.8' and platform_machine == 'armv7l'",
+    "pyproj==2.6.1.post1 ; python_version < '3.8' and platform_machine != 'armv7l'",
+    "pyproj==3.5.0 ; python_version >= '3.8'",
+    "pdoc",
+    "Cython",
+    "opencv-python; platform_machine != 'armv7l'",
+    "imageio",
+    "scipy",
+    "jplephem",
+    "pyephem",
+    "gitpython",
+    "astropy",
+    "pyqt5; platform_machine != 'aarch64' and platform_machine != 'armv7l'",
+    "basemap",
+    "basemap-data-hires"
+]
+requires-python = ">=3.7"
+
+[project.optional-dependencies]
+dev = ["bumpver", "gitpython", "behave", "pytest", "pip-tools"]
+
+[project.urls]
+"Homepage" = "https://markmac99.github.io/MeteorTools/"
+"Bug Tracker" = "https://github.com/markmac99/MeteorTools/issues"
+
+#[project.scripts]
+#realpython = "reader.__main__:main"
+
+[tool.setuptools]
+#package-dir = {"" = "ukmon_pylib"}
+packages = ["meteortools.utils", "meteortools.ukmondb", 
+        "meteortools.fileformats", "meteortools.rmsutils", 
+        "meteortools.share"]
+
+#[tool.setuptools.packages.find]
+#where = ["mjmm_meteortools"]
+
+[tool.setuptools.package-data]
+"*" = ["*.npy", "*.xml"]
+
+[tool.bumpver]
+current_version = "2023.10.1"
+version_pattern = "YYYY.0M.PATCH"
+commit_message = "bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = true
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = ['version = "{version}"',]
+"meteortools/__init__.py" = ['version = "{version}"',]
+#"meteortools/README.md" = ["{version}",]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::FutureWarning",
+    'ignore:pyproj unable to set database path',
+]
