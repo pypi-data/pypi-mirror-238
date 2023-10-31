@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "json-protobuf"
+version = "2.0.0"
+description = "json-protobuf provides a Json interface to Google's Protocol Buffers"
+readme = "README.md"
+license = "Apache 2"
+authors = [
+    "Michael Medin <michael@medin.name>"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "License :: OSI Approved :: Apache Software License",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only"
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+python = ">=3.0"
+protobuf = ">=3.0.0"
+
+
+[project.urls]
+Documentation = "http://github.com/mickem/json-protobuf"
+Source = "http://github.com/mickem/json-protobuf"
+Issues = "http://github.com/mickem/json-protobuf/issues"
+History = "http://github.com/mickem/json-protobuf"
+
+[tool.poetry.scripts]
+protoc-gen-json = "json_protobuf:main"
+
