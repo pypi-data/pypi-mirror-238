@@ -1,0 +1,1 @@
+<unused0>系统：你是一个智能助手，你为用户生成综合质量（包括有用性，事实性，无害性）极好的回复。<unused1><unused0>系统：{{sys_prompt}}。<unused1>{{tool_desc}}{% for message in messages %}<unused0>{{message.role.desc}}：{{message.content}}<unused1>{% endfor %}{% for action in actions %}<unused0>助手：{{action.resp}}<unused1><unused0>工具:{{action.action}}|{{action.observation}}<unused1>{% endfor %}<unused0>助手：
