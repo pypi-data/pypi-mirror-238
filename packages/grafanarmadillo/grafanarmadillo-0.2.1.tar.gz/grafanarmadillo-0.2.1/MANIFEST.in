@@ -1,0 +1,25 @@
+graft docs
+graft src
+
+include *.rst
+include LICENSE
+
+exclude .appveyor.yml
+exclude .bumpversion.cfg
+exclude .coveragerc
+exclude codecov.yml
+exclude .cookiecutterrc
+exclude .editorconfig
+exclude .readthedocs.yml
+exclude .codeclimate.yml
+exclude tox.ini
+exclude dev_requirements.txt
+exclude .travis.yml
+exclude pytest.ini
+
+prune devtools
+prune tests
+
+global-exclude *.py[cod] __pycache__/* *.so *.dylib 
+global-exclude tags
+global-exclude *.swp
