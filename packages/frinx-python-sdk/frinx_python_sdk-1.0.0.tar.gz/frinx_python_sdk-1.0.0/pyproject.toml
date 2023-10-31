@@ -1,0 +1,113 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.28.2"
+pydantic = "^2.3"
+prometheus-client = "^0.17.1"
+aiohttp = "^3.8.4"
+websockets = "^12"
+pytest-asyncio = "^0.21.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0.0"
+pytest-mock = "^3.10.0"
+pre-commit = "^3.2.2"
+ruff = "^0.0.263"
+coverage = "^7.2.3"
+mypy = "^1.3.0"
+types-requests = "^2.31.0.0"
+pyright = "^1.1.317"
+
+[tool.poetry]
+packages = [{ include = "frinx" }]
+name = "frinx-python-sdk"
+description = "Python SDK for Frinx Machine Workflow Manager"
+authors = ["Jozef Volak <jozef.volak@elisapolystar.com>",
+    "Maros Marsalek <maros.marsalek@elisapolystar.com>"]
+version = "v1.0.0" # dynamically generated
+readme = "README.md"
+keywords = ["frinx-machine", "workflow-manager", "conductor"]
+license = "Apache 2.0"
+
+[project.urls]
+Homepage = 'https://github.com/FRINXio/frinx_python_sdk'
+Source = 'https://github.com/FRINXio/frinx_python_sdk'
+
+[tool.pytest.ini_options]
+python_files = 'tests/*'
+
+[tool.codespell]
+skip = '.git,env*'
+
+[tool.coverage.run]
+source = ['frinx']
+branch = true
+context = '${CONTEXT}'
+
+[tool.coverage.report]
+precision = 2
+exclude_lines = [
+    'pragma: no cover',
+    'raise NotImplementedError',
+    'if TYPE_CHECKING:',
+    'if typing.TYPE_CHECKING:',
+    '@overload',
+    '@typing.overload',
+    '\(Protocol\):$',
+]
+
+[tool.pyright]
+include = ['frinx']
+exclude = ['examples']
+reportGeneralTypeIssues = "none"
+
+[tool.ruff]
+line-length = 120
+extend-select = ['Q', 'RUF100', 'C90', 'UP', 'I', 'E', 'F', 'N', 'PL']
+fixable = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "EM", "ERA", "EXE", "FBT", "ICN", "INP", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "TRY", "UP", "YTT"]
+
+target-version = "py310"
+
+[tool.ruff.isort]
+known-first-party = ['frinx', 'tests']
+force-single-line = true
+
+[tool.ruff.flake8-quotes]
+inline-quotes = 'single'
+multiline-quotes = 'double'
+
+[tool.ruff.mccabe]
+max-complexity = 14
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.ruff.pylint]
+max-args = 7
+
+[tool.ruff.pyupgrade]
+keep-runtime-typing = true
+
+[tool.ruff.pep8-naming]
+classmethod-decorators = ["classmethod", "pydantic.field_validator", "pydantic.model_validator"]
+
+[tool.mypy]
+python_version = "3.10"
+plugins = [ "pydantic.mypy" ]
+explicit_package_bases = true
+namespace_packages = true
+strict = true
+pretty = true
+ignore_missing_imports = true
+disallow_untyped_defs= true
+disallow_subclassing_any = false
+warn_unused_ignores = false
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
