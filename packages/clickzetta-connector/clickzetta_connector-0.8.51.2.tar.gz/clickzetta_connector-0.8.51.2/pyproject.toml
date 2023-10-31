@@ -1,0 +1,26 @@
+[tool.poetry.scripts]
+build_proto = "clickzetta.script:build_proto"
+
+[tool.poetry]
+name = "clickzetta-connector"
+version = "0.8.51.2"
+description = "clickzetta python connector"
+requires-python = ">=3.7"
+authors = ["hanmiao.li <hanmiao.li@clickzetta.com>"]
+packages = [{ include = "clickzetta"}]
+
+[tool.poetry.dependencies]
+proto-plus = {version = ">= 1.22.0, <2.0.0dev"}
+packaging = {version = ">= 14.3, <24.0.0dev"}
+protobuf = {version = ">=3.19.5,<5.0.0dev,!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5"}
+python-dateutil = {version = ">= 2.7.2, <3.0dev"}
+requests = {version = ">= 2.21.0, < 3.0.0dev"}
+pyarrow = {version = ">= 10.0.1, <11.0.0"}
+sqlalchemy = {version = ">= 1.4.0, <2.0.0"}
+cz-ossfs = {version = " >= 0.0.2"}
+cos-python-sdk-v5 = {version = ">= 1.9.25"}
+pandas = {version = ">=1.5.3"}
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
