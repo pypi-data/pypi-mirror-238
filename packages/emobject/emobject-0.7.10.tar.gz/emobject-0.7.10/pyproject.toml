@@ -1,0 +1,21 @@
+[tool.pytest.ini_options]
+addopts = "-n auto --cov=emobject"
+junit_family = "xunit1"
+testpaths = [
+  "emobject/tests"
+]
+
+[tool.coverage.run]
+branch = true
+omit = [
+  "emobject/tests/**"
+]
+
+[tool.coverage.report]
+skip_empty = true
+
+[tool.coverage.html]
+directory = "reports/coverage_html"
+
+[tool.coverage.xml]
+output = "reports/coverage.xml"
