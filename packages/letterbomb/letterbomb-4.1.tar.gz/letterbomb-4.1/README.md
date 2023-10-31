@@ -1,0 +1,152 @@
+# ✉️💣 LetterBomb
+
+<div align="center">
+
+<h3>A fork of the classic Wii hacking tool from <a href="https://github.com/fail0verflow">fail0verflow</a>.</h3>
+
+[![CI/CD](https://img.shields.io/gitlab/pipeline/whoatemybutter/letterbomb/master?label=ci%2Fcd)](https://gitlab.com/whoatemybutter/letterbomb/-/pipelines)
+[![PyPI downloads](https://img.shields.io/pypi/dd/letterbomb)](https://pypi.org/project/letterbomb)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Pylint](https://img.shields.io/badge/pylint-10.00/10-ffbf48)](https://pylint.pycqa.org/en/latest/)
+[![License](https://img.shields.io/badge/license-MIT-a51931)](https://spdx.org/licenses/MIT.html)
+[![PyPI version](https://img.shields.io/pypi/v/letterbomb)](https://pypi.org/project/letterbomb/)
+[![GitLab version](https://img.shields.io/gitlab/v/release/22300251?sort=semver)](https://gitlab.com/whoatemybutter/mcfonts/-/releases)
+
+<a href="https://gitlab.com/whoatemybutter/letterbomb"><img src="assets/upscaled.png" width="250" align="center"/></a>
+
+</div>
+
+---
+
+## Table of Contents
+
+- [Installation](#installation)
+    - [PyPi](#pypi-recommended)
+    - [Manual](#manual-web-server-development)
+- [Improvements](#improvements-over-original)
+- [Usage](#usage)
+    - [Python](#python)
+    - [CLI](#cli)
+- [Documentation](#documentation)
+- [Original source code](#original-source-code)
+- [License](#license)
+
+## Installation
+
+#### [PyPi](https://pypi.org/project/letterbomb): **(recommended)**
+```shell script
+python3 -m pip install -U letterbomb
+```
+
+#### Manual: **(web server, development)**
+```shell script
+git clone https://gitlab.com/whoatemybutter/letterbomb.git
+cd letterbomb
+python -m build
+```
+
+## Improvements over original
+
+|                | *WhoAteMyButter's*   | fail0verflow's          |
+|----------------|----------------------|-------------------------|
+| Networking     | Optional             | Required                |
+| CLI            | Yes                  | No                      |
+| OS support     | Linux, Windows, Mac  | Linux                   |
+| Logging        | Yes                  | Yes, dependent on Flask |
+| API            | Yes                  | No                      |
+| Exceptions     | Yes                  | No                      |
+| Packaging      | GitLab, PyPI         | Git                     |
+| Dependencies   | None (Flask for web) | Flask, geoip2           |
+| Pylint         | 10.00/10.00          | 4.65/10.00              |
+| Python version | 3.10+                | 2.7 only                |
+| License        | MIT                  | MIT                     |
+| Documentation  | Yes                  | No                      |
+
+## Usage
+
+#### Python
+
+```python
+import letterbomb
+
+# Write to file, include HackMii:
+letterbomb.write(mac="mac address", region="region letter", output_file="letterbomb.zip")
+# Write to file, exclude HackMii:
+letterbomb.write(mac="mac address", region="region letter", pack_bundle=False, output_file="letterbomb.zip")
+
+# Write to stream, include HackMii:
+letterbomb.write(mac="mac address", region="region letter")
+# Write to stream, exclude HackMii:
+letterbomb.write(mac="mac address", region="region letter", pack_bundle=False)
+
+# To log debug messages
+letterbomb.LOGGING_LEVEL = letterbomb.logging.DEBUG
+# To log output to a file
+letterbomb.LOGGING_FILE = "log.txt"
+```
+
+#### CLI
+
+```shell
+# Help
+python3 -m letterbomb -h
+
+# To include HackMii, output and create a ZIP
+python3 -m letterbomb MAC REGION -b -o output.zip
+
+# To enable debug logging
+python3 -m letterbomb MAC REGION -g debug -o output.zip
+
+# To use a file for logging output instead
+python3 -m letterbomb MAC REGION -l logfile.txt -o output.zip
+
+# To stream bytes instead, and include HackMii (-b)
+python3 -m letterbomb MAC REGION -b
+
+# To stream bytes instead, and exclude HackMii
+python3 -m letterbomb MAC REGION
+```
+
+#### Web service
+
+```shell
+python -m pip install letterbomb[web]
+# Or...
+python -m pip install letterbomb_web
+```
+
+See https://gitlab.com/whoatemybutter/letterbomb_web.
+
+## Documentation
+
+**Most casual users should refer to the [ReadTheDocs page](https://letterbomb.rtfd.io).**
+
+Some may want to build the documentation manually. To do this:
+
+```shell script
+git clone https://gitlab.com/whoatemybutter/letterbomb.git
+cd letterbomb/docs
+make html
+xdg-open _build/html/index.html
+```
+
+If you prefer one-liners, there is one below:
+
+```shell script
+git clone https://gitlab.com/whoatemybutter/letterbomb.git && cd letterbomb/docs && make html && xdg-open _build/html/index.html
+```
+
+Before re-building the documentation, you should also run `make clean` to prevent stale files from remaining in newer builds.
+
+To read about the exploit itself in more detail, please [read this article](https://wiibrew.org/wiki/LetterBomb).
+
+## Original source code
+
+* The *original* source code can be found at https://github.com/fail0verflow/letterbomb.
+* The *original* website can be found at https://please.hackmii.com.
+
+**Note:** *Original code likely will not work out-of-the-box.*
+
+## License
+
+LetterBomb is licensed under the [MIT license](https://mit-license.org/). ([included file](https://gitlab.com/whoatemybutter/letterbomb/-/raw/master/LICENSE.txt))
