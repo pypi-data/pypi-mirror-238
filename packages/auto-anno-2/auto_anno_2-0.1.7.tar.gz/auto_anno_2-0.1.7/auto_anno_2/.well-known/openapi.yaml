@@ -1,0 +1,92 @@
+openapi: 3.0.1
+info:
+  title: Auto Annotation
+  description: A plugin that automatically annotates entity or classfy the text user input based types user specified.
+  version: 'v1'
+servers:
+  - url: https://api.tekii.cn/
+paths:
+  /classification/:
+    post:
+      operationId: getClassfications
+      summary: Get the text classfication based on user input types
+      parameters:
+      - in: path
+        name: username
+        schema:
+            type: string
+        required: true
+        description: The name of the user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/classificationRequest'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getClassificationResponse'
+  /entityextract/:
+    post:
+      operationId: getEntities
+      summary: Get the entity name and position based on user input types
+      parameters:
+      - in: path
+        name: username
+        schema:
+            type: string
+        required: true
+        description: The name of the user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/entityextractRequest'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getEntityextractResponse'
+components:
+  schemas:
+    classificationRequest:
+      type: object
+      required: [text,types]
+      properties:
+        text:
+          type: string
+          description: The input text user want to classify
+        types:
+          type: string
+          description: The types user specified
+    getClassificationResponse:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
+          description: 分类结果
+    entityextractRequest:
+      type: object
+      required: [text,types]
+      properties:
+        text:
+          type: string
+          description: The input text user want to extract
+        types:
+          type: string
+          description: The types user specified
+    getEntityextractResponse:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
+          description: 抽取结果
