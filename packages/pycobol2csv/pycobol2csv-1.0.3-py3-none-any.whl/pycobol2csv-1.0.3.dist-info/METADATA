@@ -1,0 +1,67 @@
+Metadata-Version: 2.1
+Name: pycobol2csv
+Version: 1.0.3
+Summary: A Python library to convert COBOL ebcdic file to CSV format based on copybook
+Home-page: https://github.com/jasonli-lijie/pycobol2csv
+Download-URL: https://github.com/user/reponame/archive/v_01.tar.gz
+Author: Jason Li
+Author-email: niomobileapp@gmail.com
+License: MIT
+Project-URL: Bug Tracker, https://github.com/jasonli-lijie/pycobol2csv/issues
+Keywords: COBOL,EBCDIC,CSV
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: ebcdic
+
+# pycobol2csv
+pycobol2csv is a Python library to convert COBOL ebcdic file to CSV format. The package is built to cater for advanced features in COBOL copybooks such as *OCCURES x TIMES*, *BINARY*, *COMP*. 
+
+The CSV file is RDBMS friendly and all headers are ready to be used as database column names.
+CSV conversion is controlled by config file in *csv_config.json*
+
+Added more enhancements for the outdated REDEFINE and PIC syntax for a new client
+
+Install the python module:
+
+`pip install pycobol2csv`
+
+To use the module:
+
+```
+from pycobol2csv import convert_cobol_file, decode_copybook_file
+
+row_length, cobol_struc = decode_copybook_file(copybook_file)
+
+convert_cobol_file(copybook_file, data_file, output_file, config_file, codepage, debug=False)
+
+```
+
+- copybook_file: copybook filename
+- data_file: data filename 
+- output_file: output csv filename
+- config_file: csv configuration filename, refer to csv_config.json
+- codepage: codepage for edibic, refer to https://docs.python.org/3.7/library/codecs.html#standard-encodings for details
+- debug: enable for more debug information, default is OFF
+
+## test 
+
+2 sets of test data have been created from scratch. Each set includes a copybook and an EBCDIC data file.
+
+To test:
+
+```
+python convert_cobol_test_main.py --copybook [COPYBOOK_FILE] --data [DATA_FILE] --output [CSV_FILE]
+
+```
+
+<!-- Repo: https://github.com/jasonli-lijie/pycobol2csv -->
