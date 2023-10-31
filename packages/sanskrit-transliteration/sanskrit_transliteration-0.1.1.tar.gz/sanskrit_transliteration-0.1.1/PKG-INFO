@@ -1,0 +1,42 @@
+Metadata-Version: 2.1
+Name: sanskrit-transliteration
+Version: 0.1.1
+Summary: To transliterate Sanskrit strings
+License: MIT
+Author: Dhiraj Eadara
+Author-email: eadaradhiraj@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Description-Content-Type: text/markdown
+
+Transliteration schemes for Sanskrit
+ - WX
+ - SLP1
+ - Harvard-Kyoto represented as ```HK```
+ - Devanagari represented as ```SKT```
+ - Velthius represented as ```VELTHIUS```
+
+The transliteration will take place as follows:
+
+```
+from sanskrit_transliteration import transliteration
+
+print(
+    transliteration(
+        "hara hara mahAdeva"
+        from_scheme="HK",
+        to_scheme="VELTHIUS"
+    )
+)
+# हर हर महादेव
+```
+
+
+
+
