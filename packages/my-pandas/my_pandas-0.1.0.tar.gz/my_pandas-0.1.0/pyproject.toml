@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "my-pandas"
+version = "0.1.0"
+description = ""
+authors = ["gaoxl85 <gaoxiaoliang123@126.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+typer = {extras = ["all"], version = "^0.9.0"}
+
+[tool.poetry.scripts]
+my-pandas = "my_pandas.main:app"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
