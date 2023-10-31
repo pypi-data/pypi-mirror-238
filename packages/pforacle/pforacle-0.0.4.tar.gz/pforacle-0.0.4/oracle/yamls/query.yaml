@@ -1,0 +1,17 @@
+oracle.tools.query.run_query:
+  function: run_query
+  inputs:
+    connection:
+      type:
+      - CustomConnection
+    query:
+      type:
+      - string
+    params:
+      type:
+      - object
+  module: oracle.tools.query
+  name: Oracle Query Tool
+  description: This tool queries Oracle databases to assist in grounded LLM responses
+  type: python
+  icon: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACK0lEQVR4nH2QS0hVYRDHf/N95/q6JllcgjI0emiRYC+sQNKdYJAQQeuQalu0ixJ37qNFBLZoUxEtWkRQgUIUolFJ4aqHcqW0UMPOOdd7zvdNK8Hk6MDAMI/f/GeEVXZ6Or0mwhVgC8qrRMzl5ztNkQ1MVoLur/FFg9z5r6o6/mx39bENAV2f5xutCR4akfasBu+18+WBupH1AEadDrnUtSdJSpa7NB0+NfF7cF0FHe9myyC51cmti3McmXxTKoSLHwtJ/KUO/6uhtDijcWySKAy0FNo0isrlaPlxkJTTMYGTqwF9925OF1x4Ptp3fKxrYCBdu1X7+837ybet1pfvS/vwt/3eyFNgz0rD4K1L1OGw1fnE1m6asTX5eVtZuexLcS4Nw3oXh/Uuij+5aGmvGe3cNdn0s7GlnCQHk8S3JYlvqy79XQAQkZygTQKHgROqHDXWjKA8UvVVwDZZKw9g9ExHn6mo6rE1+UNBPr/D1tQGprISF8e4OHQuCn/4KJpIS6UXQeZrU3ddc/oBGAJTFGtSxYgxRj3GCrpdlVa8u5EJUDRvhF6BXvCo85jA47xHDENgFxFTBC1nK8B8BwpZFe/9BcUDDhEzlQkQ4Qk2uK0iecU0iLAZyAGpwB8RKWKDJUWbsk9QfxWXFlANBS2qsiCQAAHIHKoteD8lnrPrnCAKIJAHbV7zn9eqUov6bhWtMJnj1p5D5C4wrsgsUFZQ0ESUZkRVxDwwYnr+AS0dE2Z7RcSLAAAAAElFTkSuQmCC
