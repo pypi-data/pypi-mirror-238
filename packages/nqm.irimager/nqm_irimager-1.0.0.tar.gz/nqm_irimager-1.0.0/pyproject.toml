@@ -1,0 +1,123 @@
+[project]
+name = "nqm.irimager"
+version = "1.0.0"
+description = "Python module for interfacing with EvoCortex IRImagerDirect SDK"
+# Python 3.12 removes distutils, which seems to break stuff
+# and prevents installing this package, see https://peps.python.org/pep-0632
+requires-python = ">=3.8, <3.12" # remember to manually sync with classifiers
+authors = [
+    { name = "Alois Klink", email = "alois@nquiringminds.com" }
+]
+readme = "README.md"
+
+dependencies = [
+    "numpy >=1.24.3, <1.25.0"
+]
+
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Topic :: System :: Hardware :: Hardware Drivers",
+  "Topic :: Multimedia :: Graphics :: Capture :: Digital Camera",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Manufacturing",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+]
+
+[build-system]
+requires = [
+    "scikit-build-core>=0.4.7",
+    "pybind11>=2.10.4",
+    # until https://github.com/pybind/pybind11_mkdoc/pull/32 is merged
+    # and https://github.com/sighingnow/libclang/issues/59 is fixed
+    "pybind11_mkdoc @ git+https://github.com/aloisklink/pybind11_mkdoc.git@8461768849fa45268fc588a6f1377c14e461cbca"
+]
+build-backend = "scikit_build_core.build"
+
+[tool.scikit-build]
+wheel.packages = [ "src/nqm" ]
+wheel.license-files = [ "LICENSES/*", "docs/licenses.rst" ]
+cmake.targets = ["all", "cpm-update-package-lock"]
+cmake.minimum-version = "3.25"
+build-dir = "build"
+
+[tool.scikit-build.cmake.define]
+BUILD_TESTING = "OFF" # this requires Development.Embed which isn't available on manylinux
+
+[tool.pylint.main]
+# checks Google-style docstrings
+load-plugins="pylint.extensions.docparams"
+
+[tool.pylint."messages control"]
+# isort sorts our imports for us and we occasionally get conflicts
+disable = ["wrong-import-position"]
+
+[tool.pylint.format]
+# for compatibility with black
+max-line-length = "88"
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+# required since we store our data in a src/ subdir
+explicit_package_bases = true
+mypy_path = "src"
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+testpaths = [
+    "tests",
+    "build/tests",
+]
+# the slowest test is
+# build/tests/test_irlogger_parser::test_irlogger_parser::HandlesLargeInputs,
+# which can take more than 10s in GitHUb Actions
+timeout = 20
+
+[tool.pdm.dev-dependencies]
+lint = [
+    "pre-commit >=2.21.0, <3.0.0",
+    "pylint >=2.15.10, <3.0.0",
+    "isort>=5.12.0",
+]
+types = [
+    "mypy>=1.4.1",
+]
+test = [
+    "pytest>=7.4.0",
+    # in Python 3.11+, we can use the built-in tomllib instead
+    "tomli<3.0.0,>=2.0.1; python_version < \"3.11\"",
+    "pytest-cpp<3.0.0,>=2.3.0",
+    "pytest-timeout>=2.1.0, <3.0.0",
+]
+docs = [
+    "sphinx>=5.3.0",
+    "myst-parser >=0.18.1, <0.19.0",
+]
+cibuildwheel = [
+    "cibuildwheel>=2.15.0, <3.0.0",
+]
+
+[tool.cibuildwheel]
+build = "cp*-manylinux_*" # any standard CPython Linux
+archs = [
+    "auto64", # skip building 32-bit builds, even if our OS supports it
+    "aarch64",
+    "x86_64",
+]
+test-command = "pytest {project}/tests"
+test-requires = [
+    "pytest",
+    "pytest-timeout",
+]
+
+# libirimager needs a relatively new stdc++ library
+manylinux-x86_64-image = "manylinux_2_28"
+manylinux-aarch64-image = "manylinux_2_28"
