@@ -1,0 +1,20 @@
+# patch-workflow.yaml
+
+body:
+  name: "updated-workflow"
+  triggers:
+    - {}
+  steps:
+    step1:
+      imageId: 100
+      imageVersionId: 100
+    step4:
+      imageId: 400
+      imageVersionId: 400
+      command: "python test4.py"
+      resources:
+        instanceTypeId: 24
+      repository:
+        url: "https://github.com/org/repo"
+        branch: main
+        token: random_token

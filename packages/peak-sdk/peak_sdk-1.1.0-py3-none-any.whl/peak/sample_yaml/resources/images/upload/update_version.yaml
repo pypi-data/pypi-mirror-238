@@ -1,0 +1,17 @@
+# upload_image_version.yaml
+
+body:
+  description: Updating the image version
+  buildDetails:
+    source: upload
+    context: "."
+    dockerfilePath: Dockerfile
+    buildArguments:
+      - name: PARAM1
+        value: param1
+    useCache: true
+artifact:
+  path: "."
+  ignore_files:
+    - ".gitignore"
+    - ".dockerignore"
