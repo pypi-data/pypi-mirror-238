@@ -1,0 +1,32 @@
+# pyproject.toml
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "celer-installer"
+version = "1.1.0"
+description = "This command line tool eases the install of the python version of celer server "
+readme = "README.md"
+authors = [{ name = "Celer", email = "service.celer@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["celer", "server", "api" , "python" , "celer-server" , "fast" , "redis" , "dbengine" , "stable" , "1.0.3"]
+dependencies = [
+    "colorama >= 0.4.6"
+]
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/celer-redis/celer-installer"
+
+[project.scripts]
+celer-install = "celer:main"
