@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "inferless-cli"
+version = "0.1.0"
+description = ""
+authors = ["Naveen <naveen@inferless.com>"]
+readme = "README.md"
+
+[tool.poetry.scripts]
+inferless = "inferless_cli.main:app"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+typer = {extras = ["all"], version = "^0.9.0"}
+PyYAML = "^6.0.1"
+prompt-toolkit = "^3.0.39"
+pyfiglet = "^1.0.2"
+cryptography = "^41.0.4"
+requests = "^2.31.0"
+pyjwt = "^2.8.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
