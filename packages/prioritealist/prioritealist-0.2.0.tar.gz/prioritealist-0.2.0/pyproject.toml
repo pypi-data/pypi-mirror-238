@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "prioritealist"
+version = "0.2.0"
+description = "Priority list project for Télécom Paris Post Master Degree"
+authors = ["quentinaml <quentin.amiel@free.fr>",
+           "anatolereffet <anatole.reffet@ieseg.fr>",
+           "thomasgermoni <thomas.germoni@telecom-paris.fr"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/anatolereffet/prioritealist.git"
+packages = [{include = "prioritealist"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+uuid = "^1.30"
+
+
+[tool.poetry.group.dev.dependencies]
+sphinx = "6.1.3"
+black = "^23.10.1"
+pylint = "^3.0.2"
+mypy = "^1.6.1"
+pytest-cov = "^4.1.0"
+furo = "^2023.9.10"
+safety = "^2.3.5"
+sphinx-copybutton = "^0.5.2"
+semantic-release = "^0.1.0"
+toml = "^0.10.2"
+types-toml = "^0.10.8.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.report]
+fail_under = 90
+exclude_also = [
+    "def __repr__"
+    ]
+
+[tool.semantic_release]
+version_variable = [
+    "prioritealist/__init__.py:__version__",
+    "pyproject.toml:version"
+]
+branch = "master"
+upload_to_pypi = false
+upload_to_release = true
