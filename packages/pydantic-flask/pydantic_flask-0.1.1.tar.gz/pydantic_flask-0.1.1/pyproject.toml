@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "pydantic-flask"
+version = "0.1.1"
+description = ""
+authors = ["Abyssknight <501835725@qq.com>"]
+readme = "README.md"
+packages = [{ include = "pydantic_flask" }]
+
+[tool.black]
+line-length = 127
+
+[tool.flake8]
+ignore = ['F401', 'W503']
+max-line-length = 127
+
+[tool.poetry.dependencies]
+python = "^3.9"
+flask = ">=2.0.0"
+pydantic = ">=2.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pre-commit = "^3.3.3"
+ipython = "^8.16.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
