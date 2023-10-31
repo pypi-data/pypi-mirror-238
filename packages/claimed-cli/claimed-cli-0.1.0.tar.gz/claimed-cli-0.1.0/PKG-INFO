@@ -1,0 +1,37 @@
+Metadata-Version: 2.1
+Name: claimed-cli
+Version: 0.1.0
+Summary: CLI tool for running CLAIMED operators locally
+Author-email: The CLAIMED authors <claimed-framework@proton.me>
+Maintainer: Benedikt Blumenstiel
+Maintainer-email: Romeo Kienzler <claimed-framework@proton.me>
+Project-URL: Homepage, https://github.com/claimed-framework/cli
+Project-URL: Bug Tracker, https://github.com/claimed-framework/cli/issues
+Keywords: CLAIMED,cli
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# cli
+CLAIMED CLI - all components available via cli at your fingertips
+
+## Installation
+
+```bash
+pip install claimed-cli
+```
+
+## Example usage
+Run an operator locally:
+```bash
+claimed claimed-util-cos:0.3 access_key_id="xxx" secret_access_key="yyy" endpoint="https://s3.us-east.cloud-object-storage.appdomain.cloud" bucket_name="era5-cropscape-zarr" path="/" recursive=True operation=ls
+```
+
+Create operators using [C3](https://github.com/claimed-framework/c3):
+```bash
+claimed create operator <file> -r <repository>
+```
+
