@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "delayed-reactant-labeling"
+version = "0.2.7"
+authors = [
+    {name="Martijn Dingemans", email="Martijn.Dingemans@ru.nl"},
+    {name="Matthijs Hellinghuizen", email="matthijs.hellinghuizen@ru.nl"}
+]
+description = "A toolbox for analysis of Delayed Reactant Labeling experiments."
+readme = "README.txt"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    'numpy',
+    'moviepy',
+    'scipy',
+    'matplotlib',
+    'scikit-learn',
+    'numba',
+    'tqdm',
+    'openpyxl',
+    'pandas',
+    'polars',
+    'joblib',
+]
