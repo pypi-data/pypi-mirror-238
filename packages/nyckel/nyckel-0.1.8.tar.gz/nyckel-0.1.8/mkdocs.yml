@@ -1,0 +1,51 @@
+site_name: Nyckel
+site_url: https://www.nyckel.com
+nav:
+  - Home: index.md
+  - Guides:
+    - Quickstart: quickstart.md
+    - Copy function: copy_function.md
+    - Delete label: delete_label.md
+    - Merge labels: merge_labels.md
+  - Reference:
+    - Image Classification: image_classification.md
+    - Text Classification: text_classification.md
+    - Tabular Classification: tabular_classification.md
+    - User: user.md
+    - Data classes: data_classes.md
+theme: 
+  name: 'material'
+  features:
+    - content.code.copy
+
+plugins:
+- search
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          line_length: 100
+          members_order: source
+          show_root_heading: true
+          show_if_no_docstring: true
+          show_signature_annotations: true
+          signature_crossrefs: true
+          separate_signature: true
+          filters:
+            - "!^_"
+            - "^__"
+            - "!^__str__"
+            - "!^__repr__"
+          show_source: true
+          show_bases: false
+          show_docstring_attributes: true
+          heading_level: 3
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
