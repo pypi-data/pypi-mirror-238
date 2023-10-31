@@ -1,0 +1,56 @@
+[project]
+name = "auto-phylo-pipeliner"
+version = "1.0.0"
+authors = [
+  { name = "Jorge Vieira", email = "jbvieira@ibmc.up.pt" },
+  { name = "Cristina Vieira", email = "cgvieira@ibmc.up.pt" },
+  { name = "Miguel Reboiro-Jato", email = "mrjato@uvigo.gal" },
+  { name = "Hugo López-Fernández", email = "hlfernandez@uvigo.gal" }
+]
+description = "A GUI to create auto-phylo pipelines."
+keywords = ["phylogenetics", "pipeline", "gui"]
+requires-python = ">=3.8"
+readme = "README.md"
+license = { "file" = "LICENSE" }
+classifiers = [
+  "Programming Language :: Python :: 3.8",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Development Status :: 3 - Alpha",
+  "Topic :: Scientific/Engineering :: Bio-Informatics"
+]
+dependencies = ["sv-ttk==2.5.5"]
+
+[project.scripts]
+"auto-phylo-pipeliner" = "auto_phylo.pipeliner.gui:launch"
+
+[project.urls]
+documentation = "http://evolution6.i3s.up.pt/static/auto-phylo/v2/docs/index.html"
+source = "https://github.com/pegi3s/auto-phylo-pipeliner"
+tracker = "https://github.com/pegi3s/auto-phylo-pipeliner/issues"
+docker = "https://hub.docker.com/r/pegi3s/auto-phylo-pipeliner"
+
+[project.optional-dependencies]
+dev = [
+  "behave==1.2.6",
+  "build==1.0.3",
+  "mypy==1.5.1",
+  "PyHamcrest==2.0.4",
+  "pyroma==4.2",
+  "twine==4.0.2"
+]
+
+[external]
+host-requires = [
+  "pkg:generic/python3-tk"
+]
+
+[build-system]
+requires = ["build==1.0.3", "setuptools==68.2.2", "wheel==0.41.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+auto_phylo = ["py.typed", "*.pyi", "commands.json"]
+
+[tool.behave]
+paths = "tests"
