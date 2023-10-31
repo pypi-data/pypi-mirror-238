@@ -1,0 +1,109 @@
+/* Pure CSS dropdown  */
+
+.dropdown-menu {
+    position: relative;
+    display: inline-block;
+  }
+  
+  
+  body:has(.dropdown-menu[open]) {
+    /* Block scroll when open */
+    overflow: hidden;
+    overscroll-behavior: contain;
+  }
+  
+  .dropdown-menu summary {
+    cursor: pointer;
+    text-decoration: underline;
+    /* Hides marker on Chrome/Firefox */
+    list-style: none;
+  }
+  
+  .dropdown-menu summary::-webkit-details-marker {
+    /* Hides marker on Safari */
+    display: none;
+  }
+  
+  .dropdown-menu summary:hover {
+    color: var(--anchor-color-hover);
+  }
+  
+  /* Dropdown backdrop */
+  
+  .dropdown-menu summary:after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .dropdown-menu[open] summary:after {
+    pointer-events: auto;
+  }
+  
+  .dropdown-menu menu {
+    position: fixed;
+    min-inline-size: 100%;
+    top: 3rem;
+    z-index: 2;
+    list-style: none;
+    background: var(--color-primary-200);
+  }
+  
+  .dropdown-menu menu li {
+    padding: 1rem 1rem;
+    border-bottom: 1px solid var(--color-primary-100);
+  }
+  
+  .dropdown-menu menu li:last-child {
+    border-bottom: 0;
+  }
+  
+  @media screen and (max-width: 767.98px) {
+    .dropdown-menu menu {
+      top: 3rem;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+  
+    /* Visible backdrop is mobile only  */
+    .dropdown-menu summary:after {
+      opacity: 0;
+      background: var(--color-background);
+      transition: opacity .3s ease-out;
+    }
+  
+    .dropdown-menu[open] summary:after {
+      opacity: 0.75;
+    }
+  }
+  
+  @media screen and (min-width: 768px) {
+    .dropdown-menu menu {
+      position: absolute;
+      min-inline-size: max-content;
+      top: 2rem;
+      left: unset;
+      right: unset;
+      z-index: 2;
+      list-style: none;
+      background: var(--color-primary-200);
+      box-shadow: var(--color-primary-300) 7px 7px;
+      transform: translateY(-5%);
+      transition: transform .3s ease-out;
+    }
+  
+    .dropdown-menu[open] menu {
+      transform: translateY(0%);
+    }
+  
+    .dropdown-menu menu li {
+      padding: .75rem 1rem;
+      font-size: var(--font-size-sm);
+    }
+  }
