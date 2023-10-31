@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "security-arbihacker"
+version = "0.1.0"
+authors = [
+    { name="Sergei Aslamazov", email="mrvisioo@gmail.com" },
+]
+description = "Utils to make setting up API security with FastAPI faster and easier."
+readme = "README.MD"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "fastapi~=0.96.0",
+    "python-jose[cryptography]~=3.3.0"
+]
+[project.urls]
+"Homepage" = "https://github.com/ArbiHacker/security_arbihacker"
