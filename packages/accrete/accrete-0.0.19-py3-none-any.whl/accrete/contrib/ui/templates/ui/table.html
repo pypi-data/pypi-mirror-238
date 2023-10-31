@@ -1,0 +1,46 @@
+{% extends 'ui/layout.html' %}
+{% load static %}
+{% load i18n %}
+{% load accrete_ui %}
+
+{% block script %}
+    {{ block.super }}
+    <script src="{% static "js/filter.js" %}" defer type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+    <table class="table is-fullwidth is-hoverable">
+        <thead style="position: sticky; top: 0; background: white; z-index: 10">
+            {% block table_header_row %}
+                <tr>
+                    {% block table_header %}
+                        <th>{{ obj_label }}</th>
+                        {% for field in fields %}
+                            <th style="text-align: {{ field.align.value }}">{{ field.label }}</th>
+                        {% endfor %}
+                        {% if unselect_button %}
+                            <th></th>
+                        {% endif %}
+                    {% endblock %}
+                </tr>
+            {% endblock %}
+        </thead>
+        <tbody style="z-index: 9">
+            {% for obj in page %}
+                {% block table_data_row %}
+                    <tr>
+                        {% block table_data %}
+                            <td><a class="is-underlined" href="{{ obj.get_absolute_url }}{{ querystring }}&page={{ page.number }}">{{ obj }}</a></td>
+                            {% for field in fields %}
+                                <td style="text-align: {{ field.align.value }}">{{ obj|get_attr:field.name|default_if_none:'---' }}</td>
+                            {% endfor %}
+                            {% if unselect_button %}
+                                <td><button class="button is-small has-icon p-0 is-pulled-right" onclick="unselectSingleObject({{ obj.pk }})"><i class="icon-delete-filter"></i></button></td>
+                            {% endif %}
+                        {% endblock %}
+                    </tr>
+                {% endblock %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
