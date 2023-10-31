@@ -1,0 +1,27 @@
+[console_scripts]
+llm-append = ldc.tool.append:sys_main
+llm-convert = ldc.tool.convert:sys_main
+llm-download = ldc.tool.download:sys_main
+llm-find = ldc.tool.find:sys_main
+llm-help = ldc.tool.help:sys_main
+llm-paste = ldc.tool.paste:sys_main
+
+[ldc.downloaders]
+ldc_downloaders1 = ldc.downloader:ldc.downloader.Downloader
+
+[ldc.filters]
+lcd_filters1 = ldc.filter:ldc.filter.Filter
+lcd_filters2 = ldc.pretrain:ldc.filter.Filter
+lcd_filters4 = ldc.translation:ldc.filter.Filter
+lcd_readers3 = ldc.supervised.pairs:ldc.filter.Filter
+
+[ldc.readers]
+lcd_readers1 = ldc.pretrain:ldc.io.Reader
+lcd_readers2 = ldc.supervised.pairs:ldc.io.Reader
+lcd_readers3 = ldc.translation:ldc.io.Reader
+
+[ldc.writers]
+lcd_writers1 = ldc.pretrain:ldc.io.Writer
+lcd_writers2 = ldc.supervised.pairs:ldc.io.Writer
+lcd_writers3 = ldc.translation:ldc.io.Writer
+
