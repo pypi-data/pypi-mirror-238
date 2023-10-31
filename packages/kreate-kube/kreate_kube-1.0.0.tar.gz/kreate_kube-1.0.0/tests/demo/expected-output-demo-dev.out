@@ -1,0 +1,465 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    eks.amazonaws.com/role-arn: some-role-dev
+  name: demo-serviceaccount
+  namespace: demo-dev
+---
+apiVersion: v1
+data:
+  environment.properties: |
+    This is a very empty file
+kind: ConfigMap
+metadata:
+  labels:
+    config-map: demo-extra-files
+  name: demo-extra-files-hmm7226mdf
+  namespace: demo-dev
+---
+apiVersion: v1
+data:
+  application.properties: |
+    This is a demo file
+  some-file-from-package: |
+    # Just a package with respurce templates
+kind: ConfigMap
+metadata:
+  labels:
+    config-map: demo-files
+  name: demo-files-c7g5dbm562
+  namespace: demo-dev
+---
+apiVersion: v1
+data:
+  ENV: dev
+  ORACLE_SCHEMA: demo_schema_dev
+  ORACLE_URL: localhost:1521
+  ORACLE_USR: demo_usr_DEV
+kind: ConfigMap
+metadata:
+  labels:
+    config-map: demo-vars
+  name: demo-vars-tmfmt8h78d
+  namespace: demo-dev
+---
+apiVersion: v1
+data:
+  credential.properties: dGVzdGR1bW15LUtJN2JSN3Jf
+kind: Secret
+metadata:
+  labels:
+    secret: demo-secret-files
+  name: demo-secret-files
+  namespace: demo-dev
+type: Opaque
+---
+apiVersion: v1
+data:
+  credential.properties: dGVzdGR1bW15LUtJN2JSN3Jf
+kind: Secret
+metadata:
+  labels:
+    secret: demo-secret-files-from-kustomize
+  name: demo-secret-files-from-kustomize-5h8h7b7d2b
+  namespace: demo-dev
+type: Opaque
+---
+apiVersion: v1
+data:
+  DB_PSW: dGVzdGR1bW15LXV3SXY3ZkJ6
+  DB_USR: ZGJ1c3JkZXY=
+kind: Secret
+metadata:
+  labels:
+    secret: demo-secrets
+  name: demo-secrets
+  namespace: demo-dev
+type: Opaque
+---
+apiVersion: v1
+data:
+  DB_PSW: dGVzdGR1bW15LXV3SXY3ZkJ6
+  DB_USR: ZGJ1c3JkZXY=
+kind: Secret
+metadata:
+  labels:
+    secret: demo-secrets-from-kustomize
+  name: demo-secrets-from-kustomize-2dt975665m
+  namespace: demo-dev
+type: Opaque
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: demo
+  name: demo-service-add
+  namespace: demo-dev
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: UDP
+    targetPort: 8080
+  selector:
+    app: demo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: demo
+  name: demo-service-https
+  namespace: demo-dev
+spec:
+  ports:
+  - name: https
+    port: 443
+    protocol: UDP
+    targetPort: 443
+  selector:
+    app: demo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: demo
+  name: demo-udp-service
+  namespace: demo-dev
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: UDP
+    targetPort: 8080
+  selector:
+    app: demo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo
+  namespace: demo-dev
+spec:
+  replicas: 3
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: demo
+  template:
+    metadata:
+      annotations:
+        app.kubernetes.io/component: webservice
+        app.kubernetes.io/managed-by: kustomize
+        app.kubernetes.io/name: demo
+        app.kubernetes.io/part-of: kreate-demo
+        app.kubernetes.io/version: v1.3.4
+        co.elastic.logs/enabled: "true"
+        co.elastic.logs/exclude_lines: DEBUG
+        some-demo-annotation: just-for-fun
+      labels:
+        app: demo
+        egress-to-db: enabled
+      name: demo
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - demo
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - envFrom:
+        - secretRef:
+            name: demo-secrets
+        - configMapRef:
+            name: demo-vars-tmfmt8h78d
+        image: https://repo.kisst.org/demo.app:v1.3.4
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /demo/actuator/info
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: app
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 1
+          httpGet:
+            path: /demo/actuator/info
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512M
+          requests:
+            cpu: 50m
+            memory: 512M
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /demo/actuator/info
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 1
+          timeoutSeconds: 1
+        volumeMounts:
+        - mountPath: /home/spring/credential.properties
+          name: demo-secret-files
+          subPath: credential.properties
+        - mountPath: /home/spring/application.properties
+          name: demo-files
+          subPath: application.properties
+        - mountPath: /home/spring/logback.xml
+          name: demo-files
+          subPath: logback.xml
+        - mountPath: /home/spring/environment.properties
+          name: demo-extra-files
+          subPath: environment.properties
+      serviceAccount: some-svc-account
+      serviceAccountName: some-svc-account-name
+      volumes:
+      - name: demo-secret-files
+        secret:
+          secretName: demo-secret-files
+      - configMap:
+          name: demo-files-c7g5dbm562
+        name: demo-files
+      - configMap:
+          name: demo-extra-files-hmm7226mdf
+        name: demo-extra-files
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: demo-statefulset
+  namespace: demo-dev
+some:
+  long: {}
+spec:
+  replicas: 3
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: demo-statefulset
+  template:
+    klaas: pietje
+    metadata:
+      annotations:
+        app.kubernetes.io/component: webservice
+        app.kubernetes.io/managed-by: kustomize
+        app.kubernetes.io/name: demo-statefulset
+        app.kubernetes.io/part-of: kreate-demo
+        app.kubernetes.io/version: v1.3.4
+        co.elastic.logs/enabled: "true"
+        co.elastic.logs/exclude_lines: DEBUG
+      labels:
+        app: demo-statefulset
+      name: demo-statefulset
+    serviceName: jantje
+    spec:
+      containers:
+      - image: https://repo.kisst.org/demo.app:v1.3.4
+        name: app
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 1
+            memory: 512M
+          requests:
+            cpu: 50m
+            memory: 512M
+      serviceAccount: some-svc-account
+      serviceAccountName: some-svc-account-name
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: demo-cronjob
+  namespace: demo-dev
+spec:
+  concurrencyPolicy: Allow
+  jobTemplate:
+    spec:
+      containers:
+      - args:
+        - -c
+        - echo Starting; do-some-job; echo done
+        command: /bin/sh
+        envFrom:
+        - configMapRef:
+            name: demo-vars
+        - secretRef:
+            name: demo-secrets
+        image: https://repo.kisst.org/demo.app:v1.3.4
+        imagePullPolicy: Always
+        name: app
+        resources:
+          limits:
+            cpu: 1
+            memory: 512M
+          requests:
+            cpu: 50m
+            memory: 512M
+        securityContext:
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+      serviceAccountName: null
+      template:
+        metadata:
+          annotations:
+            app.kubernetes.io/component: cronjob
+            app.kubernetes.io/managed-by: kustomize
+            app.kubernetes.io/name: demo-cronjob
+            app.kubernetes.io/part-of: kreate-demo
+            app.kubernetes.io/version: v1.3.4
+            co.elastic.logs/enabled: "true"
+            co.elastic.logs/exclude_lines: DEBUG
+          labels: {}
+          name: demo-cronjob
+        spec:
+          containers: null
+          restartPolicy: OnFailure
+  schedule: 0 2 * * ?
+  successfulJobsHistoryLimit: 3
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  labels:
+    testje: test
+  name: demo-pdb
+  namespace: demo-dev
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: demo
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: demo-horizontalpodautoscaler
+  namespace: demo-dev
+spec:
+  maxReplicas: 3
+  metrics:
+  - resource:
+      name: cpu
+      target:
+        averageUtilization: 70
+        type: Utilization
+    type: Resource
+  - resource:
+      name: memory
+      target:
+        averageUtilization: 70
+        type: Utilization
+    type: Resource
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: demo
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: demo-servicemonitor
+  namespace: demo-dev
+spec:
+  endpoints:
+  - interval: 20s
+    path: /actuator/prometheus
+    port: http
+  namespaceSelector:
+    matchNames:
+    - demo-dev
+  selector:
+    matchLabels:
+      app: demo
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-ingress-api
+  namespace: demo-dev
+spec:
+  rules:
+  - host: private.kisst.org
+    http:
+      paths:
+      - backend:
+          service:
+            name: demo-service
+            port:
+              number: 8080
+        path: /api
+        pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/affinity: cookie
+    nginx.ingress.kubernetes.io/auth-realm: demo-realm
+    nginx.ingress.kubernetes.io/auth-secret: demo-basic-auth
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "100"
+    nginx.ingress.kubernetes.io/whitelist-source-range: 10.20.30.40
+  labels:
+    dummy: jan
+  name: demo-ingress-root
+  namespace: demo-dev
+spec:
+  rules:
+  - host: private.kisst.org
+    http:
+      paths:
+      - backend:
+          service:
+            name: demo-service
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: demo-egress-to-db
+  namespace: demo-dev
+spec:
+  egress:
+  - ports:
+    - port: 1521
+      protocol: TCP
+    to:
+    - ipBlock:
+        cidr: 1.2.3.4/32
+  podSelector:
+    matchLabels:
+      egress-to-db: enabled
+  policyTypes:
+  - Egress

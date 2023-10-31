@@ -1,0 +1,44 @@
+# This file should just provide basic values
+val:
+  generic:
+    project: kreate-demo
+    image_repo: https://repo.kisst.org
+    container_port: 8080
+    cpu_request: "50m" # extra small for dev environment
+    service_port: 8080
+    service_account_role: some-role-dev
+
+  HttpProbes:
+    probe_path: /demo/actuator/info
+
+  Deployment:
+    main:
+      cpu_request: "50m" # extra small for dev environment
+
+  serviceAccount: some-svc-account
+  serviceAccountName: some-svc-account-name
+
+  ingress_host_external: api.kisst.org
+  ingress_host_internal: private.kisst.org
+
+  db:
+    cidr: 1.2.3.4/32
+    port: 8123
+
+  redis:
+    url: https://redis.kisst.org:6379
+    cidr_list: dummy
+    #egress_port: 6379
+
+  xyz:
+    cidr_list: dummy
+    port_list: 1234
+
+
+  root_whitelist: 10.20.30.40
+  replicas: 3
+
+var:
+  ORACLE_URL: localhost:1521
+  ORACLE_SCHEMA: demo_schema_dev
+  ORACLE_USR: demo_usr_DEV
