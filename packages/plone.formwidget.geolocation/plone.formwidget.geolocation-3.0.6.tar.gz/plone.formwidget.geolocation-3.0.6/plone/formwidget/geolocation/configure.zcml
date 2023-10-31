@@ -1,0 +1,121 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:z3c="http://namespaces.zope.org/z3c"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="plone.formwidget.geolocation"
+    >
+
+  <i18n:registerTranslations directory="locales" />
+
+  <plone:static
+      directory="static"
+      name="plone.formwidget.geolocation"
+      type="plone"
+      />
+
+  <adapter factory=".widget.GeolocationFieldWidget" />
+  <adapter factory=".converter.GeolocationConverter" />
+
+  <adapter
+      factory=".serializer.GeolocationSerializer"
+      zcml:condition="installed plone.restapi"
+      />
+
+  <adapter
+      factory=".deserializer.GeolocationDeserializer"
+      zcml:condition="installed plone.restapi"
+      />
+
+  <include
+      package="z3c.form"
+      file="meta.zcml"
+      />
+
+  <z3c:widgetTemplate
+      widget=".interfaces.IGeolocationWidget"
+      template="geolocation_display.pt"
+      layer="z3c.form.interfaces.IFormLayer"
+      mode="display"
+      />
+
+  <z3c:widgetTemplate
+      widget=".interfaces.IGeolocationWidget"
+      template="geolocation_input.pt"
+      layer="z3c.form.interfaces.IFormLayer"
+      mode="input"
+      />
+
+  <browser:page
+      name="geolocation-geojson-popup"
+      for="*"
+      class=".popup.PopupView"
+      template="popup.pt"
+      permission="zope.Public"
+      />
+
+  <utility
+      name="plone.formwidget.geolocation.GeolocationField"
+      component=".supermodel.GeolocationHandler"
+      zcml:condition="installed plone.supermodel"
+      />
+
+  <utility
+      name="plone.formwidget.geolocation.vocabularies.map_layers"
+      component=".vocabularies.MapLayers"
+      />
+
+  <include
+      package="Products.CMFPlone.controlpanel"
+      file="permissions.zcml"
+      />
+  <browser:page
+      name="geolocation-controlpanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlpanel.GeolocationControlPanel"
+      permission="plone.app.controlpanel.Site"
+      />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="plone.formwidget.geolocation map install"
+      description="Extension profile for Plone."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/default"
+      />
+
+  <genericsetup:registerProfile
+      name="to_2000"
+      title="Upgrade to version 2000"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/upgrades/to_2000"
+      />
+
+  <genericsetup:registerProfile
+      name="to_2002"
+      title="Upgrade to version 2002"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/upgrades/to_2002"
+      />
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="plone.formwidget.geolocation map uninstall"
+      description="Extension profile for Plone."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/uninstall"
+      />
+
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="plone.formwidget.geolocation-hiddenprofiles"
+      />
+
+  <include file="upgrades.zcml" />
+
+</configure>
