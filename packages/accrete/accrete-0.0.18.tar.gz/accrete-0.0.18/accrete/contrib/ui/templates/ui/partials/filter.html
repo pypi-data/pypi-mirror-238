@@ -1,0 +1,48 @@
+{% load i18n %}
+{% load static %}
+{% load cache %}
+{% load accrete_ui %}
+
+<div id="query-block" class="panel-block pt-0" style="position: relative; display: inline-block; width: 100%">
+    <div id="query-tags" class="is-flex-direction-column is-flex-grow-1 is-multiline mb-1" data-or-label="{% translate 'OR' %}"></div>
+
+    <div class="field has-addons level">
+        <p id="query-operation" class="control">
+        <span class="select">
+            <select id="query-operation-select" aria-label="Select Operation">
+                <option value="and">{% translate 'AND' %}</option>
+                <option value="or">{% translate 'OR' %}</option>
+            </select>
+        </span>
+    </p>
+    <div id="query-notification" class="control is-expanded is-size-7 p-0 ml-1">
+        <div id="query-notification-parameter" class="notification is-warning is-light has-text-centered py-2 m-0 is-hidden">
+            <p>{% translate 'Select a parameter' %}</p>
+        </div>
+        <p id="query-text" class="notification py-2 px-1 m-0 is-hidden" style="word-break: break-word"></p>
+    </div>
+    </div>
+
+    <div id="query-input-fieldset" class="field has-addons pt-1">
+        <p id="query-input-control" class="control is-expanded">
+            <input id="query-input"
+                   type="text"
+                   aria-label="Query Input"
+                   class="input"
+                   placeholder="Enter a search term"
+                   data-default-term="{{ default_filter_term }}"
+            >
+        </p>
+        <p id="query-input-select-control" class="control is-expanded is-hidden">
+            <span class="select is-fullwidth">
+                <select id="query-input-select" aria-label="query-input-select"></select>
+            </span>
+        </p>
+        <p id="query-input-apply" class="control"><button class="button">&#x21D2;</button></p>
+    </div>
+
+
+    <div id="query-params-dropdown" class="box mt-1 mx-0 p-1 is-hidden" tabindex="-1" style="z-index: 10; background: white; word-break: break-word; position: inherit">
+        {{ filter_terms|render_query_params }}
+    </div>
+</div>
