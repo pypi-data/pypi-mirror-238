@@ -1,0 +1,545 @@
+{% extends 'base.html' %}
+
+{% block title %} Logs Viewer {% endblock %}
+
+{% block extra_head %}
+	<style type="text/css">
+		#logs-content {
+			height: 500px;
+			overflow: auto;
+			flex-grow: 1;
+		}
+		@media (max-width: 991px) {
+			html, body, #logs-content {
+				height: 100%;
+				width: 100%;
+				max-width: none;
+			}
+		}
+
+		.log-type-DEBUG {
+			color: blue;
+		}
+		.log-type-INFO {
+			color: green;
+		}
+		.log-type-WARN {
+			color: #FFC107;
+		}
+		.log-type-ERROR {
+			color: red;
+		}
+
+		.log-timestamp {
+			font-size: 12px;
+			color: gray;
+		}
+
+		#logs-level-dropdown {
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			padding: 4px 8px;
+			font-size: 16px;
+			font-family: Arial, sans-serif;
+			box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+			transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+		}
+
+		#logs-level-dropdown:focus {
+			outline: none;
+			border-color: #007bff;
+			box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(0, 123, 255, 0.5);
+		}
+
+		#logs-level-form label {
+			font-size: 16px;
+			font-family: Arial, sans-serif;
+			font-weight: bold;
+			margin-right: 8px;
+		}
+
+		#logs-level-form-container {
+			display: inline-block;
+		}
+
+		#logs-level-form,
+		#logs-level-dropdown {
+			display: inline-block;
+		}
+
+		.status-indicator {
+			display: flex;
+			align-items: center;
+		}
+
+		.status-indicator h5 {
+			margin: 0;
+		}
+
+		.status-indicator .dot {
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			margin-right: 5px;
+			background-color: #7CFC00;
+			border-radius: 50%;
+			animation: pulse 1s ease-out infinite;
+		}
+
+		.status-indicator.active .dot {
+			background-color: #7CFC00;
+			animation-name: pulse-active;
+		}
+
+		.status-indicator.inactive .dot {
+			background-color: #fc0000;
+			animation: pulse-inactive 1s ease-out infinite;
+		}
+
+		@keyframes pulse-active {
+			0% {
+				box-shadow: 0 0 0 0px rgba(124, 252, 0, 0.4);
+			}
+			100% {
+				box-shadow: 0 0 0 10px rgba(124, 252, 0, 0);
+			}
+		}
+
+		@keyframes pulse-inactive {
+			0% {
+				box-shadow: 0 0 0 0px rgba(252, 0, 0, 0.4);
+			}
+			100% {
+				box-shadow: 0 0 0 10px rgba(252, 0, 0, 0);
+			}
+		}
+	}
+	</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container" id="content">
+	<div class="row align-items-center">
+		<div class="col">
+			<h3>Logs</h3>
+		</div>
+		<div class="col-auto">
+			<form id="logs-level-form">
+				<label for="logs-level-dropdown">Set Log <abbr title="Each log level includes all levels above it.">Level</abbr>:</label>
+				<select id="logs-level-dropdown" name="logs-level-dropdown">
+					<option value="DEBUG">Debug</option>
+					<option value="INFO">Info</option>
+					<option value="WARN">Warn</option>
+					<option value="ERROR">Error</option>
+				</select>
+			</form>
+		</div>
+		<div class="col-auto">
+			<button id="start-button" class="btn btn-success d-none"><i class="bi bi-play-fill"></i> Start</button>
+			<button id="pause-button" class="btn btn-secondary d-none ms-1"><i class="bi bi-pause-fill"></i> Pause</button>
+			<button id="resume-button" class="btn btn-secondary d-none ms-1"><i class="bi bi-caret-right-square-fill"></i></i> Resume</button>
+			<button id="stop-button" class="btn btn-danger d-none ms-1"><i class="bi bi-stop-circle"></i> Stop</button>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col">
+			<div class="bg-light rounded p-3" id="logs-content">
+			</div>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col">
+			<div class="status-indicator" id="status-indicator">
+				<span class="dot"></span>
+				<h5 id="status-indicator-text"></h5>
+			</div>
+		</div>
+		<div class="col-auto">
+		<button id="abort-button" class="btn btn-danger btn-sm d-none"><i class="bi bi-x-octagon-fill"></i> Abort</button>
+		<button id="clear-button" class="btn btn-warning btn-sm d-none ms-1"><i class="bi bi-trash3"></i> Clear Logs</button>
+	</div>
+	</div>
+</div>
+
+<script>
+
+	// Define the log levels and their corresponding filtering conditions
+	const logLevels = {
+		'DEBUG': 	['DEBUG', 'INFO', 'WARN', 'ERROR'],
+		'INFO': 	['INFO', 'WARN', 'ERROR'],
+		'WARN': 	['WARN', 'ERROR'],
+		'ERROR': 	['ERROR']
+	};
+
+	let eventSource = new EventSource('/stream');
+	let historic_logs = [];
+
+	eventSource.onopen = function() {
+		handle_sse_start(event);
+	};
+
+	eventSource.onmessage = function(event) {
+		handle_sse_messages(event);
+	};
+
+	eventSource.onerror = function(event) {
+		handle_sse_errors(event);
+	};
+
+	$(document).ready(function () {
+		get_framework_status()
+	});
+
+	function get_framework_status() {
+	    $.ajax({
+	        type: "GET",
+	        url: "framework-status",
+	        success: function (data) {
+	            changeFrameworkStatus(data.status);
+	            return(data.status)
+	        },
+	        error: function (xhr) {
+	            b5toast.show("danger", "Error occurred when checking status", "Please check the logs for more information", 3000);
+	        }
+	    });
+	}
+
+	// Handle filter dropdown change event	
+	$('#logs-level-dropdown').change(function() {
+		log_level = $(this).val();
+		$('#logs-content').empty();
+		localStorage.setItem('log_level', log_level);
+		historic_logs = [];
+
+		// Restart the SSE connection
+		eventSource.close();
+		eventSource = new EventSource('/stream');
+
+	// Set up event listeners on the new EventSource object
+		eventSource.onopen = function(event) {
+			handle_sse_start(event);
+		}
+
+		eventSource.onmessage = function(event) {
+			handle_sse_messages(event);
+		}
+
+		eventSource.onerror = function(event) {
+			handle_sse_errors(event);
+		}
+	});
+
+	// Handle Start button click event
+	$('#start-button').click(function() {
+		{%- if platform.lower() == "discord" -%}
+		var serverId = localStorage.getItem("discordServerId");
+
+		if (!serverId) {
+			// Server ID not stored, trigger modal to save it
+			$('#DiscordServerModal').modal('show');
+			return; // Stop execution until server ID is obtained
+		}
+		var url = "start?server=" + serverId;
+		{%- else -%}
+		var url = "start";
+		{%- endif -%}
+		$.ajax({ 
+			type: "GET",
+			url: url,
+			beforeSend: function() {
+				b5toast.show("warning", "Starting exercise...", "We are starting the exercise", 3000);
+				changeFrameworkStatus("start");
+			},
+			success: function(data){
+				// b5toast.show("success", "Exercise started", "Lets the game begin!", 5000); // This won't be seen by the user, but the alert will be triggerred when exercise has been completed.
+			},
+			error: function(xhr){
+				// b5toast.show("danger", "Error ocurred", "Please check the logs for more information", 3000);
+				changeFrameworkStatus("stop");
+			}
+		});
+	});
+
+	// Handle Stop button click event
+	$('#stop-button').click(function() {
+		$.ajax({ 
+			type: "GET",
+			url: "stop",
+			beforeSend: function(){
+				b5toast.show("warning", "Stopping exercise...", "We are stopping the exercise", 3000);
+			},
+			success: function(data){
+				b5toast.show("success", "Exercise Stopped", "The exercise has stopped, start again when you are ready!<br><b>Please note that maybe one remaining inject will be sent.</b>", 8000);
+				
+				changeFrameworkStatus("stop");
+			},
+			error: function(xhr){
+				b5toast.show("danger", "Error ocurred", "Please check the logs for more information", 3000);
+			}
+		});
+	});
+
+	// Handle Pause button click event
+	$('#pause-button').click(function() {
+		$.ajax({ 
+			type: "GET",
+			url: "pause",
+			beforeSend: function(){
+				b5toast.show("warning", "Pausing exercise...", "We are pausing the exercise", 3000);
+			},
+			success: function(data){
+				b5toast.show("success", "Exercise paused", "The exercise is now paused, resume it when you are ready!<br><b>Please note that maybe one remaining inject will be sent.</b>", 8000);
+				changeFrameworkStatus("pause");
+			},
+			error: function(xhr){
+				b5toast.show("danger", "Error ocurred", "Please check the logs for more information", 3000);
+			}
+		});
+	});
+
+	// Handle Resume button click event
+	$('#resume-button').click(function() {
+		$.ajax({ 
+			type: "GET",
+			url: "resume",
+			beforeSend: function(){
+				b5toast.show("warning", "Resuming exercise...", "We are resuming the exercise", 3000);
+			},
+			success: function(data){
+				b5toast.show("success", "Exercise resumed", "The exercise has been resumed at the point where it was interrupted.", 5000);
+				
+				changeFrameworkStatus("resume");
+			},
+			error: function(xhr){
+				b5toast.show("danger", "Error ocurred", "Please check the logs for more information", 3000);
+			}
+		});
+	});
+
+	// Handle Abort button click event
+	$('#abort-button').click(function() {
+		$.ajax({ 
+			type: "GET",
+			url: "abort",
+			beforeSend: function(){
+				b5toast.show("warning", "Stopping Framework...", "We are stopping the Framework", 3000);
+			},
+			success: function(data){
+				b5toast.show("success", "Framework Stopped", "Hope to see you again soon!", 5000);
+				// eventSource.close();
+				
+				changeFrameworkStatus("abort");
+			},
+			error: function(xhr){
+				b5toast.show("danger", "Error ocurred", "Please check the logs for more information", 3000);
+			}
+		});
+	});
+
+	// Handle clear logs button click event
+	$('#clear-button').click(function() {
+		$.ajax({ 
+			type: "GET",
+			url: "clear",
+			success: function(data){
+				$('#logs-content').empty();
+			},
+			error: function(xhr){
+				// alert('not clear');
+			}
+		});
+	});
+
+	function handle_sse_messages(event){
+		var message = JSON.parse(event.data);
+		var messageId = message.id;
+
+		// Get the selected log level
+		var logLevel = $('#logs-level-dropdown').val();
+		var logLevel_stored = localStorage.getItem("log_level");
+
+		if (logLevel === null || logLevel_stored === null) {
+			$("#logs-level-dropdown").val("INFO").change();
+			logLevel = "INFO";
+		}
+		else if (logLevel !== logLevel_stored) {
+			$("#logs-level-dropdown").val(logLevel_stored).change();
+			logLevel = logLevel_stored;
+		}
+
+		// Check if the message type matches the filtering condition
+		if (!historic_logs.includes(messageId) && logLevels[logLevel].includes(message.type)) {
+			// Store to the historics
+			historic_logs.push(messageId);
+
+			// Format the new log
+			var logString = '<div class="row">\
+					<div class="col-11">\
+						<span class="log-type-'+message.type+'">[' + message.type + '] </span>\
+						<span class="message">' + message.content + '</span>\
+					</div>\
+					<div class="col-1 text-end">\
+						<span class="log-timestamp">' + message.timestamp + '</span>\
+					</div>\
+				</div>';
+
+			// Append the new log
+			$('#logs-content').append(logString);
+
+			// Scroll to latest message
+			var logsContent = document.getElementById("logs-content");
+			logsContent.scrollTop = logsContent.scrollHeight;
+		}
+	};
+
+	function handle_sse_start(event){
+		console.log("Getting server updates");
+		// changeFrameworkStatus("active");
+		get_framework_status()
+	};
+
+	function handle_sse_errors(event){
+		console.log('EventSource error:', event);
+		changeFrameworkStatus("abort");
+		// get_framework_status()
+	};
+
+	// Add or remove the "active" class to the status indicator
+	function setStatusIndicatorActive(isActive) {
+		const indicator = document.querySelector('#status-indicator');
+		if (isActive) {
+			document.getElementById('status-indicator-text').innerHTML = 'Framework status: Active';
+			indicator.classList.add('active');
+			indicator.classList.remove('inactive');
+		}
+		else {
+			document.getElementById('status-indicator-text').innerHTML = 'Framework status: Inactive';
+			indicator.classList.add('inactive');
+			indicator.classList.remove('active');	
+		}
+	}
+
+	function changeFrameworkStatus(status){
+
+		const start_btn = document.getElementById('start-button')
+		const pause_btn = document.getElementById('pause-button')
+		const resume_btn = document.getElementById('resume-button')
+		const stop_btn = document.getElementById('stop-button')
+		const abort_btn = document.getElementById('abort-button')
+		const clear_btn = document.getElementById('clear-button')
+
+
+		if (status === "active"){
+			start_btn.disabled = false;
+			pause_btn.disabled = true;
+			resume_btn.disabled = true;
+			stop_btn.disabled = true;
+			abort_btn.disabled = false;
+			clear_btn.disabled = false;
+
+			start_btn.classList.remove('d-none');
+			pause_btn.classList.add('d-none');
+			resume_btn.classList.add('d-none');
+			stop_btn.classList.add('d-none');
+			abort_btn.classList.remove('d-none');
+			clear_btn.classList.remove('d-none');
+
+			setStatusIndicatorActive(true);
+			
+		}
+
+		else if (status === "start"){
+			start_btn.disabled = true;
+			pause_btn.disabled = false;
+			resume_btn.disabled = true;
+			stop_btn.disabled = false;
+			abort_btn.disabled = false;
+			clear_btn.disabled = false;
+
+			start_btn.classList.add('d-none');
+			pause_btn.classList.remove('d-none');
+			resume_btn.classList.add('d-none');
+			stop_btn.classList.remove('d-none');
+			abort_btn.classList.remove('d-none');
+			clear_btn.classList.remove('d-none');
+
+			setStatusIndicatorActive(true);
+		}
+
+		else if (status === "pause"){
+			start_btn.disabled = true;
+			pause_btn.disabled = true;
+			resume_btn.disabled = false;
+			stop_btn.disabled = false;
+			abort_btn.disabled = false;
+			clear_btn.disabled = false;
+
+			start_btn.classList.add('d-none');
+			pause_btn.classList.add('d-none');
+			resume_btn.classList.remove('d-none');
+			stop_btn.classList.remove('d-none');
+			abort_btn.classList.remove('d-none');
+			clear_btn.classList.remove('d-none');
+
+			setStatusIndicatorActive(true);
+		}
+
+		else if (status === "resume"){
+			start_btn.disabled = true;
+			pause_btn.disabled = false;
+			resume_btn.disabled = true;
+			stop_btn.disabled = false;
+			abort_btn.disabled = false;
+			clear_btn.disabled = false;
+
+			start_btn.classList.add('d-none');
+			pause_btn.classList.remove('d-none');
+			resume_btn.classList.add('d-none');
+			stop_btn.classList.remove('d-none');
+			abort_btn.classList.remove('d-none');
+			clear_btn.classList.remove('d-none');
+
+			setStatusIndicatorActive(true);
+		}
+
+		else if (status === "stop"){
+			start_btn.disabled = false;
+			pause_btn.disabled = true;
+			resume_btn.disabled = true;
+			stop_btn.disabled = true;
+			abort_btn.disabled = false;
+			clear_btn.disabled = false;
+
+			start_btn.classList.remove('d-none');
+			pause_btn.classList.add('d-none');
+			resume_btn.classList.add('d-none');
+			stop_btn.classList.add('d-none');
+			abort_btn.classList.remove('d-none');
+			clear_btn.classList.remove('d-none');
+
+			setStatusIndicatorActive(true);
+		}
+
+		else if (status === "abort"){
+			start_btn.disabled = true;
+			pause_btn.disabled = true;
+			resume_btn.disabled = true;
+			stop_btn.disabled = true;
+			abort_btn.disabled = true;
+			clear_btn.disabled = true;
+
+			start_btn.classList.remove('d-none');
+			pause_btn.classList.add('d-none');
+			resume_btn.classList.add('d-none');
+			stop_btn.classList.add('d-none');
+			abort_btn.classList.remove('d-none');
+			clear_btn.classList.remove('d-none');
+
+			setStatusIndicatorActive(false);
+		}
+
+
+	}
+</script>
+{% endblock %}
