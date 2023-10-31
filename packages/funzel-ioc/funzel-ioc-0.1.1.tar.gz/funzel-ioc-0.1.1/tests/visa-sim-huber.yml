@@ -1,0 +1,35 @@
+spec: 1.1
+
+devices:
+  SMC9300:
+    eom:
+      TCPIP SOCKET:
+        q: "\n"
+        r: "\r"
+
+      ASRL INSTR:
+        q: "\n"
+        r: "\r"          
+          
+    error: "*bwaaahahaha* No."
+
+    dialogues:
+      - q: "*IDN?"
+        r: "Not a Huber SMC9300"
+
+    properties:
+      num_axes:
+        default: 4
+        getter:
+          q: "?a"
+          r: "{}"
+
+      status_all:
+        default: "1:129;2:0;3:128;4:128;"
+        getter:
+          q: "?s"
+          r: "{}"
+
+resources:
+  ASRL1::INSTR:
+    device: SMC9300
