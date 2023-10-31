@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="collective.accordionviews"
+  metal:use-macro="context/main_template/macros/master">
+  <body>
+    <metal:content-core fill-slot="content-core">
+      <metal:block define-macro="content-core">
+        <div class="accordion"
+          id="accordion-${python: context.UID()}">
+          <div tal:repeat="item python:context.restrictedTraverse('@@contentlisting')()"
+
+              class="accordion-item">
+            <h2 class="accordion-header"
+              tal:condition="python: item.Type() != 'Link'"
+              id="heading-${python: item.uuid()}">
+              <button class="accordion-button ${python: repeat.item.start and 'first' or 'collapsed'}"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse-${python: item.uuid()}"
+                aria-expanded="${python: repeat.item.start and 'true' or 'false'}"
+                aria-controls="collapse-${python: item.uuid()}">
+              ${item/Title}
+              </button>
+            </h2>
+            <h2 tal:condition="python: item.Type() == 'Link'"
+                class="accordion-header"><a
+                    class="accordion-button ${python: repeat.item.start and 'first' or 'collapsed'} no-opener"
+                    href="${item/getURL}"
+                    >${item/Title}</a></h2>
+            <div
+              tal:condition="python: item.Type() != 'Link'"
+              id="collapse-${python: item.uuid()}"
+              class="accordion-collapse collapse ${python: repeat.item.start and 'show' or 'collapsed'}"
+              aria-labelledby="heading-${python: item.uuid()}"
+              data-bs-parent="#accordion-${python: context.UID()}">
+              <div class="accordion-body">
+                <p class="fw-bolder"
+                  tal:content="item/Description" />
+                <div tal:replace="structure python:view.render_item(item)" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </metal:block>
+    </metal:content-core>
+  </body>
+</html>

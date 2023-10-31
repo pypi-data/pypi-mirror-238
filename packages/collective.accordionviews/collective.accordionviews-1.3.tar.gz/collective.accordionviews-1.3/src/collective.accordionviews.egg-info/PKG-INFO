@@ -1,0 +1,199 @@
+Metadata-Version: 2.1
+Name: collective.accordionviews
+Version: 1.3
+Summary: Accordion views for Plone CMS, which can be used on Folders and Collections.
+Home-page: https://github.com/collective/collective.accordionviews
+Author: Maik Derstappen
+Author-email: md@derico.de
+License: GPL version 2
+Project-URL: PyPI, https://pypi.python.org/pypi/collective.accordionviews
+Project-URL: Source, https://github.com/collective/collective.accordionviews
+Project-URL: Tracker, https://github.com/collective/collective.accordionviews/issues
+Keywords: Python Plone CMS
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Plone
+Classifier: Framework :: Plone :: Addon
+Classifier: Framework :: Plone :: 5.2
+Classifier: Framework :: Plone :: 6.0
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+Requires-Python: >=3.7
+Provides-Extra: test
+License-File: LICENSE.GPL
+License-File: LICENSE.rst
+
+.. This README is meant for consumption by humans and pypi. Pypi can render rst files so please do not use Sphinx features.
+   If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide.html
+   This text does not appear on pypi or github. It is a comment.
+
+.. image:: https://github.com/collective/collective.accordionviews/actions/workflows/plone-package.yml/badge.svg
+    :target: https://github.com/collective/collective.accordionviews/actions/workflows/plone-package.yml
+
+.. image:: https://coveralls.io/repos/github/collective/collective.accordionviews/badge.svg?branch=main
+    :target: https://coveralls.io/github/collective/collective.accordionviews?branch=main
+    :alt: Coveralls
+
+.. image:: https://codecov.io/gh/collective/collective.accordionviews/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/collective/collective.accordionviews
+
+.. image:: https://img.shields.io/pypi/v/collective.accordionviews.svg
+    :target: https://pypi.python.org/pypi/collective.accordionviews/
+    :alt: Latest Version
+
+.. image:: https://img.shields.io/pypi/status/collective.accordionviews.svg
+    :target: https://pypi.python.org/pypi/collective.accordionviews
+    :alt: Egg Status
+
+.. image:: https://img.shields.io/pypi/pyversions/collective.accordionviews.svg?style=plastic   :alt: Supported - Python Versions
+
+.. image:: https://img.shields.io/pypi/l/collective.accordionviews.svg
+    :target: https://pypi.python.org/pypi/collective.accordionviews/
+    :alt: License
+
+
+=========================
+collective.accordionviews
+=========================
+
+Accordion views for Plone CMS, which can be used on Folders and Collections.
+This add can be a replacement from redomino.tabsandslides.
+
+Features
+--------
+
+- Bootstrap based accordion view for Folder and Collection
+- Nested folders accordion view for Folder
+- Tabbed view for folders
+- Slides view for folders
+
+
+Translations
+------------
+
+This product has been translated into
+
+- English
+- German
+
+
+Installation
+------------
+
+Install collective.accordionviews by adding it to your buildout::
+
+    [buildout]
+
+    ...
+
+    eggs =
+        collective.accordionviews
+
+
+and then running ``bin/buildout``
+
+
+Authors
+-------
+
+Provided by `Derico <https://derico.de>`_
+
+
+Contributors
+------------
+
+Put your name here, you deserve it!
+
+- MrTango
+- ?
+
+
+Contribute
+----------
+
+- Issue Tracker: https://github.com/collective/collective.accordionviews/issues
+- Source Code: https://github.com/collective/collective.accordionviews
+
+
+Support
+-------
+
+If you are having issues, please let us know, by opening an issue.
+
+
+License
+-------
+
+The project is licensed under the GPLv2.
+
+
+Contributors
+============
+
+- Maik Derstappen, md@derico.de
+
+
+Changelog
+=========
+
+
+1.3 (2023-10-31)
+----------------
+
+- Improve handling of link items in accordion_view
+  [MrTango]
+
+
+1.2 (2023-07-28)
+----------------
+
+- prevent error when #content-core was not found in clean_html method
+  [MrTango]
+
+
+1.1 (2022-12-22)
+----------------
+
+- fix accordion collapsed markers
+  [MrTango]
+
+
+1.1b4 (2022-10-31)
+------------------
+
+- Add slideshow_view for Folder
+  [MrTango]
+
+
+1.1b3 (2022-09-28)
+------------------
+
+- Add tabbed_view
+  [MrTango]
+
+
+1.1b2 (2022-09-15)
+------------------
+
+- Resolve default_page if items are folder
+  [MrTango]
+
+
+1.1b1 (2022-09-15)
+------------------
+
+- Add nested folders accordion view
+  [MrTango]
+
+- optimize margins and include item description
+  [MrTango]
+
+
+1.0b1 (2022-09-14)
+------------------
+
+- Initial release with first accordion_view.
+  [MrTango]

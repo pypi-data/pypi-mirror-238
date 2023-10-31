@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="collective.accordionviews"
+  metal:use-macro="context/main_template/macros/master">
+  <body>
+    <metal:content-core fill-slot="content-core">
+      <metal:block define-macro="content-core">
+        <div tal:repeat="folder python:context.restrictedTraverse('@@contentlisting')(portal_type='Folder', exclude_from_nav=False)"
+          class="accordion-folder">
+          <h2 class="accordion-folder-header"
+            id="folder-heading-${python: folder.uuid()}">${folder/Title}</h2>
+          <p tal:content="folder/Description"></p>
+
+          <div class="accordion mt-3 mb-4"
+            id="accordion-${python: folder.uuid()}">
+            <div tal:repeat="item python:folder.getObject().restrictedTraverse('@@contentlisting')(portal_type=['Document', 'News Item', 'Event', 'Folder'],exclude_from_nav=False)"
+              class="accordion-item">
+              <h3 class="accordion-header"
+                id="heading-${python: item.uuid()}">
+                <button class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse-${python: item.uuid()}"
+                  aria-expanded="false"
+                  aria-controls="collapse-${python: item.uuid()}">
+                ${item/Title}
+                </button>
+              </h3>
+              <div id="collapse-${python: item.uuid()}"
+                class="accordion-collapse collapse collapsed}"
+                aria-labelledby="heading-${python: item.uuid()}"
+                data-bs-parent="#accordion-${python: context.UID()}">
+                <div class="accordion-body">
+                  <p class="fw-bolder"
+                    tal:content="item/Description" />
+                  <div tal:replace="structure python:view.render_item(item)" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </metal:block>
+    </metal:content-core>
+  </body>
+</html>
