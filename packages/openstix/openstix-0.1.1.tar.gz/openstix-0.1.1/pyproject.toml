@@ -1,0 +1,128 @@
+[build-system]
+requires = ["hatchling>=1.17.1", "hatch-vcs>=0.3.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "openstix"
+version = "0.1.1"
+description = "OpenSTIX aims to make STIX easy and accessible for analysts"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.9"
+keywords = [
+    "STIX2", "cybersecurity", "threat-intelligence", "toolkit", "python",
+    "library", "threat-indicators", "TTPs", "IOC", "CTI",
+    "malware-analysis", "network-security"
+]
+authors = [
+    {name = "Tomás Lima", email = "tomas@abusetotal.com"},
+    {name = "Adrian Dinis", email = "adrian@abusetotal.com"}
+]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Security",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/abusetotal/openstix"
+Sponsor = "https://github.com/sponsors/abusetotal"
+Tracker = "https://github.com/abusetotal/openstix/issues"
+Source = "https://github.com/abusetotal/openstix"
+
+[project.scripts]
+openstix-datasets = "openstix.datasets.__main__:main"
+
+[tool.hatch.version.raw-options]
+version_scheme = "python-simplified-semver"
+local_scheme = "no-local-version"
+git_describe_command = ["git", "describe", "--dirty", "--tags", "--long", "--match", "v*"]
+
+[tool.hatch.build]
+ignore-vcs = true
+only-packages = true
+packages = ["src/openstix"]
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+
+[tool.ruff]
+line-length = 120
+select = [
+  "A",
+  "B",
+  "C",
+  "DTZ",
+  "E",
+  "EM",
+  "F",
+  "FBT",
+  "I",
+  "ICN",
+  "ISC",
+  "N",
+  "PLC",
+  "PLE",
+  "PLR",
+  "PLW",
+  "Q",
+  "RUF",
+  "S",
+  "SIM",
+  "T",
+  "TID",
+  "UP",
+  "W",
+  "YTT",
+]
+ignore = [
+  # Allow non-abstract empty methods in abstract base classes
+  "B027",
+  # Allow boolean positional values in function calls, like `dict.get(... True)`
+  "FBT003",
+  # Ignore checks for possible passwords
+  "S105", "S106", "S107",
+  # Ignore complexity
+  "C901", "PLR0911", "PLR0912", "PLR0913", "PLR0915",
+  "PLC1901", # empty string comparisons
+  "PLW2901", # `for` loop variable overwritten
+  "SIM114", # Combine `if` branches using logical `or` operator
+]
+
+[tool.ruff.isort]
+known-first-party = ["openstix"]
+
+[tool.ruff.flake8-quotes]
+inline-quotes = "single"
+
+[tool.ruff.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.mypy]
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+follow_imports = "normal"
+ignore_missing_imports = true
+pretty = true
+show_column_numbers = true
+show_error_codes = true
+warn_no_return = false
+warn_unused_ignores = true
+
+[tool.coverage.paths]
+openstix = ["src/openstix"]
+tests = ["src/openstix/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
