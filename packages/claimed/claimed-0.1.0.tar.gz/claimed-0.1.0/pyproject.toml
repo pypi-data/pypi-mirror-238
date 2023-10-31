@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "claimed"
+version = "0.1.0"
+authors = [
+  { name="The CLAIMED authors", email="claimed-framework@proton.me"},
+]
+maintainers = [
+  { name="Romeo Kienzler", email="claimed-framework@proton.me"},
+  { name="Benedikt Blumenstiel"},
+]
+description = "The CLAIMED framework includes reusable operators and the CLAIMED Component Compiler (C3)."
+readme = "README.md"
+keywords = ["CLAIMED"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    'claimed-c3 >= 0.2.4',
+    'claimed-cli >= 0.1.0',
+]
+
+[project.urls]
+"Homepage" = "https://github.com/claimed-framework"
