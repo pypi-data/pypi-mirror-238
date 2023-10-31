@@ -1,0 +1,180 @@
+[tool.poetry]
+name = "conda_poetry_liaison"
+version = "0.1.0"
+description = "Make conda and poetry communicate"
+authors = [
+    "OASCI <us@oasci.org>",
+]
+readme = "README.md"
+license = "MIT"
+
+[tool.poetry.scripts]
+cpl-deps = "conda_poetry_liaison.deps:main"
+cpl-clean = "conda_poetry_liaison.clean:main"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+tomli = "^2.0.1"
+tomli_w = "^1.0.0"
+poetry-dynamic-versioning = "^1.1.0"
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.12.0"
+black = "^23.10.0"
+pre-commit = "^3.5.0"
+bump2version = "^1.0.1"
+mypy = "^1.6.1"
+bump-my-version = "^0.11.0"
+
+[tool.bumpversion]
+current_version = "0.1.0"
+tag = true
+commit = true
+
+[[tool.bumpversion.files]]
+filename = "CHANGELOG.md"
+no_regex = false
+search = "\\[Unreleased\\]"
+replace = "[Unreleased]\n\n## [{new_version}] - {now:%Y-%m-%d}"
+
+[tool.poetry-dynamic-versioning]
+enable = false
+vcs = "git"
+format-jinja = """
+    {%- if distance == 0 -%}
+        {{ serialize_pep440(base) }}
+    {%- else -%}
+        {{ serialize_pep440(base, post=distance) }}
+    {%- endif -%}
+"""
+
+[tool.poetry-dynamic-versioning.substitution]
+patterns = [
+    "(^__version__\\s*(?::.*?)?=\\s*['\"])[^'\"]*(['\"])",
+]
+folders = [
+  { path = "conda_poetry_liaison" }
+]
+
+[build-system]
+requires = [
+    "poetry-core>=1.0.0",
+    "poetry-dynamic-versioning>=1.0.0,<2.0.0"
+]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.mypy]
+python_version = "3.9"
+
+[tool.pylint.messages_control]
+# https://pylint.readthedocs.io/en/latest/
+good-names = [
+  "i",
+  "j",
+  "k",
+  "e",
+  "_",
+  "Z",
+  "z",
+  "R",
+  "r",
+  "E",
+  "e",
+  "G",
+  "g",
+  "F",
+  "f",
+  "n",
+  "Q",
+  "q",
+  "d",
+  "v",
+  "ex",
+]
+ignore = ["CVS", "conf.py"]
+jobs = 0
+py-version = 3.9
+argument-naming-style = "snake_case"
+attr-naming-style = "snake_case"
+class-const-naming-style = "UPPER_CASE"
+class-naming-style = "PascalCase"
+const-naming-style = "UPPER_CASE"
+function-naming-style = "snake_case"
+disable = [
+  "raw-checker-failed",
+  "bad-inline-option",
+  "locally-disabled",
+  "file-ignored",
+  "suppressed-message",
+  "useless-suppression",
+  "deprecated-pragma",
+  "use-symbolic-message-instead",
+  "too-many-arguments",
+  "too-many-public-methods",
+  "missing-module-docstring",
+  "missing-function-docstring",
+  "too-many-lines",
+  "fixme",
+  "too-many-instance-attributes",
+  "too-few-public-methods",
+  "too-many-locals",
+  "attribute-defined-outside-init",
+  "broad-except",
+  "import-error"
+]
+
+[tool.black]
+# https://github.com/psf/black
+target-version = ["py39"]
+line-length = 88
+color = true
+
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | env
+    | venv
+)/
+'''
+
+
+[tool.isort]
+# https://github.com/timothycrosley/isort/
+py_version = 39
+line_length = 88
+
+known_typing = ["typing", "types", "typing_extensions", "mypy", "mypy_extensions"]
+sections = ["FUTURE", "TYPING", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+profile = "black"
+include_trailing_comma = true
+multi_line_output = 3
+indent = 4
+color_output = false
+skip = [
+  '.bzr',
+  '.direnv',
+  '.eggs',
+  '.git',
+  '.hg',
+  '.mypy_cache',
+  '.nox',
+  '.pants.d',
+  '.svn',
+  '.tox',
+  '.venv',
+  '__pypackages__',
+  '_build',
+  'buck-out',
+  'build',
+  'dist',
+  'node_modules',
+  'venv',
+]
