@@ -1,0 +1,5 @@
+QUERY_KW: str = "vector_search"
+
+EMBEDDING_COLUMN_VECTORS: str = "EMBEDDING_COLUMN_VECTORS"
+
+SCORE_DISTANCE_COLUMN_NAME: str = "vector_distance"
