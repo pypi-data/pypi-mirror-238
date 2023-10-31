@@ -1,0 +1,116 @@
+testbed:
+  name: sample_testbed
+  alias: example_testbed
+  credentials:
+    default:
+        username: vagrant
+        password: vagrant
+  custom:
+    owner: Kane
+    contacts: KaneJA_Lin@moxa.com
+
+devices:
+  dut:
+    name: dut
+    type: edrg9010_v3_0
+    alias: DUT-EDRG9010
+    credentials:
+      default:
+        username: admin
+        password: moxa
+      root:
+        username: ieisecureedr_moxasupport
+        password: 83dafc480d466ee0
+    connections:
+      ssh:
+        protocol: ssh
+        ip: 192.168.127.254
+        port: 22
+      telnet:
+        protocol: telnet
+        ip: 192.168.127.254
+        port: 23
+      serial:
+        protocol: serial
+        port: /dev/ttyUSB0
+        baudrate: 115200
+  host-exec:
+    name: host-exec
+    type: linux
+    credentials:
+      default:
+        username: vagrant
+        password: vagrant
+    connections:
+      ssh:
+        protocol: ssh
+        ip: 192.168.127.254
+        port: 22
+  host-a:
+    name: host-a
+    type: linux
+    credentials:
+      default:
+        username: vagrant
+        password: vagrant
+    connections:
+      ssh:
+        protocol: ssh
+        ip: 192.168.127.254
+        port: 22
+  host-b:
+    name: host-b
+    type: linux
+    credentials:
+      default:
+        username: vagrant
+        password: vagrant
+    connections:
+      ssh:
+        protocol: ssh
+        ip: 192.168.127.254
+        port: 22
+        
+
+topology:
+  dut:
+    interfaces:
+      Ethernet1/1:
+        alias: lan-port
+        link: lan-link
+        type: ethernet
+      Ethernet1/8:
+        alias: wan-port
+        link: wan-link
+        type: ethernet
+  host-exec:
+    interfaces:
+      eth0:
+        alias: nat-port
+        link: nat-link
+        type: ethernet
+      eth1:
+        alias: lan-port
+        link: lan-link
+        type: ethernet
+  host-a:
+    interfaces:
+      eth0:
+        alias: nat-port
+        link: nat-link
+        type: ethernet
+      eth1:
+        alias: wan-port
+        link: wan-link
+        type: ethernet
+  host-b:
+    interfaces:
+      eth0:
+        alias: nat-port
+        link: nat-link
+        type: ethernet
+      eth1:
+        alias: lan-port
+        link: lan-link
+        type: ethernet
+      

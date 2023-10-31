@@ -1,0 +1,87 @@
+Metadata-Version: 2.1
+Name: guerrilla
+Version: 0.1.1
+Summary: Moxa Router Automation Testing Framework
+Author-Email: kaneja.lin.moxa <KaneJA_Lin@moxa.com>
+License: MIT
+Requires-Python: >=3.12
+Requires-Dist: scapy>=2.5.0
+Requires-Dist: pexpect>=4.8.0
+Requires-Dist: pyserial>=3.5
+Requires-Dist: textfsm>=1.1.3
+Requires-Dist: python-box>=7.1.1
+Requires-Dist: paramiko>=3.3.1
+Requires-Dist: loguru>=0.7.2
+Description-Content-Type: text/markdown
+
+# Guerrilla
+
+## Overview
+
+The name "Guerrilla" is the state-of-the-art automation testing platform tailored for hardware. Experience seamless integration and efficient testing workflows, ensuring accuracy and consistency in every step of your process.
+
+🚸 Documentation still in progress, if you have any questions or ideas, please let us know.  [Docs](https://www.guerrilla.dev/)
+
+## Getting Started
+
+Install guerrilla from pip
+```bash
+pip install guerrilla
+```
+
+```py
+from guerrilla.device import Device
+config = {
+    "name": "EDR-G9010",
+    "type": "router",
+    "connections": {
+        "protocol": "ssh",
+        "host": "192.168.127.254",
+        "username": "admin",
+        "password": "moxa",
+    },
+}
+device = Device(config)
+device.connect()
+```
+
+```zsh
+2023-10-30 00:14:07.637 | SUCCESS  | guerrilla.connection.ssh:connect:77 - Connected to EDR-G9010 192.168.127.254:22
+```
+
+### Use the utils library
+```py
+device.show_version()
+```
+```zsh
+2023-10-30 11:16:41.620 | DEBUG    | guerrilla.connection.ssh:run:230 - From EDR-G9010     sent command: show version
+2023-10-30 11:16:42.121 | DEBUG    | guerrilla.connection.ssh:run:234 - From EDR-G9010 received  output: show version
+Model Name                   : EDR-G9010-VPN-2MGSFP-T
+Firmware Version             : V3.2.99 build 23102123
+Firewall/VPN Router 00000#
+```
+
+### Execute command what you want
+
+```py
+device.run('show interfaces wan')
+```
+```zsh
+2023-10-30 11:16:42.128 | DEBUG    | guerrilla.connection.ssh:run:230 - From EDR-G9010     sent command: show interfaces wan
+2023-10-30 11:16:42.629 | DEBUG    | guerrilla.connection.ssh:run:234 - From EDR-G9010 received  output: show interfaces wan
+WAN
+Vlan ID             : 2      
+Connect Mode        : Enable 
+Connect Type        : Static 
+IP Address          : 192.168.128.254
+Netmask             : 255.255.255.0  
+Gateway             : 0.0.0.0        
+PPTP Connection     : Disable
+PPTP IP Address     : 0.0.0.0        
+PPTP User Name      :                     
+PPTP Password       : ********
+PPTP MPPE Encryption: Disable
+DNS Server          : 0.0.0.0  0.0.0.0  0.0.0.0  
+
+Firewall/VPN Router 00000#
+```
