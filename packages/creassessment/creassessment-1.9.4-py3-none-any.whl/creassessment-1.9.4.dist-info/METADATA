@@ -1,0 +1,37 @@
+Metadata-Version: 2.1
+Name: creassessment
+Version: 1.9.4
+Summary: An App Inventor app creativity assessment package
+Author: Nathalia
+Author-email: nathaliacruzalves@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+License-File: LICENCE
+Requires-Dist: yake ==0.4.8
+
+# Creassessment
+An App Inventor app creativity assessment package
+# Using creassessment
+## Import the package and choose an aia file to analyze
+```py
+from creassessment.controler.app import App
+file_path = 'HealthyPlants.aia'
+app = App(file_path)
+```
+## Assess creativity with results in a pandas dataframe or printed results on console
+```py
+app.grade_creativity()
+app.grade_creativity_to_string()
+```
+## Get xls files for an app
+```py
+app.do_all()
+```
+## Grade many apps at once
+```py
+dir_apps_path = 'D:\AppInventorAIAs'
+batch_caller = Batch_Caller()
+batch_caller.analyze(dir_apps_path, App.grade_creativity)
+```
