@@ -1,0 +1,384 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="incant" href="modules.html" /><link rel="prev" title="Tutorial" href="tutorial.html" />
+
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
+        <title>Changelog - incant 23.2.0.dev0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a64ec257" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --font-stack: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+  --font-stack--monospace: 'Ubuntu Mono', monospace;
+  --code-font-size: 90%;
+  --color-highlight-on-target: transparent;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-highlight-on-target: transparent;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-highlight-on-target: transparent;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">incant 23.2.0.dev0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">incant 23.2.0.dev0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to incant🪄!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Changelog</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">incant</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of incant</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="incant.html">incant package</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">#</a></h1>
+<p>Versions follow <a class="reference external" href="https://calver.org">CalVer</a> with a best-effort backwards-compatibility policy.</p>
+<p>The <strong>first number</strong> of the version is the year.
+The <strong>second number</strong> is incremented with each release, starting at 1 for each year.
+The <strong>third number</strong> is when we need to start branches for older releases (only for emergencies).</p>
+<section id="unreleased">
+<h2>23.2.0 (UNRELEASED)<a class="headerlink" href="#unreleased" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Incanter.(a)invoke()</span></code> has been renamed to <a class="reference internal" href="incant.html#incant.Incanter.compose_and_call" title="incant.Incanter.compose_and_call"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Incanter.(a)compose_and_call()</span></code></a> for clarity.
+<code class="docutils literal notranslate"><span class="pre">Incanter.(a)invoke()</span></code> is still present as an alias for backwards compatibility.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Incanter.prepare()</span></code> has been renamed to <a class="reference internal" href="incant.html#incant.Incanter.compose" title="incant.Incanter.compose"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Incanter.compose()</span></code></a> for clarity.
+<code class="docutils literal notranslate"><span class="pre">Incanter.prepare()</span></code> is still present as an alias for backwards compatibility.</p></li>
+<li><p>Introduce <a class="reference internal" href="incant.html#incant.Incanter.adapt" title="incant.Incanter.adapt"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Incanter.adapt</span></code></a>.</p></li>
+<li><p>Dependency factories of constants (<code class="docutils literal notranslate"><span class="pre">lambda:</span> <span class="pre">1</span></code>) are now folded to just the constants in the generated source code, avoiding unnecessary function calls.</p></li>
+<li><p><a class="reference internal" href="incant.html#incant.Incanter.register_by_type" title="incant.Incanter.register_by_type"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Incanter.register_by_type()</span></code></a> now also triggers on type equality (in addition to subclasses).
+This makes it usable with types such as <code class="docutils literal notranslate"><span class="pre">Callable</span></code>.</p></li>
+<li><p>Python 3.12 support.</p></li>
+</ul>
+</section>
+<section id="id1">
+<h2>23.1.0 (2023-07-14)<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Fix dependencies satisfying themselves.</p></li>
+<li><p>Switch to <a class="reference external" href="https://pdm.fming.dev/latest/">PDM</a>.</p></li>
+<li><p>Fix parameter dependencies using the new union syntax.</p></li>
+<li><p>The documentation is now generated by Sphinx and available at <a class="reference external" href="https://incant.threeofwands.com">incant.threeofwands.com</a>.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>22.2.2 (2022-12-31)<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Fix an optimization for explicitly sync functions.</p></li>
+<li><p>Fix an issue incanting unnecessary positional arguments.</p></li>
+<li><p>Support <code class="docutils literal notranslate"><span class="pre">__future__</span></code> annotations (PEP 563) on Python 3.10+.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>22.2.1 (2022-12-27)<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Fix an issue when wrapping a sync function with an async one.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>22.2.0 (2022-12-26)<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Python 3.11 support.</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">unbound</span> <span class="pre">local</span> <span class="pre">error</span></code> while generating code.
+(<a class="reference external" href="https://github.com/Tinche/incant/issues/4">#4</a>)</p></li>
+<li><p>Avoid using local variables in generated code when possible.</p></li>
+<li><p>When <code class="docutils literal notranslate"><span class="pre">incant.prepare</span></code> cannot do anything for a function, return the original function for efficiency.</p></li>
+</ul>
+</section>
+<section id="id5">
+<h2>22.1.0 (2022-09-02)<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><em>Breaking change</em>: due to limitations in autodetecting context managers (both sync and async), context manager dependencies must be explicitly registered by passing <code class="docutils literal notranslate"><span class="pre">is_context_manager=&quot;sync&quot;</span></code> (or <code class="docutils literal notranslate"><span class="pre">async</span></code>) to the registration functions.</p></li>
+<li><p>Injection can be customized on a per-parameter basis by annotating a parameter with <code class="docutils literal notranslate"><span class="pre">Annotated[type,</span> <span class="pre">incant.Override(...)]</span></code>.</p></li>
+<li><p>Implement support for forced dependencies.</p></li>
+<li><p>Sync context managers may now be dependencies.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">incanter.a/incant()</span></code> now handles unfulfilled parameters with defaults properly.</p></li>
+<li><p>Switched to CalVer.</p></li>
+</ul>
+</section>
+<section id="id6">
+<h2>0.3.0 (2022-02-03)<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Properly set the return type annotation when preparing a function.</p></li>
+<li><p>A hook override can now force a dependency to be promoted to a parameter (instead of being satisfied) by setting <code class="docutils literal notranslate"><span class="pre">Hook.factory</span></code> to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p>Parameters with defaults are now supported for <code class="docutils literal notranslate"><span class="pre">incanter.prepare</span></code> and <code class="docutils literal notranslate"><span class="pre">incanter.a/invoke</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">incanter.a/incant</span></code> no longer uses <code class="docutils literal notranslate"><span class="pre">invoke</span></code> under the hood, to allow greater customization. Previous behavior can be replicated by <code class="docutils literal notranslate"><span class="pre">incant(prepare(fn))</span></code>.</p></li>
+<li><p>Optional arguments of dependencies can now be propagated to final function arguments. Keyword-only arguments of dependencies are still filtered out.</p></li>
+</ul>
+</section>
+<section id="id7">
+<h2>0.2.0 (2022-01-13)<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Introduce <code class="docutils literal notranslate"><span class="pre">incanter.prepare</span></code>, and make <code class="docutils literal notranslate"><span class="pre">incanter.a/invoke</span></code> use it. <code class="docutils literal notranslate"><span class="pre">prepare</span></code> just generates the prepared injection wrapper for a function and returns it, without executing it.</p></li>
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">incanter.parameters</span></code>, since it’s now equivalent to <code class="docutils literal notranslate"><span class="pre">inspect.signature(incanter.prepare(fn)).parameters</span></code>.</p></li>
+<li><p>Add the ability to pass hook overrides to <code class="docutils literal notranslate"><span class="pre">incanter.prepare</span></code>, and introduce the <code class="docutils literal notranslate"><span class="pre">incanter.Hook</span></code> class to make it more usable.</p></li>
+</ul>
+</section>
+<section id="id8">
+<h2>0.1.0 (2022-01-10)<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Initial release.</p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="modules.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">incant</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="tutorial.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Tutorial</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Tin Tvrtkovic
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Changelog</a><ul>
+<li><a class="reference internal" href="#unreleased">23.2.0 (UNRELEASED)</a></li>
+<li><a class="reference internal" href="#id1">23.1.0 (2023-07-14)</a></li>
+<li><a class="reference internal" href="#id2">22.2.2 (2022-12-31)</a></li>
+<li><a class="reference internal" href="#id3">22.2.1 (2022-12-27)</a></li>
+<li><a class="reference internal" href="#id4">22.2.0 (2022-12-26)</a></li>
+<li><a class="reference internal" href="#id5">22.1.0 (2022-09-02)</a></li>
+<li><a class="reference internal" href="#id6">0.3.0 (2022-02-03)</a></li>
+<li><a class="reference internal" href="#id7">0.2.0 (2022-01-13)</a></li>
+<li><a class="reference internal" href="#id8">0.1.0 (2022-01-10)</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=0a4562c6"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="_static/tabs.js?v=3ee01567"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=ccdb6887"></script>
+    </body>
+</html>

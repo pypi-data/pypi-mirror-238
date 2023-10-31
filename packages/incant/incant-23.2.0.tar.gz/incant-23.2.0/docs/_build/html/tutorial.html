@@ -1,0 +1,616 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Changelog" href="changelog.html" /><link rel="prev" title="Usage" href="usage.html" />
+
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
+        <title>Tutorial - incant 23.2.0.dev0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a64ec257" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --font-stack: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+  --font-stack--monospace: 'Ubuntu Mono', monospace;
+  --code-font-size: 90%;
+  --color-highlight-on-target: transparent;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-highlight-on-target: transparent;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-highlight-on-target: transparent;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">incant 23.2.0.dev0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">incant 23.2.0.dev0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to incant🪄!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">incant</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of incant</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="incant.html">incant package</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this heading">#</a></h1>
+<p>This section contains a long, narrative-style guide to <em>incant</em>.
+See the <a class="reference internal" href="usage.html"><span class="std std-doc">Usage section</span></a> with a more focused description of the library API.</p>
+<p>Let’s demonstrate the use of <em>incant</em> with a number of hypothetical scenarios.
+While working for a tech company, you’ve been given an assignment: create a powerful, easy-to-use (yes, both) web framework for other developers in your company to use.
+You don’t have to do it from scratch though, so you choose (essentially at random) an existing framework - <a class="reference external" href="http://pgjones.gitlab.io/quart/">Quart</a> (Quart is an async version of Flask).
+Pretty much any other framework (sync or async) would have also worked; other implementations are left as an exercise to the reader.
+You decide to call this framework <code class="docutils literal notranslate"><span class="pre">QuickAPI</span></code>.</p>
+<p>Simple Quart handlers are very easy to write, so your colleagues are quick to get started:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">quart</span> <span class="kn">import</span> <span class="n">App</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">App</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;OK&quot;</span>
+</pre></div>
+</div>
+<section id="simple-dependencies">
+<h2>Simple Dependencies<a class="headerlink" href="#simple-dependencies" title="Permalink to this heading">#</a></h2>
+<p>After a while, your colleague says they require the IP address of the incoming request.
+You explain the Quart API for this (<code class="docutils literal notranslate"><span class="pre">request.remote_addr</span></code>), but your colleague is adamant about following best practices (avoiding global variables) - they want it as an argument to their handler.
+They also want it as an instance of Python’s <a class="reference external" href="https://docs.python.org/3/library/ipaddress.html#ipaddress.IPv4Address"><code class="docutils literal notranslate"><span class="pre">ipaddress.IPv4Address</span></code></a>.
+Their handler looks like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/ip&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">ip_address_handler</span><span class="p">(</span><span class="n">source_ip</span><span class="p">:</span> <span class="n">IPv4Address</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Your address is </span><span class="si">{</span><span class="n">source_ip</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>At the top of the file, you import and prepare an <a class="reference internal" href="incant.html#incant.Incanter" title="incant.Incanter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Incanter</span></code></a> instance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">incant</span> <span class="kn">import</span> <span class="n">Incanter</span>
+
+<span class="n">incanter</span> <span class="o">=</span> <span class="n">Incanter</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You decide to write a function to get the address from the request, and to register it with your Incanter to be matched by type.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ipaddress</span> <span class="kn">import</span> <span class="n">IPv4Address</span>
+<span class="kn">from</span> <span class="nn">quart</span> <span class="kn">import</span> <span class="n">request</span>
+
+<span class="nd">@incanter</span><span class="o">.</span><span class="n">register_by_type</span>
+<span class="k">def</span> <span class="nf">get_ip_address</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">IPv4Address</span><span class="p">:</span>
+    <span class="c1"># In Quart (like in Flask), the request is accessed through a global proxy</span>
+    <span class="k">return</span> <span class="n">IPv4Address</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">remote_addr</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This means any function invoked through the <code class="docutils literal notranslate"><span class="pre">Incanter</span></code> will have any parameters annotated as <code class="docutils literal notranslate"><span class="pre">IPv4Address</span></code> satisfied by calling the <code class="docutils literal notranslate"><span class="pre">get_ip_address</span></code> dependency factory.</p>
+<p>You contemplate how to get this information to the <code class="docutils literal notranslate"><span class="pre">ip_address_handler</span></code>, and choose to write a simple decorator (yay Python!).
+Your colleague agrees, but (citing consistency) wants the decorator to be applied to all handlers going forward.</p>
+<p>(You could solve this particular problem by subclassing the <code class="docutils literal notranslate"><span class="pre">quart.Quart</span></code> class but forgo this as this is an <em>incant</em> tutorial, not a Quart one.)</p>
+<p>You rub your hands and mutter “Let’s roll” to yourself.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
+<span class="k">def</span> <span class="nf">quickapi</span><span class="p">(</span><span class="n">handler</span><span class="p">):</span>
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">incanter</span><span class="o">.</span><span class="n">acompose_and_call</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="incant.html#incant.Incanter.ainvoke" title="incant.Incanter.ainvoke"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Incanter.ainvoke()</span></code></a> (the async version of <a class="reference internal" href="incant.html#incant.Incanter.invoke" title="incant.Incanter.invoke"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Incanter.invoke()</span></code></a>) does what you want - invokes the coroutine you give it while satisfying its arguments from its internal dependency factories.</p>
+<p>Then you just apply the decorators to both existing handlers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/ip&quot;</span><span class="p">)</span>
+<span class="nd">@quickapi</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">ip_address_handler</span><span class="p">(</span><span class="n">source_ip</span><span class="p">:</span> <span class="n">IPv4Address</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Your address is </span><span class="si">{</span><span class="n">source_ip</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="passing-in-dependencies-from-the-outside">
+<h2>Passing in Dependencies from the Outside<a class="headerlink" href="#passing-in-dependencies-from-the-outside" title="Permalink to this heading">#</a></h2>
+<p>Some time later, another colleague approaches you asking for path variables to be provided to their handler.
+Their handler needs to look like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/even-or-odd/&lt;int:integer&gt;&quot;</span><span class="p">)</span>
+<span class="nd">@quickapi</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">even_or_odd_handler</span><span class="p">(</span><span class="n">integer</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="s2">&quot;odd&quot;</span> <span class="k">if</span> <span class="n">integer</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;even&quot;</span>
+</pre></div>
+</div>
+<p>Quart provides path parameters like this to handlers as <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>, so you modify the <code class="docutils literal notranslate"><span class="pre">quickapi</span></code> decorator a little:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">quickapi</span><span class="p">(</span><span class="n">handler</span><span class="p">):</span>
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">incanter</span><span class="o">.</span><span class="n">acompose_and_call</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span>
+</pre></div>
+</div>
+<p>The decorator simply receives them and passes them along to the handler.
+This works because <em>incant</em> will use arguments provided to <a class="reference internal" href="incant.html#incant.Incanter.compose_and_call" title="incant.Incanter.compose_and_call"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compose_and_call()</span></code></a> if it cannot satisfy a parameter using its internal dependency factories.</p>
+<p>Another day of earning your keep!</p>
+</section>
+<section id="the-magic-of-incant">
+<h2>The Magic of <em>incant</em><a class="headerlink" href="#the-magic-of-incant" title="Permalink to this heading">#</a></h2>
+<p>Some time later, another colleague approaches you asking for a logger to be provided to their handler.
+They want to use structured logging, and they want the logger to already be bound with the name of the handler.
+You think the proposal is well-thought-out and want to use the logger yourself to log every request.</p>
+<p>Here’s what they want their handler to look like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/log&quot;</span><span class="p">)</span>
+<span class="nd">@quickapi</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">logging_handler</span><span class="p">(</span><span class="n">log</span><span class="p">:</span> <span class="n">BoundLogger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Hello from the log handler&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;Response after logging&quot;</span>
+</pre></div>
+</div>
+<p>You reach for the trusty <a class="reference external" href="https://structlog.org"><em>structlog</em></a> library and set it up.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">structlog.stdlib</span> <span class="kn">import</span> <span class="n">BoundLogger</span><span class="p">,</span> <span class="n">get_logger</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">()</span>  <span class="c1"># Useful to have a module-scoped one first.</span>
+</pre></div>
+</div>
+<p>You change the <code class="docutils literal notranslate"><span class="pre">quickapi</span></code> decorator to create and use a logger with the current handler name:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">quickapi</span><span class="p">(</span><span class="n">handler</span><span class="p">):</span>
+    <span class="n">log</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">handler</span><span class="o">=</span><span class="n">handler</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Processing&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">incanter</span><span class="o">.</span><span class="n">acompose_and_call</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span>
+</pre></div>
+</div>
+<p>You can’t make the logger a dependency within the <code class="docutils literal notranslate"><span class="pre">Incanter</span></code> though, since it depends on handler-specific data.
+(You could have a separate incanter for each handler, but that’s inefficient.)</p>
+<p>If the incanter cannot find a dependency to fulfil a parameter, you need to provide it yourself - just like with the path parameters.
+Since the <code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">ip_address_handler</span></code> don’t require the logger, we can keep invoking them as before.
+However, the <code class="docutils literal notranslate"><span class="pre">logging_handler</span></code> handler requires it. Without changes, invoking the handler will let you know:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ne">TypeError</span><span class="p">:</span> <span class="n">invoke_logging_handler</span><span class="p">()</span> <span class="n">missing</span> <span class="mi">1</span> <span class="n">required</span> <span class="n">positional</span> <span class="n">argument</span><span class="p">:</span> <span class="s1">&#39;log&#39;</span>
+</pre></div>
+</div>
+<p>You change the <code class="docutils literal notranslate"><span class="pre">quickapi</span></code> decorator to use <a class="reference internal" href="incant.html#incant.Incanter.aincant" title="incant.Incanter.aincant"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Incanter.aincant()</span></code></a> (the async version of <a class="reference internal" href="incant.html#incant.Incanter.incant" title="incant.Incanter.incant"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Incanter.incant()</span></code></a>) and always pass in the logger instance.
+<em>incant</em> is meant for cases like this, forwarding the parameters if they are needed and skipping them otherwise.
+Since <em>incant</em> doesn’t itself call <code class="docutils literal notranslate"><span class="pre">compose_and_call</span></code>, you prepare it yourself beforehand.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">quickapi</span><span class="p">(</span><span class="n">handler</span><span class="p">):</span>
+    <span class="n">log</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">handler</span><span class="o">=</span><span class="n">handler</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="n">prepared</span> <span class="o">=</span> <span class="n">incanter</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Processing&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">incanter</span><span class="o">.</span><span class="n">aincant</span><span class="p">(</span><span class="n">prepared</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">log</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span>
+</pre></div>
+</div>
+<p>Since you’re passing in the logger using <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>, it will match (after trying name+type) any parameter named <code class="docutils literal notranslate"><span class="pre">log</span></code>.</p>
+</section>
+<section id="nested-dependencies">
+<h2>Nested Dependencies<a class="headerlink" href="#nested-dependencies" title="Permalink to this heading">#</a></h2>
+<p>A colleague is working on an authentication system for your product.
+They have a function that takes a cookie (named <code class="docutils literal notranslate"><span class="pre">session_token</span></code>) and produces an instance of your user model.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">attrs</span> <span class="kn">import</span> <span class="n">define</span>
+
+<span class="nd">@define</span>
+<span class="k">class</span> <span class="nc">User</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The user model.&quot;&quot;&quot;</span>
+    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">current_user</span><span class="p">(</span><span class="n">session_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">User</span><span class="p">:</span>
+    <span class="c1"># Complex black magic goes here, immune to timing attacks and whatnot.</span>
+    <span class="k">return</span> <span class="n">User</span><span class="p">(</span><span class="s2">&quot;admin&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>They want to be able to use this user model in their handler.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/user&quot;</span><span class="p">)</span>
+<span class="nd">@quickapi</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">user_handler</span><span class="p">(</span><span class="n">user</span><span class="p">:</span> <span class="n">User</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Chilling here&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="nb">repr</span><span class="p">(</span><span class="n">user</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s2">&quot;After the user handler&quot;</span>
+</pre></div>
+</div>
+<p>You can use their <code class="docutils literal notranslate"><span class="pre">current_user</span></code> coroutine directly as a dependency factory:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">incanter</span><span class="o">.</span><span class="n">register_by_type</span><span class="p">(</span><span class="n">current_user</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>but this still leaves the issue of getting the session token from somewhere.
+You define a dependency factory for the session token cookie, using a lambda this time:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We&#39;re using a lambda, so we pass in the `name` explicitly.</span>
+<span class="n">incanter</span><span class="o">.</span><span class="n">register_by_name</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">cookies</span><span class="p">[</span><span class="s1">&#39;session_token&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;session_token&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Because of how <code class="docutils literal notranslate"><span class="pre">request.cookies</span></code> works on Quart, this handler will respond with <code class="docutils literal notranslate"><span class="pre">400</span></code> if the cookie is not present, or run the handler otherwise.
+But only for the handlers that require the <code class="docutils literal notranslate"><span class="pre">User</span></code> dependency.</p>
+<p>Pretty cool!</p>
+</section>
+<section id="async-context-managers">
+<h2>Async Context Managers<a class="headerlink" href="#async-context-managers" title="Permalink to this heading">#</a></h2>
+<p>A colleague of yours has heard of this newfangled concept of structured concurrency, and insists on trying it out.
+You offer to let them use TaskGroups from the <a class="reference external" href="https://github.com/Tinche/quattro/"><em>quattro</em></a> library.</p>
+<p>Their handler looks like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">quattro</span> <span class="kn">import</span> <span class="n">TaskGroup</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/taskgroup&quot;</span><span class="p">)</span>
+<span class="nd">@quickapi</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">taskgroup_handler</span><span class="p">(</span><span class="n">tg</span><span class="p">:</span> <span class="n">TaskGroup</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="n">BoundLogger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Using structured concurrency, not leaking tasks&quot;</span><span class="p">)</span>
+
+    <span class="n">tg</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">inner</span><span class="p">())</span>
+    <span class="k">return</span> <span class="s2">&quot;nice&quot;</span>
+</pre></div>
+</div>
+<p>You don’t feel particularly challenged, as <em>incant</em> supports async context managers out of the box and the only thing you need to do is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">incanter</span><span class="o">.</span><span class="n">register_by_type</span><span class="p">(</span><span class="n">TaskGroup</span><span class="p">,</span> <span class="n">is_context_manager</span><span class="o">=</span><span class="s2">&quot;async&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="forced-dependencies">
+<h2>Forced Dependencies<a class="headerlink" href="#forced-dependencies" title="Permalink to this heading">#</a></h2>
+<p>Yesterday you’ve had an outage due to being featured by an influencer on a popular social media site!
+You decide to start working on making your services more robust.
+Your plan is to apply a limit to how long your service will process each request.
+The timeout should default to one second, or it can be provided from the calling service via a header.</p>
+<p>You decide to again use the <em>quattro</em> library; it has a useful <code class="docutils literal notranslate"><span class="pre">fail_after</span></code> context manager that should do the trick.</p>
+<p>Since <em>incant</em> supports context managers as dependencies, your path is clear:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">quattro</span> <span class="kn">import</span> <span class="n">fail_after</span>
+
+<span class="k">def</span> <span class="nf">apply_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">:</span> <span class="n">Header</span> <span class="o">=</span> <span class="n">Header</span><span class="p">(</span><span class="s2">&quot;1.0&quot;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">CancelScope</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">fail_after</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">timeout</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>However, our usual approach would require refactoring all our handlers to require this dependency.
+Instead, we will make this a <em>forced dependency</em>, which means <em>incant</em> will run it for all handlers.
+Since no handler needs the return value of any forced dependency (since they are unaware of them), they are mostly used for side-effects.
+We change the <code class="docutils literal notranslate"><span class="pre">quickapi</span></code> decorator thusly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">quickapi</span><span class="p">(</span><span class="n">handler</span><span class="p">):</span>
+    <span class="n">log</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">handler</span><span class="o">=</span><span class="n">handler</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="n">prepared</span> <span class="o">=</span> <span class="n">incanter</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">forced_deps</span><span class="o">=</span><span class="p">[(</span><span class="n">apply_timeout</span><span class="p">,</span> <span class="s2">&quot;sync&quot;</span><span class="p">)])</span>
+
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Processing&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">incanter</span><span class="o">.</span><span class="n">aincant</span><span class="p">(</span><span class="n">prepared</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">log</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span>
+</pre></div>
+</div>
+<p>Since it’s not possible to accurately autodetect whether a forced dependency is or isn’t a context manager,
+if it <em>is</em> a context manager you have to be explicit about it and supply a tuple like in the example.</p>
+</section>
+<section id="complex-rules">
+<h2>Complex Rules<a class="headerlink" href="#complex-rules" title="Permalink to this heading">#</a></h2>
+<p>Another day, another feature request.</p>
+<p>A colleague wants to receive instances of <em>attrs</em> classes, deserialized from JSON in the request body.
+An example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@define</span>
+<span class="k">class</span> <span class="nc">SamplePayload</span><span class="p">:</span>
+    <span class="n">field</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/payload&quot;</span><span class="p">)</span>
+<span class="nd">@quickapi</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">attrs_handler</span><span class="p">(</span><span class="n">payload</span><span class="p">:</span> <span class="n">SamplePayload</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Received payload&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="nb">repr</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s2">&quot;After payload&quot;</span>
+</pre></div>
+</div>
+<p>They want this to work for <em>any</em> <em>attrs</em> class.
+You know you can reach for the <em>cattrs</em> library to load an <em>attrs</em> class from JSON, but the dependency hook is a little more complex.
+Because the dependency hook needs to work for <em>any</em> <em>attrs</em> class, you need to use <a class="reference internal" href="incant.html#incant.Incanter.register_hook_factory" title="incant.Incanter.register_hook_factory"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Incanter.register_hook_factory()</span></code></a>, the most powerful but lowest level hook registration method.</p>
+<p><code class="docutils literal notranslate"><span class="pre">register_hook_factory()</span></code> is for, like the name says, factories of dependency hooks.
+It will produce a different dependency hook for each <em>attrs</em> class we encounter, which is what we need.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">attrs</span> <span class="kn">import</span> <span class="n">has</span>
+<span class="kn">from</span> <span class="nn">cattrs</span> <span class="kn">import</span> <span class="n">structure</span>
+<span class="kn">from</span> <span class="nn">werkzeug.exceptions</span> <span class="kn">import</span> <span class="n">BadRequest</span>
+
+<span class="k">def</span> <span class="nf">make_attrs_payload_factory</span><span class="p">(</span><span class="n">attrs_cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">attrs_payload_factory</span><span class="p">():</span>
+        <span class="n">json</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">structure</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="n">attrs_cls</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BadRequest</span><span class="p">()</span> <span class="kn">from</span> <span class="nn">e</span>
+
+    <span class="k">return</span> <span class="n">attrs_payload_factory</span>
+
+
+<span class="n">incanter</span><span class="o">.</span><span class="n">register_hook_factory</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">has</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">annotation</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">make_attrs_payload_factory</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">annotation</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This will also return a <code class="docutils literal notranslate"><span class="pre">400</span></code> status code if the payload cannot be properly loaded.</p>
+<p>Because of how <em>incant</em> evaluates dependency rules (newest first), this hook factory needs to be registered before the <code class="docutils literal notranslate"><span class="pre">current_user</span></code> dependency factory.
+Otherwise, since our <code class="docutils literal notranslate"><span class="pre">User</span></code> model is also an <em>attrs</em> class, <em>incant</em> would try loading it from the request body instead of getting it from the <code class="docutils literal notranslate"><span class="pre">current_user</span></code> dependency factory.</p>
+</section>
+<section id="complex-rules-pt-2-electric-boogaloo">
+<h2>Complex Rules Pt 2: Electric Boogaloo<a class="headerlink" href="#complex-rules-pt-2-electric-boogaloo" title="Permalink to this heading">#</a></h2>
+<p>A colleague wants to receive HTTP headers in their handler.
+They also want these parameters to be able to have default values.
+You decide to create a simple string subclass called <code class="docutils literal notranslate"><span class="pre">Header</span></code> and have your colleague annotate their parameters with it.
+Their header looks like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NewType</span>
+
+<span class="n">Header</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s2">&quot;Header&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/header&quot;</span><span class="p">)</span>
+<span class="nd">@quickapi</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">a_header_handler</span><span class="p">(</span><span class="n">content_type</span><span class="p">:</span> <span class="n">Header</span> <span class="o">=</span> <span class="n">Header</span><span class="p">(</span><span class="s2">&quot;none&quot;</span><span class="p">),</span> <span class="n">log</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;The header was: </span><span class="si">{</span><span class="n">content_type</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Since each header parameter needs separate logic, you once again reach for hook factories.
+You remember kebab-case is more commonly used than snake_case for headers, so you apply a small transformation - a parameter named <code class="docutils literal notranslate"><span class="pre">content_type</span></code> will get the value of the <code class="docutils literal notranslate"><span class="pre">content-type</span></code> header field.</p>
+<p>You write the necessary instructions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_header_factory</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">return</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">),</span> <span class="n">default</span><span class="p">)</span>
+
+<span class="n">incanter</span><span class="o">.</span><span class="n">register_hook_factory</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">annotation</span> <span class="ow">is</span> <span class="n">Header</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">make_header_factory</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The complete source code of this mini-project can be found at <a class="reference external" href="https://github.com/Tinche/incant/blob/main/tests/quickapi.py">quickapi.py</a>.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="changelog.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Changelog</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="usage.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Usage</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Tin Tvrtkovic
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Tutorial</a><ul>
+<li><a class="reference internal" href="#simple-dependencies">Simple Dependencies</a></li>
+<li><a class="reference internal" href="#passing-in-dependencies-from-the-outside">Passing in Dependencies from the Outside</a></li>
+<li><a class="reference internal" href="#the-magic-of-incant">The Magic of <em>incant</em></a></li>
+<li><a class="reference internal" href="#nested-dependencies">Nested Dependencies</a></li>
+<li><a class="reference internal" href="#async-context-managers">Async Context Managers</a></li>
+<li><a class="reference internal" href="#forced-dependencies">Forced Dependencies</a></li>
+<li><a class="reference internal" href="#complex-rules">Complex Rules</a></li>
+<li><a class="reference internal" href="#complex-rules-pt-2-electric-boogaloo">Complex Rules Pt 2: Electric Boogaloo</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=0a4562c6"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="_static/tabs.js?v=3ee01567"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=ccdb6887"></script>
+    </body>
+</html>
