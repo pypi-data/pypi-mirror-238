@@ -1,0 +1,74 @@
+#: import ResultScreen assignment_tool.result_screen.ResultScreen
+#: import T assignment_tool.result_text.T
+
+<IconLeftWidgetWithoutTouch@ILeftBody+MDIcon>
+
+ResultScreen:
+    name: "result"
+
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDToolbar:
+            title: T.toolbar_title
+            left_action_items: [["chevron-left", lambda x: app.navigate('details',"right"), T.toolbar_back]]
+            right_action_items: [["help", app.open_about, "Über..."]]
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: dp(20)
+
+            MDLabel:
+                font_style: "H6"
+                size_hint: 1, None
+                height: dp(35)
+                bold: True
+                text: T.compiler_text
+            MDSeparator:
+
+            TextInput:
+                padding: dp(20)
+                readonly: True
+                allow_copy: False
+                size_hint: 1, None
+                height: self.minimum_height
+                text: root.check_result.disp_cmd
+                foreground_color: [0,0,0,1]
+                disabled_foreground_color: [0,0,0,1]
+                background_color: [0,0,0,.1]
+                disabled: True
+                font_name: app.directory + "/assets/UbuntuMono-Regular.ttf"
+
+
+            MDList:
+                TwoLineIconListItem:
+                    text: T.error_text if root.check_result.failed else T.pass_text
+                    secondary_text: T.error_secondary_text if root.check_result.failed else T.pass_secondary_text
+
+                    IconLeftWidgetWithoutTouch:
+                        icon: "close-thick" if root.check_result.failed else "check-bold"
+                        theme_text_color: "Custom"
+                        text_color: [1, 26 / 255.0, 14 / 255.0, 1] if root.check_result.failed else [119 / 255.0, 221 / 255.0, 119 / 255.0, 1]
+                        font_size: dp(48)
+            ScrollView:
+                MDList:
+
+                    TextInput:
+                        padding: dp(20)
+                        readonly: True
+                        allow_copy: False
+                        size_hint: .7, None
+                        height: self.minimum_height
+                        text: root.check_result.output
+                        foreground_color: (1, 26 / 255.0, 14 / 255.0, 1)
+                        disabled_foreground_color: (1, 26 / 255.0, 14 / 255.0, 1)
+                        background_color: [ 0,0,0,.1 ] if root.check_result.failed else [0,0,0,0]
+                        disabled: True
+                        font_name: app.directory + "/assets/UbuntuMono-Regular.ttf"
+
+            MDRaisedButton:
+                pos_hint: {"right": 1}
+                text: T.error_button_text if root.check_result.failed else T.pass_button_text
+                md_bg_color: app.theme_cls.accent_dark if root.check_result.failed else app.theme_cls.primary_dark
+                on_release:
+                    app.result.callback(root.check_result.failed)

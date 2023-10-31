@@ -1,0 +1,94 @@
+#: import SplashScreen assignment_tool.splash_screen.SplashScreen
+
+SplashScreen:
+    name: "splash"
+
+    on_enter:
+        self.register_task(app.splash, "download_course")
+        self.register_task(app.splash, "load_local_course")
+        self.register_task(app.splash, "check_filemanager")
+        self.register_task(app.splash, "check_vscode")
+        self.next_task()
+
+    on_tasks_done:
+        app.populate_assignment_screen()
+        app.leave_splash_screen()
+
+    on_task_error:
+        app.splash.error_popup()
+
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDFloatLayout:
+
+            Image:
+                source: app.directory + '/assets/logo.gif'
+                allow_stretch: True
+                size_hint: (.65,.65)
+                pos_hint: {'center_y':.5 , 'center_x':.75}
+                anim_delay: 0
+                nocache: True
+
+            MDLabel:
+                text: 'Assignment'
+                pos_hint: {'center_y':.7, 'center_x': .55}
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.primary_dark
+                font_size: "70sp"
+                font_name: app.directory + "/assets/Pacifico-Regular.ttf"
+
+            MDLabel:
+                text: 'Tool'
+                pos_hint: {'center_y':.5, 'center_x': .55}
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.accent_color
+                font_size: "40sp"
+                font_name: app.directory + "/assets/Pacifico-Regular.ttf"
+
+        MDBoxLayout:
+            orientation: "vertical"
+            md_bg_color: app.theme_cls.primary_color
+            size_hint_y: .5
+
+            MDFloatLayout:
+                orientation: 'vertical'
+                md_bg_color: app.theme_cls.primary_color
+                pos_hint: {'center_y':.3, 'center_x':.5}
+                padding: "10dp"
+                size_hint_x: .7
+
+                MDLabel:
+                    pos_hint: {'center_y': .55, 'center_x': .5}
+                    text: root.loading_text
+                    #disabled: True
+                    halign: "center"
+                    theme_text_color: "Custom"
+                    text_color: app.theme_cls.accent_light
+
+                MDProgressBar:
+                    id: progress
+                    pos_hint: {'center_y': .4, 'center_x': .5}
+                    orientation: "horizontal"
+                    # Set progress type
+                    type: "indeterminate"
+                    # Progress duratio
+                    running_duration: 1
+                    # Catching duration
+                    catching_duration: 1.5
+                    color: app.theme_cls.accent_color
+
+            MDBoxLayout:
+                padding: "10dp"
+                size_hint_y: .2
+
+                MDLabel:
+                    text: app.info.author
+                    theme_text_color: "Custom"
+                    text_color: .35, .35, .35, 1
+
+                MDLabel:
+                    halign: "right"
+                    text: "Version: " + app.info.version
+                    theme_text_color: "Custom"
+                    text_color: .35, .35, .35, 1

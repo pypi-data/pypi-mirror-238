@@ -1,0 +1,51 @@
+#: import About assignment_tool.app.About
+
+<About>:
+    size_hint: None, None
+    size: 750, 200
+    Image:
+        pos_hint: {"center_y": .9, "center_x": .07}
+        source: app.directory + '/assets/logo.png'
+        size_hint: None, None
+        size: dp(100), dp(200)
+        nocache: True
+
+    MDLabel:
+        pos_hint: {"center_y": .98, "x": .15}
+        text: 'Assignment'
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_dark
+        font_size: "30sp"
+        font_name: app.directory + "/assets/Pacifico-Regular.ttf"
+
+    MDLabel:
+        pos_hint: {"center_y": .8, "x": .15}
+        text: 'Tool'
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.accent_color
+        font_size: "20sp"
+        font_name: app.directory + "/assets/Pacifico-Regular.ttf"
+
+    MDSeparator:
+        pos_hint: {"center_y": .7, "x": .15}
+
+    MDLabel:
+        pos_hint: {"center_y": .6, "x": .15}
+        text: "[b]Version[/b] {info.version}".format(info=app.info)
+        markup: True
+
+    MDLabel:
+        pos_hint: {"center_y": .4, "x": .15}
+        text: "[b]Autor[/b] {info.author} <{info.email}>".format(info=app.info)
+        markup: True
+
+    MDLabel:
+        pos_hint: {"center_y": .2, "x": .15}
+        text: "[b]Lizenz[/b] {info.license}".format(info=app.info)
+        markup: True
+
+    MDLabel:
+        pos_hint: {"center_y": .1, "x": .15}
+        text: "[b]Copyright[/b] © {copyright}".format(copyright=app.info.copyright[10:])
+        markup: True
+    Widget:

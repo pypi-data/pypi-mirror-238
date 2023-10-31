@@ -1,0 +1,61 @@
+#: import AssignmentScreen assignment_tool.assignment_screen.AssignmentScreen
+
+<IconLeftWidgetWithoutTouch@ILeftBody+MDIcon>
+
+<CustomOneLineIconListItem>:
+    on_release:
+        root.my_callback(app)
+        app.navigate("details")
+
+    IconLeftWidgetWithoutTouch:
+        icon: root.icon
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_dark
+
+AssignmentScreen:
+    on_leave: app.previous_screen = self.name
+    name: "assignment"
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(10)
+
+        MDToolbar:
+            title: root.heading
+            type: "top"
+            right_action_items: [['account', lambda x: app.navigate('profile'), "Profil bearbeiten"], ["help", app.open_about, "Über..."]]
+
+
+        MDCard:
+            padding: dp(20)
+            size_hint: None, None
+            size: root.width, "65dp"
+            pos_hint: {"center_x": .5}
+
+            MDBoxLayout:
+
+                MDIcon:
+                    icon: "led-on"
+                    size_hint: .1, None
+                    font_size: 44
+                    height: text.height
+                    theme_text_color: "Custom"
+                    text_color: app.theme_cls.accent_color
+
+                MDLabel:
+                    id: text
+                    valign: "center"
+                    font_style: "H6"
+                    text: "Wählen Sie das Testat aus"
+
+        RecycleView:
+            id: rv
+            key_viewclass: "viewclass"
+            key_size: 'height'
+
+            RecycleBoxLayout:
+                padding: dp(10)
+                default_size: None, dp(48)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
