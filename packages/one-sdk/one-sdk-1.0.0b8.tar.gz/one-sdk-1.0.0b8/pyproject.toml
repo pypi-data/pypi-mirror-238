@@ -1,0 +1,26 @@
+[project]
+name = "one-sdk"
+version = "1.0.0-beta.8"
+authors = [
+  { name = "Superface Team", email = "hello@superface.ai" }
+]
+description = "OneSDK is a universal API client which provides an unparalleled developer experience for every HTTP API"
+keywords = ["superface", "api", "client", "sdk", "one-sdk", "ai", "integrations"]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+  "Brotli ~= 1.0.9",
+  "certifi ~= 2023.5.7",
+  "charset-normalizer ~= 3.1.0",
+  "idna ~= 3.4",
+  "urllib3 ~= 2.0.3",
+  "wasmtime ~= 13.0.0"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/superfaceai/one-sdk/tree/main/packages/python_host"
+"Bug Tracker" = "https://github.com/superfaceai/one-sdk/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
