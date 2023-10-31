@@ -1,0 +1,1 @@
+Хз чё писать инфу смотрите на: https://github.com/aleksfolt/gigathonapi
