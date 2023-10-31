@@ -1,0 +1,11 @@
+[console_scripts]
+native2bam = pman.native2bam:main
+pman = pman.cli:main
+
+[pman.plugins]
+blend2bam = pman.plugins.blend2bam:Blend2BamPlugin
+copyfile = pman.plugins.copyfile:CopyFilePlugin
+native2bam = pman.plugins.native2bam:Native2BamPlugin
+
+[setuptools.finalize_distribution_options]
+pman = pman.setuptools:finalize_distribution_options
