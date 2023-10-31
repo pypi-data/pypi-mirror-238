@@ -1,0 +1,53 @@
+{% load i18n %}
+
+<div id="header" class="pt-4">
+    <div class="level level-is-shrinkable is-flex mb-2 pl-3 {% if detail_pagination %}is-mobile {% endif %}">
+        <div class="level-left">
+            <div class="level-item has-text-weight-bold">
+                <nav id="breadcrumbs" class="breadcrumb" aria-label="breadcrumbs" style="white-space: unset; word-break: break-word">
+                    <ul>
+                        {% for crumb in breadcrumbs %}
+                            <li><a class="is-underlined" href="{{ crumb.url|default_if_none:'#' }}{{ querystring }}" aria-current="page">{{ crumb.name }}</a></li>
+                        {% endfor %}
+                        <li class="is-active"><a aria-current="page">{{ title }}</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {% if list_pagination or detail_pagination %}
+            <div class="level-right is-mobile is-hidden-mobile is-hidden-fullhd is-align-self-flex-start px-3">
+                <div class="level-item">
+                    {% if list_pagination %}
+                        {% include 'ui/partials/pagination_list.html' %}
+                    {% elif detail_pagination %}
+                        {% include 'ui/partials/pagination_detail.html' %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="is-flex is-hidden-fullhd is-justify-content-space-between mb-2">
+        <div class="is-flex py-1 px-1 ml-2" style="overflow-x: auto">
+            {% for action in actions %}
+                {% if action.submit %}
+                    <input class="button mr-2 {{ action.class_list|join:' ' }}"
+                           type="submit" form={{ action.form_id }} value="{{ action.name }}"
+                           {% for attr in action.attrs %}{{ attr }}{% endfor %}
+                    >
+                {% else %}
+                    <a class="button mr-2 {{ action.class_list|join:' ' }}"
+                       href="{{ action.url }}{{ querystring|default_if_none:'?' }}{% if page %}&page={{ page.number }}{% endif %}{{ action.query_params }}"
+                       {% for attr in action.attrs %}{{ attr }}{% endfor %}
+                    >{{ action.name }}
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% if filter_terms %}
+            <div class="is-flex ml-2 py-1 pr-3">
+                <button id="modal-filter-button" class="button has-icon"><i class="icon-filter"></i></button>
+            </div>
+        {% endif %}
+    </div>
+</div>

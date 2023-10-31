@@ -1,0 +1,43 @@
+{% extends 'ui/detail.html' %}
+{% load i18n %}
+
+{% block detail_content %}
+    <div class="columns">
+        <div class="column is-6">
+            <label class="label has-field">
+                {% translate 'Username' %}
+                <div class="field">
+                    <p class="control is-expanded"><input class="input" readonly value="{{ object.username|default_if_none:'' }}"/>
+                </div>
+            </label>
+        </div>
+        <div class="column is-6">
+            <label class="label has-field">
+                {% translate 'Username' %}
+                <div class="field">
+                    <p class="control is-expanded"><input class="input" readonly value="{{ object.email }}"/>
+                </div>
+            </label>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column is-12">
+            <label class="label has-field">
+                {% translate 'Name' %}
+                <div class="field">
+                    <p class="control is-expanded"><input class="input" readonly value="{{ object.full_name|default_if_none:'' }}"/></p>
+                </div>
+            </label>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column is-6">
+            <label class="label has-field">
+                {% translate 'Language' %}
+                <div class="field">
+                    <p class="control"><input class="input" readonly value="{{ object.language_code_display }}"/></p>
+                </div>
+            </label>
+        </div>
+    </div>
+{% endblock %}
