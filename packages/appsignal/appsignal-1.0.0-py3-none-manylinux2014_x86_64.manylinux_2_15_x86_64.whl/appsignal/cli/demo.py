@@ -1,0 +1,95 @@
+from __future__ import annotations
+
+from argparse import ArgumentParser
+
+from opentelemetry import trace
+
+from ..client import Client, InvalidClientFileError
+from ..tracing import set_params, set_tag
+from .command import AppsignalCLICommand
+
+
+class DemoCommand(AppsignalCLICommand):
+    """Run demo application."""
+
+    @staticmethod
+    def init_parser(parser: ArgumentParser) -> None:
+        AppsignalCLICommand._application_argument(parser)
+        AppsignalCLICommand._environment_argument(parser)
+        AppsignalCLICommand._push_api_key_argument(parser)
+
+    def run(self) -> int:
+        try:
+            client = Client._load__appsignal__file()
+        except InvalidClientFileError as error:
+            print(f"Error: {error}")
+            print("Exiting.")
+            return 1
+
+        if client:
+            # For demo CLI purposes, AppSignal is always active
+            client._config.options["active"] = True
+            # Use CLI options if set
+            app_name = self.args.application
+            if app_name:
+                client._config.options["name"] = app_name
+            environment = self.args.environment
+            if environment:
+                client._config.options["environment"] = environment
+            push_api_key = self.args.push_api_key
+            if push_api_key:
+                client._config.options["push_api_key"] = push_api_key
+        else:
+            # Prompt for all the required config in a sensible order
+            self._name  # noqa: B018
+            self._environment  # noqa: B018
+            self._push_api_key  # noqa: B018
+            client = Client(
+                active=True,
+                name=self._name,
+                environment=self._environment,
+                push_api_key=self._push_api_key,
+            )
+
+        if not client._config.is_active():
+            print("AppSignal not starting: no active config found.")
+            return 1
+
+        app_name = client._config.option("name")
+        print("Sending example data to AppSignal...")
+        print(f"Starting AppSignal client for {app_name}...")
+        client.start()
+
+        Demo.transmit()
+
+        return 0
+
+
+class Demo:
+    @staticmethod
+    def transmit() -> None:
+        tracer = trace.get_tracer(__name__)
+
+        # Performance sample
+        with tracer.start_as_current_span("GET /demo") as span:
+            span.set_attribute("http.method", "GET")
+            set_params({"GET": {"id": 1}, "POST": {}}, span)
+            span.set_attribute(
+                "otel.instrumentation_library.name",
+                "opentelemetry.instrumentation.wsgi",
+            )
+            set_tag("demo_sample", True, span)
+
+        # Error sample
+        with tracer.start_as_current_span("GET /demo") as span:
+            span.set_attribute("http.method", "GET")
+            set_params({"GET": {"id": 1}, "POST": {}}, span)
+            set_tag("demo_sample", True, span)
+            try:
+                raise DemoError("Something went wrong")
+            except DemoError as e:
+                span.record_exception(e)
+
+
+class DemoError(Exception):
+    pass
