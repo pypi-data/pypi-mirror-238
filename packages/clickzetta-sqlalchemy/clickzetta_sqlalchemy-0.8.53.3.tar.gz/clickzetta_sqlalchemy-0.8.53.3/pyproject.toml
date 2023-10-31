@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "clickzetta-sqlalchemy"
+version = "0.8.53.3"
+description = "clickzetta python sqlalchemy"
+authors = ["hanmiao.li <hanmiao.li@clickzetta.com>"]
+homepage = "https://www.yunqi.tech/"
+packages = [{include = "sqlalchemy_clickzetta"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+proto-plus = ">= 1.22.0, <2.0.0dev"
+packaging = ">= 14.3, <24.0.0dev"
+protobuf = ">=3.19.5,<5.0.0dev,!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5"
+python-dateutil = ">= 2.7.2, <3.0dev"
+requests = ">= 2.21.0, < 3.0.0dev"
+sqlalchemy = ">= 1.4.0, <2.0.0"
+future = "^0.18.3"
+clickzetta-connector = "0.8.51"
+
+[options.scripts]
+sqlalchemy.dialects = {clickzetta = "sqlalchemy_clickzetta:ClickZettaDialect"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
