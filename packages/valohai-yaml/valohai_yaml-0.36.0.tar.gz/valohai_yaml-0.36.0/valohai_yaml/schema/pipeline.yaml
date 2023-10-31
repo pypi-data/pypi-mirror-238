@@ -1,0 +1,44 @@
+title: Pipeline Blueprint
+type: object
+additionalProperties: false
+properties:
+  name:
+    type: string
+  parameters:
+    type: array
+    items:
+      "$ref": "./pipeline-param.json"
+  nodes:
+    type: array
+    items:
+      anyOf:
+        - "$ref": "./execution-node.json"
+        - "$ref": "./deployment-node.json"
+        - "$ref": "./task-node.json"
+  edges:
+    type: array
+    items:
+      anyOf:
+        - type: array
+          title: ShorthandEdge
+          items: false # no additional items allowed beyond the below
+          prefixItems: # tuple validation
+            - type: string
+            - type: string
+        - type: object
+          title: FullEdge
+          additionalProperties: false
+          properties:
+            source:
+              type: string
+            target:
+              type: string
+            configuration:
+              type: object
+          required:
+            - source
+            - target
+required:
+  - edges
+  - name
+  - nodes
