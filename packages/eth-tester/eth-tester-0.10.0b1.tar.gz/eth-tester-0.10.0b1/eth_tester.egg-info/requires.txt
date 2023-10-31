@@ -1,0 +1,52 @@
+eth-abi>=3.0.1
+eth-account>=0.6.0
+eth-keys>=0.4.0
+eth-utils>=2.0.0
+rlp>=3.0.0
+semantic_version>=2.6.0
+
+[dev]
+build>=0.9.0
+bumpversion>=0.5.3
+ipython
+pre-commit>=3.4.0
+tox>=4.0.0
+twine
+wheel
+towncrier<22,>=21
+pytest>=7.0.0
+pytest-xdist<3,>=2.0.0
+eth-hash[pycryptodome]<1.0.0,>=0.1.4
+py-evm==0.7.0a4
+
+[dev:implementation_name == "cpython"]
+eth-hash[pysha3]<1.0.0,>=0.1.4
+
+[dev:implementation_name == "pypy"]
+eth-hash[pycryptodome]<1.0.0,>=0.1.4
+
+[docs]
+towncrier<22,>=21
+
+[py-evm]
+py-evm==0.7.0a4
+
+[py-evm:implementation_name == "cpython"]
+eth-hash[pysha3]<1.0.0,>=0.1.4
+
+[py-evm:implementation_name == "pypy"]
+eth-hash[pycryptodome]<1.0.0,>=0.1.4
+
+[pyevm]
+py-evm==0.7.0a4
+
+[pyevm:implementation_name == "cpython"]
+eth-hash[pysha3]<1.0.0,>=0.1.4
+
+[pyevm:implementation_name == "pypy"]
+eth-hash[pycryptodome]<1.0.0,>=0.1.4
+
+[test]
+pytest>=7.0.0
+pytest-xdist<3,>=2.0.0
+eth-hash[pycryptodome]<1.0.0,>=0.1.4
