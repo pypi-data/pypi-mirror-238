@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "signlanguage"
+version = "0.1.6"
+authors = [
+  { name="Jose Orlando Wannan Escobar", email="jwannan13@gmail.com" },
+]
+description = "Paquete para administracion de la informacion de datos para reconocer señales realizadas con las manos - (model-3)"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering",
+    "Intended Audience :: Education",
+    "Intended Audience :: Developers",
+]
+
+
+[project.urls]
+"Homepage" = "https://github.com/JoWan1998/signlanguage"
+"Bug Tracker" = "https://github.com/JoWan1998/signlanguage/issues"
+
+[dependencies]
+numpy = "1.23"
+pandas = "1.5"
+matplotlib = "3.6.0"
+mediapipe = "0.8.11"
+scikit-learn = "1.3.0"
+tensorflow = "2.11.0"
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+pythonpath = "signlanguage"
