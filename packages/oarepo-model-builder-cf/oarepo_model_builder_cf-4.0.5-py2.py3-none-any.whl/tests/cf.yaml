@@ -1,0 +1,15 @@
+record:
+    use: invenio
+    custom-fields:
+    - element: custom_fields
+      config: TEST_CUSTOM_FIELDS
+    - config: INLINE_CUSTOM_FIELDS
+    module:
+        qualified: cf
+
+    properties:
+        metadata:
+            properties:
+                title: fulltext
+settings:
+    schema-server: 'local://'
