@@ -1,0 +1,48 @@
+from setuptools import find_packages, setup
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setup(
+    name="reason",
+    version="1.0.7",
+    description="Natural language processing toolbox",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/alisoltanirad/reason",
+    author="Ali Soltanirad",
+    author_email="soltaniradali@gmail.com",
+    license="MIT",
+    packages=find_packages(),
+    include_package_data=True,
+    classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Console",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Education",
+        "Intended Audience :: Information Technology",
+        "Intended Audience :: Other Audience",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Topic :: Education",
+        "Topic :: Scientific/Engineering",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        "Topic :: Scientific/Engineering :: Information Analysis",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Text Editors :: Text Processing",
+        "Topic :: Text Processing",
+        "Topic :: Text Processing :: Linguistic",
+    ],
+    python_requires=">=3.7",
+    install_requires=["numpy>=1.24.1", "pandas>=1.5.3", "scikit-learn>=1.2.1"],
+)
