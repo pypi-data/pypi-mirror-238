@@ -1,0 +1,82 @@
+[tool.poetry]
+name = "monopoly-sg"
+version = "0.1.1"
+description = "PDF parsing for Singaporean banks"
+repository = "https://github.com/benjamin-awd/monopoly"
+authors = ["benjamin-awd <benjamindornel@gmail.com>"]
+packages = [
+    { include = "monopoly" },
+]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "2.1.0"
+pydantic-settings = "^2.0.3"
+pymupdf = "^1.23.3"
+pydantic = "^2.4.2"
+pdf2john = "^0.1.2"
+pdftotext = "^2.2.2"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+pylint = "^2.17.5"
+isort = "^5.12.0"
+taskipy = "^1.12.0"
+flake8 = "^6.1.0"
+pytest = "^7.4.1"
+pysnooper = "^1.2.0"
+pylint-pydantic = "^0.3.0"
+mypy = "^1.6.1"
+
+
+[tool.taskipy.tasks]
+format = "isort . && black ."
+lint = "flake8 monopoly && pylint monopoly"
+test = "pytest ."
+mypy = "mypy monopoly"
+ci = "poetry run task format && poetry run task lint && poetry run task test"
+
+[tool.pylint]
+good-names = ["i", "j", "k", "ex", "Run", "_", "df"]
+disable = [
+    "missing-module-docstring",
+    "missing-function-docstring",
+    "missing-class-docstring",
+    "logging-fstring-interpolation",
+    "no-member"
+]
+ignore-paths = ["tests"]
+load-plugins = "pylint_pydantic"
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore:Deprecated call to `pkg_resources\\.declare_namespace\\('.*'\\):DeprecationWarning",
+    "ignore::DeprecationWarning:google.rpc",
+]
+
+[tool.mypy]
+disable_error_code = [
+    "annotation-unchecked",
+]
+
+[[tool.mypy.overrides]]
+module = [
+    "fitz",
+    "pdftotext",
+    "pdf2john",
+    "pandas",
+]
+ignore_missing_imports = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
