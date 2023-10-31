@@ -1,0 +1,54 @@
+[tool.poetry]
+name = "lonboard"
+version = "0.2.0-alpha.1"
+description = "Extremely fast geospatial data visualization in Python."
+authors = ["Kyle Barron <kyle@developmentseed.org>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "lonboard" }]
+include = ["lonboard/static/*.js", "lonboard/static/*.css"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+anywidget = "^0.6.3"
+pyarrow = "^13.0.0"
+geopandas = ">=0.13"
+# This is a dependency of anywidget[dev], and used in anywidget.experimental but
+# we declare it here so that we don't need to pull in watchfiles in
+# anywidget[dev] as a non-dev dependency
+comm = "^0.1.4"
+palettable = "^3.3.3"
+# We use the colormap module from matplotlib. This module may be vendored in the
+# future to remove the matplotlib dependency.
+matplotlib = "^3.7"
+shapely = "^2"
+
+
+[tool.poetry.group.dev.dependencies]
+anywidget = { version = "^0.6.3", extras = ["dev"] }
+jupyterlab = "^4.0.5"
+watchfiles = "^0.20.0"
+pre-commit = "^3.4.0"
+black = "^23.9.1"
+pytest = "^7.4.2"
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = "^1.4.3"
+mkdocs-material = { version = "^9.1.16", extras = ["imaging"] }
+mkdocstrings = {version = "^0.23.0", extras = ["python"]}
+# This version only on 3.9+. Ok because it's a dev dependency
+mkdocs-jupyter = {version = "^0.24.5", python = "^3.9"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+
+[tool.ruff.extend-per-file-ignores]
+"__init__.py" = [
+    "F401", # Allow unused imports in __init__.py files
+]
