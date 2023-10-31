@@ -1,0 +1,32 @@
+<div {% include "django/forms/widgets/attrs.html" %}></div>
+<script>
+    (function ($) {
+        var context = {{ widget|json_script|cut:'<script type="application/json">'|cut:'</script>' }}
+        function mount() {
+            if (!window.vueMount) return
+            try { window.vueMount(context) } catch (err) { err }
+            return true
+        }
+
+        window.__vue_component_checker && clearInterval(window.__vue_component_checker)
+        window.__vue_component_checker = setInterval(function() {
+            $(".v-component").each(function() {
+                var id = $(this).attr("id")
+                var vid = $(this).attr("vid")
+                if (id != vid) {
+                    var name = id.substring(3)
+                    var acontext = {...context, id, name, attrs: {...context.attrs, id, vid: id} }
+                    try {
+                        window.vueMount(acontext)
+                        $(this).attr("vid", id)
+                    } catch (err) { err }
+                }
+            })
+        }, 500)
+
+        if (mount()) return
+        var interval = setInterval(function() {
+            mount() && clearInterval(interval)
+        }, 100)
+    })(django.jQuery)
+</script>
