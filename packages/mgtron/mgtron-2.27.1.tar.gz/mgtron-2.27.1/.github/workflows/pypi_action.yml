@@ -1,0 +1,34 @@
+---
+name: "Upload to PyPI"
+on:
+  push:
+    branches:
+      - trunk
+
+jobs:
+  pypi-publish:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11"]
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "Setup Python"
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11.3'
+      - name: "Install dependencies"
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: "Build and publish"
+        run: |
+          python -m build
+          git tag v${{ github.run_number }}
+      - name: "Publish to PyPI"
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          url: https://pypi.org/project/mgtron/

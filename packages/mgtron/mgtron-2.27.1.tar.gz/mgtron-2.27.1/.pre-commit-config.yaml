@@ -1,0 +1,24 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
+-   repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+    -   id: black
+-   repo: local
+    hooks:
+    -   id: changelog_cpy
+        name: changelog_cpy
+        entry: .pre-commit-hooks/changelog_hook.py
+        language: python
+        always_run: true
+    -   id: pip_freeze_requirements
+        name: pip_freeze_requirements
+        entry: .pre-commit-hooks/requirements_hook.py
+        language: python
+        always_run: true

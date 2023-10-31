@@ -1,0 +1,18 @@
+---
+
+changelog:
+  exclude:
+    scopes:
+      - deps
+  categories:
+    - title: "⭐ Breaking Changes"
+      increment: ["MAJOR"]
+    - title: "✴️ New Features"
+      increment: ["MINOR"]
+    - title: "✳️ Bug Fixes"
+      increment: ["PATCH"]
+      exclude:
+        scopes: ["internal"]
+    - title: "📚 Documentation"
+      types: ["docs"]
+      scopes: ["api"]
