@@ -1,0 +1,3 @@
+from optilog.internalutils import is_exe as is_exe
+
+def save_configs_generic(configs, output_path, scenario_path, name) -> None: ...
