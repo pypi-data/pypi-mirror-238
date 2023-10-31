@@ -1,0 +1,88 @@
+Metadata-Version: 2.1
+Name: functionalpy
+Version: 0.8.0
+Summary: functionalpy
+Author-email: Martin Bernstorff <martinbernstorff@gmail.com>
+License: MIT License
+        
+        Copyright © 2023 Martin Bernstorff
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: homepage, https://github.com/MartinBernstorff/FunctionalPy
+Project-URL: repository, https://github.com/MartinBernstorff/FunctionalPy
+Project-URL: documentation, https://MartinBernstorff.github.io/FunctionalPy/
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# FunctionalPy
+
+[![PyPI](https://img.shields.io/pypi/v/functionalpy.svg)][pypi status]
+[![Python Version](https://img.shields.io/pypi/pyversions/FunctionalPy)][pypi status]
+[![Tests](https://github.com/MartinBernstorff/FunctionalPy/actions/workflows/tests.yml/badge.svg)][tests]
+
+[pypi status]: https://pypi.org/project/FunctionalPy/
+[tests]: https://github.com/MartinBernstorff/FunctionalPy/actions?workflow=Tests
+[black]: https://github.com/psf/black
+
+
+<!-- start short-description -->
+Python has implemented `map`, `filter` etc. as functions, rather than methods on a sequence. This makes the result harder to read and Iterators less used than they could be. FunctionalPy exists to change that.
+
+<!-- end short-description -->
+
+## Install
+```bash
+pip install functionalpy
+```
+
+## Usage
+```python
+from functionalpy import Seq
+
+result = (Seq([1, 2])
+            .filter(lambda x: x % 2 == 0)
+            .map(lambda x: x * 2)
+            .to_list()
+)
+assert result == [4]
+```
+
+## Dev environment setup
+1. Install [Orbstack](https://orbstack.dev/) or Docker Desktop. Make sure to complete the full install process before continuing.
+2. If not installed, install VSCode
+3. Press this [link](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Aarhus-Psychiatry-Research/psycop-common)
+4. Complete the setup process
+
+# 💬 Where to ask questions
+
+| Type                           |                        |
+| ------------------------------ | ---------------------- |
+| 🚨 **Bug Reports**              | [GitHub Issue Tracker] |
+| 🎁 **Feature Requests & Ideas** | [GitHub Issue Tracker] |
+| 👩‍💻 **Usage Questions**          | [GitHub Discussions]   |
+| 🗯 **General Discussion**       | [GitHub Discussions]   |
+
+[github issue tracker]: https://github.com/MartinBernstorff/FunctionalPy/issues
+[github discussions]: https://github.com/MartinBernstorff/FunctionalPy/discussions
+
+
