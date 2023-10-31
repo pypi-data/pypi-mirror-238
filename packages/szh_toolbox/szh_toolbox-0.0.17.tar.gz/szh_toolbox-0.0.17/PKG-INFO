@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: szh_toolbox
+Version: 0.0.17
+Summary: 我自己的工具箱
+Author-email: szh <suo.zh@qq.com>
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Project-URL: Bug Tracker, https://github.com/pypa/sampleproject/issues
+Project-URL: Homepage, https://github.com/pypa/sampleproject
+
+# 写在前面
+我自己写的工具箱，没有api文档的，想看函数功能就直接看函数定义时的注释吧，还挺详细的
+# python代码功能
+```python
+# 示例1，读取WRF变量计算天顶角
+from szh_toolbox import get_zenith_angle
+WRFfile = 'wrfout_d01_2021-07-22_04:00:00'
+Longitude = getwrfvar(WRFfile, 'XLONG')
+Latitude = getwrfvar(WRFfile, 'XLAT')
+z2 = get_zenith_angle(123,0,35786,Longitude, Latitude)
+```
+```python
+# 示例2，实现namelist文件和python对象的相互转化
+import szh_toolbox.namelist as nl
+# config是python字典对象
+config = nl.load("data/namelist.input")
+print(nl.dump(config))
+```
+```python
+# 示例3，实现shell脚本中变量定义赋值的替换
+from szh_toolbox import ShellScriptVariable
+# 类功能展示
+ssv = ShellScriptVariable('data/myshell.sh')
+ssv.show()
+ssv.update('a', '这是A', 0)
+ssv.update('d', '"这是 D"')
+ssv.show()
+ssv.save('data/myshell2.sh')
+# 一行代码替换变量
+ShellScriptVariable.modify('data/myshell.sh', 'a', '这是A', 'data/myshell3.sh')
+```
+# 命令行工具
+也就是可以直接在命令行里执行的代码
+```bash
+# 直接打印namelist.wps文件定义的区域的范围
+st-wps
+st-wps namelist.wps
+```
+```bash
+# 下载noaa的数据比如ATMS L1
+st-noaa -h
+st-noaa orderId -o savepath
+```
