@@ -1,0 +1,91 @@
+[build-system]
+requires = ["maturin>=1,<2"]
+build-backend = "maturin"
+
+[tool.maturin]
+python-source = "python"
+module-name = "serpyco_rs._serpyco_rs"
+
+[project]
+name = "serpyco-rs"
+repository = "https://github.com/ermakov-oleg/serpyco-rs"
+requires-python = ">=3.9"
+license = {file = "LICENSE"}
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python",
+    "Programming Language :: Rust",
+]
+
+dependencies = [
+    "typing-inspect>=0.8.0",
+    "attributes-doc",
+    "typing-extensions",
+]
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+
+[tool.ruff]
+line-length = 120
+src = ["python/serpyco_rs", "tests"]
+select = [
+    "F", # Pyflakes
+    "E", # Pycodestyle Error
+    "W", # PycodeStyle Warning
+    "I", # Isort
+    "N", # pep8-naming
+    "UP", # pyupgrade
+    "YTT", # flake8-2020
+    "B", # flake8-bugbear
+    "DTZ", # flake8-datetimez
+    "T10", # flake8-debugger
+    "ISC", # flake8-implicit-str-concat
+    "G", # flake8-logging-format
+    "PIE", # flake8-pie
+    "T20", # flake8-print
+    "PYI", # flake8-pyi
+    "Q", # flake8-quotes
+    "RSE", # flake8-raise
+    "RET", # flake8-return
+    "SIM", # flake8-simplify
+    "TID", # flake8-tidy-imports
+    "PTH", # flake8-use-pathlib
+    "PL", # Pylint
+    "RUF",  # Ruff-specific rules
+]
+ignore = [
+    "F401", # unused-import
+    "PLR0911", # too-many-return-statements
+    "PLR0912", # too-many-branches
+    "PLR0913", # too-many-arguments
+    "PLR0915", # too-many-statements
+    "PLR2004", # magic-value-comparison
+]
+
+[tool.ruff.flake8-quotes]
+inline-quotes = "single"
+
+[tool.ruff.isort]
+combine-as-imports = true
+lines-after-imports = 2
+no-lines-before = ["local-folder"]
+
+
+[tool.ruff.per-file-ignores]
+"python/serpyco_rs/_impl.pyi" = [
+    "I001",
+]
+"python/serpyco_rs/_json_schema/_entities.py" = [
+    "N815", # mixed-case-variable-name
+]
