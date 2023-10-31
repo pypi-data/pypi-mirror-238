@@ -1,0 +1,67 @@
+[tool.black]
+line-length = 88
+target_version = ['py37', 'py38', 'py39', 'py310', "py311"]
+exclude = '''
+(
+  /(
+    | \.git
+    | \.venv
+    | \.mypy_cache
+    | \.tox
+  )/
+)
+'''
+
+[tool.isort]
+line_length = 88
+profile = "black"
+
+[tool.poetry]
+name = "github-webhook-server"
+version = "1.0.19"
+description = "A webhook server to manage Github reposotories and pull requests."
+authors = ["Meni Yakove <myakove@gmail.com>", "Ruth Netser <ruth.netser@gmail.com>"]
+readme = "README.md"
+license = "Apache-2.0"
+homepage = "https://github.com/myakove/github-webhook-server"
+repository = "https://github.com/myakove/github-webhook-server"
+packages = [{include = "webhook_server_container"}]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+
+[tool.poetry.urls]
+Download = "https://quay.io/repository/myakove/github-webhook-server"
+"Bug Tracker" = "https://github.com/myakove/github-webhook-server/issues"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+poetry-dynamic-versioning = {extras = ["plugin"], version = "^1.0.0"}
+pygithub = "^2.0.0"
+flask = "^3.0.0"
+pyyaml = "^6.0"
+build = "^1.0.0"
+shortuuid = "^1.0.11"
+python-sonarqube-api = "^2.0.4"
+colorlog = "^6.7.0"
+colorama = "^0.4.6"
+
+[tool.poetry.group.dev.dependencies]
+ipdb = "^0.13.13"
+ipython = "*"
+
+[tool.poetry-dynamic-versioning]
+enable = false
+pattern = "((?P<epoch>\\d+)!)?(?P<base>\\d+(\\.\\d+)*)"
+
+[tool.poetry-dynamic-versioning.substitution]
+files = ["VERSION"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.ruff]
+line-length = 120
