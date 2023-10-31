@@ -1,0 +1,223 @@
+[build-system]
+requires = [
+    "hatchling>=1.5.0",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "typed-settings"
+version = "23.1.0"
+description = "Typed settings based on attrs classes"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.8"
+authors = [
+    { name = "Stefan Scherfke", email = "stefan@sofa-rockers.org" },
+]
+keywords = [
+    "configuration",
+    "options",
+    "settings",
+    "types",
+    "validation",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Programming Language :: Python",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "tomli>=2; python_version<'3.11'",
+]
+
+[project.optional-dependencies]
+attrs = [
+    "attrs>=23.1",
+]
+cattrs = [
+    "cattrs>=22.2",
+]
+click = [
+    "click>=7",
+]
+option-groups = [
+    "click-option-group",
+    "click>=7",
+]
+jinja = [
+    "jinja2",
+]
+pydantic = [
+    "pydantic>=2",
+]
+all = [  # All features
+    "typed-settings[attrs,cattrs,click,option-groups,jinja,pydantic]",
+]
+docs = [
+    "typed-settings[all]",
+    "furo>=2022.12.7",
+    "myst-parser>=1.0",
+    "sphinx>=6.1",
+    "sphinx-copybutton>=0.5.1",
+]
+lint = [
+    "typed-settings[all]",
+    "black",
+    "ruff",
+    "mypy",
+    "types-toml",
+]
+test = [
+    "typed-settings[all]",
+    "coverage[toml]>=5.3",
+    "pytest-cov",
+    "pytest>=7.2.0",
+    "rich-click>=1.6",
+    "sybil",
+    "typing-extensions",
+]
+dev = [  # Everything needed for development
+    "typed-settings[docs,lint,test]",
+    "nox",
+    "pip-audit",
+]
+
+[project.urls]
+Homepage = "https://gitlab.com/sscherfke/typed-settings"
+Documentation = "https://typed-settings.readthedocs.io"
+Changelog = "https://typed-settings.readthedocs.io/en/latest/changelog.html"
+Issues = "https://gitlab.com/sscherfke/typed-settings/-/issues"
+"Source Code" = "https://gitlab.com/sscherfke/typed-settings"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/docs",
+    "/src",
+    "/tests",
+]
+
+[tool.hatch.build.targets.wheel]
+
+[tool.hatch.envs.default]
+features = ["dev"]
+post-install-commands = [
+    "pre-commit install --install-hooks",
+]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:docs src tests}"
+cov = "pytest --cov --cov-config=pyproject.toml --cov-report=term-missing {args:docs src tests}"
+lint = [
+  "ruff .",
+  "mypy src/ tests/ ./noxfile.py",
+  "mypy docs/conf.py docs/conftest.py",
+  "mypy docs/examples",
+]
+fix = [
+  "ruff --fix-only {args:.}",
+  "black {args:.}",
+]
+docs = [
+  "make -C docs html",
+]
+clean-docs = [
+  "make -C docs clean html",
+]
+
+[tool.black]
+line-length = 88
+
+[tool.coverage.paths]
+source = [
+    "src",
+    ".nox/test*/**/site-packages",
+    "tests",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "\\.\\.\\.",
+    "if TYPE_CHECKING",
+    "pytest.fail",
+]
+fail_under = 100
+omit = [  # This is also (dynamically) set/overridden in noxfile.py!
+    "src/typed_settings/_onepassword.py",
+    "tests/test_onepassword.py",
+]
+show_missing = true
+
+[tool.coverage.run]
+branch = true
+parallel = true
+source_pkgs = [
+    "typed_settings",
+    "tests",
+]
+
+[tool.mypy]
+ignore_missing_imports = true
+plugins = ["typed_settings.mypy"]
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = "typed_settings.*"
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+addopts = "--ignore=README.md --ignore=docs/_build"
+
+[tool.ruff]
+select = [  # see: https://beta.ruff.rs/docs/rules/
+    "F",  # pyflakes
+    "E",  # pycodestyle error
+    "W",  # pycodestyle warning
+    "C90",  # mccabe
+    "I",  # isort
+    "D",  # pydocstyle
+    "S",  # bandit
+    "B",  # bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "RUF",  # Ruff-specific
+]
+ignore = [
+    "S101",  # assert needed in tests, useful in src for documenting invariants
+    # Docstyle is a bit too strict:
+    "D107",  # I never document __init__()
+    "D102",
+    "D105",  # I don't always write docstrings for __ meths, esp. for __str__.
+    "D200",  # Allow putting the """ in separate lines in one-line docstrings
+    "D205",  # Allow the first line spanning another line.
+    "D212",  # Allow putting the """ in separate lines in multi-line docstrings
+]
+line-length = 88
+src = ["src", "tests"]
+target-version = "py38"
+
+[tool.ruff.per-file-ignores]
+"docs/examples/*" = ["D100", "D101", "D103", "D415"]
+"examples/*" = ["D101"]
+"tests/*" = ["RUF012"]
+"tests/op" = ["D100"]
+"tests/test_cli_param_types.py" = ["D106"]
+
+[tool.ruff.isort]
+lines-after-imports = 2
+
+[tool.ruff.pydocstyle]
+convention = "google"
+ignore-decorators = ["typing.overload"]
