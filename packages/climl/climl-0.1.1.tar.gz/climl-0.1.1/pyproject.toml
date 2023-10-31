@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "climl"
+version = "0.1.1"
+description = ""
+authors = ["DonkeyBoard <119456795+DonkeyBoard@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.scripts]
+climl = "climl.main:app"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flaml = {extras = ["automl"], version = "^2.1.1"}
+typer = {extras = ["all"], version = "^0.9.0"}
+lightgbm = "^4.1.0"
+packaging = "^23.2"
+py-autoclean = "^1.1.3"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
