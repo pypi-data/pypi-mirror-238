@@ -1,0 +1,20 @@
+[project]
+name = "paintcompiler"
+description = "Paint compiler for COLRv1 fonts"
+version = "0.3.1"
+authors = [
+    { name = "Simon Cozens", email = "simon@simon-cozens.org" }
+]
+dependencies = [
+    "fontTools>=4.37.3",
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+
+
+[tool.setuptools.packages.find]
+where = ["Lib"]
+
+[project.scripts]
+paintcompiler = "paintcompiler:main"
+paintdecompiler = "paintdecompiler:main"
