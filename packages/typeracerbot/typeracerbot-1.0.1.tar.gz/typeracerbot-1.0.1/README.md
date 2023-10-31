@@ -1,0 +1,1 @@
+Using this works sometimes and can generate over 400WPM on typeracer!
