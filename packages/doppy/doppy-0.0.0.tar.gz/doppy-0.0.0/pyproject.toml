@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "doppy"
+description = "Doppler lidar processing"
+dynamic = ["version"]
+authors = [{ name = "Niko Leskinen", email = "niko.leskinen@fmi.fi" }]
+requires-python = ">=3.10"
+readme = "README.md"
+license = { file = "LICENSE" }
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "License :: OSI Approved :: MIT License",
+  "Intended Audience :: Science/Research",
+  "Operating System :: OS Independent",
+]
+
+[project.scripts]
+doppy = "doppy.main:main"
+
+[project.urls]
+Homepage = "https://github.com/actris-cloudnet/doppy"
+Repository = "https://github.com/actris-cloudnet/doppy"
+Changelog = "https://github.com/actris-cloudnet/doppy/blob/main/CHANGELOG.md"
+"Bug Tracker" = "https://github.com/actris-cloudnet/doppy/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = { attr = "doppy.version.__version__" }
