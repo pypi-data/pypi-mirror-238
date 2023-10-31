@@ -1,0 +1,12 @@
+prefix=/home/dalley/devel/community/createrepo_c/_skbuild/linux-x86_64-3.11/cmake-install
+libdir=
+includedir=/home/dalley/devel/community/createrepo_c/_skbuild/linux-x86_64-3.11/cmake-install/include
+
+Name: createrepo_c
+Description: Library for manipulation with repodata.
+Version: 1.0.1
+Requires: glib-2.0 rpm libcurl sqlite3
+Requires.private: zlib libxml-2.0
+Libs: -L${libdir} -lcreaterepo_c
+Libs.private: -lbz2 -lzma
+Cflags: -I${includedir}
