@@ -1,0 +1,23 @@
+# Include the README
+include *.rst
+
+# Do not distribute test data
+# include data
+prune .idea
+include docs
+prune docs/_build
+recursive-include docs *
+recursive-include tests *.py
+recursive-include src *.pyx
+recursive-include src *.so
+recursive-include src *.c
+recursive-include src Makefile
+
+# include *.py
+include *.toml
+# include *.yaml
+include Makefile
+include tox.ini
+exclude .coveragerc
+include pylintrc
+include coverage.xml
