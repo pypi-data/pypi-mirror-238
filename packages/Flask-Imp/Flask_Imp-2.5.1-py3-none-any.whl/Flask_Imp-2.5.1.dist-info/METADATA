@@ -1,0 +1,96 @@
+Metadata-Version: 2.1
+Name: Flask-Imp
+Version: 2.5.1
+Summary: A Flask auto importer that allows your Flask apps to grow big.
+Home-page: https://github.com/CheeseCake87/Flask-Imp
+Author: David Carmichael
+Author-email: carmichaelits@gmail.com
+License: GNU Lesser General Public License v2.1
+Platform: any
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Natural Language :: English
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: click
+Requires-Dist: Flask
+Requires-Dist: Flask-SQLAlchemy
+Requires-Dist: toml
+Provides-Extra: testing
+Requires-Dist: pytest >=6.0 ; extra == 'testing'
+Requires-Dist: pytest-cov >=2.0 ; extra == 'testing'
+Requires-Dist: mypy >=0.910 ; extra == 'testing'
+Requires-Dist: flake8 >=3.9 ; extra == 'testing'
+Requires-Dist: tox >=3.24 ; extra == 'testing'
+
+
+![](https://raw.githubusercontent.com/CheeseCake87/Flask-Imp/master/_assets/Flask-Imp-Small.png)
+
+# Flask-Imp
+
+![Tests](https://github.com/CheeseCake87/Flask-Imp/actions/workflows/tests.yml/badge.svg)
+
+(Previously known as Flask-BigApp)
+
+## What is Flask-Imp?
+
+Flask-Imp's main purpose is to help simplify the importing of blueprints, resources and models.
+It has a few extra features built in to help with securing pages and password authentication.
+
+## Getting Started
+
+### Setup.
+
+Create a new project folder and navigate to it.
+
+```text
+# Linux
+cd /path/to/project-folder
+
+# Windows
+cd C:\path\to\project-folder
+```
+
+### Create a virtual environment and activate it.
+
+**Linux / MacOS**
+
+```bash
+python3 -m venv venv
+```
+
+```bash
+source venv/bin/activate
+```
+
+**Windows**
+
+```bash
+python -m venv venv
+```
+
+```bash
+.\venv\Scripts\activate
+```
+
+### Install Flask-Imp
+
+```bash
+pip install flask-Imp
+```
+
+### Create a new project.
+
+```bash
+flask-Imp init
+```
