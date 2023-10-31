@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: kuroco-py
+Version: 0.0.2.6
+Summary: A Python client for Kuroco Headless CMS
+License: Apache-2.0
+Keywords: kuroco,headless,cms,api,client,langchain
+Requires-Python: >=3.8.1,<4.0
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: asyncclick (>=8.0.1.2)
+Requires-Dist: langchain (>=0.0.300)
+Requires-Dist: pandas (>=1.1.1)
+Description-Content-Type: text/markdown
+
+# kuroco-langchain-sdk
+
+## Overview
+
+kuroco-py is a SDK for Kuroco Headless CMS.
+
+Current version support embedding API.
+
+## Installation
+
+```bash
+pip install kuroco-py
+```
+
+## Usage
+
+```python
+from kuroco_embedding import KurocoEmbedding
+
+k_emb = KurocoEmbedding(
+        content=("test_endpoint",),
+        kuroco_handler="kuroco.json",
+    )
+
+k_emb.similarity_search(
+    query="What is Kuroco ?",
+    limit=10,
+    )
+```
+
