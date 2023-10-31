@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "letterbomb_web"
+description = "A flask module that complements the letterbomb API."
+readme = "README.md"
+requires-python = ">=3.10"
+version = "1.0"
+license = {text = "MIT"}
+authors = [{name = "WhoAteMyButter"}]
+keywords = [
+    "letterbomb",
+    "letter bomb",
+    "wii",
+    "failoverflow",
+    "fail0verflow",
+    "fail overflow",
+    "fail 0verflow",
+    "exploit",
+    "wii hack",
+    "letterbomb web",
+    "letterbomb flask"
+]
+classifiers = [
+    "Operating System :: OS Independent",
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Games/Entertainment",
+    "Framework :: Flask"
+]
+dependencies = [
+    "letterbomb ~= 4.0"
+]
+
+[project.urls]
+Documentation = "https://letterbomb.readthedocs.io/en/latest/web.html"
+Source = "https://gitlab.com/whoatemybutter/letterbomb_web"
+Changelog = "https://gitlab.com/whoatemybutter/letterbomb_web/-/blob/master/CHANGELOG.md"
+
+[tool.black]
+line-length = 120
+
+[tool.pylint."MASTER"]
+jobs = 8
+py-version = "3.10"
+max-line-length = 120
+
+[tool.mypy]
+ignore_missing_imports = true
+strict = true
+
+[tool.setuptools]
+packages = ["letterbomb_web"]
+[tool.setuptools.package-data]
+letterbomb_web = ["**"]
