@@ -1,0 +1,8 @@
+"""Neighborly version information.
+
+"""
+
+MAJOR_VERSION = 2
+MINOR_VERSION = 1
+PATCH_VERSION = 1
+VERSION = f"{MAJOR_VERSION}.{MINOR_VERSION}.{PATCH_VERSION}"
