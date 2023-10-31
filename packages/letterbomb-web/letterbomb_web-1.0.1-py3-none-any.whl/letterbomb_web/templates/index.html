@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description"
+              content="LetterBomb's web service. Generate LetterBomb packages with BootMii online."/>
+        <meta name="keywords"
+              content="letterbomb letter bomb wii fail0verflow failoverflow hacking exploit system menu systemmenu"/>
+        <title>✉️💣 LetterBomb</title>
+        <script src="/static/web.js" integrity="sha384-/nsU6ssFWi7V9LS2hqEK/lO3KUXnAniKXOAFlmDgyHT2ts3VU+L4SHQ94OkZPkP/"></script>
+        <link rel="stylesheet" href="./static/static.css" />
+        <link rel="shortcut icon" href="./static/letterbomb.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body>
+        <div>
+            <img src="./static/letterbomb.png"
+                 width="300"
+                 height="300"
+                 alt="✉️💣"
+                 class="logo-img"/>
+            <h1>
+                <a class="grad-link" href="https://gitlab.com/whoatemybutter/letterbomb">LetterBomb</a>
+            </h1>
+            {% if config.show_sublinks -%}
+                <div>
+                    <a class="grad-link" href="https://letterbomb.rtfd.io/">
+                        <img src="./static/sublinks/readthedocs.svg"
+                             width="30px"
+                             height="30px"
+                             alt="RTD"
+                             title="Documentation"/>
+                    </a>
+                    <a class="grad-link" href="https://wiibrew.org/wiki/LetterBomb">
+                        <img src="./static/sublinks/wiibrew.svg"
+                             width="30px"
+                             height="30px"
+                             alt="WiiBrew"
+                             title="Homebrew wiki"/>
+                    </a>
+                    <a class="grad-link" href="https://pypi.org/project/letterbomb/">
+                        <img src="./static/sublinks/pypi.svg"
+                             width="30px"
+                             height="30px"
+                             alt="PyPI"
+                             title="PyPI page"/>
+                    </a>
+                    <!-- Icons designed by Flatpik -->
+                </div>
+            {%- endif %}
+            <noscript>
+                <span class="nojs">You do not have JavaScript enabled.
+                    <br/>
+                    Form will <strong>not</strong> be validated client-side.
+                    <br />
+                    This may cause it to fail.
+                </span>
+            </noscript>
+        </div>
+        <div>
+            <form id="bombform">
+                <label>
+                    System Menu Version<small><sup>[<a target="_blank" href="https://wiibrew.org/wiki/System_Menu">?</a>]</sup></small>
+                </label>
+                <input type="radio" name="region" value="U" id="region_u" />
+                4.3U
+                <input type="radio" name="region" value="E" id="region_e" />
+                4.3E
+                <input type="radio" name="region" value="J" id="region_j" />
+                4.3J
+                <input type="radio" name="region" value="K" id="region_k" />
+                4.3K
+                <label>
+                    MAC
+                    Address<small><sup>[<a href="https://en.wikipedia.org/wiki/MAC_address">?</a>]</sup></small>
+                </label>
+                <input type="text"
+                       maxlength="12"
+                       autocomplete="off"
+                       autocapitalize="off"
+                       size="12"
+                       name="mac"
+                       id="mac"
+                       class="box"
+                       placeholder="AABBCCDDEEFF"/>
+                <br />
+                <em>Necessary to create and sign the correct file</em>
+                <br />
+                <b>Bundle <a class="blue-link" target="_blank" href="https://wiibrew.org/wiki/HackMii_Installer">HackMii</a>:</b>
+                <input id="hackmii" type="checkbox" name="hackmii" checked />
+                <br />
+                {% if config.captcha_private_key -%}
+                    <div id="recaptcha">
+                        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                        <div class="g-recaptcha"
+                             data-sitekey="{{ config.captcha_public_key }}"
+                             data-callback="captchaOK"
+                             data-expired-callback="captchaExpired">
+                        </div>
+                    </div>
+                {%- endif %}
+                <div id="error" class="hidden"></div>
+                <div id="buttons">
+                    <input type="submit"
+                           value="Cut the red wire"
+                           id="submit_btn"
+                           class="button buttonr"/>
+                    <input type="submit"
+                           value="Cut the blue wire"
+                           id="submit_btn2"
+                           class="button buttonb"/>
+                    <input type="submit"
+                           value="Cut the green wire"
+                           id="submit_btn3"
+                           class="button buttong"/>
+                    <input type="submit"
+                           value="Cut the yellow wire"
+                           id="submit_btn4"
+                           class="button buttony"/>
+                </div>
+            </form>
+        </div>
+        {% if config.show_ribbon -%}
+            <div id="git-ribbon">
+                <a target="_blank" href="https://gitlab.com/whoatemybutter/letterbomb">Fork on GitLab</a>
+            </div>
+        {%- endif %}
+        {% if config.show_version -%}<span id="version">version: {{ version }}</span>{%- endif %}
+    </body>
+</html>
