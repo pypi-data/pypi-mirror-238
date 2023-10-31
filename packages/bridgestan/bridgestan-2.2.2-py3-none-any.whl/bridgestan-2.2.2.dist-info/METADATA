@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: bridgestan
+Version: 2.2.2
+Author-email: Brian Ward <bward@flatironinstitute.org>, Bob Carpenter <bcarpenter@flatironinstitute.org>, Edward Roualdes <eroualdes@csuchico.edu>
+License: BSD-3-Clause
+Project-URL: Homepage, https://github.com/roualdes/bridgestan
+Project-URL: Bug Tracker, https://github.com/roualdes/bridgestan/issues
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: dllist
+Provides-Extra: test
+Requires-Dist: pandas ; extra == 'test'
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+
+# bridgestan.py - The Python interface to BridgeStan
+
+[View the Python interface documentation online](https://roualdes.github.io/bridgestan/latest/languages/python.html)
+
+## Installation
+
+**From PyPI**:
+```shell
+pip install bridgestan
+```
+
+**From the downloaded repository**:
+Assuming you have already cloned https://github.com/roualdes/bridgestan
+```shell
+cd python/ # this directory
+pip install -e .
+```
