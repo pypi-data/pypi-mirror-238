@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tka.utils &mdash; TKA 0.3.17 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            TKA
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation.html">Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">TKA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tka.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tka.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">importlib.resources</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">webbrowser</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span>
+
+
+<div class="viewcode-block" id="transform_l1000_ids"><a class="viewcode-back" href="../../utils.html#tka.utils.transform_l1000_ids">[docs]</a><span class="k">def</span> <span class="nf">transform_l1000_ids</span><span class="p">(</span>
+    <span class="n">from_id</span><span class="p">,</span>
+    <span class="n">to_id</span><span class="p">,</span>
+    <span class="n">gene_ids</span><span class="p">,</span>
+    <span class="n">dataset_path</span><span class="o">=</span><span class="s2">&quot;l1000_mapped.csv&quot;</span><span class="p">,</span>
+    <span class="n">ignore_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Transforms L1000 gene IDs from one format to another.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        from_id (str): The source probe type (&quot;affyID&quot;, &quot;entrezID&quot;, &quot;ensemblID&quot;).</span>
+<span class="sd">        to_id (str): The target probe type (&quot;affyID&quot;, &quot;entrezID&quot;, &quot;ensemblID&quot;).</span>
+<span class="sd">        gene_ids (list): List of L1000 gene IDs to transform.</span>
+<span class="sd">        dataset_path (str): Path to the DataFrame containing L1000 gene IDs for each probe type.</span>
+<span class="sd">        ignore_missing (bool): If set to True, it will not raise an error on missing or invalid probe IDs.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If either from_id or to_id is not one of the allowed values.</span>
+<span class="sd">        ValueError: If any of the gene IDs in the dataset is not within the scope of L1000.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Original and transformed L1000 gene IDs as keys and values respectively.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Initialize dataset pd.DataFrame</span>
+    <span class="k">with</span> <span class="n">importlib</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="s2">&quot;tka.data&quot;</span><span class="p">,</span> <span class="n">dataset_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_path</span><span class="p">:</span>
+        <span class="n">l1000</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+    <span class="c1"># Define the allowed probe types</span>
+    <span class="n">allowed_probes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;affyID&quot;</span><span class="p">,</span> <span class="s2">&quot;entrezID&quot;</span><span class="p">,</span> <span class="s2">&quot;ensemblID&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Check if the probe types are valid</span>
+    <span class="k">if</span> <span class="n">from_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_probes</span> <span class="ow">or</span> <span class="n">to_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_probes</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Invalid probe type. Allowed values: &#39;affyID&#39;, &#39;entrezID&#39;, &#39;ensemblID&#39;.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Initialize the output dict</span>
+    <span class="n">transformed_ids</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Perform the transformation</span>
+    <span class="k">for</span> <span class="n">gene_id</span> <span class="ow">in</span> <span class="n">gene_ids</span><span class="p">:</span>
+        <span class="c1"># Safety check for missing IDs</span>
+        <span class="k">if</span> <span class="n">gene_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">l1000</span><span class="p">[</span><span class="n">from_id</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ignore_missing</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Gene ID &#39;</span><span class="si">{</span><span class="n">gene_id</span><span class="si">}</span><span class="s2">&#39; is not within the scope of L1000 </span><span class="si">{</span><span class="n">from_id</span><span class="si">}</span><span class="s2"> values.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Find the mapping from L1000 and save it to transformed_ids</span>
+        <span class="n">transformed_ids</span><span class="p">[</span><span class="n">gene_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">l1000</span><span class="p">[</span><span class="n">l1000</span><span class="p">[</span><span class="n">from_id</span><span class="p">]</span> <span class="o">==</span> <span class="n">gene_id</span><span class="p">][</span><span class="n">to_id</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">transformed_ids</span></div>
+
+<span class="k">def</span> <span class="nf">_find_valid_moshkov_assays</span><span class="p">(</span><span class="n">auc_modality_filter</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">importlib</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="s2">&quot;tka.data&quot;</span><span class="p">,</span> <span class="s1">&#39;scaffold_median_AUC.csv&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_path</span><span class="p">:</span>
+        <span class="n">assays</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+    <span class="n">assays</span> <span class="o">=</span> <span class="n">assays</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">assays</span><span class="p">[</span><span class="s1">&#39;descriptor&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">auc_modality_filter</span><span class="p">[</span><span class="s2">&quot;modality&quot;</span><span class="p">])</span> <span class="o">&amp;</span> 
+        <span class="p">(</span><span class="n">assays</span><span class="p">[</span><span class="s1">&#39;auc&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">auc_modality_filter</span><span class="p">[</span><span class="s1">&#39;auc&#39;</span><span class="p">])</span>
+    <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">assays</span><span class="p">[</span><span class="s1">&#39;assay_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+
+<div class="viewcode-block" id="transform_moshkov_outputs"><a class="viewcode-back" href="../../utils.html#tka.utils.transform_moshkov_outputs">[docs]</a><span class="k">def</span> <span class="nf">transform_moshkov_outputs</span><span class="p">(</span>
+    <span class="n">identifier_col_vals</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">],</span>
+    <span class="n">auc_modality_filter</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">use_full_assay_names</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Transform Moshkov outputs into a Pandas DataFrame.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        identifier_col_vals (List[str]): List of id strings corresponding to input data points (or any other identifiers).</span>
+<span class="sd">        output (List[List[]]): List of lists containing output data (shape: X, 270).</span>
+<span class="sd">        auc_modality_filter (dict, optional): If supplied, assays whose prediction accuracies are lower than auc at a given modality, will be dropped.</span>
+<span class="sd">            The dict has two keys - **&#39;auc&#39;** and **&#39;modality&#39;**. </span>
+<span class="sd">            Allowed modalities are in the following list:</span>
+<span class="sd">                [&#39;late_fusion_cs_ge&#39;, &#39;late_fusion_cs_ge_mobc&#39;,</span>
+<span class="sd">                &#39;late_fusion_cs_mobc&#39;, &#39;late_fusion_ge_mobc&#39;, &#39;cpcl_es_op&#39;,</span>
+<span class="sd">                &#39;cp_es_op&#39;, &#39;ges_es_op&#39;, &#39;ge_cp_es_op&#39;, &#39;ge_es_op&#39;,</span>
+<span class="sd">                &#39;ge_mobc_cp_es_op&#39;, &#39;ge_mobc_es_op&#39;, &#39;ge_mo_cp_es_op&#39;,</span>
+<span class="sd">                &#39;ge_mo_es_op&#39;, &#39;mobc_cp_es_op&#39;, &#39;mobc_es_op&#39;, &#39;mo_cp_es_op&#39;,</span>
+<span class="sd">                &#39;mo_es_op&#39;]</span>
+<span class="sd">            Allowed auc thresholds are any floating point values between 0.5 and 1.0.</span>
+<span class="sd">        use_full_assay_names (bool, optional): Whether to use full assay names from the CSV. Defaults to False.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the auc_modality_filter contains invalid modality.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: df with identifier_col_vals as the first column and assay data columns.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Load the PUMA_ASSAY_ID values from the CSV file</span>
+    <span class="k">with</span> <span class="n">importlib</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="s2">&quot;tka.data&quot;</span><span class="p">,</span> <span class="s2">&quot;assay_metadata.csv&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_path</span><span class="p">:</span>
+        <span class="n">assay_metadata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+    <span class="n">puma_assay_ids</span> <span class="o">=</span> <span class="n">assay_metadata</span><span class="p">[</span><span class="s2">&quot;PUMA_ASSAY_ID&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="c1"># Create a dictionary to store the data for DataFrame creation</span>
+    <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">identifier_col_vals</span><span class="p">}</span>
+
+    <span class="c1"># Loop through each PUMA_ASSAY_ID and add its values to the dictionary</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">puma_assay_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">puma_assay_ids</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">use_full_assay_names</span><span class="p">:</span>
+            <span class="n">puma_assay_id</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">assay_metadata</span><span class="p">[</span><span class="n">assay_metadata</span><span class="p">[</span><span class="s2">&quot;PUMA_ASSAY_ID&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">puma_assay_id</span><span class="p">][</span>
+                    <span class="s2">&quot;ASSAY_NAME&quot;</span>
+                <span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+                <span class="o">+</span> <span class="n">puma_assay_id</span>
+            <span class="p">)</span>
+        <span class="n">column_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">output</span><span class="p">]</span>
+        <span class="n">data_dict</span><span class="p">[</span><span class="n">puma_assay_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">column_values</span>
+
+
+
+    <span class="c1"># Create a Pandas DataFrame from the data dictionary</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+ 
+    <span class="c1"># If the dict is supplied by the caller, filter the relevant assays.</span>
+    <span class="k">if</span> <span class="n">auc_modality_filter</span><span class="p">:</span>
+        <span class="n">valid_modalities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;late_fusion_cs_ge&#39;</span><span class="p">,</span> <span class="s1">&#39;late_fusion_cs_ge_mobc&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;late_fusion_cs_mobc&#39;</span><span class="p">,</span> <span class="s1">&#39;late_fusion_ge_mobc&#39;</span><span class="p">,</span> <span class="s1">&#39;cpcl_es_op&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;cp_es_op&#39;</span><span class="p">,</span> <span class="s1">&#39;ges_es_op&#39;</span><span class="p">,</span> <span class="s1">&#39;ge_cp_es_op&#39;</span><span class="p">,</span> <span class="s1">&#39;ge_es_op&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ge_mobc_cp_es_op&#39;</span><span class="p">,</span> <span class="s1">&#39;ge_mobc_es_op&#39;</span><span class="p">,</span> <span class="s1">&#39;ge_mo_cp_es_op&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ge_mo_es_op&#39;</span><span class="p">,</span> <span class="s1">&#39;mobc_cp_es_op&#39;</span><span class="p">,</span> <span class="s1">&#39;mobc_es_op&#39;</span><span class="p">,</span> <span class="s1">&#39;mo_cp_es_op&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;mo_es_op&#39;</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">auc_modality_filter</span><span class="p">[</span><span class="s1">&#39;modality&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_modalities</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid modality (</span><span class="si">{</span><span class="n">auc_modality_filter</span><span class="p">[</span><span class="s1">&#39;modality&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">). Should be one of </span><span class="si">{</span><span class="n">valid_modalities</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">filtered_assays</span> <span class="o">=</span> <span class="n">_find_valid_moshkov_assays</span><span class="p">(</span><span class="n">auc_modality_filter</span><span class="o">=</span><span class="n">auc_modality_filter</span><span class="p">)</span>
+        <span class="n">filtered_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">filtered_assays</span><span class="p">]</span>
+        <span class="n">filtered_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">filtered_cols</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">filtered_df</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="SpheringNormalizer"><a class="viewcode-back" href="../../utils.html#tka.utils.SpheringNormalizer">[docs]</a><span class="k">class</span> <span class="nc">SpheringNormalizer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controls</span><span class="p">):</span>
+        <span class="n">REG_PARAM</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">controls</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1"># Sphering transform on population level data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">controls</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sphering_transform</span><span class="p">(</span><span class="n">controls</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="n">REG_PARAM</span><span class="p">,</span> <span class="n">rotate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># print(self.mu.shape, self.W.shape)</span>
+
+<div class="viewcode-block" id="SpheringNormalizer.sphering_transform"><a class="viewcode-back" href="../../utils.html#tka.utils.SpheringNormalizer.sphering_transform">[docs]</a>    <span class="k">def</span> <span class="nf">sphering_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">lambda_</span><span class="p">,</span> <span class="n">rotate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="n">lambda_</span><span class="p">))</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rotate</span><span class="p">:</span>
+            <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">V</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="n">W</span></div>
+
+<div class="viewcode-block" id="SpheringNormalizer.normalize"><a class="viewcode-back" href="../../utils.html#tka.utils.SpheringNormalizer.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="load_mobc_ordered_feature_columns"><a class="viewcode-back" href="../../utils.html#tka.utils.load_mobc_ordered_feature_columns">[docs]</a><span class="k">def</span> <span class="nf">load_mobc_ordered_feature_columns</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loads CellProfiler ordered features in a list format.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">importlib</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">path</span><span class="p">(</span>
+        <span class="s2">&quot;tka.data&quot;</span><span class="p">,</span> <span class="s2">&quot;mobc_feature_columns_ordered.txt&quot;</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">file_path</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">file_path</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()]</span></div>
+
+
+<div class="viewcode-block" id="load_l1000_ordered_feature_columns"><a class="viewcode-back" href="../../utils.html#tka.utils.load_l1000_ordered_feature_columns">[docs]</a><span class="k">def</span> <span class="nf">load_l1000_ordered_feature_columns</span><span class="p">(</span><span class="n">gene_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads L1000 ordered features in a list format based on the specified gene_id</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        gene_id (str): one of &quot;affyID&quot;, &quot;ensemblID&quot; or &quot;entrezID&quot;</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If either gene_id is not of the allowed probes.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: L1000 ordered features in a list format based on the specified gene_id</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">allowed_probes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;affyID&quot;</span><span class="p">,</span> <span class="s2">&quot;entrezID&quot;</span><span class="p">,</span> <span class="s2">&quot;ensemblID&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Check if the probe types are valid</span>
+    <span class="k">if</span> <span class="n">gene_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_probes</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Invalid probe type. Allowed values: &#39;affyID&#39;, &#39;entrezID&#39;, &#39;ensemblID&#39;.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">importlib</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="s2">&quot;tka.data&quot;</span><span class="p">,</span> <span class="s2">&quot;l1000_mapped.csv&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_path</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)[</span><span class="n">gene_id</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="prepare_df_for_mobc_predictions"><a class="viewcode-back" href="../../utils.html#tka.utils.prepare_df_for_mobc_predictions">[docs]</a><span class="k">def</span> <span class="nf">prepare_df_for_mobc_predictions</span><span class="p">(</span>
+    <span class="n">df_dmso</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">df_real</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">identifier_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;SMILES&quot;</span><span class="p">,</span>
+    <span class="n">grouping_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prepares df_real for predict_from_ge() inference.</span>
+
+<span class="sd">    Based on DMSO negative controls this function normalizes df_real, extracts relevant features</span>
+<span class="sd">    and possible groups them based on a prespecified column.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        identifier_col_vals (List[str]): List of strings (ids) corresponding to input data points (or any other identifiers).</span>
+<span class="sd">        df_dmso (pd.DataFrame): a df of negative control samples where the rows represent samples and columns cellprofiler features</span>
+<span class="sd">        df_real (pd.DataFrame): a df of treated samples where the rows represent samples and columns cellprofiler features</span>
+<span class="sd">        identifier_col (str): name of the column used for indexing the output dataframe</span>
+<span class="sd">        grouping_col (str, optional): if provided the output df will be grouped and mean aggregated based on that column</span>
+<span class="sd">        normalize (bool): If set to False, sphering normalization will not be used and df_dmso is not required.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: if any columns are missing from either df_real or df_dmso compared against mobc_features</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: a normalized df analogous to df_real but with only CellProfiler features</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mobc_features</span> <span class="o">=</span> <span class="n">load_mobc_ordered_feature_columns</span><span class="p">()</span>
+
+    <span class="c1"># Check if all required CellProfiler features are present in the two datasets</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">x</span> <span class="ow">in</span> <span class="n">df_real</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mobc_features</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Some column values from df_real are missing. Inspect them manually.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">x</span> <span class="ow">in</span> <span class="n">df_dmso</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mobc_features</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Some column values from df_dmso are missing. Inspect them manually.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">df_real</span> <span class="o">=</span> <span class="n">df_real</span><span class="p">[[</span><span class="n">identifier_col</span><span class="p">]</span> <span class="o">+</span> <span class="n">mobc_features</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="n">x</span> <span class="ow">in</span> <span class="n">df_dmso</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mobc_features</span><span class="p">])</span>
+        <span class="n">df_dmso</span> <span class="o">=</span> <span class="n">df_dmso</span><span class="p">[</span><span class="n">mobc_features</span><span class="p">]</span>
+        <span class="n">normalizer</span> <span class="o">=</span> <span class="n">SpheringNormalizer</span><span class="p">(</span><span class="n">df_dmso</span><span class="p">)</span>
+        <span class="n">normalized_real_vals</span> <span class="o">=</span> <span class="n">normalizer</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">df_real</span><span class="p">[</span><span class="n">mobc_features</span><span class="p">])</span>
+        <span class="n">df_real</span><span class="p">[</span><span class="n">mobc_features</span><span class="p">]</span> <span class="o">=</span> <span class="n">normalized_real_vals</span>
+
+    <span class="k">if</span> <span class="n">grouping_col</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="n">df_real</span> <span class="o">=</span> <span class="n">df_real</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">grouping_col</span><span class="p">)[</span><span class="n">mobc_features</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">df_real</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">identifier_col</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df_real</span></div>
+
+
+<div class="viewcode-block" id="docs"><a class="viewcode-back" href="../../utils.html#tka.utils.docs">[docs]</a><span class="k">def</span> <span class="nf">docs</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Upon calling the function, the website with the documentation will pop up on screen.&quot;&quot;&quot;</span>
+    <span class="c1"># Get the path to the package&#39;s directory</span>
+    <span class="n">package_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+
+    <span class="c1"># Construct the path to the index.html file using importlib.resources</span>
+    <span class="k">with</span> <span class="n">importlib</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="s2">&quot;tka.docs._build.html&quot;</span><span class="p">,</span> <span class="s2">&quot;index.html&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">html_path</span><span class="p">:</span>
+        <span class="n">html_path_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">html_path</span><span class="p">)</span>  <span class="c1"># Convert the Path object to a string</span>
+
+        <span class="c1"># Open the index.html file using the webbrowser module</span>
+        <span class="n">webbrowser</span><span class="o">.</span><span class="n">open_new_tab</span><span class="p">(</span><span class="n">html_path_str</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">docs</span><span class="p">()</span>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, TKA.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
