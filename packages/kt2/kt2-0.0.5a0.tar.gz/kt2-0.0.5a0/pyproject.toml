@@ -1,0 +1,62 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[distutils]
+index-servers = ["pypi"]
+
+[pypi]
+repository = "https://upload.pypi.org/legacy/"
+username = "terminalkitten"
+
+[project]
+name = "kt2"
+authors = [{ name = "TK", email = "tk@terminalkitten.com" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+classifiers = ["License :: OSI Approved :: MIT License"]
+dynamic = ["version", "description"]
+dependencies = [
+    "pydantic==1.10.12",
+    "click",
+    "httpx",
+    "pyfiglet",
+    "rich",
+    "toml",
+    "fhir.resources",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "devtools",
+    "ipdb",
+    "ipython",
+    "flit",
+    "ruff",
+    "isort",
+    "wheel",
+    "rich",
+]
+doc = ["pdoc3"]
+
+[project.scripts]
+kt = "kt2.cli:cli"
+
+[project.urls]
+Home = "https://github.com/terminalkitten/kt2"
+
+[tool.flake8]
+max-line-length = 120
+
+[tool.black]
+line-length = 88
+skip-string-normalization = true
+target-version = ['py310', 'py311']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.pytest.ini_options]
+markers = ["integration"]
