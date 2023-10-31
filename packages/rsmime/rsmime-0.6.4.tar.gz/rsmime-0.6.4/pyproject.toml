@@ -1,0 +1,35 @@
+[build-system]
+requires = ["maturin>=1,<2"]
+build-backend = "maturin"
+
+[project]
+name = "rsmime"
+version = "0.6.4"
+description = "Python package for signing and verifying S/MIME messages"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python",
+    "Programming Language :: Rust",
+    "Operating System :: POSIX",
+    "Operating System :: MacOS :: MacOS X",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black==23.10.1",
+    "callee==0.3.1",
+    "maturin",
+    "mike==1.1.2",
+    "mkdocs-autorefs==0.5.0",
+    "mkdocs-material==9.4.7",
+    "mkdocstrings[python]==0.23.0",
+    "pytest==7.4.3",
+]
+
+[tool.maturin]
+python-source = "python"
+include = [
+  { path = "**/*.pyi", format = ["sdist", "wheel"] },
+]
