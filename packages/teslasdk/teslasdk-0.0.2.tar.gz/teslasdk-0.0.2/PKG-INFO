@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: teslasdk
+Version: 0.0.2
+Summary: TeslaSdk
+Home-page: https://github.com/JSpiner/TeslaSdk
+Author: JSpiner
+Author-email: jspiner@naver.com
+License: MIT
+Project-URL: Bug Tracker, https://github.com/JSpiner/TeslaSdk
+Keywords: tesla teslaapi tesla-api teslasdk tesla-sdk vehicles teslamotors
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+
+# Python TeslaSdk
+
+### Installation
+This project has not yet been deployed.
+
+### Usage
+Http api client
+```python
+from tesla_sdk.client.web.web_client import WebClient
+
+client = WebClient("YOUR_AUTH_KEY")
+response = client.vehicles.list(1, 10)
+
+print(response.status_code)
+print(response.text)
+```
+
+### Api docs
+- https://developer.tesla.com/docs/fleet-api
