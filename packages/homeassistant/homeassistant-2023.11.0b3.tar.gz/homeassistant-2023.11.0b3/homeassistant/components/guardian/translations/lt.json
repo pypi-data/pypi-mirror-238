@@ -1,0 +1,54 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "leak": {
+                "name": "Aptiktas nuot\u0117kis"
+            },
+            "moved": {
+                "name": "Neseniai persik\u0117l\u0117"
+            }
+        },
+        "button": {
+            "reset_diagnostics": {
+                "name": "I\u0161 naujo nustatyti vo\u017etuvo diagnostik\u0105"
+            }
+        },
+        "sensor": {
+            "uptime": {
+                "name": "Veiklos laikas"
+            }
+        },
+        "switch": {
+            "onboard_access_point": {
+                "name": "Borto prieigos ta\u0161kas"
+            },
+            "valve_controller": {
+                "name": "Vo\u017etuvo valdiklis"
+            }
+        }
+    },
+    "services": {
+        "unpair_sensor": {
+            "name": "Atsieti jutikl\u012f"
+        },
+        "upgrade_firmware": {
+            "description": "Atnaujina \u012frenginio programin\u0119 \u012frang\u0105.",
+            "fields": {
+                "device_id": {
+                    "description": "Vo\u017etuvo valdiklis, kurio programin\u0117 \u012franga tur\u0117t\u0173 b\u016bti atnaujinta."
+                },
+                "filename": {
+                    "description": "Programin\u0117s \u012frangos failo pavadinimas.",
+                    "name": "Failo pavadinimas"
+                },
+                "port": {
+                    "description": "Prievadas, kuriame pateikiamas programin\u0117s aparatin\u0117s \u012frangos failas."
+                },
+                "url": {
+                    "description": "Serverio, kuriame yra programin\u0117s \u012frangos failas, URL."
+                }
+            },
+            "name": "Atnaujinti programin\u0119 \u012frang\u0105"
+        }
+    }
+}

@@ -1,0 +1,47 @@
+{
+    "services": {
+        "disable": {
+            "description": "Sustabdo \u012fvyki\u0173 ir b\u016bsenos poky\u010di\u0173 \u012fra\u0161ym\u0105."
+        },
+        "enable": {
+            "description": "Pradedamas \u012fvyki\u0173 ir b\u016bsen\u0173 pasikeitim\u0173 \u012fra\u0161ymas."
+        },
+        "purge": {
+            "description": "Pradedama valymo u\u017eduotis \u2013 i\u0161valyti senus duomenis i\u0161 duomen\u0173 baz\u0117s.",
+            "fields": {
+                "apply_filter": {
+                    "description": "Taiko filtrus \u201eentity_id\u201c ir \u201eevent_type\u201c, be laiku pagr\u012fsto i\u0161valymo.",
+                    "name": "Taikyti filtr\u0105"
+                },
+                "keep_days": {
+                    "description": "Duomen\u0173 saugojimo duomen\u0173 baz\u0117je dien\u0173 skai\u010dius. Nuo \u0161iandien, skai\u010diuojant atgal. Vert\u0117 \u201e7\u201c rei\u0161kia, kad viskas, kas senesn\u0117 nei savait\u0117, bus i\u0161valyta.",
+                    "name": "Dienos i\u0161laikyti"
+                },
+                "repack": {
+                    "description": "Bandykite sutaupyti vietos diske perra\u0161ydami vis\u0105 duomen\u0173 baz\u0117s fail\u0105.",
+                    "name": "Perpakuoti"
+                }
+            },
+            "name": "I\u0161valymas"
+        },
+        "purge_entities": {
+            "description": "Pradeda valymo u\u017eduot\u012f, kad i\u0161 j\u016bs\u0173 duomen\u0173 baz\u0117s pa\u0161alint\u0173 su konkre\u010diais objektais susijusius duomenis.",
+            "fields": {
+                "domains": {
+                    "description": "Domen\u0173, kuri\u0173 duomenis reikia pa\u0161alinti i\u0161 \u012fra\u0161ymo duomen\u0173 baz\u0117s, s\u0105ra\u0161as.",
+                    "name": "Domenai, kuriuos reikia pa\u0161alinti"
+                },
+                "keep_days": {
+                    "description": "Dien\u0173 skai\u010dius, per kur\u012f turi b\u016bti saugomi filtr\u0105 atitinkan\u010di\u0173 eilu\u010di\u0173 duomenys. Nuo \u0161iandien, skai\u010diuojant atgal. Vert\u0117 \u201e7\u201c rei\u0161kia, kad viskas, kas senesn\u0117 nei savait\u0119, bus i\u0161valyta. Numatytasis 0 dien\u0173 i\u0161 karto pa\u0161alins visas atitinkan\u010dias eilutes."
+                }
+            }
+        }
+    },
+    "system_health": {
+        "info": {
+            "current_recorder_run": "Dabartinis paleidimo prad\u017eios laikas",
+            "estimated_db_size": "Numatomas duomen\u0173 baz\u0117s dydis (MiB)",
+            "oldest_recorder_run": "Seniausias paleidimo prad\u017eios laikas"
+        }
+    }
+}

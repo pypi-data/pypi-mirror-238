@@ -1,0 +1,100 @@
+{
+    "config": {
+        "error": {
+            "invalid_auth": "Virheellinen todennus"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "country_code": "Tilisi maakoodi (esim. 1 Yhdysvalloissa, 358 Suomessa)",
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "Anna Tuya-tunnistetietosi."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "carbon_dioxide": {
+                "name": "Hiilidioksidi"
+            },
+            "carbon_monoxide": {
+                "name": "H\u00e4k\u00e4"
+            }
+        },
+        "select": {
+            "basic_anti_flicker": {
+                "state": {
+                    "0": "Ei k\u00e4yt\u00f6ss\u00e4"
+                }
+            },
+            "basic_nightvision": {
+                "state": {
+                    "1": "Pois",
+                    "2": "P\u00e4\u00e4ll\u00e4"
+                }
+            },
+            "light_mode": {
+                "state": {
+                    "none": "Pois"
+                }
+            },
+            "relay_status": {
+                "state": {
+                    "off": "Pois",
+                    "on": "P\u00e4\u00e4ll\u00e4",
+                    "power_off": "Pois",
+                    "power_on": "P\u00e4\u00e4ll\u00e4"
+                }
+            },
+            "vacuum_cistern": {
+                "state": {
+                    "closed": "Suljettu"
+                }
+            },
+            "vacuum_mode": {
+                "state": {
+                    "spiral": "Kierre",
+                    "standby": "Lepotilassa",
+                    "wall_follow": "Seuraa sein\u00e4\u00e4",
+                    "zone": "Alue"
+                }
+            }
+        },
+        "sensor": {
+            "carbon_monoxide": {
+                "name": "H\u00e4k\u00e4"
+            },
+            "concentration_carbon_dioxide": {
+                "name": "Hiilidioksidipitoisuus"
+            },
+            "humidity": {
+                "name": "Kosteus"
+            },
+            "illuminance": {
+                "name": "Valaistusvoimakkuus"
+            },
+            "power": {
+                "name": "Teho"
+            },
+            "sous_vide_status": {
+                "state": {
+                    "heating": "L\u00e4mmitys",
+                    "standby": "Lepotilassa"
+                }
+            },
+            "status": {
+                "state": {
+                    "standby": "Lepotilassa"
+                }
+            },
+            "temperature": {
+                "name": "L\u00e4mp\u00f6tila"
+            },
+            "voltage": {
+                "name": "J\u00e4nnite"
+            }
+        }
+    }
+}

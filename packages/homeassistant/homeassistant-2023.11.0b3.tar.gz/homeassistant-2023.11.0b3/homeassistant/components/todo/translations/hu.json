@@ -1,0 +1,64 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Teend\u0151k list\u00e1ja"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "Befejezve",
+                "needs_action": "Nincs k\u00e9sz"
+            }
+        }
+    },
+    "services": {
+        "create_item": {
+            "description": "\u00daj teend\u0151listaelem hozz\u00e1ad\u00e1sa.",
+            "fields": {
+                "status": {
+                    "description": "A teend\u0151 elem \u00e1llapota vagy meger\u0151s\u00edt\u00e9se.",
+                    "name": "\u00c1llapot"
+                },
+                "summary": {
+                    "description": "A teend\u0151t bemutat\u00f3 r\u00f6vid \u00f6sszefoglal\u00f3.",
+                    "name": "\u00d6sszefoglal\u00f3"
+                }
+            },
+            "name": "Hozzon l\u00e9tre egy teend\u0151lista elemet"
+        },
+        "delete_item": {
+            "description": "T\u00f6r\u00f6lj\u00f6n egy megl\u00e9v\u0151 teend\u0151lista elemet egyedi azonos\u00edt\u00f3j\u00e1val vagy \u00f6sszegz\u00e9s\u00e9vel.",
+            "fields": {
+                "summary": {
+                    "description": "A teend\u0151t bemutat\u00f3 r\u00f6vid \u00f6sszefoglal\u00f3.",
+                    "name": "\u00d6sszefoglal\u00f3"
+                },
+                "uid": {
+                    "description": "A teend\u0151lista elemeinek egyedi azonos\u00edt\u00f3i.",
+                    "name": "A teend\u0151k egyedi azonos\u00edt\u00f3i"
+                }
+            },
+            "name": "T\u00f6r\u00f6lj\u00f6n egy teend\u0151lista elemet"
+        },
+        "update_item": {
+            "description": "Friss\u00edtsen egy megl\u00e9v\u0151 teend\u0151lista elemet egyedi azonos\u00edt\u00f3ja vagy \u00f6sszegz\u00e9se alapj\u00e1n.",
+            "fields": {
+                "status": {
+                    "description": "A teend\u0151 elem \u00e1llapota vagy meger\u0151s\u00edt\u00e9se.",
+                    "name": "\u00c1llapot"
+                },
+                "summary": {
+                    "description": "A teend\u0151t bemutat\u00f3 r\u00f6vid \u00f6sszefoglal\u00f3.",
+                    "name": "\u00d6sszefoglal\u00f3"
+                },
+                "uid": {
+                    "description": "A teend\u0151lista elem\u00e9nek egyedi azonos\u00edt\u00f3ja.",
+                    "name": "A teend\u0151k egyedi azonos\u00edt\u00f3ja"
+                }
+            },
+            "name": "Friss\u00edtse a teend\u0151lista elem\u00e9t"
+        }
+    },
+    "title": "Teend\u0151k list\u00e1ja"
+}

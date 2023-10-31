@@ -1,0 +1,38 @@
+{
+    "config": {
+        "step": {
+            "zeroconf_confirm": {
+                "description": "Ketinate prid\u0117ti \u201eSoundTouch\u201c \u012frengin\u012f pavadinimu \u201e {name} \u201c prie \u201eHome Assistant\u201c.",
+                "title": "Patvirtinkite Bose SoundTouch \u012frenginio prid\u0117jim\u0105"
+            }
+        }
+    },
+    "services": {
+        "add_zone_slave": {
+            "fields": {
+                "master": {
+                    "description": "Pagrindinio objekto, koordinuojan\u010dio keli\u0173 kambari\u0173 zon\u0105, pavadinimas. Priklauso nuo platformos."
+                }
+            },
+            "name": "Prid\u0117ti pavald\u017ei\u0105j\u0105 zon\u0105"
+        },
+        "create_zone": {
+            "description": "Sukuriama SoundTouch keli\u0173 kambari\u0173 zona.",
+            "fields": {
+                "master": {
+                    "description": "Pagrindinio objekto, kuris koordinuos keli\u0173 kambari\u0173 zon\u0105, pavadinimas. Priklauso nuo platformos.",
+                    "name": "Meistras"
+                }
+            },
+            "name": "Sukurti zon\u0105"
+        },
+        "play_everywhere": {
+            "description": "Leid\u017eiama visuose Bose SoundTouch \u012frenginiuose.",
+            "fields": {
+                "master": {
+                    "description": "Pagrindinio subjekto, kuris koordinuos grupavim\u0105, pavadinimas. Priklauso nuo platformos. Tai spartusis klavi\u0161as, leid\u017eiantis sukurti keli\u0173 kambari\u0173 zon\u0105 su visais \u012frenginiais."
+                }
+            }
+        }
+    }
+}

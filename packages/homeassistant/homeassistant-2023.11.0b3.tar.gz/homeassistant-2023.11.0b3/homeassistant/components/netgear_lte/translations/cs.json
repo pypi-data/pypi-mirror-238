@@ -1,0 +1,56 @@
+{
+    "services": {
+        "connect_lte": {
+            "description": "Po\u017e\u00e1d\u00e1 modem o nav\u00e1z\u00e1n\u00ed p\u0159ipojen\u00ed LTE.",
+            "fields": {
+                "host": {
+                    "description": "Modem, kter\u00fd se m\u00e1 p\u0159ipojit.",
+                    "name": "Hostitel"
+                }
+            },
+            "name": "P\u0159ipojit k LTE"
+        },
+        "delete_sms": {
+            "description": "Sma\u017ee zpr\u00e1vy z doru\u010den\u00e9 po\u0161ty modemu.",
+            "fields": {
+                "host": {
+                    "description": "Modem, u kter\u00e9ho by m\u011bla b\u00fdt smaz\u00e1na zpr\u00e1va.",
+                    "name": "Hostitel"
+                },
+                "sms_id": {
+                    "description": "Cel\u00e9 \u010d\u00edslo nebo seznam cel\u00fdch \u010d\u00edsel s ID zpr\u00e1v, kter\u00e9 chcete smazat.",
+                    "name": "ID SMS"
+                }
+            },
+            "name": "Smazat SMS"
+        },
+        "disconnect_lte": {
+            "description": "Po\u017e\u00e1d\u00e1 modem o ukon\u010den\u00ed p\u0159ipojen\u00ed LTE.",
+            "fields": {
+                "host": {
+                    "description": "Modem, kter\u00fd se m\u00e1 odpojit.",
+                    "name": "Hostitel"
+                }
+            },
+            "name": "Odpojit od LTE"
+        },
+        "set_option": {
+            "description": "Nastav\u00ed volby na modemu.",
+            "fields": {
+                "autoconnect": {
+                    "description": "Re\u017eim automatick\u00e9ho p\u0159ipojen\u00ed.",
+                    "name": "Automatick\u00e9 p\u0159ipojen\u00ed"
+                },
+                "failover": {
+                    "description": "Re\u017eim p\u0159evzet\u00ed slu\u017eeb p\u0159i selh\u00e1n\u00ed.",
+                    "name": "P\u0159evz\u00edt slu\u017eby p\u0159i selh\u00e1n\u00ed"
+                },
+                "host": {
+                    "description": "Modem, na kter\u00e9m se maj\u00ed nastavit volby.",
+                    "name": "Hostitel"
+                }
+            },
+            "name": "Nastavit volby"
+        }
+    }
+}

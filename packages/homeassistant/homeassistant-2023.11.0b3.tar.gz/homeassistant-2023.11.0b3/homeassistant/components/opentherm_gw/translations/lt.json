@@ -1,0 +1,91 @@
+{
+    "services": {
+        "reset_gateway": {
+            "fields": {
+                "gateway_id": {
+                    "name": "\u0160liuzo ID"
+                }
+            },
+            "name": "I\u0161 naujo nustatyti \u0161liuz\u0105"
+        },
+        "set_central_heating_ovrd": {
+            "description": "Nustato centrinio \u0161ildymo perjungimo parinkt\u012f vartuose. Kai vir\u0161ijama valdymo nustatyta reik\u0161m\u0117 (per set_control_setpoint paslaugos skambut\u012f, kurio reik\u0161m\u0117 kitokia nei 0), vartai automati\u0161kai \u012fjungia centrinio \u0161ildymo vir\u0161ijim\u0105, kad b\u016bt\u0173 prad\u0117tas \u0161ildymas. \u0160i\u0105 paslaug\u0105 galima naudoti centrinio \u0161ildymo perjungimo b\u016bsenai valdyti. Nor\u0117dami gr\u0105\u017einti centrinio \u0161ildymo valdym\u0105 termostatui, i\u0161kvieskite paslaug\u0105 set_control_setpoint su temperat\u016bros verte 0. To prireiks tik tuo atveju, jei ra\u0161ote savo programin\u0119 termostato \u012frang\u0105.\n."
+        },
+        "set_clock": {
+            "fields": {
+                "date": {
+                    "name": "Data"
+                },
+                "time": {
+                    "description": "Pasirenkamas laikas 24h formatu, kuris bus pateiktas termostatui. Numatytasis dabartinis laikas.",
+                    "name": "Laikas"
+                }
+            },
+            "name": "Nustatykite laikrod\u012f"
+        },
+        "set_control_setpoint": {
+            "fields": {
+                "temperature": {
+                    "name": "Temperat\u016bra"
+                }
+            },
+            "name": "Nustatykite valdymo ta\u0161k\u0105"
+        },
+        "set_gpio_mode": {
+            "description": "Pakei\u010dia \u0161liuzo GPIO kai\u0161\u010di\u0173 funkcij\u0105.",
+            "fields": {
+                "id": {
+                    "description": "GPIO kai\u0161\u010dio ID.",
+                    "name": "ID"
+                }
+            },
+            "name": "Nustatykite gpio re\u017eim\u0105"
+        },
+        "set_hot_water_ovrd": {
+            "description": "Nustato buitinio kar\u0161to vandens \u012fjungimo parinkt\u012f \u0161liuze.",
+            "name": "Nustatykite kar\u0161to vandens nepaisym\u0105"
+        },
+        "set_hot_water_setpoint": {
+            "description": "\u0160liuze nustato kar\u0161to buitinio vandens kontrolin\u0119 vert\u0119.",
+            "fields": {
+                "temperature": {
+                    "name": "Temperat\u016bra"
+                }
+            },
+            "name": "Nustatykite kar\u0161to vandens nustatymo ta\u0161k\u0105"
+        },
+        "set_led_mode": {
+            "fields": {
+                "id": {
+                    "description": "LED ID",
+                    "name": "ID"
+                }
+            },
+            "name": "Nustatykite LED re\u017eim\u0105"
+        },
+        "set_max_modulation": {
+            "fields": {
+                "level": {
+                    "name": "Lygis"
+                }
+            },
+            "name": "Nustatykite maksimal\u0173 moduliavim\u0105"
+        },
+        "set_outside_temperature": {
+            "fields": {
+                "temperature": {
+                    "description": "Temperat\u016bra, kuri\u0105 reikia pateikti termostatui. Vert\u0117s nuo -40,0 iki 64,0 bus priimtos, bet ne visi termostatai gali rodyti vis\u0105 diapazon\u0105. Bet kuri didesn\u0117 nei 64,0 reik\u0161m\u0117 i\u0161valys anks\u010diau sukonfig\u016bruot\u0105 reik\u0161m\u0119 (pasi\u016blymas: 99)\n ."
+                }
+            }
+        },
+        "set_setback_temperature": {
+            "fields": {
+                "temperature": {
+                    "description": "Suma\u017e\u0117jusi temperat\u016bra, kuri\u0105 reikia konfig\u016bruoti \u0161liuze.",
+                    "name": "Temperat\u016bra"
+                }
+            },
+            "name": "Nustatykite suma\u017eint\u0105 temperat\u016br\u0105"
+        }
+    }
+}
