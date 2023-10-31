@@ -1,0 +1,9 @@
+import sys
+
+num1 = int(sys.argv[1])
+num2 = int(sys.argv[2])
+def sapaadd(num1,num2):
+    x = num1 + num2
+    return x
+
+
