@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dominx"
+description = "The Python library for game development."
+readme = {file = "README.md", content-type = "text/markdown"}
+requires-python = ">=3.7"
+license = {file = "LICENSE.txt"}
+authors = [{name = "Zenthm", email = "zenthm.dev@gmail.com"}]
+keywords = [
+    "python", "gamedev", "game-engine", "python-library", "game-development",
+    "game-framework", "game-library", "game-dev"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: MacOS X :: Cocoa",
+    "Environment :: Win32 (MS Windows)",
+    "Environment :: X11 Applications",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Games/Entertainment",
+]
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {attr = "dominx.__version__"}
+
+[tool.ruff]
+target-version = "py37"
+select = ["ALL"]
+ignore = ["D1", "D203", "D212", "PTH207", "S", "T201"]
+extend-exclude = ["docs/conf.py"]
+
+[tool.ruff.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.extend-per-file-ignores]
+"__init__.py" = ["F401"]
+"noxfile.py" = ["ARG001"]
