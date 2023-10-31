@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: ebi_eva_common_pyutils
+Version: 0.6.2
+Summary: EBI EVA - Common Python Utilities
+Home-page: https://github.com/EBIVariation/eva-common-pyutils
+License: Apache
+Keywords: EBI,EVA,PYTHON,UTILITIES
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+License-File: LICENSE
+Requires-Dist: requests
+Requires-Dist: lxml
+Requires-Dist: pyyaml
+Requires-Dist: cached-property
+Requires-Dist: retry
+Provides-Extra: eva-internal
+Requires-Dist: psycopg2-binary; extra == "eva-internal"
+Requires-Dist: pymongo; extra == "eva-internal"
+Requires-Dist: networkx<=2.5; extra == "eva-internal"
