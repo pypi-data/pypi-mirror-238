@@ -1,0 +1,34 @@
+[metadata]
+icon = "mdi:image"
+name = "MkImage"
+group = "image"
+
+[examples.with_caption]
+title = "With caption"
+jinja = """
+{{ "https://picsum.photos/200" | MkImage(caption="A caption!") }}
+"""
+
+[examples.right_aligned]
+title = "Right-aligned"
+jinja = """
+{{ "https://picsum.photos/200" | MkImage(align="right") }}
+"""
+
+[examples.fixed_width]
+title = "Fixed width"
+jinja = """
+{{ "https://picsum.photos/200" | MkImage(width=500) }}
+"""
+
+[examples.hyperlinked]
+title = "Hyperlinked"
+jinja = """
+{{ "https://picsum.photos/200" | MkImage(target="https://phil65.github.io/mknodes") }}
+"""
+
+[examples.dark_mode_image]
+title = "Separate dark mode image"
+jinja = """
+{{ "https://picsum.photos/200" | MkImage(path_dark_mode="https://picsum.photos/300") }}
+"""
