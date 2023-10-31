@@ -1,0 +1,81 @@
+#: import ProfileScreen assignment_tool.profile_screen.ProfileScreen
+#: import LetterMDTextField assignment_tool.textfields.LetterMDTextField
+#: import NumberMDTextField assignment_tool.textfields.NumberMDTextField
+
+<Screen>
+    on_leave: app.previous_screen = self.name
+
+<FocusMDRaisedButton@FocusBehavior+MDRaisedButton>
+
+<MDTextField>
+    write_tab: False
+    multiline: False
+    helper_text_mode: "on_error"
+    required: True
+    normal_color: 0,0,0,1
+
+ProfileScreen:
+    on_enter:
+        app.profile.load()
+        saveprofile.disabled = False
+        saveprofile.disabled = True
+    on_leave:
+        app.profile.load()
+        saveprofile.disabled = True
+    name: "profile"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(10)
+
+        MDToolbar:
+            title: "Profil"
+            type: "top"
+            left_action_items: [] if root.first_login else [["chevron-left", lambda x: app.back(), "Zurück (ohne speichern)"]]
+            right_action_items: [["help", app.open_about, "Über..."]]
+
+
+        MDBoxLayout:
+            orientation: "vertical"
+            pos_hint: {"top": 1}
+            spacing: dp(20)
+            padding: dp(20)
+
+            LetterMDTextField:
+                id: studentname
+                hint_text: "Nachname"
+                helper_text: "Geben Sie hier Ihren Nachnamen ein. (Erlaubte Zeichen (groß und klein): a-z, äöüß und der Punkt)"
+                max_text_length: 80
+                on_dirty:
+                    saveprofile.disabled = False
+
+            LetterMDTextField:
+                id: studentfirstname
+                hint_text: "Vorname"
+                helper_text: "Geben Sie hier Ihren Vornamen ein. (Erlaubte Zeichen (groß und klein): a-z, äöüß und der Punkt)"
+                max_text_length: 80
+                on_dirty:
+                    saveprofile.disabled = False
+
+            NumberMDTextField:
+                id: studentid
+                hint_text: "Matrikelnummer"
+                helper_text: "Geben Sie hier Ihre Matrikelnummer ein. (Fünf- oder Siebenstellig und nur Ziffern)"
+                max_text_length: 7
+                min_text_length: 5
+                on_dirty:
+                    saveprofile.disabled = False
+                focus_next: saveprofile
+
+            FocusMDRaisedButton:
+                md_bg_color: app.theme_cls.primary_dark if not self.focus else app.theme_cls.primary_color
+                id: saveprofile
+                text: "Speichern"
+                disabled: True
+                on_release:
+                    app.profile.save()
+                    self.disabled = True
+                    app.back(app.profile.check())
+                    root.first_login = not app.profile.check()
+                focus_next: studentname
+            Widget:

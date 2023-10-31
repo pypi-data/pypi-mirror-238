@@ -1,0 +1,108 @@
+#: import DetailsScreen assignment_tool.details_screen.DetailsScreen
+#: import DetailIconListItem assignment_tool.details_screen.DetailIconListItem
+#: import CheckContent assignment_tool.details_screen.CheckContent
+
+<IconLeftWidgetWithoutTouch@ILeftBody+MDIcon>
+<IconRightWidgetWithoutTouch@IRightBody+MDIcon>
+
+<CheckContent>:
+    size_hint_y: None
+    padding: dp(20)
+
+    MDSpinner:
+        id: spinner
+        size_hint: None, None
+        size: dp(46), dp(46)
+        pos_hint: {"center_y": .4}
+
+        active: True
+
+    MDLabel:
+        id: label
+        font_style: "H6"
+        text: "Warten auf das Ergebnis..."
+        valign: "center"
+        halign: "center"
+
+
+<DetailIconListItem>:
+    on_release:
+        root.my_callback()
+
+    IconLeftWidgetWithoutTouch:
+        icon: root.icon_left
+        theme_text_color: "Custom"
+        text_color: root.icon_left_color
+
+    IconRightWidgetWithoutTouch:
+        icon: root.icon_right
+
+DetailsScreen:
+    on_leave: app.previous_screen = self.name
+    name: "details"
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(10)
+
+        MDToolbar:
+            title: root.heading
+            type: "top"
+            right_action_items: [['account', lambda x: app.navigate('profile'), "Profil bearbeiten"], ["help", app.open_about, "Über..."]]
+            left_action_items: [["chevron-left", lambda x: app.navigate('assignment',"right"), "Zurück zur Aufgabenauswahl"]]
+
+        MDCard:
+            padding: dp(20)
+            size_hint: None, None
+            size: root.width, "65dp"
+            pos_hint: {"center_x": .5}
+
+            MDBoxLayout:
+
+                MDIcon:
+                    icon: "abacus"
+                    size_hint: .1, None
+                    font_size: 44
+                    height: text.height
+                    theme_text_color: "Custom"
+                    text_color: app.theme_cls.accent_color
+
+                MDLabel:
+                    id: text
+                    valign: "center"
+                    font_style: "H6"
+                    text: "Führen Sie die folgenden Schritte aus, um die Aufgabe zu bearbeiten"
+
+        MDBoxLayout:
+            padding: dp(10)
+            default_size: None, dp(48)
+            default_size_hint: 1, None
+            size_hint_y: None
+            height: self.minimum_height - 15
+            orientation: 'vertical'
+
+
+            MDList:
+                DetailIconListItem:
+                    id: download
+                    text: "text"
+                    icon_left_color: app.theme_cls.primary_dark
+                    icon_left: "numeric-1-circle-outline"
+                    icon_right: "download"
+                    on_release:
+                        root.ids.vscode.disabled = False
+
+                DetailIconListItem:
+                    id: vscode
+                    text: "text"
+                    icon_left_color: app.theme_cls.primary_dark
+                    icon_left: "numeric-2-circle-outline"
+                    icon_right: "microsoft-visual-studio-code"
+
+                DetailIconListItem:
+                    id: check_code
+                    text: "text"
+                    icon_left_color: app.theme_cls.primary_dark
+                    icon_left: "numeric-3-circle-outline"
+                    icon_right: "crosshairs-question"
+                    icon_right_badge: "checkbox-marked-circle-outline"
+        Widget:
