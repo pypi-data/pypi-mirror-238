@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "kanbanize-sdk"
+version = "0.2.1"
+description = "Kanbanize-sdk is a python library for interacting with the official Kanbanize tool environment in version 2."
+authors = ["darcivieira <darcivieira.junior@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+packages = [{include = "kanbanize_sdk"}]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3.10",
+    "Environment :: Plugins"
+
+]
+
+[tool.poetry.urls]
+"Docs" = "https://kanbanize-sdk.readthedocs.io/en/latest/"
+"GitHub" = "https://github.com/darcivieira/kanbanize-sdk/tree/main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+isort = "^5.12.0"
+requests-mock = "^1.11.0"
+pytest-cov = "^4.1.0"
+
+
+[tool.poetry.group.doc.dependencies]
+mkdocs-material = "^9.4.6"
+mkdocstrings = "^0.23.0"
+mkdocstrings-python = "^1.7.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
