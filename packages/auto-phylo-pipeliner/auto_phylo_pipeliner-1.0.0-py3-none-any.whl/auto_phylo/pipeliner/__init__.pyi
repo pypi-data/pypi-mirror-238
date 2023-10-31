@@ -1,0 +1,3 @@
+from auto_phylo.pipeliner.model.Commands import Commands
+
+def load_commands() -> Commands: ...

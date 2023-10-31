@@ -1,0 +1,55 @@
+Metadata-Version: 2.1
+Name: auto-phylo-pipeliner
+Version: 1.0.0
+Summary: A GUI to create auto-phylo pipelines.
+Author-email: Jorge Vieira <jbvieira@ibmc.up.pt>, Cristina Vieira <cgvieira@ibmc.up.pt>, Miguel Reboiro-Jato <mrjato@uvigo.gal>, Hugo López-Fernández <hlfernandez@uvigo.gal>
+License: Copyright (c) 2023 Jorge Vieira, Cristina Vieira, Hugo López-Fernández,
+        Miguel Reboiro Jato
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: documentation, http://evolution6.i3s.up.pt/static/auto-phylo/v2/docs/index.html
+Project-URL: source, https://github.com/pegi3s/auto-phylo-pipeliner
+Project-URL: tracker, https://github.com/pegi3s/auto-phylo-pipeliner/issues
+Project-URL: docker, https://hub.docker.com/r/pegi3s/auto-phylo-pipeliner
+Keywords: phylogenetics,pipeline,gui
+Classifier: Programming Language :: Python :: 3.8
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: sv-ttk ==2.5.5
+Provides-Extra: dev
+Requires-Dist: behave ==1.2.6 ; extra == 'dev'
+Requires-Dist: build ==1.0.3 ; extra == 'dev'
+Requires-Dist: mypy ==1.5.1 ; extra == 'dev'
+Requires-Dist: PyHamcrest ==2.0.4 ; extra == 'dev'
+Requires-Dist: pyroma ==4.2 ; extra == 'dev'
+Requires-Dist: twine ==4.0.2 ; extra == 'dev'
+
+# auto-phylo-pipeliner
+
+[auto-phylo](http://evolution6.i3s.up.pt/static/auto-phylo/v2/docs/) is a pipeline maker software for phylogenetic studies.
+
+auto-phylo-pipeliner is a graphical user interface to rapidly create and modify pipelines for auto-phylo.
+
+You can use [this script](https://raw.githubusercontent.com/pegi3s/auto-phylo-pipeliner/master/resources/run-docker.sh) to run the `pegi3s/auto-phylo-pipeliner` Docker image (the current working directory will be mounted and used as working directory in the new container).
