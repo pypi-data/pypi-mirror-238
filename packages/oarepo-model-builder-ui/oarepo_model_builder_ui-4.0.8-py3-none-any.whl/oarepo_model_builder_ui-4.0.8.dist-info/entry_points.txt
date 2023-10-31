@@ -1,0 +1,26 @@
+[oarepo_model_builder.builders.record]
+4000-oarepo-i18n = oarepo_model_builder_ui.builders.i18n:InvenioI18nBuilder
+4010-oarepo-i18n-setup = oarepo_model_builder_ui.builders.i18n_setup_cfg:InvenioI18NSetupCfgBuilder
+4020-oarepo-ui-layout = oarepo_model_builder_ui.builders.layout:InvenioLayoutBuilder
+4030-oarepo-ui-layout-setup = oarepo_model_builder_ui.builders.layout_setup_cfg:InvenioLayoutSetupCfgBuilder
+
+[oarepo_model_builder.datatypes.components]
+ui-components = oarepo_model_builder_ui.datatypes.components:components
+
+[oarepo_model_builder.model_preprocessors.model]
+50-oarepo-ui = oarepo_model_builder_ui.model_preprocessors.layout_settings:LayoutSettingsPreprocessor
+
+[oarepo_model_builder.outputs]
+po = oarepo_model_builder_ui.outputs.i18n:POOutput
+
+[oarepo_model_builder.validation.settings]
+ui-settings = oarepo_model_builder_ui.validation:UISettingsSchema
+
+[oarepo_model_builder.validation.ui.model]
+ui-model = oarepo_model_builder_ui.datatypes.components.model:UISchema
+
+[oarepo_model_builder.validation.ui.object]
+ui-object = oarepo_model_builder_ui.datatypes.validation:UIObjectSchema
+
+[oarepo_model_builder.validation.ui.property]
+ui-property = oarepo_model_builder_ui.datatypes.validation:UIPropertySchema
