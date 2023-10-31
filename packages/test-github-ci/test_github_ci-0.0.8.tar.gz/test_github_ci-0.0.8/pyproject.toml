@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "test-github-ci"
+version = "0.0.8"
+description = "This project tests AutoPub with GitHub Actions CI."
+authors = ["BotPub <52496925+botpub@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.0"
+pytest-sugar = "^0.9.4"
+
+[tool.poetry.scripts]
+say-hello = "test_github_ci.hello:hello"
+
+[tool.autopub]
+project-name = "TestProj"
+git-username = "botpub"
+git-email = "52496925+botpub@users.noreply.github.com"
+version-strings = ["test_github_ci/__init__.py"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0a5"]
+build-backend = "poetry.core.masonry.api"

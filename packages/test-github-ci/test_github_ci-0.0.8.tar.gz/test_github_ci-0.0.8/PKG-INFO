@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: test-github-ci
+Version: 0.0.8
+Summary: This project tests AutoPub with GitHub Actions CI.
+Author: BotPub
+Author-email: 52496925+botpub@users.noreply.github.com
+Requires-Python: >=3.7,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Description-Content-Type: text/markdown
+
+# Test AutoPub & GitHub Actions CI
+
+1. Create repository
+1. Create GitHub and PyPI tokens with appropriate scopes
+1. Add `GH_TOKEN` & `PYPI_PASSWORD` environment variables via repository Settings > Secrets > New secret
+1. Create `.github/workflows` and add appropriate GitHub CI workflow
+1. Add appropriate AutoPub configuration to `pyproject.toml`
+1. Add `RELEASE.md` file with release type and description
+1. `git add .`, commit, and push
+
