@@ -1,0 +1,93 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aind_exaspim_pipeline_utils"
+description = "AIND exaSPIM pipeline utilities."
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "Allen Institute for Neural Dynamics"}
+]
+classifiers = [
+    "Programming Language :: Python :: 3"
+]
+readme = "README.md"
+dynamic = ["version"]
+
+dependencies = [
+    'argschema',
+    'pydantic',
+    'psutil',
+    # n5 to zarr conversion
+    'dask',
+    'distributed',
+    'zarr',
+    'numcodecs',
+    'aind-data-transfer[full]',
+    'aind-data-schema'
+    # missing dependencies from aind-data-transfer[full]
+    # These supposed to be installed by post_install.sh
+#    'hdf5plugin',
+#    'kerchunk'
+]
+
+[project.optional-dependencies]
+dev = [
+    'black',
+    'coverage',
+    'flake8',
+    'interrogate',
+    'isort',
+    'Sphinx',
+    'furo'
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+aind_exaspim_pipeline = "aind_exaspim_pipeline_utils:main"
+n5tozarr_da_converter = "aind_exaspim_pipeline_utils:n5tozarr_da_converter"
+zarr_multiscale_converter = "aind_exaspim_pipeline_utils:zarr_multiscale_converter"
+
+[tool.setuptools.dynamic]
+version = {attr = "aind_exaspim_pipeline_utils.__version__"}
+
+[tool.black]
+line-length = 110
+target_version = ['py38']
+exclude = '''
+
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | build
+    | dist
+  )/
+  | .gitignore
+)
+'''
+
+[tool.coverage.run]
+omit = ["*__init__*", "*__main__*"]
+source = ["aind_exaspim_pipeline_utils", "tests"]
+
+[tool.coverage.report]
+exclude_lines = [ "pragma: no cover", "if __name__ == .__main__.:"]
+fail_under = 90
+
+[tool.isort]
+line_length = 110
+profile = "black"
+
+[tool.interrogate]
+exclude = ["setup.py", "docs", "build"]
+fail-under = 100
