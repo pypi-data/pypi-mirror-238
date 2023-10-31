@@ -1,0 +1,138 @@
+[project]
+name = "movement"
+authors = [
+  {name = "Niko Sirmpilatze", email = "niko.sirbiladze@gmail.com"},
+  {name = "Chang Huan Lo", email = "changhuan.lo@ucl.ac.uk"},
+]
+description = "Analysis of body movement"
+readme = "README.md"
+requires-python = ">=3.9.0"
+dynamic = ["version"]
+
+license = {text = "BSD-3-Clause"}
+
+dependencies = [
+    "numpy",
+    "pandas",
+    "h5py",
+    "attrs",
+    "pooch",
+    "tqdm",
+    "sleap-io",
+    "xarray",
+]
+
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: BSD License",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/neuroinformatics-unit/movement"
+"Bug Tracker" = "https://github.com/neuroinformatics-unit/movement/issues"
+"Documentation" = "https://movement.neuroinformatics.dev/"
+"Source Code" = "https://github.com/neuroinformatics-unit/movement"
+"User Support" = "https://neuroinformatics.zulipchat.com/#narrow/stream/406001-Movement"
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-cov",
+  "coverage",
+  "tox",
+  "black",
+  "mypy",
+  "pre-commit",
+  "ruff",
+  "setuptools_scm",
+  "pandas-stubs",
+  "types-attrs",
+  "check-manifest",
+]
+
+[build-system]
+requires = [
+    "setuptools>=45",
+    "wheel",
+    "setuptools_scm[toml]>=6.2",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["movement*"]
+exclude = ["tests", "docs*"]
+
+
+[tool.pytest.ini_options]
+addopts = "--cov=movement"
+
+[tool.black]
+target-version = ['py39', 'py310', 'py311']
+skip-string-normalization = false
+line-length = 79
+
+[tool.setuptools_scm]
+
+[tool.check-manifest]
+ignore = [
+  ".yaml",
+  "tox.ini",
+  "tests/",
+  "tests/test_unit/",
+  "tests/test_integration/",
+  "docs/",
+  "docs/source/",
+]
+
+[[tool.mypy.overrides]]
+module = [
+  "pooch.*",
+  "h5py.*",
+  "sleap_io.*",
+]
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 79
+exclude = ["__init__.py","build",".eggs"]
+select = ["I", "E", "F"]
+fix = true
+
+[tool.cibuildwheel]
+build = "cp39-* cp310-* cp311-*"
+
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "arm64"]
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+requires = tox-conda
+envlist = py{39,310,311}
+isolated_build = True
+
+[gh-actions]
+python =
+    3.9: py39
+    3.10: py310
+    3.11: py311
+
+[testenv]
+conda_deps =
+    pytables
+conda_channels =
+    conda-forge
+extras =
+    dev
+commands =
+    pytest -v --color=yes --cov=movement --cov-report=xml
+"""
