@@ -1,0 +1,59 @@
+import os
+from typing import Optional
+
+from pydantic import BaseModel
+
+from multinode.constants import CONFIG_FILE_PATH
+from multinode.errors import MissingEnvironmentVariableError
+from multinode.shared.worker_environment_variables import (
+    CONTROL_PLANE_API_KEY_ENV,
+    CONTROL_PLANE_API_URL_ENV,
+)
+
+
+class Config(BaseModel):
+    api_url: Optional[str] = None
+    api_key: Optional[str] = None
+
+
+def load_config_from_env() -> Config:
+    config = Config()
+    api_url = os.environ.get(CONTROL_PLANE_API_URL_ENV)
+    if api_url is not None:
+        config.api_url = api_url
+
+    api_key = os.environ.get(CONTROL_PLANE_API_KEY_ENV)
+    if api_key is not None:
+        config.api_key = api_key
+
+    return config
+
+
+def load_config_from_file() -> Config:
+    if CONFIG_FILE_PATH.exists():
+        with CONFIG_FILE_PATH.open("r") as f:
+            return Config.parse_raw(f.read())
+
+    return Config()
+
+
+def load_config_with_api_key_from_env_or_file() -> Config:
+    config = load_config_from_env()
+    if config.api_key is None:
+        # Try loading it from file
+        config = load_config_from_file()
+        if config.api_key is None:
+            # If it's still None, raise an exception
+            raise MissingEnvironmentVariableError(
+                f"{CONTROL_PLANE_API_KEY_ENV} environment variable is missing. "
+                f"Cannot authenticate with the Multinode API."
+            )
+
+    return config
+
+
+def save_config_to_file(config: Config) -> None:
+    CONFIG_FILE_PATH.parent.mkdir(exist_ok=True)
+
+    with CONFIG_FILE_PATH.open("w") as f:
+        f.write(config.json(exclude_none=True, exclude_unset=True))
