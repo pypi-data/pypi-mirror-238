@@ -1,0 +1,105 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    object      snappyHexMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#includeEtc "caseDicts/mesh/generation/snappyHexMeshDict.cfg"
+
+castellatedMesh on;
+snap            on;
+addLayers       off;
+
+geometry
+{
+    // zones to replace
+
+    // context meshes to replace
+
+    // refinement mesh to replace
+
+    // refinementBox
+    // {
+    //     type searchableBox;
+    //     min  (  0   0   0);
+    //     max  (50   50  10);
+    // }
+
+};
+
+castellatedMeshControls
+{
+    features
+    (
+        // zones features to replace
+
+        // context meshes features to replace
+
+        // refinement mesh features to replace
+    );
+
+    refinementSurfaces
+    {
+        // zones refinementSurfaces to replace
+
+        // context meshes refinementSurfaces to replace
+    }
+
+    refinementRegions
+    {
+        // refinement mesh refinementRegions to replace
+        
+        // refinementBox
+        // {
+        //     mode    inside;
+        //     level   2;
+        // }
+    }
+
+    // location in mesh to replace
+}
+
+snapControls
+{
+    explicitFeatureSnap    true;
+    implicitFeatureSnap    false;
+}
+
+addLayersControls
+{
+    layers
+    {
+        "CAD.*"
+        {
+            nSurfaceLayers 2;
+        }
+    }
+
+    relativeSizes       true;
+    expansionRatio      1.2;
+    finalLayerThickness 0.5;
+    minThickness        1e-3;
+}
+
+meshQualityControls
+{}
+
+writeFlags
+(
+    // scalarLevels
+    // layerSets
+    // layerFields
+);
+
+mergeTolerance 1e-6;
+
+// ************************************************************************* //
