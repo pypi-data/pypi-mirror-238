@@ -1,0 +1,33 @@
+from invenio_access.permissions import system_identity
+from {{ vars.proxy.module }} import {{ vars.service.proxy }}
+{{ vars.record.class|generate_import }}
+{{ published_record.record.class|generate_import }}
+
+@pytest.fixture(scope="function")
+def {{ fixtures.sample_record }}(app, db, input_data):
+    with UnitOfWork(db.session) as uow:
+        record = {{ vars.record.class|base_name }}.create(input_data)
+        uow.register(RecordCommitOp(record, {{ vars.service.proxy }}.indexer, True))
+        uow.commit()
+        return record
+
+@pytest.fixture()
+def vocab_cf(app, db, cache):
+    from oarepo_runtime.cf.mappings import prepare_cf_indices
+
+    prepare_cf_indices()
+
+@pytest.fixture
+def published_record_factory(record_service):
+    """Create a draft and publish it."""
+    def create_record(input_data):
+        draft = record_service.create(system_identity, input_data)
+        published_record = record_service.publish(system_identity, draft.data["id"])
+        record = {{ published_record.record.class|base_name }}.pid.resolve(published_record["id"])
+        return record
+    return create_record
+
+@pytest.fixture
+def sample_published_record(record_service, published_record_factory, input_data):
+    """Create a draft and publish it."""
+    return published_record_factory(input_data)
