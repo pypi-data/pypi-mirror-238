@@ -1,0 +1,53 @@
+Metadata-Version: 2.1
+Name: wunlatex
+Version: 0.1.0
+Summary: Write LaTeX documents
+License: MIT
+Author: Philippe Lacroix-Ouellette
+Author-email: philippe.lacroix-ouellette@hec.ca
+Requires-Python: >=3.11,<3.12
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: pandas (>=2.1.1,<3.0.0)
+Requires-Dist: pytest (>=7.4.3,<8.0.0)
+Requires-Dist: wuncolors (>=0.1.0,<0.2.0)
+Description-Content-Type: text/markdown
+
+# wunlatex
+
+Library for LaTeX document writing
+
+```python
+from pathlib import Path
+
+import wunlatex
+import pandas as pd
+from matplotlib import pyplot as plt
+
+
+doc = wunlatex.Document("Test")
+
+df = pd.DataFrame([(1, 2, 3 , 4)], columns=["One", "JJJ", "LKAS", "ONENEE"])
+tbl = wunlatex.components.Table("Random Numbers", df)
+doc.add_component(tbl)
+
+# Sections within other sections are subsections, then subsubsections etc.
+doc.add_component(
+    wunlatex.components.Section("First", components=[
+        wunlatex.components.Section("Subsection 1", components=[tbl]),
+        wunlatex.components.Section("Subsection 2", components=[
+            wunlatex.components.Section("SubSubSection 3")
+        ])
+    ])
+)
+
+fig, ax = plt.subplots()
+ax.plot([1, 1], [0, 1])
+figname = Path(__file__).parent / "testfig.png"
+plt.savefig(figname)
+f = wunlatex.components.Figure("Test Fig", path=figname)
+doc.add_component(f)
+
+doc.compile(Path(__file__).parent, filename="Testpdf.pdf")
+```

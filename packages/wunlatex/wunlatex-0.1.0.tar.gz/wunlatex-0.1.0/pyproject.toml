@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "wunlatex"
+version = "0.1.0"
+description = "Write LaTeX documents"
+authors = ["Philippe Lacroix-Ouellette <philippe.lacroix-ouellette@hec.ca>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "~3.11"
+pandas = "^2.1.1"
+wuncolors = "^0.1.0"
+pytest = "^7.4.3"
+
+
+[tool.poetry.group.dev.dependencies]
+matplotlib = "^3.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
