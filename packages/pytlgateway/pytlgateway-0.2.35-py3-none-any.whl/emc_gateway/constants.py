@@ -1,0 +1,10 @@
+GATEWAY_NAME = 'emc'
+
+class FILES:
+    ORDERS = 'BUSALGOORDER_'
+    ALGO_TASKS = '_ALGO_TASK_PUSH.'
+
+    TRADES = '_ALGO_MATCH_PUSH.' 
+
+    POSITIONS  = '_POSITION.'
+    ACCOUNTS = '_FUND.'
