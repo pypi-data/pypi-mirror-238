@@ -1,0 +1,104 @@
+Metadata-Version: 2.1
+Name: ninjaconnect
+Version: 2.1.22
+Summary: The NINJA CONNECT is a Command-Line Interface (CLI) tool designed to simplify the configuration and management your device to our labs
+Home-page: https://pypi.org/project/ninjaconnect/
+Author: Prasaanth
+Author-email: prasaanth2k@gmail.com
+Maintainer: Prasaanth
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+Requires-Dist: keyring ==23.5.0
+Requires-Dist: Requests ==2.31.0
+Requires-Dist: rich ==13.6.0
+
+# Ninja Connect
+[![Downloads](https://static.pepy.tech/badge/ninjaconnect/month)](https://pepy.tech/project/ninjaconnect)
+[![Supported Python Versions](https://img.shields.io/pypi/pyversions/rich/13.2.0)](https://pypi.org/project/rich/)
+[![PyPI version](https://badge.fury.io/py/ninjaconnect.svg)](https://badge.fury.io/py/ninjaconnect)
+![ninjaconnect](https://img.shields.io/badge/ninjaconnector-blue)    
+# Supported Platforms  ![linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+
+NinjaConnect is a Python package designed to facilitate the connection to the WireGuard VPN command-line interface (CLI) based package. This package enables users to establish a connection between their devices and their our laboratory environments using straightforward and simple commands. In essence, NinjaConnect streamlines the process of connecting your device to your lab through the WireGuard VPN, making it more user-friendly and accessible.
+
+# Installation
+
+Installation of NinjaConnect is straightforward and can be accomplished using Python in any Linux environment with the following simple command
+
+```
+pipx install ninjaconnect
+```
+`Note : Use pipx insted of pip then only the package will been access globaly `
+
+## IF you configured already you can simply just login and connect to labs
+
+## Command and Steps
+# Step 1 :
+```
+ninja configure
+```
+
+![configure](https://i.imgur.com/8yHkjat.png)
+`Note : in case any error happend configure it again`
+# Step 2 :
+```
+ninja login
+```
+
+![logingit](https://i.imgur.com/eLlxzk0.png)
+# Step 3 :
+```
+ninja add_device
+```
+![adddevice](https://i.imgur.com/LstuXGA.png)
+
+
+# Step 4
+```
+ninja connect
+```
+
+![connect](https://i.imgur.com/ofoa59k.png)
+
+Now all its ok you can now able to ping and ssh you labs IP
+
+# Step 6
+After the you work completed you can disconnect
+
+```
+ninja disconnect
+```
+![disconnect](https://i.imgur.com/BpEffjl.png)
+# Step 7
+For logout use 
+
+```
+ninja logout
+```
+![logout](https://i.imgur.com/ceiUmCl.png)
+# You Can also use the wizard for easy to install 
+```
+ninja wizmode
+```
+![wizmode](https://i.imgur.com/4tbaMOj.png)
+
+# Help 
+![help](https://i.imgur.com/PIIVCCe.png)
+
+`
+Please note that this is a beta version,incase any issues. We appreciate your feedback in Telegram @selfmadeninjasupport
+`
+![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
