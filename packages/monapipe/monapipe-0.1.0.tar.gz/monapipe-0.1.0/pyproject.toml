@@ -1,0 +1,64 @@
+# SPDX-FileCopyrightText: 2022 Georg-August-Universität Göttingen
+#
+# SPDX-License-Identifier: CC0-1.0
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "monapipe"
+version = "0.1.0"
+authors = [
+    { name = "Tillmann Dönicke", email = "tillmann.doenicke@uni-goettingen.de" },
+    { name = "Florian Barth", email = "florian.barth@uni-goettingen.de" },
+    { name = "Hanna Varachkina", email = "hanna.varachkina@stud.uni-goettingen.de"}
+]
+description = "MONAPipe provides natural-language-processing tools for German, implemented in Python/spaCy."
+readme = "README.md"
+license = { file="LICENSES/LGPL-3.0-or-later.txt" }
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pip>=23.2.1",
+    "setuptools>=61.0",
+    "dill",
+    "flair",
+    "germanetpy",
+    "ipykernel",
+    "minetext",
+    "mlflow",
+    "nltk",
+    "omegaconf",
+    "pytorch_transformers",
+    "seaborn",
+    "sentry-sdk",
+    "spacy",
+    "spacy_download",
+    "tensorflow",
+    "torch<2.0", # <2.0 to work with flair
+    "tgclients",
+    "transformers",
+]
+
+[tool.setuptools]
+license-files = ["LICENSES/*.txt"]
+package-dir = {"" = "src"}
+
+[project.urls]
+"Gitlab" = "https://gitlab.gwdg.de/text-plus-collections/mona-pipe"
+
+[tool.black]
+line-length = 100
+
+[tool.isort]
+profile = "black"
