@@ -1,0 +1,58 @@
+Metadata-Version: 2.1
+Name: jarvis-python
+Version: 1.0.2
+Summary: All in Jarvis!
+Home-page: UNKNOWN
+Author: killf
+License: UNKNOWN
+Keywords: workflow
+Platform: UNKNOWN
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+All in Jarvis
+====
+
+> Jarvis是一个基于工作流的计算框架，用以简化工程和算法的协同开发。
+
+
+# 一、Install
+
+```shell
+pip install jarvis-python
+```
+
+# 二、Example
+
+在jarvis中编写Flow和编写普通的python函数一样简单，如下：
+
+```python
+import jarvis
+import asyncio
+
+
+@jarvis.operator()
+async def add(a, b):
+    await asyncio.sleep(1)
+    return a + b
+
+
+@jarvis.operator()
+async def sub(a, b):
+    await asyncio.sleep(1)
+    return a - b
+
+
+@jarvis.flow()
+async def demo(a, b):
+    c = await add(a, b)
+    d = await sub(a, b)
+    if a < b:
+        return d
+    else:
+        return c
+```
+
+
