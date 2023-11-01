@@ -1,0 +1,25 @@
+[build-system]
+requires = ["scikit-build-core", "pybind11"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "random_username_for_pip_package_toadharvard"
+version = "1.0.0"
+description = "Python bindings for Desbordante: https://github.com/Mstrutov/Desbordante"
+requires-python = ">=3.7"
+license = { text = "AGPL-3.0-only" }
+
+[tool.scikit-build.cmake.define]
+PYTHON = "INSTALL"
+UNPACK_DATASETS = "OFF"
+COMPILE_TESTS = "OFF"
+ASAN = "OFF"
+
+[tool.scikit-build.sdist]
+include = ["lib/*"]
+exclude = [
+    "datasets/*",
+    "images/*",
+    "pull_datasets.sh",
+    "docs/*",
+]

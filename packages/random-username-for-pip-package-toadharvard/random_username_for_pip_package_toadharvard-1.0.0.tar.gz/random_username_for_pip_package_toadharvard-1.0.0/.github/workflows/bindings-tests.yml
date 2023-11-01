@@ -1,0 +1,26 @@
+name: Python
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  test-python-bindings:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download libraries
+        uses: ./.github/composite-actions/download-libraries
+        with:
+          download-pybind: true
+          download-googletest: false
+      - name: Build pip package and test it
+        working-directory: ${{github.workspace}}
+        shell: bash
+        run: |
+          cp test_input_data/WDC_satellites.csv src/python_bindings/
+          pip install .
+          cd src/python_bindings
+          python test_bindings.py

@@ -1,0 +1,17 @@
+name: Post clang-tidy review comments
+
+on:
+  workflow_run:
+    workflows: ["Codestyle"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: ZedThree/clang-tidy-review/post@v0.13.4
+        id: post
+        with:
+          lgtm_comment_body: ''
