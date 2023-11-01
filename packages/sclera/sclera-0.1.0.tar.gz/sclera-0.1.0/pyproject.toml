@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "sclera"
+version = "0.1.0"
+description = "One-stop destination for Computer Vision with Keras"
+authors = [
+    "Suvaditya Mukherjee <suvadityamuk@gmail.com>", 
+    "Shireen Chand <shireen.chand3@gmail.com>", 
+    "Shreyas Dongre <shreyasgsms@gmail.com>"
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+keras = "^2.14.0"
+keras-core = "^0.1.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 80
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
