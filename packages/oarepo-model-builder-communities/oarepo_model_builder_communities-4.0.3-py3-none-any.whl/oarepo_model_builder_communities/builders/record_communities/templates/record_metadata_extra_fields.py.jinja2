@@ -1,0 +1,2 @@
+class {{ vars.record_metadata|class_header }}:
+    __record_model__ = {{ published_record.draft_parent_record_metadata.class|base_name }}

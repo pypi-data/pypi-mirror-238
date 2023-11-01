@@ -1,0 +1,5 @@
+{{ vars.resource_config.class|generate_import }}
+
+BASE_URLS = {
+    "base_community_records_url": {{ vars.resource_config.class|base_name }}.url_prefix
+}
