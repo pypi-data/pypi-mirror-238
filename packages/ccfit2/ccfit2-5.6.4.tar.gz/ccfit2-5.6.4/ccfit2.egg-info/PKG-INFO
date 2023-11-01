@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: ccfit2
+Version: 5.6.4
+Summary: CCFIT2 is a program for fitting AC and DC magnetisation data
+Home-page: https://gitlab.com/chilton-group/cc-fit2
+Project-URL: Bug Tracker, https://gitlab.com/chilton-group/cc-fit2/-/issues
+Project-URL: Documentation, https://chilton-group.gitlab.io/cc-fit2
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.26.1
+Requires-Dist: scipy>=1.11.3
+Requires-Dist: matplotlib>=3.8.0
+Requires-Dist: pillow>=10.1.0
+Requires-Dist: requests>=2.31.0
+Requires-Dist: qtpy>=2.4.0
+Requires-Dist: pyqtgraph>=0.13.2
+Requires-Dist: charset_normalizer>=3.1.0
+Requires-Dist: pandas>=2.1.1
+
+# ccfit2
+
+`ccfit2` is a package for working with magnetometry data, specifically those from AC susceptibility, DC decay, and DC Waveform measurements.
+
+Although the main use of `ccfit2` is to extract and later fit temperature/field dependent relaxation rate data from these experiments, the modular nature
+of `ccfit2` means that the user is free to include any of `ccfit2`'s functionality in their own work.
+
+## Documentation and Installation
+
+To get started, head to the online documentation for `ccfit2` [here](https://chilton-group.gitlab.io/cc-fit2/).
+
+## Developers
+
+Install in editable mode by running
+
+```
+pip install -e .
+```
+
+in the repository HEAD.
+
+## Reference
+
+We request that any data processed with ccfit2 is accompanied by **both** of the following citations
+
+1. William J. A. Blackmore, Gemma K. Gransbury, Peter Evans, Jon G. C. Kragskow, David P. Mills, and Nicholas F. Chilton. Characterisation of magnetic relaxation on extremely long timescales. Phys. Chem. Chem. Phys., 2023, 25, 16735-16744. URL: https://dx.doi.org/10.1039/d3cp01278f
+
+2. Daniel Reta and Nicholas F. Chilton. Uncertainty estimates for magnetic relaxation times and magnetic relaxation parameters. 	Phys. Chem. Chem. Phys., 2019, 21, 23567-23575. URL: https://dx.doi.org/10.1039/C9CP04301B 
