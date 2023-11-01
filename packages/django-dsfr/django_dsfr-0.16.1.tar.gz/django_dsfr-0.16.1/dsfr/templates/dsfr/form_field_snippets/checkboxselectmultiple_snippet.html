@@ -1,0 +1,17 @@
+{% load widget_tweaks %}
+<fieldset class="fr-fieldset{% if field.errors %} fr-fieldset--error{% endif %}" id="checkboxes-{{ field.auto_id }}" aria-labelledby="{{ field.auto_id }}-legend{% if field.errors %} {{ field.auto_id }}-messages{% endif %}">
+  <legend class="fr-fieldset__legend fr-text--regular" id="{{ field.auto_id }}-legend">
+    {{ field.label_tag }}{% if field.field.required %} *{% endif %}
+    {% if field.help_text %}<span class="fr-hint-text">{{ field.help_text }}</span>{% endif %}
+  </legend>
+
+  <div class="fr-fieldset__content">
+    {% include "dsfr/form_field_snippets/checkbox_snippet.html" %}
+  </div>
+
+  {% if field.errors %}
+  <div id="{{ field.auto_id }}-messages" class="fr-error-text">
+    {{ field.errors }}
+  </div>
+{% endif %}
+</fieldset>
