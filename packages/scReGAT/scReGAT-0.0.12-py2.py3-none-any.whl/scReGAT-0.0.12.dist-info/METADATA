@@ -1,0 +1,191 @@
+Metadata-Version: 2.1
+Name: scReGAT
+Version: 0.0.12
+Summary: A GAT-based computational framework to predict long-range gene regulatory relationships
+Home-page: https://github.com/Drizzle-Zhang/scReGAT
+Author: Yu Zhang
+Author-email: zhang_yu18@fudan.edu.cn
+License: MIT
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.8.3
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scikit-learn
+Requires-Dist: scipy
+Requires-Dist: statsmodels
+Requires-Dist: anndata
+Requires-Dist: scanpy
+Requires-Dist: episcanpy (==0.3.1)
+Requires-Dist: cosg
+Requires-Dist: torch
+Requires-Dist: pyg-lib
+Requires-Dist: torch-scatter
+Requires-Dist: torch-sparse
+Requires-Dist: torch-cluster
+Requires-Dist: torch-spline-conv
+Requires-Dist: torch-geometric
+Requires-Dist: captum
+Requires-Dist: audtorch
+
+
+# scReGAT
+A GAT-based computational framework to predict long-range gene regulatory relationships.
+
+
+## Installation
+
+### install pytorch
+Refer to: https://pytorch.org/get-started/previous-versions/
+Example code:
+```
+conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.7 -c pytorch -c nvidia
+```
+
+### install pyG
+Refer to: https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html
+Example code:
+```
+pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.0.0+cu117.html
+```
+
+# install scReGAT
+```
+pip install scregat
+```
+
+
+
+
+## Usage
+
+### 1. Prepare scReGAT inputs
+
+#### From Seuratbject
+
+- Suppose `SeuratObj_ATAC` and `SeuratObj_RNA` are your SeuratObjects of scATAC-seq and scRNA-seq.
+- Note that `SeuratObj_ATAC` must have two metadata columns named "celltype" and "celltype_rna", and `SeuratObj_RNA` must have a metadata column named "celltype".
+
+```
+library(Seurat)
+library(SeuratDisk)
+# save ATAC.h5ad
+scregat_ATAC <- CreateSeuratObject(SeuratObj_ATAC@assays$ATAC@counts,meta.data = SeuratObj_ATAC@meta.data)
+scregat_ATAC@assays$RNA@meta.features$name <- rownames(scregat_ATAC@assays$RNA@meta.features)
+SaveH5Seurat(scregat_ATAC, filename = 'ATAC.h5Seurat',overwrite = T)
+Convert(ATAC.h5Seurat, dest = "h5ad",overwrite = T)
+# save RNA.h5ad
+scregat_RNA <- CreateSeuratObject(SeuratObj_RNA@assays$RNA@counts,meta.data = SeuratObj_RNA@meta.data)
+scregat_RNA@assays$RNA@meta.features$name = rownames(scregat_RNA@assays$RNA@meta.features)
+SaveH5Seurat(scregat_RNA, filename = 'RNA.h5Seurat',overwrite = T)
+Convert(RNA.h5Seurat, dest = "h5ad",overwrite = T)
+```
+
+#### From SingleCellExperiment
+- Suppose `sce` is your SingleCellExperiment Object of scATAC-seq.
+- Note that `sce` must have two metadata columns named "celltype" and "celltype_rna".
+
+```
+library(Seurat)
+library(Signac)
+library(SingleCellExperiment)
+counts <- assay(sce)
+rownames(counts) <- GRangesToString(rowRanges(sce))
+scregat_ATAC <- CreateSeuratObject(counts,meta.data = colData(sce))
+scregat_ATAC@assays$RNA@meta.features$name <- rownames(scregat_ATAC@assays$RNA@meta.features)
+SaveH5Seurat(scregat_ATAC, filename = 'ATAC.h5Seurat',overwrite = T)
+Convert(ATAC.h5Seurat, dest = "h5ad",overwrite = T)
+```
+
+#### Randomly select a subset of cells
+```
+set.seed(123)
+scregat_ATAC <- subset(scregat_ATAC,cells = sample(colnames(scregat_ATAC),20000))
+```
+
+
+### 2. Run scReGAT
+
+#### import packages
+```
+import os
+import pandas as pd
+import torch
+import anndata as ad
+from torch_geometric.loader import DataLoader
+import scanpy as sc
+from data_process_txm import prepare_model_input,sum_counts,plot_edge
+from scregat.model import train_scregat, explain_model_ig
+```
+
+#### set file path
+```
+SAMPLE = 'SF11857'
+path_demo = '/home/txm/txmdata/scREGION/run/NatCan_GBM/' + SAMPLE + '/run_scReGAT/'
+dir_scReGAT = 'scReGAT'
+atac_file = 'ATAC.h5ad'
+```
+
+#### read in scRNA-seq data
+```
+RNA_h5ad_file = "/home/txm/txmdata/scREGION/run/NatCan_GBM/" + SAMPLE + "/run_scReGAT/RNA.h5ad"
+adata_rna = sc.read_h5ad(RNA_h5ad_file)
+adata_rna.obs['celltype'] = adata_rna.obs['celltype'].astype('object')
+df_rna = sum_counts(adata_rna,by = 'celltype',marker_gene_num=200)
+```
+
+#### prepare_model_input
+```
+dataset_atac, dataset_graph = prepare_model_input(
+    path_data_root = path_demo, 
+    file_atac = atac_file, 
+    df_rna_celltype = df_rna,
+    path_eqtl = '/home/txm/txmdata/scREGION/scReGAT/v0.0.0/data/all_tissue_SNP_Gene.txt',
+    hg19tohg38 = False, min_percent = 0.01)
+```
+
+
+
+#### Train the gene expression prediction model
+```
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+model_scReGAT, test_dataset = \
+    train_scregat(path_demo, dataset_atac, dir_scReGAT, device,
+                  hidwidth=16, numhead=8, num_epoch=19, learning_rate=1e-3,print_process = True)
+```
+
+
+#### Predict regulatory intensity scores (RISs) by attribution method
+
+- load well-trained model
+```
+path_model = os.path.join(path_demo, dir_scReGAT)
+file_model = os.path.join(path_model,'Model_batch_size_16_hidwidth_16_numhead_8_lr_0.001_numepoch_19_split_0.6.pt')
+model_scReGAT = torch.load(file_model)
+```
+
+- write predicted RIS matrix to "file_weight"
+```
+file_weight = os.path.join(path_model, "mat_RIS_small.tsv")
+df_mat_RIS = explain_model_ig(
+    dataset_atac, model_scReGAT, device, test_dataset, file_weight,print_process = True)
+```
+
+#### Visualize the cells profiled by the RIS matrix
+```
+plot_edge(df_mat_RIS, dataset_atac)
+```
+
+
+
+
+
+
