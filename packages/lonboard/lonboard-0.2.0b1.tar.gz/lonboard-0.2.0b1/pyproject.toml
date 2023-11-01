@@ -1,0 +1,60 @@
+[tool.poetry]
+name = "lonboard"
+version = "0.2.0-beta.1"
+description = "Extremely fast geospatial data visualization in Python."
+authors = ["Kyle Barron <kyle@developmentseed.org>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "lonboard" }]
+include = ["lonboard/static/*.js", "lonboard/static/*.css"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+anywidget = "^0.6.3"
+pyarrow = "^13.0.0"
+geopandas = ">=0.13"
+palettable = "^3.3.3"
+# We use the colormap module from matplotlib. This module may be vendored in the
+# future to remove the matplotlib dependency.
+matplotlib = "^3.7"
+shapely = "^2"
+
+
+[tool.poetry.group.dev.dependencies]
+anywidget = { version = "^0.6.3", extras = ["dev"] }
+jupyterlab = "^4.0.5"
+watchfiles = "^0.20.0"
+pre-commit = "^3.4.0"
+pytest = "^7.4.2"
+# We use ruff format ourselves, but mkdocstrings requires black to be installed
+# to format signatures in the docs
+black = "^23.10.1"
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = "^1.4.3"
+mkdocs-material = { version = "^9.1.16", extras = ["imaging"] }
+mkdocstrings = {version = "^0.23.0", extras = ["python"]}
+# This version only on 3.9+. Ok because it's a dev dependency
+mkdocs-jupyter = {version = "^0.24.5", python = "^3.9"}
+# Mike hasn't made a release in two years...
+mike = { git = "https://github.com/jimporter/mike", rev = "b3eea1258fea864cfe7ed2dd7b583d5a63ce2209" }
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+select = [
+    # Pyflakes
+    "F",
+    # Pycodestyle
+    "E",
+    "W",
+    # isort
+    "I"
+]
+
+[tool.ruff.extend-per-file-ignores]
+"__init__.py" = [
+    "F401", # Allow unused imports in __init__.py files
+]
