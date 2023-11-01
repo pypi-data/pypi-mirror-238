@@ -1,0 +1,40 @@
+Metadata-Version: 2.1
+Name: awsx
+Version: 0.0.2
+Summary: awsx
+Author-email: Xu <deep.work.max@gmail.com>
+Project-URL: Homepage, https://github.com/pypa/sampleproject
+Project-URL: Bug Tracker, https://github.com/pypa/sampleproject/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Click
+Requires-Dist: boto3
+Requires-Dist: configparser
+Requires-Dist: pyperclip
+Requires-Dist: psutil
+
+---
+
+**AWS Role Token Fetcher with CLI Options**
+
+This script facilitates AWS users in retrieving their identity and temporary security token. By leveraging the AWS SDK for Python (Boto3) and Click (a Python package for creating command-line interfaces), the script efficiently fetches the identity of the caller and the temporary credentials from AWS.
+
+**Features**:
+
+1. **Retrieve Caller Identity**: The script uses the Security Token Service (STS) to get the User ID and Amazon Resource Name (ARN) of the caller.
+2. **Fetch Temporary Credentials**: It obtains the current session's access key, secret key, and token, allowing for secure AWS operations without long-term access keys.
+3. **Command-line Options**:
+   - `--profile`: Specify the AWS CLI profile name. This is useful if you have multiple AWS profiles and want to use a specific one.
+   - `--region`: Define the AWS region you want to operate in. Default is set to `cn-north-1`.
+
+**Usage**:
+```bash
+awsx --profile your_profile_name --region desired_region
+```
+If no options are specified, the script uses the default settings.
+
+---
