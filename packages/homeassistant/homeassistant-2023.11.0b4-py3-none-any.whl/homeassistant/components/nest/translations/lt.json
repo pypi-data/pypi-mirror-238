@@ -1,0 +1,64 @@
+{
+    "config": {
+        "error": {
+            "unknown": "Nenumatyta klaida"
+        },
+        "step": {
+            "cloud_project": {
+                "title": "Nest: \u012fveskite debesies projekto ID"
+            },
+            "create_cloud_project": {
+                "description": "\"Nest\" integracija leid\u017eia integruoti \"Nest\" termostatus, kameras ir dur\u0173 skambu\u010dius naudojant \"Smart Device Management\" API. SDM API **reikalingas 5 USD ** vienkartinis nustatymo mokestis. Per\u017ei\u016br\u0117kite [daugiau informacijos]({more_info_url}) dokumentacij\u0105.\n\n1. Eikite \u012f [Google Cloud Console]({cloud_console_url}).\n1. Jei tai j\u016bs\u0173 pirmasis projektas, spustel\u0117kite **Sukurti projekt\u0105**, tada **Naujas projektas**.\n1. Suteikite savo debesies projektui pavadinim\u0105 ir spustel\u0117kite **Sukurti**.\n1. I\u0161saugokite debesies projekto ID, pvz., *pavyzdys-projektas-12345*, nes jums jo prireiks v\u0117liau\n1. Eikite \u012f API bibliotek\u0105, skirt\u0105 [I\u0161mani\u0173j\u0173 \u012frengini\u0173 valdymo API]({sdm_api_url}) ir spustel\u0117kite **\u012egalinti**.\n1. Eikite \u012f API bibliotek\u0105, skirt\u0105 [Cloud Pub/Sub API]({pubsub_api_url}) ir spustel\u0117kite **\u012egalinti**.\n\nT\u0119skite, kai j\u016bs\u0173 debesies projektas yra nustatytas.",
+                "title": "\u201eNest\u201c: kurkite ir konfig\u016bruokite \u201eCloud Project\u201c."
+            },
+            "device_project": {
+                "data": {
+                    "project_id": "\u012erenginio prieigos projekto ID"
+                },
+                "description": "Sukurkite \"Nest Device Access\" projekt\u0105, kur\u012f **norint nustatyti reikia sumok\u0117ti \"Google\" 5 USD mokest\u012f**.\n1. Eikite \u012f [Device Access Console]({device_access_console_url}) ir per mok\u0117jimo sraut\u0105.\n1. Spustel\u0117kite **Sukurti projekt\u0105**\n1. Suteikite savo \u012frenginio prieigos projektui pavadinim\u0105 ir spustel\u0117kite **Kitas**.\n1. \u012eveskite savo \"OAuth\" kliento ID\n1. \u012ejunkite \u012fvykius spustel\u0117dami **\u012ejungti** ir **Sukurti projekt\u0105**.\n\nToliau \u012fveskite savo \u012frenginio prieigos projekto ID ([daugiau informacijos]({more_info_url})).\n",
+                "title": "Nest: sukurkite \u012frenginio prieigos projekt\u0105"
+            },
+            "device_project_upgrade": {
+                "description": "\"Nest\" \u012frenginio prieigos projekto naujinimas naudojant nauj\u0105 \"OAuth\" kliento ID ([daugiau informacijos]({more_info_url}))\n1. Eikite \u012f [\u012erengini\u0173 prieigos konsol\u0117]({device_access_console_url}).\n1. Spustel\u0117kite \u0161iuk\u0161liad\u0117\u017e\u0117s piktogram\u0105 \u0161alia *OAuth kliento ID*.\n1. Spustel\u0117kite \"...\" perpildymo meniu ir * Prid\u0117ti kliento ID *.\n1. \u012eveskite savo nauj\u0105 \"OAuth\" kliento ID ir spustel\u0117kite **Prid\u0117ti**.\n\nJ\u016bs\u0173 \"OAuth\" kliento ID yra: \"{client_id}\"",
+                "title": "Nest: atnaujinkite \u012frenginio prieigos projekt\u0105"
+            },
+            "link": {
+                "data": {
+                    "code": "PIN kodas"
+                }
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "camera_motion": "Aptiktas judesys",
+            "camera_person": "Aptiktas asmuo",
+            "camera_sound": "Aptiktas garsas"
+        }
+    },
+    "issues": {
+        "legacy_nest_deprecated": {
+            "description": "Legacy Works With Nest pa\u0161alinamas i\u0161 nam\u0173 asistento. \n\n Nor\u0117dami naudoti SDM API, turite imtis veiksm\u0173. Pa\u0161alinkite vis\u0105 \u201enest\u201c konfig\u016bracij\u0105 i\u0161 \u201econfiguration.yaml\u201c ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, tada \u017er. \u201eNest\u201c [integravimo instrukcijas] ( {documentation_url} ), kur rasite s\u0105rankos instrukcij\u0173 ir palaikom\u0173 \u012frengini\u0173.",
+            "title": "Legacy Works With Nest pa\u0161alinamas"
+        },
+        "legacy_nest_removed": {
+            "description": "\u201eLegacy Works With Nest\u201c buvo pa\u0161alinta i\u0161 \u201eHome Assistant\u201c, o API bus i\u0161jungta nuo 2023 m. rugs\u0117jo m\u0117n. \n\n Turite imtis veiksm\u0173, kad gal\u0117tum\u0117te naudoti SDM API. Pa\u0161alinkite vis\u0105 \u201eNest\u201c konfig\u016bracij\u0105 i\u0161 \u201econfiguration.yaml\u201c ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, tada \u017er. \u201eNest\u201c [integravimo instrukcijas] ( {documentation_url} ), kur rasite s\u0105rankos instrukcij\u0173 ir palaikom\u0173 \u012frengini\u0173.",
+            "title": "Legacy Works With Nest buvo pa\u0161alintas"
+        }
+    },
+    "services": {
+        "cancel_eta": {
+            "name": "At\u0161aukti ETA"
+        },
+        "set_eta": {
+            "fields": {
+                "eta": {
+                    "name": "ETA"
+                },
+                "eta_window": {
+                    "name": "ETA langas"
+                }
+            }
+        }
+    }
+}

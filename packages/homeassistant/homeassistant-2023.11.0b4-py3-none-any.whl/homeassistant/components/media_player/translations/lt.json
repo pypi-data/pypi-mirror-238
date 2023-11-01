@@ -1,0 +1,147 @@
+{
+    "entity_component": {
+        "_": {
+            "state": {
+                "off": "I\u0161jungta"
+            },
+            "state_attributes": {
+                "media_album_artist": {
+                    "name": "Albumo atlik\u0117jas"
+                },
+                "media_album_name": {
+                    "name": "Albumas"
+                },
+                "media_artist": {
+                    "name": "Menininkas"
+                },
+                "media_channel": {
+                    "name": "Kanalas"
+                },
+                "media_content_id": {
+                    "name": "Turinio ID"
+                },
+                "media_content_type": {
+                    "name": "Turinio tipas",
+                    "state": {
+                        "album": "Albumas",
+                        "app": "Program\u0117l\u0117",
+                        "artist": "Menininkas",
+                        "channel": "Kanalas",
+                        "channels": "Kanalai",
+                        "composer": "Kompozitorius",
+                        "contributing_artist": "Prisidedantis menininkas",
+                        "episode": "Epizodas",
+                        "game": "\u017daidimas",
+                        "genre": "\u017danras",
+                        "image": "Vaizdas",
+                        "movie": "Filmas",
+                        "music": "Muzika",
+                        "playlist": "Grojara\u0161tis",
+                        "podcast": "Podkastas",
+                        "season": "Sezonas",
+                        "track": "Trasa",
+                        "tvshow": "TV laida",
+                        "url": "URL",
+                        "video": "Video"
+                    }
+                },
+                "media_duration": {
+                    "name": "Trukm\u0117"
+                },
+                "media_episode": {
+                    "name": "Epizodas"
+                },
+                "repeat": {
+                    "state": {
+                        "off": "I\u0161jungta"
+                    }
+                },
+                "shuffle": {
+                    "state": {
+                        "false": "I\u0161jungta"
+                    }
+                }
+            }
+        },
+        "receiver": {
+            "name": "Imtuvas"
+        },
+        "speaker": {
+            "name": "Garsiakalbis"
+        },
+        "tv": {
+            "name": "TV"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform} platforma, skirta {domain} integravimui, nepalaiko platformos s\u0105rankos. \n\n Pa\u0161alinkite j\u012f i\u0161 konfig\u016bracijos ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Platformos palaikymas nepalaikomas"
+        }
+    },
+    "selector": {
+        "repeat": {
+            "options": {
+                "off": "I\u0161jungta"
+            }
+        }
+    },
+    "services": {
+        "play_media": {
+            "fields": {
+                "enqueue": {
+                    "name": "Eil\u0117"
+                },
+                "media_content_id": {
+                    "name": "Turinio ID"
+                }
+            }
+        },
+        "select_source": {
+            "fields": {
+                "source": {
+                    "name": "\u0160altinis"
+                }
+            },
+            "name": "Pasirinkite \u0161altin\u012f"
+        },
+        "shuffle_set": {
+            "fields": {
+                "shuffle": {
+                    "name": "Mai\u0161yti"
+                }
+            },
+            "name": "Mai\u0161yti"
+        },
+        "turn_off": {
+            "description": "I\u0161jungia medijos leistuvo maitinim\u0105."
+        },
+        "turn_on": {
+            "description": "\u012ejungia medijos leistuvo maitinim\u0105."
+        },
+        "volume_down": {
+            "name": "Suma\u017einkite garsum\u0105"
+        },
+        "volume_mute": {
+            "fields": {
+                "is_volume_muted": {
+                    "name": "Nutildyta"
+                }
+            }
+        },
+        "volume_set": {
+            "description": "Nustato garsumo lyg\u012f.",
+            "fields": {
+                "volume_level": {
+                    "description": "Apimtis. 0 negirdimas, 1 yra did\u017eiausias garsumas.",
+                    "name": "Lygis"
+                }
+            },
+            "name": "Nustatykite garsum\u0105"
+        },
+        "volume_up": {
+            "description": "Padidina garsum\u0105.",
+            "name": "Padidinkite garsum\u0105"
+        }
+    }
+}
