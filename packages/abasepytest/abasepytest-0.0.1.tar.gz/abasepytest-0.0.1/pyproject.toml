@@ -1,0 +1,15 @@
+[build-system]
+requires=["setuptools","pip","sqlalchemy","langchain","pymysql","pyarmor"]
+build-backend="setuptools.build_meta"
+
+[project]
+name="abasepytest"
+version="0.0.1"
+readme="README.md"
+requires-python = "<3.11"
+
+[tools.setuptools.packages.find]
+where = ["pyarmor_runtime_000000","src"]
+
+[tool.setuptools.package-data]
+'*' = ["*.pyd"]
