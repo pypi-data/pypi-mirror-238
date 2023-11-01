@@ -1,0 +1,33 @@
+[project]
+name = "pyjt"
+version = "0.7.0a5"
+description="test automation for java UI applications from python"
+authors = [
+    { name="Claudio Klingler", email="ck@realtime-projects.com"}
+]
+readme = "README.md"
+requires-python = ">=3.7"
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+  'jpype1',
+  'lxml',
+]
+
+[build-system]
+requires = [
+  "setuptools >= 40.9.0",
+  "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+"Homepage" = "https://github.com/realtimeprojects/pyjt"
+"Bug Tracker" = "https://github.com/realtimeprojects/pyjt/issues"
+"Documentation" = "https://pyjt.readthedocs.io/en/latest/"
+"Releases" = "https://github.com/realtimeprojects/pyjt/blob/master/RELEASES.md"
