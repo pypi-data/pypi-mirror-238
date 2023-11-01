@@ -1,0 +1,23 @@
+"""
+Main interface for neptunedata service.
+
+Usage::
+
+    ```python
+    from boto3.session import Session
+    from mypy_boto3_neptunedata import (
+        Client,
+        NeptuneDataClient,
+    )
+
+    session = Session()
+    client: NeptuneDataClient = session.client("neptunedata")
+    ```
+"""
+
+from .client import NeptuneDataClient
+
+Client = NeptuneDataClient
+
+
+__all__ = ("Client", "NeptuneDataClient")
