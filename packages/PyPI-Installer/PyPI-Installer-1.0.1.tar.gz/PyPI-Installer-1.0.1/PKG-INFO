@@ -1,0 +1,34 @@
+Metadata-Version: 2.1
+Name: PyPI-Installer
+Version: 1.0.1
+Summary: A small module for dynamic importing Python packages
+Home-page: UNKNOWN
+Author: MS.music9
+Author-email: gd.ms.kstash@gmail.com
+License: UNKNOWN
+Description: # PyPi-installer
+        
+        PyPi-installer is a dynamic package installer in Python that allows you to easily install packages from the Python Package Index (PyPI). It provides a convenient way to manage dependencies and install packages directly in pure Python. With PyPi-installer, you can easily install, upgrade, and remove packages with just a few simple functions with package managers like conda and pip.
+        
+        To use PyPi-installer, you need to have Python and pip installed on your system. Once you have those dependencies set up, you can install PyPi-installer itself by running the following command: `pip install pypi-installer`. Or you can clone repository from GitHub.
+        
+        Then use:
+        ```python
+        import pypi_installer as ppi
+        
+        
+        ppi.install("pyqt6")
+        ```
+        
+        All functions in my module:
+        + `install(lib: str, auto_import: Union[str, bool] = False, manager: Literal["poetry", "conda", "pip"] = "pip")` — install `lib` from manager `manager` as `auto_import`.
+        + `uninstall(lib: str, manager: Literal["poetry", "pip", "conda"])` — uninstall `lib`.
+        + `import_all(sd: bool = False)` — import all files from the root. If `sd` is true, then import all files from the subdirs too.
+        + `all` — a variable with all useful packages.
+        + `venv()` — initialize venv.
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
