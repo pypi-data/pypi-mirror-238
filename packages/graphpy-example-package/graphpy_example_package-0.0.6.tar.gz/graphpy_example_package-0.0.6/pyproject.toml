@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling","torch","numpy"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+artifacts = [
+  "*.so",
+]
+
+[project]
+name = "graphpy_example_package"
+version = "0.0.6"
+authors = [
+  { name="Example Author", email="author@example.com" },
+]
+description = "A small example package"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+
+[project.urls]
+"Homepage" = "https://github.com/Ed-gong/GraphPy_workflow"
+"Bug Tracker" = "https://github.com/Ed-gong/GraphPy_workflow/issues"
