@@ -1,0 +1,109 @@
+Metadata-Version: 2.1
+Name: eredesscraper
+Version: 0.1.4
+Summary: Selenium-based web scraper to extract data from e-Redes website and load it into database storage.
+Home-page: github.com/rf-santos/eredes-scraper
+License: MIT
+Keywords: selenium,web,scraper,influxdb,database,electricity,energy,e-redes
+Author: Ricardo Filipe dos Santos
+Author-email: ricardofilipecdsantos@gmail.com
+Requires-Python: >=3.11,<3.13
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: influxdb-client (>=1.38.0,<2.0.0)
+Requires-Dist: openpyxl (>=3.1.2,<4.0.0)
+Requires-Dist: pandas (>=2.1.1,<3.0.0)
+Requires-Dist: pyyaml (>=6.0.1,<7.0.0)
+Requires-Dist: selenium (>=4.14.0,<5.0.0)
+Requires-Dist: typer[all] (>=0.9.0,<0.10.0)
+Requires-Dist: webdriver-manager (>=4.0.1,<5.0.0)
+Project-URL: Documentation, github.com/rf-santos/eredes-scraper
+Project-URL: Repository, github.com/rf-santos/eredes-scraper
+Description-Content-Type: text/markdown
+
+# E-REDES Scraper
+## Description
+This is a web scraper that collects data from the E-REDES website and stores it in a database.
+Since there is no exposed interface to the data, the web scraper is the only approach available to collect it.
+A high-level of the process is:
+1. The scraper collects the data from the E-REDES website.
+2. A file with the energy consumption readings is downloaded.
+3. The file is parsed and the data is compared to the data in the database to determine if there are new readings.
+4. If there are new readings, they are stored in the database.
+
+> :information_source: This package supports E-REDES website available at time of writing 23/10/2023. 
+> The entrypoint for the scraper is the page https://balcaodigital.e-redes.pt/login.
+
+## Installation
+The package can be installed using pip:
+```bash
+pip install eredesscraper
+```
+
+## Configuration
+Usage is based on a YAML configuration file.  
+A `config.yml` is used to specify the credentials for the E-REDES website and [Optionally] 
+the database connection. Currently, **only InfluxDB is supported** as a database sink.  
+
+### Template `config.yml`:
+```yaml
+eredes:
+  # eredes credentials
+  nif: <my-eredes-nif>
+  pwd: <my-eredes-password>
+  # CPE to monitor. e.g. PT00############04TW (where # is a digit). CPE can be found in your bill details
+  cpe: PT00############04TW
+
+
+influxdb:
+  # url to InfluxDB.  e.g. http://localhost or https://influxdb.my-domain.com
+  host: http://localhost
+  # default port is 8086
+  port: 8086
+  bucket: <my-influx-bucket>
+  org: <my-influx-org>
+  # access token with write access
+  token: <token>
+```
+
+## Usage
+### :snake: Python script:
+
+```python
+from eredesscraper.workflows import switchboard
+from pathlib import Path
+
+switchboard(name="current_month_consumption",
+            db="influxdb",
+            config_path=Path("./config.yml"))
+```
+
+### :computer: CLI:
+```bash
+ers config load "/path/to/config.yml"
+
+ers run
+```
+
+## Limitations
+### Available workflows:
+- `current_month_consumption`: Collects the current month consumption data from the E-REDES website.
+
+### Available databases:
+- `influxdb`: Stores the data in an InfluxDB database. (https://docs.influxdata.com/influxdb/v2/get-started/)
+
+## Roadmap
+- [ ] Add support for other workflows.
+- [ ] Add support for other databases.
+- [X] Build CLI.
+- [ ] Add tests.
+- [ ] Add CI/CD.
+- [ ] Add logging.
+- [ ] Add runtime support for multiple CPEs.
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+See [LICENSE](LICENSE) file.
