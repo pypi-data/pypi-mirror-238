@@ -1,0 +1,21 @@
+[dependencies]
+serde_json = "1.0.104"
+
+[features]
+default = ["python"]
+python = ["dep:pyo3"]
+
+[package]
+edition = "2021"
+name = "common-error"
+version = "0.2.1"
+
+[dependencies.arrow2]
+git = "https://github.com/Eventual-Inc/arrow2"
+package = "arrow2"
+rev = "0a6f79e0da7e32cc30381f4cc8cf5a8483909f78"
+
+[dependencies.pyo3]
+features = [ "extension-module", "multiple-pymethods", "abi3-py37",]
+version = "0.19.2"
+optional = true
