@@ -1,0 +1,201 @@
+\documentclass[12pt, twoside]{article}
+%\documentclass[12pt, oneside]{article} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% %   BASE PACKAGES % %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%\usepackage[american]{babel} 
+\usepackage[utf8]{inputenc} 
+\usepackage{url} 
+\usepackage{amsmath} 
+\usepackage{longtable} 
+\usepackage{grffile} 
+\usepackage{float} 
+\usepackage{graphicx} 
+\usepackage{xcolor,colortbl} 
+\usepackage{makeidx} 
+\usepackage[margin=1in]{geometry} 
+\usepackage{ragged2e} 
+\usepackage{amsfonts} 
+\usepackage{enumerate} 
+\usepackage{setspace} 
+\usepackage{comment} 
+%\usepackage[labelfont=bf,labelsep=period]{caption} 
+\usepackage[font=footnotesize]{caption} 
+\usepackage{subcaption} 
+\usepackage{placeins} 
+\usepackage{bbding} 
+\usepackage{wasysym} 
+\usepackage{pifont} 
+\usepackage{epstopdf} 
+\usepackage{tocbibind} 
+\usepackage{booktabs} 
+%\usepackage{framed} 
+\usepackage{footnote} 
+\usepackage{import} 
+\usepackage{textcomp} 
+\usepackage{underscore} 
+\usepackage{adjustbox} 
+\usepackage{pdflscape} 
+\usepackage{tikz} 
+\usetikzlibrary{decorations} 
+\usepackage{chronology} 
+\usepackage{natbib} 
+%\usepackage[longnamesfirst]{natbib} 
+%\usepackage{natbib} 
+\bibliographystyle{authordate2} 
+\usepackage{xcolor}   
+\setlength\LTleft{0pt} 
+\setlength\LTright{0pt}   
+
+\makeindex   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% % Graphics path % %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\graphicspath{{plot/}{logo/}}   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% % No  hyphen % %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\tolerance=1 
+\emergencystretch=\maxdimen 
+\hyphenpenalty=10000 
+\hbadness=10000   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% % PAGE DIMENSION (http://en.wikibooks.org/wiki/LaTeX/Page_Layout) % %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\headheight = 30pt 
+\textheight = 635pt 
+\topmargin = -38pt 
+\headsep = 35pt 
+
+%\oddsidemargin = 31pt %\textwidth = 390pt %\marginparsep = 10pt %\marginparwidth = 35pt %\footskip = 30pt %\marginparpush = 7pt (not shown) %\hoffset = 0pt %\voffset = 0pt %\paperwidth = 597pt %\paperheight = 845pt   
+
+\raggedbottom     
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% % HEAD and FOOT PAGE (FANCYHDR) % %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\usepackage{fancyhdr} 
+\pagestyle{fancy} 
+\renewcommand{\headrule}{\hbox to\headwidth{\color{darkblue}\leaders\hrule height \headrulewidth\hfill}}
+% \fancyhf{} \fancyhead[R]{\includegraphics[width=2cm]{logopspblue}}
+\fancyfoot[C]{\thepage} 
+%\fancyhead[RE, LO]{\includegraphics[width=2cm]{logopspblue}} %\fancyfoot[LE, RO]{\thepage} %\fancyfoot[RE, LO]{Portfolio Strategy} 
+\renewcommand{\footrulewidth}{1pt}     
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% %   HYPERREF and COLOUR % %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\usepackage{hyperref} \hypersetup{colorlinks=true, linkcolor= blue}     
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% %   COLOUR DEFINITION % %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\usepackage{titlesec} % 
+
+\definecolor{darkblue}{rgb}{0, 0.13, 0.25}
+\definecolor{MSBlue}{rgb}{.204,.353,.541} 
+\definecolor{MSLightBlue}{RGB}{157, 199, 255} 
+%\definecolor{MSLightBlue}{rgb}{.31,.506,.741} %\definecolor{test}{rgb}{.204,.75,.86} %\titleformat*{\section}{\Large\bfseries\color{MSBlue}} %\titleformat*{\subsection}{\large\bfseries\color{MSLightBlue}} %\titleformat*{\subsubsection}{\bfseries\color{MSLightBlue}}     
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% %    Allow display break? % %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\allowdisplaybreaks 
+
+%\doublespacing %\usepackage[none]{hyphenat}     
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% %    Environment creation % %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\usepackage{mdframed} 
+\newenvironment{rationale}[1][]{\begin{mdframed}[backgroundcolor=MSLightBlue, topline=false, leftline = false, rightline = false, bottomline = false] \textbf{#1}\\[2ex]}{\end{mdframed}}   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% %    TABULAR TABLE % %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\usepackage{array} 
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}} 
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}} 
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}   
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% % %    formal environment % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% % for adjustwidth environment 
+
+\usepackage[strict]{changepage}   % for formal definitions 
+\usepackage{framed}   % environment derived from framed.sty: see leftbar environment definition 
+\definecolor{formalshade}{rgb}{0.95,0.95,1}   
+\newenvironment{formal}{%   
+\def\FrameCommand{%     
+\hspace{1pt}%     
+{\color{MSBlue}\vrule width 2pt}%
+{\color{MSBlue}\vrule width 4pt}%     
+\colorbox{MSLightBlue}%   
+}%   
+\MakeFramed{\advance\hsize-\width\FrameRestore}%   
+\noindent\hspace{-4.55pt}% disable indenting first paragraph   
+\begin{adjustwidth}{}{7pt}%   
+    \vspace{2pt}\vspace{2pt}% 
+    } 
+    {%   
+    \vspace{2pt}\end{adjustwidth}\endMakeFramed% 
+    }   
+    
+\usepackage{sectsty,ulem}   
+\sectionfont{\color{darkblue}}
+\color{darkblue}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% % %    VARIABLE  DEFINITIONS % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\bydef}{\equiv\xspace} 
+\newcommand{\epsilonb}{\ensuremath{\boldsymbol{\epsilon}}\xspace} 
+\newcommand{\mub}{\ensuremath{\boldsymbol{\mu}}\xspace} 
+\newcommand{\iotab}{\ensuremath{\boldsymbol{\iota}}\xspace} 
+\newcommand{\betab}{\ensuremath{\boldsymbol{\beta}}\xspace} 
+\newcommand{\sigmab}{\ensuremath{\boldsymbol{\sigma}}\xspace} 
+\newcommand{\Sigmab}{\ensuremath{\boldsymbol{\Sigma}}\xspace} 
+\newcommand{\zerob}{\ensuremath{\mathbf{0}}\xspace} 
+\newcommand{\varepsilonb}{\ensuremath{\boldsymbol{\varepsilon}}\xspace} 
+\newcommand{\xib}{\ensuremath{\boldsymbol{\xi}}\xspace}   
+\newcommand{\mkt}{\ensuremath{\text{mkt}}\xspace} 
+\newcommand{\ew}{\ensuremath{\text{ew}}\xspace} 
+\newcommand{\erc}{\ensuremath{\text{erc}}\xspace} 
+\newcommand{\Oneb}{\ensuremath{\boldsymbol{1}}\xspace} 
+\newcommand{\Ib}{\ensuremath{\boldsymbol{I}}\xspace} 
+\newcommand{\Jb}{\ensuremath{\boldsymbol{J}}\xspace}   
+\newcommand{\E}{\mathbb{E}}   
+\newcommand{\wb}{\ensuremath{\mathbf{w}}\xspace} 
+\newcommand{\ub}{\ensuremath{\mathbf{u}}\xspace} 
+\newcommand{\wmkt}{\ensuremath{\wb_\text{mkt}}\xspace} 
+\newcommand{\wsmkt}{\ensuremath{\wb_\text{smkt}}\xspace} 
+\newcommand{\wew}{\ensuremath{\wb_\text{ew}}\xspace} 
+\newcommand{\werc}{\ensuremath{\wb_\text{erc}}\xspace} 
+\newcommand{\wmd}{\ensuremath{\wb_\text{md}}\xspace} 
+\newcommand{\wref}{\ensuremath{\wb_\text{ref}}\xspace} 
+\newcommand{\wmin}{\ensuremath{\wb_\text{min}}\xspace} 
+\newcommand{\wminlow}{\ensuremath{\wb_\text{min-lower}}\xspace} 
+\newcommand{\wminL}{\ensuremath{\wb_\text{min-L1}}\xspace}   
+\newcommand{\wirmkt}{\ensuremath{\wb_\text{ir-mkt}}\xspace} 
+\newcommand{\wirsmkt}{\ensuremath{\wb_\text{ir-smkt}}\xspace} 
+\newcommand{\wirew}{\ensuremath{\wb_\text{ir-ew}}\xspace} 
+\newcommand{\wirerc}{\ensuremath{\wb_\text{ir-erc}}\xspace} 
+\newcommand{\wirmd}{\ensuremath{\wb_\text{ir-md}}\xspace} 
+\newcommand{\wirref}{\ensuremath{\wb_\text{ir-ref}}\xspace} 
+\newcommand{\wrs}{\ensuremath{\wb_\text{rs}}\xspace}   
+\newcommand{\muirmkt}{\ensuremath{\mub_\text{ir-mkt}}\xspace} 
+\newcommand{\muirsmkt}{\ensuremath{\mub_\text{ir-smkt}}\xspace} 
+\newcommand{\muirew}{\ensuremath{\mub_\text{ir-ew}}\xspace} 
+\newcommand{\muirerc}{\ensuremath{\mub_\text{ir-erc}}\xspace} 
+\newcommand{\muirmd}{\ensuremath{\mub_\text{ir-md}}\xspace} 
+\newcommand{\muirref}{\ensuremath{\mub_\text{ir-ref}}\xspace}   
+\newcommand{\mutdirmkt}{\ensuremath{\tilde{\mub}_\text{ir-mkt}}\xspace} 
+\newcommand{\mutdirsmkt}{\ensuremath{\tilde{\mub}_\text{ir-smkt}}\xspace} 
+\newcommand{\mutdirew}{\ensuremath{\tilde{\mub}_\text{ir-ew}}\xspace} 
+\newcommand{\mutdirerc}{\ensuremath{\tilde{\mub}_\text{ir-erc}}\xspace} 
+\newcommand{\mutdirmd}{\ensuremath{\tilde{\mub}_\text{ir-md}}\xspace} 
+\newcommand{\mutdirref}{\ensuremath{\tilde{\mub}_\text{ir-ref}}\xspace} 
+\newcommand{\muhtrs}{\ensuremath{\hat{\mub}_\text{rs}}\xspace}     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{document} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+%\fancyhead[LE, RO]{{Template}} %\fancyhead[L]{{Report}}   
+
+\input{core.tex}   
+
+\end{document}
