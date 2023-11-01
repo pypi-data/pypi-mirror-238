@@ -1,0 +1,4 @@
+Provider = object
+"""
+Injectable entity.
+"""
