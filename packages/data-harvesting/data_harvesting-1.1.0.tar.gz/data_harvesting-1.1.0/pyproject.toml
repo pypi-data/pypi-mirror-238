@@ -1,0 +1,179 @@
+[project]
+name = "data-harvesting"
+version = "1.1.0"
+description = "Set of tools to harvest, process and uplift (meta)data from metadata providers within the Helmholtz association to be included in the Helmholtz Knowledge Graph (Helmholtz-KG). The harvested linked data in the form of schema.org jsonld is aggregated and uplifted in data pipelines to be included into a single large knowledge graph (KG)."
+readme = "README.md"
+license = "MIT"
+classifiers = [
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Information Technology",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
+        "Operating System :: POSIX :: Linux",
+        "Operating System :: MacOS :: MacOS X",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Topic :: Database",
+        "Topic :: Education",
+        "Topic :: Scientific/Engineering",
+        "Topic :: Scientific/Engineering :: Information Analysis",
+        "Topic :: Scientific/Engineering :: Visualization",
+        "Topic :: Text Processing",
+        "Typing :: Typed"
+]
+keywords = ["unhide", "Helmholtz association", "data mining", "HMC", "metadata", "data publications", "software publication", "RSE", "FAIR", "linked data", "knowledge graph", "json-ld", "schema.org", "restruct"]
+
+[[project.authors]]
+name = "Jens Bröder"
+email = "j.broeder@fz-juelich.de"
+
+[[project.authors]]
+name = "Pedro Videgain Barranco"
+email = "p.videgain.barranco@fz-juelich.de"
+
+[[project.authors]]
+name = "Annika Strupp"
+email = "a.strupp@fz-juelich.de"
+
+[[project.authors]]
+name = "Gabriel Preuß"
+email = "gabriel.preuss@helmholtz-berlin.de"
+
+[[project.authors]]
+name = "Said Fathalla"
+email = "s.fathalla@fz-juelich.de"
+[project.urls]
+homepage = "https://codebase.helmholtz.cloud/hmc/hmc-public/unhide/data_harvesting"
+documenation = "https://codebase.helmholtz.cloud/hmc/hmc-public/unhide/documentation"
+repository = "https://codebase.helmholtz.cloud/hmc/hmc-public/unhide/data_harvesting.git"
+changelog = "https://codebase.helmholtz.cloud/hmc/hmc-public/unhide/data_harvesting/blob/main/CHANGELOG.md"
+
+
+#[project.console_scripts]
+#hmc-unhide = "data_harvesting.cli.cli:cli"
+
+
+[[project.maintainers]]
+name = "Jens Bröder"
+email = "j.broeder@fz-juelich.de"
+
+[[project.maintainers]]
+name = "Gabriel Preuß"
+email = "gabriel.preuss@helmholtz-berlin.de"
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "data-harvesting"
+version = "1.1.0"
+license = "MIT"
+description = "Set of tools to harvest, process and uplift (meta)data from metadata providers within the Helmholtz association to be included in the Helmholtz Knowledge Graph (Helmholtz-KG). The harvested linked data in the form of schema.org jsonld is aggregated and uplifted in data pipelines to be included into a single large knowledge graph (KG)."
+authors = ["Jens Bröder <j.broeder@fz-juelich.de>", "Pedro Videgain Barranco <p.videgain.barranco@fz-juelich.de>", "Annika Strupp <a.strupp@fz-juelich.de>", "Gabriel Preuß <gabriel.preuss@helmholtz-berlin.de>", "Said Fathalla <s.fathalla@fz-juelich.de>"]
+readme = "README.md"
+classifiers = [
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Information Technology",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
+        "Operating System :: POSIX :: Linux",
+        "Operating System :: MacOS :: MacOS X",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Topic :: Database",
+        "Topic :: Education",
+        "Topic :: Scientific/Engineering",
+        "Topic :: Scientific/Engineering :: Information Analysis",
+        "Topic :: Scientific/Engineering :: Visualization",
+        "Topic :: Text Processing",
+        "Typing :: Typed"
+]
+keywords = ["unhide", "Helmholtz association", "data mining", "HMC", "metadata", "data publications", "software publication", "RSE", "FAIR", "linked data", "knowledge graph", "json-ld", "schema.org", "restruct"]
+maintainers = ["Jens Bröder <j.broeder@fz-juelich.de>", "Gabriel Preuß <gabriel.preuss@helmholtz-berlin.de>"]
+homepage = "https://codebase.helmholtz.cloud/hmc/hmc-public/unhide/data_harvesting"
+repository = "https://codebase.helmholtz.cloud/hmc/hmc-public/unhide/data_harvesting.git"
+
+
+
+
+[tool.poetry.scripts]
+hmc-unhide = "data_harvesting.cli.cli:cli"
+
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^1.4.1"
+requests = "^2.28.1"
+typer = "^0.9.0"
+rich = "^12.6.0"
+advertools = "^0.13.2"
+progressbar2 = "^4.2.0"
+beautifulsoup4 = "^4.11.1"
+rdflib = "^6.2.0"
+codemetapy = "^2.3.3"
+pyld = "^2.0.3"
+extruct = "^0.13.0"
+jq = "^1.3.0"
+jsonschema = "^4.17.3"
+xmljson = "^0.2.1"
+oaiharvest = "^3.0.0"
+jsondiff = "^2.0.0"
+pathos = "^0.3.0"
+shapely = "^2.0.1"
+python-dateutil = "^2.8.2"
+pylint = "^2.17.5"
+python-crontab = "^3.0.0"
+wrapt = "^1.15.0"
+pydantic = "^2.3.0"
+pyoai = "2.5.0"
+SPARQLWrapper = "^2.0.0"
+crontab = "^1.0.1"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^2.21.0"
+pytest = "^7.0.1"
+pytest-cov = "^4.1.0"
+requests-mock = "^1.10.0"
+
+# pytest.ini replacement (pytest >= 6.0)
+[tool.pytest.ini_options]
+addopts = "--cov-report=term-missing:skip-covered"
+filterwarnings = []
+
+[tool.yapf]
+based_on_style = "facebook"
+column_limit = 120
+dedent_closing_brackets = true
+coalesce_brackets = true
+align_closing_bracket_with_visual_indent = true
+split_arguments_when_comma_terminated = true
+indent_dictionary_value = false
+
+[tool.mypy]
+show_error_codes = true
+check_untyped_defs = false
+scripts_are_modules = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+no_warn_no_return = true
+show_traceback = true
+#disallow_any_unimported = false
+disallow_subclassing_any = true
+disallow_untyped_calls = false
+disallow_untyped_decorators = false
+ignore_missing_imports = true
+warn_return_any = true
+warn_unreachable = false
+allow_untyped_globals = false
+strict_equality = true
+plugins = [
+  "pydantic.mypy"
+]

@@ -1,0 +1,47 @@
+# 1. The rule for identifying resources that have to be of type schema:Person
+PREFIX schema: <http://schema.org/>
+INSERT { ?p a schema:Person> }
+WHERE {
+  ?r schema:creator|schema:author  ?p.
+  ?p schema:affiliation ?aff.
+  ?p schema:name ?name
+}
+
+# 2. a. if the affiliation is an IRI representing an organization, then
+# schema:Organization type is added to that organization (IRI)
+PREFIX schema: <http://schema.org/>
+INSERT { ?org a schema:Organization }
+WHERE {
+  ?r schema:affiliation  ?org. FILTER(ISIRI(?org))
+}
+
+#2. b. the string affiliation of a resource is replaced by the organization IRI (if exist)
+INSERT { ?r schema:affiliation ?org}
+WHERE {
+  ?r schema:affiliation ?name. 
+  ?org a schema:Organization. FILTER (ISIRI(?org)).
+  ?org schema:name ?oname . FILTER (STR(?oname) =STR(?name))
+  
+};
+DELETE {?r schema:affiliation ?affstr}
+WHERE{ 
+  ?r schema:affiliation ?affstr.  
+  FILTER (!ISIRI(?affstr))
+  ?org a schema:Organization.
+  ?org schema:name ?oname . 
+  FILTER (STR(?oname) =STR(?affstr))
+}
+
+# 3. for those whom has Forschungszentrum Jülich in their affiliation 
+# (like Forschungszentrum Jülich, Zentralbibliothek), the ROR id of the FZJ to that 
+#resource in addition to the string affiliation
+
+PREFIX schema: <http://schema.org/>
+INSERT {?r schema:affiliation ?org}
+WHERE {
+  ?r schema:affiliation ?affStr . 
+  Filter(regex(?affStr,"Forschungszentrum Jülich"))
+  ?org a schema:Organization .
+  ?org schema:name ?name . 
+  FILTER (STR(?name) IN ("Forschungszentrum Jülich GmbH", "Forschungszentrum Jülich", "Forschungszentrum Juelich" ))
+}
