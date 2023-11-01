@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "globus-identity-mapping"
+version = "0.1.0"
+description = ""
+authors = ["Kevin Hunter Kesling <kevin@globus.org>"]
+readme = "README.md"
+packages = [{include = "globus_identity_mapping"}]
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+marshmallow = "^3.20.1"
+marshmallow-oneofschema = "^3.0.1"
+typing-extensions = ">=4.8,<4.9"
+
+pytest = { version = ">=7.4.1,<7.5", optional = true }
+pytest-cov = { version = ">=4.1,<4.2", optional = true }
+pytest-mock = { version = ">=3.12,<3.13", optional = true }
+
+[tool.poetry.plugins."globus_identity_mapping"]
+expression_identity_mapping = "globus_identity_mapping:ExpressionIdentityMapping"
+external_identity_mapping = "globus_identity_mapping:ExternalIdentityMapping"
+
+[tool.poetry.extras]
+# using `test` deps instead of `--dev` so `tox` can find them
+test = [
+    "pytest",
+    "pytest-cov",
+    "pytest-mock"
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
