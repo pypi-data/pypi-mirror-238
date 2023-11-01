@@ -1,0 +1,14 @@
+[package]
+name = "nucliadb_texts"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tempfile = "3"
+tantivy = { git = "https://github.com/nuclia/tantivy.git", rev = "2183120aaa565b14fde05aa35342e5c5a3306d3b" }
+itertools = "0.10.5"
+
+nucliadb_core = { path = "../nucliadb_core" }
+nucliadb_procs = { path = "../nucliadb_procs" }
