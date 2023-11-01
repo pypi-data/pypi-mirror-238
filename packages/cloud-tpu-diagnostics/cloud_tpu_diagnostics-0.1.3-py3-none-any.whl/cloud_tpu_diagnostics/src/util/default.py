@@ -1,0 +1,5 @@
+# Stack trace default values
+COLLECT_STACK_TRACE_DEFAULT = False
+STACK_TRACE_TO_CLOUD_DEFAULT = False
+STACK_TRACE_DIR_DEFAULT = '/tmp/debugging/'
+STACK_TRACE_INTERVAL_SECONDS_DEFAULT = 600  # 10 minutes

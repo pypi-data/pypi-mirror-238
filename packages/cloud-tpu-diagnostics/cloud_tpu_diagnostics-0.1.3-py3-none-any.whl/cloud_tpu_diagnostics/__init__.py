@@ -1,0 +1,2 @@
+from cloud_tpu_diagnostics import configuration
+from cloud_tpu_diagnostics import diagnostic
