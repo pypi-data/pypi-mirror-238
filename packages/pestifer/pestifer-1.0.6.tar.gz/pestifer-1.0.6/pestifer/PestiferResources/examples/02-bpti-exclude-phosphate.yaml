@@ -1,0 +1,11 @@
+title: BPTI with phosphate ion excluded
+tasks:
+  - psfgen:
+      source:
+        id: 6pti
+        exclude:
+          resnames:
+            - PO4
+  - solvate:
+  - relax:
+      ensemble: NPT
