@@ -1,0 +1,74 @@
+Metadata-Version: 2.1
+Name: rotop
+Version: 0.1.4
+Summary: top command for ROS 2
+Home-page: https://github.com/iwatake2222/rotop
+Author: iwatake2222
+Author-email: take.iwiw2222@gmail.com
+License: Apache License 2.0
+Project-URL: Source, https://github.com/iwatake2222/rotop
+Project-URL: Tracker, https://github.com/iwatake2222/rotop/issues
+Keywords: ros ros2 top cpu usage
+Platform: linux
+Platform: unix
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Utilities
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Framework :: Robot Framework :: Tool
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: dearpygui>=1.10.1
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: pexpect
+
+# rotop
+
+## About
+
+top command for ROS 2
+
+## Features
+
+- Replace a long displayed name for ROS 2 command and Python command, especially for component container
+  - :sob: Normal `top` command : "`component_container`"
+  - :sob: Normal `top -c` or `htop` : "`/very/long/path/component_container` `very-long-options`"
+  - :smile: My `rotop` command: "`{node_name}, {name_space}`"
+- Filter function
+- csv file logger
+- Graph plotter
+
+## How to use
+
+```sh
+pip3 install rotop
+
+rotop
+rotop --gui
+
+
+# usage: rotop [-h] [--interval INTERVAL] [--filter FILTER] [--csv] [--gui] [--num_process NUM_PROCESS]
+# options:
+#   -h, --help            show this help message and exit
+#   --interval INTERVAL
+#   --filter FILTER
+#   --csv
+#   --gui
+#   --num_process NUM_PROCESS
+```
+
+```sh
+cd rotop
+python3 main.py
+```
+
+## Screen Shot
+
+- CUI mode
+  - ![](./00_doc/capture_00.png)
+- GUI mode
+  - ![](./00_doc/capture_01.png)
