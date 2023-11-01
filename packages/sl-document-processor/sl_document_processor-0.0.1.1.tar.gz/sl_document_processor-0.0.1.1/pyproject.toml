@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "sl-document-processor"
+version = "0.0.1.1"
+description = "Package to process documents of any format"
+authors = ["Vamsidhar Reddy <r.vamsireddy93@gmail.com>"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pydantic = "^2.4.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
