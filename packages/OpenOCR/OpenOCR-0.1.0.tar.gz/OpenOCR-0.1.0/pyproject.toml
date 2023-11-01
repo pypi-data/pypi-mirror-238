@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "OpenOCR"
+version = "0.1.0"
+
+authors = [
+  { name="Mark Hoo", email="markhoo@foxmail.com" },
+]
+
+dependencies = [
+   "opencv-python>=4.8.1.78",
+   "Pillow>=10.1.0",
+   "torch>=2.1.0",
+   "torchvision>=0.16.0",
+]
+
+description = "Python package for Chinese and English OCR."
+readme = "README.md"
+requires-python = ">=3.8"
+
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "Operating System :: Unix",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX",
+    "Programming Language :: C++",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/MarkHoo/openocr"
+"Bug Tracker" = "https://github.com/MarkHoo/openocr/issues"
