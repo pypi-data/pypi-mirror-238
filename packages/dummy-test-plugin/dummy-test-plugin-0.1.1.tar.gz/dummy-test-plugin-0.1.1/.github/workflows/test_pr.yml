@@ -1,0 +1,64 @@
+name: tests
+
+on: 
+  push:
+    branches:
+      - npe1
+      - main
+    tags:
+      - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
+  pull_request:
+    branches:
+      - npe1
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: ${{ matrix.platform }} py${{ matrix.python-version }}
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.8", "3.9", "3.10"]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # these libraries, along with pytest-xvfb (added in the `deps` in tox.ini),
+      # enable testing on Qt on linux
+      - uses: tlambert03/setup-qt-libs@v1
+
+      # strategy borrowed from vispy for installing opengl libs on windows
+      - name: Install Windows OpenGL
+        if: runner.os == 'Windows'
+        uses: actions/checkout@v3
+        with:
+          path: gl-ci-helpers
+          repository: pyvista/gl-ci-helpers
+          fetch-depth: 1
+      - name: Install Windows OpenGL
+        if: runner.os == 'Windows'
+        run: |
+          powershell gl-ci-helpers/appveyor/install_opengl.ps1
+
+      # note: if you need dependencies from conda, considering using
+      # setup-miniconda: https://github.com/conda-incubator/setup-miniconda
+      # and
+      # tox-conda: https://github.com/tox-dev/tox-conda
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools pytest pyqt5
+          pip install .
+      - name: Test
+        uses: aganders3/headless-gui@v1
+        with:
+          run: python -m pytest -s -v --color=yes
