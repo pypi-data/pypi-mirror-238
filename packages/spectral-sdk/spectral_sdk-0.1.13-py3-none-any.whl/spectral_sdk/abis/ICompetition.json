@@ -1,0 +1,362 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "modelHash",
+        "type": "string"
+      }
+    ],
+    "name": "ModelerRegistered",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "admin",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_modeler",
+        "type": "address"
+      }
+    ],
+    "name": "getModelerToMedian",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getSAParams",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "bountyAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requestPaymentAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requestExpirationTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "responseDataType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "competitionContractAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "stakedToken",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stakedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "disputeStake",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "slashAmount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DataTypes.SAParams",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTopNModelers",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTopNModelersLength",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_mathHelper",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_ipfsCompetition",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_topNParameter",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "bountyAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requestPaymentAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requestExpirationTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "responseDataType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "competitionContractAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "stakedToken",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stakedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "disputeStake",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "slashAmount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DataTypes.SAParams",
+        "name": "_agreementParams",
+        "type": "tuple"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_modeler",
+        "type": "address"
+      }
+    ],
+    "name": "isTopNModeler",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "isTopN",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "modelerContract",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "preCompetitionEndTime",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_modeler",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_medianPerformanceResults",
+        "type": "uint256"
+      }
+    ],
+    "name": "replaceOptOutTopNModeler",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "serviceAgreement",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_consumptionContract",
+        "type": "address"
+      }
+    ],
+    "name": "setConsumptionContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_modelerContract",
+        "type": "address"
+      }
+    ],
+    "name": "setModelerContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "medianPerformanceResults",
+        "type": "uint256"
+      }
+    ],
+    "name": "setModelerNetPerformanceResultAndUpdate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_modelHash",
+        "type": "string"
+      }
+    ],
+    "name": "signUpToCompetition",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
