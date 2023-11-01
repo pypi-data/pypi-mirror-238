@@ -1,0 +1,138 @@
+Metadata-Version: 2.1
+Name: technote
+Version: 0.4.0
+Summary: Rubin Observatory's framework for Sphinx-based technote documents.
+License: MIT License
+        
+        Copyright (c) 2022 Association of Universities for Research in Astronomy, Inc. (AURA)
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://technote.lsst.io
+Project-URL: Source, https://github.com/lsst-sqre/technote
+Keywords: rubin,lsst
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Operating System :: POSIX
+Classifier: Typing :: Typed
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Sphinx
+Requires-Dist: sphinx-basic-ng >=1.0.0b1
+Requires-Dist: base32-lib
+Requires-Dist: pydantic[email] >=2.0.0
+Requires-Dist: beautifulsoup4
+Requires-Dist: pygments
+Requires-Dist: accessible-pygments
+Requires-Dist: myst-parser
+Requires-Dist: markdown-it-py[linkify]
+Provides-Extra: dev
+Requires-Dist: coverage[toml] ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: pytest-asyncio ; extra == 'dev'
+Requires-Dist: pre-commit ; extra == 'dev'
+Requires-Dist: mypy ; extra == 'dev'
+Requires-Dist: types-docutils ; extra == 'dev'
+Requires-Dist: lxml ; extra == 'dev'
+Requires-Dist: cssselect ; extra == 'dev'
+Requires-Dist: mf2py ; extra == 'dev'
+
+# Technote
+
+Rubin Observatory's framework for Sphinx-based technote documents.
+Learn more at https://technote.lsst.io.
+
+Install from PyPI:
+
+```sh
+pip install technote
+```
+
+technote is developed by Rubin Observatory at https://github.com/lsst-sqre/technote.
+
+## Features
+
+> **Warning**
+> Technote is in initial design and development.
+> The features described below may not be implemented yet.
+
+*Technotes* are web-native, single page websites that facilitate rapid scientific and technical communication.
+The "technote" package provides the framework for creating technotes:
+
+- A Sphinx theme optimized for single page documents, like technotes.
+  This theme can be customized by organizations.
+- A `technote.toml` makes it easy to configure document metadata.
+- Technotes can be written in reStructuredText, Markdown, or as Jupyter notebooks.
+
+## Developing technote
+
+The best way to start contributing to technote is by cloning this repository, creating a virtual environment, and running the `make init` command to set up the Python project:
+
+```sh
+git clone https://github.com/lsst-sqre/technote.git
+cd technote
+make init
+```
+
+Technote also uses [Webpack](https://webpack.js.org/) to bundle CSS and JS.
+We use [nvm](https://github.com/nvm-sh/nvm) to set up Node at a specific version:
+
+```sh
+nvm use
+```
+
+This may happen automatically when opening the technote repo in your shell.
+
+Then install the JS dependencies:
+
+```sh
+npm install
+```
+
+And build the CSS and JS assets:
+
+```sh
+npm run build
+```
+
+You can run tests and build documentation with [tox](https://tox.wiki/en/latest/):
+
+```sh
+tox
+```
+
+To learn more about the individual environments:
+
+```sh
+tox -av
+```
+
+In particular, to build a demo technote in the [demo](./demo) directory:
+
+```sh
+tox -e demo
+```
+
+[See the docs for more information.](https://technote.lsst.io/dev/development.html)
