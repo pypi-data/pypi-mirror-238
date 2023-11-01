@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[project]
+name = 'TruMusic'
+version = '1.1.8'
+description='Audio file auto-tagger'
+
+authors = [
+    {name = "Jacob Truman", email="jacob.truman@gmail.com"},
+]
+
+dependencies = [
+    "mutagen",
+    "requests",
+    "ytmusicapi",
+    "yt-dlp",
+    "TruLogger",
+]
+
+requires-python = ">=3.7, <4"
+
+[project.urls]
+homepage = "https://github.com/jacobtruman/TruMusic"
+documentation = "https://github.com/jacobtruman/TruMusic"
+repository = "https://github.com/jacobtruman/TruMusic"
+
+[project.scripts]
+trumusic = 'tru_music.scripts.trumusic:main'
+trumusic_cleanup = 'tru_music.scripts.cleanup:main'
