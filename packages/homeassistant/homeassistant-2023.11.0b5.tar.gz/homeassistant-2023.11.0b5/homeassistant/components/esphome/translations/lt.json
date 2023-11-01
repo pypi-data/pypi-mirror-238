@@ -1,0 +1,48 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas",
+            "mdns_missing_mac": "Tr\u016bksta MAC adreso MDNS ypatyb\u0117se."
+        },
+        "step": {
+            "authenticate": {
+                "data": {
+                    "password": "Slapta\u017eodis"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "call_active": {
+                "name": "Skambutis Aktyvus"
+            }
+        },
+        "climate": {
+            "climate": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "quiet": "Tyliai"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "service_calls_not_allowed": {
+            "description": "\u201eESPHome\u201c \u012frenginys band\u0117 paskambinti \u201eHome Assistant\u201c paslaugai, ta\u010diau \u0161i funkcija ne\u012fjungta. \n\n Jei pasitikite \u0161iuo \u012frenginiu ir norite leisti jam skambinti \u201eHome Assistant\u201c paslauga, galite \u012fgalinti \u0161i\u0105 funkcij\u0105 parink\u010di\u0173 sraute.",
+            "title": "{name} negali skambinti \"Home Assistant\" paslaugoms"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_service_calls": "Leiskite \u012frenginiui skambinti \"Home Assistant\" paslaugos skambu\u010diais."
+                }
+            }
+        }
+    }
+}

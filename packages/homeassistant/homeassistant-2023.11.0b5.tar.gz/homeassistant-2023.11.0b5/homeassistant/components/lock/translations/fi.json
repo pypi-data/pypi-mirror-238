@@ -1,0 +1,32 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_unlocked": "{entity_name} on auki"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} lukittu",
+            "unlocked": "{entity_name} auki"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Lukko",
+            "state": {
+                "locked": "Lukittu",
+                "unlocked": "Auki"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "open": {
+            "name": "Avaa"
+        }
+    },
+    "title": "Lukko"
+}

@@ -1,0 +1,40 @@
+{
+    "config": {
+        "error": {
+            "server_in_maintenance": "Serveris neveikia d\u0117l technin\u0117s prie\u017ei\u016bros",
+            "too_many_requests": "Per daug u\u017eklaus\u0173, v\u0117liau bandykite dar kart\u0105"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "hub": "Hub"
+                },
+                "description": "Overkiz platform\u0105 naudoja \u012fvair\u016bs pardav\u0117jai, tokie kaip Somfy (Connexoon / TaHoma), Hitachi (Hi Kumo), Rexel (Energeasy Connect) ir Atlantic (Cozytouch). \u012eveskite programos kredencialus ir pasirinkite savo centr\u0105."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "overkiz": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "external": "I\u0161orinis",
+                            "freeze": "U\u017e\u0161aldyti",
+                            "frost_protection": "Apsauga nuo \u0161al\u010dio",
+                            "manual": "Rankinis",
+                            "night": "Naktis"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "state": {
+                    "medium": "Vidutinis"
+                }
+            }
+        }
+    }
+}
