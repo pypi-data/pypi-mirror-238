@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: libceed
+Version: 0.12.0
+Summary: libCEED: Code for Efficient Extensible Discretization
+Home-page: https://libceed.org
+Download-URL: https://github.com/CEED/libCEED/releases
+Author: libCEED Team
+Author-email: ceed-users@llnl.gov
+License: BSD 2
+Project-URL: Bug Tracker, https://github.com/CEED/libCEED/issues
+Project-URL: Documentation, https://libceed.org
+Project-URL: Source Code, https://github.com/CEED/libCEED
+Keywords: libCEED
+Platform: POSIX
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: C
+Classifier: Programming Language :: C++
+Classifier: Programming Language :: Fortran
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: Libraries
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Requires-Dist: cffi
+Requires-Dist: numpy
+Provides-Extra: cuda
+Requires-Dist: numba ; extra == 'cuda'
+
+
+libCEED: Code for Efficient Extensible Discretization
+=====================================================
+
+libCEED is a lightweight library for expressing and manipulating operators that
+arise in high-order element-based discretization of partial differential
+equations.  libCEED's representations are much for efficient than assembled
+sparse matrices, and can achieve very high performance on modern CPU and GPU
+hardware.  This approach is applicable to a broad range of linear and nonlinear
+problems, and includes facilities for preconditioning.  libCEED is meant to be
+easy to incorporate into existing libraries and applications, and to build new
+tools on top of.
+
+libCEED has been developed as part of the DOE Exascale Computing Project
+co-design Center for Efficient Exascale Discretizations (CEED).

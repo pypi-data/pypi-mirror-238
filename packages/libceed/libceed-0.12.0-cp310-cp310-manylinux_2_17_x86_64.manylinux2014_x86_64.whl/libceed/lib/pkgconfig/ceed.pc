@@ -1,0 +1,10 @@
+prefix=build/lib.linux-x86_64-cpython-310/libceed
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+Name: CEED
+Description: Code for Efficient Extensible Discretization
+Version: 0.12.0
+Cflags: -I${includedir}
+Libs: -L${libdir} -lceed
+Libs.private: 
