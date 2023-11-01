@@ -1,0 +1,30 @@
+[tool.pytest.ini_options]
+pythonpath = "src"
+addopts = [
+    "--import-mode=importlib",
+]
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "worktimecalc"
+version = "0.1.4"
+description = "Calculates the business time between two datetimes."
+readme = "README.md"
+authors = [{ name = "Misao" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["time", "calculator", "tools", "business time", "business hours", "work hours", "work time"]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+Home = "https://github.com/MisaoDev/work-time-calc"

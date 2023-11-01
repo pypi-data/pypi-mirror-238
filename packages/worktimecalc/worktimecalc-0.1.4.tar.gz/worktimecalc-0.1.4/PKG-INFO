@@ -1,0 +1,77 @@
+Metadata-Version: 2.1
+Name: worktimecalc
+Version: 0.1.4
+Summary: Calculates the business time between two datetimes.
+Author: Misao
+License: The MIT License (MIT)
+        Copyright © 2023 <copyright holders>
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Project-URL: Home, https://github.com/MisaoDev/work-time-calc
+Keywords: time,calculator,tools,business time,business hours,work hours,work time
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+
+# Work Time Calculator
+Small tool to calculate the exact business time between two datetimes.
+
+I wasn't happy with the existing tools for their performance, while others only counted the business days. This was built with the goal of being as efficient as possible, easy to use and flexible.
+
+## Features
+- Fast! Calculations done in constant time
+- Multiple ways to define working hours
+- Specific schedule for each day of the week
+- Can consider holidays
+
+## Install
+```
+pip install worktimecalc
+```
+
+## Quick example
+Just create a calculator and call it to get the difference:
+```python
+from worktimecalc.calc import WorkTimeCalculator
+
+calc = WorkTimeCalculator(9, 18, 'mon tue thu fri sat')
+delta = calc("2050-02-10T10:30:00", "2050-03-10T18:15:00")
+
+print(delta.seconds)    # 675000.0
+print(delta.as_dhms)    # {'days': 7, 'hours': 19, 'minutes': 30, 'seconds': 0}
+print(delta.as_hms)     # {'hours': 187, 'minutes': 30, 'seconds': 0}
+```
+
+## Holidays
+Pass it a list of `datetime.date` objects:
+```python
+holidays = [(2023, 1, 1), (2023, 5, 1), (2023, 11, 1), (2023, 12, 25)]
+holidays = [datetime.date(*d) for d in CHILE_HOLIDAYS]
+calc = WorkTimeCalculator(10, 18, holidays=holidays)
+```
+
+## Constructor examples
+```python
+calc = WorkTimeCalculator(8, 15)
+calc = WorkTimeCalculator(8, 15, '1100100')
+calc = WorkTimeCalculator(8, 15, 'sat tue thu mon sun')
+calc = WorkTimeCalculator("08:30", "18:30")
+calc = WorkTimeCalculator(9, "17:45")
+calc = WorkTimeCalculator(datetime.time(8, 30), datetime.time(18, 30))
+calc = WorkTimeCalculator(detail=[(8, 16), (8, 16), (8, 16), (8, 16), (8, 10), None, None])
+calc = WorkTimeCalculator(detail=[(8, "16:30"), ("17:15", 20), None, None, None, None, None])
+```
+When in doubt simply check the descriptions for each argument.
+
+## To do
+- Overnight shifts (spanning two days)
+- Small performance improvements (minmaxing)
+- Allow passing holidays as list of tuples
