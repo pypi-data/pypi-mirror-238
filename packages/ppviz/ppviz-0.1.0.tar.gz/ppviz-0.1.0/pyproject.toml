@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "ppviz"
+version = "0.1.0" # auto-updated
+description = "It's a GUI to explore/profile a python file."
+authors = ["manatlan <manatlan@gmail.com>"]
+#include = ["LICENSE"]
+readme = 'README.md'
+keywords=['snakeviz',"cProfile","python3","htag"]
+homepage = "https://github.com/manatlan/ppviz"
+repository = "https://github.com/manatlan/ppviz"
+documentation = "https://github.com/manatlan/ppviz"
+license="MIT"
+classifiers = [
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
+[tool.poetry.scripts]
+ppviz = "ppviz:main"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+htag = "^0.53.0"
+htbulma = "^0.9.7"
+starlette = "^0.31.1"
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
+
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+pytest-asyncio = "^0.21.1"
+
+[build-system]
+requires = ["poetry>=1.5.1"]
+build-backend = "poetry.masonry.api"
