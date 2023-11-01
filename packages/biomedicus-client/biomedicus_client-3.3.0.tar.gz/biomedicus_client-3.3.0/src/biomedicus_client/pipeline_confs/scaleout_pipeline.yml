@@ -1,0 +1,26 @@
+name: biomedicus-default-pipeline
+events_addresses:
+  - localhost:50100
+mp_config:
+  show_progress: True
+  workers: 16
+  read_ahead: 16
+  close_events: True
+error_handlers:
+  - name: simple
+  - name: termination
+    params:
+      max_failures: 0
+components:
+  - name: biomedicus-sentences
+    address: localhost:50300
+  - name: biomedicus-tnt-tagger
+    address: localhost:50400
+  - name: biomedicus-acronyms
+    address: localhost:50500
+  - name: biomedicus-concepts
+    address: localhost:50600
+  - name: biomedicus-negex
+    address: localhost:50700
+  - name: biomedicus-section-headers
+    address: localhost:51000
