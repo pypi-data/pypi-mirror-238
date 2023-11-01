@@ -1,0 +1,139 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[project]
+name = "fake_session_maker"
+version = "0.2.0"
+authors = [
+    {email = "contact.5rgbj@8shield.net", name = "Dorian Turba"},
+]
+description = "Create a SQLAlchemy session_maker that won't commit to db for testing purposes."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Typing :: Typed",
+]
+dependencies = [
+    "SQLAlchemy >= 2, < 3",
+    "pytest >= 7, < 8",
+]
+
+[project.optional-dependencies]
+ALL = ["fake_session_maker[MANAGE]", "fake_session_maker[QUALITY]", "fake_session_maker[TEST]"]
+MANAGE = [
+    "bump-my-version",
+]
+QUALITY = [
+    "black",
+    "flake8",
+    "isort",
+    "mypy",
+    "pre-commit",
+    "ruff",
+    "toml-sort",
+]
+REQUIREMENTS = ["pip-tools"]
+TEST = [
+    "asyncpg < 1.0",
+    "coverage",
+    "psycopg2 < 3.0",
+    "pytest-asyncio",
+]
+
+[project.urls]
+"Bug Tracker" = "https://lab.frogg.it/dorianturba/fake_session_maker"
+"Homepage" = "https://lab.frogg.it/dorianturba/fake_session_maker"
+
+[tool.black]
+line-length = 88
+
+[tool.bumpversion]
+allow_dirty = false
+commit = true
+commit_args = "--no-verify"
+current_version = "0.2.0"
+message = "Bump version: {current_version} → {new_version}"
+parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
+replace = "{new_version}"
+search = "{current_version}"
+serialize = [
+    "{major}.{minor}.{patch}",
+]
+sign_tags = false
+tag = true
+tag_message = "Bump version: {current_version} → {new_version}"
+tag_name = "{new_version}"
+
+[[tool.bumpversion.files]]
+filename = "pyproject.toml"
+replace = "version = \"{new_version}\""
+search = "version = \"{current_version}\""
+
+[tool.mypy]
+disallow_untyped_defs = true
+packages = "fake_session_maker"
+python_version = 3.7
+
+[tool.pymarkdown]
+strict-config = true
+plugins.line-length.line_length = 88
+
+[tool.pytest.ini_options]
+addopts = "-rA -q --strict-markers"
+markers = [
+    "destructive: make sure unwanted behavior raise errors",
+    "property: property based testing",
+    "regression: prevent regression of functionality",
+]
+minversion = "6.0"
+testpaths = [
+    "integration",
+    "tests",
+]
+
+[tool.tomlsort]
+all = true
+in_place = true
+spaces_indent_inline_array = 4
+trailing_comma_inline_array = true
+
+[tool.tomlsort.overrides."project"]
+table_keys = false
+
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    min_version = 4.0
+    env_list =
+        py{37,38,39,310,311}
+        black
+        flake8
+        mypy
+    isolated_build = true
+
+    [testenv]
+    deps = pytest
+    commands = pytest
+
+    [testenv:black]
+    deps = black
+    commands = black --check .
+
+    [testenv:flake8]
+    deps = flake8
+    commands = flake8
+
+    [testenv:mypy]
+    deps = mypy
+    commands = mypy src
+"""

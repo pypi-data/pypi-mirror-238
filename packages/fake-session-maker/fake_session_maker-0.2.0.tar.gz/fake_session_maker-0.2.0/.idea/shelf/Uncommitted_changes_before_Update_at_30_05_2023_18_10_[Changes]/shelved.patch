@@ -1,0 +1,151 @@
+Index: CHANGELOG.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Changes from [0.0.1][0.0.1] to [0.0.2][0.0.2]\n\n- \uD83D\uDCDD more info in CONTRIBUTING.md and README.md\n- \uD83D\uDCDD this CHANGELOG.md\n\n[0.0.1]: https://lab.frogg.it/dorianturba/fake_session_maker/-/releases/0.0.1\n[0.0.2]: https://lab.frogg.it/dorianturba/fake_session_maker/-/releases/0.0.2\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+--- a/CHANGELOG.md	
++++ b/CHANGELOG.md	
+@@ -2,6 +2,7 @@
+ 
+ - 📝 more info in CONTRIBUTING.md and README.md
+ - 📝 this CHANGELOG.md
++- 
+ 
+ [0.0.1]: https://lab.frogg.it/dorianturba/fake_session_maker/-/releases/0.0.1
+ [0.0.2]: https://lab.frogg.it/dorianturba/fake_session_maker/-/releases/0.0.2
+Index: tests/test_fsm.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pytest\n\n\n@pytest.mark.parametrize(\"name\", [\"Joe\", \"Jane\"])\ndef test_isolation(create_user, user_model, fake_session_maker, name):\n    \"\"\"\n    this test is run twice thanks to the parametrize decorator, while the expected result\n    from the database is that there is only one user with id=1\n    \"\"\"\n    result = create_user(name)\n    assert result == \"success\"\n    with fake_session_maker() as session:\n        assert session.query(user_model.id, user_model.name).all() == [(1, name)]\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/tests/test_fsm.py b/tests/test_fsm.py
+--- a/tests/test_fsm.py	
++++ b/tests/test_fsm.py	
+@@ -1,4 +1,5 @@
+ import pytest
++import sqlalchemy.exc
+ 
+ 
+ @pytest.mark.parametrize("name", ["Joe", "Jane"])
+@@ -7,7 +8,16 @@
+     this test is run twice thanks to the parametrize decorator, while the expected result
+     from the database is that there is only one user with id=1
+     """
+-    result = create_user(name)
+-    assert result == "success"
++    user_id = create_user(name)
++    assert user_id == 1
+     with fake_session_maker() as session:
+         assert session.query(user_model.id, user_model.name).all() == [(1, name)]
++
++
++@pytest.mark.parametrize("name", ["Joe", "Jane"])
++def test_fail(
++    create_user, create_full_user, user_model, fake_session_maker, insert_error, name: str
++):
++    user_id = create_user(name)
++    with pytest.raises(insert_error):
++        create_full_user(user_id, name)
+Index: CONTRIBUTING.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Contributing to fake_session_maker\n\nFirst off, thanks for taking the time to contribute!\n\n## Who is concerned by this file\n\nThis file is for:\n\n- Project owners - creators and maintainers of the project\n- Project contributors - users of the project who want to know items they're welcome to tackle, and\n  tact they need in navigating the project/respecting those involved with the project\n- Project consumers - users who want to build off the project to create their own project\n\n## Code of Conduct\n\nPlease note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md).\nBy participating in this project you agree to abide by its terms.\n\nPlease note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md).\nBy participating in this project you agree to abide by its terms.\n\n## How Can I Contribute?\n\n### Reporting Bugs\n\nThis section guides you through submitting a bug report for fake_session_maker. Following these\nguidelines helps maintainers and the community understand your report.\n\n- Use the [issue search][issue search] — check if the issue has already been reported.\n- Check if the issue has been fixed — try to reproduce it using the latest `main` branch in the\n  repository.\n- Isolate the problem — ideally create a reduced test case.\n\nPlease provide as much detail as you can. This helps us resolve the issue more quickly.\n\n### Suggesting Enhancements\n\nThis section guides you through submitting an enhancement suggestion for fake_session_maker, which\ncan range from small improvements in existing functionality to proposing new features.\n\nWhen you are creating an enhancement suggestion, please:\n\n#### 1. Check Existing Enhancements\n\nBefore creating an enhancement suggestion, please check the [issue tracker][issue search] to see if\na similar suggestion has already been made. If it exists and is still open, add a comment to the\nexisting issue instead of opening a new one.\n\n#### 2. Provide a Clear Summary\n\nWhen you create your enhancement suggestion, provide a clear and concise summary in the title of the\nissue to help us understand the scope of the suggestion.\n\n#### 3. Describe Your Suggestion\n\nIn the issue description, explain the following:\n\n- **What is the current behavior?** Describe what happens in the software currently.\n- **What would you like to suggest?** Describe what you want to happen instead.\n- **What are the potential benefits of this change?** Describe the benefits of the change you\n  suggest.\n- **Are there any potential drawbacks?** While every change has potential downsides, it's important\n  to try to anticipate them if possible.\n\nYou may also want to include additional details, such as how the change might be implemented.\n\nYour detailed description helps us to understand your ideas clearly, consider them thoughtfully, and\nhopefully integrate them into fake_session_maker.\n\n### Merge Requests\n\nThe process described here has several goals:\n\n- Maintain fake_session_maker's quality\n- Fix problems that are important to users\n- Engage the community in working toward the best possible fake_session_maker\n- Enable a sustainable system for fake_session_maker's maintainers to review contributions\n\nPlease follow these steps to have your contribution considered by the maintainers:\n\n1. Use the [MERGE_REQUEST_TEMPLATE.md][merge request template], or one of the other templates\n   provided, to describe the changes in your merge request\n2. After you submit your merge request, verify that all status checks are passing\n3. If a status check is failing, and you believe that the failure is unrelated to your change,\n   please leave a comment on the pull request explaining why you believe the failure is unrelated.\n\n### Quality Standards\n\n#### Style Guide\n\nPlease adhere to\nthe [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/) to maintain\nconsistency in the codebase.\n\n#### Pre-commit hooks\n\nPlease use the pre-commit hooks provided in this repository to maintain consistency in the codebase.\n\n```bash\npip install -e .[QUALITY]\npre-commit install\n```\n\nYou can manually run the pre-commit hooks on all files:\n\n```bash\npre-commit run --all-files\n```\n\nThis will run the following hooks:\n\n- `black`\n- `flake8`\n- `isort`\n- `mypy`\n\n##### Fixing quality issues\n\nYou can automatically fix some of the quality issues by running:\n\n```bash\nblack .\nisort .\n```\n\n#### Testing\n\n```bash\npip install -e .[TEST]\n```\n\nRun tests using `pytest` in the main directory.\n\n```bash\npytest\n```\n\n# Generating distribution archives\n\n```bash\npip install -r build-requirements.txt\npython -m build\n```\n\n[issue search]: https://lab.frogg.it/search?project_id=980&repository_ref=main&scope=issues\n[merge request template]: .gitlab/merge_request_templates/MERGE_REQUEST_TEMPLATE.md
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+--- a/CONTRIBUTING.md	
++++ b/CONTRIBUTING.md	
+@@ -135,12 +135,25 @@
+ pytest
+ ```
+ 
+-# Generating distribution archives
++## Distribution archives
++
++### Generating distribution archives
+ 
+ ```bash
+ pip install -r build-requirements.txt
+ python -m build
+ ```
+ 
++## Share project on PyPI
++
++```bash
++pip install --upgrade twine
++python -m twine upload --repository pypi dist/*
++```
++
++You will be prompted for a username and password. For the username, use `__token__`. For the
++password, use the token value, including the pypi- prefix.
++
+ [issue search]: https://lab.frogg.it/search?project_id=980&repository_ref=main&scope=issues
++
+ [merge request template]: .gitlab/merge_request_templates/MERGE_REQUEST_TEMPLATE.md
+\ No newline at end of file
+Index: tests/conftest.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pathlib\nimport sqlite3\n\nimport pytest\nimport sqlalchemy.orm\n\nfrom fake_session_maker import fsm\n\n\n@pytest.fixture(autouse=True, scope=\"session\")\ndef db_migrate():\n    db = pathlib.Path(\"./tests/test.sqlite\")\n    with sqlite3.connect(db) as con:\n        cur = con.cursor()\n        cur.execute(\"CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)\")\n        con.commit()\n    yield\n    with sqlite3.connect(db) as con:\n        cur.execute(\"DROP TABLE users\")\n        con.commit()\n    db.unlink()\n\n\n@pytest.fixture\ndef namespace():\n    class Namespace:\n        engine = sqlalchemy.create_engine(\n            \"sqlite:///tests/test.db\",\n            echo=True,\n        )\n        session_maker = sqlalchemy.orm.sessionmaker(bind=engine)\n\n    return Namespace\n\n\nclass Base(sqlalchemy.orm.DeclarativeBase):\n    pass\n\n\n@pytest.fixture(scope=\"session\")\ndef user_model():\n    class User(Base):\n        __tablename__ = \"users\"\n        id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)\n        name = sqlalchemy.Column(sqlalchemy.String)\n\n    return User\n\n\n@pytest.fixture\ndef create_user(namespace, user_model):\n    def create_user_(name: str):\n        with namespace.session_maker.begin() as session:\n            session.add(user_model(name=name))\n        return \"success\"\n\n    return create_user_\n\n\n@pytest.fixture\ndef fake_session_maker(namespace) -> sqlalchemy.orm.sessionmaker:\n    with fsm(\n        db_url=\"sqlite:///tests/test.sqlite\",\n        namespace=namespace,\n        symbol_name=\"session_maker\",\n    ) as fake_session_maker_:\n        # the fake_session_maker won't auto-commit after transaction\n        # and rollback after transaction\n        yield fake_session_maker_\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/tests/conftest.py b/tests/conftest.py
+--- a/tests/conftest.py	
++++ b/tests/conftest.py	
+@@ -2,6 +2,7 @@
+ import sqlite3
+ 
+ import pytest
++import sqlalchemy.exc
+ import sqlalchemy.orm
+ 
+ from fake_session_maker import fsm
+@@ -50,13 +51,37 @@
+ @pytest.fixture
+ def create_user(namespace, user_model):
+     def create_user_(name: str):
++        user = user_model(name=name)
+         with namespace.session_maker.begin() as session:
+-            session.add(user_model(name=name))
+-        return "success"
++            session.add(user)
++        return user.id
+ 
+     return create_user_
+ 
+ 
++@pytest.fixture
++def insert_error():
++    class InsertError(Exception):
++        pass
++
++    return InsertError
++
++
++@pytest.fixture
++def create_full_user(namespace, user_model, insert_error):
++    def create_full_user_(user_id: int, name: str):
++        user = user_model(id=user_id, name=name)
++        try:
++            with namespace.session_maker.begin() as session:
++                session.add(user)
++        except sqlalchemy.exc.IntegrityError as e:
++            raise insert_error from e
++
++        return user.id
++
++    return create_full_user_
++
++
+ @pytest.fixture
+ def fake_session_maker(namespace) -> sqlalchemy.orm.sessionmaker:
+     with fsm(
+diff --git a/tests/test_fixture_maker.py b/tests/test_fixture_maker.py
+deleted file mode 100644
