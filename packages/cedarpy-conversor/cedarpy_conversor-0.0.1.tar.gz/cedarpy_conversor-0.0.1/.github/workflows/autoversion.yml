@@ -1,0 +1,40 @@
+name: Auto Versioning
+
+on:
+    push:
+        branches:
+        - main
+
+jobs:
+    versioning:
+      name: Apply new project version
+      runs-on: ubuntu-latest
+      outputs:
+        version: ${{ steps.apply_new_project_version.outputs.version }}
+      steps:
+          - uses: actions/checkout@v3
+            with:
+              fetch-depth: 0
+
+          - uses: leafo/gh-actions-lua@v10
+            with:
+              luaVersion: "5.3.5"
+
+          - name: Auto versioning
+            id: apply_new_project_version
+            run: lua scripts/auto_versioning.lua
+
+    release: 
+      name: Release new version
+      needs: versioning
+      runs-on: ubuntu-latest
+      steps:
+        - uses: ncipollo/release-action@v1
+          with:
+            body: "CedarPy Conversor"
+            generateReleaseNotes: true
+            tag: "v${{ needs.versioning.outputs.version }}"
+            commit: "main"
+            
+
+              
