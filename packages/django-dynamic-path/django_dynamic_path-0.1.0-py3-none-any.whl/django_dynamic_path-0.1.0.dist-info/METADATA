@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: django-dynamic-path
+Version: 0.1.0
+Summary: A django path() replacement enabling truly dynamic urls
+Home-page: https://github.com/quadrant-newmedia/django_dynamic_path
+Author: Alex Fischer
+Author-email: alex@quadrant.net
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Django <4.3,>=2.2
+
+# django_dynamic_path
+
+A django path() replacement enabling truly dynamic urls.
+
+Rather than mapping a regular expression to a view function, you map a "resolver function" to a view function. The resolver function receives the path as an argument, and decides whether or not it wants to handle the request. If it does want to the handle the request, it should return a tuple of args and kwargs, which will be passed to the view function.
+
+## Use Cases
+
+TODO
+
