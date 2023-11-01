@@ -1,0 +1,17 @@
+query GetEdgeByName($name: String!) {
+  edge(where: {name: {_eq: $name}}) {
+    name
+    arch
+    capabilities
+    cpus
+    created
+    deployed
+    enabled
+    id
+    last_seen
+    memory
+    pipeline_version_id
+    spiffe_id
+    tags
+  }
+}

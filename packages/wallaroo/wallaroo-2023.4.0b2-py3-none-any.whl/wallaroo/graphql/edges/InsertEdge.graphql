@@ -1,0 +1,30 @@
+mutation InsertEdge(
+    $id: uuid!,
+    $name: String!,
+    $arch: String,
+    $capabilities: [String!],
+    $cpus: numeric!,
+    $deployed: timestamptz,
+    $enabled: Boolean = true,
+    $last_seen: timestamptz,
+    $memory: String!,
+    $pipeline_version_id: Int,
+    $tags: [String!]!,
+    $spiffe_id: String)
+{
+  insert_edge_one(object: {
+    arch: $arch,
+    capabilities: $capabilities,
+    cpus: $cpus,
+    deployed: $deployed,
+    enabled: $enabled,
+    id: $id,
+    last_seen: $last_seen,
+    memory: $memory,
+    name: $name,
+    pipeline_version_id: $pipeline_version_id,
+    tags: $tags, spiffe_id: $spiffe_id})
+  {
+    id
+  }
+}
