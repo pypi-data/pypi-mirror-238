@@ -1,0 +1,42 @@
+settings:
+  syncDiv: 1
+  syncCfd:
+    level: 0.300
+    zerox: 0.020
+
+  syncChannelOffset: 0
+
+  # Histogram length is in power of 2, refering to Ksamples
+  histogramLength: 6
+
+  # Binning is in power of 2 of the base resolution
+  binning: 6
+
+  offset: 0
+
+  clearOnAcquire: True
+
+  measurementControl:
+    control: SingleShotCtc
+    startEdge: Falling
+    stopEdge: Falling
+
+  channels:
+
+  - enabled: True
+    offset: 0
+    clearOnReadout: False
+    cfd:
+      level: 0.160
+      zerox: 0.020
+
+  - enabled: True
+    offset: 0
+    clearOnReadout: False
+    cfd:
+      level: 0.200
+      zerox: 0.020
+
+  - enabled: False
+
+  - enabled: False          

@@ -1,0 +1,33 @@
+settings:
+  syncDiv: 1
+  syncCfd:
+    level: 0.030
+    zerox: 0.010
+
+  syncChannelOffset: 0
+
+  histogramLength: 6
+  binning: 8
+  offset: 0
+
+  clearOnAcquire: True
+
+  measurementControl:
+    control: SingleShotCtc
+    startEdge: Falling
+    stopEdge: Falling
+
+  channels:
+
+  - enabled: True
+    offset: 0
+    clearOnReadout: False
+    cfd:
+      level: 0.005
+      zerox: 0.001
+
+  - enabled: False
+
+  - enabled: False
+
+  - enabled: False

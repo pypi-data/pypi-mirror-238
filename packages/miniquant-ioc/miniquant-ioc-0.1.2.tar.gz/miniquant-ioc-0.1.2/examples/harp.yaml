@@ -1,0 +1,109 @@
+harp:
+  device: "first"
+
+  init:
+    measurementMode: Histogramming
+    referenceClock: Internal
+
+  presets:
+    - name: "t0-wide"
+      fromFile: "t0-wide.yaml"
+
+    - name: "t0-hres"
+      fromFile: "t0-hres.yaml"
+
+    - name: "pmt"
+      fromFile: "pmt-preset.yaml"
+
+    - name: "4chan"
+      fromFile: "4chan.yaml"
+
+  settings:
+    fromPreset: "t0-wide"
+
+
+epics:
+
+  prefix: "KMC3:XPP:HARP"
+
+  # Default polling interval for harp and channel
+  # properties exported to EPICS
+  defaults:
+    signal:
+      pollPeriod: 0.5
+
+  harpBase:
+    exports:
+
+      - recordType: signal
+        signal:
+          name: resolution
+          kind: "analog"
+
+      - recordType: signal
+        signal:
+          name: syncRate
+          kind: "analog"
+          killOnError: true          
+
+      - recordType: signal
+        signal:
+          name: syncPeriod
+          kind: "analog"
+
+      - recordType: property
+        property:
+          name: acquiring
+          kind: "switch"
+          validator:
+            values:
+              1: true
+              0: false
+
+      - recordType: property
+        property:
+          name: acquisitionTime
+          kind: "analog"
+
+
+      - recordType: signal
+        signal:
+          name: flag_aqactive
+          access: flags.ACTIVE
+          kind: "analog"
+
+
+  harpChannels:
+    interfix: "ch{}_"
+    exports:
+
+      - recordType: property
+        property:
+          name: enabled
+          kind: "switch"
+
+      - recordType: signal
+        signal:
+          name: countRate
+          kind: "analog"
+
+      - recordType: signal
+        signal:
+          name: histogram
+          suffix: histogram_signal
+          kind: "waveform"
+          create:
+            length: 65536
+            FTVL: "ULONG"
+
+      - recordType: signal
+        signal:
+          name: offset
+          suffix: histogram_offset
+          kind: "analog"
+
+      - recordType: signal
+        signal:
+          name: harp.resolution
+          suffix: histogram_delta
+          kind: "analog"
