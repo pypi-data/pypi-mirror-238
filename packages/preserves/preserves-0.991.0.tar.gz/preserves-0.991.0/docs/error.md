@@ -1,0 +1,3 @@
+# Codec errors
+
+::: preserves.error
