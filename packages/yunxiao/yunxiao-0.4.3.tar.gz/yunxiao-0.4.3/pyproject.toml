@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[project]
+name = "yunxiao"
+version = "0.4.3"
+description = "An API SDK tool for Cloud School Education Institution Management System."
+readme = "README.md"
+authors = [
+    {name = "sqkkyzx", email = "admin@sqkkyzx.com"},
+]
+#license.text = "GPL-3.0-only"
+#classifiers = [
+#    "Development Status :: 3 - Alpha",
+#    "Intended Audience :: Developers",
+#    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+#    "Programming Language :: Python :: 3.11",
+#]
+dependencies = ["requests"]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.publish]
+repository = "pypi"
+
+[tool.poetry.changelog]
+"0.4.3" = "改进：使用支持http2的httpx模块替换requests\n移除：移除了预设的时间值"
+"0.4.2" = "修复：日期计算错误"
+"0.4.1" = "修复：若干BUG"
+"0.3.10" = "修复：若干BUG"
+"0.3.9" = "修复：日期计算错误"
+"0.3.8" = "改进：改用网页版接口\n移除：V2"
+"0.3.7" = "修复：翻页模块的当返回空数据时报错"
+"0.3.6" = "改进：多页查询时，不再输出空日志"
+"0.3.5" = "改进：更新可用参数"
+"0.3.4" = "修复：拉取意向失败"
+"0.3.3" = "修复：班级查询根据名称检索失效"
+"0.3.2" = "修复：若干BUG\n新增：意向管理API"
+"0.3.1" = "修复：若干BUG"
+"0.2.9" = "移除：V1"
+"0.2.6" = "新增：V2使用分片读取"
+"0.2.5" = "修复：V2API端点错误\n新增：分片提取大量数据"
+"0.2.4" = "修复：V2API端点错误及鉴权更新错误"
+"0.2.2" = "新增：V2使用更清晰的函数命名"
+"0.2.1" = "修复：web端请求BUG"
+"0.2.0" = "修复：若干BUG"
+"0.1.9" = "改进：当因鉴权失效导致请求失败时自动更新鉴权并重新发起请求"
