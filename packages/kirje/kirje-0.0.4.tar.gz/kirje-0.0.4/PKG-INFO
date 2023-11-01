@@ -1,0 +1,82 @@
+Metadata-Version: 2.1
+Name: kirje
+Version: 0.0.4
+Summary: A framing library for content with headers and body.
+Project-URL: Homepage, https://github.com/karrimiettinen/kirje
+Project-URL: Bug Tracker, https://github.com/karrimiettinen/kirje/issues
+Author-email: Karri Miettinen <karri.miettinen@lab.fi>
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+
+# Kirje
+
+A framing library for content with headers and body.
+
+Installation: `pip install kirje`
+
+## Usage
+
+Import `Kirje` and `KirjeDetails`. Initialize `KirjeDetails` and use it as parameter to construct concrete `Kirje` object. 
+
+```py
+from kirje import Kirje, KirjeDetails
+
+details = KirjeDetails(
+    headers={
+        'ID': 2,
+        'Title': 'Hello world',
+        'Created': '2023-10-27 14:18:14',
+        'Modified': '2023-10-27 14:18:25'
+    },
+    content="Hello\nworld."
+)
+
+message = Kirje(details)
+message.display("rounded")
+```
+
+Expected output:
+
+```
+╭──────────Hello world──────────╮
+│ ID: 2                         │
+│ Created: 2023-10-27 14:18:14  │
+│ Modified: 2023-10-27 14:18:25 │
+├───────────────────────────────┤
+│ Hello                         │
+│ world.                        │
+╰───────────────────────────────╯
+```
+
+## Styles
+
+**Default:**
+
+```
++----------Hello world----------+
+| ID: 2                         |
+| Created: 2023-10-27 14:18:14  |
+| Modified: 2023-10-27 14:18:25 |
++-------------------------------+
+| Hello                         |
+| world.                        |
++-------------------------------+
+```
+
+**Rounded:**
+
+```
+╭──────────Hello world──────────╮
+│ ID: 2                         │
+│ Created: 2023-10-27 14:18:14  │
+│ Modified: 2023-10-27 14:18:25 │
+├───────────────────────────────┤
+│ Hello                         │
+│ world.                        │
+╰───────────────────────────────╯
+```
+
