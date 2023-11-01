@@ -1,0 +1,26 @@
+import pytest
+
+BASE_URLS = {
+    "base_files_url": {{ vars.resource_config.class|base_name }}.url_prefix.replace({% raw %}"<pid_value>"{% endraw %}, "{id}")
+}
+
+APP_CONFIG = {
+    "FILES_REST_STORAGE_CLASS_LIST": {
+        "L": "Local",
+        "F": "Fetch",
+        "R": "Remote",
+    },
+    "FILES_REST_DEFAULT_STORAGE_CLASS": "L",
+}
+
+@pytest.fixture(scope="module", autouse=True)
+def location(location):
+    return location
+
+@pytest.fixture(scope="module")
+def headers():
+    """Default headers for making requests."""
+    return {
+        "content-type": "application/json",
+        "accept": "application/json",
+    }
