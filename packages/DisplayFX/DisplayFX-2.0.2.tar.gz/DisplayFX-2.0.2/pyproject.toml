@@ -1,0 +1,73 @@
+[project]
+name = 'DisplayFX'
+version = '2.0.2'
+authors = [
+    { name = 'Hendrik du Toit', email = 'hendrik@brightedge.co.za' },
+]
+description = 'Display progress indicator on CRT screen.'
+license = {file = 'LICENSE'}
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+	'Development Status :: 1 - Planning',
+	'Intended Audience :: Developers',
+	'Topic :: Software Development',
+	'License :: OSI Approved :: MIT License',
+	'Programming Language :: Python :: 3.8',
+	'Programming Language :: Python :: 3.9',
+	'Programming Language :: Python :: 3.10',
+	'Programming Language :: Python :: 3.11',
+]
+readme = {file = 'README.rst', content-type = 'text/x-rst'}
+requires-python = '>=3.8, <=12.0'
+dependencies = [
+    'beetools',
+  ]
+
+[project.optional-dependencies]
+dev = [
+    'build',
+    'git-it',
+    'pytest',
+    'pytest-cov',
+    'rstcheck',
+    'toml',
+    'twine',
+]
+
+[project.urls]
+Changelog = 'https://github.com/BrightEdgeeServices/diaplayfx/blob/master/CHANGES.md'
+Homepage = 'https://github.com/BrightEdgeeServices/diaplayfx'
+
+[build-system]
+requires = [
+    "setuptools >= 68",
+    "wheel",
+    "setuptools-git >= 1.1",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+skip-string-normalization = true
+line-length = 120
+target-version = ["py311"]
+
+[tool.codespell]
+count = ''
+quiet-level = 2
+skip = 'documentation/Archive/*'
+
+[tool.coverage.run]
+source = ['src']
+
+[tool.pytest.ini_options]
+#addopts = ['--import-mode=importlib', '-vv', '--ignore-glob=*\Archive']
+addopts = ["--import-mode=importlib", '-vv', '--ignore-glob=*\Archive','--cov=./src/', '--cov-report=html']
+pythonpath = ['src','src/rte-db', 'tests' ]
+markers = [
+    "select: Run a selection of tests",
+    "structure_accounting: Run tests linked to accounting",
+]
+filterwarnings = [
+#    "ignore::DeprecationWarning",
+]
+testpaths = 'tests'
