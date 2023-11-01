@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "pydantic-db-backend"
+version = "1.0.4"
+description = ""
+authors = ["Marco Bartel <bsimpson888@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-dotenv = "^1.0.0"
+couchdb = { version = "^1.2", optional = true }
+pymongo = { version = "^4.5.0", optional = true }
+pydash = "*"
+pydantic = "^2.4.2"
+webexception = "^1.0.4"
+pydantic-db-backend-common = "^2.0.2"
+fastapi = "^0.103.2"
+uvicorn = "^0.23.2"
+
+
+[tool.poetry.group.dev.dependencies]
+coverage = "^7.2.7"
+pytest = "^7.3.1"
+freezegun = "^1.2.2"
+couchdb = "^1.2"
+pymongo = "^4.5.0"
+pytest-mock = "^3.10.0"
+black = "^23.7.0"
+
+
+[tool.poetry.extras]
+couchdb = ["couchdb"]
+mongodb = ["pymongo"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q -s -v"
+testpaths = [
+    "tests",
+]
+log_cli = true
+log_cli_level = "debug"
+#log_cli_format = "[%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_format = "[%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
