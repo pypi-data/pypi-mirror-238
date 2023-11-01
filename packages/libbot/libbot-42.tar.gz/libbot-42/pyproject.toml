@@ -1,0 +1,66 @@
+[build-system]
+requires = [
+    "setuptools>=43.0.0",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "libbot"
+description = "the python3 bot namespace"
+version = "42"
+authors = [
+    {name = "libbot",email = "libbotx@gmail.com"},
+]
+readme = "README.rst"
+license = {text="Public Domain"}
+classifiers = [ 
+    'Development Status :: 3 - Alpha',
+    'License :: Public Domain',
+    'Operating System :: Unix',
+    'Programming Language :: Python',
+    'Topic :: Utilities'
+]
+
+
+[project.scripts]
+"bot" = "bot.__main__:wrapped"
+
+
+[project.urls]
+"home" = "https://pypi.org/project/libbot"
+"bugs" = "https://github.com/botlibx/libbot/issues"
+"source" = "https://github.com/botlibx/libbot"
+
+
+[tool.setuptools]
+packages = [
+    'bot',
+    'bot.modules'
+]
+zip-safe=true
+
+
+[tool.setuptools.data-files]
+"share/doc/libbot" = [
+    "README.rst",
+]
+
+
+"share/libbot/mods" = [
+    'mods/mbx.py',
+    'mods/mdl.py',
+    'mods/req.py',
+    'mods/shp.py',
+    'mods/udp.py',
+    'mods/wsd.py',
+    'mods/wsh.py'
+]                   
+
+[tool.setuptools.exclude-package-data]
+"*" = [
+       "env*",
+       "html*",
+       "test*"
+      ]
