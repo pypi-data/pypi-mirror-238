@@ -1,0 +1,167 @@
+Metadata-Version: 2.1
+Name: body-scan
+Version: 0.1.5
+License: LL
+Project-URL: GitLab, https://gitlab.com/reptilian_climates/body_scan.git
+Description-Content-Type: text/plain
+Requires-Dist: BOTANIST
+Requires-Dist: click
+Requires-Dist: flask
+Requires-Dist: tinydb
+
+
+
+<body>
+	<header>
+		<address>body scan</address>
+	</header>
+
+	<main>
+		<address>quick start</address>
+
+		<p>How to start checks</p>
+		<code python3>
+
+		import body_scan
+		import pathlib
+
+		scan = body_scan.start (
+			glob_string = pathlib.Path (__file__).parent.resolve () + '/**/*HEALTH.py',
+			simultaneous = True,
+			relative_path = pathlib.Path (__file__).parent.resolve ()
+		)
+		</code>
+
+		<b>body_scan.start options</b>
+		<code>
+
+		#
+		#	REQUIRED
+		#		This is all the files that are sent to the scanner.
+		#
+		glob_string = search + '/**/*HEALTH.py',
+
+		#
+		#	This runs all the checks in a thread pool,
+		#	so maybe at the same time, more or less.
+		#
+		#	If False, then checks are run one at a time
+		#
+		simultaneous = True,
+
+		#
+		# 	OPTIONAL
+		#		These are the folders that are added to "sys.path"
+		#
+		module_paths = [
+			normpath (join (search, "modules_pip"))
+		],
+
+		#
+		#	OPTIONAL
+		#		This is the folder path to remove from the paths in the output.
+		#
+		relative_path = search
+
+		</code>
+
+		<b>How to write checks</b>
+		<code python3>
+		def check_1 ():
+			print ("check 1")
+			
+		def check_2 ():
+			raise Exception ("NOT 100%")
+			
+
+		CHECKS = {
+			"check 1": check_1,
+			"check 2": check_2
+		}
+		</code>
+
+
+		<b>output</b>
+
+		output is printed in 3 sections:
+			status:
+				empty = true -> no "checks" were found
+				parsed = true -> the python3 exec compiler could parse the file
+			
+			alarms
+			stats
+
+		<code python3>
+		status: {
+			"paths": [
+				{
+					"path": "guarantee_1.py",
+					"empty": false,
+					"parsed": true,
+					"stats": {
+						"passes": 1,
+						"alarms": 1
+					},
+					"checks": [
+						{
+							"check": "check 1",
+							"passed": true,
+							"elapsed": [
+								1.07790001493413e-05,
+								"SECONDS"
+							]
+						},
+						{
+							"check": "check 2",
+							"passed": false,
+							"exception": "Exception('NOT 100%')",
+							"exception trace": [
+								"Traceback (most recent call last):",
+								"  File \"/body_scan/processes/scan/keg/scan.py\", line 68, in scan",
+								"    checks [ check ] ()",
+								"  File \"<string>\", line 10, in check_2",
+								"Exception: NOT 100%"
+							]
+						}
+					]
+				}
+			],
+			"stats": {
+				"alarms": 0,
+				"empty": 0,
+				"checks": {
+					"passes": 1,
+					"alarms": 1
+				}
+			}
+		}
+		alarms: [
+			{
+				"path": "guarantee_1.py",
+				"checks": [
+					{
+						"check": "check 2",
+						"passed": false,
+						"exception": "Exception('NOT 100%')",
+						"exception trace": [
+							"Traceback (most recent call last):",
+							"  File \"/body_scan/structure/modules/body_scan/processes/scan/keg/scan.py\", line 68, in scan",
+							"    checks [ check ] ()",
+							"  File \"<string>\", line 10, in check_2",
+							"Exception: NOT 100%"
+						]
+					}
+				]
+			}
+		]
+		stats: {
+			"alarms": 0,
+			"empty": 0,
+			"checks": {
+				"passes": 1,
+				"alarms": 1
+			}
+		}
+		</code>
+	</main>
+</body>
