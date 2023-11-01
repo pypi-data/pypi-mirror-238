@@ -1,0 +1,27 @@
+{% extends "admin/delete_confirmation.html" %}
+{% load i18n static get_page_list_from_object %}
+
+{% block extrastyle %}{{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'filer/css/admin_filer.css' %}">
+{% endblock %}
+
+{% block breadcrumbs %}
+  {% include "admin/filer/breadcrumbs.html" with instance=object breadcrumbs_action="Delete" %}
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+  <br />
+  <p><i>{% trans 'Here are the pages where the objects are used:' %}</i></p>
+  {% with pages=object|get_page_list_from_object %}
+    <p><i><b>{{ pages|length }}</b> {% trans 'pages' %}</i></p>
+    <ul>
+      {% for page in pages %}
+        <li>{{ page.file_name }} - <a href="{{ page.url }}" target="_blank">{{ page.title }}</a> ({{ page.lang }}) {% if page.is_draft %}({% trans "Draft" %}){% endif %}</li>
+      {% empty %}
+        <li><i>{% trans 'No file is used on a page!' %}</i></li>
+      {% endfor %}
+    </ul>
+  {% endwith %}
+
+{% endblock %}
