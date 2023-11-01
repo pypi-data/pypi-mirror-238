@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=61", "setuptools_scm[toml]>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nx_work_log"
+authors = [
+    {name="Xander Hendriks", email="xander@nx-solutions.com"},
+]
+description = "NX Solutions Work Log"
+readme = "README.rst"
+requires-python = ">=3.7"
+license = {file = "LICENSE.txt"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3 :: Only",
+]
+dependencies = ["pywin32 ; platform_system=='Windows'"]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://xanderhendriks.github.io/nx-work-log"
+Issues = "https://github.com/xanderhendriks/nx-work-log/issues"
+Repository = "https://github.com/xanderhendriks/nx-work-log"
+
+[project.gui-scripts]
+nxworklog = "nx_work_log.win_app:main"
+
+[project.optional-dependencies]
+dev = ["wheel", "check-manifest", "flake8"]
+test = ["pytest"]
+doc = ["sphinx", "sphinx-rtd-theme"]
+
+[tool.setuptools]
+packages = ["nx_work_log"]
+
+[tool.setuptools.package-data]
+nx_work_log= ["nx_work_log.rc", "SysTrayPaused.ico", "SysTrayRunning.ico"]
+
+[tool.setuptools_scm]
+version_scheme = "post-release"
+write_to = "nx_work_log/version.py"
+local_scheme = "no-local-version"
+
+[tool.distutils.bdist_wheel]
+universal = true
