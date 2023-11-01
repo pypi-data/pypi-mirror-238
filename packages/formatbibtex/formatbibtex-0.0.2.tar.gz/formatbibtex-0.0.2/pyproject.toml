@@ -1,0 +1,43 @@
+[project]
+name = "formatbibtex"
+version = "0.0.2"
+description = "Bibtex formatter"
+authors = [
+    { name = "Pierre Augier", email = "pierre.augier@univ-grenoble-alpes.fr" },
+]
+dependencies = [
+    "bibtexparser>=2.0.0b3",
+]
+requires-python = ">=3.9"
+readme = "README.md"
+
+[project.license]
+text = "BSD-3-Clause"
+
+[project.scripts]
+formatbibtex = "formatbibtex:main"
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm.scripts]
+format = "black src"
+
+[tool.pdm.dev-dependencies]
+lint = [
+    "flake8",
+    "black",
+]
+test = [
+    "pytest",
+    "pytest-cov",
+]
+debug = [
+    "ipdb",
+]
+
+[tool.black]
+line-length = 88
