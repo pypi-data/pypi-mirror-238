@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: ppviz
+Version: 0.2.0
+Summary: It's a GUI to explore/profile a python file.
+Home-page: https://github.com/manatlan/ppviz
+License: MIT
+Keywords: snakeviz,cProfile,python3,htag
+Author: manatlan
+Author-email: manatlan@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: htag (>=0.60,<0.61)
+Requires-Dist: htbulma (>=0.9.7,<0.10.0)
+Requires-Dist: starlette
+Requires-Dist: uvicorn[standard]
+Project-URL: Documentation, https://github.com/manatlan/ppviz
+Project-URL: Repository, https://github.com/manatlan/ppviz
+Description-Content-Type: text/markdown
+
+# ppviz (python profiler viz'ualizer)
+
+It's a GUI to explore/profile a python file.
+(it's a little bit like [snakeviz](https://jiffyclub.github.io/snakeviz/))
+Should work on windows/mac/linux and chromeos/linux
+
+```
+$ python -m pip install ppviz
+$ ppviz sudoku.py
+```
+**remark**: "sudoku.py" is an example (and can be found [here](https://github.com/manatlan/sudoku_resolver/blob/master/sudoku.py)), you should use the python file you want to profile ;-)
+
+![screenshot](screenshot.png?raw=true "Screenshot")
+
+it uses [htag](https://github.com/manatlan/htag)(+htbulma) as gui system ;-)
+
