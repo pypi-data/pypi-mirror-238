@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Task Class &#8212; Task Manager 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SQLiteDB Class" href="db.html" />
+    <link rel="prev" title="TaskManager Class" href="task_manager.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="task-class">
+<h1>Task Class<a class="headerlink" href="#task-class" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="to_do_list_project.task.Task">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">to_do_list_project.task.</span></span><span class="sig-name descname"><span class="pre">Task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">due_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assignee</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TaskStatus</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">TaskStatus.IN_PROGRESS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TaskPriority</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">TaskPriority.MEDIUM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#to_do_list_project.task.Task" title="Link to this definition">¶</a></dt>
+<dd><p>Represents a Task object.</p>
+<p>It has attributes such as ID, name, description, etc.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="to_do_list_project.task.Task.assignee">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">assignee</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#to_do_list_project.task.Task.assignee" title="Link to this definition">¶</a></dt>
+<dd><p>Getter for the list of assignees for the task.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="to_do_list_project.task.Task.categories">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">categories</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#to_do_list_project.task.Task.categories" title="Link to this definition">¶</a></dt>
+<dd><p>Getter for the task’s list of categories.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="to_do_list_project.task.Task.description">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#to_do_list_project.task.Task.description" title="Link to this definition">¶</a></dt>
+<dd><p>Getter for the task’s description.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="to_do_list_project.task.Task.due_date">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">due_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#to_do_list_project.task.Task.due_date" title="Link to this definition">¶</a></dt>
+<dd><p>Getter for the task’s due date.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="to_do_list_project.task.Task.id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#to_do_list_project.task.Task.id" title="Link to this definition">¶</a></dt>
+<dd><p>Getter for the task’s id.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="to_do_list_project.task.Task.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#to_do_list_project.task.Task.name" title="Link to this definition">¶</a></dt>
+<dd><p>Getter for the task’s name.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="to_do_list_project.task.Task.priority">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">TaskPriority</span></em><a class="headerlink" href="#to_do_list_project.task.Task.priority" title="Link to this definition">¶</a></dt>
+<dd><p>Getter for the task’s priority level.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="to_do_list_project.task.Task.status">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">TaskStatus</span></em><a class="headerlink" href="#to_do_list_project.task.Task.status" title="Link to this definition">¶</a></dt>
+<dd><p>Getter for the task’s status.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Task Manager</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="main.html">Main Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="streamlit.html">Streamlit Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_manager.html">TaskManager Class</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Task Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#to_do_list_project.task.Task"><code class="docutils literal notranslate"><span class="pre">Task</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="db.html">SQLiteDB Class</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="test_main.html">Main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_db.html">DB Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_task.html">Task Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_task_manager.html">TaskManager Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_streamlit.html">Streamlit Module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="task_manager.html" title="previous chapter">TaskManager Class</a></li>
+      <li>Next: <a href="db.html" title="next chapter">SQLiteDB Class</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Florent BRIAND, Maxime LEDIEU Jaime MONTEA, Edouard DUCLOY, Pierre BILLAUD.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/task.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

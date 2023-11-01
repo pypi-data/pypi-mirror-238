@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TaskManager Module &#8212; Task Manager 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Streamlit Module" href="test_streamlit.html" />
+    <link rel="prev" title="Task Module" href="test_task.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="taskmanager-module">
+<h1>TaskManager Module<a class="headerlink" href="#taskmanager-module" title="Link to this heading">¶</a></h1>
+<p id="module-tests.test_task_manager">test_task_manager.py</p>
+<p>This script is dedicated to test all the functionalities from db.py file.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task_manager.task_manager">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task_manager.</span></span><span class="sig-name descname"><span class="pre">task_manager</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="task_manager.html#to_do_list_project.task_manager.TaskManager" title="to_do_list_project.task_manager.TaskManager"><span class="pre">TaskManager</span></a></span></span><a class="headerlink" href="#tests.test_task_manager.task_manager" title="Link to this definition">¶</a></dt>
+<dd><p>Fixture to create and return a new TaskManager instance.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task_manager.test_add_task">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task_manager.</span></span><span class="sig-name descname"><span class="pre">test_add_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="task_manager.html#to_do_list_project.task_manager.TaskManager" title="to_do_list_project.task_manager.TaskManager"><span class="pre">TaskManager</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task_manager.test_add_task" title="Link to this definition">¶</a></dt>
+<dd><p>Test if a task can be added to the task manager.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task_manager.test_add_task_past_due_date">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task_manager.</span></span><span class="sig-name descname"><span class="pre">test_add_task_past_due_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="task_manager.html#to_do_list_project.task_manager.TaskManager" title="to_do_list_project.task_manager.TaskManager"><span class="pre">TaskManager</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task_manager.test_add_task_past_due_date" title="Link to this definition">¶</a></dt>
+<dd><p>Test if a task with a past due date raises the godd error.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task_manager.test_complete_task">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task_manager.</span></span><span class="sig-name descname"><span class="pre">test_complete_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="task_manager.html#to_do_list_project.task_manager.TaskManager" title="to_do_list_project.task_manager.TaskManager"><span class="pre">TaskManager</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task_manager.test_complete_task" title="Link to this definition">¶</a></dt>
+<dd><p>Test if a task can be marked as complete.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task_manager.test_delete_task">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task_manager.</span></span><span class="sig-name descname"><span class="pre">test_delete_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="task_manager.html#to_do_list_project.task_manager.TaskManager" title="to_do_list_project.task_manager.TaskManager"><span class="pre">TaskManager</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task_manager.test_delete_task" title="Link to this definition">¶</a></dt>
+<dd><p>Test if a task can be deleted from the task manager.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task_manager.test_get_all_tasks">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task_manager.</span></span><span class="sig-name descname"><span class="pre">test_get_all_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="task_manager.html#to_do_list_project.task_manager.TaskManager" title="to_do_list_project.task_manager.TaskManager"><span class="pre">TaskManager</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task_manager.test_get_all_tasks" title="Link to this definition">¶</a></dt>
+<dd><p>Test if all tasks can be retrieved from the task manager.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task_manager.test_modify_task">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task_manager.</span></span><span class="sig-name descname"><span class="pre">test_modify_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="task_manager.html#to_do_list_project.task_manager.TaskManager" title="to_do_list_project.task_manager.TaskManager"><span class="pre">TaskManager</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task_manager.test_modify_task" title="Link to this definition">¶</a></dt>
+<dd><p>Test if the name of a task can be successfully modified in
+the task manager.</p>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Task Manager</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Main Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="streamlit.html">Streamlit Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_manager.html">TaskManager Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task.html">Task Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="db.html">SQLiteDB Class</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="test_main.html">Main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_db.html">DB Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_task.html">Task Module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">TaskManager Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task_manager.task_manager"><code class="docutils literal notranslate"><span class="pre">task_manager()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task_manager.test_add_task"><code class="docutils literal notranslate"><span class="pre">test_add_task()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task_manager.test_add_task_past_due_date"><code class="docutils literal notranslate"><span class="pre">test_add_task_past_due_date()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task_manager.test_complete_task"><code class="docutils literal notranslate"><span class="pre">test_complete_task()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task_manager.test_delete_task"><code class="docutils literal notranslate"><span class="pre">test_delete_task()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task_manager.test_get_all_tasks"><code class="docutils literal notranslate"><span class="pre">test_get_all_tasks()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task_manager.test_modify_task"><code class="docutils literal notranslate"><span class="pre">test_modify_task()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="test_streamlit.html">Streamlit Module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="test_task.html" title="previous chapter">Task Module</a></li>
+      <li>Next: <a href="test_streamlit.html" title="next chapter">Streamlit Module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Florent BRIAND, Maxime LEDIEU Jaime MONTEA, Edouard DUCLOY, Pierre BILLAUD.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/test_task_manager.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
