@@ -1,0 +1,125 @@
+Metadata-Version: 2.1
+Name: jijzept
+Version: 1.17.0
+Summary: Python Interface for Jij-Zept.
+Home-page: https://www.jijzept.com
+Author: Jij Inc.
+Author-email: info@j-ij.com
+License: Other/Proprietary License
+Project-URL: Documentation, https://www.documentation.jijzept.com
+Project-URL: Reference, https://www.ref.documentation.jijzept.com
+Project-URL: JijModeling, https://pypi.org/project/jijmodeling/
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: MacOS
+Requires-Python: <3.12,>=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: jijmodeling <1.2.0,>=1.1.1
+Requires-Dist: numpy <1.25.0
+Requires-Dist: requests <2.32.0
+Requires-Dist: toml <0.11.0
+Requires-Dist: zstandard <0.30.0,>0.10.0
+Requires-Dist: pydantic <3.0.0,>=2.0.0
+Requires-Dist: python-rapidjson <2.0,>=1.0
+Requires-Dist: click <8.2.0
+Requires-Dist: protobuf <5.0,>=3.20
+
+# JijZept Quick Start
+
+[![PyPI version shields.io](https://img.shields.io/pypi/v/jijzept.svg)](https://pypi.python.org/pypi/jijzept/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/jijzept.svg)](https://pypi.python.org/pypi/jijzept/)
+[![PyPI implementation](https://img.shields.io/pypi/implementation/jijzept.svg)](https://pypi.python.org/pypi/jijzept/)
+[![PyPI format](https://img.shields.io/pypi/format/jijzept.svg)](https://pypi.python.org/pypi/jijzept/)
+[![PyPI license](https://img.shields.io/pypi/l/jijzept.svg)](https://pypi.python.org/pypi/jijzept/)
+[![PyPI download month](https://img.shields.io/pypi/dm/jijzept.svg)](https://pypi.python.org/pypi/jijzept/)
+
+## How to get started with JijZept
+
+The minimal sample code as follows:
+
+```python
+from jijzept import JijSASampler
+
+# define QUBO
+qubo = {(0,0): -1, (0, 1): -1, (1, 0): 2}
+
+sampler = JijSASampler(config='config.toml')
+result = sampler.sample_qubo(qubo)
+
+print(result)
+```
+
+Write a configuration file for connecting to JijZept in `config.toml` and put it in the `config` argument of the Sampler constructor.\
+The configuration file should be written in TOML format as follows.
+
+```toml
+[default]
+url = "***"
+token = "****"
+```
+
+Copy and paste the assigned API endpoint into the `url` and your token into `token` in the configure file.
+
+またデフォルトでは`同期モード` になっているため、APIに投げて計算が終わるで待ってから解を得ることになります。
+
+`同期モード`をオフにして非同期でJijZeptを使うには以下の手順で答えを得ることができます。
+
+### async mode
+
+非同期モードでAPIを使いたい場合は、`.sample_*` の引数で、`async=False` にして同期モードをオフにする必要があります。
+
+サンプルコード
+
+```python
+from jijzept import JijSASampler
+from jijzept import api
+
+# define qubo
+qubo = {(0, 0): -1, (0, 1): -1, (1, 0): 2}
+
+sampler = JijSASampler(config='config.toml')
+# set sync=False
+response = sampler.sample_qubo(qubo, sync=False)
+
+# get result
+response = response.get_result(config='config.toml')
+
+
+if response.status == api.SUCESS:
+    print(response)
+elif response.status == api.PENDING:
+    print('Solver status: PENDING')
+else:
+    print('Error')
+
+```
+
+非同期モードでも `.sample_*` の返り値は `同期モード`と同じく`SampleSet` クラスです。
+ですが、解が入っていない可能性があります(非同期モードでも一度だけ解を取りに行っているので計算時間が短いと解をもっている可能性もあります)。
+
+解を取りに行くためのコードが
+
+```python
+response = response.get_result(config='config.toml')
+```
+
+です。`.get_result`の引数`config`に認証情報を記述した設定ファイルを指定するのを忘れないでください。\
+また`.get_result`は返り値をもつ非破壊メソッドです。
+
+計算が終了したかどうかは`get_result`の返り値の`.status`変数で確認することができます。
+
+```python
+from jijzept import api
+if response.status == api.SUCESS:
+    print(response)
+elif response.status == api.PENDING:
+    print('Solver status: PENDING')
+else:
+    print('Error')
+```
