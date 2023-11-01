@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: compas-invocations
+Version: 0.4.0
+Summary: A collection of reusable pyinvoke tasks
+Home-page: https://github.com/compas-dev/compas_invocations
+Author: Gonzalo Casas
+Author-email: casas@arch.ethz.ch
+License: MIT license
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Scientific/Engineering
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Unix
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: AUTHORS.md
+
+# compas_invocations
+
+[![pypi](https://img.shields.io/pypi/v/compas_invocations.svg)](https://pypi.org/project/compas-invocations/)
+
+A collection of reusable pyinvoke tasks
+
+## Usage
+
+Import and add tasks to a collection in your project's `tasks.py` file:
+
+    import os
+    from invoke import Collection
+    from compas_invocations import style
+
+    ns = Collection(style.check, style.lint)
+    ns.configure(
+        {
+            "base_folder": os.path.dirname(__file__),
+        }
+    )
+
+For a more complete example, check the [`tasks.py`](tasks.py) of this project.
