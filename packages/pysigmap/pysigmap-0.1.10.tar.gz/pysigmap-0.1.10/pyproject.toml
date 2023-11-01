@@ -1,0 +1,28 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "pysigmap"
+authors = [
+    {name = "Exneyder A. Montoya-Araque", email = "eamontoyaa@gmail.com"},
+    {name = "A. J. Aparicio-Ortube", email = "aaparicioo@unal.edu.co"},
+    {name = "D. G. Zapata-Medina", email = "dgzapata@unal.edu.co"},
+    {name = "L. G. Arboleda-Monsalve", email = "luis.arboleda@ucf.edu"},
+    ]
+readme = "README.rst"
+license = {file = "LICENSE"}
+classifiers = ["License :: OSI Approved :: MIT License"]
+dynamic = ["version", "description"]
+requires-python = ">=3.7"
+dependencies = [
+    "numpy >=1.23.5",
+    "matplotlib >=3.7.1",
+    "scipy >= 1.11.3",
+    "pandas >= 1.5.3",
+    "mstools >= 0.1.0"
+]
+
+[project.urls]
+Source  = "https://github.com/eamontoyaa/pysigmap"
+Documentation = "https://pysigmap.readthedocs.io/en/latest/"
