@@ -1,0 +1,165 @@
+# SPDX-FileCopyrightText: 2023 Ross Patterson <me@rpatterson.net>
+#
+# SPDX-License-Identifier: MIT
+
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Docker.gitlab-ci.yml
+
+variables:
+  # Variables controlling behavior:
+  PUID: "1001"
+  PGID: "1001"
+  # Project specific values:
+  PROJECT_NAMESPACE: "rpatterson"
+  # Uncomment to get more debugging output:
+  # DEBUG: "true"
+
+default:
+  image:
+    name: "registry.gitlab.com/rpatterson/prunerr:build-host"
+    entrypoint:
+      - "docker-entrypoint.sh"
+  services:
+    - "docker:dind"
+  # TODO: Debug stale venv issues and restore cache after fixing.
+
+stages:
+  - "build-test"
+  - "release"
+  - "release-bump"
+  - "release-version"
+  - "scheduled"
+  - "merge-upgrade"
+
+build-test:
+  stage: "build-test"
+  rules:
+    - if: >-
+        $CI_COMMIT_BRANCH != null
+        && (
+          $CI_COMMIT_BRANCH !~ /^(develop|main)$/
+          || (
+            $CI_COMMIT_BRANCH == "develop"
+            && $CI_COMMIT_TITLE =~
+        /^build\(release\): Version [0-9]+\.[0-9]+\.[0-9]+.* → [0-9]+\.[0-9]+\.[0-9]+[^0-9].+$/
+          ) || (
+            $CI_COMMIT_BRANCH == "main"
+            && $CI_COMMIT_TITLE =~
+        /^build\(release\): Version [0-9]+\.[0-9]+\.[0-9]+.* → [0-9]+\.[0-9]+\.[0-9]+$/
+          )
+        )
+        && $CI_PIPELINE_SOURCE != "schedule"
+  interruptible: true
+  parallel:
+    matrix:
+      - PYTHON_MINORS:
+          - "3.11"
+          - "3.12"
+          - "3.10"
+          - "3.9"
+          - "3.8"
+  script:
+    # Delegate steps agnostic of the CI/CD platform to the `./Makefile`:
+    - >-
+      init-job.sh entrypoint.sh make -e
+      test-push test-lint
+      build-docker-$PYTHON_MINORS
+      test-docker-$PYTHON_MINORS
+      release-docker-$PYTHON_MINORS test-clean
+  coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
+  artifacts:
+    # Upload build artifacts:
+    # https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html
+    paths:
+      - "./build/reports/"
+    reports:
+      junit:
+        - "./build/reports/*/*unit.xml"
+      coverage_report:
+        coverage_format: "cobertura"
+        path: "./build/reports/*/*cov*.xml"
+
+release:
+  stage: "release"
+  needs: ["build-test"]
+  # Avoid unnecessary artifact downloads:
+  # https://docs.gitlab.com/ee/ci/yaml/#dependencies
+  dependencies: []
+  variables:
+    DOCKER_BUILD_PULL: "true"
+  rules:
+    - if: >-
+        (
+          (
+            $CI_COMMIT_BRANCH == "develop"
+            && $CI_COMMIT_TITLE =~
+        /^build\(release\): Version [0-9]+\.[0-9]+\.[0-9]+.* → [0-9]+\.[0-9]+\.[0-9]+[^0-9].+$/
+          ) || (
+            $CI_COMMIT_BRANCH == "main"
+            && $CI_COMMIT_TITLE =~
+        /^build\(release\): Version [0-9]+\.[0-9]+\.[0-9]+.* → [0-9]+\.[0-9]+\.[0-9]+$/
+          )
+        )
+        && $CI_PROJECT_NAMESPACE == $PROJECT_NAMESPACE
+  script:
+    - >-
+      init-job.sh entrypoint.sh make -e release-pkgs test-clean
+  artifacts:
+    paths:
+      - "./dist/prunerr-*"
+
+merge-upgrade:
+  stage: "merge-upgrade"
+  needs: ["build-test"]
+  rules:
+    - if: >-
+        $CI_COMMIT_BRANCH =~ /^.+-upgrade$/
+  script:
+    - >-
+      init-job.sh entrypoint.sh make -e VCS_BRANCH_SUFFIX="upgrade" devel-merge
+
+release-bump:
+  stage: "release-bump"
+  needs: []
+  dependencies: []
+  variables:
+    DOCKER_BUILD_PULL: "true"
+  rules:
+    - if: >-
+        (
+          (
+            $CI_COMMIT_BRANCH == "main"
+            && $CI_COMMIT_TITLE !~
+        /^build\(release\): Version [0-9]+\.[0-9]+\.[0-9]+.* → [0-9]+\.[0-9]+\.[0-9]+$/
+          ) || (
+            $CI_COMMIT_BRANCH == "develop"
+            && $CI_COMMIT_TITLE !~
+        /^build\(release\): Version [0-9]+\.[0-9]+\.[0-9]+.* → [0-9]+\.[0-9]+\.[0-9].*$/
+          )
+        )
+        && $CI_PIPELINE_SOURCE != "schedule"
+  script:
+    - >-
+      init-job.sh entrypoint.sh make -e test-push release-bump
+
+# Workaround GitLab's handling of pipeline status when pushing both a branch and a tag:
+release-version:
+  stage: "release-version"
+  needs: []
+  dependencies: []
+  rules:
+    - if: >-
+        $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+  inherit:
+    default: false
+  script:
+    - >-
+      true
+
+scheduled:
+  stage: "scheduled"
+  rules:
+    - if: >-
+        $CI_PIPELINE_SOURCE == "schedule"
+  script:
+    - >-
+      init-job.sh entrypoint.sh make -e $SCHEDULED_TARGETS
