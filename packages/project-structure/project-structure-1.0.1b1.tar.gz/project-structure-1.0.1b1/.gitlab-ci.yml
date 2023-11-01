@@ -1,0 +1,215 @@
+# SPDX-FileCopyrightText: 2023 Ross Patterson <me@rpatterson.net>
+#
+# SPDX-License-Identifier: MIT
+
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Docker.gitlab-ci.yml
+
+# TEMPLATE: If the project uses GitLab CI/CD, then add the following secrets to the
+# project:
+#
+# - `CODECOV_TOKEN`:
+#   Add your project to https://app.codecov.io/gl and use the generated token
+#
+# - `DOCKER_PASS`:
+#   A Docker Hub Personal Access Token
+#
+# - `GPG_PASSPHRASE`:
+#   See the comments towards the bottom of the `./Makefile`
+#
+# - `GPG_SIGNING_PRIVATE_KEY`:
+#   See the comments towards the bottom of the `./Makefile`
+#
+# - `PROJECT_GITHUB_PAT`:
+#   A GitHub "Classic" Personal Access Token with scopes: `repo`, `workflow`,
+#   `packages`, and `project`. If the project uses both GitLab CI/CD for releases and
+#   GitHub Actions as duplicate CI for tests, then configure repository mirroring in
+#   your GitLab project -> Settings -> Repository by using the same token.
+#
+# - `PYPI_PASSWORD`:
+#   A PyPI API token
+#
+# - `TEST_PYPI_PASSWORD`:
+#   A PyPI API token
+#
+# - `VCS_REMOTE_PUSH_URL`:
+#   A GitLab Personal or Project Access Token formatted as an HTTP authentication prefix
+#   to the hostname, e.g.:
+#     https://token-name:token-value@gitlab.com/rpatterson/project-structure.git
+#
+# Mask all except `GPG_SIGNING_PRIVATE_KEY`, which is too large to mask. Protect all
+# except `CODECOV_TOKEN` and `DOCKER_PASS` which contributors need to use CI to test
+# their work before maintainers merge into `develop` or `main`.
+
+variables:
+  # Variables controlling behavior:
+  PUID: "1001"
+  PGID: "1001"
+  # Project specific values:
+  PROJECT_NAMESPACE: "rpatterson"
+  # Uncomment to get more debugging output:
+  # DEBUG: "true"
+
+default:
+  image:
+    # TEMPLATE: Only change these if you customize the `./build-host/Dockerfile` image.
+    # Otherwise use the version of this image from the project template in your CI/CD.
+    name: "registry.gitlab.com/rpatterson/project-structure:build-host"
+    entrypoint:
+      - "docker-entrypoint.sh"
+  services:
+    - "docker:dind"
+  # TODO: Debug stale venv issues and restore cache after fixing.
+
+stages:
+  - "build-test"
+  - "release"
+  - "release-bump"
+  - "release-version"
+  - "scheduled"
+  - "merge-upgrade"
+
+build-test:
+  stage: "build-test"
+  rules:
+    - if: >-
+        $CI_COMMIT_BRANCH != null
+        && (
+          $CI_COMMIT_BRANCH !~ /^(develop|main)$/
+          || (
+            $CI_COMMIT_BRANCH == "develop"
+            && $CI_COMMIT_TITLE =~
+        /^build\(release\): Version [0-9]+\.[0-9]+\.[0-9]+.* → [0-9]+\.[0-9]+\.[0-9]+[^0-9].+$/
+          ) || (
+            $CI_COMMIT_BRANCH == "main"
+            && $CI_COMMIT_TITLE =~
+        /^build\(release\): Version [0-9]+\.[0-9]+\.[0-9]+.* → [0-9]+\.[0-9]+\.[0-9]+$/
+          )
+        )
+        && $CI_PIPELINE_SOURCE != "schedule"
+  interruptible: true
+  parallel:
+    matrix:
+      - PYTHON_MINORS:
+          - "3.11"
+  script:
+    # Delegate steps agnostic of the CI/CD platform to the `./Makefile`:
+    - >-
+      init-job.sh entrypoint.sh make -e
+      test-push test-lint
+      build-docker-$PYTHON_MINORS
+      test-docker-$PYTHON_MINORS
+      release-docker-$PYTHON_MINORS test-clean
+  coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
+  artifacts:
+    # Upload build artifacts:
+    # https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html
+    paths:
+      - "./build/reports/"
+    reports:
+      junit:
+        - "./build/reports/*/*unit.xml"
+      coverage_report:
+        coverage_format: "cobertura"
+        path: "./build/reports/*/*cov*.xml"
+
+release:
+  stage: "release"
+  needs: ["build-test"]
+  # Avoid unnecessary artifact downloads:
+  # https://docs.gitlab.com/ee/ci/yaml/#dependencies
+  dependencies: []
+  variables:
+    DOCKER_BUILD_PULL: "true"
+  rules:
+    - if: >-
+        (
+          (
+            $CI_COMMIT_BRANCH == "develop"
+            && $CI_COMMIT_TITLE =~
+        /^build\(release\): Version [0-9]+\.[0-9]+\.[0-9]+.* → [0-9]+\.[0-9]+\.[0-9]+[^0-9].+$/
+          ) || (
+            $CI_COMMIT_BRANCH == "main"
+            && $CI_COMMIT_TITLE =~
+        /^build\(release\): Version [0-9]+\.[0-9]+\.[0-9]+.* → [0-9]+\.[0-9]+\.[0-9]+$/
+          )
+        )
+        && $CI_PROJECT_NAMESPACE == $PROJECT_NAMESPACE
+  script:
+    - >-
+      init-job.sh entrypoint.sh make -e release-pkgs test-clean
+  artifacts:
+    paths:
+      - "./dist/project?structure-*"
+
+merge-upgrade:
+  stage: "merge-upgrade"
+  needs: ["build-test"]
+  rules:
+    - if: >-
+        $CI_COMMIT_BRANCH =~ /^.+-upgrade$/
+  script:
+    - >-
+      init-job.sh entrypoint.sh make -e VCS_BRANCH_SUFFIX="upgrade" devel-merge
+
+release-bump:
+  stage: "release-bump"
+  needs: []
+  dependencies: []
+  variables:
+    DOCKER_BUILD_PULL: "true"
+  rules:
+    - if: >-
+        (
+          (
+            $CI_COMMIT_BRANCH == "main"
+            && $CI_COMMIT_TITLE !~
+        /^build\(release\): Version [0-9]+\.[0-9]+\.[0-9]+.* → [0-9]+\.[0-9]+\.[0-9]+$/
+          ) || (
+            $CI_COMMIT_BRANCH == "develop"
+            && $CI_COMMIT_TITLE !~
+        /^build\(release\): Version [0-9]+\.[0-9]+\.[0-9]+.* → [0-9]+\.[0-9]+\.[0-9].*$/
+          )
+        )
+        && $CI_PIPELINE_SOURCE != "schedule"
+  script:
+    - >-
+      init-job.sh entrypoint.sh make -e test-push release-bump
+
+# Workaround GitLab's handling of pipeline status when pushing both a branch and a tag:
+release-version:
+  stage: "release-version"
+  needs: []
+  dependencies: []
+  rules:
+    - if: >-
+        $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+  inherit:
+    default: false
+  script:
+    - >-
+      true
+
+# TEMPLATE: Optionally add a scheduled pipeline with the following variables to
+# periodically upgrade all requirements and run CI:
+#
+# - `DOCKER_BUILD_PULL=true`
+# - `SCHEDULED_TARGETS=devel-upgrade-branch`
+# - `TEMPLATE_IGNORE_EXISTING=true`
+#
+# The `merge-upgrade` job automatically merges `*-upgrade` branches when `build-test`
+# succeeds, so add a protected branch rule for the `*-upgrade` wildcard that allows
+# force pushing. As such, the target branch for the scheduled pipeline determines
+# whether upgrade branches publish releases after passing CI, pre-releases for `develop`
+# and final releases for `main`.
+#
+# WARNING: Running this even no more often than every day can exhaust the gitlab.com
+# free quotas in the beginning of the month.
+
+scheduled:
+  stage: "scheduled"
+  rules:
+    - if: >-
+        $CI_PIPELINE_SOURCE == "schedule"
+  script:
+    - >-
+      init-job.sh entrypoint.sh make -e $SCHEDULED_TARGETS
