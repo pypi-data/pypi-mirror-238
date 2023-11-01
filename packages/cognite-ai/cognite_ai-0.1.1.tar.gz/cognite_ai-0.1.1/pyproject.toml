@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "cognite-ai"
+version = "0.1.1"
+description = "A set of tools for working with Cognite Data Fusion in Python"
+authors = ["Anders Hafreager <anders.hafreager@cognite.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "cognite"}]
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+
+
+[tool.poetry.group.dev.dependencies]
+twine = "^4.0.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
