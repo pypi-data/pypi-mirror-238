@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Verify your Fediverse Actor</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="icon" href="static/icon.svg">
+</head>
+
+<body>
+    <main>
+        <h1>Verify your Fediverse Actor</h1>
+
+        <form action="/" method="GET">
+            <label for="actor_uri">Actor URI to verify</label>
+            <input type="text" name="actor_uri" id="actor_uri" />
+            <input type="submit" value="Verify" />
+        </form>
+
+        <p>
+            Processing might take some time, please be patient.<br />
+            Support actor URI formats are:
+        <ul>
+            <li>HTTP(s) URI, e.g.
+                <code>http://pasture_verify_actor/alice</code> or <code>https://mastodon.social/actor</code>
+            </li>
+            <li>Account URI using webfinger, e.g.
+                <code>acct:alice@pasture_verify_actor</code>
+            </li>
+            <li>Fediverse type handle, e.g.
+                <code>alice@pasture_verify_actor</code> or
+                <code>@alice@pasture_verify_actor</code>
+            </li>
+        </ul>
+        For more information see the <a
+            href="https://funfedi.dev/fediverse_pasture/python_package/verify_actor/">Documentation</a>.
+        Results for some Fediverse applications are collected <a
+            href="https://funfedi.dev/support_tables/verify/">here</a>.
+        Please report issues <a href="https://codeberg.org/helge/funfedidev/issues">here</a>.</p>
+
+        <p>
+
+            This tool was created as part of <a href="https://nlnet.nl/project/FediverseTestFramework/">Fediverse Test
+                Framework</a>.<br />
+
+            A project funded through the <a href="https://nlnet.nl/core">NGI0 Core</a> Fund,
+            a fund established by <a href="https://nlnet.nl/">NLnet</a> with financial support from
+            the European Commission's <a href="https://ngi.eu/">Next Generation Internet</a> programme,
+            under the aegis of DG Communications Networks, Content and Technology
+            under grant agreement No 101092990.
+
+        </p>
+    </main>
+</body>
+
+</html>
