@@ -1,0 +1,35 @@
+# Example TestEntity data object
+---
+#
+#  TestEntity:
+#    description: >-
+#      Abstract global 'identification' class shared as a parent with
+#      all major model classes within the data model for Translator testing.
+#    abstract: true
+#    tree_root: true
+#    slots:
+#      - id
+#      - name
+#      - description
+#
+# where the slots are:
+#
+#  id:
+#    identifier: true
+#    slot_uri: schema:identifier
+#    range: uriorcurie
+#    description: A unique identifier for a Test Entity
+#
+#  name:
+#    slot_uri: schema:name
+#    description: A human-readable name for a Test Entity
+#
+#  description:
+#    slot_uri: schema:description
+#    description: A human-readable description for a Test Entity
+#
+
+id: example:TestEntity001
+name: foo bar
+description: This is a test entity
+

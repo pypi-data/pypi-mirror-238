@@ -1,0 +1,237 @@
+BASE <https://w3id.org/TranslatorSRI/TranslatorTestingModel/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX linkml: <https://w3id.org/linkml/>
+PREFIX schema1: <http://schema.org/>
+
+
+linkml:String xsd:string
+
+linkml:Integer xsd:integer
+
+linkml:Boolean xsd:boolean
+
+linkml:Float xsd:float
+
+linkml:Double xsd:double
+
+linkml:Decimal xsd:decimal
+
+linkml:Time xsd:time
+
+linkml:Date xsd:date
+
+linkml:Datetime xsd:dateTime
+
+linkml:DateOrDatetime linkml:DateOrDatetime
+
+linkml:Uriorcurie IRI
+
+linkml:Curie xsd:string
+
+linkml:Uri IRI
+
+linkml:Ncname xsd:string
+
+linkml:Objectidentifier IRI
+
+linkml:Nodeidentifier NONLITERAL
+
+linkml:Jsonpointer xsd:string
+
+linkml:Jsonpath xsd:string
+
+linkml:Sparqlpath xsd:string
+
+<AcceptanceTestAsset> CLOSED {
+    (  $<AcceptanceTestAsset_tes> (  &<TestAsset_tes> ;
+          rdf:type [ <TestAsset> ] ? ;
+          <must_pass_date> @linkml:Date ? ;
+          <must_pass_environment> @<TestEnvEnum> ? ;
+          <scientific_question> @linkml:String ? ;
+          <string_entry> @linkml:String ? ;
+          <direction> @<DirectionEnum> ? ;
+          <answer_informal_concept> @linkml:String ? ;
+          <expected_result> @<ExpectedResultsEnum> ? ;
+          <top_level> @linkml:Integer ? ;
+          <query_node> @<NodeEnum> ? ;
+          <notes> @linkml:String ?
+       ) ;
+       rdf:type [ <AcceptanceTestAsset> ]
+    )
+}
+
+<AcceptanceTestCase> CLOSED {
+    (  $<AcceptanceTestCase_tes> (  &<TestCase_tes> ;
+          rdf:type [ <TestCase> ] ? ;
+          <test_assets> @<AcceptanceTestAsset> +
+       ) ;
+       rdf:type [ <AcceptanceTestCase> ]
+    )
+}
+
+<AcceptanceTestSuite> CLOSED {
+    (  $<AcceptanceTestSuite_tes> (  &<TestSuite_tes> ;
+          rdf:type [ <TestSuite> ] ?
+       ) ;
+       rdf:type [ <AcceptanceTestSuite> ]
+    )
+}
+
+<BenchmarkTestSuite> CLOSED {
+    (  $<BenchmarkTestSuite_tes> rdf:type . * ;
+       rdf:type [ <BenchmarkTestSuite> ] ?
+    )
+}
+
+<ComplianceTestCase> CLOSED {
+    (  $<ComplianceTestCase_tes> (  &<TestCase_tes> ;
+          rdf:type [ <TestCase> ] ?
+       ) ;
+       rdf:type [ <ComplianceTestCase> ]
+    )
+}
+
+<KnowledgeGraphNavigationTestCase>  (
+    CLOSED {
+       (  $<KnowledgeGraphNavigationTestCase_tes> (  &<TestCase_tes> ;
+             rdf:type [ <TestCase> ] ?
+          ) ;
+          rdf:type [ <KnowledgeGraphNavigationTestCase> ]
+       )
+    } OR @<OneHopTestCase>
+)
+
+<OneHopTestCase> CLOSED {
+    (  $<OneHopTestCase_tes> (  &<KnowledgeGraphNavigationTestCase_tes> ;
+          rdf:type [ <KnowledgeGraphNavigationTestCase> ] ?
+       ) ;
+       rdf:type [ <OneHopTestCase> ]
+    )
+}
+
+<OneHopTestSuite> CLOSED {
+    (  $<OneHopTestSuite_tes> (  &<TestSuite_tes> ;
+          rdf:type [ <TestSuite> ] ?
+       ) ;
+       rdf:type [ <OneHopTestSuite> ]
+    )
+}
+
+<Precondition> CLOSED {
+    (  $<Precondition_tes> (  &<TestEntity_tes> ;
+          rdf:type [ <TestEntity> ] ?
+       ) ;
+       rdf:type [ <Precondition> ]
+    )
+}
+
+<QuantitativeTestCase> CLOSED {
+    (  $<QuantitativeTestCase_tes> (  &<TestCase_tes> ;
+          rdf:type [ <TestCase> ] ?
+       ) ;
+       rdf:type [ <QuantitativeTestCase> ]
+    )
+}
+
+<StandardsComplianceTestSuite> CLOSED {
+    (  $<StandardsComplianceTestSuite_tes> (  &<TestSuite_tes> ;
+          rdf:type [ <TestSuite> ] ?
+       ) ;
+       rdf:type [ <StandardsComplianceTestSuite> ]
+    )
+}
+
+<TestAsset>  (
+    CLOSED {
+       (  $<TestAsset_tes> (  &<TestEntity_tes> ;
+             rdf:type [ <TestEntity> ] ? ;
+             <input_id> @linkml:Uriorcurie ? ;
+             <input_name> @linkml:String ? ;
+             <predicate> @linkml:String ? ;
+             <output_id> @linkml:Uriorcurie ? ;
+             <output_name> @linkml:String ? ;
+             <expected_output> @<ExpectedOutputEnum> ? ;
+             <test_issue> @<TestIssueEnum> ? ;
+             <semantic_severity> @<SemanticSeverityEnum> ? ;
+             <in_v1> @linkml:Boolean ? ;
+             <well_known> @linkml:Boolean ? ;
+             <runner_settings> @linkml:String + ;
+             schema1:additionalType @linkml:String *
+          ) ;
+          rdf:type [ <TestAsset> ]
+       )
+    } OR @<AcceptanceTestAsset> OR @<TestEdgeData>
+)
+
+<TestCase>  (
+    CLOSED {
+       (  $<TestCase_tes> (  &<TestEntity_tes> ;
+             rdf:type [ <TestEntity> ] ? ;
+             <test_env> @<TestEnvEnum> ? ;
+             <test_case_type> @<TestCaseTypeEnum> ? ;
+             <query_type> @<QueryTypeEnum> ? ;
+             <test_assets> @<TestAsset> + ;
+             <preconditions> @<Precondition> * ;
+             schema1:additionalType @linkml:String *
+          ) ;
+          rdf:type [ <TestCase> ]
+       )
+    } OR @<AcceptanceTestCase> OR @<ComplianceTestCase> OR @<KnowledgeGraphNavigationTestCase> OR @<QuantitativeTestCase>
+)
+
+<TestCaseSpecification> CLOSED {
+    (  $<TestCaseSpecification_tes> (  &<TestEntity_tes> ;
+          rdf:type [ <TestEntity> ] ?
+       ) ;
+       rdf:type [ <TestCaseSpecification> ]
+    )
+}
+
+<TestEdgeData> CLOSED {
+    (  $<TestEdgeData_tes> (  &<TestAsset_tes> ;
+          rdf:type [ <TestAsset> ] ?
+       ) ;
+       rdf:type [ <TestEdgeData> ]
+    )
+}
+
+<TestEntity>  (
+    @<Precondition> OR @<TestAsset> OR @<TestCase> OR @<TestCaseSpecification> OR @<TestMetadata> OR @<TestSuite>
+)
+
+<TestEntity_struct> {
+    (  $<TestEntity_tes> (  schema1:name @linkml:String ? ;
+          schema1:description @linkml:String ? ;
+          schema1:additionalType @linkml:String *
+       ) ;
+       rdf:type [ <TestEntity> ]
+    )
+}
+
+<TestMetadata> CLOSED {
+    (  $<TestMetadata_tes> (  &<TestEntity_tes> ;
+          rdf:type [ <TestEntity> ] ? ;
+          <test_source> @<TestSourceEnum> ? ;
+          <test_reference> @linkml:Uriorcurie ? ;
+          <test_objective> @<TestObjectiveEnum> ?
+       ) ;
+       rdf:type [ <TestMetadata> ]
+    )
+}
+
+<TestSuite>  (
+    CLOSED {
+       (  $<TestSuite_tes> (  &<TestEntity_tes> ;
+             rdf:type [ <TestEntity> ] ? ;
+             <test_metadata> @<TestMetadata> ? ;
+             <test_persona> @<TestPersonaEnum> ? ;
+             <test_cases> @<TestCase> * ;
+             <test_case_specification> @<TestCaseSpecification> ?
+          ) ;
+          rdf:type [ <TestSuite> ]
+       )
+    } OR @<AcceptanceTestSuite> OR @<OneHopTestSuite> OR @<StandardsComplianceTestSuite>
+)
+
+

@@ -1,0 +1,1082 @@
+{
+    "$defs": {
+        "AcceptanceTestAsset": {
+            "additionalProperties": false,
+            "description": "Model derived from Jenn's test asset design and Shervin's runner JSON here as an example.",
+            "properties": {
+                "answer_informal_concept": {
+                    "description": "An answer that is returned from the test case, note: this must be combined with the expected_result to form a complete answer.  It might make sense to couple these in their own object instead of strictly sticking to the flat schema introduced by the spreadsheet here: https://docs.google.com/spreadsheets/d/1yj7zIchFeVl1OHqL_kE_pqvzNLmGml_FLbHDs-8Yvig/edit#gid=0",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "direction": {
+                    "$ref": "#/$defs/DirectionEnum",
+                    "description": "The direction of the expected query result triple"
+                },
+                "expected_output": {
+                    "$ref": "#/$defs/ExpectedOutputEnum"
+                },
+                "expected_result": {
+                    "$ref": "#/$defs/ExpectedResultsEnum",
+                    "description": "The expected result of the query"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "in_v1": {
+                    "type": "boolean"
+                },
+                "input_id": {
+                    "type": "string"
+                },
+                "input_name": {
+                    "type": "string"
+                },
+                "must_pass_date": {
+                    "description": "The date by which this test must pass",
+                    "format": "date",
+                    "type": "string"
+                },
+                "must_pass_environment": {
+                    "$ref": "#/$defs/TestEnvEnum",
+                    "description": "The deployment environment within which this test must pass."
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "notes": {
+                    "description": "The notes of the query",
+                    "type": "string"
+                },
+                "output_id": {
+                    "type": "string"
+                },
+                "output_name": {
+                    "type": "string"
+                },
+                "predicate": {
+                    "type": "string"
+                },
+                "query_node": {
+                    "$ref": "#/$defs/NodeEnum",
+                    "description": "The node of the (templated) TRAPI query to replace"
+                },
+                "runner_settings": {
+                    "description": "Settings for the test harness, e.g. \"inferred\"",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "scientific_question": {
+                    "description": "The full human-readable scientific question a SME would ask, which is encoded into the test asset.",
+                    "type": "string"
+                },
+                "semantic_severity": {
+                    "$ref": "#/$defs/SemanticSeverityEnum"
+                },
+                "string_entry": {
+                    "description": "The object of the core triple to be tested",
+                    "type": "string"
+                },
+                "tags": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined to specify TestAsset membership in a \"Block List\" collection",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_issue": {
+                    "$ref": "#/$defs/TestIssueEnum"
+                },
+                "top_level": {
+                    "description": "The answer must return in these many results",
+                    "type": "integer"
+                },
+                "well_known": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "runner_settings",
+                "id"
+            ],
+            "title": "AcceptanceTestAsset",
+            "type": "object"
+        },
+        "AcceptanceTestCase": {
+            "additionalProperties": false,
+            "description": "See AcceptanceTestAsset above for more details.",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "preconditions": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "query_type": {
+                    "$ref": "#/$defs/QueryTypeEnum",
+                    "description": "Type of TestCase query."
+                },
+                "tags": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in a \"Block List\" collection.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_assets": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in 'test_assets' slot (\"Block List\") collection.",
+                    "items": {
+                        "$ref": "#/$defs/AcceptanceTestAsset"
+                    },
+                    "type": "array"
+                },
+                "test_case_type": {
+                    "$ref": "#/$defs/TestCaseTypeEnum",
+                    "description": "Is this valid or even necessary with the class names already available from classes of 'test_assets' used (seems redundant?)"
+                },
+                "test_env": {
+                    "$ref": "#/$defs/TestEnvEnum",
+                    "description": "Deployment environment within which the associated TestSuite is run."
+                }
+            },
+            "required": [
+                "test_assets",
+                "id"
+            ],
+            "title": "AcceptanceTestCase",
+            "type": "object"
+        },
+        "AcceptanceTestSuite": {
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "tags": {
+                    "description": "A human-readable tags for categorical memberships of a TestEntity (preferably a URI or CURIE). Typically used to aggregate instances of TestEntity into formally typed or ad hoc lists.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_case_specification": {
+                    "description": "Declarative specification of a set of Test Cases generated elsewhere (i.e. within a Test Runner)",
+                    "type": "string"
+                },
+                "test_cases": {
+                    "additionalProperties": {
+                        "$ref": "#/$defs/TestCase__identifier_optional"
+                    },
+                    "description": "List of explicitly enumerated Test Cases.",
+                    "type": "object"
+                },
+                "test_metadata": {
+                    "description": "Test metadata describes the external provenance, cross-references and objectives for a given test.",
+                    "type": "string"
+                },
+                "test_persona": {
+                    "$ref": "#/$defs/TestPersonaEnum",
+                    "description": "A Test persona describes the user or operational context of a given test."
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "AcceptanceTestSuite",
+            "type": "object"
+        },
+        "BenchmarkTestSuite": {
+            "additionalProperties": false,
+            "description": "JsonObj(is_a='TestSuite')",
+            "title": "BenchmarkTestSuite",
+            "type": "object"
+        },
+        "ComplianceTestCase": {
+            "additionalProperties": false,
+            "description": "TRAPI and Biolink Model standards compliance test",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "preconditions": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "query_type": {
+                    "$ref": "#/$defs/QueryTypeEnum",
+                    "description": "Type of TestCase query."
+                },
+                "tags": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in a \"Block List\" collection.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_assets": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in 'test_assets' slot (\"Block List\") collection.",
+                    "items": {
+                        "$ref": "#/$defs/TestAsset"
+                    },
+                    "type": "array"
+                },
+                "test_case_type": {
+                    "$ref": "#/$defs/TestCaseTypeEnum",
+                    "description": "Is this valid or even necessary with the class names already available from classes of 'test_assets' used (seems redundant?)"
+                },
+                "test_env": {
+                    "$ref": "#/$defs/TestEnvEnum",
+                    "description": "Deployment environment within which the associated TestSuite is run."
+                }
+            },
+            "required": [
+                "test_assets",
+                "id"
+            ],
+            "title": "ComplianceTestCase",
+            "type": "object"
+        },
+        "DirectionEnum": {
+            "description": "",
+            "enum": [
+                "increased",
+                "decreased"
+            ],
+            "title": "DirectionEnum",
+            "type": "string"
+        },
+        "ExpectedOutputEnum": {
+            "description": "Expected output values for instances of Test Asset or Test Cases(?). (Note: does this Enum overlap with 'ExpectedResultsEnum' below?)",
+            "enum": [
+                "Top_Answer",
+                "Acceptable",
+                "BadButForgivable",
+                "NeverShow",
+                "number_1_TopAnswer",
+                "number_2_Acceptable",
+                "number_3_BadButForgivable",
+                "number_4_NeverShow"
+            ],
+            "title": "ExpectedOutputEnum",
+            "type": "string"
+        },
+        "ExpectedResultsEnum": {
+            "description": "Does this Enum overlap with 'ExpectedOutputEnum' above?",
+            "enum": [
+                "include_good",
+                "exclude_bad"
+            ],
+            "title": "ExpectedResultsEnum",
+            "type": "string"
+        },
+        "KnowledgeGraphNavigationTestCase": {
+            "additionalProperties": false,
+            "description": "Knowledge Graph navigation integration test",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "preconditions": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "query_type": {
+                    "$ref": "#/$defs/QueryTypeEnum",
+                    "description": "Type of TestCase query."
+                },
+                "tags": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in a \"Block List\" collection.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_assets": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in 'test_assets' slot (\"Block List\") collection.",
+                    "items": {
+                        "$ref": "#/$defs/TestAsset"
+                    },
+                    "type": "array"
+                },
+                "test_case_type": {
+                    "$ref": "#/$defs/TestCaseTypeEnum",
+                    "description": "Is this valid or even necessary with the class names already available from classes of 'test_assets' used (seems redundant?)"
+                },
+                "test_env": {
+                    "$ref": "#/$defs/TestEnvEnum",
+                    "description": "Deployment environment within which the associated TestSuite is run."
+                }
+            },
+            "required": [
+                "test_assets",
+                "id"
+            ],
+            "title": "KnowledgeGraphNavigationTestCase",
+            "type": "object"
+        },
+        "NodeEnum": {
+            "description": "Target node of a Subject-Predicate-Object driven query",
+            "enum": [
+                "subject",
+                "object"
+            ],
+            "title": "NodeEnum",
+            "type": "string"
+        },
+        "OneHopTestCase": {
+            "additionalProperties": false,
+            "description": "'One Hop' Knowledge Graph navigation integration test",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "preconditions": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "query_type": {
+                    "$ref": "#/$defs/QueryTypeEnum",
+                    "description": "Type of TestCase query."
+                },
+                "tags": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in a \"Block List\" collection.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_assets": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in 'test_assets' slot (\"Block List\") collection.",
+                    "items": {
+                        "$ref": "#/$defs/TestAsset"
+                    },
+                    "type": "array"
+                },
+                "test_case_type": {
+                    "$ref": "#/$defs/TestCaseTypeEnum",
+                    "description": "Is this valid or even necessary with the class names already available from classes of 'test_assets' used (seems redundant?)"
+                },
+                "test_env": {
+                    "$ref": "#/$defs/TestEnvEnum",
+                    "description": "Deployment environment within which the associated TestSuite is run."
+                }
+            },
+            "required": [
+                "test_assets",
+                "id"
+            ],
+            "title": "OneHopTestCase",
+            "type": "object"
+        },
+        "OneHopTestSuite": {
+            "additionalProperties": false,
+            "description": "Test case for testing the integrity of \"One Hop\" knowledge graph retrievals sensa legacy SRI_Testing harness.",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "tags": {
+                    "description": "A human-readable tags for categorical memberships of a TestEntity (preferably a URI or CURIE). Typically used to aggregate instances of TestEntity into formally typed or ad hoc lists.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_case_specification": {
+                    "description": "Declarative specification of a set of Test Cases generated elsewhere (i.e. within a Test Runner)",
+                    "type": "string"
+                },
+                "test_cases": {
+                    "additionalProperties": {
+                        "$ref": "#/$defs/TestCase__identifier_optional"
+                    },
+                    "description": "List of explicitly enumerated Test Cases.",
+                    "type": "object"
+                },
+                "test_metadata": {
+                    "description": "Test metadata describes the external provenance, cross-references and objectives for a given test.",
+                    "type": "string"
+                },
+                "test_persona": {
+                    "$ref": "#/$defs/TestPersonaEnum",
+                    "description": "A Test persona describes the user or operational context of a given test."
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "OneHopTestSuite",
+            "type": "object"
+        },
+        "Precondition": {
+            "additionalProperties": false,
+            "description": "Represents a precondition for a TestCase",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "tags": {
+                    "description": "A human-readable tags for categorical memberships of a TestEntity (preferably a URI or CURIE). Typically used to aggregate instances of TestEntity into formally typed or ad hoc lists.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Precondition",
+            "type": "object"
+        },
+        "QuantitativeTestCase": {
+            "additionalProperties": false,
+            "description": "Assumed additional model from Shervin's runner JSON here as an example.  This schema is not yet complete.",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "preconditions": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "query_type": {
+                    "$ref": "#/$defs/QueryTypeEnum",
+                    "description": "Type of TestCase query."
+                },
+                "tags": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in a \"Block List\" collection.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_assets": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in 'test_assets' slot (\"Block List\") collection.",
+                    "items": {
+                        "$ref": "#/$defs/TestAsset"
+                    },
+                    "type": "array"
+                },
+                "test_case_type": {
+                    "$ref": "#/$defs/TestCaseTypeEnum",
+                    "description": "Is this valid or even necessary with the class names already available from classes of 'test_assets' used (seems redundant?)"
+                },
+                "test_env": {
+                    "$ref": "#/$defs/TestEnvEnum",
+                    "description": "Deployment environment within which the associated TestSuite is run."
+                }
+            },
+            "required": [
+                "test_assets",
+                "id"
+            ],
+            "title": "QuantitativeTestCase",
+            "type": "object"
+        },
+        "QueryTypeEnum": {
+            "description": "Query",
+            "enum": [
+                "treats"
+            ],
+            "title": "QueryTypeEnum",
+            "type": "string"
+        },
+        "SemanticSeverityEnum": {
+            "description": "From Jenn's worksheet, empty or ill defined (needs elaboration)",
+            "enum": [
+                "High",
+                "Low",
+                "NotApplicable"
+            ],
+            "title": "SemanticSeverityEnum",
+            "type": "string"
+        },
+        "StandardsComplianceTestSuite": {
+            "additionalProperties": false,
+            "description": "Test suite for testing Translator components against releases of standards like TRAPI and the Biolink Model.",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "tags": {
+                    "description": "A human-readable tags for categorical memberships of a TestEntity (preferably a URI or CURIE). Typically used to aggregate instances of TestEntity into formally typed or ad hoc lists.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_case_specification": {
+                    "description": "Declarative specification of a set of Test Cases generated elsewhere (i.e. within a Test Runner)",
+                    "type": "string"
+                },
+                "test_cases": {
+                    "additionalProperties": {
+                        "$ref": "#/$defs/TestCase__identifier_optional"
+                    },
+                    "description": "List of explicitly enumerated Test Cases.",
+                    "type": "object"
+                },
+                "test_metadata": {
+                    "description": "Test metadata describes the external provenance, cross-references and objectives for a given test.",
+                    "type": "string"
+                },
+                "test_persona": {
+                    "$ref": "#/$defs/TestPersonaEnum",
+                    "description": "A Test persona describes the user or operational context of a given test."
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "StandardsComplianceTestSuite",
+            "type": "object"
+        },
+        "TestAsset": {
+            "additionalProperties": false,
+            "description": "Represents a Test Asset, which is a single specific instance of TestCase-agnostic semantic parameters representing the specification of a Translator test target with inputs and (expected) outputs.",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "expected_output": {
+                    "$ref": "#/$defs/ExpectedOutputEnum"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "in_v1": {
+                    "type": "boolean"
+                },
+                "input_id": {
+                    "type": "string"
+                },
+                "input_name": {
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "output_id": {
+                    "type": "string"
+                },
+                "output_name": {
+                    "type": "string"
+                },
+                "predicate": {
+                    "type": "string"
+                },
+                "runner_settings": {
+                    "description": "Settings for the test harness, e.g. \"inferred\"",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "semantic_severity": {
+                    "$ref": "#/$defs/SemanticSeverityEnum"
+                },
+                "tags": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined to specify TestAsset membership in a \"Block List\" collection",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_issue": {
+                    "$ref": "#/$defs/TestIssueEnum"
+                },
+                "well_known": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "runner_settings",
+                "id"
+            ],
+            "title": "TestAsset",
+            "type": "object"
+        },
+        "TestCase": {
+            "additionalProperties": false,
+            "description": "Represents a single enumerated instance of Test Case, derived from a  given collection of one or more TestAsset instances (the value of the 'test_assets' slot) which define the 'inputs' and 'outputs' of the TestCase, used to probe a particular test condition.",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "preconditions": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "query_type": {
+                    "$ref": "#/$defs/QueryTypeEnum",
+                    "description": "Type of TestCase query."
+                },
+                "tags": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in a \"Block List\" collection.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_assets": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in 'test_assets' slot (\"Block List\") collection.",
+                    "items": {
+                        "$ref": "#/$defs/TestAsset"
+                    },
+                    "type": "array"
+                },
+                "test_case_type": {
+                    "$ref": "#/$defs/TestCaseTypeEnum",
+                    "description": "Is this valid or even necessary with the class names already available from classes of 'test_assets' used (seems redundant?)"
+                },
+                "test_env": {
+                    "$ref": "#/$defs/TestEnvEnum",
+                    "description": "Deployment environment within which the associated TestSuite is run."
+                }
+            },
+            "required": [
+                "test_assets",
+                "id"
+            ],
+            "title": "TestCase",
+            "type": "object"
+        },
+        "TestCaseSpecification": {
+            "additionalProperties": false,
+            "description": "Parameterized declaration of the Test Case generator which dynamically generates a collection of Test Cases from Test Assets, using applicable heuristics.",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "tags": {
+                    "description": "A human-readable tags for categorical memberships of a TestEntity (preferably a URI or CURIE). Typically used to aggregate instances of TestEntity into formally typed or ad hoc lists.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "TestCaseSpecification",
+            "type": "object"
+        },
+        "TestCaseTypeEnum": {
+            "description": "Enumerated tags for types of test (generally applied to a TestCase).",
+            "enum": [
+                "acceptance",
+                "quantitative",
+                "compliance",
+                "kg_navigation",
+                "one_hop"
+            ],
+            "title": "TestCaseTypeEnum",
+            "type": "string"
+        },
+        "TestCase__identifier_optional": {
+            "additionalProperties": false,
+            "description": "Represents a single enumerated instance of Test Case, derived from a  given collection of one or more TestAsset instances (the value of the 'test_assets' slot) which define the 'inputs' and 'outputs' of the TestCase, used to probe a particular test condition.",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "preconditions": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "query_type": {
+                    "$ref": "#/$defs/QueryTypeEnum",
+                    "description": "Type of TestCase query."
+                },
+                "tags": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in a \"Block List\" collection.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_assets": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined as filters to specify TestAsset membership in 'test_assets' slot (\"Block List\") collection.",
+                    "items": {
+                        "$ref": "#/$defs/TestAsset"
+                    },
+                    "type": "array"
+                },
+                "test_case_type": {
+                    "$ref": "#/$defs/TestCaseTypeEnum",
+                    "description": "Is this valid or even necessary with the class names already available from classes of 'test_assets' used (seems redundant?)"
+                },
+                "test_env": {
+                    "$ref": "#/$defs/TestEnvEnum",
+                    "description": "Deployment environment within which the associated TestSuite is run."
+                }
+            },
+            "required": [
+                "test_assets"
+            ],
+            "title": "TestCase",
+            "type": "object"
+        },
+        "TestEdgeData": {
+            "additionalProperties": false,
+            "description": "Represents a single Biolink Model compliant instance of a subject-predicate-object edge that can be used for testing.",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "expected_output": {
+                    "$ref": "#/$defs/ExpectedOutputEnum"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "in_v1": {
+                    "type": "boolean"
+                },
+                "input_id": {
+                    "type": "string"
+                },
+                "input_name": {
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "output_id": {
+                    "type": "string"
+                },
+                "output_name": {
+                    "type": "string"
+                },
+                "predicate": {
+                    "type": "string"
+                },
+                "runner_settings": {
+                    "description": "Settings for the test harness, e.g. \"inferred\"",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "semantic_severity": {
+                    "$ref": "#/$defs/SemanticSeverityEnum"
+                },
+                "tags": {
+                    "description": "One or more 'tags' slot values (inherited from TestEntity) should generally be defined to specify TestAsset membership in a \"Block List\" collection",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_issue": {
+                    "$ref": "#/$defs/TestIssueEnum"
+                },
+                "well_known": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "runner_settings",
+                "id"
+            ],
+            "title": "TestEdgeData",
+            "type": "object"
+        },
+        "TestEnvEnum": {
+            "description": "Testing environments within which a TestSuite is run by a TestRunner scheduled by the TestHarness.",
+            "enum": [
+                "dev",
+                "ci",
+                "test",
+                "prod"
+            ],
+            "title": "TestEnvEnum",
+            "type": "string"
+        },
+        "TestIssueEnum": {
+            "description": "",
+            "enum": [
+                "causes not treats",
+                "TMKP",
+                "category too generic",
+                "contraindications",
+                "chemical roles",
+                "test_issue"
+            ],
+            "title": "TestIssueEnum",
+            "type": "string"
+        },
+        "TestMetadata": {
+            "additionalProperties": false,
+            "description": "Represents metadata related to (external SME, SMURF, Translator feedback,  large scale batch, etc.) like the provenance of test assets, cases and/or suites.",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "tags": {
+                    "description": "A human-readable tags for categorical memberships of a TestEntity (preferably a URI or CURIE). Typically used to aggregate instances of TestEntity into formally typed or ad hoc lists.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_objective": {
+                    "$ref": "#/$defs/TestObjectiveEnum",
+                    "description": "Testing objective behind specified set of test particulars (e.g. acceptance pass/fail; benchmark; quantitative)"
+                },
+                "test_reference": {
+                    "description": "Source documentation where original test particulars are registered (e.g. Github repo)",
+                    "type": "string"
+                },
+                "test_source": {
+                    "$ref": "#/$defs/TestSourceEnum",
+                    "description": "Provenance of a specific set of test assets, cases and/or suites."
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "TestMetadata",
+            "type": "object"
+        },
+        "TestObjectiveEnum": {
+            "description": "",
+            "enum": [
+                "AcceptanceTest",
+                "BenchmarkTest",
+                "QuantitativeTest"
+            ],
+            "title": "TestObjectiveEnum",
+            "type": "string"
+        },
+        "TestPersonaEnum": {
+            "description": "",
+            "enum": [
+                "All",
+                "Clinical",
+                "LookUp",
+                "Mechanistic"
+            ],
+            "title": "TestPersonaEnum",
+            "type": "string"
+        },
+        "TestSourceEnum": {
+            "description": "",
+            "enum": [
+                "SME",
+                "SMURF",
+                "GitHubUserFeedback",
+                "TACT",
+                "BenchMark",
+                "TranslatorTeam",
+                "TestDataLocation"
+            ],
+            "title": "TestSourceEnum",
+            "type": "string"
+        },
+        "TestSuite": {
+            "additionalProperties": false,
+            "description": "Specification of a set of Test Cases, one of either with a static list of 'test_cases' or a dynamic 'test_case_specification' slot values. Note: at least one slot or the other, but generally not both(?) needs to be present.",
+            "properties": {
+                "description": {
+                    "description": "A human-readable description for a Test Entity",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique identifier for a Test Entity",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A human-readable name for a Test Entity",
+                    "type": "string"
+                },
+                "tags": {
+                    "description": "A human-readable tags for categorical memberships of a TestEntity (preferably a URI or CURIE). Typically used to aggregate instances of TestEntity into formally typed or ad hoc lists.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "test_case_specification": {
+                    "description": "Declarative specification of a set of Test Cases generated elsewhere (i.e. within a Test Runner)",
+                    "type": "string"
+                },
+                "test_cases": {
+                    "additionalProperties": {
+                        "$ref": "#/$defs/TestCase__identifier_optional"
+                    },
+                    "description": "List of explicitly enumerated Test Cases.",
+                    "type": "object"
+                },
+                "test_metadata": {
+                    "description": "Test metadata describes the external provenance, cross-references and objectives for a given test.",
+                    "type": "string"
+                },
+                "test_persona": {
+                    "$ref": "#/$defs/TestPersonaEnum",
+                    "description": "A Test persona describes the user or operational context of a given test."
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "TestSuite",
+            "type": "object"
+        }
+    },
+    "$id": "https://w3id.org/TranslatorSRI/TranslatorTestingModel",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": true,
+    "metamodel_version": "1.7.0",
+    "title": "Translator-Testing-Model",
+    "type": "object",
+    "version": "0.0.0"
+}

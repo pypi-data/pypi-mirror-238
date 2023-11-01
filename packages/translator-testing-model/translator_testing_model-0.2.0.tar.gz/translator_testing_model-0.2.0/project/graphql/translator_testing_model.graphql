@@ -1,0 +1,232 @@
+type AcceptanceTestAsset
+  {
+    name: String
+    description: String
+    inputId: Uriorcurie
+    inputName: String
+    predicate: String
+    outputId: Uriorcurie
+    outputName: String
+    expectedOutput: ExpectedOutputEnum
+    testIssue: TestIssueEnum
+    semanticSeverity: SemanticSeverityEnum
+    inV1: Boolean
+    wellKnown: Boolean
+    runnerSettings: [String]!
+    id: Uriorcurie!
+    tags: [String]
+    mustPassDate: Date
+    mustPassEnvironment: TestEnvEnum
+    scientificQuestion: String
+    stringEntry: String
+    direction: DirectionEnum
+    answerInformalConcept: String
+    expectedResult: ExpectedResultsEnum
+    topLevel: Integer
+    queryNode: NodeEnum
+    notes: String
+  }
+
+type AcceptanceTestCase
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    testEnv: TestEnvEnum
+    testCaseType: TestCaseTypeEnum
+    queryType: QueryTypeEnum
+    preconditions: [Precondition]
+    tags: [String]
+    testAssets: [AcceptanceTestAsset]!
+  }
+
+type AcceptanceTestSuite
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    tags: [String]
+    testMetadata: TestMetadata
+    testPersona: TestPersonaEnum
+    testCases: [TestCase]
+    testCaseSpecification: TestCaseSpecification
+  }
+
+type BenchmarkTestSuite
+  {
+  }
+
+type ComplianceTestCase
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    testEnv: TestEnvEnum
+    testCaseType: TestCaseTypeEnum
+    queryType: QueryTypeEnum
+    testAssets: [TestAsset]!
+    preconditions: [Precondition]
+    tags: [String]
+  }
+
+type KnowledgeGraphNavigationTestCase
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    testEnv: TestEnvEnum
+    testCaseType: TestCaseTypeEnum
+    queryType: QueryTypeEnum
+    testAssets: [TestAsset]!
+    preconditions: [Precondition]
+    tags: [String]
+  }
+
+type OneHopTestCase
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    testEnv: TestEnvEnum
+    testCaseType: TestCaseTypeEnum
+    queryType: QueryTypeEnum
+    testAssets: [TestAsset]!
+    preconditions: [Precondition]
+    tags: [String]
+  }
+
+type OneHopTestSuite
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    tags: [String]
+    testMetadata: TestMetadata
+    testPersona: TestPersonaEnum
+    testCases: [TestCase]
+    testCaseSpecification: TestCaseSpecification
+  }
+
+type Precondition
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    tags: [String]
+  }
+
+type QuantitativeTestCase
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    testEnv: TestEnvEnum
+    testCaseType: TestCaseTypeEnum
+    queryType: QueryTypeEnum
+    testAssets: [TestAsset]!
+    preconditions: [Precondition]
+    tags: [String]
+  }
+
+type StandardsComplianceTestSuite
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    tags: [String]
+    testMetadata: TestMetadata
+    testPersona: TestPersonaEnum
+    testCases: [TestCase]
+    testCaseSpecification: TestCaseSpecification
+  }
+
+type TestAsset
+  {
+    name: String
+    description: String
+    inputId: Uriorcurie
+    inputName: String
+    predicate: String
+    outputId: Uriorcurie
+    outputName: String
+    expectedOutput: ExpectedOutputEnum
+    testIssue: TestIssueEnum
+    semanticSeverity: SemanticSeverityEnum
+    inV1: Boolean
+    wellKnown: Boolean
+    runnerSettings: [String]!
+    id: Uriorcurie!
+    tags: [String]
+  }
+
+type TestCase
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    testEnv: TestEnvEnum
+    testCaseType: TestCaseTypeEnum
+    queryType: QueryTypeEnum
+    testAssets: [TestAsset]!
+    preconditions: [Precondition]
+    tags: [String]
+  }
+
+type TestCaseSpecification
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    tags: [String]
+  }
+
+type TestEdgeData
+  {
+    name: String
+    description: String
+    inputId: Uriorcurie
+    inputName: String
+    predicate: String
+    outputId: Uriorcurie
+    outputName: String
+    expectedOutput: ExpectedOutputEnum
+    testIssue: TestIssueEnum
+    semanticSeverity: SemanticSeverityEnum
+    inV1: Boolean
+    wellKnown: Boolean
+    runnerSettings: [String]!
+    id: Uriorcurie!
+    tags: [String]
+  }
+
+interface TestEntity
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    tags: [String]
+  }
+
+type TestMetadata
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    tags: [String]
+    testSource: TestSourceEnum
+    testReference: Uriorcurie
+    testObjective: TestObjectiveEnum
+  }
+
+type TestSuite
+  {
+    id: Uriorcurie!
+    name: String
+    description: String
+    tags: [String]
+    testMetadata: TestMetadata
+    testPersona: TestPersonaEnum
+    testCases: [TestCase]
+    testCaseSpecification: TestCaseSpecification
+  }
+

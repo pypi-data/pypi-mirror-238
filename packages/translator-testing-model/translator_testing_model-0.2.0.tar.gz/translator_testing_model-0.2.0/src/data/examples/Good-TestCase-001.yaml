@@ -1,0 +1,43 @@
+# Example TestCase data object
+---
+# TODO: the TestCase example data needs further elaboration
+#
+#  TestCase:
+#    description: >-
+#      Represents a single enumerated instance of Test Case, derived from a
+#      given collection of one or more TestAsset instances (the value of the
+#      'test_assets' slot) which define the 'inputs' and 'outputs' of the
+#      TestCase, used to probe a particular test condition.
+#    is_a: TestEntity
+#    slots:
+#      - test_env
+#      - test_case_type
+#      - query_type
+#      - test_assets
+#      - preconditions
+#    slot_usage:
+#      test_case_type:
+#        description: >-
+#          Is this valid or even necessary with the class names already
+#          available from classes of 'test_assets' used (seems redundant?)
+#      test_assets:
+#        aliases: ["Block List"]
+#        description: >-
+#          One or more 'tags' slot values (inherited from TestEntity)
+#          should generally be defined as filters to specify TestAsset
+#          membership in 'test_assets' slot ("Block List") collection.
+#      tags:
+#        description: >-
+#          One or more 'tags' slot values (inherited from TestEntity) should generally
+#          be defined as filters to specify TestAsset membership in a "Block List" collection.
+#
+id: example:TestCase001
+name: foo bar
+description: This is a test case
+test_assets:
+  - id: example:TestAsset001
+    name: foo bar
+    description: This is a test asset
+    runner_settings:
+      - "inferred"
+      - "test"
