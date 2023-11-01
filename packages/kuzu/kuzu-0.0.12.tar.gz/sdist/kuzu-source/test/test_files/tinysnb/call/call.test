@@ -1,0 +1,62 @@
+-GROUP TinySnbReadTest
+-DATASET CSV tinysnb
+
+--
+
+-CASE Call
+
+-LOG SetGetThread
+-STATEMENT CALL THREADS=4
+---- ok
+-STATEMENT CALL current_setting('threads') RETURN *
+-PARALLELISM 6
+---- 1
+6
+-STATEMENT CALL current_setting('threads') RETURN *
+-PARALLELISM 10
+---- 1
+10
+
+-LOG SetGetTimeout
+-STATEMENT CALL timeout=40000
+---- ok
+-STATEMENT CALL current_setting('timeout') RETURN *
+---- 1
+40000
+-STATEMENT CALL timeout=20000
+---- ok
+-STATEMENT CALL current_setting('timeout') RETURN *
+---- 1
+20000
+
+-LOG SetGetVarLengthMaxDepth
+-STATEMENT CALL var_length_extend_max_depth=10
+---- ok
+-STATEMENT CALL current_setting('var_length_extend_max_depth') RETURN *
+---- 1
+10
+-STATEMENT MATCH (a:person)-[:knows*1..28]->(b:person) RETURN COUNT(*);
+---- error
+Binder exception: Upper bound of rel  exceeds maximum: 10.
+-STATEMENT MATCH (a:person)-[:knows*1..10]->(b:person) RETURN COUNT(*);
+---- 1
+354290
+
+-LOG disableSemihMaskOptimization
+-STATEMENT CALL enable_semi_mask=true
+---- ok
+-STATEMENT CALL current_setting('enable_semi_mask') RETURN *
+---- 1
+true
+-STATEMENT CALL enable_semi_mask=false
+---- ok
+-STATEMENT CALL current_setting('enable_semi_mask') RETURN *
+---- 1
+false
+
+-LOG CallTransaction
+-STATEMENT BEGIN TRANSACTION READ ONLY;
+---- ok
+-STATEMENT CALL var_length_extend_max_depth=10
+---- error
+Can't execute a write query inside a read-only transaction.

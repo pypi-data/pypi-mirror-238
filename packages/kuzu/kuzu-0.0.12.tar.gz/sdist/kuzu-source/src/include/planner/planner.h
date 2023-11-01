@@ -1,0 +1,57 @@
+#pragma once
+
+#include "planner/query_planner.h"
+
+namespace kuzu {
+namespace planner {
+
+class Planner {
+public:
+    static std::unique_ptr<LogicalPlan> getBestPlan(const catalog::Catalog& catalog,
+        const storage::NodesStoreStatsAndDeletedIDs& nodesStatistics,
+        const storage::RelsStoreStats& relsStatistics, const BoundStatement& statement);
+
+    static std::vector<std::unique_ptr<LogicalPlan>> getAllPlans(const catalog::Catalog& catalog,
+        const storage::NodesStoreStatsAndDeletedIDs& nodesStatistics,
+        const storage::RelsStoreStats& relsStatistics, const BoundStatement& statement);
+
+private:
+    static std::unique_ptr<LogicalPlan> planCreateTable(const BoundStatement& statement);
+
+    static std::unique_ptr<LogicalPlan> planDropTable(const BoundStatement& statement);
+
+    static std::unique_ptr<LogicalPlan> planAlter(const BoundStatement& statement);
+
+    static std::unique_ptr<LogicalPlan> planStandaloneCall(const BoundStatement& statement);
+
+    static std::unique_ptr<LogicalPlan> planCommentOn(const BoundStatement& statement);
+
+    static std::unique_ptr<LogicalPlan> planExplain(const catalog::Catalog& catalog,
+        const storage::NodesStoreStatsAndDeletedIDs& nodesStatistics,
+        const storage::RelsStoreStats& relsStatistics, const BoundStatement& statement);
+
+    static std::unique_ptr<LogicalPlan> planCreateMacro(const BoundStatement& statement);
+
+    static std::unique_ptr<LogicalPlan> planTransaction(const BoundStatement& statement);
+
+    static std::vector<std::unique_ptr<LogicalPlan>> getAllQueryPlans(
+        const catalog::Catalog& catalog,
+        const storage::NodesStoreStatsAndDeletedIDs& nodesStatistics,
+        const storage::RelsStoreStats& relsStatistics, const BoundStatement& statement);
+
+    static std::vector<std::unique_ptr<LogicalPlan>> getAllExplainPlans(
+        const catalog::Catalog& catalog,
+        const storage::NodesStoreStatsAndDeletedIDs& nodesStatistics,
+        const storage::RelsStoreStats& relsStatistics, const BoundStatement& statement);
+
+    static std::unique_ptr<LogicalPlan> planCopyTo(const catalog::Catalog& catalog,
+        const storage::NodesStoreStatsAndDeletedIDs& nodesStatistics,
+        const storage::RelsStoreStats& relsStatistics, const BoundStatement& statement);
+
+    static std::unique_ptr<LogicalPlan> planCopyFrom(const BoundStatement& statement);
+
+    static std::unique_ptr<LogicalPlan> getSimplePlan(std::shared_ptr<LogicalOperator> op);
+};
+
+} // namespace planner
+} // namespace kuzu
