@@ -1,0 +1,142 @@
+[tool.poetry]
+name = "poetry-core"
+version = "1.8.0"
+description = "Poetry PEP 517 Build Backend"
+authors = ["Sébastien Eustace <sebastien@eustace.io>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/python-poetry/poetry-core"
+repository = "https://github.com/python-poetry/poetry-core"
+keywords = ["packaging", "dependency", "poetry"]
+classifiers = [
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    # Classifiers for Python 3.12 can be removed after Poetry 1.7.0 has been released.
+    "Programming Language :: Python :: 3.12",
+]
+packages = [
+    { include = "poetry", from = "src" },
+]
+include = [
+    { path = "tests", format = "sdist" },
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/python-poetry/poetry/issues"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = ">=2.15.0"
+vendoring = ">=1.0"
+
+[tool.poetry.group.test.dependencies]
+pytest = ">=7.1.2"
+pytest-cov = ">=3.0.0"
+pytest-mock = ">=3.10"
+build = ">=0.10.0"
+setuptools = ">=60"
+tomli-w = "^1.0.0"
+virtualenv = ">=20.21"
+
+[tool.poetry.group.typing.dependencies]
+mypy = ">=1.0"
+types-setuptools = ">=57.4.14"
+
+[tool.ruff]
+extend-exclude = [
+    "src/poetry/core/_vendor/*",
+    "tests/fixtures/*",
+    "tests/**/fixtures/*"
+]
+fix = true
+line-length = 88
+src = ["src"]
+target-version = "py38"
+
+[tool.ruff.lint]
+unfixable = [
+    "ERA",  # do not autoremove commented out code
+]
+extend-select = [
+    "B",  # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "ERA",  # flake8-eradicate/eradicate
+    "PIE",  # flake8-pie
+    "SIM",  # flake8-simplify
+    "TID",  # flake8-tidy-imports
+    "TCH",  # flake8-type-checking
+    "N",  # pep8-naming
+    "RUF",  # ruff checks
+    "UP",  # pyupgrade
+    "I",  # isort
+    "PGH",  # pygrep
+]
+ignore = [
+    "B904",  # use 'raise ... from err'
+    "B905",  # use explicit 'strict=' parameter with 'zip()'
+    "N818"  #  Exception name should be named with an Error suffix
+]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.isort]
+force-single-line = true
+lines-between-types = 1
+lines-after-imports = 2
+known-first-party = ["poetry.core"]
+known-third-party = ["poetry.core._vendor"]
+required-imports = ["from __future__ import annotations"]
+
+[tool.black]
+target-version = ['py38']
+preview = true
+extend-exclude = "src/poetry/core/_vendor/|tests/([^/]*/)*fixtures/"
+
+[tool.mypy]
+strict = true
+explicit_package_bases = true
+namespace_packages = true
+show_error_codes = true
+enable_error_code = [
+    "ignore-without-code",
+    "redundant-expr",
+    "truthy-bool",
+]
+mypy_path = "src"
+files = "src, tests"
+exclude = "(?x)(^tests/.*/fixtures | ^src/poetry/core/_vendor)"
+
+[[tool.mypy.overrides]]
+module = [
+  'fastjsonschema.*',
+  'lark.*',
+  'virtualenv.*',
+]
+ignore_missing_imports = true
+
+[tool.vendoring]
+destination = "src/poetry/core/_vendor/"
+requirements = "src/poetry/core/_vendor/vendor.txt"
+namespace = ""
+
+protected-files = ["vendor.txt"]
+patches-dir = "vendors/patches"
+
+[tool.vendoring.transformations]
+drop = [
+    "bin/",
+    "*.so",
+    "typing.*",
+    "*/tests/"
+]
+
+[tool.vendoring.license.fallback-urls]
+pyrsistent = "https://raw.githubusercontent.com/tobgu/pyrsistent/master/LICENSE.mit"
+
+[build-system]
+requires = []
+build-backend = "poetry.core.masonry.api"
+backend-path = ["src"]
