@@ -1,0 +1,24 @@
+name: geocat_comp_build
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.9, <3.12  # minimum support 3.9
+  - cf_xarray>=0.3.1    # min version 0.3.1 for dependencies
+  - cftime
+  - dask
+  - distributed
+  - eofs
+  - metpy
+  - numba
+  - numpy<1.24  # 1.24 not yet fully compatible with numba
+  - pint
+  - xarray<=2023.02.0 #pin per issue #381
+  - xskillscore
+# Packages listed below are for testing
+  - geocat-datafiles
+  - netcdf4
+  - parameterized
+  - pytest
+  - pytest-cov
+# The package below is for formatting standards
+  - pre-commit
