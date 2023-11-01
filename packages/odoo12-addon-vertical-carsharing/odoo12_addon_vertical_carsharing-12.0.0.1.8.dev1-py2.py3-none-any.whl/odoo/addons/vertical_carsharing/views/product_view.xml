@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product_analytic_account.product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="account.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="income_analytic_account_id" position="after">
+                <field name="account_group_analytic_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>
