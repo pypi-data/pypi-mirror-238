@@ -1,0 +1,14 @@
+[metadata]
+icon = "mdi:api"
+name = "MkDocStrings"
+
+[requirements.plugin.mkdocstrings]
+[requirements.package.mkdocstrings]
+extras = "python"
+
+
+[examples.docstrings]
+title = "DocStrings"
+jinja = """
+{{ "mknodes.MkDocStrings" | MkDocStrings(show_if_no_docstring=True, heading_level=3) }}
+"""
