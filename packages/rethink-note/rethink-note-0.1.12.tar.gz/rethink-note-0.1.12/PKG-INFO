@@ -1,0 +1,93 @@
+Metadata-Version: 2.1
+Name: rethink-note
+Version: 0.1.12
+Summary: note taking app
+Home-page: https://github.com/MorvanZhou/rethink
+Author: MorvanZhou
+Author-email: morvanzhou@hotmail.com
+Project-URL: Bug Tracker, https://github.com/MorvanZhou/rethink/issues
+Project-URL: Source, https://github.com/MorvanZhou/rethink
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: fastapi>=0.95.2
+Requires-Dist: pydantic[email]>=2.1.1
+Requires-Dist: pydantic-settings>=2.0.3
+Requires-Dist: uvicorn[standard]
+Requires-Dist: pyjwt[crypto]>=2.8.0
+Requires-Dist: bcrypt>=4.0.1
+Requires-Dist: mongita>=1.2.0
+Requires-Dist: pymongo>=4.4.1
+Requires-Dist: markdown>=3.4.4
+Requires-Dist: pypinyin>=0.49.0
+Requires-Dist: oauthlib>=3.2.2
+Requires-Dist: httpx>=0.25.0
+Requires-Dist: captcha>=0.5.0
+Requires-Dist: python-multipart>=0.0.6
+Provides-Extra: build
+Requires-Dist: tox==3.24.3; extra == "build"
+Requires-Dist: tox-conda; extra == "build"
+Requires-Dist: build; extra == "build"
+Requires-Dist: twine; extra == "build"
+Requires-Dist: pylint; extra == "build"
+
+# Rethink
+
+[![Unittest](https://github.com/MorvanZhou/rethink/actions/workflows/python-app.yml/badge.svg)](https://github.com/MorvanZhou/rethink/actions/workflows/python-app.yml)
+[![GitHub license](https://img.shields.io/github/license/MorvanZhou/rethink)](https://github.com/MorvanZhou/rethink/blob/master/LICENSE)
+<a href="https://pypi.org/project/rethink-note" target="_blank">
+<img src="https://img.shields.io/pypi/v/rethink-note?color=%2334D058&label=pypi%20package" alt="Package version">
+</a>
+<a href="https://pypi.org/project/rethink-note" target="_blank">
+<img src="https://img.shields.io/pypi/pyversions/rethink-note.svg?color=%2334D058" alt="Supported Python versions">
+</a>
+
+<p align="center">
+  <strong>English</strong> | <a href="README_ZH.md" target="_blank">简体中文</a>
+</p>
+
+A note-taking app dependent on python.
+The official web version can be found at [https://rethink.run](https://rethink.run).
+
+## Install
+
+```shell
+pip install rethink-note
+```
+
+To update:
+
+```shell
+pip install -U rethink-note
+```
+
+## Usage
+
+Run with default settings:
+
+```python
+import rethink
+
+rethink.run()
+```
+
+Run with custom settings:
+
+```python
+import rethink
+
+rethink.run(
+    path='.',  # path to store notes, default is current directory
+    host="127.0.0.1",  # host ip, default is localhost
+    port=8080,  # port number, default is 8080
+    language="zh"  # language, default is English, optional: zh, en
+)
+```
