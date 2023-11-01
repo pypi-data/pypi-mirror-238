@@ -1,0 +1,39 @@
+Metadata-Version: 2.1
+Name: colab-load
+Version: 0.0.2
+Summary: Library to download .ipynb from google colab.
+Home-page: https://github.com/Filin153/colab_load.git
+Author: @GusGus153
+Author-email: dimons2006@yandex.ru
+Project-URL: GitHub, https://github.com/Filin153/colab_load.git
+Keywords: colab load file ipynb
+Classifier: Programming Language :: Python :: 3.9
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: requests==2.31.0
+Requires-Dist: selenium==4.14.0
+Requires-Dist: numpy==1.26.1
+Requires-Dist: fake-useragent==1.3.0
+
+# Colab Load #
+
+## What is this? ##
+Library to download .ipynb from google colab
+
+## Quick Guide ##
+One url:
+
+    from colab_load.load import StartLoad
+    
+    s = StartLoad(logs=True)
+    s.load_file_s("https://colab.research.google.com/drive/1QD1TM2TroOEqqtTURpk5sVOmGLQeREv", save_dir="file")
+
+Lots of url:
+
+	from colab_load.load import StartLoad
+    
+	urls=["https://colab.research.google.com/drive/1uQ3QH3khRGYcQ8kU3OMyG1xRF6MB70xA?usp=sharing", "https://colab.research.google.com/drive/1bKxzUeOalOelP7HQ3KGBsF35j7CC2ZFh?usp=sharing"]
+	s = StartLoad(logs=True)
+	s.load_file_a(urls, save_dir="file", count=2)
