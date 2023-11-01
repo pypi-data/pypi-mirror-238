@@ -1,0 +1,64 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Att g\u00f6ra-lista"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "Slutf\u00f6rd",
+                "needs_action": "Ej slutf\u00f6rda"
+            }
+        }
+    },
+    "services": {
+        "create_item": {
+            "description": "L\u00e4gg till en ny uppgift i att g\u00f6ra-listan.",
+            "fields": {
+                "status": {
+                    "description": "En status eller bekr\u00e4ftelse p\u00e5 uppgiften.",
+                    "name": "Status"
+                },
+                "summary": {
+                    "description": "Den korta sammanfattningen som beskriver uppgiften.",
+                    "name": "Summering"
+                }
+            },
+            "name": "Skapa uppgift p\u00e5 att g\u00f6ra-lista"
+        },
+        "delete_item": {
+            "description": "Ta bort en befintligt uppgift, antingen med dess unika ID eller dess sammanfattning.",
+            "fields": {
+                "summary": {
+                    "description": "Den korta sammanfattningen som beskriver uppgiften.",
+                    "name": "Summering"
+                },
+                "uid": {
+                    "description": "Unik identifierare f\u00f6r uppgiften.",
+                    "name": "Uppgiftens unika ID"
+                }
+            },
+            "name": "Ta bort en uppgift"
+        },
+        "update_item": {
+            "description": "Uppdatera en befintlig uppgift baserat p\u00e5 antingen dess unika ID eller dess sammanfattning.",
+            "fields": {
+                "status": {
+                    "description": "En status eller bekr\u00e4ftelse p\u00e5 uppgiften.",
+                    "name": "Status"
+                },
+                "summary": {
+                    "description": "Den korta sammanfattningen som beskriver uppgiften.",
+                    "name": "Summering"
+                },
+                "uid": {
+                    "description": "Unik identifierare f\u00f6r uppgiften.",
+                    "name": "Uppgiftens unika ID"
+                }
+            },
+            "name": "Uppdatera uppgift"
+        }
+    },
+    "title": "Att g\u00f6ra-lista"
+}

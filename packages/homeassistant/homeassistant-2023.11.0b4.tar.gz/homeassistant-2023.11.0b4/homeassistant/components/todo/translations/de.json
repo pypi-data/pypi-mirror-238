@@ -1,0 +1,92 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "To-do-Liste"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "Abgeschlossen",
+                "needs_action": "Nicht abgeschlossen"
+            }
+        }
+    },
+    "services": {
+        "add_item": {
+            "description": "Einen neuen Eintrag der To-Do-Liste hinzuf\u00fcgen.",
+            "fields": {
+                "item": {
+                    "description": "Der Name, der den To-Do-Eintrag darstellt.",
+                    "name": "Name des Eintrags"
+                }
+            },
+            "name": "Eintrag der To-Do-Liste hinzuf\u00fcgen"
+        },
+        "create_item": {
+            "description": "F\u00fcgt ein neues To-do-Listenelement hinzu.",
+            "fields": {
+                "status": {
+                    "description": "Ein Status oder eine Best\u00e4tigung des To-do-Elements.",
+                    "name": "Status"
+                },
+                "summary": {
+                    "description": "Die kurze Zusammenfassung, die das To-do-Element darstellt.",
+                    "name": "Zusammenfassung"
+                }
+            },
+            "name": "To-do-Listenelement erstellen"
+        },
+        "delete_item": {
+            "description": "L\u00f6sche ein vorhandenes To-do-Listenelement entweder anhand seiner eindeutigen ID oder seiner Zusammenfassung.",
+            "fields": {
+                "summary": {
+                    "description": "Die kurze Zusammenfassung, die das To-do-Element darstellt.",
+                    "name": "Zusammenfassung"
+                },
+                "uid": {
+                    "description": "Eindeutige Bezeichner f\u00fcr die To-do-Listenelemente.",
+                    "name": "Eindeutige IDs f\u00fcr To-do-Elemente"
+                }
+            },
+            "name": "L\u00f6schen eines To-do-Listeneintrags"
+        },
+        "remove_item": {
+            "description": "Entferne einen vorhandenen To-Do-Listeneintrag anhand seines Namens.",
+            "fields": {
+                "item": {
+                    "description": "Der Name f\u00fcr die Eintr\u00e4ge in der To-Do-Liste.",
+                    "name": "Name des Eintrags"
+                }
+            },
+            "name": "Einen Eintrag der To-Do-Liste entfernen"
+        },
+        "update_item": {
+            "description": "Aktualisiere einen vorhandenen To-Do-Listeneintrag basierend auf seinem Namen.",
+            "fields": {
+                "item": {
+                    "description": "Der Name f\u00fcr den Eintrag in der To-Do-Liste.",
+                    "name": "Name des Eintrags"
+                },
+                "rename": {
+                    "description": "Der neue Name des To-Do-Eintrags",
+                    "name": "Eintrag umbenennen"
+                },
+                "status": {
+                    "description": "Ein Status oder eine Best\u00e4tigung des To-do-Elements.",
+                    "name": "Status festlegen"
+                },
+                "summary": {
+                    "description": "Die kurze Zusammenfassung, die das To-do-Element darstellt.",
+                    "name": "Zusammenfassung"
+                },
+                "uid": {
+                    "description": "Eindeutiger Bezeichner f\u00fcr das To-do-Listenelement.",
+                    "name": "Eindeutige ID des To-do-Elements"
+                }
+            },
+            "name": "Aktualisieren des Eintrags in der To-do-Liste"
+        }
+    },
+    "title": "To-do-Liste"
+}

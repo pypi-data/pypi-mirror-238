@@ -1,0 +1,72 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "already_in_progress": "M\u00e4\u00e4ritysprosessi on jo k\u00e4ynniss\u00e4",
+            "reauth_successful": "Uudelleentodennus onnistui"
+        },
+        "error": {
+            "invalid_auth": "Virheellinen todennus",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "title": "Todenna integraatio uudelleen"
+            },
+            "user": {
+                "data": {
+                    "password": "Salasana",
+                    "url": "URL-osoite",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "mobile_connection": {
+                "name": "Mobiiliyhteys"
+            }
+        },
+        "switch": {
+            "mobile_data": {
+                "name": "Mobiilidata"
+            }
+        }
+    },
+    "services": {
+        "clear_traffic_statistics": {
+            "fields": {
+                "url": {
+                    "name": "URL-osoite"
+                }
+            }
+        },
+        "reboot": {
+            "fields": {
+                "url": {
+                    "name": "URL-osoite"
+                }
+            }
+        },
+        "resume_integration": {
+            "fields": {
+                "url": {
+                    "name": "URL-osoite"
+                }
+            }
+        },
+        "suspend_integration": {
+            "description": "Keskeytt\u00e4\u00e4 integraation. Keskeytt\u00e4minen kirjaa integraation ulos reitittimest\u00e4 ja lopettaa sen k\u00e4yt\u00f6n. K\u00e4ytt\u00f6kelpoinen esimerkiksi silloin, kun reitittimen verkkok\u00e4ytt\u00f6liittym\u00e4n k\u00e4ytt\u00e4minen toisesta l\u00e4hteest\u00e4, kuten selaimesta, on tilap\u00e4isesti tarpeen. Kutsu resume_integration-palvelua jatkaaksesi.\n.",
+            "fields": {
+                "url": {
+                    "name": "URL-osoite"
+                }
+            }
+        }
+    }
+}
