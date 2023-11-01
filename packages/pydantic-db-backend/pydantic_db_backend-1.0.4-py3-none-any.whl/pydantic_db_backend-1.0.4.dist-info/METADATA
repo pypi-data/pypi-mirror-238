@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: pydantic-db-backend
+Version: 1.0.4
+Summary: 
+Author: Marco Bartel
+Author-email: bsimpson888@gmail.com
+Requires-Python: >=3.11,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Provides-Extra: couchdb
+Provides-Extra: mongodb
+Requires-Dist: couchdb (>=1.2,<2.0) ; extra == "couchdb"
+Requires-Dist: fastapi (>=0.103.2,<0.104.0)
+Requires-Dist: pydantic (>=2.4.2,<3.0.0)
+Requires-Dist: pydantic-db-backend-common (>=2.0.2,<3.0.0)
+Requires-Dist: pydash
+Requires-Dist: pymongo (>=4.5.0,<5.0.0) ; extra == "mongodb"
+Requires-Dist: python-dotenv (>=1.0.0,<2.0.0)
+Requires-Dist: uvicorn (>=0.23.2,<0.24.0)
+Requires-Dist: webexception (>=1.0.4,<2.0.0)
+Description-Content-Type: text/markdown
+
+# Testing
+
+### CouchDB
+
+http://localhost:5984/_utils/#
+
+- user: admin
+- passwd: pytest
+
