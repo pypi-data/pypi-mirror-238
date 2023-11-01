@@ -1,0 +1,267 @@
+Metadata-Version: 2.1
+Name: python-pytm
+Version: 0.0.8
+Summary: PyTM - an Open Source Python Time Management Tool for Mankind
+Home-page: https://github.com/wasi0013/PyTM
+Author: Wasi
+Author-email: wasi0013@gmail.com
+License: MIT
+Keywords: PyTM
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.12
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: click
+
+ .. image:: https://github.com/wasi0013/PyTM/raw/master/ext/images/PyTM-logo.png
+    :target: https://github.com/wasi0013/PyTM/
+    :alt: PyTM - Logo
+
+
+
+
+**PУΓM** - a Time Management Tool
+---------------------------------
+
+
+|image1| |image2| |image3| |Contributors| |DownloadStats| |DocsStats|
+=====================================================================
+
+.. |image1| image:: https://badge.fury.io/py/python-pytm.png
+   :target: https://badge.fury.io/py/python-pytm
+.. |image2| image:: https://img.shields.io/pypi/l/python-pytm.svg
+   :target: https://pypi.org/project/python-pytm/
+.. |image3| image:: https://img.shields.io/pypi/pyversions/python-pytm.svg
+   :target: https://pypi.org/project/python-pytm/
+   :alt: Supported Python Versions
+.. |Contributors| image:: https://img.shields.io/github/contributors/wasi0013/PyTM.svg
+   :target: https://github.com/wasi0013/PyTM/graphs/contributors
+   :alt: List of Contributors
+.. |DownloadStats| image:: https://pepy.tech/badge/python-pytm
+   :target: https://pepy.tech/project/python-pytm
+   :alt: Download Stats
+.. |DocsStats| image:: https://readthedocs.org/projects/pytm/badge/?version=latest
+   :target: https://pytm.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
+
+Goals
+-----
+
+Project time management, billing and invoice generations.
+
+
+Installing PyTM
+---------------
+
+You can download it from Python Package Index! For example::
+
+    pip install python-pytm
+
+or, you can install it using pipenv too!::
+
+    pipenv install python-pytm
+
+Checkout the version by typing the following in your terminal/command prompt::
+
+    pytm --version
+
+
+For a list of all the available options or, arguments try::
+
+    pytm --help
+
+
+Basic commands:
+---------------
+
+Currently available commands are listed below:
+
+Commands related to project
+===========================
+
+* Start a new/existing project::
+
+    pytm project start PROJECT_NAME
+
+* Remove a project::
+
+    pytm project remove PROJECT_NAME
+
+* Check status of a project::
+
+    pytm project status PROJECT_NAME
+
+* Check summary of a project::
+
+    pytm project summary PROJECT_NAME
+
+* Finish active project::
+
+    pytm project finish
+
+* Pause active project::
+
+    pytm project pause
+
+* Abort active project::
+
+    pytm project abort
+
+Commands related to Task
+========================
+
+* Start a new or existing task in the current active project::
+
+    pytm task start TASK_NAME
+
+* Remove a task::
+
+    pytm task remove TASK_NAME
+
+* current task's status::
+
+    pytm task status
+
+* Finish active task::
+
+    pytm task finish
+
+* Pause active task::
+
+    pytm task pause
+
+* Abort active task::
+
+    pytm task abort
+
+Others
+======
+Check version::
+
+    pytm --version
+    pytm -v
+
+
+For a list of all the available options or, arguments try::
+
+    pytm --help
+
+
+Running the tests
+-----------------
+
+* Clone this `repository <https://github.com/wasi0013/PyTM>`_
+
+* Install dependencies::
+
+    pip install -r requirements.txt
+
+* run the tests::
+
+    py.test
+
+
+Built With :heart: using
+------------------------
+
+* `Python <https://python.org/>`_
+
+Contributing
+------------
+
+Please read `CONTRIBUTING.rst <CONTRIBUTING.rst>`_ for details on our code of conduct, and the process for submitting pull requests to us. You are encouraged to contribute or, try it out.
+
+Any bug reports/suggestions/improvements/feature requests are highly appreciated. Just let us know by `creating issues <https://github.com/wasi0013/PyTM/issues/new/>`_
+
+Version
+-------
+We use `SemVer <http://semver.org/>`_. For the versions available, see the `tags on this repository <https://github.com/wasi0013/PyTM/tags>`_
+
+Author
+------
+* `Wasi <https://www.wasi0013.com/>`_ - (`wasi0013 <https://github.com/wasi0013>`_)
+
+See also the list of `contributors <https://github.com/wasi0013/PyTM/contributors>`_ who participated in this project.
+
+License
+-------
+This project is licensed under the MIT License - see the `LICENSE <LICENSE>`_ file for details.
+
+
+Acknowledgments
+---------------
+* This project is bootstrapped using `this cookiecutter package <https://github.com/audreyr/cookiecutter-pypackage>`_
+
+
+**NOTE:** "*This Project is still a work in progress.*"
+
+
+
+Documentation
+-------------
+
+The full documentation is at http://PyTM.rtfd.org.
+
+
+
+History
+-------
+
+0.0.1 (2018-10-23)
+------------------
+
+* First release on PyPI.
+
+0.0.2 (2018-11-09)
+------------------
+
+* Second release on PyPI.
+* Created Skeleton of the command line Interface.
+
+0.0.3 (2023-10-18)
+------------------
+
+* Implemented data store in home directory. 
+* Made project commands functional.
+
+0.0.4 (2023-10-28)
+------------------
+
+* Implemented state.
+* Improved project commands.
+
+0.0.5 (2023-10-30)
+------------------
+
+* Made task commands functional.
+* Improved project summary.
+* Project summary now shows total duration of the project.
+
+0.0.6 (2023-10-31)
+------------------
+
+* bug fix
+* readme and doc update
+* Improved Command line interface outputs.
+
+0.0.7 (2023-11-01)
+------------------
+
+* Added show sub command for project.
+* Added json sub command for project.
+* refactored project and task commands output messages.
+* fixed bugs in project sub commands.
+
+0.0.8 (2023-11-01)
+------------------
+
+* Added config sub command.
+* added command to save default user information.
+* refactored project and task commands.
+* fixed bugs.
+* added config command to configure project meta data such as title, billable? etc.
