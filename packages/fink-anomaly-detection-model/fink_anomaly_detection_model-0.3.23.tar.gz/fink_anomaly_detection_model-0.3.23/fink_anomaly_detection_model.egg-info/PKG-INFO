@@ -1,0 +1,28 @@
+Metadata-Version: 2.1
+Name: fink-anomaly-detection-model
+Version: 0.3.23
+Summary: Fink anomaly detection model
+Author-email: timofei.psheno@gmail.com
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: scikit-learn>=1.3.1
+Requires-Dist: numpy>=1.23.5
+Requires-Dist: tqdm>=4.65.0
+Requires-Dist: onnx==1.12.0
+Requires-Dist: scipy>=1.10.1
+Requires-Dist: skl2onnx>=1.15.0
+Requires-Dist: pyarrow>=13.0.0
+Requires-Dist: coniferest>=0.0.11
+
+# Fink anomaly detection model
+The module is designed to train a model to detect anomalies in photometric data (currently using the IsolationForest model).
+
+**positional arguments:**
+
+  * _dataset_dir_      : Input dir for dataset
+
+**optional arguments:**
+
+  * _-h_, --help       : show this help message and exit
+  
+  * _--n_jobs N_JOBS_  : Number of threads (default: -1)
