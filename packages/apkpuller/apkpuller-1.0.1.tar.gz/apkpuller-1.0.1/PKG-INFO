@@ -1,0 +1,68 @@
+Metadata-Version: 2.1
+Name: apkpuller
+Version: 1.0.1
+Summary: Tool extract APKs from device to desktop directories
+Home-page: https://github.com/abeljm/APKPuller
+Author: Avelino Navarro
+Author-email: abeljm2017@gmail.com
+License: UNKNOWN
+Description: # APKPuller
+        Tool extract APKs from device to desktop directories
+        
+        ## Install 
+        ```bash
+        pip3 install apkpuller
+        ```
+        
+        ## How to use
+        
+        - Help menu
+        
+        <p align="left">
+        <img src="/images/help.png">
+        </p>
+        <br>
+        
+        - List all packages
+        
+        ```bash
+        apkpuller -l
+        ```
+        <br>
+        
+        - Grep the package list
+        
+        ```bash
+        apkpuller -l -g install
+        ```
+        
+        <p align="left">
+        <img src="/images/grepPackage.png">
+        </p>
+        <br>
+        
+        - view paths of the APKs in a package
+        
+        ```bash
+        apkpuller -v [Package Name]
+        ```
+        
+        <p align="left">
+        <img src="/images/grepPackage.png">
+        </p>
+        <br>
+        
+        - ADB extracts APK into directories 
+        
+        ```bash
+        apkpuller -p <package name> <directory>
+        ```
+        
+        <p align="left">
+        <img src="/images/APKPull.png">
+        </p>
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Description-Content-Type: text/markdown
