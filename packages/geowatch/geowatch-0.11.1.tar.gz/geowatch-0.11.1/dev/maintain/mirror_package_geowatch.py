@@ -1,0 +1,178 @@
+"""
+Setup the geowatch package mirror
+
+python ~/code/watch/dev/maintain/mirror_package_geowatch.py
+
+SeeAlso:
+    ~/code/watch/dev/maintain/port_to_geowatch.py
+"""
+
+import networkx as nx
+import ubelt as ub
+
+
+def main():
+
+    old_name = 'watch'
+    mirror_name = 'geowatch'
+
+    module = ub.import_module_from_name(old_name)
+    module_dpath = ub.Path(module.__file__).parent
+    do_mirror(module_dpath, mirror_name)
+
+
+def do_mirror(module_dpath, mirror_name):
+
+    repo_dpath = module_dpath.parent
+
+    g = nx.DiGraph()
+    g.add_node(module_dpath, label=module_dpath.name, type='dir')
+
+    for root, dnames, fnames in module_dpath.walk():
+        # dnames[:] = [d for d in dnames if not dname_block_pattern.match(d)]
+        if '__init__.py' not in fnames:
+            dnames.clear()
+            continue
+
+        g.add_node(root, label=root.name, type='dir')
+        if root != module_dpath:
+            g.add_edge(root.parent, root)
+
+        # for d in dnames:
+        #     dpath = root / d
+        #     g.add_node(dpath, label=dpath.name)
+        #     g.add_edge(root, dpath)
+
+        for f in fnames:
+            if f.endswith('.py'):
+                fpath = root / f
+                g.add_node(fpath, label=fpath.name, type='file')
+                g.add_edge(root, fpath)
+
+    for p in list(g.nodes):
+        node_data = g.nodes[p]
+        ntype = node_data.get('type', None)
+        if ntype == 'dir':
+            node_data['label'] = ub.color_text(node_data['label'], 'blue')
+        elif ntype == 'file':
+            node_data['label'] = ub.color_text(node_data['label'], 'green')
+
+    nx.write_network_text(g)
+
+    new_modpath = repo_dpath / mirror_name
+
+    from rich.prompt import Confirm
+    if new_modpath.exists():
+        if Confirm.ask(f'Delete {new_modpath}?'):
+            new_modpath.delete()
+
+    def extract_main_body(old_text):
+        import parso
+        import ast
+        module = parso.parse(old_text)
+        for child in module.children:
+            if child.type == 'if_stmt':
+                if_stmt = child
+                if if_stmt.children[0].value == 'if':
+                    condition = if_stmt.children[1]
+                    if condition.type == 'comparison':
+                        is_cannonical_main_block = (
+                            condition.children[0].value == '__name__' and
+                            condition.children[1].value == '==' and
+                            condition.children[2].type == 'string' and
+                            ast.literal_eval(condition.children[2].value) == '__main__'
+                        )
+                        if is_cannonical_main_block:
+                            if_body = if_stmt.children[3]
+
+                            import copy
+                            if_body = copy.deepcopy(if_body)
+                            to_remove = []
+                            # Remove doctest
+                            for idx, part in enumerate(if_body.children):
+                                if part.type == 'simple_stmt':
+                                    if len(part.children) == 2:
+                                        if part.children[0].type == 'string':
+                                            to_remove += [idx]
+
+                            for idx in sorted(to_remove)[::-1]:
+                                del if_body.children[idx]
+
+                            global_names = []
+                            for idx, part in enumerate(if_body.children):
+                                if part.type == 'simple_stmt':
+                                    if part.children[0].type == 'atom_expr':
+                                        if part.children[0].children[0].type == 'name':
+                                            global_names += [part.children[0].children[0].value]
+
+                            main_body_code = (if_body.get_code())
+                            return main_body_code, global_names
+        return None, []
+
+    for old_fpath, node_data in ub.ProgIter(g.nodes(data=True), desc='mirroring'):
+        if node_data['type'] == 'file':
+            relpath = old_fpath.relative_to(module_dpath)
+            new_fpath = new_modpath / relpath
+            new_fpath.parent.ensuredir()
+            modname = ub.modpath_to_modname(old_fpath)
+
+            old_text = old_fpath.read_text()
+            main_body_code, global_names = extract_main_body(old_text)
+
+            # if new_fpath.name == '__main__.py':
+            #     import xdev
+            #     xdev.embed()
+            #     new_fpath.write_text(ub.codeblock(
+            #         f'''
+            #         from {modname} import main
+            #         if __name__ == '__main__':
+            #             main()
+            #         '''))
+            # else:
+            parts = []
+
+            parts += [ub.codeblock(
+                '''
+                # Autogenerated via:
+                # python ~/code/watch/dev/maintain/mirror_package_geowatch.py
+                ''')]
+
+            if global_names:
+                parts += [f'from {modname} import ' + ', '.join(global_names)]
+
+            parts += ['\n\n' + ub.codeblock(
+                f'''
+                def __getattr__(key):
+                    import {modname} as mirror
+                    return getattr(mirror, key)
+
+
+                def __dir__():
+                    import {modname} as mirror
+                    return dir(mirror)
+                ''')]
+
+            if main_body_code:
+                parts += ['\n\n' + ub.codeblock(
+                    '''
+                    if __name__ == '__main__':
+                    ''') + main_body_code]
+
+            new_text = '\n'.join(parts)
+            new_fpath.write_text(new_text)
+
+    print('Dont forget to:')
+    print(f'git add {new_modpath}')
+
+
+if __name__ == '__main__':
+    """
+    CommandLine:
+        python ~/code/watch/dev/maintain/mirror_package_geowatch.py
+
+    python -c "import geowatch; print('geowatch.__version__ = ' + str(geowatch.__version__))"
+    python -c "import geowatch; print('geowatch.__name__ = ' + str(geowatch.__name__))"
+
+    python -m geowatch
+    """
+    main()
