@@ -1,0 +1,11 @@
+[project]
+name = "lib-munpy"
+version = "0.1.3"
+description = "Library to preprocess the inputs for MUNICH dispersion model and postprocess its outputs"
+dynamic = ["dependencies"]
+
+[tool.setuptools.packages]
+find = {}
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
