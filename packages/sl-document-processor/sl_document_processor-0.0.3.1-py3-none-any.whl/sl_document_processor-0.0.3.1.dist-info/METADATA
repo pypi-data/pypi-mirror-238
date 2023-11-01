@@ -1,0 +1,46 @@
+Metadata-Version: 2.1
+Name: sl-document-processor
+Version: 0.0.3.1
+Summary: Package to process documents of any format
+Author: Vamsidhar Reddy
+Author-email: r.vamsireddy93@gmail.com
+Requires-Python: >=3.9,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: beautifulsoup4 (>=4.12.2,<5.0.0)
+Requires-Dist: fastapi (>=0.104.1,<0.105.0)
+Requires-Dist: pdfminer (>=20191125,<20191126)
+Requires-Dist: pydantic (>=2.4.2,<3.0.0)
+Requires-Dist: pymupdf (>=1.23.5,<2.0.0)
+Requires-Dist: pypdf (>=3.17.0,<4.0.0)
+Requires-Dist: pypdf2 (>=3.0.1,<4.0.0)
+Requires-Dist: requests (>=2.31.0,<3.0.0)
+Requires-Dist: selenium (>=4.14.0,<5.0.0)
+Requires-Dist: tabula-py (>=2.8.2,<3.0.0)
+Requires-Dist: tika (>=2.6.0,<3.0.0)
+Requires-Dist: uvicorn (>=0.23.2,<0.24.0)
+Description-Content-Type: text/markdown
+
+# data-processor
+
+## Build
+
+
+```
+poetry build
+```
+
+## Publish to Pypi
+
+Add the API token to the config before publishing.
+```
+poetry config pypi-token.pypi <my-token>
+```
+
+
+```
+poetry publish
+```
+
