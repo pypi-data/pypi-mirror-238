@@ -1,0 +1,4 @@
+{{ vars.published_service_config|imports }}
+
+class {{ vars.published_service_config|class_header }}:
+    service_id = "{{ vars.published_service_config.service_id }}"

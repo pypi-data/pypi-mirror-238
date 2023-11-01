@@ -1,0 +1,8 @@
+{% if "additional-parent-fields" in vars %}
+{{ vars.additional_parent_fields|imports }}
+
+class {{ vars.draft_parent_record|class_header }}:
+    {% for field in vars.additional_parent_fields.additional_fields %}
+    {{ field }}
+    {% endfor %}
+{% endif %}
