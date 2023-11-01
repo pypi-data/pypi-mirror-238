@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "active_learn"
+version = "0.0.0"
+authors = [
+  { name="Wangda Zhang", email="wangdazhang@microsoft.com" },
+  { name="Jordan Ash", email="ash.jordan@microsoft.com" },
+]
+description = "A tool for Deep Active Learning"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy",
+    "torch",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/microsoft/ActiveLearn"
+"Bug Tracker" = "https://github.com/microsoft/ActiveLearn/issues"
