@@ -1,0 +1,61 @@
+from copy import deepcopy
+from logging import getLogger
+from typing import Callable, Optional
+
+from sentence_transformers import util
+from whylogs.experimental.core.udf_schema import register_dataset_udf
+from . import LangKitConfig, lang_config, prompt_column, response_column
+from langkit.transformer import Encoder
+
+_prompt = prompt_column
+_response = response_column
+
+
+_transformer_model = None
+
+diagnostic_logger = getLogger(__name__)
+
+
+def prompt_response_similarity(text):
+    global _transformer_model
+
+    if _transformer_model is None:
+        raise ValueError(
+            "response.relevance_to_prompt must have a transformer model initialized before use."
+        )
+
+    series_result = []
+    for x, y in zip(text["prompt"], text["response"]):
+        try:
+            embedding_1 = _transformer_model.encode([x] if isinstance(x, str) else x)
+            embedding_2 = _transformer_model.encode([y] if isinstance(y, str) else y)
+            similarity = util.pytorch_cos_sim(embedding_1, embedding_2)
+            series_result.append(similarity.item())
+        except Exception as e:
+            diagnostic_logger.warning(
+                f"prompt_response_similarity encountered error {e} for text: {text}"
+            )
+            series_result.append(None)
+    return series_result
+
+
+def init(
+    language: str = "",
+    transformer_name: Optional[str] = None,
+    custom_encoder: Optional[Callable] = None,
+    config: Optional[LangKitConfig] = None,
+):
+    config = config or deepcopy(lang_config)
+    global _transformer_model
+    if transformer_name is None and custom_encoder is None:
+        transformer_name = config.transformer_name
+
+    if transformer_name is None and custom_encoder is None:
+        _transformer_model = None
+        return
+
+    _transformer_model = Encoder(transformer_name, custom_encoder)
+    register_dataset_udf(
+        [prompt_column, response_column],
+        f"{response_column}.relevance_to_{prompt_column}",
+    )(prompt_response_similarity)
