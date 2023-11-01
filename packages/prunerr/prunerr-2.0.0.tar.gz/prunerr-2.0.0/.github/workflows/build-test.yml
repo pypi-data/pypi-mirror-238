@@ -1,0 +1,104 @@
+# SPDX-FileCopyrightText: 2023 Ross Patterson <me@rpatterson.net>
+#
+# SPDX-License-Identifier: MIT
+
+name: "Build and Test"
+
+env:
+  PUID: "1001"
+  PGID: "1001"
+  # Project specific values:
+  PROJECT_NAMESPACE: "rpatterson"
+  PROJECT_NAME: "prunerr"
+  GPG_PASSPHRASE: "${{ secrets.GPG_PASSPHRASE }}"
+  GPG_SIGNING_PRIVATE_KEY: "${{ secrets.GPG_SIGNING_PRIVATE_KEY }}"
+  DOCKER_PASS: "${{ secrets.DOCKER_PASS }}"
+  # Enable the GitHub command-line:
+  PROJECT_GITHUB_PAT: "${{ secrets.PROJECT_GITHUB_PAT }}"
+  # Tell the `./Makefile` about GitHub specific environment details:
+  CI_IS_FORK: >-
+    ${{
+      (
+        (
+          (github.repository_owner != '${PROJECT_NAMESPACE}')
+          || (github.event.pull_request.head.repo.owner.login != '${PROJECT_NAMESPACE}')
+        ) && 'true'
+      ) || 'false'
+    }}
+  # Uncomment for debugging output:
+  DEBUG: "true"
+
+on:
+  # Run only on branches, not tags:
+  # https://github.com/orgs/community/discussions/25615#discussioncomment-3397691
+  push:
+    branches:
+      - "**"
+    tags:
+      - "!**"
+      # Also run for open pull requests, including when pushed to:
+  pull_request: {}
+
+jobs:
+  build-test:
+    runs-on: "ubuntu-latest"
+    container:
+      image: "ghcr.io/rpatterson/prunerr:build-host"
+      env:
+        CHECKOUT_DIR: "${{ github.workspace }}"
+    permissions:
+      packages: "write"
+      checks: "write"
+    strategy:
+      matrix:
+        PYTHON_MINORS:
+          - "3.11"
+          - "3.12"
+          - "3.10"
+          - "3.9"
+          - "3.8"
+    name: "build-test (python${{ matrix.PYTHON_MINORS }})"
+    steps:
+      # Shared or common set up:
+      - name: "Checkout source from VCS"
+        uses: "actions/checkout@master"
+      # TODO: Debug stale venv issues and restore cache after fixing.
+
+      # Delegate steps agnostic of the CI/CD platform to the `./Makefile`:
+      - name: "Build image and run tests and checks in a container"
+        run: >-
+          git config --global --add safe.directory
+          /__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}
+          &&
+          init-job.sh entrypoint.sh make -e PYTHON_MINORS=${{ matrix.PYTHON_MINORS }}
+          test-push test-lint build-docker-${{ matrix.PYTHON_MINORS }}
+          test-docker-${{ matrix.PYTHON_MINORS }} test-clean
+
+      # Upload build artifacts:
+      # https://github.com/actions/upload-artifact#usage
+      - name: "Archive test, coverage, and lint reports"
+        uses: "actions/upload-artifact@master"
+        with:
+          name: "test-coverage-lint-reports"
+          path: |
+            ./build/reports/
+      - name: "Publish test suite report"
+        uses: "dorny/test-reporter@main"
+        # run this step even if preceding step failed
+        if: >-
+          (success() || failure())
+          && (
+            (! github.event.pull_request)
+            || ! (
+              (github.repository_owner == '${PROJECT_NAMESPACE}')
+              && (
+                github.event.pull_request.head.repo.owner.login
+                != '${PROJECT_NAMESPACE}'
+              )
+            )
+          )
+        with:
+          name: "Test Suite Reports (python${{ matrix.PYTHON_MINORS }})"
+          path: >-
+            ./build/reports/*/*unit.xml
+          reporter: "java-junit"
