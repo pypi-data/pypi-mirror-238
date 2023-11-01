@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "miniquant-ioc"
+description = "Python interface for the Harp class of PicoQuant's time interval analysers and photon counters"
+dynamic = ["version"]
+#version = attr: setuptools_scm.get_version
+authors = [
+    { name = "Florin Boariu", email = "florin.pt@rootshell.ro" },
+]
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: POSIX :: Linux",
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+]
+keywords = []
+dependencies = [
+    "softioc",
+    "numpy",
+    "miniquant>=0.3.0",
+    "libusb1",
+    "schema",
+    "emmi>=0.2.0",
+    "pyyaml"
+]
+
+[project.urls]
+"Source Code" = "https://gitlab.com/codedump2/miniquant/"
+"Bug Tracker" = "https://gitlab.com/codedump2/miniquant/-/issues"
+
+[project.optional-dependencies]
+test = [ "pytest", "pytest-cov" ]
+
+[project.scripts]
+miniquant-ioc = "miniquant_ioc.application:main"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra"
+log_cli = true
+testpaths = [
+    "tests",
+]
+
+[tool.setuptools_scm]
+write_to = "src/miniquant_ioc/_version.py"
