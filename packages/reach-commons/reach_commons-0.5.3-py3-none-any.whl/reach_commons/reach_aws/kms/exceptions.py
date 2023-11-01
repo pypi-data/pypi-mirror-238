@@ -1,0 +1,2 @@
+class KMSClientException(Exception):
+    pass
