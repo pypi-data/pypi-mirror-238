@@ -1,0 +1,77 @@
+name: Build and test BSB
+
+on: [push, pull_request]
+
+env:
+  NEST_VERSION: 3.4
+  NEST_INSTALL_PATH: /home/runner/work/simulators/nest
+
+jobs:
+  build:
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+    steps:
+    - uses: actions/checkout@v3.5.0
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4.3.0
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install apt dependencies
+      run: |
+        sudo apt update
+        sudo apt install openmpi-bin libopenmpi-dev gsl-bin libgsl-dev libhdf5-dev
+    - name: Cache pip
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-${{ matrix.python-version }}-pip-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-${{ matrix.python-version }}-pip-
+          ${{ runner.os }}-
+
+    - name: Cache NEST
+      id: cache-nest
+      uses: actions/cache@v3
+      with:
+        # Path resolution error, see:
+        # https://github.com/actions/cache/issues/878
+        # path: ${NEST_INSTALL_PATH}
+        path: /home/runner/work/simulators/nest
+        key: ${{ runner.os }}-${{ matrix.python-version }}-nest
+
+    - name: Install NEST
+      if: steps.cache-nest.outputs.cache-hit != 'true'
+      run: .github/devops/install-nest.sh ${NEST_VERSION} "${NEST_INSTALL_PATH}"
+
+    - name: Install dependencies & self
+      run: |
+        python -m pip install --upgrade pip
+        pip install wheel
+        # Install the regular requirements
+        pip install -r requirements.txt --prefer-binary
+        # Install the default plugins, without dependencies, to avoid circular dependency
+        # conflicts with the BSB itself
+        pip install -r plugins.txt --prefer-binary --no-deps
+        # Install the BSB from the repo without dependencies, already installed above.
+        pip install -e . --no-deps
+        pip install "dbbs-models>=4.0.0a0"
+    - name: Run tests & coverage
+      run: |
+        source "${NEST_INSTALL_PATH}/bin/nest_vars.sh"
+        python -c "import nest"
+        coverage run -p -m unittest discover -v -s ./tests
+        mpiexec -n 2 coverage run -p -m unittest discover -v -s ./tests
+        BSB_PROFILING=TRUE coverage run -p -m unittest tests.test_env_options
+        bash <(curl -s https://codecov.io/bash)
+
+    - name: Test default plugins
+      run: |
+        git clone https://github.com/dbbs-lab/bsb-hdf5
+        pip install -e bsb-hdf5/
+        coverage run -p -m unittest discover bsb-hdf5/test
+        bash <(curl -s https://codecov.io/bash)
