@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Task Module &#8212; Task Manager 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="TaskManager Module" href="test_task_manager.html" />
+    <link rel="prev" title="DB Module" href="test_db.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-tests.test_task">
+<span id="task-module"></span><h1>Task Module<a class="headerlink" href="#module-tests.test_task" title="Link to this heading">¶</a></h1>
+<p>test_task.py</p>
+<p>This script is dedicated to test all the functionalities from task.py file.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task.test_format_date">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task.</span></span><span class="sig-name descname"><span class="pre">test_format_date</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task.test_format_date" title="Link to this definition">¶</a></dt>
+<dd><p>Check that the format_date function returns a string corresponding to the
+date object indicated</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task.test_invalid_task_assignee">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task.</span></span><span class="sig-name descname"><span class="pre">test_invalid_task_assignee</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task.test_invalid_task_assignee" title="Link to this definition">¶</a></dt>
+<dd><p>Check that the Task object raises an error when initialized or modified
+with an invalid assignee list</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task.test_invalid_task_categories">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task.</span></span><span class="sig-name descname"><span class="pre">test_invalid_task_categories</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task.test_invalid_task_categories" title="Link to this definition">¶</a></dt>
+<dd><p>Check that the Task object raises an error when initialized or modified
+with an invalid categories list</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task.test_invalid_task_desciption">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task.</span></span><span class="sig-name descname"><span class="pre">test_invalid_task_desciption</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task.test_invalid_task_desciption" title="Link to this definition">¶</a></dt>
+<dd><p>Check that the Task object raises an error when initialized or modified
+with an empty description</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task.test_invalid_task_due_date">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task.</span></span><span class="sig-name descname"><span class="pre">test_invalid_task_due_date</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task.test_invalid_task_due_date" title="Link to this definition">¶</a></dt>
+<dd><p>Check that the Task object raises an error when initialized or modified
+with a past due date</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task.test_invalid_task_name">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task.</span></span><span class="sig-name descname"><span class="pre">test_invalid_task_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task.test_invalid_task_name" title="Link to this definition">¶</a></dt>
+<dd><p>Check that the Task object raises an error when initialized or modified
+with an empty name</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task.test_invalid_task_priority">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task.</span></span><span class="sig-name descname"><span class="pre">test_invalid_task_priority</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task.test_invalid_task_priority" title="Link to this definition">¶</a></dt>
+<dd><p>Check that the Task object raises an error when initialized or modified
+with an invalid priority</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task.test_invalid_task_status">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task.</span></span><span class="sig-name descname"><span class="pre">test_invalid_task_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task.test_invalid_task_status" title="Link to this definition">¶</a></dt>
+<dd><p>Check that the Task object raises an error when initialized or modified
+with an invalid status</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task.test_parse_date">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task.</span></span><span class="sig-name descname"><span class="pre">test_parse_date</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task.test_parse_date" title="Link to this definition">¶</a></dt>
+<dd><p>Check that the parse_date function returns a datetime object corresponding
+to the date string indicated</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task.test_task_initialization">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task.</span></span><span class="sig-name descname"><span class="pre">test_task_initialization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task.test_task_initialization" title="Link to this definition">¶</a></dt>
+<dd><p>Check that the Task object is initialized with the correct attributes</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_task.test_task_modification">
+<span class="sig-prename descclassname"><span class="pre">tests.test_task.</span></span><span class="sig-name descname"><span class="pre">test_task_modification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tests.test_task.test_task_modification" title="Link to this definition">¶</a></dt>
+<dd><p>Check that the Task object attributes can be modified</p>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Task Manager</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Main Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="streamlit.html">Streamlit Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_manager.html">TaskManager Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task.html">Task Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="db.html">SQLiteDB Class</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="test_main.html">Main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_db.html">DB Module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Task Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task.test_format_date"><code class="docutils literal notranslate"><span class="pre">test_format_date()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task.test_invalid_task_assignee"><code class="docutils literal notranslate"><span class="pre">test_invalid_task_assignee()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task.test_invalid_task_categories"><code class="docutils literal notranslate"><span class="pre">test_invalid_task_categories()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task.test_invalid_task_desciption"><code class="docutils literal notranslate"><span class="pre">test_invalid_task_desciption()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task.test_invalid_task_due_date"><code class="docutils literal notranslate"><span class="pre">test_invalid_task_due_date()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task.test_invalid_task_name"><code class="docutils literal notranslate"><span class="pre">test_invalid_task_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task.test_invalid_task_priority"><code class="docutils literal notranslate"><span class="pre">test_invalid_task_priority()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task.test_invalid_task_status"><code class="docutils literal notranslate"><span class="pre">test_invalid_task_status()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task.test_parse_date"><code class="docutils literal notranslate"><span class="pre">test_parse_date()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task.test_task_initialization"><code class="docutils literal notranslate"><span class="pre">test_task_initialization()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests.test_task.test_task_modification"><code class="docutils literal notranslate"><span class="pre">test_task_modification()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="test_task_manager.html">TaskManager Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_streamlit.html">Streamlit Module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="test_db.html" title="previous chapter">DB Module</a></li>
+      <li>Next: <a href="test_task_manager.html" title="next chapter">TaskManager Module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Florent BRIAND, Maxime LEDIEU Jaime MONTEA, Edouard DUCLOY, Pierre BILLAUD.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/test_task.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
