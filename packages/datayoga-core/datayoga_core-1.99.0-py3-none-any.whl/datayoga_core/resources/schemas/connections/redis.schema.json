@@ -1,0 +1,60 @@
+{
+  "title": "Redis",
+  "description": "Schema for configuring Redis database connection parameters",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "DB type",
+      "type": "string",
+      "enum": ["redis"]
+    },
+    "host": { "description": "Redis DB host", "type": "string" },
+    "port": {
+      "description": "Redis DB port",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "user": {
+      "description": "Redis DB user",
+      "type": "string"
+    },
+    "password": {
+      "description": "Redis DB password",
+      "type": "string"
+    },
+    "key": {
+      "title": "Private key file to authenticate with",
+      "type": "string"
+    },
+    "key_password": {
+      "title": "Password for unlocking an encrypted private key",
+      "type": "string"
+    },
+    "cert": {
+      "title": "Client certificate file to authenticate with",
+      "type": "string"
+    },
+    "cacert": {
+      "title": "CA certificate file to verify with",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["type", "host", "port"],
+  "dependentRequired": {
+    "key": ["cert"],
+    "cert": ["key"],
+    "key_password": ["key"],
+    "user": ["password"]
+  },
+  "examples": [
+    {
+      "cache": {
+        "type": "redis",
+        "host": "localhost",
+        "port": 6379
+      }
+    }
+  ]
+}
