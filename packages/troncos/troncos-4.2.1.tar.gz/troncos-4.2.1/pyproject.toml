@@ -1,0 +1,98 @@
+[tool.poetry]
+name = "troncos"
+version = "4.2.1"
+description = "Collection of Python logging, tracing and profiling tools"
+authors = [
+    "Guðmundur Björn Birkisson <gudmundur.birkisson@oda.com>",
+    "Karl Fredrik Haugland <karlfredrik.haugland@oda.com>",
+    "Eirik Martiniussen Sylliaas <eirik.sylliaas@oda.com>",
+]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/kolonialno/troncos"
+repository = "https://github.com/kolonialno/troncos"
+documentation = "https://github.com/kolonialno/troncos"
+keywords = ["logs", "traces", "opentelemetry"]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+ddtrace = ">=2,<3"
+opentelemetry-sdk = ">=1.19,<2"
+opentelemetry-exporter-otlp-proto-http = ">=1.19,<2"
+opentelemetry-exporter-otlp-proto-grpc = {version = ">=1.19,<2", optional = true}
+structlog-sentry = {version = ">=2.0.0,<3", optional = true}
+python-ipware = ">=1,<2"
+pyroscope-io = ">=0.8.0,<1"
+
+[tool.poetry.extras]
+grpc = ["opentelemetry-exporter-otlp-proto-grpc"]
+sentry = ["structlog-sentry"]
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.12.0"
+black = "^23.7.0"
+flake8 = "^6.1.0"
+mypy = "^1.5.0"
+pytest = "^7.4.0"
+pytest_codeblocks = "^0.17.0"
+fastapi = ">=0.103.1,<0.104"
+requests = "^2.31.0"
+pytest-cov = "^4.1.0"
+types-requests = "^2.28.11.14"
+pytest-asyncio = ">=0.21.1,<0.22.0"
+django-environ = "^0.11.0"
+pytest-benchmark = "^4.0.0"
+snakeviz = "^2.2.0"
+django = "^4.2.4"
+structlog = "^23.1.0"
+celery = "^5.3.4"
+ipython = "^8.14.0"
+pytest-httpserver = "^1.0.8"
+mkdocs-techdocs-core = "^1.2.3"
+
+
+[tool.black]
+target-version = ['py311']
+line-length = 88
+include = '\.pyi?$'
+safe = true
+
+[tool.isort]
+profile = "black"
+skip_gitignore = true
+combine_as_imports = true
+
+[tool.mypy]
+python_version = "3.11"
+files = ["./troncos", "./tests",]
+namespace_packages = true
+show_error_codes = true
+ignore_missing_imports = true
+follow_imports = "normal"
+strict = true
+
+[[tool.mypy.overrides]]
+module = [
+    "opentelemetry.sdk.*",
+    "opentelemetry.context.*",
+]
+implicit_reexport = true
+
+[tool.pytest.ini_options]
+minversion = 6.0
+python_files = "test_*.py"
+python_functions = "test_*"
+cache_dir = ".pytest_cache"
+# Silence warning by opting in to use pytest 6's new default value
+junit_family = "xunit2"
+# Include captured log messages in system-out in Jenkins report file
+junit_logging = "system-out"
+console_output_style = "classic"
+empty_parameter_set_mark = "xfail"
+log_cli_level = "INFO"
+log_level = "INFO"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[build-system]
+requires = ["poetry-core>=1.1.0a6"]
+build-backend = "poetry.core.masonry.api"
