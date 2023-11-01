@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: PyBingRAG
+Version: 0.0.1
+Summary: Python wrapper for Bing Search and RAG extraction
+Home-page: https://github.com/Vishnunkumar/PyBingRAG/
+Author: Vishnu Nandakumar
+Author-email: nkumarvishnu25@gmail.com
+License: MIT license
+Keywords: bing search python
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: beautifulsoup4
+Requires-Dist: langchain
+
+# PyBing
+Python wrapper for Bing Search results.
+
+## Implementation
+
+```python
+from PyBing.search import BingSearch
+
+bing = BingSearch("Sachin Tendulkar")
+bing_results = bing.get_results(num=4, max_lines=15)
+```
