@@ -1,0 +1,67 @@
+{% load i18n %}
+<div class="col-lg-3">
+    {% if year.open %}
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">{{ year.year }}</div>
+            </div>
+            <div class="panel-body">
+                {% trans "Members" %}: <span class="label label-primary">{{ year.members }}</span>
+                <br />
+                {% trans "Santee" %}: <span class="label label-primary">{{ users_santee }}</span>
+                <br />
+                <br />
+                {% if application_exists %}
+                    <span class="btn btn-info" role="button" disabled="disabled">{% trans "Joined" %}</span>
+                {% else %}
+                    <a class="btn btn-info"
+                        href="{% url 'secretsanta:apply' year.year %}"
+                        role="button">{% trans "Join" %}</a>
+                {% endif %}
+                {% if year.participating %}
+                    <a class="btn btn-info"
+                        href="{% url 'secretsanta:mark_received' year.year %}"
+                        role="button">{% trans "Received Gift" %}</a>
+                {% endif %}
+                {% if perms.secretsanta.manage %}
+                    <a class="btn btn-warning"
+                        href="{% url 'secretsanta:applications' year.year %}"
+                        role="button">{% trans "Applications" %}</a>
+                    <a class="btn btn-danger"
+                        href="{% url 'secretsanta:pairs' year.year %}"
+                        role="button"><span class="fa fas fa-skull-crossbones"></span> {% trans "Administer" %} <span class="fa fas fa-skull-crossbones"></span></a>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">{{ year.year }}</div>
+            </div>
+            <div class="panel-body">
+                {% trans "Members" %}: <span class="label label-primary">{{ year.members }}</span>
+                <br />
+                {% trans "Santee" %}: <span class="label label-primary">{{ users_santee }}</span>
+                <br />
+                <br />
+                {% if santapair_exists %}
+                    {% if gift_delivered %}
+                        <span class="btn btn-info" disabled="disabled" role="button">{% trans "Received Gift" %}</span>
+                    {% else %}
+                        <a class="btn btn-info"
+                            href="{% url 'secretsanta:mark_received' year.year %}"
+                            role="button">{% trans "Received Gift" %}</a>
+                    {% endif %}
+                {% endif %}
+                {% if perms.secretsanta.manage %}
+                    <a class="btn btn-warning"
+                        href="{% url 'secretsanta:applications' year.year %}"
+                        role="button">{% trans "Applications" %}</a>
+                    <a class="btn btn-danger"
+                        href="{% url 'secretsanta:pairs' year.year %}"
+                        role="button"><span class="fa fas fa-skull-crossbones"></span> {% trans "Administer" %} <span class="fa fas fa-skull-crossbones"></span></a>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+</div>
