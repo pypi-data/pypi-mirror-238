@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: lcdata
+Version: 1.1.2
+Summary: lcdata: Tools for manipulating large datasets of astronomical light curves
+Author-email: Kyle Boone <kyboone@uw.edu>, Konstantin Malanchev <malanchev@cmu.edu>
+License: MIT License
+        
+        Copyright (c) 2021 Kyle Boone
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Source Code, https://github.com/lsstdesc/lcdata
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: astropy
+Requires-Dist: h5py
+Requires-Dist: numpy >=1.19.0
+Requires-Dist: pyyaml
+Requires-Dist: requests
+Requires-Dist: tables
+Requires-Dist: tqdm
+Provides-Extra: docs
+Requires-Dist: numpy ; extra == 'docs'
+Requires-Dist: sphinx ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Requires-Dist: pillow ; extra == 'docs'
+Requires-Dist: numpydoc ; extra == 'docs'
+Provides-Extra: download
+Requires-Dist: sncosmo ; extra == 'download'
+Requires-Dist: importlib-resources ; (python_version < "3.9") and extra == 'download'
+Provides-Extra: test
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: coverage[toml] ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+
+# lcdata
+
+Tools for manipulating large datasets of astronomical light curves
+
+[![Build Status](https://github.com/kboone/lcdata/actions/workflows/run_tests.yml/badge.svg)](https://github.com/kboone/lcdata/actions/workflows/run_tests.yml)
+[![Coverage Status](https://codecov.io/gh/kboone/lcdata/branch/main/graph/badge.svg?token=BDXNHT0P7G)](https://codecov.io/gh/kboone/lcdata)
+[![Documentation Status](https://readthedocs.org/projects/lcdata/badge/?version=latest)](https://lcdata.readthedocs.io/en/latest/?badge=latest)
+
+## About
+
+`lcdata` is a package for manipulating large datasets of astronomical time series. `lcdata` is designed to handle very large datasets: it uses a compact internal representation to be able to keep many light curves in memory at the same time. For datasets that are too large to fit in memory, it offers the option of reading them from disks in chunks. `lcdata` also contains tools to download different publicly available releases of astronomical time series.
+
+## Installation and Usage
+
+Instructions on how to install and use `lcdata` can be found on the [lcdata
+readthedocs page](https://lcdata.readthedocs.io/en/latest/).
