@@ -1,0 +1,49 @@
+Metadata-Version: 2.1
+Name: finitelycomputable-idtrust-flask-peewee
+Version: 23.10
+Summary: A Flask+peewee microsite to explore identifying game-theory strategies
+Home-page: http://www.finitelycomputable.net/identification_of_trust
+Author: Samuel Newbold
+Author-email: sam@rwsh.org
+License: AGPL-3.0-only
+Project-URL: Documentation, https://github.com/thrasymache/microsites
+Project-URL: Source, https://github.com/thrasymache/microsites
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Internet :: WWW/HTTP :: WSGI
+Requires-Python: >=3.7
+Description-Content-Type: text/x-rst
+License-File: LICENSE.txt
+Requires-Dist: finitelycomputable-idtrust-app-flask~=23.10
+Requires-Dist: finitelycomputable-idtrust-db-peewee~=23.10
+Provides-Extra: bjoern
+Requires-Dist: bjoern~=3.0; extra == "bjoern"
+Provides-Extra: cheroot
+Requires-Dist: cheroot~=9.0; extra == "cheroot"
+Provides-Extra: cherrypy
+Requires-Dist: cherrypy~=18.0; extra == "cherrypy"
+Provides-Extra: gunicorn
+Requires-Dist: gunicorn~=20.0; extra == "gunicorn"
+Provides-Extra: waitress
+Requires-Dist: waitress~=2.1; extra == "waitress"
+
+======================================
+Identification of Trust (Flask-Peewee)
+======================================
+
+This provides an the implementation of the Identification of Trust microsite using the
+Flask framework
+
+The implementation is by separately requiring the Flask-dependent code and the
+Peewee-dependent code.
+
