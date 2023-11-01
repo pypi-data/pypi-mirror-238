@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>LSL Configuration Manager &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RF Antenna Parameters" href="misc.html" />
+    <link rel="prev" title="Fake Data" href="fakedata.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="misc.html" title="RF Antenna Parameters"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="fakedata.html" title="Fake Data"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">LSL Configuration Manager</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-lsl.config">
+<span id="lsl-configuration-manager"></span><h1>LSL Configuration Manager<a class="headerlink" href="#module-lsl.config" title="Permalink to this heading">¶</a></h1>
+<p>Module for managing configuration parameters for LSL</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="lsl.config.LSL_CONFIG">
+<span class="sig-prename descclassname"><span class="pre">lsl.config.</span></span><span class="sig-name descname"><span class="pre">LSL_CONFIG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;config.LSLConfigContainer</span> <span class="pre">filename=/Users/jaycedowell/.lsl/lsl.cfg,</span>&#160;&#160;&#160;&#160; <span class="pre">_changed=False,</span>&#160;&#160;&#160;&#160; <span class="pre">_parameters=OrderedDict([('observing.observer_name',</span>&#160;&#160;&#160;&#160; <span class="pre">&lt;config.LSLConfigParameter</span> <span class="pre">name=observing.observer_name,</span>&#160;&#160;&#160;&#160; <span class="pre">value=None,</span>&#160;&#160;&#160;&#160; <span class="pre">help=Observer</span> <span class="pre">name</span> <span class="pre">for</span> <span class="pre">auto-filling</span> <span class="pre">Observer</span>&#160;&#160;&#160;&#160; <span class="pre">classes&gt;),</span> <span class="pre">('observing.observer_id',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=observing.observer_id,</span> <span class="pre">value=None,</span>&#160;&#160;&#160;&#160; <span class="pre">help=Observer</span> <span class="pre">ID</span>&#160;&#160;&#160;&#160; <span class="pre">number</span> <span class="pre">for</span> <span class="pre">auto-filling</span> <span class="pre">Observer</span> <span class="pre">classes&gt;),</span>&#160;&#160;&#160;&#160; <span class="pre">('observing.project_name',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=observing.project_name,</span> <span class="pre">value=None,</span>&#160;&#160;&#160;&#160; <span class="pre">help=Project</span> <span class="pre">name</span> <span class="pre">for</span>&#160;&#160;&#160;&#160; <span class="pre">auto-filling</span> <span class="pre">Project</span> <span class="pre">classes&gt;),</span> <span class="pre">('observing.project_id',</span>&#160;&#160;&#160;&#160; <span class="pre">&lt;config.LSLConfigParameter</span> <span class="pre">name=observing.project_id,</span> <span class="pre">value=None,</span>&#160;&#160;&#160;&#160; <span class="pre">help=Project</span> <span class="pre">ID</span> <span class="pre">for</span> <span class="pre">auto-filling</span> <span class="pre">Project</span> <span class="pre">classes&gt;),</span>&#160;&#160;&#160;&#160; <span class="pre">('ldp.tbn_buffer_size',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=ldp.tbn_buffer_size,</span> <span class="pre">value=20,</span>&#160;&#160;&#160;&#160; <span class="pre">help=TBN</span> <span class="pre">ring</span> <span class="pre">buffer</span> <span class="pre">size</span>&#160;&#160;&#160;&#160; <span class="pre">in</span> <span class="pre">timestamps&gt;),</span> <span class="pre">('ldp.drx_buffer_size',</span>&#160;&#160;&#160;&#160; <span class="pre">&lt;config.LSLConfigParameter</span> <span class="pre">name=ldp.drx_buffer_size,</span> <span class="pre">value=20,</span>&#160;&#160;&#160;&#160; <span class="pre">help=DRX</span> <span class="pre">ring</span> <span class="pre">buffer</span> <span class="pre">size</span> <span class="pre">in</span> <span class="pre">timestamps&gt;),</span>&#160;&#160;&#160;&#160; <span class="pre">('ldp.drx_autofill_size',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=ldp.drx_autofill_size,</span> <span class="pre">value=50,</span>&#160;&#160;&#160;&#160; <span class="pre">help=maximum</span> <span class="pre">DRX</span> <span class="pre">gap</span> <span class="pre">in</span>&#160;&#160;&#160;&#160; <span class="pre">timestamps</span> <span class="pre">that</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">auto-filled</span> <span class="pre">with</span>&#160;&#160;&#160;&#160; <span class="pre">zeros</span> <span class="pre">without</span> <span class="pre">throwing</span>&#160;&#160;&#160;&#160; <span class="pre">a</span> <span class="pre">timetag</span> <span class="pre">error/warning&gt;),</span> <span class="pre">('ldp.tbf_buffer_size',</span>&#160;&#160;&#160;&#160; <span class="pre">&lt;config.LSLConfigParameter</span> <span class="pre">name=ldp.tbf_buffer_size,</span> <span class="pre">value=25,</span>&#160;&#160;&#160;&#160; <span class="pre">help=TBF</span> <span class="pre">ring</span> <span class="pre">buffer</span> <span class="pre">size</span> <span class="pre">in</span> <span class="pre">timestamps&gt;),</span> <span class="pre">('ldp.cor_buffer_size',</span>&#160;&#160;&#160;&#160; <span class="pre">&lt;config.LSLConfigParameter</span> <span class="pre">name=ldp.cor_buffer_size,</span> <span class="pre">value=5,</span>&#160;&#160;&#160;&#160; <span class="pre">help=COR</span>&#160;&#160;&#160;&#160; <span class="pre">ring</span> <span class="pre">buffer</span> <span class="pre">size</span> <span class="pre">in</span> <span class="pre">timestamps&gt;),</span>&#160;&#160;&#160;&#160; <span class="pre">('astro.leapsec_url',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=astro.leapsec_url,</span>&#160;&#160;&#160;&#160; <span class="pre">value=https://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat,</span>&#160;&#160;&#160;&#160; <span class="pre">help=URL</span> <span class="pre">for</span> <span class="pre">accessing</span> <span class="pre">leap</span> <span class="pre">second</span> <span class="pre">information&gt;),</span>&#160;&#160;&#160;&#160; <span class="pre">('ionosphere.igs_url',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=ionosphere.igs_url,</span>&#160;&#160;&#160;&#160; <span class="pre">value=ftps://gdc.cddis.eosdis.nasa.gov/gps/products/ionex/,</span>&#160;&#160;&#160;&#160; <span class="pre">help=primary</span> <span class="pre">URL</span> <span class="pre">for</span> <span class="pre">accessing</span> <span class="pre">the</span> <span class="pre">IGS</span> <span class="pre">data</span> <span class="pre">products&gt;),</span>&#160;&#160;&#160;&#160; <span class="pre">('ionosphere.igs_mirror',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=ionosphere.igs_mirror,</span>&#160;&#160;&#160;&#160; <span class="pre">value=ftp://gssc.esa.int/gnss/products/ionex/,</span> <span class="pre">help=mirror</span> <span class="pre">URL</span> <span class="pre">for</span>&#160;&#160;&#160;&#160; <span class="pre">accessing</span> <span class="pre">the</span> <span class="pre">IGS</span> <span class="pre">data</span> <span class="pre">products&gt;),</span> <span class="pre">('ionosphere.jpl_url',</span>&#160;&#160;&#160;&#160; <span class="pre">&lt;config.LSLConfigParameter</span> <span class="pre">name=ionosphere.jpl_url,</span>&#160;&#160;&#160;&#160; <span class="pre">value=ftps://gdc.cddis.eosdis.nasa.gov/gps/products/ionex/,</span>&#160;&#160;&#160;&#160; <span class="pre">help=primary</span> <span class="pre">URL</span> <span class="pre">for</span> <span class="pre">accessing</span> <span class="pre">the</span> <span class="pre">JPL</span> <span class="pre">data</span> <span class="pre">products&gt;),</span>&#160;&#160;&#160;&#160; <span class="pre">('ionosphere.jpl_mirror',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=ionosphere.jpl_mirror,</span>&#160;&#160;&#160;&#160; <span class="pre">value=ftp://gssc.esa.int/gnss/products/ionex/,</span> <span class="pre">help=mirror</span> <span class="pre">URL</span> <span class="pre">for</span>&#160;&#160;&#160;&#160; <span class="pre">accessing</span> <span class="pre">the</span> <span class="pre">JPL</span> <span class="pre">data</span> <span class="pre">products&gt;),</span> <span class="pre">('ionosphere.uqr_url',</span>&#160;&#160;&#160;&#160; <span class="pre">&lt;config.LSLConfigParameter</span> <span class="pre">name=ionosphere.uqr_url,</span>&#160;&#160;&#160;&#160; <span class="pre">value=ftps://gdc.cddis.eosdis.nasa.gov/gps/products/ionex/,</span>&#160;&#160;&#160;&#160; <span class="pre">help=primary</span> <span class="pre">URL</span> <span class="pre">for</span> <span class="pre">accessing</span> <span class="pre">the</span> <span class="pre">UQR</span> <span class="pre">data</span> <span class="pre">products&gt;),</span>&#160;&#160;&#160;&#160; <span class="pre">('ionosphere.uqr_mirror',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=ionosphere.uqr_mirror,</span>&#160;&#160;&#160;&#160; <span class="pre">value=ftp://gssc.esa.int/gnss/products/ionex/,</span> <span class="pre">help=mirror</span> <span class="pre">URL</span> <span class="pre">for</span>&#160;&#160;&#160;&#160; <span class="pre">accessing</span> <span class="pre">the</span> <span class="pre">UQR</span> <span class="pre">data</span> <span class="pre">products&gt;),</span> <span class="pre">('ionosphere.code_url',</span>&#160;&#160;&#160;&#160; <span class="pre">&lt;config.LSLConfigParameter</span> <span class="pre">name=ionosphere.code_url,</span>&#160;&#160;&#160;&#160; <span class="pre">value=ftps://gdc.cddis.eosdis.nasa.gov/gps/products/ionex/,</span>&#160;&#160;&#160;&#160; <span class="pre">help=primary</span> <span class="pre">URL</span> <span class="pre">for</span> <span class="pre">accessing</span> <span class="pre">the</span> <span class="pre">CODE</span> <span class="pre">data</span> <span class="pre">products&gt;),</span>&#160;&#160;&#160;&#160; <span class="pre">('ionosphere.code_mirror',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=ionosphere.code_mirror,</span>&#160;&#160;&#160;&#160; <span class="pre">value=ftp://gssc.esa.int/gnss/products/ionex/,</span> <span class="pre">help=mirror</span> <span class="pre">URL</span> <span class="pre">for</span>&#160;&#160;&#160;&#160; <span class="pre">accessing</span> <span class="pre">the</span> <span class="pre">CODE</span> <span class="pre">data</span> <span class="pre">products&gt;),</span> <span class="pre">('ionosphere.ustec_url',</span>&#160;&#160;&#160;&#160; <span class="pre">&lt;config.LSLConfigParameter</span> <span class="pre">name=ionosphere.ustec_url,</span>&#160;&#160;&#160;&#160; <span class="pre">value=http://www.ngdc.noaa.gov/stp/iono/ustec/products/,</span>&#160;&#160;&#160;&#160; <span class="pre">help=primary</span> <span class="pre">URL</span> <span class="pre">for</span> <span class="pre">accessing</span> <span class="pre">the</span> <span class="pre">USTEC</span> <span class="pre">data</span> <span class="pre">products&gt;),</span>&#160;&#160;&#160;&#160; <span class="pre">('ionosphere.ustec_mirror',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=ionosphere.ustec_mirror,</span> <span class="pre">value=None,</span>&#160;&#160;&#160;&#160; <span class="pre">help=mirror</span> <span class="pre">URL</span> <span class="pre">for</span>&#160;&#160;&#160;&#160; <span class="pre">accessing</span> <span class="pre">the</span> <span class="pre">USTEC</span> <span class="pre">data</span> <span class="pre">products&gt;),</span> <span class="pre">('ionosphere.max_cache_size',</span>&#160;&#160;&#160;&#160; <span class="pre">&lt;config.LSLConfigParameter</span> <span class="pre">name=ionosphere.max_cache_size,</span>&#160;&#160;&#160;&#160; <span class="pre">value=-1,</span>&#160;&#160;&#160;&#160; <span class="pre">help=maximum</span> <span class="pre">cache</span> <span class="pre">size</span> <span class="pre">in</span> <span class="pre">MB;</span> <span class="pre">&lt;=</span> <span class="pre">0</span> <span class="pre">disables</span> <span class="pre">cache</span>&#160;&#160;&#160;&#160; <span class="pre">size</span> <span class="pre">limiting&gt;),</span> <span class="pre">('telemetry.enabled',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=telemetry.enabled,</span> <span class="pre">value=True,</span>&#160;&#160;&#160;&#160; <span class="pre">help=whether</span> <span class="pre">or</span> <span class="pre">not</span> <span class="pre">LSL</span>&#160;&#160;&#160;&#160; <span class="pre">telemetry</span> <span class="pre">reporting</span> <span class="pre">is</span> <span class="pre">enabled&gt;),</span> <span class="pre">('telemetry.max_entries',</span>&#160;&#160;&#160;&#160; <span class="pre">&lt;config.LSLConfigParameter</span> <span class="pre">name=telemetry.max_entries,</span> <span class="pre">value=100,</span>&#160;&#160;&#160;&#160; <span class="pre">help=maximum</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">entries</span> <span class="pre">to</span> <span class="pre">accumlate</span> <span class="pre">before</span> <span class="pre">reporting&gt;),</span>&#160;&#160;&#160;&#160; <span class="pre">('telemetry.timeout',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=telemetry.timeout,</span> <span class="pre">value=120,</span>&#160;&#160;&#160;&#160; <span class="pre">help=upload</span> <span class="pre">timeout</span> <span class="pre">in</span>&#160;&#160;&#160;&#160; <span class="pre">seconds&gt;),</span> <span class="pre">('download.block_size',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=download.block_size,</span> <span class="pre">value=8192,</span>&#160;&#160;&#160;&#160; <span class="pre">help=download</span> <span class="pre">block</span> <span class="pre">size</span>&#160;&#160;&#160;&#160; <span class="pre">in</span> <span class="pre">bytes&gt;),</span> <span class="pre">('download.timeout',</span> <span class="pre">&lt;config.LSLConfigParameter</span>&#160;&#160;&#160;&#160; <span class="pre">name=download.timeout,</span> <span class="pre">value=120,</span>&#160;&#160;&#160;&#160; <span class="pre">help=download</span> <span class="pre">timeout</span> <span class="pre">in</span>&#160;&#160;&#160;&#160; <span class="pre">seconds&gt;)])&gt;</span></em><a class="headerlink" href="#lsl.config.LSL_CONFIG" title="Permalink to this definition">¶</a></dt>
+<dd><p>The LSLConfigContainer that users should use</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">LSL Configuration Manager</a><ul>
+<li><a class="reference internal" href="#lsl.config.LSL_CONFIG"><code class="docutils literal notranslate"><span class="pre">LSL_CONFIG</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="fakedata.html"
+                          title="previous chapter">Fake Data</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="misc.html"
+                          title="next chapter">RF Antenna Parameters</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/config.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="misc.html" title="RF Antenna Parameters"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="fakedata.html" title="Fake Data"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">LSL Configuration Manager</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

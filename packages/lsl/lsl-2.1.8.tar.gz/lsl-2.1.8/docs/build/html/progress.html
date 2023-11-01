@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Progress Bar &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Defining Single Station Observations and Observation Metadata" href="observations.html" />
+    <link rel="prev" title="Color Support" href="color.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="observations.html" title="Defining Single Station Observations and Observation Metadata"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="color.html" title="Color Support"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Progress Bar</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="progress-bar">
+<h1>Progress Bar<a class="headerlink" href="#progress-bar" title="Permalink to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.4.0.</span></p>
+</div>
+<span class="target" id="module-lsl.common.progress"></span><p>Module to make an ASCII progress bar.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.progress.DownloadBar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.progress.</span></span><span class="sig-name descname"><span class="pre">DownloadBar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">70</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sym</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'='</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_percent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.progress.DownloadBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modified version of the ProgressBarPlus class that has a crude bandwidth
+estimator.  At the end of the download the total file size (<cite>max</cite>) is 
+displayed instead of the average rate.</p>
+<dl>
+<dt>Example Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">progess</span> <span class="kn">import</span> <span class="n">DownloadBar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span> <span class="o">=</span> <span class="n">DownloadBar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">show</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The timing feature is only active when the inc()/dec() functions are called.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.0.2.</span></p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.progress.DownloadBar.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.progress.DownloadBar.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a string representation of the download bar and return it.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.progress.ProgressBar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.progress.</span></span><span class="sig-name descname"><span class="pre">ProgressBar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">70</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sym</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'='</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_percent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.progress.ProgressBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object to make a ASCII progress bar for use with various long-
+run tasks.</p>
+<dl>
+<dt>Example Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">progess</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pb</span> <span class="o">=</span> <span class="n">ProgressBar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pb</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pb</span><span class="o">.</span><span class="n">show</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.progress.ProgressBar.dec">
+<span class="sig-name descname"><span class="pre">dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.progress.ProgressBar.dec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrement the progress bar’s internal counter by some amount.  The
+default is one.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.progress.ProgressBar.inc">
+<span class="sig-name descname"><span class="pre">inc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.progress.ProgressBar.inc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increment the progress bar’s internal counter by some amount.  The
+default is one.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.progress.ProgressBar.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.progress.ProgressBar.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a string representation of the progress bar and return it.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.progress.ProgressBarPlus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.progress.</span></span><span class="sig-name descname"><span class="pre">ProgressBarPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">70</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sym</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'='</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_percent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.progress.ProgressBarPlus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extended version of the ProgressBar class that has a crude time 
+estimator.</p>
+<dl>
+<dt>Example Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">progess</span> <span class="kn">import</span> <span class="n">ProgressBarPlus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pb</span> <span class="o">=</span> <span class="n">ProgressBarPlus</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pb</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pb</span><span class="o">.</span><span class="n">show</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The timing feature is only active when the inc()/dec() functions are called.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.6.4.</span></p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.progress.ProgressBarPlus.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.progress.ProgressBarPlus.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a string representation of the progress bar and return it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.progress.ProgressBarPlus.startTimer">
+<span class="sig-name descname"><span class="pre">startTimer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.progress.ProgressBarPlus.startTimer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the timer.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Progress Bar</a><ul>
+<li><a class="reference internal" href="#lsl.common.progress.DownloadBar"><code class="docutils literal notranslate"><span class="pre">DownloadBar</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.progress.DownloadBar.show"><code class="docutils literal notranslate"><span class="pre">DownloadBar.show()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.progress.ProgressBar"><code class="docutils literal notranslate"><span class="pre">ProgressBar</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.progress.ProgressBar.dec"><code class="docutils literal notranslate"><span class="pre">ProgressBar.dec()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.progress.ProgressBar.inc"><code class="docutils literal notranslate"><span class="pre">ProgressBar.inc()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.progress.ProgressBar.show"><code class="docutils literal notranslate"><span class="pre">ProgressBar.show()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.progress.ProgressBarPlus"><code class="docutils literal notranslate"><span class="pre">ProgressBarPlus</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.progress.ProgressBarPlus.show"><code class="docutils literal notranslate"><span class="pre">ProgressBarPlus.show()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.progress.ProgressBarPlus.startTimer"><code class="docutils literal notranslate"><span class="pre">ProgressBarPlus.startTimer()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="color.html"
+                          title="previous chapter">Color Support</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="observations.html"
+                          title="next chapter">Defining Single Station Observations and Observation Metadata</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/progress.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="observations.html" title="Defining Single Station Observations and Observation Metadata"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="color.html" title="Color Support"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Progress Bar</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,568 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>LWA Software Library Documentation &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Requirements" href="install.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Requirements"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">LWA Software Library Documentation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="lwa-software-library-documentation">
+<h1>LWA Software Library Documentation<a class="headerlink" href="#lwa-software-library-documentation" title="Permalink to this heading">¶</a></h1>
+<p>This package contains a collection of tools for reading, format shifting,
+and analyzing LWA data.  It also contains the majority of the lwa_user
+library developed by NRL.</p>
+</section>
+<section id="contents">
+<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this heading">¶</a></h1>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#installing">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#unit-tests">Unit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#telemetry">Telemetry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rnotes.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rnotes.html#version-2-1-8">Version 2.1.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rnotes.html#version-2-1-7">Version 2.1.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rnotes.html#version-2-1-6">Version 2.1.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rnotes.html#version-2-1-5">Version 2.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rnotes.html#version-2-1-4">Version 2.1.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rnotes.html#version-2-1-3">Version 2.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rnotes.html#version-2-1-2">Version 2.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rnotes.html#version-2-1-1">Version 2.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rnotes.html#version-2-1-0">Version 2.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rnotes.html#older-versions">Older Versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lwa_user.html">lwa_user Modules</a></li>
+</ul>
+</div>
+</section>
+<section id="general-utilities">
+<h2>General Utilities<a class="headerlink" href="#general-utilities" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="astro.html">Astronomical Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.B1950_to_J2000"><code class="docutils literal notranslate"><span class="pre">B1950_to_J2000()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.J2000_to_B1950"><code class="docutils literal notranslate"><span class="pre">J2000_to_B1950()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.add_hms"><code class="docutils literal notranslate"><span class="pre">add_hms()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.add_secs_hms"><code class="docutils literal notranslate"><span class="pre">add_secs_hms()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.date"><code class="docutils literal notranslate"><span class="pre">date</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.date_to_zonedate"><code class="docutils literal notranslate"><span class="pre">date_to_zonedate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.deg_to_dms"><code class="docutils literal notranslate"><span class="pre">deg_to_dms()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.deg_to_hms"><code class="docutils literal notranslate"><span class="pre">deg_to_hms()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.deg_to_rad"><code class="docutils literal notranslate"><span class="pre">deg_to_rad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.deg_to_sec"><code class="docutils literal notranslate"><span class="pre">deg_to_sec()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.dir_cos"><code class="docutils literal notranslate"><span class="pre">dir_cos()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.dms"><code class="docutils literal notranslate"><span class="pre">dms</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.dms_to_deg"><code class="docutils literal notranslate"><span class="pre">dms_to_deg()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.dms_to_rad"><code class="docutils literal notranslate"><span class="pre">dms_to_rad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.ecl_posn"><code class="docutils literal notranslate"><span class="pre">ecl_posn</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.equ_posn"><code class="docutils literal notranslate"><span class="pre">equ_posn</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.gal_posn"><code class="docutils literal notranslate"><span class="pre">gal_posn</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.geo_posn"><code class="docutils literal notranslate"><span class="pre">geo_posn</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_angular_separation"><code class="docutils literal notranslate"><span class="pre">get_angular_separation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_apparent_posn"><code class="docutils literal notranslate"><span class="pre">get_apparent_posn()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_apparent_sidereal_time"><code class="docutils literal notranslate"><span class="pre">get_apparent_sidereal_time()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_date"><code class="docutils literal notranslate"><span class="pre">get_date()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_date_from_sys"><code class="docutils literal notranslate"><span class="pre">get_date_from_sys()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_day_of_week"><code class="docutils literal notranslate"><span class="pre">get_day_of_week()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_ecl_from_equ"><code class="docutils literal notranslate"><span class="pre">get_ecl_from_equ()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_ecl_from_rect"><code class="docutils literal notranslate"><span class="pre">get_ecl_from_rect()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_equ2000_from_gal"><code class="docutils literal notranslate"><span class="pre">get_equ2000_from_gal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_equ_aber"><code class="docutils literal notranslate"><span class="pre">get_equ_aber()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_equ_from_ecl"><code class="docutils literal notranslate"><span class="pre">get_equ_from_ecl()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_equ_from_gal"><code class="docutils literal notranslate"><span class="pre">get_equ_from_gal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_equ_from_hrz"><code class="docutils literal notranslate"><span class="pre">get_equ_from_hrz()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_equ_from_rect"><code class="docutils literal notranslate"><span class="pre">get_equ_from_rect()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_equ_nut"><code class="docutils literal notranslate"><span class="pre">get_equ_nut()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_equ_pm"><code class="docutils literal notranslate"><span class="pre">get_equ_pm()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_equ_prec"><code class="docutils literal notranslate"><span class="pre">get_equ_prec()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_equ_prec2"><code class="docutils literal notranslate"><span class="pre">get_equ_prec2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_gal_from_equ"><code class="docutils literal notranslate"><span class="pre">get_gal_from_equ()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_gal_from_equ2000"><code class="docutils literal notranslate"><span class="pre">get_gal_from_equ2000()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_geo_from_rect"><code class="docutils literal notranslate"><span class="pre">get_geo_from_rect()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_gmtoff"><code class="docutils literal notranslate"><span class="pre">get_gmtoff()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_hrz_from_equ"><code class="docutils literal notranslate"><span class="pre">get_hrz_from_equ()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_julian_day"><code class="docutils literal notranslate"><span class="pre">get_julian_day()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_julian_from_sys"><code class="docutils literal notranslate"><span class="pre">get_julian_from_sys()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_julian_from_timet"><code class="docutils literal notranslate"><span class="pre">get_julian_from_timet()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_julian_local_date"><code class="docutils literal notranslate"><span class="pre">get_julian_local_date()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_jupiter_equ_coords"><code class="docutils literal notranslate"><span class="pre">get_jupiter_equ_coords()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_jupiter_rst"><code class="docutils literal notranslate"><span class="pre">get_jupiter_rst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_local_sidereal_time"><code class="docutils literal notranslate"><span class="pre">get_local_sidereal_time()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_lunar_equ_coords"><code class="docutils literal notranslate"><span class="pre">get_lunar_equ_coords()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_lunar_rst"><code class="docutils literal notranslate"><span class="pre">get_lunar_rst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_mars_equ_coords"><code class="docutils literal notranslate"><span class="pre">get_mars_equ_coords()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_mars_rst"><code class="docutils literal notranslate"><span class="pre">get_mars_rst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_mean_sidereal_time"><code class="docutils literal notranslate"><span class="pre">get_mean_sidereal_time()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_nutation"><code class="docutils literal notranslate"><span class="pre">get_nutation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_object_rst"><code class="docutils literal notranslate"><span class="pre">get_object_rst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_precession"><code class="docutils literal notranslate"><span class="pre">get_precession()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_rect_from_equ"><code class="docutils literal notranslate"><span class="pre">get_rect_from_equ()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_rect_from_geo"><code class="docutils literal notranslate"><span class="pre">get_rect_from_geo()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_rel_posn_angle"><code class="docutils literal notranslate"><span class="pre">get_rel_posn_angle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_saturn_equ_coords"><code class="docutils literal notranslate"><span class="pre">get_saturn_equ_coords()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_saturn_rst"><code class="docutils literal notranslate"><span class="pre">get_saturn_rst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_solar_equ_coords"><code class="docutils literal notranslate"><span class="pre">get_solar_equ_coords()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_solar_rst"><code class="docutils literal notranslate"><span class="pre">get_solar_rst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_tai_from_sys"><code class="docutils literal notranslate"><span class="pre">get_tai_from_sys()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_timet_from_julian"><code class="docutils literal notranslate"><span class="pre">get_timet_from_julian()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_venus_equ_coords"><code class="docutils literal notranslate"><span class="pre">get_venus_equ_coords()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.get_venus_rst"><code class="docutils literal notranslate"><span class="pre">get_venus_rst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.hms"><code class="docutils literal notranslate"><span class="pre">hms</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.hms_to_deg"><code class="docutils literal notranslate"><span class="pre">hms_to_deg()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.hms_to_rad"><code class="docutils literal notranslate"><span class="pre">hms_to_rad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.hms_to_sec"><code class="docutils literal notranslate"><span class="pre">hms_to_sec()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.hrz_posn"><code class="docutils literal notranslate"><span class="pre">hrz_posn</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.hrz_to_nswe"><code class="docutils literal notranslate"><span class="pre">hrz_to_nswe()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.jd_to_mjd"><code class="docutils literal notranslate"><span class="pre">jd_to_mjd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.jd_to_sec"><code class="docutils literal notranslate"><span class="pre">jd_to_sec()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.leap_secs"><code class="docutils literal notranslate"><span class="pre">leap_secs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.lnlat_posn"><code class="docutils literal notranslate"><span class="pre">lnlat_posn</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.mjd_to_jd"><code class="docutils literal notranslate"><span class="pre">mjd_to_jd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.nutation"><code class="docutils literal notranslate"><span class="pre">nutation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.rad_to_deg"><code class="docutils literal notranslate"><span class="pre">rad_to_deg()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.rad_to_dms"><code class="docutils literal notranslate"><span class="pre">rad_to_dms()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.rad_to_hms"><code class="docutils literal notranslate"><span class="pre">rad_to_hms()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.range_degrees"><code class="docutils literal notranslate"><span class="pre">range_degrees()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.range_hours"><code class="docutils literal notranslate"><span class="pre">range_hours()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.rect_posn"><code class="docutils literal notranslate"><span class="pre">rect_posn</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.rst_time"><code class="docutils literal notranslate"><span class="pre">rst_time</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.sec_to_jd"><code class="docutils literal notranslate"><span class="pre">sec_to_jd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.tai_to_tt"><code class="docutils literal notranslate"><span class="pre">tai_to_tt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.tai_to_utc"><code class="docutils literal notranslate"><span class="pre">tai_to_utc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.taimjd_to_unix"><code class="docutils literal notranslate"><span class="pre">taimjd_to_unix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.taimjd_to_utcjd"><code class="docutils literal notranslate"><span class="pre">taimjd_to_utcjd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.tt_to_tai"><code class="docutils literal notranslate"><span class="pre">tt_to_tai()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.tt_to_tdb"><code class="docutils literal notranslate"><span class="pre">tt_to_tdb()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.tt_to_utc"><code class="docutils literal notranslate"><span class="pre">tt_to_utc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.unix_to_taimjd"><code class="docutils literal notranslate"><span class="pre">unix_to_taimjd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.unix_to_utcjd"><code class="docutils literal notranslate"><span class="pre">unix_to_utcjd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.utc_to_tai"><code class="docutils literal notranslate"><span class="pre">utc_to_tai()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.utc_to_tt"><code class="docutils literal notranslate"><span class="pre">utc_to_tt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.utcjd_to_taimjd"><code class="docutils literal notranslate"><span class="pre">utcjd_to_taimjd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.utcjd_to_unix"><code class="docutils literal notranslate"><span class="pre">utcjd_to_unix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.zonedate"><code class="docutils literal notranslate"><span class="pre">zonedate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="astro.html#lsl.astro.zonedate_to_date"><code class="docutils literal notranslate"><span class="pre">zonedate_to_date()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kurtosis.html">RFI Identification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kurtosis.html#lsl.statistics.kurtosis.get_limits"><code class="docutils literal notranslate"><span class="pre">get_limits()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="kurtosis.html#lsl.statistics.kurtosis.mean"><code class="docutils literal notranslate"><span class="pre">mean()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="kurtosis.html#lsl.statistics.kurtosis.skew"><code class="docutils literal notranslate"><span class="pre">skew()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="kurtosis.html#lsl.statistics.kurtosis.spectral_fft"><code class="docutils literal notranslate"><span class="pre">spectral_fft()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="kurtosis.html#lsl.statistics.kurtosis.spectral_power"><code class="docutils literal notranslate"><span class="pre">spectral_power()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="kurtosis.html#lsl.statistics.kurtosis.std"><code class="docutils literal notranslate"><span class="pre">std()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="kurtosis.html#lsl.statistics.kurtosis.var"><code class="docutils literal notranslate"><span class="pre">var()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dedispersion.html">Dedispersion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dedispersion.html#lsl.misc.dedispersion.coherent"><code class="docutils literal notranslate"><span class="pre">coherent()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dedispersion.html#lsl.misc.dedispersion.delay"><code class="docutils literal notranslate"><span class="pre">delay()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dedispersion.html#lsl.misc.dedispersion.get_coherent_sample_size"><code class="docutils literal notranslate"><span class="pre">get_coherent_sample_size()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dedispersion.html#lsl.misc.dedispersion.incoherent"><code class="docutils literal notranslate"><span class="pre">incoherent()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="catalog.html">Catalogs and Sky Map</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="catalog.html#catalogs">Catalogs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="catalog.html#sky-map">Sky Map</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="transform.html">Time and Position Transformation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#time">Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#celstial-positions">Celstial Positions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transform.html#geographic-positions">Geographic Positions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mathutils.html">Math Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.cimag"><code class="docutils literal notranslate"><span class="pre">cimag()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.cmagnitude"><code class="docutils literal notranslate"><span class="pre">cmagnitude()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.cphase"><code class="docutils literal notranslate"><span class="pre">cphase()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.cpolar"><code class="docutils literal notranslate"><span class="pre">cpolar()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.creal"><code class="docutils literal notranslate"><span class="pre">creal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.crect"><code class="docutils literal notranslate"><span class="pre">crect()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.downsample"><code class="docutils literal notranslate"><span class="pre">downsample()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.from_dB"><code class="docutils literal notranslate"><span class="pre">from_dB()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.gaussian1d"><code class="docutils literal notranslate"><span class="pre">gaussian1d()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.gaussian2d"><code class="docutils literal notranslate"><span class="pre">gaussian2d()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.gaussparams"><code class="docutils literal notranslate"><span class="pre">gaussparams()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.ndft"><code class="docutils literal notranslate"><span class="pre">ndft()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.regrid"><code class="docutils literal notranslate"><span class="pre">regrid()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.smooth"><code class="docutils literal notranslate"><span class="pre">smooth()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.sphfit"><code class="docutils literal notranslate"><span class="pre">sphfit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.sphval"><code class="docutils literal notranslate"><span class="pre">sphval()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathutils.html#lsl.misc.mathutils.to_dB"><code class="docutils literal notranslate"><span class="pre">to_dB()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="robust.html">Robust Statistics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="robust.html#lsl.statistics.robust.biweight_mean"><code class="docutils literal notranslate"><span class="pre">biweight_mean()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="robust.html#lsl.statistics.robust.checkfit"><code class="docutils literal notranslate"><span class="pre">checkfit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="robust.html#lsl.statistics.robust.linefit"><code class="docutils literal notranslate"><span class="pre">linefit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="robust.html#lsl.statistics.robust.mean"><code class="docutils literal notranslate"><span class="pre">mean()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="robust.html#lsl.statistics.robust.mode"><code class="docutils literal notranslate"><span class="pre">mode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="robust.html#lsl.statistics.robust.polyfit"><code class="docutils literal notranslate"><span class="pre">polyfit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="robust.html#lsl.statistics.robust.std"><code class="docutils literal notranslate"><span class="pre">std()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="robust.html#statistical-tests">Statistical Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="robust.html#lsl.statistics.stattests.wald_wolfowitz"><code class="docutils literal notranslate"><span class="pre">wald_wolfowitz()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="paths.html">Module and Data Paths</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="paths.html#lsl.common.paths.DATA"><code class="docutils literal notranslate"><span class="pre">DATA</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="paths.html#lsl.common.paths.MODULE"><code class="docutils literal notranslate"><span class="pre">MODULE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="paths.html#lsl.common.paths.WISDOM"><code class="docutils literal notranslate"><span class="pre">WISDOM</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="busy.html">Busy Indicator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="busy.html#lsl.common.busy.BusyIndicator"><code class="docutils literal notranslate"><span class="pre">BusyIndicator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="busy.html#lsl.common.busy.BusyIndicatorPlus"><code class="docutils literal notranslate"><span class="pre">BusyIndicatorPlus</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="color.html">Color Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="color.html#lsl.common.color.colorfy"><code class="docutils literal notranslate"><span class="pre">colorfy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="progress.html">Progress Bar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="progress.html#lsl.common.progress.DownloadBar"><code class="docutils literal notranslate"><span class="pre">DownloadBar</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="progress.html#lsl.common.progress.ProgressBar"><code class="docutils literal notranslate"><span class="pre">ProgressBar</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="progress.html#lsl.common.progress.ProgressBarPlus"><code class="docutils literal notranslate"><span class="pre">ProgressBarPlus</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="lwa-specific-utilities">
+<h2>LWA-Specific Utilities<a class="headerlink" href="#lwa-specific-utilities" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="observations.html">Defining Single Station Observations and Observation Metadata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="observations.html#module-lsl.common.sdf">Session Definition Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="observations.html#module-lsl.common.metabundle">MCS Metadata Tarball Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="observations.html#supporting-functions">Supporting Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="swarm.html">LWA Swarm Observations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="swarm.html#module-lsl.common.idf">Interferometer Definition Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="station.html">Station Meta-Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="station.html#module-lsl.common.stations">Station-Level Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="station.html#module-lsl.correlator.uvutils">Stand-Level Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sdf.html">Session and Observation Specification for a Single LWA Station</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sdf.html#module-lsl.common.sdf">DP-Based Stations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdf.html#module-lsl.common.sdfADP">ADP-Based Stations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="idf.html">Run and Scan Specification for the LWA Swarm</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="idf.html#lsl.common.idf.DRX"><code class="docutils literal notranslate"><span class="pre">DRX</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="idf.html#lsl.common.idf.Jovian"><code class="docutils literal notranslate"><span class="pre">Jovian</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="idf.html#lsl.common.idf.Observer"><code class="docutils literal notranslate"><span class="pre">Observer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="idf.html#lsl.common.idf.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="idf.html#lsl.common.idf.ProjectOffice"><code class="docutils literal notranslate"><span class="pre">ProjectOffice</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="idf.html#lsl.common.idf.Run"><code class="docutils literal notranslate"><span class="pre">Run</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="idf.html#lsl.common.idf.Scan"><code class="docutils literal notranslate"><span class="pre">Scan</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="idf.html#lsl.common.idf.Solar"><code class="docutils literal notranslate"><span class="pre">Solar</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="idf.html#lsl.common.idf.get_scan_start_stop"><code class="docutils literal notranslate"><span class="pre">get_scan_start_stop()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="idf.html#lsl.common.idf.is_valid"><code class="docutils literal notranslate"><span class="pre">is_valid()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="idf.html#lsl.common.idf.parse_idf"><code class="docutils literal notranslate"><span class="pre">parse_idf()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="readers.html">Data Readers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#module-lsl.reader.ldp">LSL Developer Primitives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#module-lsl.reader.tbw">Low-Level TBW – DP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#low-level-tbf-adp">Low-Level TBF – ADP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#module-lsl.reader.tbn">Low-Level TBN – DP and ADP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#low-level-cor-adp">Low-Level COR – ADP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#module-lsl.reader.drx">Low-Level DRX – DP and ADP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#low-level-dr-spectrometer-dp-and-adp">Low-Level DR Spectrometer – DP and ADP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#module-lsl.reader.vdif">Low-Level VIDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#module-lsl.reader.errors">Reader Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="readers.html#module-lsl.reader.buffer">Reader Ring Buffer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#lsl.reader.buffer.CORFrameBuffer"><code class="docutils literal notranslate"><span class="pre">CORFrameBuffer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#lsl.reader.buffer.DRXFrameBuffer"><code class="docutils literal notranslate"><span class="pre">DRXFrameBuffer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#lsl.reader.buffer.FrameBufferBase"><code class="docutils literal notranslate"><span class="pre">FrameBufferBase</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#lsl.reader.buffer.TBFFrameBuffer"><code class="docutils literal notranslate"><span class="pre">TBFFrameBuffer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#lsl.reader.buffer.TBNFrameBuffer"><code class="docutils literal notranslate"><span class="pre">TBNFrameBuffer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="readers.html#lsl.reader.buffer.VDIFFrameBuffer"><code class="docutils literal notranslate"><span class="pre">VDIFFrameBuffer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="writers.html">Data Writers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="writers.html#single-dish-fits">Single-Dish FITS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writers.html#fits-idi">FITS IDI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writers.html#module-lsl.writer.uvfits">UVFITS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writers.html#module-lsl.writer.measurementset">Measurement Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writers.html#module-lsl.writer.virtual">Virtual Visibility Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writers.html#vdif">VDIF</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spectra.html">Computing Spectra</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="spectra.html#lsl.correlator.fx.SpecMaster"><code class="docutils literal notranslate"><span class="pre">SpecMaster()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="spectra.html#lsl.correlator.fx.StokesMaster"><code class="docutils literal notranslate"><span class="pre">StokesMaster()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="correlator.html">Correlation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="correlator.html#baseline-utilities">Baseline Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlator.html#computing-uvw-coordinates">Computing <em>uvw</em> Coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlator.html#module-lsl.correlator.filterbank">Polyphase Filter Bank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="correlator.html#fx-correlator">FX Correlator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="imaging.html">Imaging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="imaging.html#module-lsl.imaging.data">Data Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imaging.html#id1">Imaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imaging.html#module-lsl.imaging.overlay">Plot Overlays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imaging.html#module-lsl.imaging.analysis">Basic Image Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imaging.html#module-lsl.imaging.selfcal">Self-Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imaging.html#module-lsl.imaging.deconv">Deconvolution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="beamformer.html">Post-Acquisition Beam Forming</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="beamformer.html#lsl.misc.beamformer.calc_delay"><code class="docutils literal notranslate"><span class="pre">calc_delay()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="beamformer.html#lsl.misc.beamformer.circularize"><code class="docutils literal notranslate"><span class="pre">circularize()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="beamformer.html#lsl.misc.beamformer.int_beam_shape"><code class="docutils literal notranslate"><span class="pre">int_beam_shape()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="beamformer.html#lsl.misc.beamformer.int_delay_and_sum"><code class="docutils literal notranslate"><span class="pre">int_delay_and_sum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="beamformer.html#lsl.misc.beamformer.phase_and_sum"><code class="docutils literal notranslate"><span class="pre">phase_and_sum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="beamformer.html#lsl.misc.beamformer.phase_beam_shape"><code class="docutils literal notranslate"><span class="pre">phase_beam_shape()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="beamformer.html#lsl.common.dp.SoftwareDP"><code class="docutils literal notranslate"><span class="pre">SoftwareDP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fakedata.html">Fake Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fakedata.html#writers">Writers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fakedata.html#simulators">Simulators</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="miscellaneous">
+<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config.html">LSL Configuration Manager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html#lsl.config.LSL_CONFIG"><code class="docutils literal notranslate"><span class="pre">LSL_CONFIG</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">RF Antenna Parameters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.rfutils.Jy_to_dBm"><code class="docutils literal notranslate"><span class="pre">Jy_to_dBm()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.rfutils.calculate_effective_area"><code class="docutils literal notranslate"><span class="pre">calculate_effective_area()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.rfutils.calculate_sefd"><code class="docutils literal notranslate"><span class="pre">calculate_sefd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.rfutils.dBd_to_dBi"><code class="docutils literal notranslate"><span class="pre">dBd_to_dBi()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.rfutils.dBd_to_gain"><code class="docutils literal notranslate"><span class="pre">dBd_to_gain()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.rfutils.dBi_to_gain"><code class="docutils literal notranslate"><span class="pre">dBi_to_gain()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.rfutils.dBm_to_Jy"><code class="docutils literal notranslate"><span class="pre">dBm_to_Jy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.rfutils.gain_to_dBd"><code class="docutils literal notranslate"><span class="pre">gain_to_dBd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.rfutils.gain_to_dBi"><code class="docutils literal notranslate"><span class="pre">gain_to_dBi()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html#module-lsl.sim.necutils">Simulated Stand Response</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.sim.necutils.NECImpedance"><code class="docutils literal notranslate"><span class="pre">NECImpedance</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.sim.necutils.NECPattern"><code class="docutils literal notranslate"><span class="pre">NECPattern</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.sim.necutils.calculate_ime"><code class="docutils literal notranslate"><span class="pre">calculate_ime()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.sim.necutils.change_nec_freq"><code class="docutils literal notranslate"><span class="pre">change_nec_freq()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.sim.necutils.close_to"><code class="docutils literal notranslate"><span class="pre">close_to()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.sim.necutils.open_and_get_nec_freq"><code class="docutils literal notranslate"><span class="pre">open_and_get_nec_freq()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.sim.necutils.which_nec4"><code class="docutils literal notranslate"><span class="pre">which_nec4()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html#ionospheric-and-geomagnetic-field-models">Ionospheric and Geomagnetic Field Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.ionosphere.compute_magnetic_declination"><code class="docutils literal notranslate"><span class="pre">compute_magnetic_declination()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.ionosphere.compute_magnetic_inclination"><code class="docutils literal notranslate"><span class="pre">compute_magnetic_inclination()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.ionosphere.get_ionospheric_pierce_point"><code class="docutils literal notranslate"><span class="pre">get_ionospheric_pierce_point()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.ionosphere.get_magnetic_field"><code class="docutils literal notranslate"><span class="pre">get_magnetic_field()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.ionosphere.get_tec_value"><code class="docutils literal notranslate"><span class="pre">get_tec_value()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html#conversion-helper-functions-for-argparse">Conversion Helper Functions for argparse</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.csv_baseline_list"><code class="docutils literal notranslate"><span class="pre">csv_baseline_list()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.csv_degrees_list"><code class="docutils literal notranslate"><span class="pre">csv_degrees_list()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.csv_hostname_list"><code class="docutils literal notranslate"><span class="pre">csv_hostname_list()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.csv_hours_list"><code class="docutils literal notranslate"><span class="pre">csv_hours_list()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.csv_int_list"><code class="docutils literal notranslate"><span class="pre">csv_int_list()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.date"><code class="docutils literal notranslate"><span class="pre">date()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.degrees"><code class="docutils literal notranslate"><span class="pre">degrees()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.frequency"><code class="docutils literal notranslate"><span class="pre">frequency()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.frequency_range"><code class="docutils literal notranslate"><span class="pre">frequency_range()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.hours"><code class="docutils literal notranslate"><span class="pre">hours()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.mjd"><code class="docutils literal notranslate"><span class="pre">mjd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.mpm"><code class="docutils literal notranslate"><span class="pre">mpm()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.positive_float"><code class="docutils literal notranslate"><span class="pre">positive_float()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.positive_int"><code class="docutils literal notranslate"><span class="pre">positive_int()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.positive_or_zero_float"><code class="docutils literal notranslate"><span class="pre">positive_or_zero_float()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.positive_or_zero_int"><code class="docutils literal notranslate"><span class="pre">positive_or_zero_int()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.time"><code class="docutils literal notranslate"><span class="pre">time()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.wavelength"><code class="docutils literal notranslate"><span class="pre">wavelength()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#lsl.misc.parser.wavelength_range"><code class="docutils literal notranslate"><span class="pre">wavelength_range()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py-modindex.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="search.html">Search Page</a></li>
+</ul>
+</div>
+</section>
+<section id="included-scripts">
+<h2>Included Scripts<a class="headerlink" href="#included-scripts" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">General Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html#data-reading-and-writing">Data Reading and Writing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html#data-analysis">Data Analysis</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="tutorials">
+<h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/lwa-project/lsl/blob/main/docs/notebooks/General%20Tutorial.ipynb">General LSL Routines</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/lwa-project/lsl/blob/main/docs/notebooks/SDF%20Generation.ipynb">Building SDFs Programmatically</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/lwa-project/lsl/blob/main/docs/notebooks/MCS%20Metadata%20Tutorial.ipynb">Observation Metadata</a></p></li>
+<li><p><a class="reference external" href="https://nbviewer.jupyter.org/github/lwa-project/lsl/blob/main/docs/notebooks/LDP%20Tutorial.ipynb">Working with Data</a></p></li>
+</ul>
+</section>
+<section id="advanced">
+<h1>Advanced<a class="headerlink" href="#advanced" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data-formats.html">Data Format Descriptions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data-formats.html#tbw">TBW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-formats.html#tbn">TBN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-formats.html#drx">DRX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-formats.html#dr-spectrometer">DR Spectrometer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-formats.html#tbf">TBF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data-formats.html#cor">COR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="c-extensions.html">C Extensions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="c-extensions.html#module-lsl.reader._gofast">Go-Fast! Readers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c-extensions.html#power-spectral-density-calculation">Power Spectral Density Calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c-extensions.html#module-lsl.correlator._core">FX Correlator Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c-extensions.html#module-lsl.common._fir">DP-Style Signal Processing</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">LWA Software Library Documentation</a></li>
+<li><a class="reference internal" href="#contents">Contents</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#general-utilities">General Utilities</a></li>
+<li><a class="reference internal" href="#lwa-specific-utilities">LWA-Specific Utilities</a></li>
+<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+<li><a class="reference internal" href="#included-scripts">Included Scripts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tutorials">Tutorials</a></li>
+<li><a class="reference internal" href="#advanced">Advanced</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and Tables</a></li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="install.html"
+                          title="next chapter">Requirements</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Requirements"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">LWA Software Library Documentation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

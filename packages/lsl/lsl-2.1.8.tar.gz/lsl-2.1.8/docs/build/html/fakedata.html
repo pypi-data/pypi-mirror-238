@@ -1,0 +1,703 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Fake Data &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LSL Configuration Manager" href="config.html" />
+    <link rel="prev" title="Post-Acquisition Beam Forming" href="beamformer.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="LSL Configuration Manager"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="beamformer.html" title="Post-Acquisition Beam Forming"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Fake Data</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-lsl.sim">
+<span id="fake-data"></span><h1>Fake Data<a class="headerlink" href="#module-lsl.sim" title="Permalink to this heading">¶</a></h1>
+<p>lsl.sim - Simulate various types of LWA data.  The following follow DP
+format writers are avaliable:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>tbn</p></li>
+<li><p>drx</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>In addition, there are two simulation modules to generate fake data sets::</dt><dd><ul class="simple">
+<li><p>dp  - generate DP-level data sets for basic signals and point source</p></li>
+<li><p>vis - generate visibility data sets for use with the aipy module</p></li>
+</ul>
+</dd>
+</dl>
+<section id="writers">
+<h2>Writers<a class="headerlink" href="#writers" title="Permalink to this heading">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.3.</span></p>
+</div>
+<section id="module-lsl.sim.tbn">
+<span id="tbn"></span><h3>TBN<a class="headerlink" href="#module-lsl.sim.tbn" title="Permalink to this heading">¶</a></h3>
+<p>Python module for creating creating, validating, and writing simulated 
+TBN frames to a file.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.sim.tbn.SimFrame">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.sim.tbn.</span></span><span class="sig-name descname"><span class="pre">SimFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">central_freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.tbn.SimFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="readers.html#lsl.reader.tbn.Frame" title="lsl.reader.tbn.Frame"><code class="xref py py-class docutils literal notranslate"><span class="pre">Frame</span></code></a></p>
+<p>tbn.SimFrame extends the <a class="reference internal" href="readers.html#lsl.reader.tbn.Frame" title="lsl.reader.tbn.Frame"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.reader.tbn.Frame</span></code></a> object to yield a method 
+for easily creating DP ICD-compliant raw TBN frames.  Frames created with
+this method can be written to a file via the methods write_raw_frame() function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.tbn.SimFrame.create_raw_frame">
+<span class="sig-name descname"><span class="pre">create_raw_frame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.tbn.SimFrame.create_raw_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Re-express a simulated TBN frame as a numpy array of unsigned 8-bit 
+integers.  Returns a numpy array if the frame  is valid.  If the frame 
+is not ICD-compliant, a errors.baseSimError-type error is raised.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.tbn.SimFrame.is_valid">
+<span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raise_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.tbn.SimFrame.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if simulated TBN frame is valid or not.  Valid frames return 
+True and invalid frames False.  If the ‘raise_errors’ keyword is set, 
+is_valid raises an error when a problem is encountered.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.tbn.SimFrame.load_frame">
+<span class="sig-name descname"><span class="pre">load_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tbn_frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.tbn.SimFrame.load_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Populate the a tbn.SimFrame object with a pre-made frame.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.tbn.SimFrame.write_raw_frame">
+<span class="sig-name descname"><span class="pre">write_raw_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.tbn.SimFrame.write_raw_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a simulated TBN frame to a filehandle if the frame is valid.
+If the frame is not ICD-compliant, a errors.baseSimError-type error 
+is raised.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.tbn.frame_to_frame">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.tbn.</span></span><span class="sig-name descname"><span class="pre">frame_to_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tbn_frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.tbn.frame_to_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a <a class="reference internal" href="readers.html#lsl.reader.tbn.Frame" title="lsl.reader.tbn.Frame"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.reader.tbn.Frame</span></code></a> object to a raw DP TBN frame.</p>
+</dd></dl>
+
+</section>
+<section id="module-lsl.sim.drx">
+<span id="drx"></span><h3>DRX<a class="headerlink" href="#module-lsl.sim.drx" title="Permalink to this heading">¶</a></h3>
+<p>Python module for creating creating, validating, and writing simulated 
+DRX frames to a file.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.sim.drx.SimFrame">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.sim.drx.</span></span><span class="sig-name descname"><span class="pre">SimFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tune</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.drx.SimFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="readers.html#lsl.reader.drx.Frame" title="lsl.reader.drx.Frame"><code class="xref py py-class docutils literal notranslate"><span class="pre">Frame</span></code></a></p>
+<p>drx.SimFrame extends the <a class="reference internal" href="readers.html#lsl.reader.drx.Frame" title="lsl.reader.drx.Frame"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.reader.drx.Frame</span></code></a> object to yield a method 
+for easily creating DP ICD-compliant raw DRX frames.  Frames created with
+this method can be written to a file via the methods write_raw_frame() function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.drx.SimFrame.create_raw_frame">
+<span class="sig-name descname"><span class="pre">create_raw_frame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.drx.SimFrame.create_raw_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Re-express a simulated DRX frame as a numpy array of unsigned 8-bit 
+integers.  Returns a numpy array if the frame is valid.  If the frame 
+is not ICD-compliant, a errors.baseSimError-type error is raised.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.drx.SimFrame.is_valid">
+<span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raise_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.drx.SimFrame.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if simulated DRX frame is valid or not.  Valid frames return 
+True and invalid frames False.  If the ‘raise_errors’ keyword is set, 
+is_valid raises an error when a problem is encountered.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.drx.SimFrame.load_frame">
+<span class="sig-name descname"><span class="pre">load_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">drx_frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.drx.SimFrame.load_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Populate the a drx.SimFrame object with a pre-made frame.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.drx.SimFrame.write_raw_frame">
+<span class="sig-name descname"><span class="pre">write_raw_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.drx.SimFrame.write_raw_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a simulated DRX frame to a filehandle if the frame is valid.
+If the frame is not ICD-compliant, a errors.baseSimError-type error 
+is raised.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.drx.frame_to_frame">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.drx.</span></span><span class="sig-name descname"><span class="pre">frame_to_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">drx_frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.drx.frame_to_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a <a class="reference internal" href="readers.html#lsl.reader.drx.Frame" title="lsl.reader.drx.Frame"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.reader.drx.Frame</span></code></a> object to a raw DP DRX frame.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="simulators">
+<h2>Simulators<a class="headerlink" href="#simulators" title="Permalink to this heading">¶</a></h2>
+<section id="digitial-processor-data">
+<h3>Digitial Processor Data<a class="headerlink" href="#digitial-processor-data" title="Permalink to this heading">¶</a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.3.</span></p>
+</div>
+<span class="target" id="module-lsl.sim.dp"></span><p>Module to simulate observations made with the DP system.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.dp.basic_signal">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.dp.</span></span><span class="sig-name descname"><span class="pre">basic_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stands</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nframes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DRX'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ntuning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_strength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.dp.basic_signal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a collection of frames with a basic test signal for TBN and 
+DRX.  The signals for the three modes are:</p>
+<dl class="simple">
+<dt>TBN</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>noise + (sample_rate/4) kHz signal for x-pol. and noise + </dt><dd><p>(-sample_rate/4) for y-pol.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>DRX</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>noise + (sample_rate/4) kHz signal for x-pol. and noise + </dt><dd><p>(-sample_rate/4) for y-pol. -&gt; tuning 1</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>noise + (-sample_rate/3) kHz signal for x-pol. and noise + </dt><dd><p>(sample_rate/3) for y-pol. -&gt; tuning 2</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<p>All modes need to have stands (beams in the case of DRX) and number of
+frames to generate.  The TBN and DRX frames need the ‘filter’
+keyword set to specify the filter width.  In addition, the ‘stands’ 
+argument is interpreted as beam numbers for DRX.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.4: </span>Added the <cite>noise_strength</cite> keyword to control how much noise is added to 
+the data.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 2.0.0: </span>Removed support for generating TBW data.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.dp.point_source">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.dp.</span></span><span class="sig-name descname"><span class="pre">point_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stands</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nframes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'TBN'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">central_freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">49000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_strength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.dp.point_source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a collection of frames with a point source signal for TBN.  
+The point source is specified as a aipy.src object.</p>
+<p>All modes need to have stands (beams in the case of DRX) and number of
+frames to generate.  The TBN frames need the <a href="#id1"><span class="problematic" id="id2">`</span></a>filter’ keyword 
+set to specify the filter width.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.4: </span>Added the <cite>noise_strength</cite> keyword to control how much noise is added to 
+the data.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 2.0.0: </span>Removed support for generating TBW data.</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-lsl.sim.vis">
+<span id="visibility-data"></span><h3>Visibility Data<a class="headerlink" href="#module-lsl.sim.vis" title="Permalink to this heading">¶</a></h3>
+<p>Module for generating simulated arrays and visibility data.  The chief 
+functions of this module are:</p>
+<dl>
+<dt>build_sim_array</dt><dd><p>given a station object, a list of stands, and a list of frequencies, build 
+a AIPY AntennaArray-like object.  This module can also generate AntennaArray 
+objects with positional errors by setting the ‘pos_error’ keyword to a 
+positive value.</p>
+</dd>
+<dt>build_sim_data</dt><dd><p>given a SimArray and a list of aipy.src sources, build up a collection of 
+visibilities for a given set of Julian dates</p>
+</dd>
+<dt>scale_data</dt><dd><p>given a dictionary of simulated visibilities from build_sim_data, apply 
+antenna-based gains and delays to the visibilities</p>
+</dd>
+<dt>shift_data</dt><dd><p>given a dictionary of simulated visibilities from build_sim_data, shift the uvw 
+coordinates of the visibilities.
+.. note:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="n">only</span> <span class="n">changes</span> <span class="n">the</span> <span class="n">uvw</span> <span class="n">values</span> <span class="ow">and</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">phase</span><span class="o">-</span><span class="n">shift</span> <span class="n">the</span> <span class="n">data</span><span class="o">.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>The format of the is descrined in the <a class="reference internal" href="imaging.html#module-lsl.imaging.data" title="lsl.imaging.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.imaging.data</span></code></a> module.</p>
+<p>In addition to simulation functions, this module includes buildGriddedImage
+which takes a dictionary of visibilities and returns and aipy.im.ImgW object.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.3.0: </span>This module was formerly called lsl.sim.sim</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.5.0: </span>Moved buildGriddedImage to the <a class="reference internal" href="imaging.html#module-lsl.imaging.utils" title="lsl.imaging.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.imaging.utils</span></code></a> module.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.1: </span>Switched over to a new C-based simulation package</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.2: </span>Added in a function, add_baseline_noise, to help bring noise into the 
+simulations</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.3: </span>Moved the calculateSEFD function into lsl.misc.rfutils
+Changed the meaning of the force_gaussian parameter of the build_sim_array()
+function to be the Gaussian full width at half maximum in degrees</p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.sim.vis.Antenna">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.sim.vis.</span></span><span class="sig-name descname"><span class="pre">Antenna</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phsoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.0,</span> <span class="pre">0.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bp_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([1])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bp_i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([0])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">1.5707963267948966,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.Antenna" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modification to the aipy.amp.Antenna class to also store the stand ID 
+number in the Antenna.stand attribute.  This also add a getBeamShape 
+attribute that pulls in the old vis.getBeamShape function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.Antenna.bm_response">
+<span class="sig-name descname"><span class="pre">bm_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.Antenna.bm_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return response of beam for specified polarization.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This differs from the AIPY implementation in that the LWA X-pol.
+is oriented N-S, not E-W.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function also accepts two and three-dimensions arrays of 
+topocentric coordinates, similar to what img.ImgW.get_top() 
+produces, and computes the beam response at all points.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.Antenna.get_beam_shape">
+<span class="sig-name descname"><span class="pre">get_beam_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.Antenna.get_beam_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a 360 by 90 by nFreqs numpy array showing the beam pattern of a
+particular antenna in the array.  The first two dimensions of the output 
+array contain the azimuth (from 0 to 359 degrees in 1 degree steps) and 
+altitude (from 0 to 89 degrees in 1 degree steps).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.sim.vis.AntennaArray">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.sim.vis.</span></span><span class="sig-name descname"><span class="pre">AntennaArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.AntennaArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modification to the aipy.ant.AntennaArray class to add a function to 
+retrieve the stands stored in the AntennaArray.ants attribute.  Also add 
+a function to set the array time from a UNIX timestamp.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.1: </span>Added an option to set the ASP filter for simulation proposes.  
+This updates the bandpasses used by AIPY to include the antenna
+impedance mis-match and the mean ARX response.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.AntennaArray.gen_phs_fast">
+<span class="sig-name descname"><span class="pre">gen_phs_fast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mfreq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ionref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srcshape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolve_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.AntennaArray.gen_phs_fast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return phasing that is multiplied to data to point to src - fast.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.AntennaArray.gen_uvw_fast">
+<span class="sig-name descname"><span class="pre">gen_uvw_fast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.AntennaArray.gen_uvw_fast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute uvw coordinates of baseline relative to provided RadioBody, 
+or ‘z’ for zenith uvw coordinates.  If w_only is True, only w (instead
+of (u,v,w) will be returned) - fast.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.AntennaArray.get_baseline_fast">
+<span class="sig-name descname"><span class="pre">get_baseline_fast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.AntennaArray.get_baseline_fast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the baseline corresponding to i,j in various coordinate 
+projections: src=’e’ for current equatorial, ‘z’ for zenith 
+topocentric, ‘r’ for unrotated equatorial, or a RadioBody for
+projection toward that source - fast.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.AntennaArray.get_stands">
+<span class="sig-name descname"><span class="pre">get_stands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.AntennaArray.get_stands" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a numpy array listing the stands found in the AntennaArray 
+object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.AntennaArray.set_asp_filter">
+<span class="sig-name descname"><span class="pre">set_asp_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'split'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.AntennaArray.set_asp_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the bandpasses for the antennas to include the effect of 
+the antenna impedance mis-match (IMM) and the mean LWA1 ARX 
+response.</p>
+<dl class="simple">
+<dt>Valid filters are:</dt><dd><ul class="simple">
+<li><p>split</p></li>
+<li><p>full</p></li>
+<li><p>reduced</p></li>
+<li><p><a class="reference external" href="mailto:split&#37;&#52;&#48;3MHz">split<span>&#64;</span>3MHz</a></p></li>
+<li><p><a class="reference external" href="mailto:full&#37;&#52;&#48;3MHz">full<span>&#64;</span>3MHz</a></p></li>
+<li><p>none</p></li>
+</ul>
+</dd>
+</dl>
+<p>None is a special case where both the IMM and ARX response are 
+removed, i.e., the bandpass is unity for all frequencies.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.1: </span>Added support for the <a class="reference external" href="mailto:'split&#37;&#52;&#48;3MHz">‘split<span>&#64;</span>3MHz</a>’ and <a class="reference external" href="mailto:'full&#37;&#52;&#48;3MHz">‘full<span>&#64;</span>3MHz</a>’ filters at
+LWA-SV.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.0.1.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.AntennaArray.set_unixtime">
+<span class="sig-name descname"><span class="pre">set_unixtime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.AntennaArray.set_unixtime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the array time using a UNIX timestamp (epoch 1970).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.AntennaArray.sim">
+<span class="sig-name descname"><span class="pre">sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'xx'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.AntennaArray.sim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulate visibilities for the specified (i,j) baseline and 
+polarization.  sim_cache() must be called at each time step before 
+this will return valid results.</p>
+<p>This function differs from aipy.amp.AntennaArray.sim in the fact that
+<em>ionref</em> and <em>srcshape</em> are both None in the call to gen_phs and that
+<em>resolve_src</em> is set to False.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.sim.vis.BeamAlm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.sim.vis.</span></span><span class="sig-name descname"><span class="pre">BeamAlm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freqs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nside</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.BeamAlm" title="Permalink to this definition">¶</a></dt>
+<dd><p>AIPY-based representation of a beam model where each pointing has a 
+response defined as a polynomial in frequency, and the spatial 
+distributions of these coefficients decomposed into spherical 
+harmonics.</p>
+<p>This differs from the AIPY version in that the response() method 
+accepts two and three-dimensions arrays of topocentric coordinates, 
+similar to what aipy.img.ImgW.get_top() produces, and computes the 
+beam response at all points.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.BeamAlm.response">
+<span class="sig-name descname"><span class="pre">response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.BeamAlm.response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return beam response across active band for specified topocentric 
+coordinates (x=E,y=N,z=UP). x,y,z may be multiple coordinates.  
+Returns ‘x’ pol (rotate pi/2 for ‘y’).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function also accepts two and three-dimensions arrays of 
+topocentric coordinates, similar to what aipy.img.ImgW.get_top() 
+produces, and computes the beam response at all points</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.sim.vis.RadioEarthSatellite">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.sim.vis.</span></span><span class="sig-name descname"><span class="pre">RadioEarthSatellite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tfreq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tpower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tbw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ionref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.RadioEarthSatellite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement a aipy.amp.RadioBody-lime simulation object for an Earth-
+orbiting satellite using a two-line element set.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.RadioEarthSatellite.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.RadioEarthSatellite.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update coordinates relative to the provided observer.  Must be
+called at each time step before accessing information.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.RadioEarthSatellite.get_crds">
+<span class="sig-name descname"><span class="pre">get_crds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">crdsys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncrd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.RadioEarthSatellite.get_crds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the coordinates of this location in the desired coordinate
+system (‘eq’,’top’) in the current epoch.  If ncrd=2, angular
+coordinates (ra/dec or az/alt) are returned, and if ncrd=3,
+xyz coordinates are returned.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.RadioEarthSatellite.get_jys">
+<span class="sig-name descname"><span class="pre">get_jys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.RadioEarthSatellite.get_jys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the fluxes vs. freq that should be used for simulation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.sim.vis.RadioEarthSatellite.update_jys">
+<span class="sig-name descname"><span class="pre">update_jys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">afreqs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.RadioEarthSatellite.update_jys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update fluxes relative to the provided observer.  Must be
+called at each time step before accessing information.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="lsl.sim.vis.SOURCES">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.vis.</span></span><span class="sig-name descname"><span class="pre">SOURCES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Jupiter':</span> <span class="pre">&lt;aipy.fit.RadioSpecial</span> <span class="pre">object&gt;,</span> <span class="pre">'Sun':</span> <span class="pre">&lt;aipy.fit.RadioSpecial</span> <span class="pre">object&gt;,</span> <span class="pre">'cas':</span> <span class="pre">&lt;RadioFixedBody</span> <span class="pre">None&gt;,</span> <span class="pre">'crab':</span> <span class="pre">&lt;RadioFixedBody</span> <span class="pre">None&gt;,</span> <span class="pre">'cyg':</span> <span class="pre">&lt;RadioFixedBody</span> <span class="pre">None&gt;,</span> <span class="pre">'her':</span> <span class="pre">&lt;RadioFixedBody</span> <span class="pre">None&gt;,</span> <span class="pre">'sgr':</span> <span class="pre">&lt;RadioFixedBody</span> <span class="pre">None&gt;,</span> <span class="pre">'vir':</span> <span class="pre">&lt;RadioFixedBody</span> <span class="pre">None&gt;}</span></em><a class="headerlink" href="#lsl.sim.vis.SOURCES" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary of bright sources in the sky to use for simulations</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.vis.add_baseline_noise">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.vis.</span></span><span class="sig-name descname"><span class="pre">add_baseline_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataSet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SEFD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tInt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">efficiency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.add_baseline_noise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a <a class="reference internal" href="imaging.html#lsl.imaging.data.VisibilityDataSet" title="lsl.imaging.data.VisibilityDataSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityDataSet</span></code></a> object of visibilities, 
+an SEFD or array SEFDs in Jy, and an integration time in seconds, add noise 
+to the visibilities assuming that the “weak source” limit.</p>
+<p>This function implements Equation 9-15 from Chapter 9 of “Synthesis 
+Imaging in Radio Astronomy II”.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.0.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.vis.build_sim_array">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.vis.</span></span><span class="sig-name descname"><span class="pre">build_sim_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">station</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_flat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_gaussian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.build_sim_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a AIPY AntennaArray for simulation purposes.  Inputs are a station 
+object defined from the lwa_common module, a numpy array of stand 
+numbers, and a numpy array of frequencies in either Hz of GHz.  Optional 
+inputs are a Julian Date to set the array to and a positional error terms 
+that perturbs each of the stands in x, y, and z.  The output of this 
+module is an AIPY AntennaArray object.</p>
+<p>The shape of the antenna response is either flat (gain of 1 in all 
+directions), modeled by a 2-D Gaussian with the specified full width at
+half maximum in degrees, or modeled by a collection of spherical 
+harmonics that are polynomials in frequency.  The spherical harmonics 
+are used if the file ‘beam_shape.npz’ is found in the current directory.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.3: </span>Changed the meaning of the force_gaussian parameters so that the
+Gaussian full width at half maximum in degrees is passed in.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.1: </span>Moved the simulation code over from AIPY to the new _simFast module.  
+This should be much faster but under the caveats that the bandpass
+and antenna gain patterns are the same for all antennas.  This 
+should be a reasonable assumption for large-N arrays.</p>
+<p>Added an option to use a 2-D Gaussian beam pattern via the force_gaussian
+keyword.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.0: </span>Switched over to passing in Antenna instances generated by the
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.common.station</span></code> module instead of a list of stand ID numbers.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.vis.build_sim_data">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.vis.</span></span><span class="sig-name descname"><span class="pre">build_sim_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['xx',</span> <span class="pre">'yy',</span> <span class="pre">'xy',</span> <span class="pre">'yx']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baselines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flat_response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolve_src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.build_sim_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an AIPY AntennaArray object and a dictionary of sources from 
+aipy.src.get_catalog, returned a <a class="reference internal" href="imaging.html#lsl.imaging.data.VisibilityDataSet" title="lsl.imaging.data.VisibilityDataSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityDataSet</span></code></a> 
+object of simulated data taken at zenith.  Optinally, the data can be 
+masked using some referenced (observed) data set or only a specific sub-set 
+of baselines.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.1: </span>* Added a ‘flat_response’ keyword to make it easy to toggle on and off
+  the spectral and spatial response of the array for the simulation
+* Added a ‘resolve_src’ keyword to turn on source resolution effects</p>
+</div>
+<dl class="simple">
+<dt>..versionchanged:: 0.4.0</dt><dd><p>Added the ‘pols’ keyword to only compute certain polarization components</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.vis.scale_data">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.vis.</span></span><span class="sig-name descname"><span class="pre">scale_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataSet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_offsets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.scale_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a set of antenna-based real gain values and phase delays in ns to a 
+<a class="reference internal" href="imaging.html#lsl.imaging.data.VisibilityDataSet" title="lsl.imaging.data.VisibilityDataSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityDataSet</span></code></a> object.  Returned the new
+scaled and delayed VisibilityDataSet.</p>
+<dl class="simple">
+<dt>..versionchanged:: 0.6.3</dt><dd><p>Added a keyword so that phase offsets (in radians) can also be specified</p>
+</dd>
+<dt>..versionchanged:: 0.4.0</dt><dd><p>The delays are now expected to be in nanoseconds rather than radians.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.vis.shift_data">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.vis.</span></span><span class="sig-name descname"><span class="pre">shift_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataSet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aa</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.vis.shift_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shift the uvw coordinates in one <a class="reference internal" href="imaging.html#lsl.imaging.data.VisibilityDataSet" title="lsl.imaging.data.VisibilityDataSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityDataSet</span></code></a> 
+object to a new set of uvw coordinates that correspond to a new 
+AntennaArray object.  This is useful for looking at how positional errors 
+in the array affect the data.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Fake Data</a><ul>
+<li><a class="reference internal" href="#writers">Writers</a><ul>
+<li><a class="reference internal" href="#module-lsl.sim.tbn">TBN</a><ul>
+<li><a class="reference internal" href="#lsl.sim.tbn.SimFrame"><code class="docutils literal notranslate"><span class="pre">SimFrame</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.sim.tbn.SimFrame.create_raw_frame"><code class="docutils literal notranslate"><span class="pre">SimFrame.create_raw_frame()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.tbn.SimFrame.is_valid"><code class="docutils literal notranslate"><span class="pre">SimFrame.is_valid()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.tbn.SimFrame.load_frame"><code class="docutils literal notranslate"><span class="pre">SimFrame.load_frame()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.tbn.SimFrame.write_raw_frame"><code class="docutils literal notranslate"><span class="pre">SimFrame.write_raw_frame()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.sim.tbn.frame_to_frame"><code class="docutils literal notranslate"><span class="pre">frame_to_frame()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-lsl.sim.drx">DRX</a><ul>
+<li><a class="reference internal" href="#lsl.sim.drx.SimFrame"><code class="docutils literal notranslate"><span class="pre">SimFrame</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.sim.drx.SimFrame.create_raw_frame"><code class="docutils literal notranslate"><span class="pre">SimFrame.create_raw_frame()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.drx.SimFrame.is_valid"><code class="docutils literal notranslate"><span class="pre">SimFrame.is_valid()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.drx.SimFrame.load_frame"><code class="docutils literal notranslate"><span class="pre">SimFrame.load_frame()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.drx.SimFrame.write_raw_frame"><code class="docutils literal notranslate"><span class="pre">SimFrame.write_raw_frame()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.sim.drx.frame_to_frame"><code class="docutils literal notranslate"><span class="pre">frame_to_frame()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#simulators">Simulators</a><ul>
+<li><a class="reference internal" href="#digitial-processor-data">Digitial Processor Data</a><ul>
+<li><a class="reference internal" href="#lsl.sim.dp.basic_signal"><code class="docutils literal notranslate"><span class="pre">basic_signal()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.dp.point_source"><code class="docutils literal notranslate"><span class="pre">point_source()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-lsl.sim.vis">Visibility Data</a><ul>
+<li><a class="reference internal" href="#lsl.sim.vis.Antenna"><code class="docutils literal notranslate"><span class="pre">Antenna</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.sim.vis.Antenna.bm_response"><code class="docutils literal notranslate"><span class="pre">Antenna.bm_response()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.Antenna.get_beam_shape"><code class="docutils literal notranslate"><span class="pre">Antenna.get_beam_shape()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.sim.vis.AntennaArray"><code class="docutils literal notranslate"><span class="pre">AntennaArray</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.sim.vis.AntennaArray.gen_phs_fast"><code class="docutils literal notranslate"><span class="pre">AntennaArray.gen_phs_fast()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.AntennaArray.gen_uvw_fast"><code class="docutils literal notranslate"><span class="pre">AntennaArray.gen_uvw_fast()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.AntennaArray.get_baseline_fast"><code class="docutils literal notranslate"><span class="pre">AntennaArray.get_baseline_fast()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.AntennaArray.get_stands"><code class="docutils literal notranslate"><span class="pre">AntennaArray.get_stands()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.AntennaArray.set_asp_filter"><code class="docutils literal notranslate"><span class="pre">AntennaArray.set_asp_filter()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.AntennaArray.set_unixtime"><code class="docutils literal notranslate"><span class="pre">AntennaArray.set_unixtime()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.AntennaArray.sim"><code class="docutils literal notranslate"><span class="pre">AntennaArray.sim()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.sim.vis.BeamAlm"><code class="docutils literal notranslate"><span class="pre">BeamAlm</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.sim.vis.BeamAlm.response"><code class="docutils literal notranslate"><span class="pre">BeamAlm.response()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.sim.vis.RadioEarthSatellite"><code class="docutils literal notranslate"><span class="pre">RadioEarthSatellite</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.sim.vis.RadioEarthSatellite.compute"><code class="docutils literal notranslate"><span class="pre">RadioEarthSatellite.compute()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.RadioEarthSatellite.get_crds"><code class="docutils literal notranslate"><span class="pre">RadioEarthSatellite.get_crds()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.RadioEarthSatellite.get_jys"><code class="docutils literal notranslate"><span class="pre">RadioEarthSatellite.get_jys()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.RadioEarthSatellite.update_jys"><code class="docutils literal notranslate"><span class="pre">RadioEarthSatellite.update_jys()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.sim.vis.SOURCES"><code class="docutils literal notranslate"><span class="pre">SOURCES</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.add_baseline_noise"><code class="docutils literal notranslate"><span class="pre">add_baseline_noise()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.build_sim_array"><code class="docutils literal notranslate"><span class="pre">build_sim_array()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.build_sim_data"><code class="docutils literal notranslate"><span class="pre">build_sim_data()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.scale_data"><code class="docutils literal notranslate"><span class="pre">scale_data()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.vis.shift_data"><code class="docutils literal notranslate"><span class="pre">shift_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="beamformer.html"
+                          title="previous chapter">Post-Acquisition Beam Forming</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="config.html"
+                          title="next chapter">LSL Configuration Manager</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/fakedata.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="LSL Configuration Manager"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="beamformer.html" title="Post-Acquisition Beam Forming"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Fake Data</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

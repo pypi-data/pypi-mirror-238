@@ -1,0 +1,1057 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Imaging &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Post-Acquisition Beam Forming" href="beamformer.html" />
+    <link rel="prev" title="Correlation" href="correlator.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="beamformer.html" title="Post-Acquisition Beam Forming"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="correlator.html" title="Correlation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Imaging</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="imaging">
+<h1>Imaging<a class="headerlink" href="#imaging" title="Permalink to this heading">¶</a></h1>
+<section id="module-lsl.imaging.data">
+<span id="data-representation"></span><h2>Data Representation<a class="headerlink" href="#module-lsl.imaging.data" title="Permalink to this heading">¶</a></h2>
+<p>Classes to hold visibility data that are used internally with LSL.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.imaging.data.PolarizationDataSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.imaging.data.</span></span><span class="sig-name descname"><span class="pre">PolarizationDataSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polarization</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.PolarizationDataSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold the visibility data/weight/mask for a single polarization.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.PolarizationDataSet.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.PolarizationDataSet.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a new visibility to the object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.PolarizationDataSet.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.PolarizationDataSet.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of the object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.PolarizationDataSet.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.PolarizationDataSet.extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extend the object with a collection of visibilites.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.data.PolarizationDataSet.nbaseline">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nbaseline</span></span><a class="headerlink" href="#lsl.imaging.data.PolarizationDataSet.nbaseline" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of baselines contained in the data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.PolarizationDataSet.sort">
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.PolarizationDataSet.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the specified ordering on the object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.PolarizationDataSet.subset">
+<span class="sig-name descname"><span class="pre">subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selection</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.PolarizationDataSet.subset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a subset of the data.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.imaging.data.</span></span><span class="sig-name descname"><span class="pre">VisibilityData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold multiple integrations of visibility data.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a new integration stored as a VisibilityDataSet to the object.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.baselines">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">baselines</span></span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.baselines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list baselines contained in the first VisbilityDataSet object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_pols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of the object.  Be default this includes copies of all 
+of the associated PolarizationDataSet objects stored in the individual
+VisibilityDataSet sets.  Setting ‘include_pols’ to False will not copy 
+these objects.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a collection of new integration stored as VisibilityDataSet to 
+the objects.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.freq">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">freq</span></span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.freq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list polarizations contained in the first VisbilityDataSet object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.get_antenna_subset">
+<span class="sig-name descname"><span class="pre">get_antenna_subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indicies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.get_antenna_subset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of the data containing baselines that meet the specified
+antenna selection criteria.  The selection is governed by the ‘include’, 
+‘exclude’, and ‘indicies’ keywords.  If ‘include’ is not None, only 
+baselines containing antennas in the list are selected.  If ‘exclude’ 
+is not None, only baselines not containing antennas in the list are 
+selected.  If both ‘include’ and ‘exclude’ are provided, the ‘include’ 
+list has priority.  ‘indicies’ sets whether or not the selection 
+criteria are provided as indicies of the antennas stored in the 
+antennaarray attribute or are stand numbers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.get_uv_range">
+<span class="sig-name descname"><span class="pre">get_uv_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_uv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_uv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.get_uv_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of the data containing only baselines with the (u,v)
+distances allowed by the ‘min_uv’ and ‘max_uv’ cuts.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.jds">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">jds</span></span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.jds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of JDs for all VisibilityDataSets contained.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.mjds">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mjds</span></span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.mjds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of MJDs for all VisibilityDataSets contained.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.nbaseline">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nbaseline</span></span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.nbaseline" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of baselines contained in the first VisbilityDataSet object.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.nchan">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nchan</span></span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.nchan" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of frequency channels contained in the first VisbilityDataSet object.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.npol">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">npol</span></span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.npol" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of polarizations contained in the first VisbilityDataSet object.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.pols">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pols</span></span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.pols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list polarizations contained in the first VisbilityDataSet object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pop and return the VisibilityDataSet specified by the provided index.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.rephase">
+<span class="sig-name descname"><span class="pre">rephase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_phase_center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.rephase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shift the phase center for all of the integrations stored.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityData.sort">
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityData.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort the VisibilityDataSet objects contained by the JD of the 
+integrations.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityDataSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.imaging.data.</span></span><span class="sig-name descname"><span class="pre">VisibilityDataSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baselines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uvw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennaarray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityDataSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to wrap a single integration of visibility data.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityDataSet.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityDataSet.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a new PolarizationDataSet object.  If the polarization already
+exists it is replaced.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityDataSet.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_pols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityDataSet.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of the object.  Be default this includes copies of all 
+of the associated PolarizationDataSet objects.  Setting ‘include_pols’
+to False will not copy these objects.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityDataSet.get_antenna_subset">
+<span class="sig-name descname"><span class="pre">get_antenna_subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indicies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityDataSet.get_antenna_subset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of the data containing baselines that meet the specified
+antenna selection criteria.  The selection is governed by the ‘include’, 
+‘exclude’, and ‘indicies’ keywords.  If ‘include’ is not None, only 
+baselines containing antennas in the list are selected.  If ‘exclude’ 
+is not None, only baselines not containing antennas in the list are 
+selected.  If both ‘include’ and ‘exclude’ are provided, the ‘include’ 
+list has priority.  ‘indicies’ sets whether or not the selection 
+criteria are provided as indicies of the antennas stored in the 
+antennaarray attribute or are stand numbers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityDataSet.get_uv_range">
+<span class="sig-name descname"><span class="pre">get_uv_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_uv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_uv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityDataSet.get_uv_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of the data containing only baselines with the (u,v)
+distances allowed by the ‘min_uv’ and ‘max_uv’ cuts.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityDataSet.mjd">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mjd</span></span><a class="headerlink" href="#lsl.imaging.data.VisibilityDataSet.mjd" title="Permalink to this definition">¶</a></dt>
+<dd><p>The MJD that the data correspond to.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityDataSet.nbaseline">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nbaseline</span></span><a class="headerlink" href="#lsl.imaging.data.VisibilityDataSet.nbaseline" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of baselines in the data.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityDataSet.nchan">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nchan</span></span><a class="headerlink" href="#lsl.imaging.data.VisibilityDataSet.nchan" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of frequency channels in the data.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityDataSet.npol">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">npol</span></span><a class="headerlink" href="#lsl.imaging.data.VisibilityDataSet.npol" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of polarizations stored.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityDataSet.rephase">
+<span class="sig-name descname"><span class="pre">rephase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_phase_center</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityDataSet.rephase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shift the phase center of the data to a new phase center.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.data.VisibilityDataSet.sort">
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.data.VisibilityDataSet.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort the stored data using the order provided in the ‘order’ keyword.
+If not ordering is provided, the data are sorted by baseline pair.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="id1">
+<h2>Imaging<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<span class="target" id="module-lsl.imaging.utils"></span><p>Module to support imaging correlated data.  This module provides utilities to 
+read FITS IDI files into <a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet" title="lsl.imaging.data.VisibilityDataSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityDataSet</span></code></a> or 
+<a class="reference internal" href="#lsl.imaging.data.VisibilityData" title="lsl.imaging.data.VisibilityData"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityData</span></code></a> object (as described in 
+<a class="reference internal" href="#module-lsl.imaging.data" title="lsl.imaging.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.imaging.data</span></code></a>) and build AIPY ImgW instances from the data.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.5.0.</span></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.0: </span>Added support for UVFITS files and CASA measurement sets</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.1: </span>Added the plot_gridded_image() function</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.1.0: </span>Added the get_image_radec() and get_image_azalt() functions to complement
+plot_gridded_image() and make it easier to work with phase centers 
+that are not at zenith.  Added in the ImgWPlus class to add support
+for imaging weighting and tapering.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.1.2: </span>Added support for CASA MeasurementSets that are stored as a tarball</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.1.4: </span>Fixed a conjugation problem in the visibilities read from a FITS-IDI file</p>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.utils.CorrelatedData">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.utils.</span></span><span class="sig-name descname"><span class="pre">CorrelatedData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.CorrelatedData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read in and work with FITS IDI and UVFITS files.  Returns either a 
+CorrelateDataIDI or CorrelatedDataUV instance.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.imaging.utils.CorrelatedDataIDI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.imaging.utils.</span></span><span class="sig-name descname"><span class="pre">CorrelatedDataIDI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.CorrelatedDataIDI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to make accessing information about a FITS IDI easy.  This wraps 
+all of the “messy” machinery needed to extract both the metadata and data 
+from the file and return them as common LSL objects.</p>
+<dl class="simple">
+<dt>This class has three main attributes to interact with:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>get_antennaarray - Return a <code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.sim.vim.AntennaArray</span></code> instance</dt><dd><p>that represents the array where the data was obtained.
+This is useful for simulation proposes and computing 
+source positions.</p>
+</dd>
+</dl>
+</li>
+<li><p>get_observer - Return a ephem.Observer instance representing the array</p></li>
+<li><dl class="simple">
+<dt>get_data_set - Return a <a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet" title="lsl.imaging.data.VisibilityDataSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityDataSet</span></code></a> or </dt><dd><p><a class="reference internal" href="#lsl.imaging.data.VisibilityData" title="lsl.imaging.data.VisibilityData"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityData</span></code></a> object for all 
+baselines for a given set of observations</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>The class also includes a variety of useful metadata attributes:</dt><dd><ul class="simple">
+<li><p>pols - Numpy array of polarization product codes</p></li>
+<li><p>freq - Numpy array of frequency channels in Hz</p></li>
+<li><dl class="simple">
+<dt>station - LSL <a class="reference internal" href="station.html#lsl.common.stations.LWAStation" title="lsl.common.stations.LWAStation"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.common.stations.LWAStation</span></code></a> instance for the</dt><dd><p>array</p>
+</dd>
+</dl>
+</li>
+<li><p>date_obs - Datetime object for the reference date of the FIT IDI file</p></li>
+<li><p>antennas - List of <a class="reference internal" href="station.html#lsl.common.stations.Antenna" title="lsl.common.stations.Antenna"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.common.stations.Antenna</span></code></a> instances</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The CorrelatedData.antennas attribute should be used over 
+CorrelatedData.station.antennas since the mapping in the FITS IDI
+file may not be the same as the digitizer order.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.utils.CorrelatedDataIDI.get_data_set">
+<span class="sig-name descname"><span class="pre">get_data_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_auto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_uv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_uv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.CorrelatedDataIDI.get_data_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet" title="lsl.imaging.data.VisibilityDataSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityDataSet</span></code></a> or 
+<a class="reference internal" href="#lsl.imaging.data.VisibilityData" title="lsl.imaging.data.VisibilityData"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityData</span></code></a> object for all 
+baselines for a given set of observations for the specified data set.  
+By default this excludes the autocorrelations.  To include 
+autocorrelations set the value of ‘include_auto’ to True.  Setting the
+‘sort’ keyword to False will disable the baseline sorting.  Optionally,
+baselines with lengths between min_uv and max_uv can only be returned.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>min_uv and max_uv should be specified in lambda</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.1.0: </span>‘set’ can now be either an integer or a list to pull back multiple 
+integrations.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.imaging.utils.CorrelatedDataMS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.imaging.utils.</span></span><span class="sig-name descname"><span class="pre">CorrelatedDataMS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.CorrelatedDataMS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to make accessing information about a MS easy.  This wraps 
+all of the “messy” machinery needed to extract both the metadata and data 
+from the file and return them as common LSL objects.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.imaging.utils.CorrelatedDataUV">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.imaging.utils.</span></span><span class="sig-name descname"><span class="pre">CorrelatedDataUV</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.CorrelatedDataUV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to make accessing information about a UVFITS file easy.  This wraps 
+all of the “messy” machinery needed to extract both the metadata and data 
+from the file and return them as common LSL objects.</p>
+<dl class="simple">
+<dt>This class has three main attributes to interact with:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>get_antennaarray - Return a <code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.sim.vim.AntennaArray</span></code> instance</dt><dd><p>that represents the array where the data was obtained.
+This is useful for simulation proposes and computing 
+source positions.</p>
+</dd>
+</dl>
+</li>
+<li><p>get_observer - Return a ephem.Observer instance representing the array</p></li>
+<li><dl class="simple">
+<dt>get_data_set - Return a <a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet" title="lsl.imaging.data.VisibilityDataSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityDataSet</span></code></a> or </dt><dd><p><a class="reference internal" href="#lsl.imaging.data.VisibilityData" title="lsl.imaging.data.VisibilityData"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityData</span></code></a> object of all 
+baselines for a given set of observations</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>The class also includes a variety of useful metadata attributes:</dt><dd><ul class="simple">
+<li><p>pols - Numpy array of polarization product codes</p></li>
+<li><p>freq - Numpy array of frequency channels in Hz</p></li>
+<li><dl class="simple">
+<dt>station - LSL <a class="reference internal" href="station.html#lsl.common.stations.LWAStation" title="lsl.common.stations.LWAStation"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.common.stations.LWAStation</span></code></a> instance for the</dt><dd><p>array</p>
+</dd>
+</dl>
+</li>
+<li><p>date_obs - Datetime object for the reference date of the FIT IDI file</p></li>
+<li><p>antennas - List of <a class="reference internal" href="station.html#lsl.common.stations.Antenna" title="lsl.common.stations.Antenna"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.common.stations.Antenna</span></code></a> instances</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The CorrelatedDataUV.antennas attribute should be used over 
+CorrelatedDataUV.station.antennas since the mapping in the UVFITS
+file may not be the same as the digitizer order.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.utils.CorrelatedDataUV.get_data_set">
+<span class="sig-name descname"><span class="pre">get_data_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_auto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_uv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_uv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.CorrelatedDataUV.get_data_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet" title="lsl.imaging.data.VisibilityDataSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityDataSet</span></code></a> or 
+<a class="reference internal" href="#lsl.imaging.data.VisibilityData" title="lsl.imaging.data.VisibilityData"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityData</span></code></a> object for the specified data set.  
+By default this excludes the autocorrelations.  To include 
+autocorrelations set the value of ‘include_auto’ to True.  Setting the
+‘sort’ keyword to False will disable the baseline sorting.  Optionally,
+baselines with lengths between min_uv and max_uv can only be returned.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>min_uv and max_uv should be specified in lambda</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.1.0: </span>‘set’ can now be either an integer or a list to pull back multiple 
+integrations.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.imaging.utils.ImgWPlus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.imaging.utils.</span></span><span class="sig-name descname"><span class="pre">ImgWPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wres</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mf_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.ImgWPlus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of the aipy.img.ImgW class that adds support for different 
+visibility weighting scheme and uv plane tapering.  This class also
+adds in a couple of additional methods that help determine the size of
+the field of view and the pixels near the phase center.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.utils.ImgWPlus.bm_image">
+<span class="sig-name descname"><span class="pre">bm_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">term</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'natural'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">robust</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.ImgWPlus.bm_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the inverse FFT of the sample weightings (for all mf_order
+terms, or the specified term if supplied), with the 0,0 point
+moved to ‘center’.  In the images return north is up and east is 
+to the left.</p>
+<p>There are a few keywords that control how the image is formed.  
+There are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>weighting - The weighting scheme (‘natural’, ‘uniform’, or </dt><dd><p>‘briggs’) used on the data;</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>local_fraction - The fraction of the uv grid that is consider </dt><dd><p>“local” for the ‘uniform’ and ‘briggs’ methods;</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>robust - The value for the weighting robustness under the </dt><dd><p>‘briggs’ method; and</p>
+</dd>
+</dl>
+</li>
+<li><p>taper - The size of u and v Gaussian tapers at the 30% level.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.utils.ImgWPlus.field_of_view">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">field_of_view</span></span><a class="headerlink" href="#lsl.imaging.utils.ImgWPlus.field_of_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the approximate size of the field of view in radians.  The 
+field of view calculate is based off the maximum and minimum values
+of L found for the inverted uv matrix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.utils.ImgWPlus.image">
+<span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'natural'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">robust</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.ImgWPlus.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the inverse FFT of the UV matrix, with the 0,0 point moved
+to ‘center’.  In the images return north is up and east is 
+to the left.</p>
+<p>There are a few keywords that control how the image is formed.  
+There are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>weighting - The weighting scheme (‘natural’, ‘uniform’, or </dt><dd><p>‘briggs’) used on the data;</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>local_fraction - The fraction of the uv grid that is consider </dt><dd><p>“local” for the ‘uniform’ and ‘briggs’ methods;</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>robust - The value for the weighting robustness under the </dt><dd><p>‘briggs’ method; and</p>
+</dd>
+</dl>
+</li>
+<li><p>taper - The size of u and v Gaussian tapers at the 30% level.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.imaging.utils.ImgWPlus.pixel_size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pixel_size</span></span><a class="headerlink" href="#lsl.imaging.utils.ImgWPlus.pixel_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the approximate size of pixels at the phase center in radians.
+The pixel size is averaged over the four pixels that neighboor the 
+phase center.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.imaging.utils.ImgWPlus.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uvw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wgts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invker2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.ImgWPlus.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as Img.put, only now the w component is projected to the w=0
+plane before applying the data to the UV matrix.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.utils.build_gridded_image">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.utils.</span></span><span class="sig-name descname"><span class="pre">build_gridded_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_set</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wres</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'XX'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">im</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.build_gridded_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a <a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet" title="lsl.imaging.data.VisibilityDataSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityDataSet</span></code></a> object, build an aipy.img.ImgW 
+object of gridded uv data which can be used for imaging.  The ImgW object 
+itself is returned by this function to make it more versatile.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.utils.get_image_azalt">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.utils.</span></span><span class="sig-name descname"><span class="pre">get_image_azalt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gimg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shifted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.get_image_azalt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a gridded image generated by the build_gridded_image() function
+and an AntennaArray instance, return a two-element tuple containing
+the azimuth and elevation (altitude), both in radians, for each pixel
+in the image.</p>
+<p>The ‘phase_center’ keyword controls what the phase center of the image 
+is and defaults to zenith.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.utils.get_image_radec">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.utils.</span></span><span class="sig-name descname"><span class="pre">get_image_radec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gimg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shifted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.get_image_radec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a gridded image generated by the build_gridded_image() function
+and an AntennaArray instance, return a two-element tuple containing
+the RA and dec. values (in radians) for each pixel in the image.</p>
+<p>The ‘phase_center’ keyword controls what the phase center of the image 
+is and defaults to zenith.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.utils.plot_gridded_image">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.utils.</span></span><span class="sig-name descname"><span class="pre">plot_gridded_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gimg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shifted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lower'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nearest'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.utils.plot_gridded_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a blank matplotlib axes instance and a gridded image generated by 
+the build_gridded_image() function, plot the image on the axes and setup
+the basic coordinate system.  This function returns the matplotlib object
+added to the plot</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.1: </span>Changed the function to return the matplotlib object plotted so
+that colorbars can be added</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.1.0: </span>Added a ‘shifted’ keyword to control whether or not the image
+is centered or not.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.0.1.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-lsl.imaging.overlay">
+<span id="plot-overlays"></span><h2>Plot Overlays<a class="headerlink" href="#module-lsl.imaging.overlay" title="Permalink to this heading">¶</a></h2>
+<p>Module that provides a variety of overlays for all-sky images.  These overlays
+include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>the locations and names of sources,</p></li>
+<li><p>the horizon,</p></li>
+<li><p>a graticle showing lines of constant RA and dec., and</p></li>
+<li><p>a graticle showing lines of constant azimuth and elevation.</p></li>
+</ul>
+</div></blockquote>
+<p>All of the functions in this module accept a matplotlib axes instances that 
+is used for plotting.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.0.1.</span></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.1.0: </span>Added support for overlaying on images with non-zenith phase centers</p>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.overlay.graticule_azalt">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.overlay.</span></span><span class="sig-name descname"><span class="pre">graticule_azalt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennaarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'white'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.overlay.graticule_azalt" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a matplotlib axis instance showing an image of the sky, plot lines of
+constant azimuth and elevation.  Elevations are spaced at 20 degree intervals
+and azimuths are spaced at 45 degree intervals</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.overlay.graticule_radec">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.overlay.</span></span><span class="sig-name descname"><span class="pre">graticule_radec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennaarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'white'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.overlay.graticule_radec" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a matplotlib axis instance showing an image of the sky, plot lines of
+constant declinate and RA.  Declinations are spaced at 20 degree intervals
+and RAs are spaced at 2 hour intervals.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.overlay.horizon">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.overlay.</span></span><span class="sig-name descname"><span class="pre">horizon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennaarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'white'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.overlay.horizon" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a matplotlib axis instance showing an image of the sky, plot the horizon.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.1.0: </span>Added a new argument for the AntennaArray instance to provide a 
+uniform default call for all functions.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.overlay.sources">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.overlay.</span></span><span class="sig-name descname"><span class="pre">sources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennaarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'white'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.overlay.sources" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a matplotlib axis instance showing an image of the sky, plot the
+locations of the srcs given in the ‘srcs’ dictionary.</p>
+</dd></dl>
+
+</section>
+<section id="module-lsl.imaging.analysis">
+<span id="basic-image-analysis"></span><h2>Basic Image Analysis<a class="headerlink" href="#module-lsl.imaging.analysis" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Module for analyzing images.  Currently, this module supports:</dt><dd><ul class="simple">
+<li><p>estimating the position-dependent background level in the image</p></li>
+<li><p>finding point sources</p></li>
+</ul>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.1.0.</span></p>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.analysis.estimate_background">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.analysis.</span></span><span class="sig-name descname"><span class="pre">estimate_background</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.analysis.estimate_background" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a 2-D image, estimate and return the background a la SExtractor.</p>
+<dl>
+<dt>This works by:</dt><dd><ol class="arabic">
+<li><p>Dividing the image into a number of half-overlapped tiles that are
+‘window’ by ‘window’ pixels in size.</p></li>
+<li><p>Computing the mean and standard deviation within the tile both
+with and without 3*sigma clipping applied.</p></li>
+<li><p>Using the tile statistics, determine if the tile is empty, i.e.,
+the standard deviation has changed by less than 20%, or full.</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>If the tile is empty, use the clipped mean for the background.</p></li>
+<li><p>Otherwise, use 2.5*median - 1.5*mean.</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Once all of the tiles have been processes, median filter them to 
+remove those that are anomalously high.</p></li>
+<li><p>Build a bicubic spline to interpolate the background back to the
+original image size.</p></li>
+<li><p>Evaluate the spline and return.</p></li>
+</ol>
+</dd>
+<dt>For more information on the SExtractor method, see:</dt><dd><ul class="simple">
+<li><p>Bertin &amp; Arnouts (1996, AApS, 317, 393)</p></li>
+<li><p><a class="reference external" href="https://www.astromatic.net/pubsvn/software/sextractor/trunk/doc/sextractor.pdf">https://www.astromatic.net/pubsvn/software/sextractor/trunk/doc/sextractor.pdf</a></p></li>
+<li><p><a class="reference external" href="http://www.astr.tohoku.ac.jp/~akhlaghi/sextractor_notes.html">http://www.astr.tohoku.ac.jp/~akhlaghi/sextractor_notes.html</a></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.analysis.find_point_sources">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.analysis.</span></span><span class="sig-name descname"><span class="pre">find_point_sources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fwhm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sharp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.2,</span> <span class="pre">1.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[-1.0,</span> <span class="pre">1.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.analysis.find_point_sources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a 2-D image, find all of the point sources in it that meet the
+selection criteria provided via the keywords.  These are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>threshold: detection threshold in counts about the background</p></li>
+<li><p>fwhm: source full width half max. in pixel</p></li>
+<li><dl class="simple">
+<dt>sharp: two-element array that defines the lower and upper bounds</dt><dd><p>on the source sharpness</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>round: two-element array that defines the lower and upper bounds</dt><dd><p>on the source roundness</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>Background estimation and removal is handled by the estimate_background()
+function in this module that implements a SExtractor-like method.  This
+can be disabled by setting the ‘background_size’ keyword to 0.  For 
+details see <a class="reference internal" href="#lsl.imaging.analysis.estimate_background" title="lsl.imaging.analysis.estimate_background"><code class="xref py py-func docutils literal notranslate"><span class="pre">lsl.imaging.analysis.estimate_background()</span></code></a>.</p>
+<p>The output of this function is a five-element tuple of 1-D NumPy arrays
+that store information for each source.  The elements are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>x: intensity-weighted center - x coordinate</p></li>
+<li><p>y: intensity-weighted center - y coordinate</p></li>
+<li><p>flux: peak count value - input image units</p></li>
+<li><p>sharpness: sharpness statistic</p></li>
+<li><p>roundness: roundness statistic</p></li>
+</ul>
+</div></blockquote>
+<p>This function is based on the FIND procedure from the AstroIDL User’s
+Library that was written by W. Landsman (Hughes STX).</p>
+<p>For additional information about the original IDL routines, see:
+<a class="reference external" href="http://idlastro.gsfc.nasa.gov/contents.html#C2">http://idlastro.gsfc.nasa.gov/contents.html#C2</a></p>
+</dd></dl>
+
+</section>
+<section id="module-lsl.imaging.selfcal">
+<span id="self-calibration"></span><h2>Self-Calibration<a class="headerlink" href="#module-lsl.imaging.selfcal" title="Permalink to this heading">¶</a></h2>
+<p>Simple self-calibration module for correlated TBW and TBN data.  The 
+supported self-calibration methods are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>phase-only</p></li>
+<li><p>amplitude and phase</p></li>
+<li><p>delay-only</p></li>
+<li><p>amplitude and delay</p></li>
+<li><p>delay/phase offset</p></li>
+<li><p>amplitude and delay/phase offset</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>..versionchanged:: 0.6.3</dt><dd><p>Reworked the module to make it more versatile</p>
+</dd>
+</dl>
+<p>..versionadded:: 0.5.5</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.selfcal.delay_and_phase">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.selfcal.</span></span><span class="sig-name descname"><span class="pre">delay_and_phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataSet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simSet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_ant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.selfcal.delay_and_phase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to apply a delay and phase offset (and, optionally, a amplitude)
+self-calibration to data stored in a readUVData dictionary and a model 
+sky stored in a lsl.sim.vis.buildSimSky dictionary for the given 
+polarization and channel(s).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the “amplitude” keyword is set to True, a four-element tuple of 
+self-cal’d data, gain coefficients, delays in ns, and phase offsets 
+is returned rather than the standard three-element tuple.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.selfcal.delay_only">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.selfcal.</span></span><span class="sig-name descname"><span class="pre">delay_only</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataSet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simSet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_ant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.selfcal.delay_only" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to apply a delay-only (and, optionally, a amplitude) self-
+calibration to data stored in a readUVData dictionary and a model sky 
+stored in a lsl.sim.vis.buildSimSky dictionary for the given 
+polarization and channel(s).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the “amplitude” keyword is set to True, a three-element tuple of 
+self-cal’d data, gain coefficients, and delays in ns is returned rather 
+than the standard two-element tuple.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.selfcal.phase_only">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.selfcal.</span></span><span class="sig-name descname"><span class="pre">phase_only</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataSet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simSet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_ant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.selfcal.phase_only" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to apply a phase-only (and, optionally, a amplitude) self-
+calibration to data stored in a readUVData dictionary and a model sky 
+stored in a lsl.sim.vis.buildSimSky dictionary for the given 
+polarization and channel(s).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the “amplitude” keyword is set to True, a three-element tuple of 
+self-cal’d data, gain coefficients, and phase offsets is returned 
+rather than the standard two-element tuple.</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-lsl.imaging.deconv">
+<span id="deconvolution"></span><h2>Deconvolution<a class="headerlink" href="#module-lsl.imaging.deconv" title="Permalink to this heading">¶</a></h2>
+<p>Deconvolution support for images made with <a class="reference internal" href="#lsl.imaging.utils.build_gridded_image" title="lsl.imaging.utils.build_gridded_image"><code class="xref py py-func docutils literal notranslate"><span class="pre">lsl.imaging.utils.build_gridded_image()</span></code></a>.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.deconv.clean">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.deconv.</span></span><span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aipyImg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_image</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wres</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'XX'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">150</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.deconv.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a AIPY antenna array instance, a data dictionary, and an AIPY ImgW 
+instance filled with data, return a deconvolved image.  This function 
+uses a CLEAN-like method that computes the array beam for each peak in 
+the flux.  Thus the CLEAN loop becomes:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Find the peak flux in the residual image</p></li>
+<li><p>Compute the systems response to a point source at that location</p></li>
+<li><p>Remove the scaled porition of this beam from the residuals</p></li>
+<li><p>Go to 1.</p></li>
+</ol>
+</div></blockquote>
+<dl class="simple">
+<dt>CLEAN tuning parameters:</dt><dd><ul class="simple">
+<li><p>gain - CLEAN loop gain (default 0.2)</p></li>
+<li><p>max_iter - Maximum number of iterations (default 150)</p></li>
+<li><p>sigma - Threshold in sigma to stop cleaning (default 3.0)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.deconv.clean_sources">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.deconv.</span></span><span class="sig-name descname"><span class="pre">clean_sources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aipyImg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_image</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wres</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'XX'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">150</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.deconv.clean_sources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a AIPY antenna array instance, a data dictionary, an AIPY ImgW 
+instance filled with data, and a dictionary of sources, return the CLEAN
+components and the residuals map.  This function uses a CLEAN-like method
+that computes the array beam for each peak in the flux.  Thus the CLEAN 
+loop becomes:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Find the peak flux in the residual image</p></li>
+<li><p>Compute the systems response to a point source at that location</p></li>
+<li><p>Remove the scaled porition of this beam from the residuals</p></li>
+<li><p>Go to 1.</p></li>
+</ol>
+</div></blockquote>
+<p>This function differs from clean() in that it only cleans localized 
+regions around each source rather than the whole image.  This is
+intended to help the mem() function along.</p>
+<dl class="simple">
+<dt>CLEAN tuning parameters:</dt><dd><ul class="simple">
+<li><p>gain - CLEAN loop gain (default 0.1)</p></li>
+<li><p>max_iter - Maximum number of iterations (default 150)</p></li>
+<li><p>sigma - Threshold in sigma to stop cleaning (default 2.0)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.imaging.deconv.lsq">
+<span class="sig-prename descclassname"><span class="pre">lsl.imaging.deconv.</span></span><span class="sig-name descname"><span class="pre">lsq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aipyImg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_image</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wres</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'XX'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">150</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.imaging.deconv.lsq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a AIPY antenna array instance, a data dictionary, and an AIPY ImgW 
+instance filled with data, return a deconvolved image.  This function 
+implements a least squares deconvolution.</p>
+<dl class="simple">
+<dt>Least squares tuning parameters:</dt><dd><ul class="simple">
+<li><p>gain - least squares loop gain (default 0.05)</p></li>
+<li><p>max_iter - Maximum number of iteration (default 150)</p></li>
+<li><dl class="simple">
+<dt>rtol - Minimum change in the residual RMS between iterations</dt><dd><p>(default 1e-9)</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Imaging</a><ul>
+<li><a class="reference internal" href="#module-lsl.imaging.data">Data Representation</a><ul>
+<li><a class="reference internal" href="#lsl.imaging.data.PolarizationDataSet"><code class="docutils literal notranslate"><span class="pre">PolarizationDataSet</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.imaging.data.PolarizationDataSet.append"><code class="docutils literal notranslate"><span class="pre">PolarizationDataSet.append()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.PolarizationDataSet.copy"><code class="docutils literal notranslate"><span class="pre">PolarizationDataSet.copy()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.PolarizationDataSet.extend"><code class="docutils literal notranslate"><span class="pre">PolarizationDataSet.extend()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.PolarizationDataSet.nbaseline"><code class="docutils literal notranslate"><span class="pre">PolarizationDataSet.nbaseline</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.PolarizationDataSet.sort"><code class="docutils literal notranslate"><span class="pre">PolarizationDataSet.sort()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.PolarizationDataSet.subset"><code class="docutils literal notranslate"><span class="pre">PolarizationDataSet.subset()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData"><code class="docutils literal notranslate"><span class="pre">VisibilityData</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.append"><code class="docutils literal notranslate"><span class="pre">VisibilityData.append()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.baselines"><code class="docutils literal notranslate"><span class="pre">VisibilityData.baselines</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.copy"><code class="docutils literal notranslate"><span class="pre">VisibilityData.copy()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.extend"><code class="docutils literal notranslate"><span class="pre">VisibilityData.extend()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.freq"><code class="docutils literal notranslate"><span class="pre">VisibilityData.freq</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.get_antenna_subset"><code class="docutils literal notranslate"><span class="pre">VisibilityData.get_antenna_subset()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.get_uv_range"><code class="docutils literal notranslate"><span class="pre">VisibilityData.get_uv_range()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.jds"><code class="docutils literal notranslate"><span class="pre">VisibilityData.jds</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.mjds"><code class="docutils literal notranslate"><span class="pre">VisibilityData.mjds</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.nbaseline"><code class="docutils literal notranslate"><span class="pre">VisibilityData.nbaseline</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.nchan"><code class="docutils literal notranslate"><span class="pre">VisibilityData.nchan</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.npol"><code class="docutils literal notranslate"><span class="pre">VisibilityData.npol</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.pols"><code class="docutils literal notranslate"><span class="pre">VisibilityData.pols</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.pop"><code class="docutils literal notranslate"><span class="pre">VisibilityData.pop()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.rephase"><code class="docutils literal notranslate"><span class="pre">VisibilityData.rephase()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityData.sort"><code class="docutils literal notranslate"><span class="pre">VisibilityData.sort()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet"><code class="docutils literal notranslate"><span class="pre">VisibilityDataSet</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet.append"><code class="docutils literal notranslate"><span class="pre">VisibilityDataSet.append()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet.copy"><code class="docutils literal notranslate"><span class="pre">VisibilityDataSet.copy()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet.get_antenna_subset"><code class="docutils literal notranslate"><span class="pre">VisibilityDataSet.get_antenna_subset()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet.get_uv_range"><code class="docutils literal notranslate"><span class="pre">VisibilityDataSet.get_uv_range()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet.mjd"><code class="docutils literal notranslate"><span class="pre">VisibilityDataSet.mjd</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet.nbaseline"><code class="docutils literal notranslate"><span class="pre">VisibilityDataSet.nbaseline</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet.nchan"><code class="docutils literal notranslate"><span class="pre">VisibilityDataSet.nchan</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet.npol"><code class="docutils literal notranslate"><span class="pre">VisibilityDataSet.npol</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet.rephase"><code class="docutils literal notranslate"><span class="pre">VisibilityDataSet.rephase()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.data.VisibilityDataSet.sort"><code class="docutils literal notranslate"><span class="pre">VisibilityDataSet.sort()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">Imaging</a><ul>
+<li><a class="reference internal" href="#lsl.imaging.utils.CorrelatedData"><code class="docutils literal notranslate"><span class="pre">CorrelatedData()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.utils.CorrelatedDataIDI"><code class="docutils literal notranslate"><span class="pre">CorrelatedDataIDI</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.imaging.utils.CorrelatedDataIDI.get_data_set"><code class="docutils literal notranslate"><span class="pre">CorrelatedDataIDI.get_data_set()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.imaging.utils.CorrelatedDataMS"><code class="docutils literal notranslate"><span class="pre">CorrelatedDataMS</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.utils.CorrelatedDataUV"><code class="docutils literal notranslate"><span class="pre">CorrelatedDataUV</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.imaging.utils.CorrelatedDataUV.get_data_set"><code class="docutils literal notranslate"><span class="pre">CorrelatedDataUV.get_data_set()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.imaging.utils.ImgWPlus"><code class="docutils literal notranslate"><span class="pre">ImgWPlus</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.imaging.utils.ImgWPlus.bm_image"><code class="docutils literal notranslate"><span class="pre">ImgWPlus.bm_image()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.utils.ImgWPlus.field_of_view"><code class="docutils literal notranslate"><span class="pre">ImgWPlus.field_of_view</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.utils.ImgWPlus.image"><code class="docutils literal notranslate"><span class="pre">ImgWPlus.image()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.utils.ImgWPlus.pixel_size"><code class="docutils literal notranslate"><span class="pre">ImgWPlus.pixel_size</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.utils.ImgWPlus.put"><code class="docutils literal notranslate"><span class="pre">ImgWPlus.put()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.imaging.utils.build_gridded_image"><code class="docutils literal notranslate"><span class="pre">build_gridded_image()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.utils.get_image_azalt"><code class="docutils literal notranslate"><span class="pre">get_image_azalt()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.utils.get_image_radec"><code class="docutils literal notranslate"><span class="pre">get_image_radec()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.utils.plot_gridded_image"><code class="docutils literal notranslate"><span class="pre">plot_gridded_image()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-lsl.imaging.overlay">Plot Overlays</a><ul>
+<li><a class="reference internal" href="#lsl.imaging.overlay.graticule_azalt"><code class="docutils literal notranslate"><span class="pre">graticule_azalt()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.overlay.graticule_radec"><code class="docutils literal notranslate"><span class="pre">graticule_radec()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.overlay.horizon"><code class="docutils literal notranslate"><span class="pre">horizon()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.overlay.sources"><code class="docutils literal notranslate"><span class="pre">sources()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-lsl.imaging.analysis">Basic Image Analysis</a><ul>
+<li><a class="reference internal" href="#lsl.imaging.analysis.estimate_background"><code class="docutils literal notranslate"><span class="pre">estimate_background()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.analysis.find_point_sources"><code class="docutils literal notranslate"><span class="pre">find_point_sources()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-lsl.imaging.selfcal">Self-Calibration</a><ul>
+<li><a class="reference internal" href="#lsl.imaging.selfcal.delay_and_phase"><code class="docutils literal notranslate"><span class="pre">delay_and_phase()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.selfcal.delay_only"><code class="docutils literal notranslate"><span class="pre">delay_only()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.selfcal.phase_only"><code class="docutils literal notranslate"><span class="pre">phase_only()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-lsl.imaging.deconv">Deconvolution</a><ul>
+<li><a class="reference internal" href="#lsl.imaging.deconv.clean"><code class="docutils literal notranslate"><span class="pre">clean()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.deconv.clean_sources"><code class="docutils literal notranslate"><span class="pre">clean_sources()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.imaging.deconv.lsq"><code class="docutils literal notranslate"><span class="pre">lsq()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="correlator.html"
+                          title="previous chapter">Correlation</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="beamformer.html"
+                          title="next chapter">Post-Acquisition Beam Forming</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/imaging.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="beamformer.html" title="Post-Acquisition Beam Forming"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="correlator.html" title="Correlation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Imaging</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

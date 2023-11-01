@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Math Utilities &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Robust Statistics" href="robust.html" />
+    <link rel="prev" title="Time and Position Transformation" href="transform.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="robust.html" title="Robust Statistics"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="transform.html" title="Time and Position Transformation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Math Utilities</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-lsl.misc.mathutils">
+<span id="math-utilities"></span><h1>Math Utilities<a class="headerlink" href="#module-lsl.misc.mathutils" title="Permalink to this heading">¶</a></h1>
+<p>Useful math functions for LWA work.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.cimag">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">cimag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmplx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.cimag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the imaginary rectilinear component from complex values
+expressed in polar form (magnitude, phase).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.cmagnitude">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">cmagnitude</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmplx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.cmagnitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the polar magnitudes of complex values.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.cphase">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">cphase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmplx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.cphase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the polar phases of complex values as radians.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.cpolar">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">cpolar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmplx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.cpolar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the polar (magnitude, phase) representation of complex
+values (real, imaginary).  The return value is an array of shape (N,2),
+where N is the length of the cmplx input array.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.creal">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">creal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmplx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.creal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the real rectilinear component from complex values
+expressed in polar form (magnitude, phase).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.crect">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">crect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmplx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.crect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the rectilinear (real, imaginary) representation of complex
+values (magnitude, phase).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.downsample">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">downsample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.downsample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downsample (i.e. co-add consecutive numbers) a vector by an integer 
+factor.  Trims the input timeseries to be a multiple of the downsample 
+factor, if needed.  If rescale == True, then divides each sum by factor 
+to produce a mean value, otherwise just adds the values in the vector.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.from_dB">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">from_dB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dB</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.from_dB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert from decibels to linear units.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.gaussian1d">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">gaussian1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.gaussian1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a function that generates a 1-D gaussian with the specified
+height, mean, and standard deviation.</p>
+<p>Example:
+&gt;&gt;&gt; height = 1
+&gt;&gt;&gt; center = 5.0
+&gt;&gt;&gt; width = 2.1
+&gt;&gt;&gt; gauFnc = guassian1d(height, center, width)
+&gt;&gt;&gt; value = gauFnc(numpy.arange(0, 100))</p>
+<p>Based on: <a class="reference external" href="http://code.google.com/p/agpy/source/browse/trunk/agpy/gaussfitter.py">http://code.google.com/p/agpy/source/browse/trunk/agpy/gaussfitter.py</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.gaussian2d">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">gaussian2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centerX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centerY</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widthMaj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widthMin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.gaussian2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a function that generates a 2-D gaussian with the specified 
+height, mean (for both X and Y), standard deviation (for both major and 
+minor axes), and rotation angle from the X axis in degrees.</p>
+<p>Based on: <a class="reference external" href="http://code.google.com/p/agpy/source/browse/trunk/agpy/gaussfitter.py">http://code.google.com/p/agpy/source/browse/trunk/agpy/gaussfitter.py</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.gaussparams">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">gaussparams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.gaussparams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the parameters (height, center, width) for a gaussian.  The 
+return order is:</p>
+<blockquote>
+<div><p>1-D: height, center, width
+2-D: height, center x, center y, width x, width y, position angle</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The 2-D fits always return a position angle of zero since the
+routine decomposes the process into two 1-D fits.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.ndft">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">ndft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.ndft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of times and a list of data values, compute a non-uniform 
+discrete Fourier transform (NDFT) of the data.  Returns a two element 
+tuple of frequency and the complex NDFT result.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.regrid">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">regrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_extrapolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spline'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.regrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Regrid data from x,y onto newx. If allow_extrapolation is True,
+extrapolation is attempted if the method supports it.  Supported
+methods are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>linear</p></li>
+<li><p>spline</p></li>
+</ul>
+</div></blockquote>
+<p>Use of this function may require the scipy extension package.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.smooth">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">smooth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hanning'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.smooth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smooth the data using a window with requested size.  Stolen from SciPy 
+Cookbook at <a class="reference external" href="http://www.scipy.org/Cookbook/SignalSmooth">http://www.scipy.org/Cookbook/SignalSmooth</a></p>
+<p>This method is based on the convolution of a scaled window with the signal.
+The signal is prepared by introducing reflected copies of the signal 
+(with the window size) in both ends so that transient parts are minimized
+in the begining and end part of the output signal.</p>
+<dl>
+<dt>Input:</dt><dd><ul class="simple">
+<li><p>x: the input signal</p></li>
+<li><p>window_len: the dimension of the smoothing window</p></li>
+<li><dl class="simple">
+<dt>window: the type of window from ‘flat’, ‘hanning’, ‘hamming’, </dt><dd><p>‘bartlett’, ‘blackman’ flat window will produce a moving 
+average smoothing.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>Output:</dt><dd><ul class="simple">
+<li><p>the smoothed signal</p></li>
+</ul>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">=</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span><span class="o">*</span><span class="mf">0.1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">=</span><span class="n">smooth</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>numpy.hanning, numpy.hamming, numpy.bartlett, numpy.blackman, numpy.convolve
+scipy.signal.lfilter</p>
+</div>
+<p>TODO: the window parameter could be the window itself if an array instead of a string</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.sphfit">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">sphfit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">az</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degrees</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.sphfit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decompose a spherical or semi-spherical data set into spherical harmonics.</p>
+<dl class="simple">
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>az: 2-D numpy array of azimuth coordinates in radians or degrees if the </dt><dd><p><cite>degrees</cite> keyword is set</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>alt: 2-D numpy array of altitude coordinates in radian or degrees if the </dt><dd><p><cite>degrees</cite> keyword is set</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>data: 2-D numpy array of the data to be fit.  If the data array is purely</dt><dd><p>real, then the <cite>real_only</cite> keyword can be set which speeds up the 
+decomposition</p>
+</dd>
+</dl>
+</li>
+<li><p>lmax: integer setting the maximum order harmonic to fit</p></li>
+</ul>
+</dd>
+<dt>Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>degrees: boolean of whether or not the input azimuth and altitude coordinates</dt><dd><p>are in degrees or not</p>
+</dd>
+</dl>
+</li>
+<li><p>real_only: boolean of whether or not the input data is purely real or not.  If
+the data are real, only coefficients for modes &gt;=0 are computed.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returned is a 1-D complex numpy array with the spherical harmonic coefficients 
+packed packed in order of increasing harmonic order and increasing mode, i.e.,
+(0,0), (1,-1), (1,0), (1,1), (2,-2), etc.  If the <cite>real_only</cite> keyword has been 
+set, the negative coefficients for the negative modes are excluded from the 
+output array.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>sphfit was designed to fit the LWA dipole response pattern as a function of
+azimuth and elevation.  Elevation angles are mapped to theta angles by adding
+pi/2 so that an elevation of 90 degrees corresponds to a theta of 180 degrees.
+To fit in terms of spherical coordianates, subtract pi/2 from the theta values
+before running.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.sphval">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">sphval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">az</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degrees</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.sphval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate a set of spherical harmonic coefficents at a specified set of
+azimuth and altitude coordinates.</p>
+<dl class="simple">
+<dt>Inputs:</dt><dd><ul class="simple">
+<li><p>terms: 1-D complex numpy array, typically from sphfit</p></li>
+<li><dl class="simple">
+<dt>az: 2-D numpy array of azimuth coordinates in radians or degrees if the </dt><dd><p><cite>degrees</cite> keyword is set</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>alt: 2-D numpy array of altitude coordinates in radian or degrees if the </dt><dd><p><cite>degrees</cite> keyword is set</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>degrees: boolean of whether or not the input azimuth and altitude coordinates</dt><dd><p>are in degrees or not</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>real_only: boolean of whether or not the input data is purely real or not.  If</dt><dd><p>the data are real, only coefficients for modes &gt;=0 are computed.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<p>Returns a 2-D numpy array of the harmoics evalated and summed at the given 
+coordinates.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>sphfit was designed to fit the LWA dipole response pattern as a function of
+azimuth and elevation.  Elevation angles are mapped to theta angles by adding
+pi/2 so that an elevation of 90 degrees corresponds to a theta of 180 degrees.
+To spherical harmonics in terms of spherical coordianates, subtract pi/2 from 
+the theta values before running.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.mathutils.to_dB">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.mathutils.</span></span><span class="sig-name descname"><span class="pre">to_dB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.mathutils.to_dB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert from linear units to decibels.</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Math Utilities</a><ul>
+<li><a class="reference internal" href="#lsl.misc.mathutils.cimag"><code class="docutils literal notranslate"><span class="pre">cimag()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.cmagnitude"><code class="docutils literal notranslate"><span class="pre">cmagnitude()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.cphase"><code class="docutils literal notranslate"><span class="pre">cphase()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.cpolar"><code class="docutils literal notranslate"><span class="pre">cpolar()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.creal"><code class="docutils literal notranslate"><span class="pre">creal()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.crect"><code class="docutils literal notranslate"><span class="pre">crect()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.downsample"><code class="docutils literal notranslate"><span class="pre">downsample()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.from_dB"><code class="docutils literal notranslate"><span class="pre">from_dB()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.gaussian1d"><code class="docutils literal notranslate"><span class="pre">gaussian1d()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.gaussian2d"><code class="docutils literal notranslate"><span class="pre">gaussian2d()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.gaussparams"><code class="docutils literal notranslate"><span class="pre">gaussparams()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.ndft"><code class="docutils literal notranslate"><span class="pre">ndft()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.regrid"><code class="docutils literal notranslate"><span class="pre">regrid()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.smooth"><code class="docutils literal notranslate"><span class="pre">smooth()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.sphfit"><code class="docutils literal notranslate"><span class="pre">sphfit()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.sphval"><code class="docutils literal notranslate"><span class="pre">sphval()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.mathutils.to_dB"><code class="docutils literal notranslate"><span class="pre">to_dB()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="transform.html"
+                          title="previous chapter">Time and Position Transformation</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="robust.html"
+                          title="next chapter">Robust Statistics</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/mathutils.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="robust.html" title="Robust Statistics"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="transform.html" title="Time and Position Transformation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Math Utilities</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

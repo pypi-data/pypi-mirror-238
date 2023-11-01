@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Requirements &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Release Notes" href="rnotes.html" />
+    <link rel="prev" title="LWA Software Library Documentation" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rnotes.html" title="Release Notes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="LWA Software Library Documentation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Requirements</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="requirements">
+<h1>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h1>
+<blockquote>
+<div><ul class="simple">
+<li><p>python &gt;= 2.7</p></li>
+<li><p>fftw3 &gt;= 3.2 (single precision version)</p></li>
+<li><p>gdbm &gt;= 1.8</p></li>
+<li><p>numpy &gt;= 1.7</p></li>
+<li><p>scipy &gt;= 0.19</p></li>
+<li><p>astropy &lt; 3.0 (2.7) or &gt;= 3.0 (3.0+)</p></li>
+<li><p>ephem &gt;= 3.7.5.3</p></li>
+<li><p>aipy &gt;= 3.0.1</p></li>
+<li><p>pytz &gt;= 2012c</p></li>
+<li><p>matplotlib &gt;= 1.1 <a class="footnote-reference brackets" href="#id4" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></li>
+<li><p>BeautifulSoup <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></li>
+<li><p>casacore <a class="footnote-reference brackets" href="#id5" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></li>
+</ul>
+</div></blockquote>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id4" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
+<p>Required for some of the included scripts</p>
+</aside>
+<aside class="footnote brackets" id="id5" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p>Required for measurement set support</p>
+</aside>
+</aside>
+</section>
+<section id="installing">
+<h1>Installing<a class="headerlink" href="#installing" title="Permalink to this heading">¶</a></h1>
+<p>The LSL package is installed as a regular Python package using distutils.
+Unzip and untar the source distribution. Setup the python interpreter you
+wish to use for running the package applications and switch to the root of
+the source distribution tree.</p>
+<p>Install LSL by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span> <span class="p">[</span><span class="o">--</span><span class="n">root</span><span class="o">=&lt;</span><span class="n">prefix</span><span class="o">&gt;|--</span><span class="n">user</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>If the ‘–root’ option is not provided, then the installation
+tree root directory is the same as for the python interpreter used to run
+setup.py.  For instance, if the python interpreter is in
+‘/usr/local/bin/python’, then &lt;prefix&gt; will be set to ‘/usr/local’.
+Otherwise, the explicit &lt;prefix&gt; value is taken from the command line
+option.  The package will install files in the following locations:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>&lt;prefix&gt;/bin</p></li>
+<li><p>&lt;prefix&gt;/lib/python3.6/site-packages</p></li>
+<li><p>&lt;prefix&gt;/share/doc</p></li>
+<li><p>&lt;prefix&gt;/share/install</p></li>
+</ul>
+</div></blockquote>
+<p>If an alternate &lt;prefix&gt; value is provided, you should set the PATH
+environment to include directory ‘&lt;prefix&gt;/bin’ and the PYTHONPATH
+environment to include directory ‘&lt;prefix&gt;/lib/python3.6/site-packages’.</p>
+<p>If the ‘–user’ option is provided, then then installation tree root
+directory will be in the current user’s home directory.</p>
+</section>
+<section id="unit-tests">
+<h1>Unit Tests<a class="headerlink" href="#unit-tests" title="Permalink to this heading">¶</a></h1>
+<p>Unit tests for the package may be found in the ‘lsl/tests’ sub-directory in the package source distribution tree.  To run the complete suite of package unit tests:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">tests</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">unittest</span> <span class="n">discover</span>
+</pre></div>
+</div>
+</section>
+<section id="telemetry">
+<h1>Telemetry<a class="headerlink" href="#telemetry" title="Permalink to this heading">¶</a></h1>
+<p>By default LSL installs with basic telemetry enabled in order to help
+inform the LWA how the software is used and to help inform future
+development.  The data collected as part of this consist seven things:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>a timestamp for when the report is generated,</p></li>
+<li><p>a unique installation identifier,</p></li>
+<li><p>the LSL version being used,</p></li>
+<li><p>the execution time of the Python process that imports LSL,</p></li>
+<li><p>which LSL modules are imported,</p></li>
+<li><p>which LSL functions are used and their average execution times, and</p></li>
+<li><p>which LSL scripts are used.</p></li>
+</ul>
+</div></blockquote>
+<p>These data are sent to the LWA using a HTTP POST request where they
+are aggregated.</p>
+<p>Users can opt out of telemetry collection using the lsl.misc.telemetry module
+via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">lsl</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">telemetry</span> <span class="o">--</span><span class="n">disable</span>
+</pre></div>
+</div>
+<p>This command will set a disk-based flag that disables the reporting process.
+This script can also be used to re-enable telemetry and check the unique
+installation identifier being used.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Requirements</a></li>
+<li><a class="reference internal" href="#installing">Installing</a></li>
+<li><a class="reference internal" href="#unit-tests">Unit Tests</a></li>
+<li><a class="reference internal" href="#telemetry">Telemetry</a></li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">LWA Software Library Documentation</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="rnotes.html"
+                          title="next chapter">Release Notes</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/install.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rnotes.html" title="Release Notes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="LWA Software Library Documentation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Requirements</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

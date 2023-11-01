@@ -1,0 +1,629 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Data Format Descriptions &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="C Extensions" href="c-extensions.html" />
+    <link rel="prev" title="General Utilities" href="scripts.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="c-extensions.html" title="C Extensions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="scripts.html" title="General Utilities"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data Format Descriptions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="data-format-descriptions">
+<h1>Data Format Descriptions<a class="headerlink" href="#data-format-descriptions" title="Permalink to this heading">¶</a></h1>
+<section id="tbw">
+<h2>TBW<a class="headerlink" href="#tbw" title="Permalink to this heading">¶</a></h2>
+<p>TBW consist of a time series of real valued data sampled at f<sub>S</sub> (196 MHz) from
+all antennas in the array.  The stand numbering is based on the input into the
+digital system rather than the stand number in the array.  The data are divided
+into packets that contain either 400 samples (12-bit data) or 1200 samples
+(4-bit data) per stand per polarization.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Fields are big endian</p>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Byte(s)</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0-3</p></td>
+<td><p>Sync Word</p></td>
+<td><p>0xDECODE5C</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-6</p></td>
+<td><p>Frame Count</p></td>
+<td><p>Frame number within capture</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>ID</p></td>
+<td><p>Always zero</p></td>
+</tr>
+<tr class="row-odd"><td><p>8-11</p></td>
+<td><p>Second count</p></td>
+<td><p>Always zero</p></td>
+</tr>
+<tr class="row-even"><td><p>12-13</p></td>
+<td><p>TBW ID</p></td>
+<td><p>Packed frame source ID</p></td>
+</tr>
+<tr class="row-odd"><td><p>14-15</p></td>
+<td><p>Unassigned</p></td>
+<td><p>Always zero</p></td>
+</tr>
+<tr class="row-even"><td><p>16-23</p></td>
+<td><p>Time tag</p></td>
+<td><p>Time tag <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>24-1223</p></td>
+<td><p>Data</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">i4</span></code> or <code class="docutils literal notranslate"><span class="pre">i12</span></code> data - [time,]</p></td>
+</tr>
+</tbody>
+</table>
+<p>The packing on the <code class="docutils literal notranslate"><span class="pre">TBW</span> <span class="pre">ID</span></code> field is:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Bit(s)</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0-13</p></td>
+<td><p>Stand</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p>Sample Size (0 = 12-bit)</p></td>
+</tr>
+<tr class="row-even"><td><p>15</p></td>
+<td><p>Is TBW? (1 = Yes)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Both the <code class="docutils literal notranslate"><span class="pre">i4</span></code> and <code class="docutils literal notranslate"><span class="pre">i12</span></code> versions of the data are stored as two’s complement
+integers.</p>
+</section>
+<section id="tbn">
+<h2>TBN<a class="headerlink" href="#tbn" title="Permalink to this heading">¶</a></h2>
+<p>TBN data is similar to TBW data, except that the data are complex and have a
+variable sample rate of up to 100 kHz. The data are divided into packets with
+512 samples per stand per polarization.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Fields are big endian</p>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Byte(s)</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0-3</p></td>
+<td><p>Sync Word</p></td>
+<td><p>0xDECODE5C</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-6</p></td>
+<td><p>Frame Count</p></td>
+<td><p>Always zero</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>ID</p></td>
+<td><p>Always zero</p></td>
+</tr>
+<tr class="row-odd"><td><p>8-11</p></td>
+<td><p>Tuning Word</p></td>
+<td><p>Tuning frequency <a class="footnote-reference brackets" href="#f2" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>12-13</p></td>
+<td><p>TBN ID</p></td>
+<td><p>Packed frame source ID</p></td>
+</tr>
+<tr class="row-odd"><td><p>14-15</p></td>
+<td><p>Gain</p></td>
+<td><p>TBN gain used</p></td>
+</tr>
+<tr class="row-even"><td><p>16-23</p></td>
+<td><p>Time tag</p></td>
+<td><p>Time tag <a class="footnote-reference brackets" href="#f1" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>24-1047</p></td>
+<td><p>Data</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ci8</span></code> data - [time,]</p></td>
+</tr>
+</tbody>
+</table>
+<p>The packing on the <code class="docutils literal notranslate"><span class="pre">TBN</span> <span class="pre">ID</span></code> field is:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Bit(s)</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0-13</p></td>
+<td><p>Stand</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p>Reserved</p></td>
+</tr>
+<tr class="row-even"><td><p>15</p></td>
+<td><p>Is TBW? (1 = Yes)</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">ci8</span></code> is also known as “8+8-bit complex integer”.</p>
+</section>
+<section id="drx">
+<h2>DRX<a class="headerlink" href="#drx" title="Permalink to this heading">¶</a></h2>
+<p>DRX data consist of a time series of complex data sampled at f<sub>S</sub> / <code class="docutils literal notranslate"><span class="pre">Decimation</span> <span class="pre">Factor</span></code>
+from the beamformer.  The data are divided into packets of 4096 samples per beam
+per tuning per polarization.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Fields are big endian</p>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Byte(s)</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0-3</p></td>
+<td><p>Sync Word</p></td>
+<td><p>0xDECODE5C</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-6</p></td>
+<td><p>Frame Count</p></td>
+<td><p>Always zero</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>ID</p></td>
+<td><p>Packed frame source ID</p></td>
+</tr>
+<tr class="row-odd"><td><p>8-11</p></td>
+<td><p>Second Count</p></td>
+<td><p>Always zero</p></td>
+</tr>
+<tr class="row-even"><td><p>12-13</p></td>
+<td><p>Decimation Factor</p></td>
+<td><p>Decimation factor of f<sub>S</sub></p></td>
+</tr>
+<tr class="row-odd"><td><p>14-15</p></td>
+<td><p>Time Offset</p></td>
+<td><p>Time correction to the time tag</p></td>
+</tr>
+<tr class="row-even"><td><p>16-23</p></td>
+<td><p>Time tag</p></td>
+<td><p>Time tag <a class="footnote-reference brackets" href="#f1" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>24-28</p></td>
+<td><p>Flags</p></td>
+<td><p>Always zero</p></td>
+</tr>
+<tr class="row-even"><td><p>29-31</p></td>
+<td><p>Tuning Word</p></td>
+<td><p>Tuning frequency <a class="footnote-reference brackets" href="#f2" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>32-4127</p></td>
+<td><p>Data</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ci4</span></code> data - [time,]</p></td>
+</tr>
+</tbody>
+</table>
+<p>The packing on the <code class="docutils literal notranslate"><span class="pre">ID</span></code> field is:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Bit(s)</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0-2</p></td>
+<td><p>Beam</p></td>
+</tr>
+<tr class="row-odd"><td><p>3-5</p></td>
+<td><p>Tuning</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>Always zero</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>Polarization</p></td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal notranslate"><span class="pre">ci4</span></code> aka “4+4-bit complex integer” data are stored as two’s complement
+integers with the real part stored in the first four bits of the byte.</p>
+</section>
+<section id="dr-spectrometer">
+<h2>DR Spectrometer<a class="headerlink" href="#dr-spectrometer" title="Permalink to this heading">¶</a></h2>
+<p>DR Spectrometer data contain DRX data that has been transformed to the Fourier
+domain, converted to power, and integrated on-the-fly by the data recorder.
+The format allows for variable integration times, channel counts, and
+polarization products to be stored.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Byte(s)</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0-3</p></td>
+<td><p>Magic Word 1</p></td>
+<td><p>0xC0DEC0DE</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-11</p></td>
+<td><p>Time tag</p></td>
+<td><p>Time tag of first frame <a class="footnote-reference brackets" href="#f1" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>12-13</p></td>
+<td><p>Time offset</p></td>
+<td><p>Time correction to the time tag</p></td>
+</tr>
+<tr class="row-odd"><td><p>14-15</p></td>
+<td><p>Decimation Factor</p></td>
+<td><p>Decimation factor of f<sub>S</sub></p></td>
+</tr>
+<tr class="row-even"><td><p>16-23</p></td>
+<td><p>Tuning Word[2]</p></td>
+<td><p>Tuning frequencies <a class="footnote-reference brackets" href="#f2" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> <a class="footnote-reference brackets" href="#f3" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>24-39</p></td>
+<td><p>Fills[4]</p></td>
+<td><p>Fill counts <a class="footnote-reference brackets" href="#f4" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>40-43</p></td>
+<td><p>Errors[4]</p></td>
+<td><p>Error flags <a class="footnote-reference brackets" href="#f4" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>44</p></td>
+<td><p>Beam</p></td>
+<td><p>Beam</p></td>
+</tr>
+<tr class="row-even"><td><p>45</p></td>
+<td><p>Stokes Format</p></td>
+<td><p>Polarization format code</p></td>
+</tr>
+<tr class="row-odd"><td><p>46</p></td>
+<td><p>Version</p></td>
+<td><p>Packet format version</p></td>
+</tr>
+<tr class="row-even"><td><p>47</p></td>
+<td><p>Flags</p></td>
+<td><p>Bit flags</p></td>
+</tr>
+<tr class="row-odd"><td><p>48-51</p></td>
+<td><p>N<sub>freq</sub></p></td>
+<td><p>Transform length <a class="footnote-reference brackets" href="#f5" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>52-53</p></td>
+<td><p>N<sub>int</sub></p></td>
+<td><p>Integration count <a class="footnote-reference brackets" href="#f5" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>54-67</p></td>
+<td><p>Sats[4]</p></td>
+<td><p>Saturation counts <a class="footnote-reference brackets" href="#f4" id="id13" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>68-71</p></td>
+<td><p>Magic Word 2</p></td>
+<td><p>0xED0CED0C</p></td>
+</tr>
+<tr class="row-odd"><td><p>72-N</p></td>
+<td><p>Data</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code> data - [pol,chan]</p></td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal notranslate"><span class="pre">Stokes</span> <span class="pre">Format</span></code> is a bit field that defines what polarizations are
+included in the packet data.  The fields are:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Value</p></th>
+<th class="head"><p>Pol. Product</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0x01</p></td>
+<td><p>XX*</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x02</p></td>
+<td><p>Real(XY*)</p></td>
+</tr>
+<tr class="row-even"><td><p>0x04</p></td>
+<td><p>Imag(XY*)</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x08</p></td>
+<td><p>YY*</p></td>
+</tr>
+<tr class="row-even"><td><p>0x10</p></td>
+<td><p>I</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x20</p></td>
+<td><p>Q</p></td>
+</tr>
+<tr class="row-even"><td><p>0x40</p></td>
+<td><p>U</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x80</p></td>
+<td><p>V</p></td>
+</tr>
+</tbody>
+</table>
+<p>The data are stored as little endian <code class="docutils literal notranslate"><span class="pre">float</span></code> values.</p>
+</section>
+<section id="tbf">
+<h2>TBF<a class="headerlink" href="#tbf" title="Permalink to this heading">¶</a></h2>
+<p>TBF is similar to both TBW and TBN, but is a complex frequency domain product
+that contains blocks of 12 channels from all stands and polarizations.  Each
+channel has a bandwidth of f<sub>C</sub> (25 kHz) and there may be up to 132
+different values of <code class="docutils literal notranslate"><span class="pre">First</span> <span class="pre">Channel</span></code> within a single recording.  The stand
+ordering is based on the input into the digital system rather than the stand
+number in the array.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Fields are big endian</p>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Byte(s)</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0-3</p></td>
+<td><p>Sync Word</p></td>
+<td><p>0xDECODE5C</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-6</p></td>
+<td><p>Frame Count</p></td>
+<td><p>Frame number within capture</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>ADP ID</p></td>
+<td><p>Always one</p></td>
+</tr>
+<tr class="row-odd"><td><p>8-11</p></td>
+<td><p>Second Count</p></td>
+<td><p>Always zero</p></td>
+</tr>
+<tr class="row-even"><td><p>12-13</p></td>
+<td><p>First Channel</p></td>
+<td><p>First channel in packet</p></td>
+</tr>
+<tr class="row-odd"><td><p>14-15</p></td>
+<td><p>Unassigned</p></td>
+<td><p>Always zero</p></td>
+</tr>
+<tr class="row-even"><td><p>16-23</p></td>
+<td><p>Time tag</p></td>
+<td><p>Time tag <a class="footnote-reference brackets" href="#f1" id="id14" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>24-6167</p></td>
+<td><p>Data</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ci4</span></code> data - [chan,stand,pol]</p></td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal notranslate"><span class="pre">ci4</span></code> aka “4+4-bit complex integer” data are stored as two’s complement
+integers with the real part stored in the first four bits of the byte.</p>
+</section>
+<section id="cor">
+<h2>COR<a class="headerlink" href="#cor" title="Permalink to this heading">¶</a></h2>
+<p>The COR format contains full polarization complex visibility data for 132
+channels from a single baseline pair.  Each channel has a bandwidth of
+f<sub>C</sub> (25 kHz) and there may be up to six different contiguous values of
+<code class="docutils literal notranslate"><span class="pre">First</span> <span class="pre">Channel</span></code> within a single recording.  The stand numbering for the
+baseline pair is based on the input into the digital system rather than the
+stand number in the array.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Fields are big endian</p>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Byte(s)</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0-3</p></td>
+<td><p>Sync Word</p></td>
+<td><p>0xDECODE5C</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-6</p></td>
+<td><p>Frame Count</p></td>
+<td><p>Server ID</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>ADP ID</p></td>
+<td><p>Always two</p></td>
+</tr>
+<tr class="row-odd"><td><p>8-11</p></td>
+<td><p>Second Count</p></td>
+<td><p>Always zero</p></td>
+</tr>
+<tr class="row-even"><td><p>12-13</p></td>
+<td><p>First Channel</p></td>
+<td><p>First channel in packet</p></td>
+</tr>
+<tr class="row-odd"><td><p>14-15</p></td>
+<td><p>Gain</p></td>
+<td><p>COR gain used</p></td>
+</tr>
+<tr class="row-even"><td><p>16-23</p></td>
+<td><p>Time tag</p></td>
+<td><p>Time tag <a class="footnote-reference brackets" href="#f1" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>24-27</p></td>
+<td><p>Navg</p></td>
+<td><p>Integration time in samples</p></td>
+</tr>
+<tr class="row-even"><td><p>28-29</p></td>
+<td><p>Stand 1</p></td>
+<td><p>First stand in baseline</p></td>
+</tr>
+<tr class="row-odd"><td><p>30-31</p></td>
+<td><p>Stand 2</p></td>
+<td><p>Second stand in baseline</p></td>
+</tr>
+<tr class="row-even"><td><p>32-4255</p></td>
+<td><p>Data</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Complex&lt;float&gt;</span></code> data - [chan,pol1,pol2]</p></td>
+</tr>
+</tbody>
+</table>
+<p>The data are stored as little endian <code class="docutils literal notranslate"><span class="pre">Complex&lt;float&gt;</span></code> values.</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id3">2</a>,<a role="doc-backlink" href="#id4">3</a>,<a role="doc-backlink" href="#id6">4</a>,<a role="doc-backlink" href="#id14">5</a>,<a role="doc-backlink" href="#id15">6</a>)</span>
+<p>Time tags are expressed as <code class="docutils literal notranslate"><span class="pre">uint64_t</span></code> integers in units of ticks of a
+clock at f<sub>S</sub> since the start of the UNIX epoch (1970 Jan 1 00:00:00 UTC)</p>
+</aside>
+<aside class="footnote brackets" id="f2" role="note">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id7">3</a>)</span>
+<p>Tuning words are frequencies expressed as <code class="docutils literal notranslate"><span class="pre">uint32_t</span></code> integers in units
+of f<sub>S</sub> / 2<sup>32</sup> Hz</p>
+</aside>
+<aside class="footnote brackets" id="f3" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">3</a><span class="fn-bracket">]</span></span>
+<p>Ordering is [Tuning 1, Tuning 2]</p>
+</aside>
+<aside class="footnote brackets" id="f4" role="note">
+<span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id9">1</a>,<a role="doc-backlink" href="#id10">2</a>,<a role="doc-backlink" href="#id13">3</a>)</span>
+<p>Ordering is [Tuning 1/pol 0, Tuning 2/pol 0, Tuning 1/pol 1, Tuning 2/pol 1]</p>
+</aside>
+<aside class="footnote brackets" id="f5" role="note">
+<span class="label"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id11">1</a>,<a role="doc-backlink" href="#id12">2</a>)</span>
+<p>Valid values can be found at <a class="reference external" href="https://leo.phys.unm.edu/~lwa/astro/scheds/spec.html">https://leo.phys.unm.edu/~lwa/astro/scheds/spec.html</a></p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Data Format Descriptions</a><ul>
+<li><a class="reference internal" href="#tbw">TBW</a></li>
+<li><a class="reference internal" href="#tbn">TBN</a></li>
+<li><a class="reference internal" href="#drx">DRX</a></li>
+<li><a class="reference internal" href="#dr-spectrometer">DR Spectrometer</a></li>
+<li><a class="reference internal" href="#tbf">TBF</a></li>
+<li><a class="reference internal" href="#cor">COR</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="scripts.html"
+                          title="previous chapter">General Utilities</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="c-extensions.html"
+                          title="next chapter">C Extensions</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/data-formats.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="c-extensions.html" title="C Extensions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="scripts.html" title="General Utilities"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data Format Descriptions</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

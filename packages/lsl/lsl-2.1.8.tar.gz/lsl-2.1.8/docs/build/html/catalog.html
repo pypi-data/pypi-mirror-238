@@ -1,0 +1,491 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Catalogs and Sky Map &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Time and Position Transformation" href="transform.html" />
+    <link rel="prev" title="Dedispersion" href="dedispersion.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="transform.html" title="Time and Position Transformation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="dedispersion.html" title="Dedispersion"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Catalogs and Sky Map</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="catalogs-and-sky-map">
+<h1>Catalogs and Sky Map<a class="headerlink" href="#catalogs-and-sky-map" title="Permalink to this heading">¶</a></h1>
+<section id="catalogs">
+<h2>Catalogs<a class="headerlink" href="#catalogs" title="Permalink to this heading">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.2.</span></p>
+</div>
+<span class="target" id="module-lsl.catalog"></span><p>LWA astronomical source catalogs.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.catalog.C3C_Catalog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.catalog.</span></span><span class="sig-name descname"><span class="pre">C3C_Catalog</span></span><a class="headerlink" href="#lsl.catalog.C3C_Catalog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specific definition for Cambridge 3C source catalogue data file.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.catalog.C3C_Catalog.parse_file">
+<span class="sig-name descname"><span class="pre">parse_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.C3C_Catalog.parse_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a source catalog data file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.catalog.C4C_Catalog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.catalog.</span></span><span class="sig-name descname"><span class="pre">C4C_Catalog</span></span><a class="headerlink" href="#lsl.catalog.C4C_Catalog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specific definition for Cambridge 4C source catalogue data file.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.catalog.C4C_Catalog.parse_file">
+<span class="sig-name descname"><span class="pre">parse_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.C4C_Catalog.parse_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a source catalog data file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.catalog.Catalog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.catalog.</span></span><span class="sig-name descname"><span class="pre">Catalog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.Catalog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class representing astronomical source catalog information.
+This is an abstract class; derived classes must provide a
+parse_file() method which populates the catalog object with
+information from file or other source.</p>
+<p>Catalog instances support the read-only collections.Mapping
+interface.  That is, they support the read-only methods of
+the dict built-in type.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.catalog.Catalog.get_directory">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_directory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.Catalog.get_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the path to the catalog data file directory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.catalog.Catalog.lookup">
+<span class="sig-name descname"><span class="pre">lookup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.Catalog.lookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lookup a source in the catalog.</p>
+<p>Param: name - The primary name or alias of the source.</p>
+<dl class="simple">
+<dt>Returns: An object of type CatalogEntry giving the source information,</dt><dd><p>or None if the name is not found in the catalog.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.catalog.Catalog.parse_file">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.Catalog.parse_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read catalog information from file into internal data
+structures.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.catalog.CatalogEntry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.catalog.</span></span><span class="sig-name descname"><span class="pre">CatalogEntry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.CatalogEntry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents one source entry in a catalogue.</p>
+<dl class="simple">
+<dt>Contains members:</dt><dd><ul class="simple">
+<li><p>name        - The source name.</p></li>
+<li><dl class="simple">
+<dt>position    - The source equatorial J2000 position as object</dt><dd><p>of type transform.CelestialPosition.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>alias_list  - A list of strings providing alternate names for</dt><dd><p>the source.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.catalog.CatalogFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.catalog.</span></span><span class="sig-name descname"><span class="pre">CatalogFactory</span></span><a class="headerlink" href="#lsl.catalog.CatalogFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get catalog objects by name.  Caches the catalog data so that
+the data file is parsed only once per session.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.catalog.CatalogFactory.get_catalog">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_catalog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.CatalogFactory.get_catalog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a Catalog object representing the catalog
+given by name.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.catalog.CatalogFactory.get_names">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.CatalogFactory.get_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of known catalog names.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.catalog.F2FGL_Catalog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.catalog.</span></span><span class="sig-name descname"><span class="pre">F2FGL_Catalog</span></span><a class="headerlink" href="#lsl.catalog.F2FGL_Catalog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specific definition for Fermi LAT 2-year point source catalog.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.catalog.F2FGL_Catalog.parse_file">
+<span class="sig-name descname"><span class="pre">parse_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.F2FGL_Catalog.parse_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a source catalogue data file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.catalog.LWA_Catalog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.catalog.</span></span><span class="sig-name descname"><span class="pre">LWA_Catalog</span></span><a class="headerlink" href="#lsl.catalog.LWA_Catalog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specific definition for LWA observation source catalogue data file.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.catalog.LWA_Catalog.parse_file">
+<span class="sig-name descname"><span class="pre">parse_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.LWA_Catalog.parse_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a source catalog data file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.catalog.PKS90_Catalog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.catalog.</span></span><span class="sig-name descname"><span class="pre">PKS90_Catalog</span></span><a class="headerlink" href="#lsl.catalog.PKS90_Catalog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specific definition for PKS90 source catalogue data file.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.catalog.PKS90_Catalog.parse_file">
+<span class="sig-name descname"><span class="pre">parse_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.PKS90_Catalog.parse_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a source catalog data file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.catalog.PKS_Catalog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.catalog.</span></span><span class="sig-name descname"><span class="pre">PKS_Catalog</span></span><a class="headerlink" href="#lsl.catalog.PKS_Catalog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specific definition for PKS source catalog.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.catalog.PKS_Catalog.parse_file">
+<span class="sig-name descname"><span class="pre">parse_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.PKS_Catalog.parse_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a source catalog data file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.catalog.PSR_Catalog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.catalog.</span></span><span class="sig-name descname"><span class="pre">PSR_Catalog</span></span><a class="headerlink" href="#lsl.catalog.PSR_Catalog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specific definition for ATNF Pulsar (PSRCAT) catalog.
+Data file is psrcat.db which can be retreived from:
+&lt;<a class="reference external" href="http://www.atnf.csiro.au/research/pulsar/psrcat/download.html">http://www.atnf.csiro.au/research/pulsar/psrcat/download.html</a>&gt;</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.catalog.PSR_Catalog.parse_file">
+<span class="sig-name descname"><span class="pre">parse_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.catalog.PSR_Catalog.parse_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a source catalog data file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="sky-map">
+<h2>Sky Map<a class="headerlink" href="#sky-map" title="Permalink to this heading">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.2.</span></p>
+</div>
+<span class="target" id="module-lsl.skymap"></span><p>Classes and methods to model sky brightness and visibility.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.0: </span>Removed the orignal SkyMap class that uses LFmap at 73.9 MHz
+Updated SkyMapGSM to use the actual GSM rather than a fit to the GSM
+Added a new SkyMapLFSM that uses the 5.1 degree resolution LFSM</p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.skymap.ProjectedSkyMap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.skymap.</span></span><span class="sig-name descname"><span class="pre">ProjectedSkyMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">skymap_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utc_jd</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.skymap.ProjectedSkyMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>The class for handling the model sky brightness maps over a particular site.
+This code is the base class for the sky map visible at a specific location. It 
+takes as input a skymap file name and frequency to which the skymap corresponds.
+It inherits from class SkyMap. It has the following methods:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>_init_ - takes the array coordinate filename as an input argument.</p></li>
+<li><p>get_direction_cosines - Computes the direction cosines</p></li>
+<li><p>compute_visibile_power - Sums the power for all visible sources in 
+the sky.</p></li>
+</ol>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.skymap.ProjectedSkyMap.compute_visible_power">
+<span class="sig-name descname"><span class="pre">compute_visible_power</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.skymap.ProjectedSkyMap.compute_visible_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute and return the the total power from visible portion of the sky.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.skymap.ProjectedSkyMap.get_direction_cosines">
+<span class="sig-name descname"><span class="pre">get_direction_cosines</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.skymap.ProjectedSkyMap.get_direction_cosines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the direction cosines and return the tuple of arrays (l,m,n).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.skymap.SkyMapBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.skymap.</span></span><span class="sig-name descname"><span class="pre">SkyMapBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_MHz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">73.9</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.skymap.SkyMapBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>This code is the base class for the sky map. It takes as input a skymap file
+name and frequency to which the skymap corresponds.  It has the following
+methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>_init_ - takes the array coordinate filename as an input argument.</p></li>
+<li><dl class="simple">
+<dt>normalize_power - Converts the skymap powers (in Kelvin radiated into 4 pi</dt><dd><p>ster) into a power seen at the antenna.</p>
+</dd>
+</dl>
+</li>
+<li><p>compute_total_power - Sums the power for all sources in the sky</p></li>
+<li><dl class="simple">
+<dt>ScaleSourcePowerstoFrequency - Scales the skymap from the base 73.8 MHz to</dt><dd><p>the desired frequency.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.skymap.SkyMapBase.compute_total_power">
+<span class="sig-name descname"><span class="pre">compute_total_power</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.skymap.SkyMapBase.compute_total_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute and return the the total power from the sky.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.skymap.SkyMapBase.normalize_power">
+<span class="sig-name descname"><span class="pre">normalize_power</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.skymap.SkyMapBase.normalize_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the skymap power (total power radiated into 4 pi steradians) into 
+a power at antenna, based on pixel count.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.skymap.SkyMapGSM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.skymap.</span></span><span class="sig-name descname"><span class="pre">SkyMapGSM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_MHz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">73.9</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.skymap.SkyMapGSM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extension of the SkyMapBase class to use the Global Sky Model.</p>
+<p>For more information on the Global Sky Model, see: <a class="reference external" href="http://space.mit.edu/~angelica/gsm/index.html">http://space.mit.edu/~angelica/gsm/index.html</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This class uses a slightly different interpolation method than
+the original GSM and introduces a few percent difference at 
+74 MHz.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.0: </span>Reworked the GSM model to use the actual GSM that has been 
+downsampled to 64 sides rather than the fit.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.skymap.SkyMapGSM.compute_total_power">
+<span class="sig-name descname"><span class="pre">compute_total_power</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.skymap.SkyMapGSM.compute_total_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute and return the the total power from the sky.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.skymap.SkyMapGSM.normalize_power">
+<span class="sig-name descname"><span class="pre">normalize_power</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.skymap.SkyMapGSM.normalize_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the skymap power (total power radiated into 4 pi steradians) into 
+a power at antenna, based on pixel count.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.skymap.SkyMapLFSM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.skymap.</span></span><span class="sig-name descname"><span class="pre">SkyMapLFSM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_MHz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">73.9</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.skymap.SkyMapLFSM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extension of the SkyMapBase class to use the Low Frequency Sky Model with 5.1
+degree resolution.</p>
+<p>For more information on the Low Frequency Sky Model, see: <a class="reference external" href="https://lda10g.alliance.unm.edu/LWA1LowFrequencySkySurvey/">https://lda10g.alliance.unm.edu/LWA1LowFrequencySkySurvey/</a></p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.0.</span></p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.skymap.SkyMapLFSM.compute_total_power">
+<span class="sig-name descname"><span class="pre">compute_total_power</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.skymap.SkyMapLFSM.compute_total_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute and return the the total power from the sky.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.skymap.SkyMapLFSM.normalize_power">
+<span class="sig-name descname"><span class="pre">normalize_power</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.skymap.SkyMapLFSM.normalize_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the skymap power (total power radiated into 4 pi steradians) into 
+a power at antenna, based on pixel count.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Catalogs and Sky Map</a><ul>
+<li><a class="reference internal" href="#catalogs">Catalogs</a><ul>
+<li><a class="reference internal" href="#lsl.catalog.C3C_Catalog"><code class="docutils literal notranslate"><span class="pre">C3C_Catalog</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.catalog.C3C_Catalog.parse_file"><code class="docutils literal notranslate"><span class="pre">C3C_Catalog.parse_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.catalog.C4C_Catalog"><code class="docutils literal notranslate"><span class="pre">C4C_Catalog</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.catalog.C4C_Catalog.parse_file"><code class="docutils literal notranslate"><span class="pre">C4C_Catalog.parse_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.catalog.Catalog"><code class="docutils literal notranslate"><span class="pre">Catalog</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.catalog.Catalog.get_directory"><code class="docutils literal notranslate"><span class="pre">Catalog.get_directory()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.catalog.Catalog.lookup"><code class="docutils literal notranslate"><span class="pre">Catalog.lookup()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.catalog.Catalog.parse_file"><code class="docutils literal notranslate"><span class="pre">Catalog.parse_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.catalog.CatalogEntry"><code class="docutils literal notranslate"><span class="pre">CatalogEntry</span></code></a></li>
+<li><a class="reference internal" href="#lsl.catalog.CatalogFactory"><code class="docutils literal notranslate"><span class="pre">CatalogFactory</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.catalog.CatalogFactory.get_catalog"><code class="docutils literal notranslate"><span class="pre">CatalogFactory.get_catalog()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.catalog.CatalogFactory.get_names"><code class="docutils literal notranslate"><span class="pre">CatalogFactory.get_names()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.catalog.F2FGL_Catalog"><code class="docutils literal notranslate"><span class="pre">F2FGL_Catalog</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.catalog.F2FGL_Catalog.parse_file"><code class="docutils literal notranslate"><span class="pre">F2FGL_Catalog.parse_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.catalog.LWA_Catalog"><code class="docutils literal notranslate"><span class="pre">LWA_Catalog</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.catalog.LWA_Catalog.parse_file"><code class="docutils literal notranslate"><span class="pre">LWA_Catalog.parse_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.catalog.PKS90_Catalog"><code class="docutils literal notranslate"><span class="pre">PKS90_Catalog</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.catalog.PKS90_Catalog.parse_file"><code class="docutils literal notranslate"><span class="pre">PKS90_Catalog.parse_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.catalog.PKS_Catalog"><code class="docutils literal notranslate"><span class="pre">PKS_Catalog</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.catalog.PKS_Catalog.parse_file"><code class="docutils literal notranslate"><span class="pre">PKS_Catalog.parse_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.catalog.PSR_Catalog"><code class="docutils literal notranslate"><span class="pre">PSR_Catalog</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.catalog.PSR_Catalog.parse_file"><code class="docutils literal notranslate"><span class="pre">PSR_Catalog.parse_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sky-map">Sky Map</a><ul>
+<li><a class="reference internal" href="#lsl.skymap.ProjectedSkyMap"><code class="docutils literal notranslate"><span class="pre">ProjectedSkyMap</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.skymap.ProjectedSkyMap.compute_visible_power"><code class="docutils literal notranslate"><span class="pre">ProjectedSkyMap.compute_visible_power()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.skymap.ProjectedSkyMap.get_direction_cosines"><code class="docutils literal notranslate"><span class="pre">ProjectedSkyMap.get_direction_cosines()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.skymap.SkyMapBase"><code class="docutils literal notranslate"><span class="pre">SkyMapBase</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.skymap.SkyMapBase.compute_total_power"><code class="docutils literal notranslate"><span class="pre">SkyMapBase.compute_total_power()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.skymap.SkyMapBase.normalize_power"><code class="docutils literal notranslate"><span class="pre">SkyMapBase.normalize_power()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.skymap.SkyMapGSM"><code class="docutils literal notranslate"><span class="pre">SkyMapGSM</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.skymap.SkyMapGSM.compute_total_power"><code class="docutils literal notranslate"><span class="pre">SkyMapGSM.compute_total_power()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.skymap.SkyMapGSM.normalize_power"><code class="docutils literal notranslate"><span class="pre">SkyMapGSM.normalize_power()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.skymap.SkyMapLFSM"><code class="docutils literal notranslate"><span class="pre">SkyMapLFSM</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.skymap.SkyMapLFSM.compute_total_power"><code class="docutils literal notranslate"><span class="pre">SkyMapLFSM.compute_total_power()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.skymap.SkyMapLFSM.normalize_power"><code class="docutils literal notranslate"><span class="pre">SkyMapLFSM.normalize_power()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="dedispersion.html"
+                          title="previous chapter">Dedispersion</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="transform.html"
+                          title="next chapter">Time and Position Transformation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/catalog.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="transform.html" title="Time and Position Transformation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="dedispersion.html" title="Dedispersion"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Catalogs and Sky Map</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,752 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>General Utilities &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Format Descriptions" href="data-formats.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="data-formats.html" title="Data Format Descriptions"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">General Utilities</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="general-utilities">
+<h1>General Utilities<a class="headerlink" href="#general-utilities" title="Permalink to this heading">¶</a></h1>
+<dl>
+<dt>gatherDebugging.py</dt><dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Script to gather information about the Pytho/numpy/LSL install to help with troubleshooting.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>gatherDebugging.py</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd>
+<dt>updateLSLSSMIF.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Update the internal LWA1 SSMIF used by LSL.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>updateLSLSSMIF.py [options]</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-u</span>, <span class="option">--update</span></kbd></dt>
+<dd><p>Update the default LWA1 SSMIF</p>
+</dd>
+<dt><kbd><span class="option">-r</span>, <span class="option">--revert</span></kbd></dt>
+<dd><p>Revert the default LWA1 SSMIF to an older version</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>astroevents.py</dt><dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Application to display rise, transit, and set times for various astronomical sources from LWA-1 for the current date.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>astroevents.py</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd>
+<dt>astrostatus.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Application to calculate real-time ephemeris for a LWA site.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>astrostatus.py [options]</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>show this help message and exit</p>
+</dd>
+<dt><kbd><span class="option">-s <var>SITE</var></span>, <span class="option">--site=<var>SITE</var></span></kbd></dt>
+<dd><p>site name (default LWA-1)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>driftcurve.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Generate a drift curve for a dipole at LWA-1 observing at a given frequency in MHz.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>driftcurve.py [OPTIONS]</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-f</span>, <span class="option">--freq</span></kbd></dt>
+<dd><p>Frequency of the observations in MHz (default = 74 MHz)</p>
+</dd>
+<dt><kbd><span class="option">-p</span>, <span class="option">--polarization</span></kbd></dt>
+<dd><p>Polarization of the observations (NS or EW; default = EW)</p>
+</dd>
+<dt><kbd><span class="option">-l</span>, <span class="option">--lf-map</span></kbd></dt>
+<dd><p>Use LF map instead of GSM</p>
+</dd>
+<dt><kbd><span class="option">-t</span>, <span class="option">--time-step</span></kbd></dt>
+<dd><p>Time step of simulations in minutes (default = 10)</p>
+</dd>
+<dt><kbd><span class="option">-x</span>, <span class="option">--do-plot</span></kbd></dt>
+<dd><p>Plot the driftcurve data</p>
+</dd>
+<dt><kbd><span class="option">-v</span>, <span class="option">--verbose</span></kbd></dt>
+<dd><p>Run driftcurve in vebose mode</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>getIonosphericRM.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Estimate the ionospheric contribution to the RM for an observation using the IGS final product and the IGRF.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>getIonosphericRM.py [options] RA Dec Start Stop</p>
+<p>RA:     J2000 right ascension in HH:MM:SS[.SSS]</p>
+<p>Dec:    J2000 declination in sDD:MM:SS[.SSS]</p>
+<p>Start:  YYYY/MM/DD HH:MM:SS start time in UTC</p>
+<p>Stop:   YYYY/MM/DD HH:MM:SS stop time in UTC</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-n</span>, <span class="option">--n-samples</span></kbd></dt>
+<dd><p>Number of samples to take between the start and stop times (default = 11)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>lwa_cat_view.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Simple LWDA astronomical source catalogue display application.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>lwa_cat_view.py [options]</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>show this help message and exit</p>
+</dd>
+<dt><kbd><span class="option">-s <var>SITE</var></span>, <span class="option">--site=<var>SITE</var></span></kbd></dt>
+<dd><p>site name (default LWDA)</p>
+</dd>
+<dt><kbd><span class="option">-p <var>PERIOD</var></span>, <span class="option">--period=<var>PERIOD</var></span></kbd></dt>
+<dd><p>update period in seconds (default 5)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>inspectTarball.py</dt><dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Given a MCS metadata tarball, print out details of the associated observations.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>inspectTarball.py metaData</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd>
+<dt>plotAntenna.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Plot the relative dipole response for both polarizations of an isolated LWA-1 antenna at a particular frequency.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>plotAntenna.py [OPTIONS]</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-f</span>, <span class="option">--freq</span></kbd></dt>
+<dd><p>Frequency of the observations in MHz (default = 74 MHz)</p>
+</dd>
+<dt><kbd><span class="option">-v</span>, <span class="option">--verbose</span></kbd></dt>
+<dd><p>Run plotAntenna in vebose mode</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>plotStands.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Plot the x, y, and z locations of stands at LWA-1.  Also, mark and label particular stands, if requested.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>plotStands.py [OPTIONS] [stand1 [stand2 […]]]</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-m</span>, <span class="option">--metadata</span></kbd></dt>
+<dd><p>Name of SSMIF or metadata tarball file to use for
+mappings</p>
+</dd>
+<dt><kbd><span class="option">-l</span>, <span class="option">--label</span></kbd></dt>
+<dd><p>Label the stands with their ID numbers
+(default = No)</p>
+</dd>
+<dt><kbd><span class="option">-v</span>, <span class="option">--verbose</span></kbd></dt>
+<dd><p>Run plotStands in vebose mode</p>
+</dd>
+<dt><kbd><span class="option">-o</span>, <span class="option">--output</span></kbd></dt>
+<dd><p>Filename to save the plot to (default = do not save)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>plotUVCoverage.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Randomly select 20 antennae from LWA-1 and plot the uv-plane coverage for
+a zenith snapshot and the expected beam.  Alternatively, select some
+FRACTION of the stands with installed FEEs to use or use the specified
+list of stands.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>plotUVCoverage.py [FRACTION | STAND LIST]</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-f</span>, <span class="option">--frequency</span></kbd></dt>
+<dd><p>Frequency in MHz to compute the uv coverage (default
+50 MHz)</p>
+</dd>
+<dt><kbd><span class="option">-m</span>, <span class="option">--metadata</span></kbd></dt>
+<dd><p>Name of SSMIF or metadata tarball file to use for
+mappings</p>
+</dd>
+<dt><kbd><span class="option">-o</span>, <span class="option">--output</span></kbd></dt>
+<dd><p>Filename to save the plot to (default = do not save)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="data-reading-and-writing">
+<h1>Data Reading and Writing<a class="headerlink" href="#data-reading-and-writing" title="Permalink to this heading">¶</a></h1>
+<dl>
+<dt>splitTBN.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Split a TBN file containing multiple seconds into several files</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>splitTBN.py [options] file</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-c</span>, <span class="option">--count</span></kbd></dt>
+<dd><p>Number of seconds to keep</p>
+</dd>
+<dt><kbd><span class="option">-o</span>, <span class="option">--offset</span></kbd></dt>
+<dd><p>Number of seconds to skip before splitting</p>
+</dd>
+<dt><kbd><span class="option">-d</span>, <span class="option">--date</span></kbd></dt>
+<dd><p>Label the split files with a date rather than a squence number</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This script does not use a <a class="reference internal" href="readers.html#module-lsl.reader.buffer" title="lsl.reader.buffer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.reader.buffer</span></code></a> buffer to try to re-order or verify all
+packets and simply splits files based on size.</p>
+</div>
+</dd>
+<dt>splitDRX.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Split a DRX file containing multiple seconds into several files</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>splitDRX.py [options] file</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-c</span>, <span class="option">--count</span></kbd></dt>
+<dd><p>Number of seconds to keep</p>
+</dd>
+<dt><kbd><span class="option">-o</span>, <span class="option">--offset</span></kbd></dt>
+<dd><p>Number of seconds to skip before splitting</p>
+</dd>
+<dt><kbd><span class="option">-d</span>, <span class="option">--date</span></kbd></dt>
+<dd><p>Label the split files with a date rather than a squence number</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>splitSession.py</dt><dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Given a MCS metadata tarball and a session DRX recording, split the session
+recording into the individual observations.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>splitSession.py metaData data</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd>
+<dt>plotMapper.py</dt><dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Read and plot the NOSTA_MAPPER table in a FITS IDI file writen by
+<a class="reference internal" href="writers.html#module-lsl.writer.fitsidi" title="lsl.writer.fitsidi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.writer.fitsidi</span></code></a> if it exists.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>plotMapper.py file</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="data-analysis">
+<h1>Data Analysis<a class="headerlink" href="#data-analysis" title="Permalink to this heading">¶</a></h1>
+<dl>
+<dt>tbwSpectra.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Given a TBW file, plot the time averaged spectra for each digitizer input.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>tbwSpectra.py [OPTIONS] file</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-m</span>, <span class="option">--metadata</span></kbd></dt>
+<dd><p>Name of SSMIF or metadata tarball file to use for
+mappings</p>
+</dd>
+<dt><kbd><span class="option">-t</span>, <span class="option">--bartlett</span></kbd></dt>
+<dd><p>Apply a Bartlett window to the data</p>
+</dd>
+<dt><kbd><span class="option">-b</span>, <span class="option">--blackman</span></kbd></dt>
+<dd><p>Apply a Blackman window to the data</p>
+</dd>
+<dt><kbd><span class="option">-n</span>, <span class="option">--hanning</span></kbd></dt>
+<dd><p>Apply a Hanning window to the data</p>
+</dd>
+<dt><kbd><span class="option">-q</span>, <span class="option">--quiet</span></kbd></dt>
+<dd><p>Run tbwSpectra in silent mode</p>
+</dd>
+<dt><kbd><span class="option">-l</span>, <span class="option">--fft-length</span></kbd></dt>
+<dd><p>Set FFT length (default = 4096)</p>
+</dd>
+<dt><kbd><span class="option">-g</span>, <span class="option">--gain-correct</span></kbd></dt>
+<dd><p>Correct signals for the cable losses</p>
+</dd>
+<dt><kbd><span class="option">-s</span>, <span class="option">--stack</span></kbd></dt>
+<dd><p>Stack spectra in groups of 6 (if ‘-g’ is enabled only)</p>
+</dd>
+<dt><kbd><span class="option">-d</span>, <span class="option">--disable-chunks</span></kbd></dt>
+<dd><p>Display plotting chunks in addition to the global average</p>
+</dd>
+<dt><kbd><span class="option">-o</span>, <span class="option">--output</span></kbd></dt>
+<dd><p>Output file name for spectra imag</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>tbwSpectra.py currently assumed that the system it is running on has enough memory to read in
+a full TBW capture.  Due to data representation and processing overheads this amounts to about
+16 GB.</p>
+</div>
+</dd>
+<dt>tbnSpectra.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Given a TBN file, plot the time averaged spectra for each digitizer input.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>tbnSpectra.py [OPTIONS] file</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-m</span>, <span class="option">--metadata</span></kbd></dt>
+<dd><p>Name of SSMIF or metadata tarball file to use for
+mappings</p>
+</dd>
+<dt><kbd><span class="option">-t</span>, <span class="option">--bartlett</span></kbd></dt>
+<dd><p>Apply a Bartlett window to the data</p>
+</dd>
+<dt><kbd><span class="option">-b</span>, <span class="option">--blackman</span></kbd></dt>
+<dd><p>Apply a Blackman window to the data</p>
+</dd>
+<dt><kbd><span class="option">-n</span>, <span class="option">--hanning</span></kbd></dt>
+<dd><p>Apply a Hanning window to the data</p>
+</dd>
+<dt><kbd><span class="option">-s</span>, <span class="option">--skip</span></kbd></dt>
+<dd><p>Skip the specified number of seconds at the beginning of the file (default = 0)</p>
+</dd>
+<dt><kbd><span class="option">-a</span>, <span class="option">--average</span></kbd></dt>
+<dd><p>Number of seconds of data to average for spectra (default = 10)</p>
+</dd>
+<dt><kbd><span class="option">-q</span>, <span class="option">--quiet</span></kbd></dt>
+<dd><p>Run tbwSpectra in silent mode</p>
+</dd>
+<dt><kbd><span class="option">-l</span>, <span class="option">--fft-length</span></kbd></dt>
+<dd><p>Set FFT length (default = 4096)</p>
+</dd>
+<dt><kbd><span class="option">-d</span>, <span class="option">--disable-chunks</span></kbd></dt>
+<dd><p>Display plotting chunks in addition to the global average</p>
+</dd>
+<dt><kbd><span class="option">-o</span>, <span class="option">--output</span></kbd></dt>
+<dd><p>Output file name for spectra image</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>drxSpectra.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Given a DRX file, plot the time averaged spectra for each beam output.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>drxSpectra.py [OPTIONS] file</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-t</span>, <span class="option">--bartlett</span></kbd></dt>
+<dd><p>Apply a Bartlett window to the data</p>
+</dd>
+<dt><kbd><span class="option">-b</span>, <span class="option">--blackman</span></kbd></dt>
+<dd><p>Apply a Blackman window to the data</p>
+</dd>
+<dt><kbd><span class="option">-n</span>, <span class="option">--hanning</span></kbd></dt>
+<dd><p>Apply a Hanning window to the data</p>
+</dd>
+<dt><kbd><span class="option">-s</span>, <span class="option">--skip</span></kbd></dt>
+<dd><p>Skip the specified number of seconds at the beginning of the file (default = 0)</p>
+</dd>
+<dt><kbd><span class="option">-a</span>, <span class="option">--average</span></kbd></dt>
+<dd><p>Number of seconds of data to average for spectra (default = 10)</p>
+</dd>
+<dt><kbd><span class="option">-q</span>, <span class="option">--quiet</span></kbd></dt>
+<dd><p>Run tbwSpectra in silent mode</p>
+</dd>
+<dt><kbd><span class="option">-l</span>, <span class="option">--fft-length</span></kbd></dt>
+<dd><p>Set FFT length (default = 4096)</p>
+</dd>
+<dt><kbd><span class="option">-d</span>, <span class="option">--disable-chunks</span></kbd></dt>
+<dd><p>Display plotting chunks in addition to the global average</p>
+</dd>
+<dt><kbd><span class="option">-o</span>, <span class="option">--output</span></kbd></dt>
+<dd><p>Output file name for spectra image</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>drSpecSpectra.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Given a DR spectrometer file, plot the time averaged spectra for each beam output.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>drSpecSpectra.py [OPTIONS] file</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-s</span>, <span class="option">--skip</span></kbd></dt>
+<dd><p>Skip the specified number of seconds at the beginning
+of the file (default = 0)</p>
+</dd>
+<dt><kbd><span class="option">-a</span>, <span class="option">--average</span></kbd></dt>
+<dd><p>Number of seconds of data to average for spectra
+(default = 10)</p>
+</dd>
+<dt><kbd><span class="option">-q</span>, <span class="option">--quiet</span></kbd></dt>
+<dd><p>Run drSpecSpectra in silent mode</p>
+</dd>
+<dt><kbd><span class="option">-d</span>, <span class="option">--disable-chunks</span></kbd></dt>
+<dd><p>Display plotting chunks in addition to the global
+average</p>
+</dd>
+<dt><kbd><span class="option">-o</span>, <span class="option">--output</span></kbd></dt>
+<dd><p>Output file name for spectra image</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>correlateTBW.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Cross-correlate data in a TBW file</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>correlateTBW.py [OPTIONS] file</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-m</span>, <span class="option">--metadata</span></kbd></dt>
+<dd><p>Name of SSMIF or metadata tarball file to use for
+mappings</p>
+</dd>
+<dt><kbd><span class="option">-l</span>, <span class="option">--fft-length</span></kbd></dt>
+<dd><p>Set FFT length (default = 2048)</p>
+</dd>
+<dt><kbd><span class="option">-q</span>, <span class="option">--quiet</span></kbd></dt>
+<dd><p>Run correlateTBW in silent mode</p>
+</dd>
+<dt><kbd><span class="option">-x</span>, <span class="option">--xx</span></kbd></dt>
+<dd><p>Compute only the XX polarization product (default)</p>
+</dd>
+<dt><kbd><span class="option">-y</span>, <span class="option">--yy</span></kbd></dt>
+<dd><p>Compute only the YY polarization product</p>
+</dd>
+<dt><kbd><span class="option">-2</span>, <span class="option">--two-products</span></kbd></dt>
+<dd><p>Compute both the XX and YY polarization products</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>correlateTBN.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Example script that reads in TBN data and runs a cross-correlation on it.
+The results are saved in the Miriad UV format.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>correlateTBN.py [OPTIONS] file</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-m</span>, <span class="option">--metadata</span></kbd></dt>
+<dd><p>Name of SSMIF or metadata tarball file to use for
+mappings</p>
+</dd>
+<dt><kbd><span class="option">-f</span>, <span class="option">--fft-length</span></kbd></dt>
+<dd><p>Set FFT length (default = 256)</p>
+</dd>
+<dt><kbd><span class="option">-t</span>, <span class="option">--avg-time</span></kbd></dt>
+<dd><p>Window to average visibilities in time (seconds;
+default = 6 s)</p>
+</dd>
+<dt><kbd><span class="option">-s</span>, <span class="option">--samples</span></kbd></dt>
+<dd><p>Number of average visibilities to generate
+(default = 10)</p>
+</dd>
+<dt><kbd><span class="option">-o</span>, <span class="option">--offset</span></kbd></dt>
+<dd><p>Seconds to skip from the beginning of the file</p>
+</dd>
+<dt><kbd><span class="option">-q</span>, <span class="option">--quiet</span></kbd></dt>
+<dd><p>Run correlateTBN in silent mode</p>
+</dd>
+<dt><kbd><span class="option">-x</span>, <span class="option">--xx</span></kbd></dt>
+<dd><p>Compute only the XX polarization product (default)</p>
+</dd>
+<dt><kbd><span class="option">-y</span>, <span class="option">--yy</span></kbd></dt>
+<dd><p>Compute only the YY polarization product</p>
+</dd>
+<dt><kbd><span class="option">-2</span>, <span class="option">--two-products</span></kbd></dt>
+<dd><p>Compute both the XX and YY polarization products</p>
+</dd>
+<dt><kbd><span class="option">-4</span>, <span class="option">--four-products</span></kbd></dt>
+<dd><p>Compute all for polariation products:  XX, YY, XY,
+and YX.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>possm.py</dt><dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Script that takes a FITS IDI file and mimics the AIPS task POSSM by plotting
+average cross-power spectra for all baselines in the FITS IDI file.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>possm.py file</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd>
+<dt>imageIDI.py</dt><dd><dl class="field-list">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Script that takes a FITS IDI file and images the data.</p>
+</dd>
+<dt class="field-even">Usage<span class="colon">:</span></dt>
+<dd class="field-even"><p>imageIDI.py file</p>
+</dd>
+<dt class="field-odd">Options<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>Display this help information</p>
+</dd>
+<dt><kbd><span class="option">-1</span>, <span class="option">--freq-start</span></kbd></dt>
+<dd><p>First frequency to image in MHz (Default = 10 MHz)</p>
+</dd>
+<dt><kbd><span class="option">-2</span>, <span class="option">--freq-stop</span></kbd></dt>
+<dd><p>Last frequency to image in MHz (Default = 88 MHz)</p>
+</dd>
+<dt><kbd><span class="option">-s</span>, <span class="option">--dataset</span></kbd></dt>
+<dd><p>Data set to image (Default = All)</p>
+</dd>
+<dt><kbd><span class="option">-m</span>, <span class="option">--uv-min</span></kbd></dt>
+<dd><p>Minimun baseline uvw length to include
+(Default = 0 lambda at midpoint frequency)</p>
+</dd>
+<dt><kbd><span class="option">-n</span>, <span class="option">--no-labels</span></kbd></dt>
+<dd><p>Disable source and grid labels</p>
+</dd>
+<dt><kbd><span class="option">-g</span>, <span class="option">--no-grid</span></kbd></dt>
+<dd><p>Disable the RA/Dec grid</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">General Utilities</a></li>
+<li><a class="reference internal" href="#data-reading-and-writing">Data Reading and Writing</a></li>
+<li><a class="reference internal" href="#data-analysis">Data Analysis</a></li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="data-formats.html"
+                          title="next chapter">Data Format Descriptions</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/scripts.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="data-formats.html" title="Data Format Descriptions"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">General Utilities</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

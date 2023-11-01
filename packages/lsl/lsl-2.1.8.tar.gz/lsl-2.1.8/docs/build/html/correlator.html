@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Correlation &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Imaging" href="imaging.html" />
+    <link rel="prev" title="Computing Spectra" href="spectra.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="imaging.html" title="Imaging"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="spectra.html" title="Computing Spectra"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Correlation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-lsl.correlator.fx">
+<span id="correlation"></span><h1>Correlation<a class="headerlink" href="#module-lsl.correlator.fx" title="Permalink to this heading">¶</a></h1>
+<p>Python module to handle the channelization and cross-correlation of TBW and
+TBN data.  The main python functions in this module are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>calcSpectra - calculate power spectra for a collection of signals</p></li>
+<li><p>FXCorrelator - calculate cross power spectra for a collection of signals</p></li>
+<li><dl class="simple">
+<dt>FXStokes - calculate Stokes cross power spectra for a collection of signals</dt><dd><p>both of which have been deprecated in favor of the new C extension
+based  routines listed below.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>The main python/C extension functions in this module are:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>SpecMaster - similar to calcSpectra but uses the _spec module for all </dt><dd><p>computations and does not support automatic sub-integration</p>
+</dd>
+</dl>
+</li>
+<li><p>StokesMaster - similar to SpecMaster but computes all four Stokes parameters</p></li>
+<li><p>FXMaster - calculate cross power spectra for a collection of signals</p></li>
+</ul>
+</dd>
+</dl>
+<p>Each function is set up to process the signals in parallel using the 
+multiprocessing module and accepts a variety of options controlling the processing
+of the data, including various window functions and time averaging.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.1: </span>Removed SpecMasterP.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.0: </span>All of the functions here now return all ‘LFFT’ channels.</p>
+</div>
+<section id="baseline-utilities">
+<h2>Baseline Utilities<a class="headerlink" href="#baseline-utilities" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.uvutils.get_baselines">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.uvutils.</span></span><span class="sig-name descname"><span class="pre">get_baselines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">antennas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennas2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_auto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indicies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.uvutils.get_baselines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a list of two-element tuples that describe which antennae
+compose each of the output uvw triplets from compute_uvw/compute_uv_track.
+If the indicies keyword is set to True, the two-element tuples 
+contain the indicies of the stands array used, rather than the actual
+stand numbers.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.uvutils.baseline_to_antennas">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.uvutils.</span></span><span class="sig-name descname"><span class="pre">baseline_to_antennas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baseline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennas2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_auto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indicies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.uvutils.baseline_to_antennas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a baseline number, a list of stands, and options of how the base-
+line listed was generated, convert the baseline number to antenna numbers.
+Alternatively, use a list of baselines instead of generating a new list.  
+This utility is useful for figuring out what antennae comprise a baseline.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.uvutils.antennas_to_baseline">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.uvutils.</span></span><span class="sig-name descname"><span class="pre">antennas_to_baseline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ant1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ant2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennas2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_auto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indicies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.uvutils.antennas_to_baseline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given two antenna numbers, a list of stands, and options to how the base-
+line listed was generated, convert the antenna pair to  a baseline number. 
+This utility is useful for picking out a particular pair from a list of
+baselines.</p>
+</dd></dl>
+
+</section>
+<section id="computing-uvw-coordinates">
+<h2>Computing <em>uvw</em> Coordinates<a class="headerlink" href="#computing-uvw-coordinates" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.uvutils.compute_uvw">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.uvutils.</span></span><span class="sig-name descname"><span class="pre">compute_uvw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">antennas,</span> <span class="pre">HA=0.0,</span> <span class="pre">dec=34.07,</span> <span class="pre">freq=49000000.0,</span> <span class="pre">site=&lt;LWAStation</span> <span class="pre">id='VL',</span> <span class="pre">name='LWA1',</span> <span class="pre">lat=34:04:08.0,</span> <span class="pre">long=-107:37:42.1,</span>&#160;&#160;&#160;&#160; <span class="pre">elev=2133.6,</span> <span class="pre">pressure=0.0,</span> <span class="pre">horizon=0:00:00.0,</span> <span class="pre">antennas=[...],</span>&#160;&#160;&#160;&#160; <span class="pre">interface=&lt;LSLInterface</span> <span class="pre">backend='lsl.common.dp',</span>&#160;&#160;&#160;&#160; <span class="pre">mcs='lsl.common.mcs',</span> <span class="pre">sdf='lsl.common.sdf',</span>&#160;&#160;&#160;&#160; <span class="pre">metabundle='lsl.common.metabundle',</span> <span class="pre">sdm='lsl.common.sdm'&gt;&gt;,</span> <span class="pre">include_auto=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.uvutils.compute_uvw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the uvw converate of a baselines formed by a collection of 
+stands.  The coverage is computed at a given HA (in hours) and 
+declination (in degrees) for a given site.  The frequency provided 
+(in Hz) can either as a scalar or as a numpy array.  If more than one 
+frequency is given, the output is a three dimensional with dimensions 
+of baselines, uvw, and frequencies.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.0: </span>Switched over to passing in Antenna instances generated by the
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.common.station</span></code> module instead of a list of stand ID
+numbers.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.0: </span>Added a keyword (site) to specify the station used for the 
+observation.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.1.2: </span>Updated to work with lists in a transparent manner.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 2.0.1: </span>Added support for ephem.Angle and astropy.coordinates.Angle instances 
+for HA and dec.
+Added support for astropy.coordinates.EarthLocation instances for site.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.uvutils.compute_uv_track">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.uvutils.</span></span><span class="sig-name descname"><span class="pre">compute_uv_track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">antennas,</span> <span class="pre">dec=34.07,</span> <span class="pre">freq=49000000.0,</span> <span class="pre">site=&lt;LWAStation</span> <span class="pre">id='VL',</span> <span class="pre">name='LWA1',</span> <span class="pre">lat=34:04:08.0,</span> <span class="pre">long=-107:37:42.1,</span>&#160;&#160;&#160;&#160; <span class="pre">elev=2133.6,</span> <span class="pre">pressure=0.0,</span> <span class="pre">horizon=0:00:00.0,</span> <span class="pre">antennas=[...],</span>&#160;&#160;&#160;&#160; <span class="pre">interface=&lt;LSLInterface</span> <span class="pre">backend='lsl.common.dp',</span>&#160;&#160;&#160;&#160; <span class="pre">mcs='lsl.common.mcs',</span> <span class="pre">sdf='lsl.common.sdf',</span>&#160;&#160;&#160;&#160; <span class="pre">metabundle='lsl.common.metabundle',</span> <span class="pre">sdm='lsl.common.sdm'&gt;&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.uvutils.compute_uv_track" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whereas compute_uvw provides the uvw coverage at a particular time, 
+compute_uv_track provides the complete uv plane track for a long 
+integration.  The output is a three dimensional numpy array with 
+dimensions baselines, uv, and 512 points along the track ellipses.  
+Unlike compute_uvw, however, only a single frequency (in Hz) can be 
+specified.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.0: </span>Switched over to passing in Antenna instances generated by the
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.common.station</span></code> module instead of a list of stand ID
+numbers.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.0: </span>Added a keyword (site) to specify the station used for the 
+observation.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 2.0.1: </span>Added support for ephem.Angle and astropy.coordinates.Angle instances 
+for dec.
+Added support for astropy.coordinates.EarthLocation instances for site.</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-lsl.correlator.filterbank">
+<span id="polyphase-filter-bank"></span><h2>Polyphase Filter Bank<a class="headerlink" href="#module-lsl.correlator.filterbank" title="Permalink to this heading">¶</a></h2>
+<p>This module implements a uniform DFT filter bank for use in calculating 
+spectra as an alternative to a simple FFT.  The implementation here is based 
+on:  <a class="reference external" href="http://www.scribd.com/doc/20561850/6/Polyphase-Filter-Coef%EF%AC%81cients">http://www.scribd.com/doc/20561850/6/Polyphase-Filter-Coef%EF%AC%81cients</a></p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.filterbank.fft">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.filterbank.</span></span><span class="sig-name descname"><span class="pre">fft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window=&lt;function</span> <span class="pre">null_window&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.filterbank.fft" title="Permalink to this definition">¶</a></dt>
+<dd><p>FFT-based poly-phase filter bank for creating N channels with P
+taps.  Optionally, a window function can be specified using the 
+‘window’ keyword.  See <code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.correlator.fx.calcSpectra</span></code> for 
+details on using window functions.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.filterbank.fft16">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.filterbank.</span></span><span class="sig-name descname"><span class="pre">fft16</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window=&lt;function</span> <span class="pre">null_window&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.filterbank.fft16" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-type of <a class="reference internal" href="#lsl.correlator.filterbank.fft" title="lsl.correlator.filterbank.fft"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.correlator.filterbank.fft</span></code></a> that uses 16 taps.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.filterbank.fft2">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.filterbank.</span></span><span class="sig-name descname"><span class="pre">fft2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window=&lt;function</span> <span class="pre">null_window&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.filterbank.fft2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-type of <a class="reference internal" href="#lsl.correlator.filterbank.fft" title="lsl.correlator.filterbank.fft"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.correlator.filterbank.fft</span></code></a> that uses two taps.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.filterbank.fft32">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.filterbank.</span></span><span class="sig-name descname"><span class="pre">fft32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window=&lt;function</span> <span class="pre">null_window&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.filterbank.fft32" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-type of <a class="reference internal" href="#lsl.correlator.filterbank.fft" title="lsl.correlator.filterbank.fft"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.correlator.filterbank.fft</span></code></a> that uses 32 taps.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.filterbank.fft4">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.filterbank.</span></span><span class="sig-name descname"><span class="pre">fft4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window=&lt;function</span> <span class="pre">null_window&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.filterbank.fft4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-type of <a class="reference internal" href="#lsl.correlator.filterbank.fft" title="lsl.correlator.filterbank.fft"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.correlator.filterbank.fft</span></code></a> that uses four taps.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.filterbank.fft8">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.filterbank.</span></span><span class="sig-name descname"><span class="pre">fft8</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window=&lt;function</span> <span class="pre">null_window&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.filterbank.fft8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-type of <a class="reference internal" href="#lsl.correlator.filterbank.fft" title="lsl.correlator.filterbank.fft"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.correlator.filterbank.fft</span></code></a> that uses eight taps.</p>
+</dd></dl>
+
+</section>
+<section id="fx-correlator">
+<h2>FX Correlator<a class="headerlink" href="#fx-correlator" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.fx.null_window">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.fx.</span></span><span class="sig-name descname"><span class="pre">null_window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">L</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.fx.null_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default “empty” windowing function for use with the various routines.  This
+function returned a numpy array of ‘1’s of the specified length.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.fx.FXMaster">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.fx.</span></span><span class="sig-name descname"><span class="pre">FXMaster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LFFT=64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_auto=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window=&lt;function</span> <span class="pre">null_window&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfb=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">central_freq=0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol='XX'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain_correct=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_baselines=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip_level=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_center='z'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.fx.FXMaster" title="Permalink to this definition">¶</a></dt>
+<dd><p>A more advanced version of FXCorrelator for TBW and TBN data.  Given an 
+2-D array of signals (stands, time-series) and an array of stands, compute 
+the cross-correlation of the data for all baselines.  Return the frequencies 
+and visibilities as a two-elements tuple.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.0: </span>Switched over to passing in Antenna instances generated by the
+<a class="reference internal" href="station.html#module-lsl.common.stations" title="lsl.common.stations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.common.stations</span></code></a> module instead of a list of stand ID
+numbers.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.0: </span>Added a phase-center keyword that accept a two-element tuple of 
+azimuth and elelvation (in degrees) to change where the 
+correlations are phased to</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.1.0: </span>Made the ‘phase_center’ keyword more flexible.  It can now be either:
+ * ‘z’ to denote the zenith,
+ * a ephem.Body instances which has been computed for the observer, or
+ * a two-element tuple of azimuth, elevation in degrees.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.5: </span>Added the ‘pfb’ keyword.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 2.0.1: </span>Added support for phase_center to be an astropy.coordinates.AltAz instance</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.fx.FXStokes">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.fx.</span></span><span class="sig-name descname"><span class="pre">FXStokes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LFFT=64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_auto=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window=&lt;function</span> <span class="pre">null_window&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfb=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">central_freq=0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain_correct=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_baselines=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip_level=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_center='z'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.fx.FXStokes" title="Permalink to this definition">¶</a></dt>
+<dd><p>A more advanced version of FXCorrelator for TBW and TBN data.  Given an 
+2-D array of signals (stands, time-series) and an array of stands, compute 
+the cross-correlation of the data for all baselines.  Return the frequencies 
+and visibilities as a two-elements tuple.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 2.0.1: </span>Added support for phase_center to be an astropy.coordinates.AltAz instance</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.0: </span>Added a phase_center keyword that accept a two-element tuple of 
+azimuth and elelvation (in degrees) to change where the 
+correlations are phased to</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.1.0: </span>Made the ‘phase_center’ keyword more flexible.  It can now be either:
+ * ‘z’ to denote the zenith,
+ * a ephem.Body instances which has been computed for the observer, or
+ * a two-element tuple of azimuth, elevation in degrees.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.5: </span>Added the ‘pfb’ keyword.</p>
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Correlation</a><ul>
+<li><a class="reference internal" href="#baseline-utilities">Baseline Utilities</a><ul>
+<li><a class="reference internal" href="#lsl.correlator.uvutils.get_baselines"><code class="docutils literal notranslate"><span class="pre">get_baselines()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.correlator.uvutils.baseline_to_antennas"><code class="docutils literal notranslate"><span class="pre">baseline_to_antennas()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.correlator.uvutils.antennas_to_baseline"><code class="docutils literal notranslate"><span class="pre">antennas_to_baseline()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#computing-uvw-coordinates">Computing <em>uvw</em> Coordinates</a><ul>
+<li><a class="reference internal" href="#lsl.correlator.uvutils.compute_uvw"><code class="docutils literal notranslate"><span class="pre">compute_uvw()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.correlator.uvutils.compute_uv_track"><code class="docutils literal notranslate"><span class="pre">compute_uv_track()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-lsl.correlator.filterbank">Polyphase Filter Bank</a><ul>
+<li><a class="reference internal" href="#lsl.correlator.filterbank.fft"><code class="docutils literal notranslate"><span class="pre">fft()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.correlator.filterbank.fft16"><code class="docutils literal notranslate"><span class="pre">fft16()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.correlator.filterbank.fft2"><code class="docutils literal notranslate"><span class="pre">fft2()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.correlator.filterbank.fft32"><code class="docutils literal notranslate"><span class="pre">fft32()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.correlator.filterbank.fft4"><code class="docutils literal notranslate"><span class="pre">fft4()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.correlator.filterbank.fft8"><code class="docutils literal notranslate"><span class="pre">fft8()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fx-correlator">FX Correlator</a><ul>
+<li><a class="reference internal" href="#lsl.correlator.fx.null_window"><code class="docutils literal notranslate"><span class="pre">null_window()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.correlator.fx.FXMaster"><code class="docutils literal notranslate"><span class="pre">FXMaster()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.correlator.fx.FXStokes"><code class="docutils literal notranslate"><span class="pre">FXStokes()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="spectra.html"
+                          title="previous chapter">Computing Spectra</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="imaging.html"
+                          title="next chapter">Imaging</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/correlator.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="imaging.html" title="Imaging"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="spectra.html" title="Computing Spectra"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Correlation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

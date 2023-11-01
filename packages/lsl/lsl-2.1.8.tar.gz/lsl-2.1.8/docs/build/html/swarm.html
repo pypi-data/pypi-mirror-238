@@ -1,0 +1,536 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>LWA Swarm Observations &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Station Meta-Data" href="station.html" />
+    <link rel="prev" title="Defining Single Station Observations and Observation Metadata" href="observations.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="station.html" title="Station Meta-Data"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="observations.html" title="Defining Single Station Observations and Observation Metadata"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">LWA Swarm Observations</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="lwa-swarm-observations">
+<h1>LWA Swarm Observations<a class="headerlink" href="#lwa-swarm-observations" title="Permalink to this heading">¶</a></h1>
+<section id="module-lsl.common.idf">
+<span id="interferometer-definition-files"></span><h2>Interferometer Definition Files<a class="headerlink" href="#module-lsl.common.idf" title="Permalink to this heading">¶</a></h2>
+<p>Module that contains all of the relevant class to build up a representation 
+of a interferometer definition file.  The hierarchy of classes is:</p>
+<blockquote>
+<div><ul>
+<li><dl class="simple">
+<dt>Project - class that holds all of the information about the project (including</dt><dd><p>the observer) and one or more runs.  Technically, a ID file has 
+only one run but this approach allows for the generation of 
+multiple SD files from a single Project object.</p>
+</dd>
+</dl>
+</li>
+<li><p>Observer - class that hold the observer’s name and numeric ID</p></li>
+<li><dl class="simple">
+<dt>Run - class that holds all of the scans associated and the associated</dt><dd><p>correlator setup for a with a particular interferometer run</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Scan - class that hold information about a particular scan.  It</dt><dd><p>includes a variety of attributes that are used to convert human-
+readable inputs to SDF data values.  The scan class is 
+further subclasses into:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>DRX - class for general DRX scan, with sub-classes:
+* Solar - class for solar tracking
+* Jovian - class for Jovian tracking</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>Most class contain ‘validate’ attribute functions that can be used to determine if the 
+project/run/scan are valid or not given the constraints of
+the ADP system.</p>
+<p>In addition to providing the means for creating interferometer definition files from 
+scratch, this module also includes a simple parser for ID files.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 2.0.0: </span>Added support for astropy.time.Time and astropy.coordinates.Angle instances</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.4.</span></p>
+</div>
+<section id="run-structure">
+<h3>Run Structure<a class="headerlink" href="#run-structure" title="Permalink to this heading">¶</a></h3>
+<p>Similar to the <a class="reference internal" href="sdf.html#module-lsl.common.sdf" title="lsl.common.sdf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.common.sdf</span></code></a> module, <a class="reference internal" href="#module-lsl.common.idf" title="lsl.common.idf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.common.idf</span></code></a> provides a means to represent a set of scans using the LWA Swarm interferometer as Python objects.  For each
+<a class="reference internal" href="#lsl.common.idf.Project" title="lsl.common.idf.Project"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.common.idf.Project</span></code></a>, there is:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>An observer (<a class="reference internal" href="#lsl.common.idf.Observer" title="lsl.common.idf.Observer"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.common.idf.Observer</span></code></a>)</p></li>
+<li><p>The project office comments (<a class="reference internal" href="#lsl.common.idf.ProjectOffice" title="lsl.common.idf.ProjectOffice"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.common.idf.ProjectOffice</span></code></a>)</p></li>
+<li><p>A single run that defines the IDF (<a class="reference internal" href="#lsl.common.idf.Run" title="lsl.common.idf.Run"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.common.idf.Run</span></code></a>)</p></li>
+</ol>
+</div></blockquote>
+<p>The run contains one or more scans (<a class="reference internal" href="#lsl.common.idf.Scan" title="lsl.common.idf.Scan"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.common.idf.Scan</span></code></a>).  Each observing mode supported
+by the LWA Swarm is sub-classed (see below).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.idf.Project">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.idf.</span></span><span class="sig-name descname"><span class="pre">Project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">runs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_office</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold all the information about a specific interferometer run for a 
+project/proposal.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.idf.Project.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newRun</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Project.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new run to the list of runs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.idf.Project.generate_sdfs">
+<span class="sig-name descname"><span class="pre">generate_sdfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">starting_session_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Project.generate_sdfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the ID file into a collection of <cite>lsl.common.sdfADP.Project</cite> instances
+that can be used to write SD files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.idf.Project.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Project.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a run definition file that corresponds to the specified 
+run.  Returns the ID file’s contents as a string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.idf.Project.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Project.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the various runs that are part of this project.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.idf.Project.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Project.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Examine all of the runs and all of their scans to check
+for validity.  If everything is valid, return True.  Otherwise, return
+False.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.idf.Project.writeto">
+<span class="sig-name descname"><span class="pre">writeto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Project.writeto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a run definition file that corresponds to the specified 
+run and write it to the provided filename.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.idf.Observer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.idf.</span></span><span class="sig-name descname"><span class="pre">Observer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Observer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold information about an observer.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.idf.ProjectOffice">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.idf.</span></span><span class="sig-name descname"><span class="pre">ProjectOffice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">runs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scans</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.ProjectOffice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold comments from the LWA object office.  This class isn’t really 
+needed to create ID files, but it is helpful for parsing ID files.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.idf.Run">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.idf.</span></span><span class="sig-name descname"><span class="pre">Run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name,</span> <span class="pre">id,</span> <span class="pre">scans=None,</span> <span class="pre">data_return_method='DRSU',</span> <span class="pre">comments=None,</span> <span class="pre">correlator_channels=512,</span> <span class="pre">correlator_inttime=1.0,</span> <span class="pre">correlator_basis='linear',</span> <span class="pre">stations=[&lt;LWAStation</span> <span class="pre">id='VL',</span> <span class="pre">name='LWA1',</span> <span class="pre">lat=34:04:08.0,</span> <span class="pre">long=-107:37:42.1,</span>&#160;&#160;&#160;&#160; <span class="pre">elev=2133.6,</span> <span class="pre">pressure=0.0,</span> <span class="pre">horizon=0:00:00.0,</span> <span class="pre">antennas=[...],</span>&#160;&#160;&#160;&#160; <span class="pre">interface=&lt;LSLInterface</span> <span class="pre">backend='lsl.common.dp',</span>&#160;&#160;&#160;&#160; <span class="pre">mcs='lsl.common.mcs',</span> <span class="pre">sdf='lsl.common.sdf',</span>&#160;&#160;&#160;&#160; <span class="pre">metabundle='lsl.common.metabundle',</span> <span class="pre">sdm='lsl.common.sdm'&gt;&gt;,</span> <span class="pre">&lt;LWAStation</span> <span class="pre">id='SV',</span> <span class="pre">name='LWASV',</span> <span class="pre">lat=34:20:54.1,</span> <span class="pre">long=-106:53:08.8,</span>&#160;&#160;&#160;&#160; <span class="pre">elev=1477.8,</span> <span class="pre">pressure=0.0,</span> <span class="pre">horizon=0:00:00.0,</span> <span class="pre">antennas=[...],</span>&#160;&#160;&#160;&#160; <span class="pre">interface=&lt;LSLInterface</span> <span class="pre">backend='lsl.common.adp',</span>&#160;&#160;&#160;&#160; <span class="pre">mcs='lsl.common.mcsADP',</span> <span class="pre">sdf='lsl.common.sdfADP',</span>&#160;&#160;&#160;&#160; <span class="pre">metabundle='lsl.common.metabundleADP',</span> <span class="pre">sdm='lsl.common.sdmADP'&gt;&gt;]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold all of the scans in an interferometer run.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.idf.Run.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newScan</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Run.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new Scan to the list of scans.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Run.correlator_basis">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">correlator_basis</span></span><a class="headerlink" href="#lsl.common.idf.Run.correlator_basis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Correlator output polarization basis.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Run.correlator_channels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">correlator_channels</span></span><a class="headerlink" href="#lsl.common.idf.Run.correlator_channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of correlator channels to use.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Run.correlator_inttime">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">correlator_inttime</span></span><a class="headerlink" href="#lsl.common.idf.Run.correlator_inttime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Correlator integration time in seconds.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Run.stations">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stations</span></span><a class="headerlink" href="#lsl.common.idf.Run.stations" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of LWA stations to use in the interferometer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.idf.Run.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Run.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the various scans in the run.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.idf.Run.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Run.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Examine all of the scans associated with the run to check
+for validity.  If everything is valid, return True.  Otherwise, return
+False.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.idf.</span></span><span class="sig-name descname"><span class="pre">Scan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.0,</span> <span class="pre">0.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Scan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold the specifics of a scans.  It currently
+handles TRK_RADEC, TRK_SOL, and TRK_JOV.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.add_alt_phase_center">
+<span class="sig-name descname"><span class="pre">add_alt_phase_center</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_or_apc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Scan.add_alt_phase_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an alternate phase center to the scan.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.dec">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dec</span></span><a class="headerlink" href="#lsl.common.idf.Scan.dec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target dec. (J2000).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#lsl.common.idf.Scan.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duration in seconds.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.estimate_bytes">
+<span class="sig-name descname"><span class="pre">estimate_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Scan.estimate_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the data volume for the specified type and duration of 
+scans.  For DRX:</p>
+<blockquote>
+<div><p>bytes = duration * sample_rate / 4096 * 4128 bytes * 2 tunings * 2 pols.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.idf.Scan.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ephem.Body object corresponding to where the scan is 
+pointed.  None if the scan mode is TBN.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.frequency1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency1</span></span><a class="headerlink" href="#lsl.common.idf.Scan.frequency1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuning 1 frequency in Hz.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.frequency2">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency2</span></span><a class="headerlink" href="#lsl.common.idf.Scan.frequency2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuning 2 frequency in Hz.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.intent">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">intent</span></span><a class="headerlink" href="#lsl.common.idf.Scan.intent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obsevational intent.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.pm">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pm</span></span><a class="headerlink" href="#lsl.common.idf.Scan.pm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target proper motion in mas/yr.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.ra">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ra</span></span><a class="headerlink" href="#lsl.common.idf.Scan.ra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target RA (J2000).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start</span></span><a class="headerlink" href="#lsl.common.idf.Scan.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start time.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.target_visibility">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">target_visibility</span></span><a class="headerlink" href="#lsl.common.idf.Scan.target_visibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the fractional visibility of the target during the scan 
+period.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Scan.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the computed parameters from the string values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.idf.Scan.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Scan.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the scan and return True if it is valid, False otherwise.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="observing-modes">
+<h3>Observing Modes<a class="headerlink" href="#observing-modes" title="Permalink to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.idf.DRX">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.idf.</span></span><span class="sig-name descname"><span class="pre">DRX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.0,</span> <span class="pre">0.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.DRX" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>scan target</p></li>
+<li><p>scan intent</p></li>
+<li><p>scan start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>scan duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>scan RA in hours, J2000.0 or ephem.hours instance</p></li>
+<li><p>scan Dec in degrees, J2000.0 or ephem.hours instance</p></li>
+<li><p>scan tuning frequency 1 (Hz)</p></li>
+<li><p>scan tuning frequency 1 (Hz)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><p>comments - comments about the scan</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.idf.Solar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.idf.</span></span><span class="sig-name descname"><span class="pre">Solar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Solar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of DRX specifically for Solar DRX scans.   It features a
+reduced number of parameters needed to setup the scan.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>scan target</p></li>
+<li><p>scan intent</p></li>
+<li><p>scan start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>scan duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>scan tuning frequency 1 (Hz)</p></li>
+<li><p>scan tuning frequency 1 (Hz)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><p>comments - comments about the scan</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Solar.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.idf.Solar.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ephem.Body object corresponding to where the scan is 
+pointed.  None if the scan mode is TBN.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.idf.Jovian">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.idf.</span></span><span class="sig-name descname"><span class="pre">Jovian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.idf.Jovian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of DRX specifically for Jovian DRX scans.   It features a
+reduced number of parameters needed to setup the scan.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>scan target</p></li>
+<li><p>scan intent</p></li>
+<li><p>scan start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>scan duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>scan tuning frequency 1 (Hz)</p></li>
+<li><p>scan tuning frequency 1 (Hz)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><p>comments - comments about the scan</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.idf.Jovian.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.idf.Jovian.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ephem.Body object corresponding to where the scan is 
+pointed.  None if the scan mode is TBN.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">LWA Swarm Observations</a><ul>
+<li><a class="reference internal" href="#module-lsl.common.idf">Interferometer Definition Files</a><ul>
+<li><a class="reference internal" href="#run-structure">Run Structure</a><ul>
+<li><a class="reference internal" href="#lsl.common.idf.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.idf.Project.append"><code class="docutils literal notranslate"><span class="pre">Project.append()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Project.generate_sdfs"><code class="docutils literal notranslate"><span class="pre">Project.generate_sdfs()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Project.render"><code class="docutils literal notranslate"><span class="pre">Project.render()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Project.update"><code class="docutils literal notranslate"><span class="pre">Project.update()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Project.validate"><code class="docutils literal notranslate"><span class="pre">Project.validate()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Project.writeto"><code class="docutils literal notranslate"><span class="pre">Project.writeto()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.idf.Observer"><code class="docutils literal notranslate"><span class="pre">Observer</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.ProjectOffice"><code class="docutils literal notranslate"><span class="pre">ProjectOffice</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Run"><code class="docutils literal notranslate"><span class="pre">Run</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.idf.Run.append"><code class="docutils literal notranslate"><span class="pre">Run.append()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Run.correlator_basis"><code class="docutils literal notranslate"><span class="pre">Run.correlator_basis</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Run.correlator_channels"><code class="docutils literal notranslate"><span class="pre">Run.correlator_channels</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Run.correlator_inttime"><code class="docutils literal notranslate"><span class="pre">Run.correlator_inttime</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Run.stations"><code class="docutils literal notranslate"><span class="pre">Run.stations</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Run.update"><code class="docutils literal notranslate"><span class="pre">Run.update()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Run.validate"><code class="docutils literal notranslate"><span class="pre">Run.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan"><code class="docutils literal notranslate"><span class="pre">Scan</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.add_alt_phase_center"><code class="docutils literal notranslate"><span class="pre">Scan.add_alt_phase_center()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.dec"><code class="docutils literal notranslate"><span class="pre">Scan.dec</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.duration"><code class="docutils literal notranslate"><span class="pre">Scan.duration</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.estimate_bytes"><code class="docutils literal notranslate"><span class="pre">Scan.estimate_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.fixed_body"><code class="docutils literal notranslate"><span class="pre">Scan.fixed_body</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.frequency1"><code class="docutils literal notranslate"><span class="pre">Scan.frequency1</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.frequency2"><code class="docutils literal notranslate"><span class="pre">Scan.frequency2</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.intent"><code class="docutils literal notranslate"><span class="pre">Scan.intent</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.pm"><code class="docutils literal notranslate"><span class="pre">Scan.pm</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.ra"><code class="docutils literal notranslate"><span class="pre">Scan.ra</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.start"><code class="docutils literal notranslate"><span class="pre">Scan.start</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.target_visibility"><code class="docutils literal notranslate"><span class="pre">Scan.target_visibility</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.update"><code class="docutils literal notranslate"><span class="pre">Scan.update()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Scan.validate"><code class="docutils literal notranslate"><span class="pre">Scan.validate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#observing-modes">Observing Modes</a><ul>
+<li><a class="reference internal" href="#lsl.common.idf.DRX"><code class="docutils literal notranslate"><span class="pre">DRX</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.idf.Solar"><code class="docutils literal notranslate"><span class="pre">Solar</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.idf.Solar.fixed_body"><code class="docutils literal notranslate"><span class="pre">Solar.fixed_body</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.idf.Jovian"><code class="docutils literal notranslate"><span class="pre">Jovian</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.idf.Jovian.fixed_body"><code class="docutils literal notranslate"><span class="pre">Jovian.fixed_body</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="observations.html"
+                          title="previous chapter">Defining Single Station Observations and Observation Metadata</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="station.html"
+                          title="next chapter">Station Meta-Data</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/swarm.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="station.html" title="Station Meta-Data"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="observations.html" title="Defining Single Station Observations and Observation Metadata"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">LWA Swarm Observations</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

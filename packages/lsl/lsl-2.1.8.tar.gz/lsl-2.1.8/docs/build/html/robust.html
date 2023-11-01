@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Robust Statistics &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Module and Data Paths" href="paths.html" />
+    <link rel="prev" title="Math Utilities" href="mathutils.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="paths.html" title="Module and Data Paths"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="mathutils.html" title="Math Utilities"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Robust Statistics</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="robust-statistics">
+<h1>Robust Statistics<a class="headerlink" href="#robust-statistics" title="Permalink to this heading">¶</a></h1>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.0: </span>Function names have been changed in this module and new function added.  See the below
+for more details.</p>
+</div>
+<span class="target" id="module-lsl.statistics.robust"></span><p>Small collection of robust statistical estimators based on functions from
+Henry Freudenriech (Hughes STX) statistics library (called ROBLIB) that have
+been incorporated into the AstroIDL User’s Library.  Function included are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>biweight_mean - biweighted mean estimator</p></li>
+<li><p>mean - robust estimator of the mean of a data set</p></li>
+<li><dl class="simple">
+<dt>mode - robust estimate of the mode of a data set using the half-sample</dt><dd><p>method</p>
+</dd>
+</dl>
+</li>
+<li><p>std - robust estimator of the standard deviation of a data set</p></li>
+<li><dl class="simple">
+<dt>checkfit - return the standard deviation and biweights for a fit in order </dt><dd><p>to determine its quality</p>
+</dd>
+</dl>
+</li>
+<li><p>linefit - outlier resistant fit of a line to data</p></li>
+<li><p>polyfit - outlier resistant fit of a polynomial to data</p></li>
+</ul>
+</div></blockquote>
+<p>For the fitting routines, the coefficients are returned in the same order as
+numpy.polyfit, i.e., with the coefficient of the highest power listed first.</p>
+<p>For additional information about the original IDL routines, see:
+<a class="reference external" href="http://idlastro.gsfc.nasa.gov/contents.html#C17">http://idlastro.gsfc.nasa.gov/contents.html#C17</a></p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.robust.biweight_mean">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.robust.</span></span><span class="sig-name descname"><span class="pre">biweight_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.robust.biweight_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the mean of a data set using bisquare weighting.</p>
+<p>Based on the biweight_mean routine from the AstroIDL User’s 
+Library.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.3: </span>Added the ‘axis’ and ‘dtype’ keywords to make this function more
+compatible with numpy.mean()</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.robust.checkfit">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.robust.</span></span><span class="sig-name descname"><span class="pre">checkfit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputFit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bisquare_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.robust.checkfit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine the quality of a fit and biweights.  Returns a tuple
+with elements:</p>
+<blockquote>
+<div><ol class="arabic simple" start="0">
+<li><p>Status</p></li>
+<li><p>Robust standard deviation analog</p></li>
+<li><p>Fractional median absolute deviation of the residuals</p></li>
+<li><p>Number of input points given non-zero weight in the calculation</p></li>
+<li><p>Bisquare weights of the input points</p></li>
+<li><p>Residual values scaled by sigma</p></li>
+</ol>
+</div></blockquote>
+<p>This function is based on the rob_checkfit routine from the AstroIDL 
+User’s Library.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.robust.linefit">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.robust.</span></span><span class="sig-name descname"><span class="pre">linefit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputY</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bisector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bisquare_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.03</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.robust.linefit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Outlier resistance two-variable linear regression function.</p>
+<p>Based on the robust_linefit routine in the AstroIDL User’s Library.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.robust.mean">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.robust.</span></span><span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.robust.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Robust estimator of the mean of a data set.  Based on the 
+resistant_mean function from the AstroIDL User’s Library.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.1: </span>Added a ValueError if the distriubtion is too strange</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.3: </span>Added the ‘axis’ and ‘dtype’ keywords to make this function more
+compatible with numpy.mean()</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.robust.mode">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.robust.</span></span><span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.robust.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Robust estimator of the mode of a data set using the half-sample mode.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.robust.polyfit">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.robust.</span></span><span class="sig-name descname"><span class="pre">polyfit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputY</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.robust.polyfit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Outlier resistance two-variable polynomial function fitter.</p>
+<p>Based on the robust_poly_fit routine in the AstroIDL User’s 
+Library.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.robust.std">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.robust.</span></span><span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.robust.std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Robust estimator of the standard deviation of a data set.</p>
+<p>Based on the robust_sigma function from the AstroIDL User’s Library.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.1: </span>Added a ValueError if the distriubtion is too strange</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.3: </span>Added the ‘axis’ and ‘dtype’ keywords to make this function more
+compatible with numpy.std()</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="statistical-tests">
+<h1>Statistical Tests<a class="headerlink" href="#statistical-tests" title="Permalink to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.4.0.</span></p>
+</div>
+<span class="target" id="module-lsl.statistics.stattests"></span><p>Collection of statistical tests not found in any of the common
+python libraries.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.stattests.wald_wolfowitz">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.stattests.</span></span><span class="sig-name descname"><span class="pre">wald_wolfowitz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.stattests.wald_wolfowitz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wald-Wolfowitz test of randomness.  Given a numpy array of values
+compute the probability that the values are mutially independent.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="http://en.wikipedia.org/wiki/Wald%E2%80%93Wolfowitz_runs_test">http://en.wikipedia.org/wiki/Wald%E2%80%93Wolfowitz_runs_test</a></p>
+</div>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Robust Statistics</a><ul>
+<li><a class="reference internal" href="#lsl.statistics.robust.biweight_mean"><code class="docutils literal notranslate"><span class="pre">biweight_mean()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.statistics.robust.checkfit"><code class="docutils literal notranslate"><span class="pre">checkfit()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.statistics.robust.linefit"><code class="docutils literal notranslate"><span class="pre">linefit()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.statistics.robust.mean"><code class="docutils literal notranslate"><span class="pre">mean()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.statistics.robust.mode"><code class="docutils literal notranslate"><span class="pre">mode()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.statistics.robust.polyfit"><code class="docutils literal notranslate"><span class="pre">polyfit()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.statistics.robust.std"><code class="docutils literal notranslate"><span class="pre">std()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#statistical-tests">Statistical Tests</a><ul>
+<li><a class="reference internal" href="#lsl.statistics.stattests.wald_wolfowitz"><code class="docutils literal notranslate"><span class="pre">wald_wolfowitz()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="mathutils.html"
+                          title="previous chapter">Math Utilities</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="paths.html"
+                          title="next chapter">Module and Data Paths</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/robust.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="paths.html" title="Module and Data Paths"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mathutils.html" title="Math Utilities"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Robust Statistics</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

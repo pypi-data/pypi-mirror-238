@@ -1,0 +1,642 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Data Writers &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Computing Spectra" href="spectra.html" />
+    <link rel="prev" title="Data Readers" href="readers.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="spectra.html" title="Computing Spectra"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="readers.html" title="Data Readers"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data Writers</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="data-writers">
+<h1>Data Writers<a class="headerlink" href="#data-writers" title="Permalink to this heading">¶</a></h1>
+<section id="single-dish-fits">
+<h2>Single-Dish FITS<a class="headerlink" href="#single-dish-fits" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference external" href="http://fits.gsfc.nasa.gov/registry/sdfits.html">SDFITS Standard</a></p>
+<span class="target" id="module-lsl.writer.sdfits"></span><p>Module for writing spectrometer output to a SDFITS file.  The SDFITS created by
+this module closely follow the Parkes variant of the SDFITS convention
+(see [<a class="reference external" href="http://fits.gsfc.nasa.gov/registry/sdfits.html">http://fits.gsfc.nasa.gov/registry/sdfits.html</a>]).  The main differences
+between the two is that the LWA SDFITS do not contain calbration or weather
+information.  This, however, should not stop the files from being loaded into
+CASA with the ATNF Spectral Analysis Package (ASAP).</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.5.0: </span>The classes and functions defined in this module are based heavily off
+the <a class="reference internal" href="#module-lsl.writer.fitsidi" title="lsl.writer.fitsidi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.writer.fitsidi</span></code></a> writer.</p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.writer.sdfits.</span></span><span class="sig-name descname"><span class="pre">Sd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.sdfits.Sd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for storing spectrometer data and writing the data, along with array
+frequency setup, etc., to a SDFITS file that can be read into CASA via the
+sd.scantable() function.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd.add_comment">
+<span class="sig-name descname"><span class="pre">add_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comment</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.sdfits.Sd.add_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a comment to data.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd.add_data_set">
+<span class="sig-name descname"><span class="pre">add_data_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obsTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'XX'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.sdfits.Sd.add_data_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a SpectrometerData object to store a collection of spectra.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd.add_header_keyword">
+<span class="sig-name descname"><span class="pre">add_header_keyword</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.sdfits.Sd.add_header_keyword" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an additional entry to the header of the primary HDU.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.0.0.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd.add_history">
+<span class="sig-name descname"><span class="pre">add_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">history</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.sdfits.Sd.add_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a history entry to the data.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd.astro_ref_time">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">astro_ref_time</span></span><a class="headerlink" href="#lsl.writer.sdfits.Sd.astro_ref_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a reference time string to an <a class="reference internal" href="astro.html#lsl.astro.date" title="lsl.astro.date"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.astro.date</span></code></a> object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.sdfits.Sd.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close out the file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd.parse_time">
+<span class="sig-name descname"><span class="pre">parse_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref_time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.sdfits.Sd.parse_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a time as either a integer, float, string, or datetime object, 
+convert it to a string in the formation ‘YYYY-MM-DDTHH:MM:SS’.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd.set_frequency">
+<span class="sig-name descname"><span class="pre">set_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.sdfits.Sd.set_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a numpy array of frequencies, set the relevant common observation
+parameters and add an entry to the self.freq list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd.set_geometry">
+<span class="sig-name descname"><span class="pre">set_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.sdfits.Sd.set_geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a station and an array of stands, set the relevant common observation
+parameters and add entries to the self.array list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd.set_observer">
+<span class="sig-name descname"><span class="pre">set_observer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'UNKNOWN'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ZA'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.sdfits.Sd.set_observer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the observer name, project, and observation mode (if given) to the 
+self.observer, self.project, and self.mode attributes, respectively.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.0.0.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd.set_site">
+<span class="sig-name descname"><span class="pre">set_site</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.sdfits.Sd.set_site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the TELESCOP keyword in the primary HDU using an <a class="reference internal" href="station.html#lsl.common.stations.LWAStation" title="lsl.common.stations.LWAStation"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.common.stations.LWAStation</span></code></a>
+object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd.set_stokes">
+<span class="sig-name descname"><span class="pre">set_stokes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polList</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.sdfits.Sd.set_stokes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of Stokes parameters, update the object’s parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.sdfits.Sd.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.sdfits.Sd.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill in the SDFITS file will all of the tables in the correct order.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="fits-idi">
+<h2>FITS IDI<a class="headerlink" href="#fits-idi" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference external" href="http://fits.gsfc.nasa.gov/registry/fitsidi.html">FITS IDI Standard</a></p>
+<span class="target" id="module-lsl.writer.fitsidi"></span><p>Module for writing correlator output to a FITS IDI file.  The classes and
+functions defined in this module are based heavily off the lwda_fits library.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some software that deal with FITS IDI files, e.g. AIPS, does not support
+FITS IDI files with more than 99 antennas.  See the <code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.writer.fitsidi.aips</span></code>
+class for a FITS IDI writer that respects this limit.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.1.4: </span>Fixed a conjugation problem in the visibilities saved to a FITS-IDI file
+Added support for writing user-specified weights to a FITS-IDI file</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.2: </span>Added support for writing multiple IFs to the same FITS-IDI file</p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.writer.fitsidi.Aips">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.writer.fitsidi.</span></span><span class="sig-name descname"><span class="pre">Aips</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.fitsidi.Aips" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of the FITS IDI writer for making files that <em>should</em> work 
+with AIPS nicely.  AIPS imposes a limit on antenna number of two digits
+(1-99).  This sub-class overwrite the set_geometry() function with one that
+enforces the two digit limit and maps accordingly.  It also sets the FITS
+<cite>LWATYPE</cite> keyword in the primary HDU to a value of <cite>IDI-AIPS-ZA</cite> to 
+distinguish files written by this writer from the standard IDI writer.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.writer.fitsidi.ExtendedIdi">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.writer.fitsidi.</span></span><span class="sig-name descname"><span class="pre">ExtendedIdi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.fitsidi.ExtendedIdi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of the FITS IDI writer for making files that support up to
+65,535 antennas.  This is done by changing the packing of baselines 
+stored in the UVDATA table.  The new packing for baseline (i,j) is:
+(i &lt;&lt; 16) &amp; (j)
+It also sets the FITS <cite>LWATYPE</cite> keyword in the primary HDU to a value 
+of <cite>IDI-EXTENDED-ZA</cite> to distinguish files written by this writer 
+from the standard IDI writer.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.writer.fitsidi.Idi">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.writer.fitsidi.</span></span><span class="sig-name descname"><span class="pre">Idi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.fitsidi.Idi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for storing visibility data and writing the data, along with array
+geometry, frequency setup, etc., to a FITS IDI file that can be read into 
+AIPS via the FITLD task.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.fitsidi.Idi.add_comment">
+<span class="sig-name descname"><span class="pre">add_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comment</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.fitsidi.Idi.add_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a comment to data.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.fitsidi.Idi.add_history">
+<span class="sig-name descname"><span class="pre">add_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">history</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.fitsidi.Idi.add_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a history entry to the data.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.fitsidi.Idi.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.fitsidi.Idi.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close out the file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.fitsidi.Idi.read_array_geometry">
+<span class="sig-name descname"><span class="pre">read_array_geometry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.fitsidi.Idi.read_array_geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple with the array geodetic position and the local 
+positions for all antennas defined in the ARRAY_GEOMETRY table.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.fitsidi.Idi.read_array_mapper">
+<span class="sig-name descname"><span class="pre">read_array_mapper</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.fitsidi.Idi.read_array_mapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple with the array NOSTA mapper and inverse mapper (both
+dictionaries.  If the stand IDs have not been mapped, return None for
+both.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.fitsidi.Idi.set_geometry">
+<span class="sig-name descname"><span class="pre">set_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.fitsidi.Idi.set_geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a station and an array of stands, set the relevant common observation
+parameters and add entries to the self.array list.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.0: </span>Switched over to passing in Antenna instances generated by the
+<a class="reference internal" href="station.html#module-lsl.common.stations" title="lsl.common.stations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.common.stations</span></code></a> module instead of a list of stand ID
+numbers.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.fitsidi.Idi.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.fitsidi.Idi.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill in the FITS-IDI file will all of the tables in the 
+correct order.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-lsl.writer.uvfits">
+<span id="uvfits"></span><h2>UVFITS<a class="headerlink" href="#module-lsl.writer.uvfits" title="Permalink to this heading">¶</a></h2>
+<p>Module for writing correlator output to a UVFITS file.  The classes and 
+functions defined in this module are based heavily off the lwda_fits library.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For arrays with between 256 and 2048 antennas, the baseline packing
+follows the MIRIAD convention.</p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.writer.uvfits.Uv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.writer.uvfits.</span></span><span class="sig-name descname"><span class="pre">Uv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.uvfits.Uv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for storing visibility data and writing the data, along with array
+geometry, frequency setup, etc., to a UVFITS file that can be read into
+AIPS via the UVLOD task.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.uvfits.Uv.add_comment">
+<span class="sig-name descname"><span class="pre">add_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comment</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.uvfits.Uv.add_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a comment to data.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.uvfits.Uv.add_history">
+<span class="sig-name descname"><span class="pre">add_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">history</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.uvfits.Uv.add_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a history entry to the data.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.4.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.uvfits.Uv.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.uvfits.Uv.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close out the file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.uvfits.Uv.read_array_geometry">
+<span class="sig-name descname"><span class="pre">read_array_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dummy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.uvfits.Uv.read_array_geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple with the array geodetic position and the local 
+positions for all antennas defined in the AIPS AN table.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.uvfits.Uv.read_array_mapper">
+<span class="sig-name descname"><span class="pre">read_array_mapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dummy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.uvfits.Uv.read_array_mapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple with the array NOSTA mapper and inverse mapper (both
+dictionaries.  If the stand IDs have not been mapped, return None for
+both.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.uvfits.Uv.set_geometry">
+<span class="sig-name descname"><span class="pre">set_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.uvfits.Uv.set_geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a station and an array of stands, set the relevant common observation
+parameters and add entries to the self.array list.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.0: </span>Switched over to passing in Antenna instances generated by the
+<a class="reference internal" href="station.html#module-lsl.common.stations" title="lsl.common.stations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.common.stations</span></code></a> module instead of a list of stand ID
+numbers.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.uvfits.Uv.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.uvfits.Uv.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill in the UVFITS file will all of the tables in the
+correct order.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-lsl.writer.measurementset">
+<span id="measurement-set"></span><h2>Measurement Set<a class="headerlink" href="#module-lsl.writer.measurementset" title="Permalink to this heading">¶</a></h2>
+<p>Module for writing correlator output to a CASA measurement set.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.1.</span></p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.writer.measurementset.Ms">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.writer.measurementset.</span></span><span class="sig-name descname"><span class="pre">Ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.measurementset.Ms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for storing visibility data and writing the data, along with array
+geometry, frequency setup, etc., to a CASA measurement set.</p>
+</dd></dl>
+
+</section>
+<section id="module-lsl.writer.virtual">
+<span id="virtual-visibility-storage"></span><h2>Virtual Visibility Storage<a class="headerlink" href="#module-lsl.writer.virtual" title="Permalink to this heading">¶</a></h2>
+<p>Module for virtually converting/storing correlator output so that it can be
+directly worked with in the <a class="reference internal" href="imaging.html#module-lsl.imaging.utils" title="lsl.imaging.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.imaging.utils</span></code></a> module.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.1.3.</span></p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.writer.virtual.VirtualWriter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.writer.virtual.</span></span><span class="sig-name descname"><span class="pre">VirtualWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.virtual.VirtualWriter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for storing/converting visibility data in memory and provided access
+to it in a way that is compatible with the <a class="reference internal" href="imaging.html#module-lsl.imaging.utils" title="lsl.imaging.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.imaging.utils</span></code></a> module.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.virtual.VirtualWriter.add_comment">
+<span class="sig-name descname"><span class="pre">add_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comment</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.virtual.VirtualWriter.add_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy method for compatibilty with the <code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.writer.fitsidi.WriterBase</span></code>
+class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.virtual.VirtualWriter.add_data_set">
+<span class="sig-name descname"><span class="pre">add_data_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obsTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baselines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visibilities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'XX'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.virtual.VirtualWriter.add_data_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a class:<cite>lsl.imaging.data.VisibilityDataSet</cite> object to store a
+collection of visibilities for the specified TAI MJD time.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.virtual.VirtualWriter.add_header_keyword">
+<span class="sig-name descname"><span class="pre">add_header_keyword</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.virtual.VirtualWriter.add_header_keyword" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy method for compatibilty with the <code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.writer.fitsidi.WriterBase</span></code>
+class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.virtual.VirtualWriter.add_history">
+<span class="sig-name descname"><span class="pre">add_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">history</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.virtual.VirtualWriter.add_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy method for compatibilty with the <code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.writer.fitsidi.WriterBase</span></code>
+class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.virtual.VirtualWriter.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.virtual.VirtualWriter.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy method for compatibilty with the <code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.writer.fitsidi.WriterBase</span></code>
+class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.virtual.VirtualWriter.convert_to_data_set">
+<span class="sig-name descname"><span class="pre">convert_to_data_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obsTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baselines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visibilities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'XX'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.virtual.VirtualWriter.convert_to_data_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a <a class="reference internal" href="imaging.html#lsl.imaging.data.VisibilityDataSet" title="lsl.imaging.data.VisibilityDataSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityDataSet</span></code></a> object to store a
+collection of visibilities for the specified TAI MJD time.  This is
+similar to the add_data_set method but the VisbilityDataSet is returned
+instead of appended to the internal data structure.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.virtual.VirtualWriter.get_data_set">
+<span class="sig-name descname"><span class="pre">get_data_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_auto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_uv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_uv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.virtual.VirtualWriter.get_data_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="imaging.html#lsl.imaging.data.VisibilityDataSet" title="lsl.imaging.data.VisibilityDataSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityDataSet</span></code></a> or 
+<a class="reference internal" href="imaging.html#lsl.imaging.data.VisibilityData" title="lsl.imaging.data.VisibilityData"><code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.imaging.data.VisibilityData</span></code></a> object for all 
+baselines for a given set of observations for the specified data set.  
+By default this excludes the autocorrelations.  To include 
+autocorrelations set the value of ‘include_auto’ to True.  Setting the
+‘sort’ keyword to False will disable the baseline sorting.  Optionally,
+baselines with lengths between min_uv and max_uv can only be returned.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>min_uv and max_uv should be specified in lambda</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.virtual.VirtualWriter.set_frequency">
+<span class="sig-name descname"><span class="pre">set_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.virtual.VirtualWriter.set_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a numpy array of frequencies, set the relevant common observation
+parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.virtual.VirtualWriter.set_geometry">
+<span class="sig-name descname"><span class="pre">set_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.virtual.VirtualWriter.set_geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a station and an array of stands, set the relevant common observation
+parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.virtual.VirtualWriter.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.virtual.VirtualWriter.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy method for compatibilty with the <code class="xref py py-class docutils literal notranslate"><span class="pre">lsl.writer.fitsidi.WriterBase</span></code>
+class.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="vdif">
+<h2>VDIF<a class="headerlink" href="#vdif" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference external" href="http://www.vlbi.org/vdif/docs/VDIF%20specification%20Release%201.0%20ratified.pdf">VDIF Standard</a> (PDF)</p>
+<span class="target" id="module-lsl.writer.vdif"></span><p>Module to write VDIF frames.  The implementation of this module is similar
+to that of lsl.sim.tbw in that the primary element defined in this module is
+a Frame object which as attribute functions that can create a numpy 
+representation of the raw frame and write that raw frame to an open file-
+handle.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-mod docutils literal notranslate"><span class="pre">lsl.sim.tbw</span></code></p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.writer.vdif.Frame">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.writer.vdif.</span></span><span class="sig-name descname"><span class="pre">Frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">196000000.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.vdif.Frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object to create and write a VDIF (VLBI Data Interchange Format) 
+frame (version 1, June 26, 2009).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.vdif.Frame.create_raw_frame">
+<span class="sig-name descname"><span class="pre">create_raw_frame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.vdif.Frame.create_raw_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Using the data and information stored in the object, create a
+numpy array on unsigned 1-byte integers that represents the frame.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.writer.vdif.Frame.write_raw_frame">
+<span class="sig-name descname"><span class="pre">write_raw_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fh</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.writer.vdif.Frame.write_raw_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a numpy representation of the VDIF frame and then write 
+it to the specified file handle.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Data Writers</a><ul>
+<li><a class="reference internal" href="#single-dish-fits">Single-Dish FITS</a><ul>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd"><code class="docutils literal notranslate"><span class="pre">Sd</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd.add_comment"><code class="docutils literal notranslate"><span class="pre">Sd.add_comment()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd.add_data_set"><code class="docutils literal notranslate"><span class="pre">Sd.add_data_set()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd.add_header_keyword"><code class="docutils literal notranslate"><span class="pre">Sd.add_header_keyword()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd.add_history"><code class="docutils literal notranslate"><span class="pre">Sd.add_history()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd.astro_ref_time"><code class="docutils literal notranslate"><span class="pre">Sd.astro_ref_time</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd.close"><code class="docutils literal notranslate"><span class="pre">Sd.close()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd.parse_time"><code class="docutils literal notranslate"><span class="pre">Sd.parse_time()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd.set_frequency"><code class="docutils literal notranslate"><span class="pre">Sd.set_frequency()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd.set_geometry"><code class="docutils literal notranslate"><span class="pre">Sd.set_geometry()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd.set_observer"><code class="docutils literal notranslate"><span class="pre">Sd.set_observer()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd.set_site"><code class="docutils literal notranslate"><span class="pre">Sd.set_site()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd.set_stokes"><code class="docutils literal notranslate"><span class="pre">Sd.set_stokes()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.sdfits.Sd.write"><code class="docutils literal notranslate"><span class="pre">Sd.write()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fits-idi">FITS IDI</a><ul>
+<li><a class="reference internal" href="#lsl.writer.fitsidi.Aips"><code class="docutils literal notranslate"><span class="pre">Aips</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.fitsidi.ExtendedIdi"><code class="docutils literal notranslate"><span class="pre">ExtendedIdi</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.fitsidi.Idi"><code class="docutils literal notranslate"><span class="pre">Idi</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.writer.fitsidi.Idi.add_comment"><code class="docutils literal notranslate"><span class="pre">Idi.add_comment()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.fitsidi.Idi.add_history"><code class="docutils literal notranslate"><span class="pre">Idi.add_history()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.fitsidi.Idi.close"><code class="docutils literal notranslate"><span class="pre">Idi.close()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.fitsidi.Idi.read_array_geometry"><code class="docutils literal notranslate"><span class="pre">Idi.read_array_geometry()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.fitsidi.Idi.read_array_mapper"><code class="docutils literal notranslate"><span class="pre">Idi.read_array_mapper()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.fitsidi.Idi.set_geometry"><code class="docutils literal notranslate"><span class="pre">Idi.set_geometry()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.fitsidi.Idi.write"><code class="docutils literal notranslate"><span class="pre">Idi.write()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-lsl.writer.uvfits">UVFITS</a><ul>
+<li><a class="reference internal" href="#lsl.writer.uvfits.Uv"><code class="docutils literal notranslate"><span class="pre">Uv</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.writer.uvfits.Uv.add_comment"><code class="docutils literal notranslate"><span class="pre">Uv.add_comment()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.uvfits.Uv.add_history"><code class="docutils literal notranslate"><span class="pre">Uv.add_history()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.uvfits.Uv.close"><code class="docutils literal notranslate"><span class="pre">Uv.close()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.uvfits.Uv.read_array_geometry"><code class="docutils literal notranslate"><span class="pre">Uv.read_array_geometry()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.uvfits.Uv.read_array_mapper"><code class="docutils literal notranslate"><span class="pre">Uv.read_array_mapper()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.uvfits.Uv.set_geometry"><code class="docutils literal notranslate"><span class="pre">Uv.set_geometry()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.uvfits.Uv.write"><code class="docutils literal notranslate"><span class="pre">Uv.write()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-lsl.writer.measurementset">Measurement Set</a><ul>
+<li><a class="reference internal" href="#lsl.writer.measurementset.Ms"><code class="docutils literal notranslate"><span class="pre">Ms</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-lsl.writer.virtual">Virtual Visibility Storage</a><ul>
+<li><a class="reference internal" href="#lsl.writer.virtual.VirtualWriter"><code class="docutils literal notranslate"><span class="pre">VirtualWriter</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.writer.virtual.VirtualWriter.add_comment"><code class="docutils literal notranslate"><span class="pre">VirtualWriter.add_comment()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.virtual.VirtualWriter.add_data_set"><code class="docutils literal notranslate"><span class="pre">VirtualWriter.add_data_set()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.virtual.VirtualWriter.add_header_keyword"><code class="docutils literal notranslate"><span class="pre">VirtualWriter.add_header_keyword()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.virtual.VirtualWriter.add_history"><code class="docutils literal notranslate"><span class="pre">VirtualWriter.add_history()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.virtual.VirtualWriter.close"><code class="docutils literal notranslate"><span class="pre">VirtualWriter.close()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.virtual.VirtualWriter.convert_to_data_set"><code class="docutils literal notranslate"><span class="pre">VirtualWriter.convert_to_data_set()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.virtual.VirtualWriter.get_data_set"><code class="docutils literal notranslate"><span class="pre">VirtualWriter.get_data_set()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.virtual.VirtualWriter.set_frequency"><code class="docutils literal notranslate"><span class="pre">VirtualWriter.set_frequency()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.virtual.VirtualWriter.set_geometry"><code class="docutils literal notranslate"><span class="pre">VirtualWriter.set_geometry()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.virtual.VirtualWriter.write"><code class="docutils literal notranslate"><span class="pre">VirtualWriter.write()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vdif">VDIF</a><ul>
+<li><a class="reference internal" href="#lsl.writer.vdif.Frame"><code class="docutils literal notranslate"><span class="pre">Frame</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.writer.vdif.Frame.create_raw_frame"><code class="docutils literal notranslate"><span class="pre">Frame.create_raw_frame()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.writer.vdif.Frame.write_raw_frame"><code class="docutils literal notranslate"><span class="pre">Frame.write_raw_frame()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="readers.html"
+                          title="previous chapter">Data Readers</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="spectra.html"
+                          title="next chapter">Computing Spectra</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/writers.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="spectra.html" title="Computing Spectra"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="readers.html" title="Data Readers"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Data Writers</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

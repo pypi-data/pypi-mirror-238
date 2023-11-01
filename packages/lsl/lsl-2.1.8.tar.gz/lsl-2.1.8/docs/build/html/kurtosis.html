@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>RFI Identification &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dedispersion" href="dedispersion.html" />
+    <link rel="prev" title="Astronomical Utilities" href="astro.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dedispersion.html" title="Dedispersion"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="astro.html" title="Astronomical Utilities"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">RFI Identification</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="rfi-identification">
+<h1>RFI Identification<a class="headerlink" href="#rfi-identification" title="Permalink to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.5.</span></p>
+</div>
+<span class="target" id="module-lsl.statistics.kurtosis"></span><p>Module for computing spectral kurtosis both for instantaneous PSDs and spectrometer 
+output.  This module also provides functions to estimate the spectral kurtosis
+limits for a given confidence interval in sigma.</p>
+<dl class="simple">
+<dt>This module is based on:</dt><dd><ul class="simple">
+<li><p>Nita &amp; Gary (2010, PASP 155, 595)</p></li>
+<li><p>Nita &amp; Gary (2010, MNRAS 406, L60)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.kurtosis.get_limits">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.kurtosis.</span></span><span class="sig-name descname"><span class="pre">get_limits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.kurtosis.get_limits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the limits on the spectral kurtosis value to exclude the specified confidence
+interval in sigma using a Pearson Type VI distribution (betaprime in scipy.stats world).
+The return value is a two-element tuple of lower limit, upper limit.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This corresponds to Section 3.1 in Nita &amp; Gary (2010, MNRAS 406, L60)</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.kurtosis.mean">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.kurtosis.</span></span><span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.kurtosis.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the expected mean spectral kurtosis value for M points each composed
+of N measurements.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.kurtosis.skew">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.kurtosis.</span></span><span class="sig-name descname"><span class="pre">skew</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.kurtosis.skew" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the expected skewness (third central moment) of the spectral kurtosis 
+for M points each composed of N measurements.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.kurtosis.spectral_fft">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.kurtosis.</span></span><span class="sig-name descname"><span class="pre">spectral_fft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.kurtosis.spectral_fft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the spectral kurtosis for a set of unaveraged FFT measurements.
+For a distribution consistent with Gaussian noise, this value should 
+be ~1.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.kurtosis.spectral_power">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.kurtosis.</span></span><span class="sig-name descname"><span class="pre">spectral_power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.kurtosis.spectral_power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the spectral kurtosis for a set of power measurements averaged over 
+N FFT windows.  For a distribution consistent with Gaussian noise, this value 
+should be ~1.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.kurtosis.std">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.kurtosis.</span></span><span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.kurtosis.std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the expected standard deviation of the spectral kurtosis for M points 
+each composed of N measurements.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.statistics.kurtosis.var">
+<span class="sig-prename descclassname"><span class="pre">lsl.statistics.kurtosis.</span></span><span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.statistics.kurtosis.var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the expected variance (second central moment) of the spectral kurtosis 
+for M points each composed of N measurements.</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">RFI Identification</a><ul>
+<li><a class="reference internal" href="#lsl.statistics.kurtosis.get_limits"><code class="docutils literal notranslate"><span class="pre">get_limits()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.statistics.kurtosis.mean"><code class="docutils literal notranslate"><span class="pre">mean()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.statistics.kurtosis.skew"><code class="docutils literal notranslate"><span class="pre">skew()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.statistics.kurtosis.spectral_fft"><code class="docutils literal notranslate"><span class="pre">spectral_fft()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.statistics.kurtosis.spectral_power"><code class="docutils literal notranslate"><span class="pre">spectral_power()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.statistics.kurtosis.std"><code class="docutils literal notranslate"><span class="pre">std()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.statistics.kurtosis.var"><code class="docutils literal notranslate"><span class="pre">var()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="astro.html"
+                          title="previous chapter">Astronomical Utilities</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="dedispersion.html"
+                          title="next chapter">Dedispersion</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/kurtosis.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dedispersion.html" title="Dedispersion"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="astro.html" title="Astronomical Utilities"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">RFI Identification</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

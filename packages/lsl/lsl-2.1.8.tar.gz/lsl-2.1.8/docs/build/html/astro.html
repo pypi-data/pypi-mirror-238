@@ -1,0 +1,1500 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Astronomical Utilities &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RFI Identification" href="kurtosis.html" />
+    <link rel="prev" title="lwa_user Modules" href="lwa_user.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="kurtosis.html" title="RFI Identification"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lwa_user.html" title="lwa_user Modules"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Astronomical Utilities</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="astronomical-utilities">
+<h1>Astronomical Utilities<a class="headerlink" href="#astronomical-utilities" title="Permalink to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.2.</span></p>
+</div>
+<span class="target" id="module-lsl.astro"></span><p>Astronomical utility functions and classes based on libnova library.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.B1950_to_J2000">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">B1950_to_J2000</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.B1950_to_J2000" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert B1950 epoch to J2000 epoch for equatorial coordinates.</p>
+<p>Param: pos - object of type equ_posn giving B1950 coordinates</p>
+<p>Returns: object of type equ_posn giving J2000 coordinates.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The accuracy of this function is about 0.01 degrees.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.J2000_to_B1950">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">J2000_to_B1950</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.J2000_to_B1950" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert J2000 epoch to B1950 epoch for equatorial coordinates.</p>
+<p>Param: pos - object of type equ_posn giving J2000 coordinates</p>
+<p>Returns: object of type equ_posn giving B1950 coordinates.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The accuracy of this function is about 0.01 degrees.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.add_hms">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">add_hms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.add_hms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds time/angle hours, minutes, seconds.</p>
+<p>Param: source - Object of type hms represeting angle 1.
+Param: dest   - Object of type hms represeting angle 2.</p>
+<p>Returns object of type hms representing sum of angles.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.add_secs_hms">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">add_secs_hms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.add_secs_hms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add seconds to time/angle hours, minutes, seconds.</p>
+<p>Param: hms      - Object of type hms representing angle.
+Param: seconds  - Seconds offset (float) to add to angle.</p>
+<p>Returns object of type hms representing angle + offset.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.astro.date">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">years</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">months</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">days</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hours</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minutes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents UT time in calendar units.</p>
+<dl class="simple">
+<dt>Public members:</dt><dd><p>years   - Date years (integer).
+months  - Date months (integer).
+days    - Date days (integer).
+hours   - Date hours (integer).
+minutes - Date minutes (integer).
+seconds - Date seconds (float).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.date.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dateStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeStr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.date.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load date object from formatted strings.</p>
+<p>Param: dateStr - A string of format YYYY-MM-DD giving date.
+Param: timeStr - A string of format HH:MM:SS.S giving time.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.date.to_jd">
+<span class="sig-name descname"><span class="pre">to_jd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.date.to_jd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert calendar time to Julian day.
+Returns UTC time in Julian days (float).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.date.to_zone">
+<span class="sig-name descname"><span class="pre">to_zone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmtoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.date.to_zone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert UTC calendar time to local calendar time.</p>
+<dl class="simple">
+<dt>Param: gmtoff - local seconds offset from UTC (integer -43200 to 43200).</dt><dd><p>if set to None, the time module offset value is used for
+current location</p>
+</dd>
+</dl>
+<p>Returns object of type zonedate representing local time.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.date_to_zonedate">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">date_to_zonedate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmtoff</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.date_to_zonedate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert UTC calendar time to local calendar time.</p>
+<p>Param: date   - A date object representing UTC time.
+Param: gmtoff - Seconds offset from UTC (integer -43200 to 43200).</p>
+<p>Returns object of type zonedate representing local time.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.deg_to_dms">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">deg_to_dms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degrees</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.deg_to_dms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angles float degrees to degrees, minutes, seconds.</p>
+<p>Param: degrees - Angle in degrees (float).</p>
+<p>Returns object of type dms representing angle.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.deg_to_hms">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">deg_to_hms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degrees</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.deg_to_hms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angles float degrees to hours, minutes, seconds.</p>
+<p>Param: degrees - Angle in degrees (float).</p>
+<p>Returns object of type hms representing angle.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.deg_to_rad">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">deg_to_rad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degrees</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.deg_to_rad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert degres to radians.</p>
+<p>Param: degrees - Angle in degrees (float).</p>
+<p>Returns angle in radians (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.deg_to_sec">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">deg_to_sec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degrees</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.deg_to_sec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert longitude degrees into time seconds.</p>
+<p>Param: degrees - longitude (float degrees)</p>
+<p>Returns: Seconds (float) offset in time for longitude.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.dir_cos">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">dir_cos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">posn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.dir_cos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get direction cosines from azimuth and zenith angles.
+This function calculates the cosine values based on the LWA coordinate system:
+l = unit vector in E direction (azimuth = 90)
+m = unit vector in N direction (azimuth = 0)
+n = unit vector in zenith direction (zenith = 0, altitude = 90)</p>
+<p>Param: posn - object of type hrz_posn giving local position</p>
+<p>Returns a tuple (l,m,n) of float values for the direction cosines.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.astro.dms">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">dms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">neg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degrees</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minutes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.dms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents angles in degrees, minutes, seconds.</p>
+<dl>
+<dt>Public members:</dt><dd><dl class="simple">
+<dt>neg     - True if measured west of GM, south of EQ</dt><dd><p>False if measured east of GM, north of EQ.</p>
+</dd>
+</dl>
+<p>degrees - Angle degrees (integer).
+minutes - Angle minutes (integer).
+seconds - Angle seconds (float).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.dms.to_deg">
+<span class="sig-name descname"><span class="pre">to_deg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.dms.to_deg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angles degrees, minutes, seconds to float degrees.
+Returns angle in degrees (float).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.dms.to_hms">
+<span class="sig-name descname"><span class="pre">to_hms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.dms.to_hms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angles degrees, minutes seconds to hours, minutes, seconds.
+Returns: object of type hms representing angle.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.dms_to_deg">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">dms_to_deg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dms</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.dms_to_deg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angles degrees, minutes, seconds to float degrees.</p>
+<p>Param: dms - Object of type dms representing angle.</p>
+<p>Returns angle in degrees (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.dms_to_rad">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">dms_to_rad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dms</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.dms_to_rad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angles degrees, minutes, seconds to radians.</p>
+<p>Param: dms - Object of type dms representing angle.</p>
+<p>Returns angle in radians (float).</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.astro.ecl_posn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">ecl_posn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.ecl_posn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents position as ecliptic longitude and latitude.</p>
+<dl class="simple">
+<dt>Public members:</dt><dd><p>lng - Position longitude coordinate (float degrees).
+lat - Position latitude coordinate (float degrees).</p>
+</dd>
+<dt>Members may also be accessed by subscript:</dt><dd><p>ecl_posn[0] = lng
+ecl_posn[1] = lat</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.ecl_posn.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.ecl_posn.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple (lng, lat) where lng is an dms object and
+lat is a dms object representing longitude and latitude
+position coordinates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.ecl_posn.to_equ">
+<span class="sig-name descname"><span class="pre">to_equ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.ecl_posn.to_equ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get equatorial coordinates from ecliptical coordinates for a given time.</p>
+<p>Param: jD - UTC Julian day (float).</p>
+<p>Returns object of type equ_posn representing equatorial position.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.astro.equ_posn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">equ_posn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.equ_posn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents equatoral/celestial position coordinates.</p>
+<dl class="simple">
+<dt>Public members:</dt><dd><p>ra  - Position right ascension angle (float degrees).
+dec - Position declination angle (float degrees).</p>
+</dd>
+<dt>Members may also be accessed by subscript:</dt><dd><p>equ_posn[0] = ra
+equ_posn[1] = dec</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.equ_posn.angular_separation">
+<span class="sig-name descname"><span class="pre">angular_separation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">posn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.equ_posn.angular_separation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get angular separation from equatorial position.</p>
+<p>Param: posn - Object of type equ_posn representing body 2 position.</p>
+<p>Returns angular separation in degrees (float).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.equ_posn.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.equ_posn.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple (ra, dec) where ra is an hms object and
+dec is a dms object representing ra and dec position coordinates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.equ_posn.precess">
+<span class="sig-name descname"><span class="pre">precess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.equ_posn.precess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get position of celestial object accounting for precession.
+The equatorial coordinates should be for the J2000 epoch.</p>
+<p>Param: jD - UTC Julian day (float) to measure position.</p>
+<p>Returns: Adjusted equatorial position of object as type equ_posn.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.equ_posn.to_ecl">
+<span class="sig-name descname"><span class="pre">to_ecl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.equ_posn.to_ecl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get ecliptical coordinates from equatorial coordinates.</p>
+<p>Param: jD - UTC Julian day (float).</p>
+<p>Returns object of type lnlat_posn representing eclipitcal position.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.equ_posn.to_gal">
+<span class="sig-name descname"><span class="pre">to_gal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.equ_posn.to_gal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get J2000 galactic coordinates from apparent equatorial coordinates.</p>
+<p>Param: jD - UTC Julian day to get position.</p>
+<p>Returns object of type gal_posn representing object’s galactic 
+position.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.equ_posn.to_hrz">
+<span class="sig-name descname"><span class="pre">to_hrz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.equ_posn.to_hrz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get local horizontal coordinates from equatorial/celestial coordinates.</p>
+<p>Param: observer - Object of type lnlat_posn representing observer position.
+Param: jD       - UTC Julian day (float).</p>
+<p>Returns object of type hrz_posn representing local position.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.astro.gal_posn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">gal_posn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.gal_posn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents galactic position coordinates.</p>
+<dl class="simple">
+<dt>Public members:</dt><dd><p>l - Position longitude angle (float degrees).
+b - Position latitude angle (float degrees).</p>
+</dd>
+<dt>Members may also be accessed by subscript:</dt><dd><p>gal_posn[0] = l
+gal_posn[1] = b</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.gal_posn.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.gal_posn.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple (lng, lat) where lng is an dms object and
+lat is a dms object representing galactic longitude and latitude
+position coordinates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.gal_posn.to_equ">
+<span class="sig-name descname"><span class="pre">to_equ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.gal_posn.to_equ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get apparent equatorial coordinates from J2000 galactic coordinates.</p>
+<p>Param: jD - UTC Julian day to get position.</p>
+<p>Returns object of type equ_posn representing object’s apparent
+equatorial position.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.astro.geo_posn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">geo_posn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.geo_posn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to represent geographical position in terms of longitude, lattitude,
+and elevation.  This is a set of geodetic coordinates based on the WGS84 model.</p>
+<dl class="simple">
+<dt>Public members:</dt><dd><p>lng - longitude (float)
+lat - latitude (float)
+elv - elevation (float)</p>
+</dd>
+<dt>Members may also be accessed by subscript:</dt><dd><p>geo_posn[0] = lng
+geo_posn[1] = lat
+geo_posn[2] = elv</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_angular_separation">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_angular_separation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">posn1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posn2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_angular_separation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get angular separation from equatorial positions.</p>
+<p>Param: posn1 - Object of type equ_posn representing body 1 position.
+Param: posn2 - Object of type equ_posn representing body 2 position.</p>
+<p>Returns angular separation in degrees (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_apparent_posn">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_apparent_posn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean_position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proper_motion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_apparent_posn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get apparent position of celestial object accounting for precession, nutation, 
+aberration, and optionally proper motion.</p>
+<dl class="simple">
+<dt>Param: mean_position  - J2000 equatorial mean position of object as type </dt><dd><p>equ_posn.</p>
+</dd>
+</dl>
+<p>Param: jD             - UTC Julian day (float) to measure position.
+Param: proper_motion  - object of type equ_posn giving object’s proper motion</p>
+<blockquote>
+<div><p>(optional).</p>
+</div></blockquote>
+<p>Returns: Apparent equatorial position of object as type equ_posn.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_apparent_sidereal_time">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_apparent_sidereal_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_apparent_sidereal_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get apparent sidereal time from Julian day.</p>
+<p>Param: jD - UTC Julian day (float).</p>
+<p>Returns GM apparent sidereal time (float hours).</p>
+<p>From: <a class="reference external" href="http://aa.usno.navy.mil/faq/docs/GAST.php">http://aa.usno.navy.mil/faq/docs/GAST.php</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_date">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert Julian day to calendar time.</p>
+<p>Param: jD - UTC time in Julian days (float).</p>
+<p>Returns object of type date representing UTC time.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_date_from_sys">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_date_from_sys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_date_from_sys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets calendar time from system clock.</p>
+<p>Returns object of type date representing UTC time.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_day_of_week">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_day_of_week</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_day_of_week" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets day of week from calendar time.</p>
+<p>Param: date - Object of type date representing UTC time.</p>
+<p>Returns day of week (0 = Sunday, 6 = Saturday).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_ecl_from_equ">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_ecl_from_equ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_ecl_from_equ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get ecliptical coordinates from equatorial coordinates for a given time.</p>
+<p>Param: target  - Object of type equ_posn representing equatorial position.
+Param: jD       - UTC Julian day (float).</p>
+<p>Returns object of type ecl_posn representing ecliptic position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_ecl_from_rect">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_ecl_from_rect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rect</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_ecl_from_rect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get ecliptical coordinates from rectangular coordinates.</p>
+<p>Param: rect - Object of type rect_posn representing position.</p>
+<p>Returns object of type lnlat_posn representing ecliptical position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_equ2000_from_gal">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_equ2000_from_gal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_equ2000_from_gal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get J2000 equatorial coordinates from galactic coordinates.</p>
+<p>Param: target - Object of type gal_posn representing galactic position.</p>
+<p>Returns object of type equ_posn representing J2000 equatorial position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_equ_aber">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_equ_aber</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean_position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_equ_aber" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get position of celestial object accounting for aberration.</p>
+<dl class="simple">
+<dt>Param: mean_position  - J2000 equatorial mean position of object as type </dt><dd><p>equ_posn.</p>
+</dd>
+</dl>
+<p>Param: jD             - UTC Julian day (float) to measure aberration.</p>
+<p>Returns: Adjusted equatorial position of object as type equ_posn.</p>
+<p>Based on the libnova ln_get_equ_aber() function.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_equ_from_ecl">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_equ_from_ecl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_equ_from_ecl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get equatorial coordinates from ecliptical coordinates for a given time.</p>
+<p>Param: target   - Object of type lnlat_posn representing ecliptic position.
+Param: jD       - UTC Julian day (float).</p>
+<p>Returns object of type equ_posn representing equatorial position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_equ_from_gal">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_equ_from_gal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_equ_from_gal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get B1950 equatorial coordinates from galactic coordinates.</p>
+<p>Param: target - Object of type gal_posn representing galactic position.</p>
+<p>Returns object of type equ_posn representing B1950 equatorial position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_equ_from_hrz">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_equ_from_hrz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_equ_from_hrz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get equatorial/celestial coordinates from local horizontal coordinates.</p>
+<p>Param: target   - Object of type hrz_posn representing horizontal position.
+Param: observer - Object of type lnlat_posn representing observer position.
+Param: jD       - UTC Julian day (float).</p>
+<p>Returns object of type equ_posn representing equatorial position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_equ_from_rect">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_equ_from_rect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">posn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_equ_from_rect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform rectangular coordinates to equatorial coordinates.</p>
+<p>Param: posn - Object of type rect_posn giving position.</p>
+<p>Returns: Object of type equ_posn giving equatorial coordinates.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_equ_nut">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_equ_nut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_equ_nut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the position of a celesital object accounting for nutation.</p>
+<dl class="simple">
+<dt>Param: mean_position  -  Equatorial position of object as type </dt><dd><p>equ_posn.</p>
+</dd>
+</dl>
+<p>Param: jD             - UTC Julian day (float) to measure nutation.</p>
+<p>Returns: Adjusted equatorial position of object as type equ_posn.</p>
+<p>Based on the AstroIDL co_nutate.pro procedure</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_equ_pm">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_equ_pm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean_position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proper_motion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_equ_pm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adjusts equatorial position of a stellar object accouting for proper motion.</p>
+<p>Param: mean_position - J2000 equatorial mean position of object as type equ_posn.
+Param: proper_motion - Object of type equ_posn giving object’s proper motion</p>
+<blockquote>
+<div><p>(units are deg/year).</p>
+</div></blockquote>
+<p>Param: jD - UTC Julian day (float) to measure position.</p>
+<p>Returns: Adjusted equatorial position of object as type equ_posn.</p>
+<p>Based on pm.f, dcs2c.f, and dcc2s.f from SLALIB.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_equ_prec">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_equ_prec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean_position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_equ_prec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get position of celestial object accounting for precession.
+Only works for converting to and from J2000 epoch.</p>
+<p>Param: mean_position - J2000 equatorial mean position of object as type equ_posn.
+Param: jD - UTC Julian day (float) to measure position.</p>
+<p>Returns: Adjusted equatorial position of object as type equ_posn.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_equ_prec2">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_equ_prec2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean_position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromJD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">toJD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_equ_prec2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get position of celestial object accounting for precession.</p>
+<p>Param: mean_position  - equatorial first position of object as type equ_posn.
+Param: fromJD         - UTC Julian day (float) of first time.
+Param: toJD           - UTC Julian day (float) of second time.</p>
+<dl class="simple">
+<dt>Returns: Equatorial position of object as type equ_posn converted from</dt><dd><p>time 1 to time 2.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_gal_from_equ">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_gal_from_equ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_gal_from_equ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get galactic coordinates from B1950 equatorial coordinates.</p>
+<dl class="simple">
+<dt>Param: target - Object of type equ_posn representing B1950 equatorial </dt><dd><p>position.</p>
+</dd>
+</dl>
+<p>Returns object of type gal_posn representing galactic position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_gal_from_equ2000">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_gal_from_equ2000</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_gal_from_equ2000" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get galactic coordinates from J2000 equatorial coordinates.</p>
+<dl class="simple">
+<dt>Param: target - Object of type equ_posn representing J2000 equatorial </dt><dd><p>position.</p>
+</dd>
+</dl>
+<p>Returns object of type gal_posn representing galactic position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_geo_from_rect">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_geo_from_rect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">posn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_geo_from_rect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform ECEF rectangular coordinates to geographical coordinates.
+Adapoted from “Satellite Orbits”, Montenbruck and Gill 2005, 5.85 - 5.88.
+Also see gpstk ECEF::asGeodetic() method.</p>
+<p>Param: posn - object of type rect_posn giving position.</p>
+<p>Returns: object of type geo_posn giving geographical coordinates.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_gmtoff">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_gmtoff</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_gmtoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get local UTC offset based on Python time module and system info.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_hrz_from_equ">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_hrz_from_equ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_hrz_from_equ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get local horizontal coordinates from equatorial/celestial coordinates.</p>
+<p>Param: target   - Object of type equ_posn representing celestial position.
+Param: observer - Object of type lnlat_posn representing observer position.
+Param: jD       - UTC Julian day (float).</p>
+<p>Returns object of type hrz_posn representing local position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_julian_day">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_julian_day</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_julian_day" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert calendar time to Julian day.</p>
+<p>Param: date - Object of type date representing UTC time.</p>
+<p>Returns UTC time in Julian days (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_julian_from_sys">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_julian_from_sys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_julian_from_sys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns UTC Julian day (float) from system clock.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_julian_from_timet">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_julian_from_timet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timet</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_julian_from_timet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets Julian day from Unix time.</p>
+<p>Param: timet - Unix timet in seconds (integer)</p>
+<p>Returns UTC Julian day (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_julian_local_date">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_julian_local_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zonedate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_julian_local_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert local calendar time to Julian day.</p>
+<p>Param: zonedate - Object of type zonedate representing local time.</p>
+<p>Returns UTC time in Julian days (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_jupiter_equ_coords">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_jupiter_equ_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_jupiter_equ_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Jupiter’s apparent equatorial coordinates from Julian day.
+Accounts for aberration and precession, but not nutation.</p>
+<p>Param: jD - UTC Julian day (float).</p>
+<p>Returns object of type equ_posn representing equatorial position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_jupiter_rst">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_jupiter_rst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_jupiter_rst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Jupiter’s rise, transit, set times from Julian day.</p>
+<p>Param: jD       - UTC Julian day (float).
+Param: observer - Object of type lnlat_posn representing observer position.</p>
+<dl class="simple">
+<dt>Returns Object of type rst_time represeting UTC ephemeris times,</dt><dd><p>or None if the object is circumpolar.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_local_sidereal_time">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_local_sidereal_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lng</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_local_sidereal_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get apparent local sidereal time from Julian day.</p>
+<p>Param: lng  - longitude degrees (float), E = positive, W = negative 
+Param: jD   - UTC Julian day (float).</p>
+<p>Returns: Local mean sidereal time (float hours).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_lunar_equ_coords">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_lunar_equ_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_lunar_equ_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Moon’s apparent equatorial coordinates from Julian day.
+Accounts for aberration and precession, but not nutation.</p>
+<p>Param: jD - UTC Julian day (float).</p>
+<p>Returns object of type equ_posn representing equatorial position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_lunar_rst">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_lunar_rst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_lunar_rst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Moon’s rise, transit, set times from Julian day.</p>
+<p>Param: jD       - UTC Julian day (float).
+Param: observer - Object of type lnlat_posn representing observer position.</p>
+<dl class="simple">
+<dt>Returns Object of type rst_time represeting UTC ephemeris times,</dt><dd><p>or None if the object is circumpolar.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_mars_equ_coords">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_mars_equ_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_mars_equ_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Mars’ apparent equatorial coordinates from Julian day.
+Accounts for aberration and precession, but not nutation.</p>
+<p>Param: jD - UTC Julian day (float).</p>
+<p>Returns object of type equ_posn representing equatorial position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_mars_rst">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_mars_rst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_mars_rst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Mars’ rise, transit, set times from Julian day.</p>
+<p>Param: jD       - UTC Julian day (float).
+Param: observer - Object of type lnlat_posn representing observer position.</p>
+<dl class="simple">
+<dt>Returns Object of type rst_time represeting UTC ephemeris times,</dt><dd><p>or None if the object is circumpolar.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_mean_sidereal_time">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_mean_sidereal_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_mean_sidereal_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get mean sidereal time from Julian day.</p>
+<p>Param: jD - UTC Julian day (float).</p>
+<p>Returns GM mean sidereal time (float hours).</p>
+<p>From: <a class="reference external" href="http://aa.usno.navy.mil/faq/docs/GAST.php">http://aa.usno.navy.mil/faq/docs/GAST.php</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_nutation">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_nutation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_nutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get nutation corrections for a given time.</p>
+<p>Param: jD - UTC Julian day (float) to measure nutation.</p>
+<p>Returns: Nutation corrections as object of type nutation.</p>
+<p>Based on the nutate.pro and co_nutate.pro from the AstroIDL
+library.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_object_rst">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_object_rst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_object_rst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get rise, set, and transit times of a celstial object.</p>
+<p>Param: jD       - UTC Julian day (float) target time.
+Param: observer - object of type lnlat_posn giving observer position
+Param: target   - object of type equ_posn giving target equatorial position</p>
+<dl class="simple">
+<dt>Returns: Object of type rst_time giving object’s ephemeris UTC times,</dt><dd><p>or None if the object is circumpolar.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_precession">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_precession</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jD2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_precession" title="Permalink to this definition">¶</a></dt>
+<dd><p>Caculate precession of equatorial coordinates from one epoch to
+another.</p>
+<p>Param: jD1 - UTC Julian day of epoch 1.
+Param: pos - object of type equ_posn giving epoch 1 position
+Param: jD2 - UTC Julian day of epoch 2.</p>
+<p>Returns: object of type equ_posn giving epoch 2 position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_rect_from_equ">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_rect_from_equ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">posn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_rect_from_equ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform equatorial coordinates to rectangular coordinates.</p>
+<p>Param: posn - Object of type equ_posn giving position.</p>
+<p>Returns: Object of type rect_posn giving rectangular coordinates (normallized to 1).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_rect_from_geo">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_rect_from_geo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">posn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_rect_from_geo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform geographical coordinates to ECEF rectangular coordinates.
+Adopted from “Satellite Orbits”, Montenbruck and Gill 2005, 5.83 - 5.84.
+Also see gpstk Geodetic::asECEF() method.</p>
+<p>Param: posn - object of type geo_posn giving geographical coordinates.</p>
+<p>Returns: object of type rect_posn giving ECEF position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_rel_posn_angle">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_rel_posn_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">posn1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posn2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_rel_posn_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get relative position angle from equatorial positions.</p>
+<p>Param: posn1 - Object of type equ_posn representing body 1 position.
+Param: posn2 - Object of type equ_posn representing body 2 position.</p>
+<p>Returns position angle in degrees (float).</p>
+<p>Based on dpav.f from SLALIB.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_saturn_equ_coords">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_saturn_equ_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_saturn_equ_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Saturn’s apparent equatorial coordinates from Julian day.
+Accounts for aberration and precession, but not nutation.</p>
+<p>Param: jD - UTC Julian day (float).</p>
+<p>Returns object of type equ_posn representing equatorial position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_saturn_rst">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_saturn_rst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_saturn_rst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Saturn’s rise, transit, set times from Julian day.</p>
+<p>Param: jD       - UTC Julian day (float).
+Param: observer - Object of type lnlat_posn representing observer position.</p>
+<dl class="simple">
+<dt>Returns Object of type rst_time represeting UTC ephemeris times,</dt><dd><p>or None if the object is circumpolar.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_solar_equ_coords">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_solar_equ_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_solar_equ_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Sun’s apparent equatorial coordinates from Julian day.
+Accounts for aberration and precession, and nutation.</p>
+<p>Param: jD - UTC Julian day (float).</p>
+<p>Returns object of type equ_posn representing equatorial position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_solar_rst">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_solar_rst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_solar_rst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Sun’s rise, transit, set times from Julian day.</p>
+<p>Param: jD       - UTC Julian day (float).
+Param: observer - Object of type lnlat_posn representing observer position.</p>
+<dl class="simple">
+<dt>Returns Object of type rst_time represeting UTC ephemeris times,</dt><dd><p>or None if the object is circumpolar..</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_tai_from_sys">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_tai_from_sys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_tai_from_sys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current time taken from the system clock as a
+TAI MJD (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_timet_from_julian">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_timet_from_julian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_timet_from_julian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets Unix time from Julian day.</p>
+<p>Param: jD - UTC Julian day (float).</p>
+<p>Returns Unix timet in seconds (integer).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_venus_equ_coords">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_venus_equ_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_venus_equ_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Venus’ apparent equatorial coordinates from Julian day.
+Accounts for aberration and precession, but not nutation.</p>
+<p>Param: jD - UTC Julian day (float).</p>
+<p>Returns object of type equ_posn representing equatorial position.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.get_venus_rst">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">get_venus_rst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.get_venus_rst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Venus’ rise, transit, set times from Julian day.</p>
+<p>Param: jD       - UTC Julian day (float).
+Param: observer - Object of type lnlat_posn representing observer position.</p>
+<dl class="simple">
+<dt>Returns Object of type rst_time represeting UTC ephemeris times,</dt><dd><p>or None if the object is circumpolar.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.astro.hms">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">hms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hours</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minutes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.hms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents times/angles in hours, minutes, seconds.</p>
+<dl class="simple">
+<dt>Public members:</dt><dd><p>hours - Angle/time hours (integer).
+minutes - Angle/time minutes (integer).
+seconds - Angle/time seconds (float).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.hms.to_deg">
+<span class="sig-name descname"><span class="pre">to_deg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.hms.to_deg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angles hours, minutes, seconds to float degrees.
+Returns angle in degrees (float).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.hms.to_dms">
+<span class="sig-name descname"><span class="pre">to_dms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.hms.to_dms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angle hours, minutes, seconds to degrees, minutes, seconds.
+Returns: object of type dms representing angle.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.hms.to_sec">
+<span class="sig-name descname"><span class="pre">to_sec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.hms.to_sec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angle hours, minutes, seconds to seconds.
+Returns: time/angle as seconds.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.hms_to_deg">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">hms_to_deg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hms</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.hms_to_deg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angles hours, minutes, seconds to float degrees.</p>
+<p>Param: hms - Object of type hms representing angle.</p>
+<p>Returns angle in degrees (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.hms_to_rad">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">hms_to_rad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hms</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.hms_to_rad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angles hours, minutes, seconds to float radians.</p>
+<p>Param: hms - Object of type hms representing angle.</p>
+<p>Returns angle in radians (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.hms_to_sec">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">hms_to_sec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hms</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.hms_to_sec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert hours, minutes, seconds to seconds.</p>
+<p>Param: hms - object of type hms representing time/angle.</p>
+<p>Returns: Seconds (float) offset of time/angle.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.astro.hrz_posn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">hrz_posn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">az</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.hrz_posn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents horizontal local position coordinates.  LWA measures azimuth angle clockwise 
+from north to east, with due north equal to 0 degrees.  Also, method for using zenith 
+angle instead of altitude angle have been added.</p>
+<dl class="simple">
+<dt>Public members:</dt><dd><p>az  - Position azimuth angle (float degrees).
+alt - Position altitude angle (float degrees)</p>
+</dd>
+<dt>Members may also be accessed by subscript:</dt><dd><p>hrz_posn[0] = az
+hrz_posn[1] = alt</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.hrz_posn.dir_cos">
+<span class="sig-name descname"><span class="pre">dir_cos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.hrz_posn.dir_cos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get direction cosines from horizontal coordinates.</p>
+<dl class="simple">
+<dt>Returns: A tuple (l,m,n) of float values for the direction cosines.</dt><dd><p>l = unit vector in E direction (azimuth = 90)
+m = unit vector in N direction (azimuth = 0)
+n = unit vector in zenith direction (zenith = 0, altitude = 90)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.hrz_posn.to_equ">
+<span class="sig-name descname"><span class="pre">to_equ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.hrz_posn.to_equ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get equatorial/celestial coordinates from local horizontal coordinates.</p>
+<p>Param: observer - Object of type lnlat_posn representing observer position.
+Param: jD       - UTC Julian day (float).</p>
+<p>Returns object of type equ_posn representing equatorial position.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.hrz_posn.zen">
+<span class="sig-name descname"><span class="pre">zen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.hrz_posn.zen" title="Permalink to this definition">¶</a></dt>
+<dd><p>If value is None, returns position zenith angle (float degrees 
+[0, 180])  Otherwise, sets the altitude according to the zenith angle
+value.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.hrz_to_nswe">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">hrz_to_nswe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.hrz_to_nswe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get cardinal/ordinal azimuth direction.</p>
+<p>Param: pos - Object of type hrz_posn giving local position.</p>
+<p>Returns string giving direction.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.jd_to_mjd">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">jd_to_mjd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jd</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.jd_to_mjd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get modified julian day value from julian day value.</p>
+<p>Param: jd - julian day (should be &gt;= 2400000.5)</p>
+<p>Returns: Modified julian day.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.jd_to_sec">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">jd_to_sec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.jd_to_sec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert Julian days into seconds.</p>
+<p>Param: jD - Julian days (float).</p>
+<p>Returns: Seconds as a float.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.leap_secs">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">leap_secs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utcJD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.leap_secs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of leap seconds for given UTC time value.</p>
+<dl class="simple">
+<dt>Param: utcJD - The UTC JD time.</dt><dd><p>This should be greater than 2441317.5 (1972 JAN  1).</p>
+</dd>
+</dl>
+<p>Returns: The number of leap seconds (float) for the UTC time.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.astro.lnlat_posn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">lnlat_posn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.lnlat_posn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents position coordinates in latitude and longitude.
+When representing a geographical location, the longitude is negative
+when measured west of GM and positive is measured east of GM.</p>
+<dl class="simple">
+<dt>Public members:</dt><dd><p>lng - Position longitude coordinate (float degrees).
+lat - Position latitude coordinate (float degrees).</p>
+</dd>
+<dt>Members may also be accessed by subscript:</dt><dd><p>lnlat_posn[0] = lng
+lnlat_posn[1] = lat</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.lnlat_posn.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.lnlat_posn.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple (lng, lat) where lng is an dms object and
+lat is a dms object representing longitude and latitude
+position coordinates.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.mjd_to_jd">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">mjd_to_jd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mjd</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.mjd_to_jd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get julian day value from modified julian day value.</p>
+<p>Param: mjd - modified julian day (should be &gt;= 0.0)</p>
+<p>Returns: Julian day.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.astro.nutation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">nutation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obliquity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ecliptic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.nutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides nutation information in longitude and obliquity.</p>
+<dl class="simple">
+<dt>Public members:</dt><dd><p>longitude - Nutation in longitude (float degrees).
+obliquity - Nutation in ecliptic obliquity (float degrees).
+ecliptic - Obliquity of the ecliptic (float degrees).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.nutation.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.nutation.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple (lng, obl, ecl) where lng is an dms object,
+obl is a dms object, and ecl is a dms object representing nutation
+in longitude and obliquity, and obliquity of the ecliptic.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.rad_to_deg">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">rad_to_deg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radians</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.rad_to_deg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert radians to degrees.</p>
+<p>Param: radians - Angle in radians (float).</p>
+<p>Returns angle in degrees (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.rad_to_dms">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">rad_to_dms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radians</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.rad_to_dms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angles float radians to degrees, minutes, seconds.</p>
+<p>Param: radians - Angle in radians (float).</p>
+<p>Returns object of type dms representing angle.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.rad_to_hms">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">rad_to_hms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radians</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.rad_to_hms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angles float radians to hours, minutes, seconds.</p>
+<p>Param: radians - Angle in radians (float).</p>
+<p>Returns object of type hms representing angle.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.range_degrees">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">range_degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">degrees</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.range_degrees" title="Permalink to this definition">¶</a></dt>
+<dd><p>Put angle into range [0, 360].</p>
+<p>Param: degrees - large angle (float degrees)</p>
+<p>Returns: angle in range (float degrees)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.range_hours">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">range_hours</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hours</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.range_hours" title="Permalink to this definition">¶</a></dt>
+<dd><p>Put an hour time value into the correct range [0.0, 24.0].</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.astro.rect_posn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">rect_posn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.rect_posn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents rectangular/Cartesian position coordinates.</p>
+<dl class="simple">
+<dt>Public members:</dt><dd><p>X - Position X coordinate (float).
+Y - Position Y coordinate (float).
+Z - Position Z coordinate (float).</p>
+</dd>
+<dt>Members may also be accessed by subscript:</dt><dd><p>rect_posn[0] = X
+rect_posn[1] = Y
+rect_posn[2] = Z</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.astro.rst_time">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">rst_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.rst_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents ephemeris rist, set, and transit times.</p>
+<dl class="simple">
+<dt>Public members:</dt><dd><p>rise    - Rise time in UTC Julian days (float).
+set     - Set time in UTC Julian days (float).
+transit - Transit time in UTC Julian days (float).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.rst_time.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.rst_time.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple (rise, set, transit) where all three are date
+objects representing the ephemeris times.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.sec_to_jd">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">sec_to_jd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">secs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.sec_to_jd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert seconds into julian days.</p>
+<p>Param: secs - seconds (float)</p>
+<p>Returns: Julian days as a float.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.tai_to_tt">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">tai_to_tt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">taiJD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.tai_to_tt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the TT JD time value for a given TAI JD time value.</p>
+<p>Param: taiJD - The TAI JD time (float).</p>
+<p>Returns: The TT JD value (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.tai_to_utc">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">tai_to_utc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">taiJD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.tai_to_utc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the UTC JD time value for a given TAI JD time value.</p>
+<dl class="simple">
+<dt>Param: taiJD - The TAI JD time (float).</dt><dd><p>This should be greater than 2441317.5 (1972 JAN  1).</p>
+</dd>
+</dl>
+<p>Returns: The UTC JD value (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.taimjd_to_unix">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">taimjd_to_unix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">taiMJD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.taimjd_to_unix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get UNIX time value for a given TAI MJDvalue.</p>
+<p>Param: taiMJD - The TAI MJD time (float).</p>
+<p>Returns: The UNIX time</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.taimjd_to_utcjd">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">taimjd_to_utcjd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">taiMJD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.taimjd_to_utcjd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the UTC JD time value for a given TAI MJD value.</p>
+<p>Param: mjdTAI - The TAI MJD time (float).</p>
+<p>Returns: The UTC JD value (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.tt_to_tai">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">tt_to_tai</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ttJD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.tt_to_tai" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the TAI JD time value for a given TT JD time value.</p>
+<p>Param: ttJD - The TT JD time (float).</p>
+<p>Returns: The TAI JD value (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.tt_to_tdb">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">tt_to_tdb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ttJD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.tt_to_tdb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the TDB JD time value for a given TT JD time value.
+Adopted from “Astronomical Almanac Supplement”, Seidelmann 1992, 2.222-1.</p>
+<p>Param: ttJD - The TT JD time (float).</p>
+<p>Returns: The TDB JD value (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.tt_to_utc">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">tt_to_utc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ttJD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.tt_to_utc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the UTC JD time value for a given TT JD time value.</p>
+<p>Param: ttJD - The TT JD time (float).</p>
+<p>Returns: The UTC JD value (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.unix_to_taimjd">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">unix_to_taimjd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unixTime</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.unix_to_taimjd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the TAI MJD time value for a given UNIX time value.</p>
+<p>Param: unixTime - the UNIX time (int/float)</p>
+<p>Returns: The TAI MJD value.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.unix_to_utcjd">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">unix_to_utcjd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unixTime</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.unix_to_utcjd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the UTC JD time value for a given UNIX time value.</p>
+<p>Param: unixTime - the UNIX time (int/float)</p>
+<p>Returns: The UTC JD value.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.utc_to_tai">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">utc_to_tai</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utcJD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.utc_to_tai" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the TAI JD time value for a given UTC JD time value.</p>
+<dl class="simple">
+<dt>Param: utcJD - The UTC JD time (float).</dt><dd><p>This should be greater than 2441317.5 (1972 JAN  1).</p>
+</dd>
+</dl>
+<p>Returns: The TAI JD value (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.utc_to_tt">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">utc_to_tt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utcJD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.utc_to_tt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the TT JD time value for a given UTC JD time value.</p>
+<p>Param: utcJD - The UTC JD time (float).</p>
+<p>Returns: The TT JD value (float).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.utcjd_to_taimjd">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">utcjd_to_taimjd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utcJD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.utcjd_to_taimjd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the TAI MJD time value for a given UTC JD value.</p>
+<p>Param: utcJD - The UTC JD time (float).</p>
+<p>Returns: The TAI MJD value.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.utcjd_to_unix">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">utcjd_to_unix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utcJD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.utcjd_to_unix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get UNIX time value for a given UTC JD value.</p>
+<p>Param: utcJD - The UTC JD time (float).</p>
+<p>Returns: The UNIX time</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.astro.zonedate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">zonedate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">years</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">months</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">days</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hours</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minutes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmtoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.zonedate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents local time in calendar units.</p>
+<dl class="simple">
+<dt>Public members:</dt><dd><p>years   - Date years (integer).
+months  - Date months (integer).
+days    - Date days (integer).
+hours   - Date hours (integer).
+minutes - Date minutes (integer).
+seconds - Date seconds (float).
+gmtoff  - Seconds offset from GM (integer).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.zonedate.to_date">
+<span class="sig-name descname"><span class="pre">to_date</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.zonedate.to_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert local calendar time to UTC calendar time.
+Returns object of type date representing UTC time.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.astro.zonedate.to_jd">
+<span class="sig-name descname"><span class="pre">to_jd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.zonedate.to_jd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert calendar time to Julian day.
+Returns UTC time in Julian days (float).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.astro.zonedate_to_date">
+<span class="sig-prename descclassname"><span class="pre">lsl.astro.</span></span><span class="sig-name descname"><span class="pre">zonedate_to_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zonedate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.astro.zonedate_to_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert local calendar time to UTC calendar time.</p>
+<p>Param: zonedate - Object of type zonedate representing local time.</p>
+<p>Returns object of type date representing UTC time.</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Astronomical Utilities</a><ul>
+<li><a class="reference internal" href="#lsl.astro.B1950_to_J2000"><code class="docutils literal notranslate"><span class="pre">B1950_to_J2000()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.J2000_to_B1950"><code class="docutils literal notranslate"><span class="pre">J2000_to_B1950()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.add_hms"><code class="docutils literal notranslate"><span class="pre">add_hms()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.add_secs_hms"><code class="docutils literal notranslate"><span class="pre">add_secs_hms()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.date"><code class="docutils literal notranslate"><span class="pre">date</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.astro.date.load"><code class="docutils literal notranslate"><span class="pre">date.load()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.date.to_jd"><code class="docutils literal notranslate"><span class="pre">date.to_jd()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.date.to_zone"><code class="docutils literal notranslate"><span class="pre">date.to_zone()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.astro.date_to_zonedate"><code class="docutils literal notranslate"><span class="pre">date_to_zonedate()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.deg_to_dms"><code class="docutils literal notranslate"><span class="pre">deg_to_dms()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.deg_to_hms"><code class="docutils literal notranslate"><span class="pre">deg_to_hms()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.deg_to_rad"><code class="docutils literal notranslate"><span class="pre">deg_to_rad()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.deg_to_sec"><code class="docutils literal notranslate"><span class="pre">deg_to_sec()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.dir_cos"><code class="docutils literal notranslate"><span class="pre">dir_cos()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.dms"><code class="docutils literal notranslate"><span class="pre">dms</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.astro.dms.to_deg"><code class="docutils literal notranslate"><span class="pre">dms.to_deg()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.dms.to_hms"><code class="docutils literal notranslate"><span class="pre">dms.to_hms()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.astro.dms_to_deg"><code class="docutils literal notranslate"><span class="pre">dms_to_deg()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.dms_to_rad"><code class="docutils literal notranslate"><span class="pre">dms_to_rad()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.ecl_posn"><code class="docutils literal notranslate"><span class="pre">ecl_posn</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.astro.ecl_posn.format"><code class="docutils literal notranslate"><span class="pre">ecl_posn.format()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.ecl_posn.to_equ"><code class="docutils literal notranslate"><span class="pre">ecl_posn.to_equ()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.astro.equ_posn"><code class="docutils literal notranslate"><span class="pre">equ_posn</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.astro.equ_posn.angular_separation"><code class="docutils literal notranslate"><span class="pre">equ_posn.angular_separation()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.equ_posn.format"><code class="docutils literal notranslate"><span class="pre">equ_posn.format()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.equ_posn.precess"><code class="docutils literal notranslate"><span class="pre">equ_posn.precess()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.equ_posn.to_ecl"><code class="docutils literal notranslate"><span class="pre">equ_posn.to_ecl()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.equ_posn.to_gal"><code class="docutils literal notranslate"><span class="pre">equ_posn.to_gal()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.equ_posn.to_hrz"><code class="docutils literal notranslate"><span class="pre">equ_posn.to_hrz()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.astro.gal_posn"><code class="docutils literal notranslate"><span class="pre">gal_posn</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.astro.gal_posn.format"><code class="docutils literal notranslate"><span class="pre">gal_posn.format()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.gal_posn.to_equ"><code class="docutils literal notranslate"><span class="pre">gal_posn.to_equ()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.astro.geo_posn"><code class="docutils literal notranslate"><span class="pre">geo_posn</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_angular_separation"><code class="docutils literal notranslate"><span class="pre">get_angular_separation()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_apparent_posn"><code class="docutils literal notranslate"><span class="pre">get_apparent_posn()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_apparent_sidereal_time"><code class="docutils literal notranslate"><span class="pre">get_apparent_sidereal_time()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_date"><code class="docutils literal notranslate"><span class="pre">get_date()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_date_from_sys"><code class="docutils literal notranslate"><span class="pre">get_date_from_sys()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_day_of_week"><code class="docutils literal notranslate"><span class="pre">get_day_of_week()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_ecl_from_equ"><code class="docutils literal notranslate"><span class="pre">get_ecl_from_equ()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_ecl_from_rect"><code class="docutils literal notranslate"><span class="pre">get_ecl_from_rect()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_equ2000_from_gal"><code class="docutils literal notranslate"><span class="pre">get_equ2000_from_gal()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_equ_aber"><code class="docutils literal notranslate"><span class="pre">get_equ_aber()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_equ_from_ecl"><code class="docutils literal notranslate"><span class="pre">get_equ_from_ecl()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_equ_from_gal"><code class="docutils literal notranslate"><span class="pre">get_equ_from_gal()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_equ_from_hrz"><code class="docutils literal notranslate"><span class="pre">get_equ_from_hrz()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_equ_from_rect"><code class="docutils literal notranslate"><span class="pre">get_equ_from_rect()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_equ_nut"><code class="docutils literal notranslate"><span class="pre">get_equ_nut()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_equ_pm"><code class="docutils literal notranslate"><span class="pre">get_equ_pm()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_equ_prec"><code class="docutils literal notranslate"><span class="pre">get_equ_prec()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_equ_prec2"><code class="docutils literal notranslate"><span class="pre">get_equ_prec2()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_gal_from_equ"><code class="docutils literal notranslate"><span class="pre">get_gal_from_equ()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_gal_from_equ2000"><code class="docutils literal notranslate"><span class="pre">get_gal_from_equ2000()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_geo_from_rect"><code class="docutils literal notranslate"><span class="pre">get_geo_from_rect()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_gmtoff"><code class="docutils literal notranslate"><span class="pre">get_gmtoff()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_hrz_from_equ"><code class="docutils literal notranslate"><span class="pre">get_hrz_from_equ()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_julian_day"><code class="docutils literal notranslate"><span class="pre">get_julian_day()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_julian_from_sys"><code class="docutils literal notranslate"><span class="pre">get_julian_from_sys()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_julian_from_timet"><code class="docutils literal notranslate"><span class="pre">get_julian_from_timet()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_julian_local_date"><code class="docutils literal notranslate"><span class="pre">get_julian_local_date()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_jupiter_equ_coords"><code class="docutils literal notranslate"><span class="pre">get_jupiter_equ_coords()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_jupiter_rst"><code class="docutils literal notranslate"><span class="pre">get_jupiter_rst()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_local_sidereal_time"><code class="docutils literal notranslate"><span class="pre">get_local_sidereal_time()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_lunar_equ_coords"><code class="docutils literal notranslate"><span class="pre">get_lunar_equ_coords()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_lunar_rst"><code class="docutils literal notranslate"><span class="pre">get_lunar_rst()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_mars_equ_coords"><code class="docutils literal notranslate"><span class="pre">get_mars_equ_coords()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_mars_rst"><code class="docutils literal notranslate"><span class="pre">get_mars_rst()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_mean_sidereal_time"><code class="docutils literal notranslate"><span class="pre">get_mean_sidereal_time()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_nutation"><code class="docutils literal notranslate"><span class="pre">get_nutation()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_object_rst"><code class="docutils literal notranslate"><span class="pre">get_object_rst()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_precession"><code class="docutils literal notranslate"><span class="pre">get_precession()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_rect_from_equ"><code class="docutils literal notranslate"><span class="pre">get_rect_from_equ()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_rect_from_geo"><code class="docutils literal notranslate"><span class="pre">get_rect_from_geo()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_rel_posn_angle"><code class="docutils literal notranslate"><span class="pre">get_rel_posn_angle()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_saturn_equ_coords"><code class="docutils literal notranslate"><span class="pre">get_saturn_equ_coords()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_saturn_rst"><code class="docutils literal notranslate"><span class="pre">get_saturn_rst()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_solar_equ_coords"><code class="docutils literal notranslate"><span class="pre">get_solar_equ_coords()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_solar_rst"><code class="docutils literal notranslate"><span class="pre">get_solar_rst()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_tai_from_sys"><code class="docutils literal notranslate"><span class="pre">get_tai_from_sys()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_timet_from_julian"><code class="docutils literal notranslate"><span class="pre">get_timet_from_julian()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_venus_equ_coords"><code class="docutils literal notranslate"><span class="pre">get_venus_equ_coords()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.get_venus_rst"><code class="docutils literal notranslate"><span class="pre">get_venus_rst()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.hms"><code class="docutils literal notranslate"><span class="pre">hms</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.astro.hms.to_deg"><code class="docutils literal notranslate"><span class="pre">hms.to_deg()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.hms.to_dms"><code class="docutils literal notranslate"><span class="pre">hms.to_dms()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.hms.to_sec"><code class="docutils literal notranslate"><span class="pre">hms.to_sec()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.astro.hms_to_deg"><code class="docutils literal notranslate"><span class="pre">hms_to_deg()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.hms_to_rad"><code class="docutils literal notranslate"><span class="pre">hms_to_rad()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.hms_to_sec"><code class="docutils literal notranslate"><span class="pre">hms_to_sec()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.hrz_posn"><code class="docutils literal notranslate"><span class="pre">hrz_posn</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.astro.hrz_posn.dir_cos"><code class="docutils literal notranslate"><span class="pre">hrz_posn.dir_cos()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.hrz_posn.to_equ"><code class="docutils literal notranslate"><span class="pre">hrz_posn.to_equ()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.hrz_posn.zen"><code class="docutils literal notranslate"><span class="pre">hrz_posn.zen()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.astro.hrz_to_nswe"><code class="docutils literal notranslate"><span class="pre">hrz_to_nswe()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.jd_to_mjd"><code class="docutils literal notranslate"><span class="pre">jd_to_mjd()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.jd_to_sec"><code class="docutils literal notranslate"><span class="pre">jd_to_sec()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.leap_secs"><code class="docutils literal notranslate"><span class="pre">leap_secs()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.lnlat_posn"><code class="docutils literal notranslate"><span class="pre">lnlat_posn</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.astro.lnlat_posn.format"><code class="docutils literal notranslate"><span class="pre">lnlat_posn.format()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.astro.mjd_to_jd"><code class="docutils literal notranslate"><span class="pre">mjd_to_jd()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.nutation"><code class="docutils literal notranslate"><span class="pre">nutation</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.astro.nutation.format"><code class="docutils literal notranslate"><span class="pre">nutation.format()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.astro.rad_to_deg"><code class="docutils literal notranslate"><span class="pre">rad_to_deg()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.rad_to_dms"><code class="docutils literal notranslate"><span class="pre">rad_to_dms()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.rad_to_hms"><code class="docutils literal notranslate"><span class="pre">rad_to_hms()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.range_degrees"><code class="docutils literal notranslate"><span class="pre">range_degrees()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.range_hours"><code class="docutils literal notranslate"><span class="pre">range_hours()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.rect_posn"><code class="docutils literal notranslate"><span class="pre">rect_posn</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.rst_time"><code class="docutils literal notranslate"><span class="pre">rst_time</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.astro.rst_time.format"><code class="docutils literal notranslate"><span class="pre">rst_time.format()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.astro.sec_to_jd"><code class="docutils literal notranslate"><span class="pre">sec_to_jd()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.tai_to_tt"><code class="docutils literal notranslate"><span class="pre">tai_to_tt()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.tai_to_utc"><code class="docutils literal notranslate"><span class="pre">tai_to_utc()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.taimjd_to_unix"><code class="docutils literal notranslate"><span class="pre">taimjd_to_unix()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.taimjd_to_utcjd"><code class="docutils literal notranslate"><span class="pre">taimjd_to_utcjd()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.tt_to_tai"><code class="docutils literal notranslate"><span class="pre">tt_to_tai()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.tt_to_tdb"><code class="docutils literal notranslate"><span class="pre">tt_to_tdb()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.tt_to_utc"><code class="docutils literal notranslate"><span class="pre">tt_to_utc()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.unix_to_taimjd"><code class="docutils literal notranslate"><span class="pre">unix_to_taimjd()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.unix_to_utcjd"><code class="docutils literal notranslate"><span class="pre">unix_to_utcjd()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.utc_to_tai"><code class="docutils literal notranslate"><span class="pre">utc_to_tai()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.utc_to_tt"><code class="docutils literal notranslate"><span class="pre">utc_to_tt()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.utcjd_to_taimjd"><code class="docutils literal notranslate"><span class="pre">utcjd_to_taimjd()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.utcjd_to_unix"><code class="docutils literal notranslate"><span class="pre">utcjd_to_unix()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.zonedate"><code class="docutils literal notranslate"><span class="pre">zonedate</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.astro.zonedate.to_date"><code class="docutils literal notranslate"><span class="pre">zonedate.to_date()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.astro.zonedate.to_jd"><code class="docutils literal notranslate"><span class="pre">zonedate.to_jd()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.astro.zonedate_to_date"><code class="docutils literal notranslate"><span class="pre">zonedate_to_date()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="lwa_user.html"
+                          title="previous chapter">lwa_user Modules</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="kurtosis.html"
+                          title="next chapter">RFI Identification</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/astro.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="kurtosis.html" title="RFI Identification"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lwa_user.html" title="lwa_user Modules"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Astronomical Utilities</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

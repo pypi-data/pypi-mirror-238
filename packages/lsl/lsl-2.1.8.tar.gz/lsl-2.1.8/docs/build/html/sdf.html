@@ -1,0 +1,1785 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Session and Observation Specification for a Single LWA Station &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Run and Scan Specification for the LWA Swarm" href="idf.html" />
+    <link rel="prev" title="Station Meta-Data" href="station.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="idf.html" title="Run and Scan Specification for the LWA Swarm"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="station.html" title="Station Meta-Data"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Session and Observation Specification for a Single LWA Station</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="session-and-observation-specification-for-a-single-lwa-station">
+<h1>Session and Observation Specification for a Single LWA Station<a class="headerlink" href="#session-and-observation-specification-for-a-single-lwa-station" title="Permalink to this heading">¶</a></h1>
+<section id="module-lsl.common.sdf">
+<span id="dp-based-stations"></span><h2>DP-Based Stations<a class="headerlink" href="#module-lsl.common.sdf" title="Permalink to this heading">¶</a></h2>
+<p>Module that contains all of the relevant class to build up a representation 
+of a session definition file as defined in MCS0030v5.  The hierarchy of classes
+is:</p>
+<blockquote>
+<div><ul>
+<li><dl class="simple">
+<dt>Project - class that holds all of the information about the project (including</dt><dd><p>the observer) and one or more sessions.  Technically, a SD file has 
+only one session but this approach allows for the generation of 
+multiple SD files from a single Project object.</p>
+</dd>
+</dl>
+</li>
+<li><p>Observer - class that hold the observer’s name and numeric ID</p></li>
+<li><dl class="simple">
+<dt>Session - class that holds all of the observations associated with a particular </dt><dd><p>DP output.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Observations - class that hold information about a particular observation.  It</dt><dd><p>includes a variety of attributes that are used to convert human-
+readable inputs to SDF data values.  The observation class is 
+further subclasses into:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>TBW - class for TBW observations</p></li>
+<li><p>TBN - class for TBN observations</p></li>
+<li><p>DRX - class for general DRX observation, with sub-classes:
+* Solar - class for solar tracking
+* Jovian - class for Jovian tracking
+* Lunar - class for Lunar tracking</p></li>
+<li><p>Stepped - class for stepped observations</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>BeamStep - class that holds the information about a particular step in a Stepped</dt><dd><p>Observation</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>All of the classes, except for Stepped and BeamStep, are complete and functional.  In 
+addition, most class contain ‘validate’ attribute functions that can be used to 
+determine if the project/session/observation are valid or not given the constraints of
+the DP system.</p>
+<p>In addition to providing the means for creating session definition files from scratch, 
+this module also includes a simple parser for SD files.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 2.0.0: </span>Added support for astropy.time.Time and astropy.coordinates.Angle instances</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.0: </span>Added the get_observation_start_stop() function.
+Renamed parse_timeString() to parse_time()
+parse_time() can now accept dates/times as timezone-aware datetime instances
+Observations can now be initialized with durations as timedelta instances
+Observations can now be initialized with RA/dec/az/alt as ephem.hours and 
+ephem.degrees instances</p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdf.BeamStep">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">BeamStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_radec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec_delays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec_gains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.BeamStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for holding all of the information (pointing center, tuning frequencies, 
+etc.)associated with a particular step.</p>
+<dl class="simple">
+<dt>Required Keywords:</dt><dd><ul class="simple">
+<li><p>pointing coordinate 1 (RA [hours] or azimuth [degrees] or ephem.hours/ephem.degrees 
+instance)</p></li>
+<li><p>pointing coordinate 2 (dec or elevation/altitude [degrees] or ephem.degrees instance)</p></li>
+<li><p>observation duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><p>is_radec - whether the coordinates are in RA/Dec or Az/El pairs (default=RA/Dec)</p></li>
+<li><dl class="simple">
+<dt>max_snr - specifies if maximum signal-to-noise beam forming is to be used</dt><dd><p>(default = False)</p>
+</dd>
+</dl>
+</li>
+<li><p>spec_delays - 520 list of delays to apply for each antenna</p></li>
+<li><p>spec_gains - 260 by 2 by 2 list of gains ([[XY, XY], [YX, YY]]) to apply for each antenna</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <cite>spec_delays</cite> is specified, <cite>spec_gains</cite> must also be specified.
+Specifying both <cite>spec_delays</cite> and <cite>spec_gains</cite> overrides the <cite>max_snr</cite> keyword.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.0: </span>Added support for azimuth/altitude and RA/dec values as ephem.hours/ephem.degrees 
+instances</p>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.BeamStep.c1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">c1</span></span><a class="headerlink" href="#lsl.common.sdf.BeamStep.c1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coordinate 1 - hours (J2000) if RA, degrees if azimuth.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.BeamStep.c2">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">c2</span></span><a class="headerlink" href="#lsl.common.sdf.BeamStep.c2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coordinate 2 - degrees (J2000) if dec., degrees if elevation.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.BeamStep.duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#lsl.common.sdf.BeamStep.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duration in seconds.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.BeamStep.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.sdf.BeamStep.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ephem.Body object corresponding to where the observation is 
+pointed.  None if the observation mode is either TBN or TBW.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.BeamStep.frequency1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency1</span></span><a class="headerlink" href="#lsl.common.sdf.BeamStep.frequency1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuning 1 frequency in Hz.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.BeamStep.frequency2">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency2</span></span><a class="headerlink" href="#lsl.common.sdf.BeamStep.frequency2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuning 2 frequency in Hz.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.BeamStep.get_beam_type">
+<span class="sig-name descname"><span class="pre">get_beam_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.BeamStep.get_beam_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a valid value for beam type based on whether maximum S/N beam 
+forming has been requested.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.BeamStep.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.BeamStep.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the settings.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.BeamStep.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.BeamStep.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the step and return True if it is valid, False otherwise.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdf.DRX">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">DRX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.DRX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of Observation specifically for DRX-style observations.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>observation duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>observation RA in hours, J2000.0 or ephem.hours instance</p></li>
+<li><p>observation Dec in degrees, J2000.0 or ephem.hours instance</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>max_snr - specifies if maximum signal-to-noise beam forming is to be used</dt><dd><p>(default = False)</p>
+</dd>
+</dl>
+</li>
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.DRX.estimate_bytes">
+<span class="sig-name descname"><span class="pre">estimate_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.DRX.estimate_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the data volume for the specified type and duration of 
+observations.  For DRX:</p>
+<blockquote>
+<div><p>bytes = duration * sample_rate / 4096 * 4128 bytes * 2 tunings * 2 pols.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.DRX.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.sdf.DRX.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ephem.Body object corresponding to where the observation is 
+pointed.  None if the observation mode is an all-sky mode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.DRX.set_beamdipole_mode">
+<span class="sig-name descname"><span class="pre">set_beamdipole_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stand</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam_gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.04</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dipole_gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'X'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.DRX.set_beamdipole_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the current observation to a ‘beam-dipole mode’ 
+observation with the specified stand.  Setting the stand to zero
+will disable the ‘beam-dipole mode’ for this observation’.</p>
+<dl class="simple">
+<dt>Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>beam_gain - BAM gain to use for each dipole in the beam</dt><dd><p>default: 0.04; range: 0.0 to 1.0</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>dipole_gain - BAM gain to use for the single dipole</dt><dd><p>default: 1.0; range: 0.0 to 1.0</p>
+</dd>
+</dl>
+</li>
+<li><p>pol - Polarization to record  default: “X”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.DRX.target_visibility">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">target_visibility</span></span><a class="headerlink" href="#lsl.common.sdf.DRX.target_visibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the fractional visibility of the target during the observation 
+period.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.DRX.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.DRX.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the observation and return True if it is valid, False
+otherwise.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdf.Jovian">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">Jovian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Jovian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of DRX specifically for Jovian DRX observations.   It features a
+reduced number of parameters needed to setup the observation.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>observation duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>max_snr - specifies if maximum signal-to-noise beam forming is to be used</dt><dd><p>(default = False)</p>
+</dd>
+</dl>
+</li>
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Jovian.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.sdf.Jovian.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ephem.Body object corresponding to where the observation is 
+pointed.  None if the observation mode is either TBN or TBW.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdf.Lunar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">Lunar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Lunar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of DRX specifically for Lunar DRX observations.   It features a
+reduced number of parameters needed to setup the observation.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>observation duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>max_snr - specifies if maximum signal-to-noise beam forming is to be used</dt><dd><p>(default = False)</p>
+</dd>
+</dl>
+</li>
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Lunar.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.sdf.Lunar.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ephem.Body object corresponding to where the observation is 
+pointed.  None if the observation mode is either TBN or TBW.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">Observation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Observation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold the specifics of an observations.  It currently
+handles TBW, TBN, TRK_RADEC, TRK_SOL, TRK_JOV, TRK_LUN and Stepped</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.0: </span>Added support for RA/dec values as ephem.hours/ephem.degrees instances</p>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observation.dec">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dec</span></span><a class="headerlink" href="#lsl.common.sdf.Observation.dec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target dec. (J2000).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observation.duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#lsl.common.sdf.Observation.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duration in seconds.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observation.estimate_bytes">
+<span class="sig-name descname"><span class="pre">estimate_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Observation.estimate_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Place holder for functions that return the estimate size of the data
+set being defined by the observation.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observation.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.sdf.Observation.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Place holder for functions that return ephem.Body objects (or None)
+that define the pointing center of the observation.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observation.frequency1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency1</span></span><a class="headerlink" href="#lsl.common.sdf.Observation.frequency1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuning 1 frequency in Hz.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observation.frequency2">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency2</span></span><a class="headerlink" href="#lsl.common.sdf.Observation.frequency2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuning 2 frequency in Hz.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observation.get_beam_type">
+<span class="sig-name descname"><span class="pre">get_beam_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Observation.get_beam_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a valid value for beam type based on whether maximum S/N beam 
+forming has been requested.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observation.ra">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ra</span></span><a class="headerlink" href="#lsl.common.sdf.Observation.ra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target RA (J2000).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observation.start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start</span></span><a class="headerlink" href="#lsl.common.sdf.Observation.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start time.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observation.target_visibility">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">target_visibility</span></span><a class="headerlink" href="#lsl.common.sdf.Observation.target_visibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Place holder for functions that return the fractional visibility of the 
+target during the observation period.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observation.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Observation.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the computed parameters from the string values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observation.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Observation.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Place holder for functions that evaluate the observation and return True 
+if it is valid, False otherwise.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdf.Observer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">Observer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Observer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold information about an observer.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdf.Project">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">Project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sessions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_office</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold all the information about a specific session for a 
+project/proposal.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.1: </span>Added a new writeto() method to directly write the SDF to a file.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Project.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newSession</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Project.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new Session to the list of sessions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Project.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Project.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a session definition file that corresponds to the specified 
+session.  Returns the SD file’s contents as a string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Project.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Project.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the various sessions that are part of this project.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Project.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Project.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Examine all of the sessions and all of their observations to check
+for validity.  If everything is valid, return True.  Otherwise, return
+False.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Project.writeto">
+<span class="sig-name descname"><span class="pre">writeto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Project.writeto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a session definition file that corresponds to the specified 
+session and write it to the provided filename.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdf.ProjectOffice">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">ProjectOffice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sessions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.ProjectOffice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold comments from the LWA object office.  This class isn’t really 
+needed to create SD files, but it is helpful for parsing SD files.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdf.Session">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">Session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name,</span> <span class="pre">id,</span> <span class="pre">observations=None,</span> <span class="pre">data_return_method='DRSU',</span> <span class="pre">comments=None,</span> <span class="pre">station=&lt;LWAStation</span> <span class="pre">id='VL',</span> <span class="pre">name='LWA1',</span> <span class="pre">lat=34:04:08.0,</span> <span class="pre">long=-107:37:42.1,</span>&#160;&#160;&#160;&#160; <span class="pre">elev=2133.6,</span> <span class="pre">pressure=0.0,</span> <span class="pre">horizon=0:00:00.0,</span> <span class="pre">antennas=[...],</span>&#160;&#160;&#160;&#160; <span class="pre">interface=&lt;LSLInterface</span> <span class="pre">backend='lsl.common.dp',</span>&#160;&#160;&#160;&#160; <span class="pre">mcs='lsl.common.mcs',</span> <span class="pre">sdf='lsl.common.sdf',</span>&#160;&#160;&#160;&#160; <span class="pre">metabundle='lsl.common.metabundle',</span> <span class="pre">sdm='lsl.common.sdm'&gt;&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold all of the observations in a session.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Session.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newObservation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Session.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new Observation to the list of observations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Session.set_mib_record_interval">
+<span class="sig-name descname"><span class="pre">set_mib_record_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Session.set_mib_record_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the record interval for one of the level-1 subsystems (ASP, <a href="#id1"><span class="problematic" id="id2">DP_</span></a>, etc.) to
+a particular value in minutes.  A KeyError is raised if an invalid sub-system is
+specified.</p>
+<dl class="simple">
+<dt>Special Values are:</dt><dd><ul class="simple">
+<li><p>-1 = use the MCS default interval</p></li>
+<li><p>0 = never record the MIB entries (the entries are still updated, however)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Session.set_mib_update_interval">
+<span class="sig-name descname"><span class="pre">set_mib_update_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Session.set_mib_update_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the update interval for one of the level-1 subsystems (ASP, <a href="#id3"><span class="problematic" id="id4">DP_</span></a>, etc.) to 
+a particular value in minutes.  A KeyError is raised if an invalid sub-system is
+specified.</p>
+<dl class="simple">
+<dt>Special Values are:</dt><dd><ul class="simple">
+<li><p>-1 = use the MCS default interval</p></li>
+<li><p>0 = request no updates to the MIB entries</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Session.spectrometer_channels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spectrometer_channels</span></span><a class="headerlink" href="#lsl.common.sdf.Session.spectrometer_channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of spectrometer channesl to output, 0 is disables.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Session.spectrometer_integration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spectrometer_integration</span></span><a class="headerlink" href="#lsl.common.sdf.Session.spectrometer_integration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of FFT windows per spectrometer integration, 0 to disable.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Session.spectrometer_metatag">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spectrometer_metatag</span></span><a class="headerlink" href="#lsl.common.sdf.Session.spectrometer_metatag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spectrometer polarization selection.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Session.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Session.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the various observations in the session.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Session.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Session.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Examine all of the observations associated with the session to check
+for validity.  If everything is valid, return True.  Otherwise, return
+False.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdf.Solar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">Solar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Solar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of DRX specifically for Solar DRX observations.   It features a
+reduced number of parameters needed to setup the observation.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>observation duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>max_snr - specifies if maximum signal-to-noise beam forming is to be used</dt><dd><p>(default = False)</p>
+</dd>
+</dl>
+</li>
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Solar.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.sdf.Solar.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ephem.Body object corresponding to where the observation is 
+pointed.  None if the observation mode is either TBN or TBW.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdf.Stepped">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">Stepped</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_radec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Stepped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of Observation for dealing with STEPPED-mode observations.  It 
+features a reduced number of parameters needed to setup the observation and added
+support for the individual steps.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><p>steps - array of BeamStep objects that specify the different steps</p></li>
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Stepped.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newStep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Stepped.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new BeamStep step to the list of steps.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Stepped.duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#lsl.common.sdf.Stepped.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the list of BeamStep objects to get the total observation 
+duration as the number of seconds in that period.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Stepped.estimate_bytes">
+<span class="sig-name descname"><span class="pre">estimate_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Stepped.estimate_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the data volume for the specified type and duration of 
+observations.  For DRX:</p>
+<blockquote>
+<div><p>bytes = duration * sample_rate / 4096 * 4128 bytes * 2 tunings * 2 pols.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Stepped.set_beamdipole_mode">
+<span class="sig-name descname"><span class="pre">set_beamdipole_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stand</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam_gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.04</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dipole_gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'X'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Stepped.set_beamdipole_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the current observation to a ‘beam-dipole mode’ 
+observation with the specified stand.  Setting the stand to zero
+will disable the ‘beam-dipole mode’ for this observation’.</p>
+<dl class="simple">
+<dt>Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>beam_gain - BAM gain to use for each dipole in the beam</dt><dd><p>default: 0.04; range: 0.0 to 1.0</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>dipole_gain - BAM gain to use for the single dipole</dt><dd><p>default: 1.0; range: 0.0 to 1.0</p>
+</dd>
+</dl>
+</li>
+<li><p>pol - Polarization to record  default: “X”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdf.Stepped.target_visibility">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">target_visibility</span></span><a class="headerlink" href="#lsl.common.sdf.Stepped.target_visibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the fractional visibility of the target during the observation 
+period.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Stepped.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Stepped.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the computed parameters from the string values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.Stepped.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.Stepped.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the observation and return True if it is valid, False
+otherwise.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdf.TBN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">TBN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.TBN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of Observation specifically for TBN observations.   It features a
+reduced number of parameters needed to setup the observation.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>observation duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>observation frequency (Hz)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.TBN.estimate_bytes">
+<span class="sig-name descname"><span class="pre">estimate_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.TBN.estimate_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the data volume for the specified type and duration of 
+observations.  For TBN:</p>
+<blockquote>
+<div><p>bytes = duration * sample_rate / 512 * 1048 bytes * 260 stands * 2 pols.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.TBN.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.TBN.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the observation and return True if it is valid, False
+otherwise.</p>
+<dl class="simple">
+<dt>..note::</dt><dd><p>This version of sdf allows for TBN tuning between 5 and 93 MHz.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdf.TBW">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">TBW</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.TBW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of Observation specifically for TBW observations.  It features a
+reduced number of parameters needed to setup the observation and provides extra
+information about the number of data bits and the number of samples.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>TBW read-out times in ms are calculated using (samples/196000+1)*5000 per
+MCS</p>
+</div>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string)</p></li>
+<li><p>integer number of samples</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><p>bits - number of data bits (4 or 12)</p></li>
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.TBW.estimate_bytes">
+<span class="sig-name descname"><span class="pre">estimate_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.TBW.estimate_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the data volume for the specified type and duration of 
+observations.  For TBW:</p>
+<blockquote>
+<div><p>bytes = samples / samplesPerFrame * 1224 bytes * 260 stands</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdf.TBW.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.TBW.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the observation and return True if it is valid, False
+otherwise.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.common.sdf.get_observation_start_stop">
+<span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">get_observation_start_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.get_observation_start_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an observation, get the start and stop times (returned as a two-
+element tuple of UTC datetime instances).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.0.0.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.common.sdf.is_valid">
+<span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a filename, see if it is valid SDF file or not.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.0.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.common.sdf.parse_sdf">
+<span class="sig-prename descclassname"><span class="pre">lsl.common.sdf.</span></span><span class="sig-name descname"><span class="pre">parse_sdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdf.parse_sdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a filename, read the file’s contents into the SDM instance and return
+that instance.</p>
+</dd></dl>
+
+</section>
+<section id="module-lsl.common.sdfADP">
+<span id="adp-based-stations"></span><h2>ADP-Based Stations<a class="headerlink" href="#module-lsl.common.sdfADP" title="Permalink to this heading">¶</a></h2>
+<p>Module that contains all of the relevant class to build up a representation 
+of a session definition file as defined in MCS0030v5 and updated for LWA-SV.  The 
+hierarchy of classes is:</p>
+<blockquote>
+<div><ul>
+<li><dl class="simple">
+<dt>Project - class that holds all of the information about the project (including</dt><dd><p>the observer) and one or more sessions.  Technically, a SD file has 
+only one session but this approach allows for the generation of 
+multiple SD files from a single Project object.</p>
+</dd>
+</dl>
+</li>
+<li><p>Observer - class that hold the observer’s name and numeric ID</p></li>
+<li><dl class="simple">
+<dt>Session - class that holds all of the observations associated with a particular </dt><dd><p>ADP output.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Observations - class that hold information about a particular observation.  It</dt><dd><p>includes a variety of attributes that are used to convert human-
+readable inputs to SDF data values.  The observation class is 
+further subclasses into:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>TBF - class for TBF observations</p></li>
+<li><p>TBN - class for TBN observations</p></li>
+<li><p>DRX - class for general DRX observation, with sub-classes:
+* Solar - class for solar tracking
+* Jovian - class for Jovian tracking</p></li>
+<li><p>Stepped - class for stepped observations</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>BeamStep - class that holds the information about a particular step in a Stepped</dt><dd><p>Observation</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>All of the classes, except for Stepped and BeamStep, are complete and functional.  In 
+addition, most class contain ‘validate’ attribute functions that can be used to 
+determine if the project/session/observation are valid or not given the constraints of
+the ADP system.</p>
+<p>In addition to providing the means for creating session definition files from scratch, 
+this module also includes a simple parser for SD files.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 2.0.0: </span>Added support for astropy.time.Time and astropy.coordinates.Angle instances</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.0: </span>Added the get_observation_start_stop() function.
+Renamed parse_timeString() to parse_time()
+parse_time() can now accept dates/times as timezone-aware datetime instances
+Observations can now be initialized with durations as timedelta instances
+Observations can now be initialized with RA/dec/az/alt as ephem.hours and 
+ephem.degrees instances</p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.BeamStep">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">BeamStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_radec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec_delays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec_gains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.BeamStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for holding all of the information (pointing center, tuning frequencies, 
+etc.)associated with a particular step.</p>
+<dl class="simple">
+<dt>Required Keywords:</dt><dd><ul class="simple">
+<li><p>pointing coordinate 1 (RA [hours] or azimuth [degrees] or ephem.hours/ephem.degrees 
+instance)</p></li>
+<li><p>pointing coordinate 2 (dec or elevation/altitude [degrees] or ephem.degrees instance)</p></li>
+<li><p>observation duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><p>is_radec - whether the coordinates are in RA/Dec or Az/El pairs (default=RA/Dec)</p></li>
+<li><dl class="simple">
+<dt>max_snr - specifies if maximum signal-to-noise beam forming is to be used</dt><dd><p>(default = False)</p>
+</dd>
+</dl>
+</li>
+<li><p>spec_delays - 520 list of delays to apply for each antenna</p></li>
+<li><p>spec_gains - 260 by 2 by 2 list of gains ([[XY, XY], [YX, YY]]) to apply for each antenna</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <cite>spec_delays</cite> is specified, <cite>spec_gains</cite> must also be specified.
+Specifying both <cite>spec_delays</cite> and <cite>spec_gains</cite> overrides the <cite>max_snr</cite> keyword.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.0: </span>Added support for azimuth/altitude and RA/dec values as ephem.hours/ephem.degrees 
+instances</p>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.BeamStep.c1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">c1</span></span><a class="headerlink" href="#lsl.common.sdfADP.BeamStep.c1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coordinate 1 - hours (J2000) if RA, degrees if azimuth.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.BeamStep.c2">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">c2</span></span><a class="headerlink" href="#lsl.common.sdfADP.BeamStep.c2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coordinate 2 - degrees (J2000) if dec., degrees if elevation.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.BeamStep.duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#lsl.common.sdfADP.BeamStep.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duration in seconds.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.BeamStep.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.sdfADP.BeamStep.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ephem.Body object corresponding to where the observation is 
+pointed.  None if the observation mode is either TBN or TBW.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.BeamStep.frequency1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency1</span></span><a class="headerlink" href="#lsl.common.sdfADP.BeamStep.frequency1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuning 1 frequency in Hz.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.BeamStep.frequency2">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency2</span></span><a class="headerlink" href="#lsl.common.sdfADP.BeamStep.frequency2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuning 2 frequency in Hz.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.BeamStep.get_beam_type">
+<span class="sig-name descname"><span class="pre">get_beam_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.BeamStep.get_beam_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a valid value for beam type based on whether maximum S/N beam 
+forming has been requested.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.BeamStep.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.BeamStep.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the settings.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.BeamStep.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.BeamStep.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the step and return True if it is valid, False otherwise.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.DRX">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">DRX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.DRX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of Observation specifically for DRX-style observations.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>observation duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>observation RA in hours, J2000.0 or ephem.hours instance</p></li>
+<li><p>observation Dec in degrees, J2000.0 or ephem.hours instance</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>max_snr - specifies if maximum signal-to-noise beam forming is to be used</dt><dd><p>(default = False)</p>
+</dd>
+</dl>
+</li>
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.DRX.estimate_bytes">
+<span class="sig-name descname"><span class="pre">estimate_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.DRX.estimate_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the data volume for the specified type and duration of 
+observations.  For DRX:</p>
+<blockquote>
+<div><p>bytes = duration * sample_rate / 4096 * 4128 bytes * 2 tunings * 2 pols.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.DRX.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.sdfADP.DRX.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ephem.Body object corresponding to where the observation is 
+pointed.  None if the observation mode is an all-sky mode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.DRX.set_beamdipole_mode">
+<span class="sig-name descname"><span class="pre">set_beamdipole_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stand</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam_gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.04</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dipole_gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'X'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.DRX.set_beamdipole_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the current observation to a ‘beam-dipole mode’ 
+observation with the specified stand.  Setting the stand to zero
+will disable the ‘beam-dipole mode’ for this observation’.</p>
+<dl class="simple">
+<dt>Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>beam_gain - BAM gain to use for each dipole in the beam</dt><dd><p>default: 0.04; range: 0.0 to 1.0</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>dipole_gain - BAM gain to use for the single dipole</dt><dd><p>default: 1.0; range: 0.0 to 1.0</p>
+</dd>
+</dl>
+</li>
+<li><p>pol - Polarization to record  default: “X”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.DRX.target_visibility">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">target_visibility</span></span><a class="headerlink" href="#lsl.common.sdfADP.DRX.target_visibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the fractional visibility of the target during the observation 
+period.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.DRX.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.DRX.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the observation and return True if it is valid, False
+otherwise.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Jovian">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">Jovian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Jovian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of DRX specifically for Jovian DRX observations.   It features a
+reduced number of parameters needed to setup the observation.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>observation duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>max_snr - specifies if maximum signal-to-noise beam forming is to be used</dt><dd><p>(default = False)</p>
+</dd>
+</dl>
+</li>
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Jovian.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.sdfADP.Jovian.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ephem.Body object corresponding to where the observation is 
+pointed.  None if the observation mode is either TBN or TBW.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Lunar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">Lunar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Lunar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of DRX specifically for Lunar DRX observations.   It features a
+reduced number of parameters needed to setup the observation.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>observation duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>max_snr - specifies if maximum signal-to-noise beam forming is to be used</dt><dd><p>(default = False)</p>
+</dd>
+</dl>
+</li>
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Lunar.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.sdfADP.Lunar.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ephem.Body object corresponding to where the observation is 
+pointed.  None if the observation mode is either TBN or TBW.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">Observation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Observation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold the specifics of an observations.  It currently
+handles TBW, TBN, TRK_RADEC, TRK_SOL, TRK_JOV, TRK_LUN and Stepped</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.0: </span>Added support for RA/dec values as ephem.hours/ephem.degrees instances</p>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observation.dec">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dec</span></span><a class="headerlink" href="#lsl.common.sdfADP.Observation.dec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target dec. (J2000).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observation.duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#lsl.common.sdfADP.Observation.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duration in seconds.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observation.estimate_bytes">
+<span class="sig-name descname"><span class="pre">estimate_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Observation.estimate_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Place holder for functions that return the estimate size of the data
+set being defined by the observation.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observation.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.sdfADP.Observation.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Place holder for functions that return ephem.Body objects (or None)
+that define the pointing center of the observation.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observation.frequency1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency1</span></span><a class="headerlink" href="#lsl.common.sdfADP.Observation.frequency1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuning 1 frequency in Hz.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observation.frequency2">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency2</span></span><a class="headerlink" href="#lsl.common.sdfADP.Observation.frequency2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuning 2 frequency in Hz.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observation.get_beam_type">
+<span class="sig-name descname"><span class="pre">get_beam_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Observation.get_beam_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a valid value for beam type based on whether maximum S/N beam 
+forming has been requested.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observation.ra">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ra</span></span><a class="headerlink" href="#lsl.common.sdfADP.Observation.ra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target RA (J2000).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observation.start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start</span></span><a class="headerlink" href="#lsl.common.sdfADP.Observation.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start time.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observation.target_visibility">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">target_visibility</span></span><a class="headerlink" href="#lsl.common.sdfADP.Observation.target_visibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Place holder for functions that return the fractional visibility of the 
+target during the observation period.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observation.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Observation.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the computed parameters from the string values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observation.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Observation.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Place holder for functions that evaluate the observation and return True 
+if it is valid, False otherwise.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Observer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">Observer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Observer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold information about an observer.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Project">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">Project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sessions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_office</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold all the information about a specific session for a 
+project/proposal.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.1: </span>Added a new writeto() method to directly write the SDF to a file.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Project.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Project.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a session definition file that corresponds to the specified 
+session.  Returns the SD file’s contents as a string.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.ProjectOffice">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">ProjectOffice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sessions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.ProjectOffice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold comments from the LWA object office.  This class isn’t really 
+needed to create SD files, but it is helpful for parsing SD files.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Session">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">Session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name,</span> <span class="pre">id,</span> <span class="pre">observations=None,</span> <span class="pre">data_return_method='DRSU',</span> <span class="pre">comments=None,</span> <span class="pre">station=&lt;LWAStation</span> <span class="pre">id='SV',</span> <span class="pre">name='LWASV',</span> <span class="pre">lat=34:20:54.1,</span> <span class="pre">long=-106:53:08.8,</span>&#160;&#160;&#160;&#160; <span class="pre">elev=1477.8,</span> <span class="pre">pressure=0.0,</span> <span class="pre">horizon=0:00:00.0,</span> <span class="pre">antennas=[...],</span>&#160;&#160;&#160;&#160; <span class="pre">interface=&lt;LSLInterface</span> <span class="pre">backend='lsl.common.adp',</span>&#160;&#160;&#160;&#160; <span class="pre">mcs='lsl.common.mcsADP',</span> <span class="pre">sdf='lsl.common.sdfADP',</span>&#160;&#160;&#160;&#160; <span class="pre">metabundle='lsl.common.metabundleADP',</span> <span class="pre">sdm='lsl.common.sdmADP'&gt;&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold all of the observations in a session.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Session.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Session.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Examine all of the observations associated with the session to check
+for validity.  If everything is valid, return True.  Otherwise, return
+False.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Solar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">Solar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Solar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of DRX specifically for Solar DRX observations.   It features a
+reduced number of parameters needed to setup the observation.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>observation duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>observation tuning frequency 1 (Hz)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>max_snr - specifies if maximum signal-to-noise beam forming is to be used</dt><dd><p>(default = False)</p>
+</dd>
+</dl>
+</li>
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Solar.fixed_body">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed_body</span></span><a class="headerlink" href="#lsl.common.sdfADP.Solar.fixed_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ephem.Body object corresponding to where the observation is 
+pointed.  None if the observation mode is either TBN or TBW.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Stepped">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">Stepped</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_radec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Stepped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of Observation for dealing with STEPPED-mode observations.  It 
+features a reduced number of parameters needed to setup the observation and added
+support for the individual steps.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><p>steps - array of BeamStep objects that specify the different steps</p></li>
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Stepped.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newStep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Stepped.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new BeamStep step to the list of steps.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Stepped.duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#lsl.common.sdfADP.Stepped.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the list of BeamStep objects to get the total observation 
+duration as the number of seconds in that period.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Stepped.estimate_bytes">
+<span class="sig-name descname"><span class="pre">estimate_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Stepped.estimate_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the data volume for the specified type and duration of 
+observations.  For DRX:</p>
+<blockquote>
+<div><p>bytes = duration * sample_rate / 4096 * 4128 bytes * 2 tunings * 2 pols.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Stepped.set_beamdipole_mode">
+<span class="sig-name descname"><span class="pre">set_beamdipole_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stand</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam_gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.04</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dipole_gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'X'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Stepped.set_beamdipole_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the current observation to a ‘beam-dipole mode’ 
+observation with the specified stand.  Setting the stand to zero
+will disable the ‘beam-dipole mode’ for this observation’.</p>
+<dl class="simple">
+<dt>Keywords:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>beam_gain - BAM gain to use for each dipole in the beam</dt><dd><p>default: 0.04; range: 0.0 to 1.0</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>dipole_gain - BAM gain to use for the single dipole</dt><dd><p>default: 1.0; range: 0.0 to 1.0</p>
+</dd>
+</dl>
+</li>
+<li><p>pol - Polarization to record  default: “X”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Stepped.target_visibility">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">target_visibility</span></span><a class="headerlink" href="#lsl.common.sdfADP.Stepped.target_visibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the fractional visibility of the target during the observation 
+period.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Stepped.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Stepped.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the computed parameters from the string values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.Stepped.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.Stepped.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the observation and return True if it is valid, False
+otherwise.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.TBF">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">TBF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.TBF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of Observation specifically for TBF observations.  It features a
+reduced number of parameters needed to setup the observation and provides extra
+information about the number of number of samples.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>TBF read-out times in ms are calculated using (samples / 196000 + 1) * 150 per
+MCS</p>
+</div>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string)</p></li>
+<li><p>observation frequency (Hz) - 1</p></li>
+<li><p>observation frequency (Hz) - 2</p></li>
+<li><p>integer filter code</p></li>
+<li><p>integer number of samples</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.TBF.estimate_bytes">
+<span class="sig-name descname"><span class="pre">estimate_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.TBF.estimate_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the data volume for the specified type and duration of 
+observations.  For TBF:</p>
+<blockquote>
+<div><p>bytes = samples / samplesPerFrame * 1224 bytes</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.TBF.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.TBF.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the computed parameters from the string values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.TBF.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.TBF.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the observation and return True if it is valid, False
+otherwise.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.TBN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">TBN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.TBN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub-class of Observation specifically for TBN observations.   It features a
+reduced number of parameters needed to setup the observation.</p>
+<dl class="simple">
+<dt>Required Arguments:</dt><dd><ul class="simple">
+<li><p>observation name</p></li>
+<li><p>observation target</p></li>
+<li><p>observation start date/time (UTC YYYY/MM/DD HH:MM:SS.SSS string or timezone-
+aware datetime instance)</p></li>
+<li><p>observation duration (HH:MM:SS.SSS string or timedelta instance)</p></li>
+<li><p>observation frequency (Hz)</p></li>
+<li><p>integer filter code</p></li>
+</ul>
+</dd>
+<dt>Optional Keywords:</dt><dd><ul class="simple">
+<li><p>comments - comments about the observation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.TBN.estimate_bytes">
+<span class="sig-name descname"><span class="pre">estimate_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.TBN.estimate_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the data volume for the specified type and duration of 
+observations.  For TBN:</p>
+<blockquote>
+<div><p>bytes = duration * sample_rate / 512 * 1048 bytes * 260 stands * 2 pols.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.TBN.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.TBN.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the observation and return True if it is valid, False
+otherwise.</p>
+<dl class="simple">
+<dt>..note::</dt><dd><p>This version of sdf allows for TBN tuning between 5 and 93 MHz.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.get_observation_start_stop">
+<span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">get_observation_start_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.get_observation_start_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an observation, get the start and stop times (returned as a two-
+element tuple of UTC datetime instances).</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.0.0.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.is_valid">
+<span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a filename, see if it is valid SDF file or not.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.0.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.parse_sdf">
+<span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">parse_sdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.parse_sdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a filename, read the file’s contents into the SDM instance and return
+that instance.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.common.sdfADP.parse_time">
+<span class="sig-prename descclassname"><span class="pre">lsl.common.sdfADP.</span></span><span class="sig-name descname"><span class="pre">parse_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">s,</span> <span class="pre">station=&lt;LWAStation</span> <span class="pre">id='VL',</span> <span class="pre">name='LWA1',</span> <span class="pre">lat=34:04:08.0,</span> <span class="pre">long=-107:37:42.1,</span>&#160;&#160;&#160;&#160; <span class="pre">elev=2133.6,</span> <span class="pre">pressure=0.0,</span> <span class="pre">horizon=0:00:00.0,</span> <span class="pre">antennas=[...],</span>&#160;&#160;&#160;&#160; <span class="pre">interface=&lt;LSLInterface</span> <span class="pre">backend='lsl.common.dp',</span>&#160;&#160;&#160;&#160; <span class="pre">mcs='lsl.common.mcs',</span> <span class="pre">sdf='lsl.common.sdf',</span>&#160;&#160;&#160;&#160; <span class="pre">metabundle='lsl.common.metabundle',</span> <span class="pre">sdm='lsl.common.sdm'&gt;&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.common.sdfADP.parse_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a time zone-aware datetime instance or a string in the format of 
+(UTC) YYYY MM DD HH:MM:SS.SSS, return the corresponding UTC datetime object.
+This function goes a little beyond what datetime.strptime does in the 
+since that it handle both integer and float seconds as well as does the 
+appropriate rounding to get millisecond precision.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 2.0.0: </span>Added support for astropy.time.Time instances</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.0: </span>Renamed the ‘site’ keyword to ‘station’</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.0.0: </span>Renamed to parse_time()
+Added support for timezone-aware datetime instances</p>
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Session and Observation Specification for a Single LWA Station</a><ul>
+<li><a class="reference internal" href="#module-lsl.common.sdf">DP-Based Stations</a><ul>
+<li><a class="reference internal" href="#lsl.common.sdf.BeamStep"><code class="docutils literal notranslate"><span class="pre">BeamStep</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdf.BeamStep.c1"><code class="docutils literal notranslate"><span class="pre">BeamStep.c1</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.BeamStep.c2"><code class="docutils literal notranslate"><span class="pre">BeamStep.c2</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.BeamStep.duration"><code class="docutils literal notranslate"><span class="pre">BeamStep.duration</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.BeamStep.fixed_body"><code class="docutils literal notranslate"><span class="pre">BeamStep.fixed_body</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.BeamStep.frequency1"><code class="docutils literal notranslate"><span class="pre">BeamStep.frequency1</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.BeamStep.frequency2"><code class="docutils literal notranslate"><span class="pre">BeamStep.frequency2</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.BeamStep.get_beam_type"><code class="docutils literal notranslate"><span class="pre">BeamStep.get_beam_type()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.BeamStep.update"><code class="docutils literal notranslate"><span class="pre">BeamStep.update()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.BeamStep.validate"><code class="docutils literal notranslate"><span class="pre">BeamStep.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdf.DRX"><code class="docutils literal notranslate"><span class="pre">DRX</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdf.DRX.estimate_bytes"><code class="docutils literal notranslate"><span class="pre">DRX.estimate_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.DRX.fixed_body"><code class="docutils literal notranslate"><span class="pre">DRX.fixed_body</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.DRX.set_beamdipole_mode"><code class="docutils literal notranslate"><span class="pre">DRX.set_beamdipole_mode()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.DRX.target_visibility"><code class="docutils literal notranslate"><span class="pre">DRX.target_visibility</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.DRX.validate"><code class="docutils literal notranslate"><span class="pre">DRX.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdf.Jovian"><code class="docutils literal notranslate"><span class="pre">Jovian</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdf.Jovian.fixed_body"><code class="docutils literal notranslate"><span class="pre">Jovian.fixed_body</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdf.Lunar"><code class="docutils literal notranslate"><span class="pre">Lunar</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdf.Lunar.fixed_body"><code class="docutils literal notranslate"><span class="pre">Lunar.fixed_body</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdf.Observation"><code class="docutils literal notranslate"><span class="pre">Observation</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdf.Observation.dec"><code class="docutils literal notranslate"><span class="pre">Observation.dec</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Observation.duration"><code class="docutils literal notranslate"><span class="pre">Observation.duration</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Observation.estimate_bytes"><code class="docutils literal notranslate"><span class="pre">Observation.estimate_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Observation.fixed_body"><code class="docutils literal notranslate"><span class="pre">Observation.fixed_body</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Observation.frequency1"><code class="docutils literal notranslate"><span class="pre">Observation.frequency1</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Observation.frequency2"><code class="docutils literal notranslate"><span class="pre">Observation.frequency2</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Observation.get_beam_type"><code class="docutils literal notranslate"><span class="pre">Observation.get_beam_type()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Observation.ra"><code class="docutils literal notranslate"><span class="pre">Observation.ra</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Observation.start"><code class="docutils literal notranslate"><span class="pre">Observation.start</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Observation.target_visibility"><code class="docutils literal notranslate"><span class="pre">Observation.target_visibility</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Observation.update"><code class="docutils literal notranslate"><span class="pre">Observation.update()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Observation.validate"><code class="docutils literal notranslate"><span class="pre">Observation.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdf.Observer"><code class="docutils literal notranslate"><span class="pre">Observer</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdf.Project.append"><code class="docutils literal notranslate"><span class="pre">Project.append()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Project.render"><code class="docutils literal notranslate"><span class="pre">Project.render()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Project.update"><code class="docutils literal notranslate"><span class="pre">Project.update()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Project.validate"><code class="docutils literal notranslate"><span class="pre">Project.validate()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Project.writeto"><code class="docutils literal notranslate"><span class="pre">Project.writeto()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdf.ProjectOffice"><code class="docutils literal notranslate"><span class="pre">ProjectOffice</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Session"><code class="docutils literal notranslate"><span class="pre">Session</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdf.Session.append"><code class="docutils literal notranslate"><span class="pre">Session.append()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Session.set_mib_record_interval"><code class="docutils literal notranslate"><span class="pre">Session.set_mib_record_interval()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Session.set_mib_update_interval"><code class="docutils literal notranslate"><span class="pre">Session.set_mib_update_interval()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Session.spectrometer_channels"><code class="docutils literal notranslate"><span class="pre">Session.spectrometer_channels</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Session.spectrometer_integration"><code class="docutils literal notranslate"><span class="pre">Session.spectrometer_integration</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Session.spectrometer_metatag"><code class="docutils literal notranslate"><span class="pre">Session.spectrometer_metatag</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Session.update"><code class="docutils literal notranslate"><span class="pre">Session.update()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Session.validate"><code class="docutils literal notranslate"><span class="pre">Session.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdf.Solar"><code class="docutils literal notranslate"><span class="pre">Solar</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdf.Solar.fixed_body"><code class="docutils literal notranslate"><span class="pre">Solar.fixed_body</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdf.Stepped"><code class="docutils literal notranslate"><span class="pre">Stepped</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdf.Stepped.append"><code class="docutils literal notranslate"><span class="pre">Stepped.append()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Stepped.duration"><code class="docutils literal notranslate"><span class="pre">Stepped.duration</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Stepped.estimate_bytes"><code class="docutils literal notranslate"><span class="pre">Stepped.estimate_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Stepped.set_beamdipole_mode"><code class="docutils literal notranslate"><span class="pre">Stepped.set_beamdipole_mode()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Stepped.target_visibility"><code class="docutils literal notranslate"><span class="pre">Stepped.target_visibility</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Stepped.update"><code class="docutils literal notranslate"><span class="pre">Stepped.update()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.Stepped.validate"><code class="docutils literal notranslate"><span class="pre">Stepped.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdf.TBN"><code class="docutils literal notranslate"><span class="pre">TBN</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdf.TBN.estimate_bytes"><code class="docutils literal notranslate"><span class="pre">TBN.estimate_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.TBN.validate"><code class="docutils literal notranslate"><span class="pre">TBN.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdf.TBW"><code class="docutils literal notranslate"><span class="pre">TBW</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdf.TBW.estimate_bytes"><code class="docutils literal notranslate"><span class="pre">TBW.estimate_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.TBW.validate"><code class="docutils literal notranslate"><span class="pre">TBW.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdf.get_observation_start_stop"><code class="docutils literal notranslate"><span class="pre">get_observation_start_stop()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.is_valid"><code class="docutils literal notranslate"><span class="pre">is_valid()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdf.parse_sdf"><code class="docutils literal notranslate"><span class="pre">parse_sdf()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-lsl.common.sdfADP">ADP-Based Stations</a><ul>
+<li><a class="reference internal" href="#lsl.common.sdfADP.BeamStep"><code class="docutils literal notranslate"><span class="pre">BeamStep</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdfADP.BeamStep.c1"><code class="docutils literal notranslate"><span class="pre">BeamStep.c1</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.BeamStep.c2"><code class="docutils literal notranslate"><span class="pre">BeamStep.c2</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.BeamStep.duration"><code class="docutils literal notranslate"><span class="pre">BeamStep.duration</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.BeamStep.fixed_body"><code class="docutils literal notranslate"><span class="pre">BeamStep.fixed_body</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.BeamStep.frequency1"><code class="docutils literal notranslate"><span class="pre">BeamStep.frequency1</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.BeamStep.frequency2"><code class="docutils literal notranslate"><span class="pre">BeamStep.frequency2</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.BeamStep.get_beam_type"><code class="docutils literal notranslate"><span class="pre">BeamStep.get_beam_type()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.BeamStep.update"><code class="docutils literal notranslate"><span class="pre">BeamStep.update()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.BeamStep.validate"><code class="docutils literal notranslate"><span class="pre">BeamStep.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.DRX"><code class="docutils literal notranslate"><span class="pre">DRX</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdfADP.DRX.estimate_bytes"><code class="docutils literal notranslate"><span class="pre">DRX.estimate_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.DRX.fixed_body"><code class="docutils literal notranslate"><span class="pre">DRX.fixed_body</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.DRX.set_beamdipole_mode"><code class="docutils literal notranslate"><span class="pre">DRX.set_beamdipole_mode()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.DRX.target_visibility"><code class="docutils literal notranslate"><span class="pre">DRX.target_visibility</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.DRX.validate"><code class="docutils literal notranslate"><span class="pre">DRX.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Jovian"><code class="docutils literal notranslate"><span class="pre">Jovian</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Jovian.fixed_body"><code class="docutils literal notranslate"><span class="pre">Jovian.fixed_body</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Lunar"><code class="docutils literal notranslate"><span class="pre">Lunar</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Lunar.fixed_body"><code class="docutils literal notranslate"><span class="pre">Lunar.fixed_body</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observation"><code class="docutils literal notranslate"><span class="pre">Observation</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observation.dec"><code class="docutils literal notranslate"><span class="pre">Observation.dec</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observation.duration"><code class="docutils literal notranslate"><span class="pre">Observation.duration</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observation.estimate_bytes"><code class="docutils literal notranslate"><span class="pre">Observation.estimate_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observation.fixed_body"><code class="docutils literal notranslate"><span class="pre">Observation.fixed_body</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observation.frequency1"><code class="docutils literal notranslate"><span class="pre">Observation.frequency1</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observation.frequency2"><code class="docutils literal notranslate"><span class="pre">Observation.frequency2</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observation.get_beam_type"><code class="docutils literal notranslate"><span class="pre">Observation.get_beam_type()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observation.ra"><code class="docutils literal notranslate"><span class="pre">Observation.ra</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observation.start"><code class="docutils literal notranslate"><span class="pre">Observation.start</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observation.target_visibility"><code class="docutils literal notranslate"><span class="pre">Observation.target_visibility</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observation.update"><code class="docutils literal notranslate"><span class="pre">Observation.update()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observation.validate"><code class="docutils literal notranslate"><span class="pre">Observation.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Observer"><code class="docutils literal notranslate"><span class="pre">Observer</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Project.render"><code class="docutils literal notranslate"><span class="pre">Project.render()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.ProjectOffice"><code class="docutils literal notranslate"><span class="pre">ProjectOffice</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Session"><code class="docutils literal notranslate"><span class="pre">Session</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Session.validate"><code class="docutils literal notranslate"><span class="pre">Session.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Solar"><code class="docutils literal notranslate"><span class="pre">Solar</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Solar.fixed_body"><code class="docutils literal notranslate"><span class="pre">Solar.fixed_body</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Stepped"><code class="docutils literal notranslate"><span class="pre">Stepped</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Stepped.append"><code class="docutils literal notranslate"><span class="pre">Stepped.append()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Stepped.duration"><code class="docutils literal notranslate"><span class="pre">Stepped.duration</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Stepped.estimate_bytes"><code class="docutils literal notranslate"><span class="pre">Stepped.estimate_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Stepped.set_beamdipole_mode"><code class="docutils literal notranslate"><span class="pre">Stepped.set_beamdipole_mode()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Stepped.target_visibility"><code class="docutils literal notranslate"><span class="pre">Stepped.target_visibility</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Stepped.update"><code class="docutils literal notranslate"><span class="pre">Stepped.update()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.Stepped.validate"><code class="docutils literal notranslate"><span class="pre">Stepped.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.TBF"><code class="docutils literal notranslate"><span class="pre">TBF</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdfADP.TBF.estimate_bytes"><code class="docutils literal notranslate"><span class="pre">TBF.estimate_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.TBF.update"><code class="docutils literal notranslate"><span class="pre">TBF.update()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.TBF.validate"><code class="docutils literal notranslate"><span class="pre">TBF.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.TBN"><code class="docutils literal notranslate"><span class="pre">TBN</span></code></a><ul>
+<li><a class="reference internal" href="#lsl.common.sdfADP.TBN.estimate_bytes"><code class="docutils literal notranslate"><span class="pre">TBN.estimate_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.TBN.validate"><code class="docutils literal notranslate"><span class="pre">TBN.validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.get_observation_start_stop"><code class="docutils literal notranslate"><span class="pre">get_observation_start_stop()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.is_valid"><code class="docutils literal notranslate"><span class="pre">is_valid()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.parse_sdf"><code class="docutils literal notranslate"><span class="pre">parse_sdf()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.common.sdfADP.parse_time"><code class="docutils literal notranslate"><span class="pre">parse_time()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="station.html"
+                          title="previous chapter">Station Meta-Data</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="idf.html"
+                          title="next chapter">Run and Scan Specification for the LWA Swarm</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/sdf.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="idf.html" title="Run and Scan Specification for the LWA Swarm"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="station.html" title="Station Meta-Data"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Session and Observation Specification for a Single LWA Station</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

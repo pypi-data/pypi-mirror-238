@@ -1,0 +1,606 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>RF Antenna Parameters &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="LSL Configuration Manager" href="config.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="LSL Configuration Manager"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">RF Antenna Parameters</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-lsl.misc.rfutils">
+<span id="rf-antenna-parameters"></span><h1>RF Antenna Parameters<a class="headerlink" href="#module-lsl.misc.rfutils" title="Permalink to this heading">¶</a></h1>
+<p>A collection of utilities to help convert RF engineering/communications terms
+into radio astronomy terms.  This module is geared toward taking antenna 
+parameters in dBi or dBd and converting them into meaningful RA gains in
+K/Jy and then using those to get a system equivalent flux density.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.0.3.</span></p>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.rfutils.Jy_to_dBm">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.rfutils.</span></span><span class="sig-name descname"><span class="pre">Jy_to_dBm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.rfutils.Jy_to_dBm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a flux density in Jy into a received signal strength in dBm 
+under the assumptions of:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>signal bandwidth in Hz</p></li>
+<li><p>antenna gain in K/Jy</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.rfutils.calculate_effective_area">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.rfutils.</span></span><span class="sig-name descname"><span class="pre">calculate_effective_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gain</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.rfutils.calculate_effective_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the gain of an antenna in K/Jy, calculate the effective collecting
+area in square meters.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.rfutils.calculate_sefd">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.rfutils.</span></span><span class="sig-name descname"><span class="pre">calculate_sefd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Tsys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">efficiency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.rfutils.calculate_sefd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a variety of parameters, calculate the system equivalent flux 
+density in Jy for an antenna.  The parameters are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Tsys - system temperature in K - required</p></li>
+<li><p>gain - antenna gain in K/Jy - optional</p></li>
+<li><p>area - antenna collecting area in m^2 - optional</p></li>
+<li><p>efficiency - aperture efficiency - optional</p></li>
+</ul>
+</div></blockquote>
+<p>Of the optional parameters either ‘gain’ needs to be supplied or
+both ‘area’ and ‘efficiency’.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.rfutils.dBd_to_dBi">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.rfutils.</span></span><span class="sig-name descname"><span class="pre">dBd_to_dBi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dBd</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.rfutils.dBd_to_dBi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an antenna gain in dBb (gain relative to the maximum gain of a
+half-wave dipole) into a gain in dBi (gain relative to an isotropic 
+antenna).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.rfutils.dBd_to_gain">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.rfutils.</span></span><span class="sig-name descname"><span class="pre">dBd_to_gain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dBd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.rfutils.dBd_to_gain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an antenna gain in dBd (gain relative to the maximum gain of a
+half-wave dipole) at a particular frequency in Hz into a gain in K/Jy</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.rfutils.dBi_to_gain">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.rfutils.</span></span><span class="sig-name descname"><span class="pre">dBi_to_gain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dBi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.rfutils.dBi_to_gain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an antenna gain in dBi (gain relative to an isotropic antenna) 
+at a particular frequency in Hz into a gain in K/Jy.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.rfutils.dBm_to_Jy">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.rfutils.</span></span><span class="sig-name descname"><span class="pre">dBm_to_Jy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dBm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.rfutils.dBm_to_Jy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a received signal strength in dBm into a flux density in Jy under
+the assumptions of:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>signal bandwidth in Hz</p></li>
+<li><p>antenna gain in K/Jy</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.rfutils.gain_to_dBd">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.rfutils.</span></span><span class="sig-name descname"><span class="pre">gain_to_dBd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.rfutils.gain_to_dBd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an antenna gain in K/Jy at a particular frequency in Hz into a
+gain in dBd (gain relative to the maximum gain of a half-wave dipole).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.rfutils.gain_to_dBi">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.rfutils.</span></span><span class="sig-name descname"><span class="pre">gain_to_dBi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.rfutils.gain_to_dBi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an antenna gain in K/Jy at a particular frequency in Hz into a
+gain in dBi (gain relative to an isotropic antenna).</p>
+</dd></dl>
+
+</section>
+<section id="module-lsl.sim.necutils">
+<span id="simulated-stand-response"></span><h1>Simulated Stand Response<a class="headerlink" href="#module-lsl.sim.necutils" title="Permalink to this heading">¶</a></h1>
+<p>This module contains a set of convenience functions to parse the output 
+of NEC2, modify the input (.nec) file, and rerun NEC as necessary.
+NEC2 is the Numerical Electromagnetics Code, developed at LLNL.
+The version of NEC2 this code currently assumes is <a class="reference external" href="http://www.physics.otago.ac.nz/research/electronics/nec/index.html">here</a>.</p>
+<p>Several NEC files are included with the LSL distribution for modeling the 
+dipoles.  See the <cite>README.NEC</cite> file included in the LSL data directory for
+more information about what is included.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.sim.necutils.NECImpedance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.sim.necutils.</span></span><span class="sig-name descname"><span class="pre">NECImpedance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">necname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.necutils.NECImpedance" title="Permalink to this definition">¶</a></dt>
+<dd><p>NECImpedance:
+Python class to read an array of impedance values from a NEC2 .out file The 
+.nec file should loop over a range of frequencies with an FR card like this:</p>
+<blockquote>
+<div><p>FR 0 91 0 0 10.0 1.0</p>
+</div></blockquote>
+<p>The RP card should be minimal to keep the runtime and output file size from 
+growing huge.  For example:</p>
+<blockquote>
+<div><p>RP 0,91,1,1000,0.,0.,1.0,1.0</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lsl.sim.necutils.NECPattern">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lsl.sim.necutils.</span></span><span class="sig-name descname"><span class="pre">NECPattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">necname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rerun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.necutils.NECPattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>NECPattern:
+Python class to read the pattern from a NEC2 .out file.  Note that the 
+.nec file should have an RP or EX card to run over the full pattern, 
+like this:</p>
+<blockquote>
+<div><p>RP 0,91,360,1000,0.,0.,1.0,1.0,0.</p>
+</div></blockquote>
+<p>The FR card should be a simple single frequency run:</p>
+<blockquote>
+<div><p>FR 0,1,0,0,74.0,1</p>
+</div></blockquote>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.0: </span>Added a new “antenna_pat_complex attribute to store the 
+complex antenna pattern</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.necutils.calculate_ime">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.necutils.</span></span><span class="sig-name descname"><span class="pre">calculate_ime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">necname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">myfreqs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zpre</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.necutils.calculate_ime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the impedance mismatch efficiency (IME), for a given NEC run 
+and write out the results in a file.  Assumes a default preamplifier input 
+impedance of 100 ohms, unless overridden by the zpre keyword argument.
+Returns the frequencies calculated by NEC, unless myfreqs is set, in 
+which case it interpolates onto that frequency grid.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.necutils.change_nec_freq">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.necutils.</span></span><span class="sig-name descname"><span class="pre">change_nec_freq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">necname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.necutils.change_nec_freq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify the FR card in a NEC input file to run at freq.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.necutils.close_to">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.necutils.</span></span><span class="sig-name descname"><span class="pre">close_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.necutils.close_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if two numbers are within a specified fractional, not 
+absolute, tolerance of each other.  Tolerance epsilon is a keyword 
+parameter with a default of 0.005.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.necutils.open_and_get_nec_freq">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.necutils.</span></span><span class="sig-name descname"><span class="pre">open_and_get_nec_freq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.necutils.open_and_get_nec_freq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a NEC output file and return a tuple containing the open file 
+object and the first frequency found in the file (MHz).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.sim.necutils.which_nec4">
+<span class="sig-prename descclassname"><span class="pre">lsl.sim.necutils.</span></span><span class="sig-name descname"><span class="pre">which_nec4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lsl.sim.necutils.which_nec4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the path to the nec4d executable if it can be found in the 
+current path.  None otherwise.  This is useful for making sure that NEC
+is installed before trying to run something.</p>
+</dd></dl>
+
+</section>
+<section id="ionospheric-and-geomagnetic-field-models">
+<h1>Ionospheric and Geomagnetic Field Models<a class="headerlink" href="#ionospheric-and-geomagnetic-field-models" title="Permalink to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.1.0.</span></p>
+</div>
+<span class="target" id="module-lsl.misc.ionosphere"></span><p>A collection of utilities for retrieving parameters that may be relevant 
+for ionospheric corrections.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.ionosphere.compute_magnetic_declination">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.ionosphere.</span></span><span class="sig-name descname"><span class="pre">compute_magnetic_declination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Bn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Be</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Bz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.ionosphere.compute_magnetic_declination" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the topocentric output of get_magnetic_field(), compute and return 
+the magnetic declination (deviation between magnetic north and true 
+north) in degrees.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The declination is poorly defined (NaN) around the magnetic poles
+where the horizontal field strength is less than 100 nT.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.ionosphere.compute_magnetic_inclination">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.ionosphere.</span></span><span class="sig-name descname"><span class="pre">compute_magnetic_inclination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Bn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Be</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Bz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.ionosphere.compute_magnetic_inclination" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the topocentric output of get_magnetic_field(), compute and return 
+the magnetic inclination or magnetic dip (angle between the magnetic 
+field and the horizontal) in degrees.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.ionosphere.get_ionospheric_pierce_point">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.ionosphere.</span></span><span class="sig-name descname"><span class="pre">get_ionospheric_pierce_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">az</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">el</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">450000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.ionosphere.get_ionospheric_pierce_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a site and a pointing direction (azimuth and elevation in degrees),
+compute the location of the ionospheric pierce  point.  Since the height
+assumed for the ionosphere is model-dependent the ‘height’ keyword sets 
+the elevation to use in meters.  Returns a three-element tuple of 
+latitude (degrees, North is positive), longitude (degrees, East is 
+positive), and elevation (meters).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.ionosphere.get_magnetic_field">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.ionosphere.</span></span><span class="sig-name descname"><span class="pre">get_magnetic_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lng</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elev</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mjd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ecef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.ionosphere.get_magnetic_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a geodetic location described by a latitude in degrees (North 
+positive), a longitude in degrees (West negative), an elevation 
+in meters and an MJD value, compute the Earth’s magnetic field in that 
+location and return a three-element tuple of the magnetic field’s 
+components in nT.  By default these are in topocentric coordinates of
+(North, East, Up).  To return values in ECEF, set the ‘ecef’ keyword to
+True.  If the MJD file is None, the current time is used.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The convention used for the topocentric coordinates differs
+from what the IGRF uses in the sense that the zenith direction
+points up rather than down.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.ionosphere.get_tec_value">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.ionosphere.</span></span><span class="sig-name descname"><span class="pre">get_tec_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mjd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_rms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'IGS'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.ionosphere.get_tec_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an MJD value and, optionally, a latitude and longitude in degrees, 
+compute the TEC value in TECU above that location using data from the 
+IGS or CODE (depending on the value of the ‘type’ keyword).  If the 
+‘include_rms’ keyword is set to True, also return the RMS in the TEC 
+value.</p>
+</dd></dl>
+
+</section>
+<section id="conversion-helper-functions-for-argparse">
+<h1>Conversion Helper Functions for argparse<a class="headerlink" href="#conversion-helper-functions-for-argparse" title="Permalink to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.4.</span></p>
+</div>
+<span class="target" id="module-lsl.misc.parser"></span><p>Module that provides argparse-compatible conversion functions for a variety 
+of value formats, including:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>positive integers,</p></li>
+<li><p>ephem.hours instances, and</p></li>
+<li><p>lists of integers from a comma-separated list.</p></li>
+</ul>
+</div></blockquote>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.4.</span></p>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.csv_baseline_list">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">csv_baseline_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.csv_baseline_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a comma-separated list of baslines pairs into a list of baseline
+pairs.  Baseline pairs are defined as ‘antenna1-antenna2’ where ‘antenna1’
+and ‘antenna2’ are both integers or ranges denoted by the ‘~’ character.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.csv_degrees_list">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">csv_degrees_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.csv_degrees_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a comma-separated list of ‘sDD[:MM[:SS.[SSS]]]’ string into a list 
+of ephem.degrees instances.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.csv_hostname_list">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">csv_hostname_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.csv_hostname_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a comma-separated list of IPv4 addresses/hostnames into a list 
+IPv4 addresses/hostnames.  This function support indexing with the ‘~’ 
+character so long as:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>the character is in any one of the IPv4 bytes or</p></li>
+<li><p>the character is at the end of a hostname which ends with a number</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.csv_hours_list">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">csv_hours_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.csv_hours_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a comma-separated list of ‘HH[:MM[:SS.[SSS]]]’ string into a list 
+of ephem.hours instances.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.csv_int_list">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">csv_int_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.csv_int_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a comma-separated list of integers into a list of integers.  This 
+function also allows for ranges to be specifed using the ‘~’ character.  
+This formatting converts ‘start~stop’ to ‘range(start, stop+1)’.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.date">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a data as either a YYYY[-/]MM[-/]DD or MJD string into a 
+YYYY/MM/DD string.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.degrees">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.degrees" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a ‘sDD[:MM[:SS[.SSS]]]’ string into an ephem.degrees instance.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.frequency">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a frequency to a float Hz value.  This function accepts a variety 
+of string formats:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>pure float values are intepreted to be in MHz (45.0 -&gt; 45e6)</p></li>
+<li><dl class="simple">
+<dt>number/unit pairs are allowed so long as they are in:</dt><dd><ul>
+<li><p>[prefix]m, A, or ang for wavelength and</p></li>
+<li><p>[prefix]Hz for frequency</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.frequency_range">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">frequency_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.frequency_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a frequency to a float Hz value.  This function accepts a variety 
+of string formats:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>a ‘number~number’ is interpretted as a range in MHz</p></li>
+<li><p>a ‘number/unit~number/unit’ is converted to a range in Hz</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For ranges, a two-element list is returned where the first value
+is less than the second.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.hours">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">hours</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.hours" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a ‘HH[:MM[:SS[.SSS]]]’ string into an ephem.hours instance.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.mjd">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">mjd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.mjd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a data as either a YYYY[-/]MM[-/]DD or MJD string into an integer
+MJD.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.mpm">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">mpm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.mpm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Covnert a time as HH:MM:SS[.SSS] or MPM string into an MPM integer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.positive_float">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">positive_float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.positive_float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string to a positive (&gt;0.0) float.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.positive_int">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">positive_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.positive_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string to a positive (&gt;0) integer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.positive_or_zero_float">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">positive_or_zero_float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.positive_or_zero_float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string to a positive (&gt;=0.0) float.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.positive_or_zero_int">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">positive_or_zero_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.positive_or_zero_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string to a positive (&gt;=0) integer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.time">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Covnert a time as HH:MM:SS[.SSS] or MPM string into a HH:MM:SS.SSSSSS 
+string.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.wavelength">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">wavelength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.wavelength" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a wavelength to a float m value.  This function accepts a variety 
+of string formats:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>pure float values are intepreted to be in m (45.0 -&gt; 45.0)</p></li>
+<li><dl class="simple">
+<dt>number/unit pairs are allowed so long as they are in:</dt><dd><ul>
+<li><p>[prefix]m, AA, or Angstrom for wavelength and</p></li>
+<li><p>[prefix]Hz for frequency</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.misc.parser.wavelength_range">
+<span class="sig-prename descclassname"><span class="pre">lsl.misc.parser.</span></span><span class="sig-name descname"><span class="pre">wavelength_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.misc.parser.wavelength_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a wavelength to a float m value.  This function accepts a variety 
+of string formats:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>a ‘number~number’ is interpretted as a range in m</p></li>
+<li><p>a ‘number/unit~number/unit’ is converted to a range in m</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For ranges, a two-element list is returned where the first value
+is less than the second.</p>
+</div>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">RF Antenna Parameters</a><ul>
+<li><a class="reference internal" href="#lsl.misc.rfutils.Jy_to_dBm"><code class="docutils literal notranslate"><span class="pre">Jy_to_dBm()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.rfutils.calculate_effective_area"><code class="docutils literal notranslate"><span class="pre">calculate_effective_area()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.rfutils.calculate_sefd"><code class="docutils literal notranslate"><span class="pre">calculate_sefd()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.rfutils.dBd_to_dBi"><code class="docutils literal notranslate"><span class="pre">dBd_to_dBi()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.rfutils.dBd_to_gain"><code class="docutils literal notranslate"><span class="pre">dBd_to_gain()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.rfutils.dBi_to_gain"><code class="docutils literal notranslate"><span class="pre">dBi_to_gain()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.rfutils.dBm_to_Jy"><code class="docutils literal notranslate"><span class="pre">dBm_to_Jy()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.rfutils.gain_to_dBd"><code class="docutils literal notranslate"><span class="pre">gain_to_dBd()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.rfutils.gain_to_dBi"><code class="docutils literal notranslate"><span class="pre">gain_to_dBi()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-lsl.sim.necutils">Simulated Stand Response</a><ul>
+<li><a class="reference internal" href="#lsl.sim.necutils.NECImpedance"><code class="docutils literal notranslate"><span class="pre">NECImpedance</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.necutils.NECPattern"><code class="docutils literal notranslate"><span class="pre">NECPattern</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.necutils.calculate_ime"><code class="docutils literal notranslate"><span class="pre">calculate_ime()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.necutils.change_nec_freq"><code class="docutils literal notranslate"><span class="pre">change_nec_freq()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.necutils.close_to"><code class="docutils literal notranslate"><span class="pre">close_to()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.necutils.open_and_get_nec_freq"><code class="docutils literal notranslate"><span class="pre">open_and_get_nec_freq()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.sim.necutils.which_nec4"><code class="docutils literal notranslate"><span class="pre">which_nec4()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ionospheric-and-geomagnetic-field-models">Ionospheric and Geomagnetic Field Models</a><ul>
+<li><a class="reference internal" href="#lsl.misc.ionosphere.compute_magnetic_declination"><code class="docutils literal notranslate"><span class="pre">compute_magnetic_declination()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.ionosphere.compute_magnetic_inclination"><code class="docutils literal notranslate"><span class="pre">compute_magnetic_inclination()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.ionosphere.get_ionospheric_pierce_point"><code class="docutils literal notranslate"><span class="pre">get_ionospheric_pierce_point()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.ionosphere.get_magnetic_field"><code class="docutils literal notranslate"><span class="pre">get_magnetic_field()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.ionosphere.get_tec_value"><code class="docutils literal notranslate"><span class="pre">get_tec_value()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#conversion-helper-functions-for-argparse">Conversion Helper Functions for argparse</a><ul>
+<li><a class="reference internal" href="#lsl.misc.parser.csv_baseline_list"><code class="docutils literal notranslate"><span class="pre">csv_baseline_list()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.csv_degrees_list"><code class="docutils literal notranslate"><span class="pre">csv_degrees_list()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.csv_hostname_list"><code class="docutils literal notranslate"><span class="pre">csv_hostname_list()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.csv_hours_list"><code class="docutils literal notranslate"><span class="pre">csv_hours_list()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.csv_int_list"><code class="docutils literal notranslate"><span class="pre">csv_int_list()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.date"><code class="docutils literal notranslate"><span class="pre">date()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.degrees"><code class="docutils literal notranslate"><span class="pre">degrees()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.frequency"><code class="docutils literal notranslate"><span class="pre">frequency()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.frequency_range"><code class="docutils literal notranslate"><span class="pre">frequency_range()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.hours"><code class="docutils literal notranslate"><span class="pre">hours()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.mjd"><code class="docutils literal notranslate"><span class="pre">mjd()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.mpm"><code class="docutils literal notranslate"><span class="pre">mpm()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.positive_float"><code class="docutils literal notranslate"><span class="pre">positive_float()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.positive_int"><code class="docutils literal notranslate"><span class="pre">positive_int()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.positive_or_zero_float"><code class="docutils literal notranslate"><span class="pre">positive_or_zero_float()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.positive_or_zero_int"><code class="docutils literal notranslate"><span class="pre">positive_or_zero_int()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.time"><code class="docutils literal notranslate"><span class="pre">time()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.wavelength"><code class="docutils literal notranslate"><span class="pre">wavelength()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.misc.parser.wavelength_range"><code class="docutils literal notranslate"><span class="pre">wavelength_range()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="config.html"
+                          title="previous chapter">LSL Configuration Manager</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/misc.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="LSL Configuration Manager"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">RF Antenna Parameters</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>

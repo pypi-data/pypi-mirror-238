@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Computing Spectra &#8212; LWA Software Library 2.1.7 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Correlation" href="correlator.html" />
+    <link rel="prev" title="Data Writers" href="writers.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="correlator.html" title="Correlation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="writers.html" title="Data Writers"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Computing Spectra</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="computing-spectra">
+<h1>Computing Spectra<a class="headerlink" href="#computing-spectra" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.fx.SpecMaster">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.fx.</span></span><span class="sig-name descname"><span class="pre">SpecMaster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LFFT=64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window=&lt;function</span> <span class="pre">null_window&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfb=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">central_freq=0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip_level=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.fx.SpecMaster" title="Permalink to this definition">¶</a></dt>
+<dd><p>A more advanced version of calcSpectra that uses the _spec C extension 
+to handle all of the P.S.D. calculations in parallel.  Returns a two-
+element tuple of the frequencies (in Hz) and PSDs in linear power/RBW.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SpecMaster currently average all data given and does not support the
+SampleAverage keyword that calcSpectra does.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.5: </span>Added the ‘pfb’ keyword.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lsl.correlator.fx.StokesMaster">
+<span class="sig-prename descclassname"><span class="pre">lsl.correlator.fx.</span></span><span class="sig-name descname"><span class="pre">StokesMaster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antennas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LFFT=64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window=&lt;function</span> <span class="pre">null_window&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfb=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">central_freq=0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip_level=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lsl.correlator.fx.StokesMaster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to SpecMaster, but accepts an array of signals and a list of 
+antennas in order to compute the PSDs for the four Stokes parameters: 
+I, Q, U, and V.  Returns a two-element tuple of the frequencies (in Hz) 
+and PSDs in linear power/RBW.  The PSD are three dimensional with 
+dimensions Stokes parameter (0=I, 1=Q, 2=U, 3=V) by stand by channel).</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.2.5: </span>Added the ‘pfb’ keyword.</p>
+</div>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Computing Spectra</a><ul>
+<li><a class="reference internal" href="#lsl.correlator.fx.SpecMaster"><code class="docutils literal notranslate"><span class="pre">SpecMaster()</span></code></a></li>
+<li><a class="reference internal" href="#lsl.correlator.fx.StokesMaster"><code class="docutils literal notranslate"><span class="pre">StokesMaster()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="writers.html"
+                          title="previous chapter">Data Writers</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="correlator.html"
+                          title="next chapter">Correlation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/spectra.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="correlator.html" title="Correlation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="writers.html" title="Data Writers"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">LWA Software Library 2.1.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Computing Spectra</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, The University of New Mexico.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+  </body>
+</html>
