@@ -1,0 +1,466 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_admin",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "bountyAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requestPaymentAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requestExpirationTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "responseDataType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "competitionContractAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "stakedToken",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stakedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "disputeStake",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "slashAmount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DataTypes.SAParams",
+        "name": "_agreement",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "bountyAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requestPaymentAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requestExpirationTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "responseDataType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "competitionContractAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "stakedToken",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stakedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "disputeStake",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "slashAmount",
+            "type": "uint256"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct DataTypes.SAParams",
+        "name": "params",
+        "type": "tuple"
+      }
+    ],
+    "name": "ServiceAgreementCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "agreement",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "bountyAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "requestPaymentAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "requestExpirationTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "responseDataType",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endAt",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "competitionContractAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "stakedToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "stakedAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "disputeStake",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "slashAmount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "agreementParams",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "bountyAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requestPaymentAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requestExpirationTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "responseDataType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "competitionContractAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "stakedToken",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stakedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "disputeStake",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "slashAmount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DataTypes.SAParams",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "bountyAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "competitionContractAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "disputeStake",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "endAt",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "requestExpirationTime",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "requestPaymentAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "responseDataType",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "slashAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "stakedAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "stakedToken",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "bountyAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requestPaymentAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requestExpirationTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "responseDataType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "competitionContractAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "stakedToken",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stakedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "disputeStake",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "slashAmount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DataTypes.SAParams",
+        "name": "_newAgreement",
+        "type": "tuple"
+      }
+    ],
+    "name": "updateServiceAgreement",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
