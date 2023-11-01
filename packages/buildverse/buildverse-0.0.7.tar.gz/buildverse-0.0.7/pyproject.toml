@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools"]
+#requires = ["flit_core >=3.2,<4"]
+#build-backend = "flit_core.buildapi"
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "buildverse"
+#dynamic = ["version"]
+version = "0.0.7"
+description = "test"
+#py_modules = ["git"]
+
+#[tool.setuptools.packages.find]
+#where = ["."]
+#include = ["pkg*"]  # alternatively: `exclude = ["additional*"]`
+#namespaces = false
+
+#[tool.setuptools]
+#py-modules = ["buildverse"]
+#packages = ["buildverse"]
+
+#[tool.setuptools.package-data]
+#"buildverse" = ["*.py"]
+
+[tool.black]
+line-length = 140
+
+[tool.ruff]
+line-length = 140
+fixable = ["ALL"]
+select = ["I", "E", "PL", "F", "PTH"]
+ignore = []
