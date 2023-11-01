@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cos-alerter"
+version = "0.5.0"
+authors = [
+  { name="Dylan Stephano-Shachter", email="dylan.stephano-shachter@canonical.com" }
+]
+description = "A watcher for Alertmanager"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+  "Programming Language :: Python",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: POSIX",
+  "Topic :: System :: Monitoring",
+  "Development Status :: 3 - Alpha",
+]
+dependencies = [
+  "apprise~=1.3",
+  "durationpy",
+  "flask~=2.2",
+  "prometheus_flask_exporter~=0.22",
+  "pyyaml~=6.0",
+  "timeago~=1.0",
+  "waitress~=2.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/canonical/cos-alerter"
+"Bug Tracker" = "https://github.com/canonical/cos-alerter/issues"
+
+[project.scripts]
+cos-alerter = "cos_alerter.daemon:main"
+
+[tool.setuptools]
+packages = ["cos_alerter"]
+
+[tool.black]
+line-length = 99
+
+[tool.ruff]
+line-length = 99
+extend-exclude = ["__pycache__", "*.egg_info"]
+select = ["E", "W", "F", "C", "N", "R", "D", "I001"]
+# Ignore E501 because using black creates errors with this
+# Ignore D107 Missing docstring in __init__
+ignore = ["E501", "D107"]
+# D100, D101, D102, D103: Ignore missing docstrings in tests
+per-file-ignores = {"tests/*" = ["D100","D101","D102","D103"]}
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.pyright]
+include = ["cos_alerter"]
+pythonVersion = "3.8"
+pythonPlatform = "Linux"
+
+[tool.pytest.ini_options]
+markers = ["slow: marks tests as slow (deselect with '-m \"not slow\"')"]
