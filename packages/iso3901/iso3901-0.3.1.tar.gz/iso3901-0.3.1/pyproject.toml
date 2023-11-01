@@ -1,0 +1,83 @@
+#:schema https://json.schemastore.org/pyproject
+
+[build-system]
+requires = ["flit_core ~=3.2"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "iso3901"
+authors = [{name = "Abel Cheung", email = "abelcheung@gmail.com"}]
+dynamic = ["version", "description"]
+readme = "README.md"
+keywords = ['isrc', 'recording', 'sound', 'metadata', 'ifpi']
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Typing :: Typed",
+]
+requires-python = ">=3.7"
+dependencies = [
+    'iso3166 ~= 2.0'
+]
+
+[project.optional-dependencies]
+dev = [
+    'tox ~= 4.0',
+    'flit ~= 3.2',
+]
+
+[project.urls]
+Home = "https://github.com/Tagger-phile/py-iso3901"
+
+[tool.pytest.ini_options]
+testpaths = ['tests']
+
+[tool.pyright]
+include = ['iso3901']
+typeCheckingMode = 'strict'
+
+[tool.mypy]
+packages = 'iso3901'
+strict = true
+show_error_context = true
+pretty = true
+
+[tool.isort]
+profile = 'black'
+combine_as_imports = true
+include_trailing_comma = true
+skip_glob = [".*"]
+
+[tool.semantic_release]
+# This is how things are set up in python-semantic-release action
+# docker image
+build_command = '/semantic-release/.venv/bin/pip install flit && flit build'
+commit_message = 'chore(release): bump version to {version}'
+version_variables = ['iso3901/__init__.py:__version__']
+
+[tool.semantic_release.commit_parser_options]
+allowed_tags = [
+    'build',
+    'chore',
+    'ci',
+    'docs',
+    'feat',
+    'fix',
+    'perf',
+    'refactor',
+    'revert',
+    'style',
+    'test',
+]
+minor_tags = ['feat']
+patch_tags = ['fix', 'perf']
