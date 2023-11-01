@@ -1,0 +1,131 @@
+#!python
+import logging
+import os
+import sys
+from optparse import OptionParser
+
+import ia
+from ia.scripts.spawn_agent import startit, stopit
+
+logging.basicConfig(format='%(asctime)s,%(msecs)03d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
+                    datefmt='%Y-%m-%d:%H:%M:%S')
+logger = logging.getLogger(__name__)
+
+
+def options():
+    global options
+    parser = OptionParser(version=ia.__version__)
+    parser.add_option("-g", "--genome", dest="filename",
+                      help="Genome file location", metavar="FILE")
+
+    parser.add_option("--api-key", dest="API_KEY", default='ABCD-1234',
+                      help="""Secret API key.
+                        Default = 'ABCD-1234'
+                                """)
+
+    parser.add_option("--log-level", dest="LOG_LEVEL", default='INFO',
+                      help="""Log level.
+                        Default = INFO
+                        Options:
+                            CRITICAL
+                            ERROR
+                            WARNING
+                            INFO
+                            DEBUG
+                                """)
+
+    parser.add_option("-n", "--network", dest="NETWORK", default='g2network',
+                      help="""Network in which all nodes will communicate.
+                        Default = 'g2network'
+                                """)
+    parser.add_option("--bind-ports", action="store_true", dest="BIND_PORTS", default=False,
+                      help="""To enable multiple agents running on single system, port are not bound by default.
+                        Specify this option to explicitly bind agent to ports (required to run tests on agent).
+                            HTTP port: 8000 + agent_id
+                            HTTPS port: 44300 + agent_id
+                            """)
+
+    parser.add_option("-b", "--gaius-api-name", dest="BOTTLE", default='gaius-api',
+                      help="""Bottle name
+                        Default = 'BOTTLE'
+                                """)
+
+    parser.add_option("-H", "--hostname", dest="BOTTLE_HOSTNAME", default='localhost',
+                      help="""Bottle name
+                        Default = 'BOTTLE'
+                                """)
+
+    parser.add_option("-r", "--registry", dest="REGISTRY", default='registry.digitalocean.com/intelligent-artifacts/',
+                      help="""Container registry
+                        Default = 'registry.digitalocean.com/intelligent-artifacts/'
+
+                        Set to '' if you want to use only local containers.
+                                """)
+
+    parser.add_option("--container-version", dest="VERSION", default='latest',
+                      help="""Version of container images. Same used for all.
+                        Default = 'latest'
+                        """)
+
+    parser.add_option("-d", "--debug",
+                      action="store_true", dest="debug", default=False,
+                      help="print debug information")
+
+    parser.add_option("--kill",
+                      action="store_true", dest="kill", default=False,
+                      help="Kill all agent's containers.")
+
+    parser.add_option("--agent-id",
+                      dest="agent_id", default="1",
+                      help="""A string that uniquely identifies the agent and network. Appended to container and network names
+                             Default=1""")
+
+    parser.add_option("--user-id",
+                      dest="user_id", default=os.environ.get("USER"),
+                      help="""A string that uniquely identifies the agent and network. Appended to container and network names
+                             Default=os.environ.get("USER")""")
+    
+    parser.add_option("--single-container",
+                      dest="single_container",
+                      action="store_true",
+                      help="Whether to force agent to be spawned in 'single container' mode. Otherwise uses configuration from Genome file")
+
+    (options, args) = parser.parse_args()
+
+    if not options.filename:
+        logger.warn(
+            "Need a genome file location! Pass with -g or --genome arg.")
+        sys.exit(1)
+
+    if len(options.REGISTRY) > 0 and not options.REGISTRY.endswith('/'):
+        options.REGISTRY += '/'
+
+
+if __name__ == '__main__':
+    # if not os.path.exists(f"{os.path.expanduser('~')}/.gaius"):
+    #     os.mkdir(f"{os.path.expanduser('~')}/.gaius")
+    options()
+
+    DEBUG = options.debug
+    if DEBUG:
+        logger.setLevel(level=logging.DEBUG)
+
+    configuration = {
+        'BOTTLE_HOSTNAME': options.BOTTLE_HOSTNAME,
+        'REGISTRY': options.REGISTRY,
+        'VERSION': options.VERSION,
+        'API_KEY': options.API_KEY,
+        'LOG_LEVEL': options.LOG_LEVEL,
+        'NETWORK': options.NETWORK,
+        'BIND_PORTS': options.BIND_PORTS,
+        'user_id': options.user_id,
+        'agent_id': options.agent_id,
+        'single_container': options.single_container
+    }
+
+    if options.kill:
+        stopit(genome_file=options.filename,
+               user_id=options.user_id, agent_id=options.agent_id)
+        sys.exit(0)
+
+    network = startit(genome_file=options.filename, **configuration)
