@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: ouster-mapping
+Version: 0.1.0
+Summary: Library to perform basic SLAM with Ouster lidars
+Author-email: Tomas Svarovsky <tomas.svarovsky@ouster.io>
+License-Expression: MIT
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.8
+Requires-Dist: kiss-icp<1,>=0.2.10; platform_system == 'Windows' or platform_system == 'Darwin' or platform_machine != 'aarch64'
+Requires-Dist: laspy<3,>=2.5.0
+Requires-Dist: numpy!=1.19.4,<2,>=1.19
+Requires-Dist: ouster-sdk<0.11.0,>=0.10.0.dev1
+Description-Content-Type: text/x-rst
+
+Ouster SDK Mapping
+==================
+
+..
+    [sdk-mapping-overview-start]
+
+The Ouster SDK Mapping provides mapping functionalities as an extension of the
+Ouster Sensor SDK `PyPI`_
+
+The two main functions of the Ouster SDK Mapping:
+
+* Simultaneous Localization and Mapping (SLAM)
+* Point Cloud Construction using SLAM outputs
+
+More SDK libraries and tools information can be found at `GitHub`_ and Ouster SDK
+Mapping user documentation is located at `MappingSession`_
+
+..
+    [sdk-mapping-overview-end]
+
+Supported Platforms
+-------------------
+
+..
+    [supported-platforms-start]
+
+Ouster SDK Mapping is a pure python package which can be installed on all platforms.
+However, some of its dependencies may not be supported on your system.
+
+SLAM function is available on the following platforms:
+
+* Linux x86_64 (``manylinux2014_x86_64``) for python >= 3.7, <=3.11
+* MacOS >= 10.14 on x86_64 platforms (``macosx_10_14_x86_64``) for python >= 3.7, <=3.11
+* MacOS >= 11.0 on M1 platforms (``macosx_11_0_arm64``) for python >= 3.8, <=3.11
+* Windows 10 on x86_64 platforms (``win_amd64``) for python >= 3.7, <=3.11
+
+* NOT support Linux ARM64 platforms (``manylinux2014_aarch64``)
+
+
+Point Cloud Construction is available on the following platforms:
+
+* Linux x86_64 (``manylinux2014_x86_64``) for python >= 3.7, <=3.11
+* Linux ARM64 (``manylinux2014_aarch64``) for python >= 3.7, <=3.11
+* Windows 10 on x86_64 platforms (``win_amd64``) for python >= 3.7, <=3.10
+* Vary on MacOS x86_64 platforms (``macosx_10_14_x86_64``) and M1 platforms (``macosx_11_0_arm64``)
+
+
+Later we will support building from source.
+
+.. _PyPI: https://pypi.org/project/ouster-sdk/
+.. _GitHub: https://github.com/ouster-lidar/ouster_example/
+.. _MappingSession: https://static.ouster.dev/sdk-docs/cli/mapping-sessions.html
+
+..
+    [supported-platforms-end]
