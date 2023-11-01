@@ -1,0 +1,4 @@
+{{ published_record.service_config.class|generate_import }}
+
+class {{ vars.service_config|class_header }}:
+    links_item = {{ published_record.service_config.class|base_name }}.links_item
