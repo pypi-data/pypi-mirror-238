@@ -1,0 +1,40 @@
+Metadata-Version: 2.1
+Name: tinyscpi
+Version: 0.0.2
+Summary: An interface that enables the use of SCPI commands for the tinySA
+Author: tinySCPI Team
+Author-email: <rndonovan1@gmail.com>
+Keywords: python,scpi,interface,commands
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Education
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: numpy
+Requires-Dist: pillow
+Requires-Dist: wheel
+Requires-Dist: setuptools
+Requires-Dist: pyserial
+
+
+# tinySCPI
+A Python library that enables the use of SCPI commands on the tinySA
+
+## Dependency:
+tinySCPI requires python >= 3.6, pyserial, pytest, and pytest-cov
+
+```pip install pyserial```
+```pip install pytest```
+```pip install pytest-cov```
+
+## Unit Test:
+```pytest```
+
+## Coverage:
+```pytest --cov-config=.coveragerc --cov=tinyscpi tinyscpi/tests/ --cov-report html ```
+
+## Contact Us:
+Email: tinyscpi@vt.edu
