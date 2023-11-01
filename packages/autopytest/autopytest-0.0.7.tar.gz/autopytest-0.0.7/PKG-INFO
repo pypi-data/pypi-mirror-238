@@ -1,0 +1,129 @@
+Metadata-Version: 2.1
+Name: autopytest
+Version: 0.0.7
+Summary: Autotest python code
+Project-URL: Homepage, https://github.com/davidjrice/autopytest
+Project-URL: Bug Tracker, https://github.com/davidjrice/autopytest/issues
+Author-email: David Rice <me@davidjrice.co.uk>
+License: MIT License
+        
+        Copyright (c) 2023 David Rice
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: toml==0.10.2; python_version < '3.11'
+Requires-Dist: typing-extensions==4.8.0; python_version < '3.11'
+Requires-Dist: watchdog==3.0.0
+Provides-Extra: dev
+Requires-Dist: black==23.10.1; extra == 'dev'
+Requires-Dist: codespell==2.2.6; extra == 'dev'
+Requires-Dist: refurb==1.22.1; extra == 'dev'
+Requires-Dist: ruff==0.1.3; extra == 'dev'
+Requires-Dist: tox==4.11.3; extra == 'dev'
+Requires-Dist: types-toml==0.10.8.7; extra == 'dev'
+Description-Content-Type: text/markdown
+
+An implementation of `autotest` for Python inspired by [autotest](https://github.com/grosser/autotest) and [guard](https://github.com/guard/guard).
+
+[autopytest](https://pypi.org/project/autopytest/) observes file change events and whenever you save a file it runs the appropriate tests with `pytest`.
+
+# Features
+`autopytest` observes file `modified` events and will perform the following:
+
+* source files
+  * will find and run the associated individual test file
+  * upon success, will run the entire suite
+  * if we can't find a matching test, run the entire suite
+* test files
+  * will run that test file
+  * upon success, will run the entire suite
+
+# Install
+
+```shell
+# pip
+pip install autopytest
+
+# poetry
+poetry add autopytest
+```
+
+# Configuration
+
+In your `pyproject.toml` add the following.
+
+```toml
+[tool.autopytest]
+source_directories = ["app"]
+test_directory = "tests"
+```
+
+# Usage
+
+```shell
+cd {project}
+autopytest
+
+autopytest {path}
+```
+
+# Project Structure
+
+* Test naming is *currently* important.
+* Multiple nested directory structures are supported as long as the convention is followed.
+
+## Applications
+
+### `pyproject.toml`
+```toml
+[tool.autopytest]
+source_directories = ["app", "lib"]
+test_directory = "tests"
+```
+
+Given the above configuration. You should use a directory structure like the following. e.g. If `app/package/module.py` is edited we will attempt to locate and run `tests/app/package/test_module.py`
+
+```
+📁 app
+    📄 __init__.py
+    📁 package
+        📄 __init__.py
+        📄 module.py
+📁 lib
+📁 tests
+    📄 __init__.py
+    📁 app
+        📁 package
+            📄 test_module.py
+    📁 lib
+```
+
+## Libraries
+
+### `pyproject.toml`
+```toml
+[tool.autopytest]
+include_source_dir_in_test_path = false
+source_directories = ["src"]
+test_directory = "tests"
+```
+
+If you are developing library and want your folder structure like the following. e.g. If `src/package/module.py` is edited we will attempt to locate and run `tests/package/test_module.py`
+
+```
+📁 src
+    📁 package
+        📄 __init__.py
+        📄 module.py
+📁 tests
+    📁 package
+        📄 test_module.py
+```
