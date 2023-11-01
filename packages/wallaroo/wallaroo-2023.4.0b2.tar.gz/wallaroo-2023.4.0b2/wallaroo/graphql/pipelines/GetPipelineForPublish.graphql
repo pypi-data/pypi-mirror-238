@@ -1,0 +1,10 @@
+query GetPipelineForPublish($pipelineId: bigint!) {
+  pipeline_version_by_pk(id: $pipelineId) {
+    id
+    version
+    definition
+    pipeline {
+      workspace_id
+    }
+  }
+}

@@ -1,0 +1,17 @@
+query GetModelConfigsByIds($ids: [bigint!]!) {
+  model_config(where: {id: {_in: $ids}}) {
+    id
+    runtime
+    input_schema
+    output_schema
+    batch_config
+    filter_threshold
+    tensor_fields
+    model {
+      sha
+      model_id
+      model_version
+      image_path
+    }
+  }
+}

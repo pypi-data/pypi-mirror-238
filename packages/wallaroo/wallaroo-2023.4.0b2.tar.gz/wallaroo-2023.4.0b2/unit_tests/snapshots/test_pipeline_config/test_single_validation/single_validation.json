@@ -1,0 +1,23 @@
+{
+    "id": "test",
+    "steps": [
+        {
+            "ModelInference": {
+                "models": [
+                    {
+                        "name": "ccfraud_base",
+                        "version": "base",
+                        "sha": "ccfraud_sha"
+                    }
+                ]
+            }
+        },
+        {
+            "Check": {
+                "tree": [
+                    "{\"values\": {\"in_bounds\": {\"root\": {\"node\": \"binop\", \"op\": \">\", \"left\": {\"node\": \"variable\", \"variant_id\": {\"name\": \"ccfraud_base\"}, \"position\": \"output\", \"key\": [0, 0]}, \"right\": {\"node\": \"literal\", \"float\": 0.0}}, \"required_data\": [{\"name\": \"ccfraud_base\"}]}}, \"gauges\": [], \"validations\": [\"in_bounds\"]}"
+                ]
+            }
+        }
+    ]
+}

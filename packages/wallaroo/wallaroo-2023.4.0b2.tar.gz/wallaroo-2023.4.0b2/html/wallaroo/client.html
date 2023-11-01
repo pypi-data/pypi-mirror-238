@@ -1,0 +1,1412 @@
+---
+title: "wallaroo.client"
+type: docs
+linkTitle: "wallaroo.client"
+---
+<head>
+
+    <style>/*! syntax-highlighting.css */pre{line-height:125%;}span.linenos{color:inherit; background-color:transparent; padding-left:5px; padding-right:20px;}.pdoc-code .hll{background-color:#ffffcc}.pdoc-code{background:#f8f8f8;}.pdoc-code .c{color:#3D7B7B; font-style:italic}.pdoc-code .err{border:1px solid #FF0000}.pdoc-code .k{color:#008000; font-weight:bold}.pdoc-code .o{color:#666666}.pdoc-code .ch{color:#3D7B7B; font-style:italic}.pdoc-code .cm{color:#3D7B7B; font-style:italic}.pdoc-code .cp{color:#9C6500}.pdoc-code .cpf{color:#3D7B7B; font-style:italic}.pdoc-code .c1{color:#3D7B7B; font-style:italic}.pdoc-code .cs{color:#3D7B7B; font-style:italic}.pdoc-code .gd{color:#A00000}.pdoc-code .ge{font-style:italic}.pdoc-code .gr{color:#E40000}.pdoc-code .gh{color:#000080; font-weight:bold}.pdoc-code .gi{color:#008400}.pdoc-code .go{color:#717171}.pdoc-code .gp{color:#000080; font-weight:bold}.pdoc-code .gs{font-weight:bold}.pdoc-code .gu{color:#800080; font-weight:bold}.pdoc-code .gt{color:#0044DD}.pdoc-code .kc{color:#008000; font-weight:bold}.pdoc-code .kd{color:#008000; font-weight:bold}.pdoc-code .kn{color:#008000; font-weight:bold}.pdoc-code .kp{color:#008000}.pdoc-code .kr{color:#008000; font-weight:bold}.pdoc-code .kt{color:#B00040}.pdoc-code .m{color:#666666}.pdoc-code .s{color:#BA2121}.pdoc-code .na{color:#687822}.pdoc-code .nb{color:#008000}.pdoc-code .nc{color:#0000FF; font-weight:bold}.pdoc-code .no{color:#880000}.pdoc-code .nd{color:#AA22FF}.pdoc-code .ni{color:#717171; font-weight:bold}.pdoc-code .ne{color:#CB3F38; font-weight:bold}.pdoc-code .nf{color:#0000FF}.pdoc-code .nl{color:#767600}.pdoc-code .nn{color:#0000FF; font-weight:bold}.pdoc-code .nt{color:#008000; font-weight:bold}.pdoc-code .nv{color:#19177C}.pdoc-code .ow{color:#AA22FF; font-weight:bold}.pdoc-code .w{color:#bbbbbb}.pdoc-code .mb{color:#666666}.pdoc-code .mf{color:#666666}.pdoc-code .mh{color:#666666}.pdoc-code .mi{color:#666666}.pdoc-code .mo{color:#666666}.pdoc-code .sa{color:#BA2121}.pdoc-code .sb{color:#BA2121}.pdoc-code .sc{color:#BA2121}.pdoc-code .dl{color:#BA2121}.pdoc-code .sd{color:#BA2121; font-style:italic}.pdoc-code .s2{color:#BA2121}.pdoc-code .se{color:#AA5D1F; font-weight:bold}.pdoc-code .sh{color:#BA2121}.pdoc-code .si{color:#A45A77; font-weight:bold}.pdoc-code .sx{color:#008000}.pdoc-code .sr{color:#A45A77}.pdoc-code .s1{color:#BA2121}.pdoc-code .ss{color:#19177C}.pdoc-code .bp{color:#008000}.pdoc-code .fm{color:#0000FF}.pdoc-code .vc{color:#19177C}.pdoc-code .vg{color:#19177C}.pdoc-code .vi{color:#19177C}.pdoc-code .vm{color:#19177C}.pdoc-code .il{color:#666666}</style>
+    <style>/*! theme.css */:root{--pdoc-background:#fff;}.pdoc{--text:#212529;--muted:#6c757d;--link:#3660a5;--link-hover:#1659c5;--code:#f8f8f8;--active:#fff598;--accent:#eee;--accent2:#c1c1c1;--nav-hover:rgba(255, 255, 255, 0.5);--name:#0066BB;--def:#008800;--annotation:#007020;}</style>
+    <style>/*! content.css */.pdoc{color:var(--text);box-sizing:border-box;line-height:1.5;background:none;}.pdoc .pdoc-button{display:inline-block;border:solid black 1px;border-radius:2px;font-size:.75rem;padding:calc(0.5em - 1px) 1em;transition:100ms all;}.pdoc .pdoc-alert{padding:1rem 1rem 1rem calc(1.5rem + 24px);border:1px solid transparent;border-radius:.25rem;background-repeat:no-repeat;background-position:1rem center;margin-bottom:1rem;}.pdoc .pdoc-alert > *:last-child{margin-bottom:0;}.pdoc .pdoc-alert-note {color:#084298;background-color:#cfe2ff;border-color:#b6d4fe;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23084298%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2016A8%208%200%201%200%208%200a8%208%200%200%200%200%2016zm.93-9.412-1%204.705c-.07.34.029.533.304.533.194%200%20.487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703%200-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381%202.29-.287zM8%205.5a1%201%200%201%201%200-2%201%201%200%200%201%200%202z%22/%3E%3C/svg%3E");}.pdoc .pdoc-alert-warning{color:#664d03;background-color:#fff3cd;border-color:#ffecb5;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23664d03%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8.982%201.566a1.13%201.13%200%200%200-1.96%200L.165%2013.233c-.457.778.091%201.767.98%201.767h13.713c.889%200%201.438-.99.98-1.767L8.982%201.566zM8%205c.535%200%20.954.462.9.995l-.35%203.507a.552.552%200%200%201-1.1%200L7.1%205.995A.905.905%200%200%201%208%205zm.002%206a1%201%200%201%201%200%202%201%201%200%200%201%200-2z%22/%3E%3C/svg%3E");}.pdoc .pdoc-alert-danger{color:#842029;background-color:#f8d7da;border-color:#f5c2c7;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23842029%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M5.52.359A.5.5%200%200%201%206%200h4a.5.5%200%200%201%20.474.658L8.694%206H12.5a.5.5%200%200%201%20.395.807l-7%209a.5.5%200%200%201-.873-.454L6.823%209.5H3.5a.5.5%200%200%201-.48-.641l2.5-8.5z%22/%3E%3C/svg%3E");}.pdoc .visually-hidden{position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0, 0, 0, 0) !important;white-space:nowrap !important;border:0 !important;}.pdoc h1, .pdoc h2, .pdoc h3{font-weight:300;margin:.3em 0;padding:.2em 0;}.pdoc > section:not(.module-info) h1{font-size:1.5rem;font-weight:500;}.pdoc > section:not(.module-info) h2{font-size:1.4rem;font-weight:500;}.pdoc > section:not(.module-info) h3{font-size:1.3rem;font-weight:500;}.pdoc > section:not(.module-info) h4{font-size:1.2rem;}.pdoc > section:not(.module-info) h5{font-size:1.1rem;}.pdoc a{text-decoration:none;color:var(--link);}.pdoc a:hover{color:var(--link-hover);}.pdoc blockquote{margin-left:2rem;}.pdoc pre{border-top:1px solid var(--accent2);border-bottom:1px solid var(--accent2);margin-top:0;margin-bottom:1em;padding:.5rem 0 .5rem .5rem;overflow-x:auto;background-color:var(--code);}.pdoc code{color:var(--text);padding:.2em .4em;margin:0;font-size:85%;background-color:var(--code);border-radius:6px;}.pdoc a > code{color:inherit;}.pdoc pre > code{display:inline-block;font-size:inherit;background:none;border:none;padding:0;}.pdoc > section:not(.module-info){margin-bottom:1.5rem;}.pdoc .modulename{margin-top:0;font-weight:bold;}.pdoc .modulename a{color:var(--link);transition:100ms all;}.pdoc .git-button{float:right;border:solid var(--link) 1px;}.pdoc .git-button:hover{background-color:var(--link);color:var(--pdoc-background);}.view-source-toggle-state,.view-source-toggle-state ~ .pdoc-code{display:none;}.view-source-toggle-state:checked ~ .pdoc-code{display:block;}.view-source-button{display:inline-block;float:right;font-size:.75rem;line-height:1.5rem;color:var(--muted);padding:0 .4rem 0 1.3rem;cursor:pointer;text-indent:-2px;}.view-source-button > span{visibility:hidden;}.module-info .view-source-button{float:none;display:flex;justify-content:flex-end;margin:-1.2rem .4rem -.2rem 0;}.view-source-button::before{position:absolute;content:"View Source";display:list-item;list-style-type:disclosure-closed;}.view-source-toggle-state:checked ~ .attr .view-source-button::before,.view-source-toggle-state:checked ~ .view-source-button::before{list-style-type:disclosure-open;}.pdoc .docstring{margin-bottom:1.5rem;}.pdoc section:not(.module-info) .docstring{margin-left:clamp(0rem, 5vw - 2rem, 1rem);}.pdoc .docstring .pdoc-code{margin-left:1em;margin-right:1em;}.pdoc h1:target,.pdoc h2:target,.pdoc h3:target,.pdoc h4:target,.pdoc h5:target,.pdoc h6:target,.pdoc .pdoc-code > pre > span:target{background-color:var(--active);box-shadow:-1rem 0 0 0 var(--active);}.pdoc .pdoc-code > pre > span:target{display:block;}.pdoc div:target > .attr,.pdoc section:target > .attr,.pdoc dd:target > a{background-color:var(--active);}.pdoc *{scroll-margin:2rem;}.pdoc .pdoc-code .linenos{user-select:none;}.pdoc .attr:hover{filter:contrast(0.95);}.pdoc section, .pdoc .classattr{position:relative;}.pdoc .headerlink{--width:clamp(1rem, 3vw, 2rem);position:absolute;top:0;left:calc(0rem - var(--width));transition:all 100ms ease-in-out;opacity:0;}.pdoc .headerlink::before{content:"#";display:block;text-align:center;width:var(--width);height:2.3rem;line-height:2.3rem;font-size:1.5rem;}.pdoc .attr:hover ~ .headerlink,.pdoc *:target > .headerlink,.pdoc .headerlink:hover{opacity:1;}.pdoc .attr{display:block;margin:.5rem 0 .5rem;padding:.4rem .4rem .4rem 1rem;background-color:var(--accent);overflow-x:auto;}.pdoc .classattr{margin-left:2rem;}.pdoc .name{color:var(--name);font-weight:bold;}.pdoc .def{color:var(--def);font-weight:bold;}.pdoc .signature{background-color:transparent;}.pdoc .param, .pdoc .return-annotation{white-space:pre;}.pdoc .signature.multiline .param{display:block;}.pdoc .signature.condensed .param{display:inline-block;}.pdoc .annotation{color:var(--annotation);}.pdoc .inherited{margin-left:2rem;}.pdoc .inherited dt{font-weight:700;}.pdoc .inherited dt, .pdoc .inherited dd{display:inline;margin-left:0;margin-bottom:.5rem;}.pdoc .inherited dd:not(:last-child):after{content:", ";}.pdoc .inherited .class:before{content:"class ";}.pdoc .inherited .function a:after{content:"()";}.pdoc .search-result .docstring{overflow:auto;max-height:25vh;}.pdoc .search-result.focused > .attr{background-color:var(--active);}.pdoc .attribution{margin-top:2rem;display:block;opacity:0.5;transition:all 200ms;filter:grayscale(100%);}.pdoc .attribution:hover{opacity:1;filter:grayscale(0%);}.pdoc .attribution img{margin-left:5px;height:35px;vertical-align:middle;width:70px;transition:all 200ms;}.pdoc table{display:block;width:max-content;max-width:100%;overflow:auto;margin-bottom:1rem;}.pdoc table th{font-weight:600;}.pdoc table th, .pdoc table td{padding:6px 13px;border:1px solid var(--accent2);}</style>
+    <style>/*! custom.css */</style></head>
+<body>
+    <main class="pdoc">
+            <section class="module-info">
+                
+
+                
+                
+                
+                
+            </section>
+                <section id="Datetime">
+                    <div class="attr variable">
+            <span class="name">Datetime</span><span class="default_value"> = <a href="#Datetime">wallaroo.client.Datetime</a></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Datetime"></a>
+    
+    
+
+                </section>
+                <section id="Client">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Client</span>:
+
+        
+    </div>
+    <a class="headerlink" href="#Client"></a>
+    
+            <div class="docstring"><p>Client handle to a Wallaroo platform instance.</p>
+
+<p>Objects of this class serve as the entrypoint to Wallaroo platform
+functionality.</p>
+</div>
+
+
+                            <div id="Client.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">Client</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">api_endpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;http://api-lb:8080&#39;</span>,</span><span class="param">	<span class="n">auth_endpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>,</span><span class="param">	<span class="n">request_timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">auth_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">gql_client</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">gql</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Client</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">interactive</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">time_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;%Y-</span><span class="si">%d</span><span class="s1">-%b %H:%M:%S&#39;</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.__init__"></a>
+    
+            <div class="docstring"><p>Create a Client handle.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>str api_endpoint</strong>:  Host/port of the platform API endpoint</li>
+<li><strong>str auth_endpoint</strong>:  Host/port of the platform Keycloak instance</li>
+<li><strong>int timeout</strong>:  Max timeout of web requests, in seconds</li>
+<li><strong>str auth_type: Authentication type to use. Can be one of</strong>:  "none",
+"sso", "user_password".</li>
+<li><strong>bool interactive</strong>:  If provided and True, some calls will print additional human information, or won't when False. If not provided, interactive defaults to True if running inside Jupyter and False otherwise.</li>
+<li><strong>str time_format</strong>:  Preferred <code>strftime</code> format string for displaying timestamps in a human context.</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="Client.get_urls" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator">@staticmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">get_urls</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">auth_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>,</span><span class="param">	<span class="n">api_endpoint</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">auth_endpoint</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.get_urls"></a>
+    
+            <div class="docstring"><p>Method to calculate the auth values specified as defaults,
+as params or in ENV vars.
+Made static to be testable without reaching out to SSO, etc.</p>
+</div>
+
+
+                            </div>
+                            <div id="Client.list_tags" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">list_tags</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="tag.html#Tags">wallaroo.tag.Tags</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.list_tags"></a>
+    
+            <div class="docstring"><p>List all tags on the platform.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>A list of all tags on the platform.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.list_models" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">list_models</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="models.html#ModelsList">wallaroo.models.ModelsList</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.list_models"></a>
+    
+            <div class="docstring"><p>List all models on the platform.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>A list of all models on the platform.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.list_deployments" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">list_deployments</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n">List</span><span class="p">[</span><span class="n"><a href="deployment.html#Deployment">wallaroo.deployment.Deployment</a></span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.list_deployments"></a>
+    
+            <div class="docstring"><p>List all deployments (active or not) on the platform.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>A list of all deployments on the platform.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.search_pipeline_versions" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">search_pipeline_versions</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">search_term</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">deployed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">created_start</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="#Datetime">wallaroo.client.Datetime</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">created_end</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="#Datetime">wallaroo.client.Datetime</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">updated_start</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="#Datetime">wallaroo.client.Datetime</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">updated_end</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="#Datetime">wallaroo.client.Datetime</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="n"><a href="pipeline_variant.html#PipelineVariants">wallaroo.pipeline_variant.PipelineVariants</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.search_pipeline_versions"></a>
+    
+            <div class="docstring"><p>Search for pipelines. All parameters are optional, in which case the result is the same as
+<code><a href="#Client.list_pipelines">list_pipelines()</a></code>. All times are strings to be parsed by <code>datetime.isoformat</code>. Example:</p>
+
+<pre><code> myclient.search_pipeline_versions(created_end='2022-04-19 13:17:59+00:00', search_term="foo")
+</code></pre>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>str search_term: Will be matched against tags and model names. Example</strong>:  "footag123".</li>
+<li><strong>bool deployed</strong>:  Pipeline was deployed or not</li>
+<li><strong>str created_start</strong>:  Pipeline was created at or after this time</li>
+<li><strong>str created_end</strong>:  Pipeline was created at or before this time</li>
+<li><strong>str updated_start</strong>:  Pipeline was updated at or before this time</li>
+<li><strong>str updated_end</strong>:  Pipeline was updated at or before this time</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>A list of all pipelines on the platform.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.search_my_model_versions" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">search_my_model_versions</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">search_term</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">uploaded_time_start</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="#Datetime">wallaroo.client.Datetime</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">uploaded_time_end</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="#Datetime">wallaroo.client.Datetime</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="n"><a href="model.html#ModelVersions">wallaroo.model.ModelVersions</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.search_my_model_versions"></a>
+    
+            <div class="docstring"><p>Search models owned by you
+params:
+     search_term: Searches the following metadata: names, shas, versions, file names, and tags
+     uploaded_time_start: Inclusive time of upload
+     uploaded_time_end: Inclusive time of upload</p>
+</div>
+
+
+                            </div>
+                            <div id="Client.search_models" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">search_models</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">search_term</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">uploaded_time_start</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="#Datetime">wallaroo.client.Datetime</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">uploaded_time_end</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="#Datetime">wallaroo.client.Datetime</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="n"><a href="model.html#ModelVersions">wallaroo.model.ModelVersions</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.search_models"></a>
+    
+            <div class="docstring"><p>Search all models you have access to.
+params:
+     search_term: Searches the following metadata: names, shas, versions, file names, and tags
+     uploaded_time_start: Inclusive time of upload
+     uploaded_time_end: Inclusive time of upload</p>
+</div>
+
+
+                            </div>
+                            <div id="Client.get_user_by_email" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_user_by_email</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">email</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="user.html#User">wallaroo.user.User</a></span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.get_user_by_email"></a>
+    
+            <div class="docstring"><p>Find a user by email</p>
+</div>
+
+
+                            </div>
+                            <div id="Client.deactivate_user" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">deactivate_user</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">email</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.deactivate_user"></a>
+    
+            <div class="docstring"><p>Deactivates an existing user of the platform</p>
+
+<p>Deactivated users cannot log into the platform.
+Deactivated users do not count towards the number of allotted user seats from the license.</p>
+
+<p>The Models and Pipelines owned by the deactivated user are not removed from the platform.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>str email</strong>:  The email address of the user to deactivate.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.activate_user" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">activate_user</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">email</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.activate_user"></a>
+    
+            <div class="docstring"><p>Activates an existing user of the platform that had been previously deactivated.</p>
+
+<p>Activated users can log into the platform.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>str email</strong>:  The email address of the user to activate.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.list_users" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">list_users</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n">List</span><span class="p">[</span><span class="n"><a href="user.html#User">wallaroo.user.User</a></span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.list_users"></a>
+    
+            <div class="docstring"><p>List of all Users on the platform</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>A list of all Users on the platform.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.upload_model" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">upload_model</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]</span>,</span><span class="param">	<span class="n">framework</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="framework.html#Framework">wallaroo.framework.Framework</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">input_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pyarrow</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">Schema</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">output_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pyarrow</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">Schema</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">convert_wait</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span></span><span class="return-annotation">) -> <span class="n"><a href="model.html#Model">wallaroo.model.Model</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.upload_model"></a>
+    
+            <div class="docstring"><p>Upload a model defined by a file as a new model variant.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>name</strong>:  str The name of the model of which this is a variant.
+Names must be ASCII alpha-numeric characters or dash (-) only.</li>
+<li><strong>path</strong>:  Union[str, pathlib.Path] Path of the model file to upload.</li>
+<li><strong>framework</strong>:  Optional[Framework] Supported model frameworks.
+Use models from Framework Enum. Example: Framework.PYTORCH, Framework.TENSORFLOW</li>
+<li><strong>input_schema</strong>:  Optional pa.Schema Input schema, required for flavors other than ONNX, Tensorflow, and Python</li>
+<li><strong>output_schema</strong>:  Optional pa.Schema Output schema, required for flavors other than ONNX, Tensorflow, and Python</li>
+<li><strong>convert_wait</strong>:  Optional bool Defaults to True. Specifies if method should return when conversion is over or not.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The created Model.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.register_model_image" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">register_model_image</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">image</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="n"><a href="model.html#Model">wallaroo.model.Model</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.register_model_image"></a>
+    
+            <div class="docstring"><p>Registers an MLFlow model as a new model.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>str model_name</strong>:  The name of the model of which this is a variant.
+Names must be ASCII alpha-numeric characters or dash (-) only.</li>
+<li><strong>str image</strong>:  Image name of the MLFlow model to register.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The created Model.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.model_version_by_name" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">model_version_by_name</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">model_class</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="n"><a href="model.html#Model">wallaroo.model.Model</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.model_version_by_name"></a>
+    
+            <div class="docstring"><p>Fetch a Model by name.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>str model_class</strong>:  Name of the model class.</li>
+<li><strong>str model_name</strong>:  Name of the variant within the specified model class.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The Model with the corresponding model and variant name.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.deployment_by_name" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">deployment_by_name</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">deployment_name</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="n"><a href="deployment.html#Deployment">wallaroo.deployment.Deployment</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.deployment_by_name"></a>
+    
+            <div class="docstring"><p>Fetch a Deployment by name.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>str deployment_name</strong>:  Name of the deployment.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The Deployment with the corresponding name.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.pipelines_by_name" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">pipelines_by_name</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">pipeline_name</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="n">List</span><span class="p">[</span><span class="n"><a href="pipeline.html#Pipeline">wallaroo.pipeline.Pipeline</a></span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.pipelines_by_name"></a>
+    
+            <div class="docstring"><p>Fetch Pipelines by name.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>str pipeline_name</strong>:  Name of the pipeline.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The Pipeline with the corresponding name.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.list_pipelines" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">list_pipelines</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n">List</span><span class="p">[</span><span class="n"><a href="pipeline.html#Pipeline">wallaroo.pipeline.Pipeline</a></span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.list_pipelines"></a>
+    
+            <div class="docstring"><p>List all pipelines on the platform.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>A list of all pipelines on the platform.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.build_pipeline" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">build_pipeline</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">pipeline_name</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="n"><a href="pipeline.html#Pipeline">wallaroo.pipeline.Pipeline</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.build_pipeline"></a>
+    
+            <div class="docstring"><p>Starts building a pipeline with the given <code>pipeline_name</code>,
+returning a :py:PipelineConfigBuilder:</p>
+
+<p>When completed, the pipeline can be uploaded with <code>.upload()</code></p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>pipeline_name string</strong>:  Name of the pipeline, must be composed of ASCII
+alpha-numeric characters plus dash (-).</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="Client.create_value_split_experiment" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">create_value_split_experiment</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">meta_key</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">default_model</span><span class="p">:</span> <span class="n"><a href="model_config.html#ModelConfig">wallaroo.model_config.ModelConfig</a></span>,</span><span class="param">	<span class="n">challenger_models</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n"><a href="model_config.html#ModelConfig">wallaroo.model_config.ModelConfig</a></span><span class="p">]]</span></span><span class="return-annotation">) -> <span class="n"><a href="pipeline.html#Pipeline">wallaroo.pipeline.Pipeline</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.create_value_split_experiment"></a>
+    
+            <div class="docstring"><p>Creates a new PipelineVariant of a "value-split experiment" type.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>str name</strong>:  Name of the Pipeline</li>
+<li><strong>meta_key str</strong>:  Inference input key on which to redirect inputs to
+experiment models.</li>
+<li><strong>default_model ModelConfig</strong>:  Model to send inferences by default.</li>
+<li><strong>challenger_models List[Tuple[Any, ModelConfig]]</strong>:  A list of
+meta_key values -> Models to send inferences. If the inference data
+referred to by meta_key is equal to one of the keys in this tuple,
+that inference is redirected to the corresponding model instead of
+the default model.</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="Client.cleanup_arrow_data_for_display" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator">@staticmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">cleanup_arrow_data_for_display</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">arrow_data</span><span class="p">:</span> <span class="n">pyarrow</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">Table</span></span><span class="return-annotation">) -> <span class="n">pyarrow</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">Table</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.cleanup_arrow_data_for_display"></a>
+    
+            <div class="docstring"><p>Cleans up the inference result and log data from engine / plateau for display (ux) purposes.</p>
+</div>
+
+
+                            </div>
+                            <div id="Client.get_logs" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_logs</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">topic</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">limit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">start_datetime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">end_datetime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">dataset</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">dataset_exclude</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">dataset_separator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">directory</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">file_prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">data_size_limit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">arrow</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span></span><span class="return-annotation">) -> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">pyarrow</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">Table</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n"><a href="logs.html#LogEntries">wallaroo.logs.LogEntries</a></span><span class="p">,</span> <span class="n">NoneType</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.get_logs"></a>
+    
+            <div class="docstring"><p>Get logs for the given topic.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>topic</strong>:  str The topic to get logs for.</li>
+<li><strong>limit</strong>:  Optional[int] The maximum number of logs to return.</li>
+<li><strong>start_datetime</strong>:  Optional[datetime] The start time to get logs for.</li>
+<li><strong>end_datetime</strong>:  Optional[datetime] The end time to get logs for.
+:param dataset: Optional[List[str]] By default this is set to ["*"] which returns,
+["time", "in", "out", "check_failures"]. Other available options - ["metadata"]</li>
+<li><strong>dataset_exclude</strong>:  Optional[List[str]] If set, allows user to exclude parts of dataset.</li>
+<li><strong>dataset_separator</strong>:  Optional[Union[Sequence[str], str]] If set to ".", return dataset will be flattened.</li>
+<li><strong>directory</strong>:  Optional[str] If set, logs will be exported to a file in the given directory.</li>
+<li><strong>file_prefix</strong>:  Optional[str] Prefix to name the exported file. Required if directory is set.</li>
+<li><strong>data_size_limit</strong>:  Optional[str] The maximum size of the exported data in MB.
+Size includes all files within the provided directory. By default, the data_size_limit will be set to 100MB.</li>
+<li><strong>arrow</strong>:  Optional[bool] If set to True, return logs as an Arrow Table. Else, returns Pandas DataFrame.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Tuple[Union[pa.Table, pd.DataFrame, LogEntries], str] The logs and status.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.security_logs" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">security_logs</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">limit</span><span class="p">:</span> <span class="nb">int</span></span><span class="return-annotation">) -> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.security_logs"></a>
+    
+            <div class="docstring"><p>This function is not available in this release</p>
+</div>
+
+
+                            </div>
+                            <div id="Client.get_raw_logs" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_raw_logs</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">topic</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">start</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">end</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100000</span>,</span><span class="param">	<span class="n">parse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>,</span><span class="param">	<span class="n">dataset</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">dataset_exclude</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">dataset_separator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></span><span class="return-annotation">) -> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.get_raw_logs"></a>
+    
+            <div class="docstring"><p>Gets logs from Plateau for a particular time window without attempting
+to convert them to Inference LogEntries. Logs can be returned as strings
+or the json parsed into lists and dicts.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>topic str</strong>:  The name of the topic to query</li>
+<li><strong>start Optional[datetime]</strong>:  The start of the time window</li>
+<li><strong>end Optional[datetime]</strong>:  The end of the time window</li>
+<li><strong>limit int</strong>:  The number of records to retrieve. Note retrieving many
+records may be a performance bottleneck.</li>
+<li><strong>parse bool</strong>:  Wether to attempt to parse the string as a json object.</li>
+<li><strong>verbose bool</strong>:  Prints out info to help diagnose issues.</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="Client.get_raw_pipeline_inference_logs" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_raw_pipeline_inference_logs</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">topic</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">start</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span>,</span><span class="param">	<span class="n">end</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span>,</span><span class="param">	<span class="n">model_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100000</span>,</span><span class="param">	<span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></span><span class="return-annotation">) -> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.get_raw_pipeline_inference_logs"></a>
+    
+            <div class="docstring"><p>Gets logs from Plateau for a particular time window and filters them for
+the model specified.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>pipeline_name str</strong>:  The name/pipeline_id of the pipeline to query</li>
+<li><strong>topic str</strong>:  The name of the topic to query</li>
+<li><strong>start Optional[datetime]</strong>:  The start of the time window</li>
+<li><strong>end Optional[datetime]</strong>:  The end of the time window</li>
+<li><strong>model_id</strong>:  The name of the specific model to filter if any</li>
+<li><strong>limit int</strong>:  The number of records to retrieve. Note retrieving many
+records may be a performance bottleneck.</li>
+<li><strong>verbose bool</strong>:  Prints out info to help diagnose issues.</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="Client.get_pipeline_inference_dataframe" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_pipeline_inference_dataframe</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">topic</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">start</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span>,</span><span class="param">	<span class="n">end</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span>,</span><span class="param">	<span class="n">model_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100000</span>,</span><span class="param">	<span class="n">verbose</span><span class="o">=</span><span class="kc">False</span></span><span class="return-annotation">) -> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.get_pipeline_inference_dataframe"></a>
+    
+    
+
+                            </div>
+                            <div id="Client.get_assay_results" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_assay_results</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">assay_id</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">start</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span>,</span><span class="param">	<span class="n">end</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span></span><span class="return-annotation">) -> <span class="n"><a href="assay.html#AssayAnalysisList">wallaroo.assay.AssayAnalysisList</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.get_assay_results"></a>
+    
+            <div class="docstring"><p>Gets the assay results for a particular time window, parses them, and returns an
+AssayAnalysisList of AssayAnalysis.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>assay_id int</strong>:  The id of the assay we are looking for.</li>
+<li><strong>start datetime</strong>:  The start of the time window</li>
+<li><strong>end datetime</strong>:  The end of the time window</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="Client.build_assay" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">build_assay</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">assay_name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">pipeline</span><span class="p">:</span> <span class="n"><a href="pipeline.html#Pipeline">wallaroo.pipeline.Pipeline</a></span>,</span><span class="param">	<span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">baseline_start</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span>,</span><span class="param">	<span class="n">baseline_end</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span></span><span class="return-annotation">) -> <span class="n"><a href="assay_config.html#AssayBuilder">wallaroo.assay_config.AssayBuilder</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.build_assay"></a>
+    
+            <div class="docstring"><p>Creates an AssayBuilder that can be used to configure and create
+Assays.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>assay_name str</strong>:  Human friendly name for the assay</li>
+<li><strong>pipeline Pipeline</strong>:  The pipeline this assay will work on</li>
+<li><strong>model_name str</strong>:  The model that this assay will monitor</li>
+<li><strong>baseline_start datetime</strong>:  The start time for the inferences to
+use as the baseline</li>
+<li><strong>baseline_end datetime</strong>:  The end time of the baseline window.
+the baseline. Windows start immediately after the baseline window and
+are run at regular intervals continously until the assay is deactivated
+or deleted.</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="Client.upload_assay" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">upload_assay</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">config</span><span class="p">:</span> <span class="n"><a href="assay_config.html#AssayConfig">wallaroo.assay_config.AssayConfig</a></span></span><span class="return-annotation">) -> <span class="nb">int</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.upload_assay"></a>
+    
+            <div class="docstring"><p>Creates an assay in the database.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>config AssayConfig</strong>:  The configuration for the assay to create.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The identifier for the assay that was created.
+  :rtype int</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.list_assays" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">list_assays</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n">List</span><span class="p">[</span><span class="n"><a href="assay.html#Assay">wallaroo.assay.Assay</a></span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.list_assays"></a>
+    
+            <div class="docstring"><p>List all assays on the platform.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>A list of all assays on the platform.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.create_tag" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">create_tag</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">tag_text</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="n"><a href="tag.html#Tag">wallaroo.tag.Tag</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.create_tag"></a>
+    
+            <div class="docstring"><p>Create a new tag with the given text.</p>
+</div>
+
+
+                            </div>
+                            <div id="Client.create_workspace" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">create_workspace</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">workspace_name</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="n"><a href="workspace.html#Workspace">wallaroo.workspace.Workspace</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.create_workspace"></a>
+    
+            <div class="docstring"><p>Create a new workspace with the current user as its first owner.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>str workspace_name</strong>:  Name of the workspace, must be composed of ASCII
+alpha-numeric characters plus dash (-)</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="Client.list_workspaces" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">list_workspaces</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n">List</span><span class="p">[</span><span class="n"><a href="workspace.html#Workspace">wallaroo.workspace.Workspace</a></span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.list_workspaces"></a>
+    
+            <div class="docstring"><p>List all workspaces on the platform which this user has permission see.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>A list of all workspaces on the platform.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.set_current_workspace" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">set_current_workspace</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">workspace</span><span class="p">:</span> <span class="n"><a href="workspace.html#Workspace">wallaroo.workspace.Workspace</a></span></span><span class="return-annotation">) -> <span class="n"><a href="workspace.html#Workspace">wallaroo.workspace.Workspace</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.set_current_workspace"></a>
+    
+            <div class="docstring"><p>Any calls involving pipelines or models will use the given workspace from then on.</p>
+</div>
+
+
+                            </div>
+                            <div id="Client.get_current_workspace" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_current_workspace</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="workspace.html#Workspace">wallaroo.workspace.Workspace</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.get_current_workspace"></a>
+    
+            <div class="docstring"><p>Return the current workspace.  See also <code><a href="#Client.set_current_workspace">set_current_workspace</a></code>.</p>
+</div>
+
+
+                            </div>
+                            <div id="Client.invite_user" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">invite_user</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">email</span>, </span><span class="param"><span class="n">password</span><span class="o">=</span><span class="kc">None</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.invite_user"></a>
+    
+    
+
+                            </div>
+                            <div id="Client.get_topic_name" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_topic_name</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">pipeline_pk_id</span><span class="p">:</span> <span class="nb">int</span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.get_topic_name"></a>
+    
+    
+
+                            </div>
+                            <div id="Client.shim_token" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">shim_token</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">token_data</span><span class="p">:</span> <span class="n"><a href="auth.html#TokenData">wallaroo.auth.TokenData</a></span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.shim_token"></a>
+    
+    
+
+                            </div>
+                            <div id="Client.convert_model" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">convert_model</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]</span>,</span><span class="param">	<span class="n">source_type</span><span class="p">:</span> <span class="n"><a href="ModelConversion.html#ModelConversionSource">wallaroo.ModelConversion.ModelConversionSource</a></span>,</span><span class="param">	<span class="n">conversion_arguments</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n"><a href="ModelConversion.html#ConvertKerasArguments">wallaroo.ModelConversion.ConvertKerasArguments</a></span><span class="p">,</span> <span class="n"><a href="ModelConversion.html#ConvertSKLearnArguments">wallaroo.ModelConversion.ConvertSKLearnArguments</a></span><span class="p">,</span> <span class="n"><a href="ModelConversion.html#ConvertXGBoostArgs">wallaroo.ModelConversion.ConvertXGBoostArgs</a></span><span class="p">]</span></span><span class="return-annotation">) -> <span class="n"><a href="model.html#Model">wallaroo.model.Model</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.convert_model"></a>
+    
+            <div class="docstring"><p>Given an inbound source model, a model type (xgboost, keras, sklearn), and conversion arguments.
+Convert the model to onnx, and add to available models for a pipeline.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>Union[str, pathlib.Path] path</strong>:  The path to the model to convert, i.e. the source model.</li>
+<li><strong>ModelConversionSource source</strong>:  The origin model type i.e. keras, sklearn or xgboost.</li>
+<li><strong>ModelConversionArguments conversion_arguments</strong>:  A structure representing the arguments for converting a specific model type.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>An instance of the Model being converted to Onnx.</p>
+</blockquote>
+
+<h6 id="raises">Raises</h6>
+
+<ul>
+<li><strong>ModelConversionGenericException</strong>:  On a generic failure, please contact our support for further assistance.</li>
+<li><strong>ModelConversionFailure</strong>:  Failure in converting the model type.</li>
+<li><strong>ModelConversionUnsupportedType</strong>:  Raised when the source type passed is not supported.</li>
+<li><strong>ModelConversionSourceFileNotPresent</strong>:  Raised when the passed source file does not exist.</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="Client.list_orchestrations" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">list_orchestrations</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.list_orchestrations"></a>
+    
+            <div class="docstring"><p>List all Orchestrations in the current workspace.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>A List containing all Orchestrations in the current workspace.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.upload_orchestration" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">upload_orchestration</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">bytes_buffer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">file_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.upload_orchestration"></a>
+    
+            <div class="docstring"><p>Upload a file to be packaged and used as an Orchestration.</p>
+
+<p>The uploaded artifact must be a ZIP file which contains:</p>
+
+<ul>
+<li>User code. If <code>main.py</code> exists, then that will be used as the task entrypoint. Otherwise,
+the first <code>main.py</code> found in any subdirectory will be used as the entrypoint.</li>
+<li>Optional: A standard Python <code>requirements.txt</code> for any dependencies to be provided in the
+task environment. The Wallaroo SDK will already be present and should not be mentioned.
+Multiple <code>requirements.txt</code> files are not allowed.</li>
+<li>Optional: Any other artifacts desired for runtime, including data or code.</li>
+</ul>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>Optional[str] path</strong>:  The path to the file on your filesystem that will be uploaded as an Orchestration.</li>
+<li><strong>Optional[bytes] bytes_buffer</strong>:  The raw bytes to upload to be used Orchestration. Cannot be used with the <code>path</code> param.</li>
+<li><strong>Optional[str] name</strong>:  An optional descriptive name for this Orchestration.</li>
+<li><strong>Optional[str] file_name</strong>:  An optional filename to describe your Orchestration when using the bytes_buffer param. Ignored when <code>path</code> is used.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The Orchestration that was uploaded.
+  :raises OrchestrationUploadFailed If a server-side error prevented the upload from succeeding.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.list_tasks" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">list_tasks</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">killed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.list_tasks"></a>
+    
+            <div class="docstring"><p>List all Tasks in the current Workspace.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>A List containing Task objects.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.get_task_by_id" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_task_by_id</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">task_id</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.get_task_by_id"></a>
+    
+            <div class="docstring"><p>Retrieve a Task by its ID.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>str task_id</strong>:  The ID of the Task to retrieve.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>A Task object.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.in_task" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">in_task</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">bool</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.in_task"></a>
+    
+            <div class="docstring"><p>Determines if this code is inside an orchestration task.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>True if running in a task.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.task_args" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">task_args</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.task_args"></a>
+    
+            <div class="docstring"><p>When running inside a task (see <code><a href="#Client.in_task">in_task()</a></code>), obtain arguments passed to the task.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Dict of the arguments</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.list_connections" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">list_connections</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="connection.html#ConnectionList">wallaroo.connection.ConnectionList</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.list_connections"></a>
+    
+            <div class="docstring"><p>List all Connections defined in the platform.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of Connections in the whole platform.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.get_connection" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_connection</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param">name=&lt;class &#x27;str&#x27;&gt;</span><span class="return-annotation">) -> <span class="n"><a href="connection.html#Connection">wallaroo.connection.Connection</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.get_connection"></a>
+    
+            <div class="docstring"><p>Retrieves a Connection by its name.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Connection to an external data source.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.create_connection" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">create_connection</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	name=&lt;class &#x27;str&#x27;&gt;,</span><span class="param">	connection_type=&lt;class &#x27;str&#x27;&gt;,</span><span class="param">	<span class="n">details</span><span class="o">=</span><span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span></span><span class="return-annotation">) -> <span class="n"><a href="connection.html#Connection">wallaroo.connection.Connection</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.create_connection"></a>
+    
+            <div class="docstring"><p>Creates a Connection with the given name, type, and type-specific details.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Connection to an external data source.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.create_model_registry" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">create_model_registry</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	name=&lt;class &#x27;str&#x27;&gt;,</span><span class="param">	token=&lt;class &#x27;str&#x27;&gt;,</span><span class="param">	url=&lt;class &#x27;str&#x27;&gt;</span><span class="return-annotation">) -> <span class="n"><a href="model_registry.html#ModelRegistry">wallaroo.model_registry.ModelRegistry</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.create_model_registry"></a>
+    
+            <div class="docstring"><p>Create a Model Registry connection in this workspace that can be reused across workspaces.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li>name str A descriptive name for this registry</li>
+<li>token str A Bearer token necessary for accessing this Registry.</li>
+<li>url str The root URL for this registry. It should NOT include <code>/api/2.0/mlflow</code> as part of it.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>A ModelRegistry object.</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="Client.list_model_registries" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">list_model_registries</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">workspace_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.list_model_registries"></a>
+    
+    
+
+                            </div>
+                            <div id="Client.mlops" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">mlops</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n">wallaroo</span><span class="o">.</span><span class="n">wallaroo_ml_ops_api_client</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Client</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#Client.mlops"></a>
+    
+    
+
+                            </div>
+                </section>
+    </main>
+<script>
+    function escapeHTML(html) {
+        return document.createElement('div').appendChild(document.createTextNode(html)).parentNode.innerHTML;
+    }
+
+    const originalContent = document.querySelector("main.pdoc");
+    let currentContent = originalContent;
+
+    function setContent(innerHTML) {
+        let elem;
+        if (innerHTML) {
+            elem = document.createElement("main");
+            elem.classList.add("pdoc");
+            elem.innerHTML = innerHTML;
+        } else {
+            elem = originalContent;
+        }
+        if (currentContent !== elem) {
+            currentContent.replaceWith(elem);
+            currentContent = elem;
+        }
+    }
+
+    function getSearchTerm() {
+        return (new URL(window.location)).searchParams.get("search");
+    }
+
+    const searchBox = document.querySelector(".pdoc input[type=search]");
+    searchBox.addEventListener("input", function () {
+        let url = new URL(window.location);
+        if (searchBox.value.trim()) {
+            url.hash = "";
+            url.searchParams.set("search", searchBox.value);
+        } else {
+            url.searchParams.delete("search");
+        }
+        history.replaceState("", "", url.toString());
+        onInput();
+    });
+    window.addEventListener("popstate", onInput);
+
+
+    let search, searchErr;
+
+    async function initialize() {
+        try {
+            search = await new Promise((resolve, reject) => {
+                const script = document.createElement("script");
+                script.type = "text/javascript";
+                script.async = true;
+                script.onload = () => resolve(window.pdocSearch);
+                script.onerror = (e) => reject(e);
+                script.src = "../search.js";
+                document.getElementsByTagName("head")[0].appendChild(script);
+            });
+        } catch (e) {
+            console.error("Cannot fetch pdoc search index");
+            searchErr = "Cannot fetch search index.";
+        }
+        onInput();
+
+        document.querySelector("nav.pdoc").addEventListener("click", e => {
+            if (e.target.hash) {
+                searchBox.value = "";
+                searchBox.dispatchEvent(new Event("input"));
+            }
+        });
+    }
+
+    function onInput() {
+        setContent((() => {
+            const term = getSearchTerm();
+            if (!term) {
+                return null
+            }
+            if (searchErr) {
+                return `<h3>Error: ${searchErr}</h3>`
+            }
+            if (!search) {
+                return "<h3>Searching...</h3>"
+            }
+
+            window.scrollTo({top: 0, left: 0, behavior: 'auto'});
+
+            const results = search(term);
+
+            let html;
+            if (results.length === 0) {
+                html = `No search results for '${escapeHTML(term)}'.`
+            } else {
+                html = `<h4>${results.length} search result${results.length > 1 ? "s" : ""} for '${escapeHTML(term)}'.</h4>`;
+            }
+            for (let result of results.slice(0, 10)) {
+                let doc = result.doc;
+                let url = `../${doc.modulename.replaceAll(".", "/")}.html`;
+                if (doc.qualname) {
+                    url += `#${doc.qualname}`;
+                }
+
+                let heading;
+                switch (result.doc.type) {
+                    case "function":
+                        if (doc.fullname.endsWith(".__init__")) {
+                            heading = `<span class="name">${doc.fullname.replace(/\.__init__$/, "")}</span>${doc.signature}`;
+                        } else {
+                            heading = `<span class="def">${doc.funcdef}</span> <span class="name">${doc.fullname}</span>${doc.signature}`;
+                        }
+                        break;
+                    case "class":
+                        heading = `<span class="def">class</span> <span class="name">${doc.fullname}</span>`;
+                        if (doc.bases)
+                            heading += `<wbr>(<span class="base">${doc.bases}</span>)`;
+                        heading += `:`;
+                        break;
+                    case "variable":
+                        heading = `<span class="name">${doc.fullname}</span>`;
+                        if (doc.annotation)
+                            heading += `<span class="annotation">${doc.annotation}</span>`;
+                        if (doc.default_value)
+                            heading += `<span class="default_value">${doc.default_value}</span>`;
+                        break;
+                    default:
+                        heading = `<span class="name">${doc.fullname}</span>`;
+                        break;
+                }
+                html += `
+                        <section class="search-result">
+                        <a href="${url}" class="attr ${doc.type}">${heading}</a>
+                        <div class="docstring">${doc.doc}</div>
+                        </section>
+                    `;
+
+            }
+            return html;
+        })());
+    }
+
+    if (getSearchTerm()) {
+        initialize();
+        searchBox.value = getSearchTerm();
+        onInput();
+    } else {
+        searchBox.addEventListener("focus", initialize, {once: true});
+    }
+
+    searchBox.addEventListener("keydown", e => {
+        if (["ArrowDown", "ArrowUp", "Enter"].includes(e.key)) {
+            let focused = currentContent.querySelector(".search-result.focused");
+            if (!focused) {
+                currentContent.querySelector(".search-result").classList.add("focused");
+            } else if (
+                e.key === "ArrowDown"
+                && focused.nextElementSibling
+                && focused.nextElementSibling.classList.contains("search-result")
+            ) {
+                focused.classList.remove("focused");
+                focused.nextElementSibling.classList.add("focused");
+                focused.nextElementSibling.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "nearest"
+                });
+            } else if (
+                e.key === "ArrowUp"
+                && focused.previousElementSibling
+                && focused.previousElementSibling.classList.contains("search-result")
+            ) {
+                focused.classList.remove("focused");
+                focused.previousElementSibling.classList.add("focused");
+                focused.previousElementSibling.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "nearest"
+                });
+            } else if (
+                e.key === "Enter"
+            ) {
+                focused.querySelector("a").click();
+            }
+        }
+    });
+</script></body>

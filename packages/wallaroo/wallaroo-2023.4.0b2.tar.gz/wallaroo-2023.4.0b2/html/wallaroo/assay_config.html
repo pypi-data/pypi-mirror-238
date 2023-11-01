@@ -1,0 +1,1625 @@
+---
+title: "wallaroo.assay_config"
+type: docs
+linkTitle: "wallaroo.assay_config"
+---
+<head>
+
+    <style>/*! syntax-highlighting.css */pre{line-height:125%;}span.linenos{color:inherit; background-color:transparent; padding-left:5px; padding-right:20px;}.pdoc-code .hll{background-color:#ffffcc}.pdoc-code{background:#f8f8f8;}.pdoc-code .c{color:#3D7B7B; font-style:italic}.pdoc-code .err{border:1px solid #FF0000}.pdoc-code .k{color:#008000; font-weight:bold}.pdoc-code .o{color:#666666}.pdoc-code .ch{color:#3D7B7B; font-style:italic}.pdoc-code .cm{color:#3D7B7B; font-style:italic}.pdoc-code .cp{color:#9C6500}.pdoc-code .cpf{color:#3D7B7B; font-style:italic}.pdoc-code .c1{color:#3D7B7B; font-style:italic}.pdoc-code .cs{color:#3D7B7B; font-style:italic}.pdoc-code .gd{color:#A00000}.pdoc-code .ge{font-style:italic}.pdoc-code .gr{color:#E40000}.pdoc-code .gh{color:#000080; font-weight:bold}.pdoc-code .gi{color:#008400}.pdoc-code .go{color:#717171}.pdoc-code .gp{color:#000080; font-weight:bold}.pdoc-code .gs{font-weight:bold}.pdoc-code .gu{color:#800080; font-weight:bold}.pdoc-code .gt{color:#0044DD}.pdoc-code .kc{color:#008000; font-weight:bold}.pdoc-code .kd{color:#008000; font-weight:bold}.pdoc-code .kn{color:#008000; font-weight:bold}.pdoc-code .kp{color:#008000}.pdoc-code .kr{color:#008000; font-weight:bold}.pdoc-code .kt{color:#B00040}.pdoc-code .m{color:#666666}.pdoc-code .s{color:#BA2121}.pdoc-code .na{color:#687822}.pdoc-code .nb{color:#008000}.pdoc-code .nc{color:#0000FF; font-weight:bold}.pdoc-code .no{color:#880000}.pdoc-code .nd{color:#AA22FF}.pdoc-code .ni{color:#717171; font-weight:bold}.pdoc-code .ne{color:#CB3F38; font-weight:bold}.pdoc-code .nf{color:#0000FF}.pdoc-code .nl{color:#767600}.pdoc-code .nn{color:#0000FF; font-weight:bold}.pdoc-code .nt{color:#008000; font-weight:bold}.pdoc-code .nv{color:#19177C}.pdoc-code .ow{color:#AA22FF; font-weight:bold}.pdoc-code .w{color:#bbbbbb}.pdoc-code .mb{color:#666666}.pdoc-code .mf{color:#666666}.pdoc-code .mh{color:#666666}.pdoc-code .mi{color:#666666}.pdoc-code .mo{color:#666666}.pdoc-code .sa{color:#BA2121}.pdoc-code .sb{color:#BA2121}.pdoc-code .sc{color:#BA2121}.pdoc-code .dl{color:#BA2121}.pdoc-code .sd{color:#BA2121; font-style:italic}.pdoc-code .s2{color:#BA2121}.pdoc-code .se{color:#AA5D1F; font-weight:bold}.pdoc-code .sh{color:#BA2121}.pdoc-code .si{color:#A45A77; font-weight:bold}.pdoc-code .sx{color:#008000}.pdoc-code .sr{color:#A45A77}.pdoc-code .s1{color:#BA2121}.pdoc-code .ss{color:#19177C}.pdoc-code .bp{color:#008000}.pdoc-code .fm{color:#0000FF}.pdoc-code .vc{color:#19177C}.pdoc-code .vg{color:#19177C}.pdoc-code .vi{color:#19177C}.pdoc-code .vm{color:#19177C}.pdoc-code .il{color:#666666}</style>
+    <style>/*! theme.css */:root{--pdoc-background:#fff;}.pdoc{--text:#212529;--muted:#6c757d;--link:#3660a5;--link-hover:#1659c5;--code:#f8f8f8;--active:#fff598;--accent:#eee;--accent2:#c1c1c1;--nav-hover:rgba(255, 255, 255, 0.5);--name:#0066BB;--def:#008800;--annotation:#007020;}</style>
+    <style>/*! content.css */.pdoc{color:var(--text);box-sizing:border-box;line-height:1.5;background:none;}.pdoc .pdoc-button{display:inline-block;border:solid black 1px;border-radius:2px;font-size:.75rem;padding:calc(0.5em - 1px) 1em;transition:100ms all;}.pdoc .pdoc-alert{padding:1rem 1rem 1rem calc(1.5rem + 24px);border:1px solid transparent;border-radius:.25rem;background-repeat:no-repeat;background-position:1rem center;margin-bottom:1rem;}.pdoc .pdoc-alert > *:last-child{margin-bottom:0;}.pdoc .pdoc-alert-note {color:#084298;background-color:#cfe2ff;border-color:#b6d4fe;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23084298%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2016A8%208%200%201%200%208%200a8%208%200%200%200%200%2016zm.93-9.412-1%204.705c-.07.34.029.533.304.533.194%200%20.487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703%200-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381%202.29-.287zM8%205.5a1%201%200%201%201%200-2%201%201%200%200%201%200%202z%22/%3E%3C/svg%3E");}.pdoc .pdoc-alert-warning{color:#664d03;background-color:#fff3cd;border-color:#ffecb5;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23664d03%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8.982%201.566a1.13%201.13%200%200%200-1.96%200L.165%2013.233c-.457.778.091%201.767.98%201.767h13.713c.889%200%201.438-.99.98-1.767L8.982%201.566zM8%205c.535%200%20.954.462.9.995l-.35%203.507a.552.552%200%200%201-1.1%200L7.1%205.995A.905.905%200%200%201%208%205zm.002%206a1%201%200%201%201%200%202%201%201%200%200%201%200-2z%22/%3E%3C/svg%3E");}.pdoc .pdoc-alert-danger{color:#842029;background-color:#f8d7da;border-color:#f5c2c7;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23842029%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M5.52.359A.5.5%200%200%201%206%200h4a.5.5%200%200%201%20.474.658L8.694%206H12.5a.5.5%200%200%201%20.395.807l-7%209a.5.5%200%200%201-.873-.454L6.823%209.5H3.5a.5.5%200%200%201-.48-.641l2.5-8.5z%22/%3E%3C/svg%3E");}.pdoc .visually-hidden{position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0, 0, 0, 0) !important;white-space:nowrap !important;border:0 !important;}.pdoc h1, .pdoc h2, .pdoc h3{font-weight:300;margin:.3em 0;padding:.2em 0;}.pdoc > section:not(.module-info) h1{font-size:1.5rem;font-weight:500;}.pdoc > section:not(.module-info) h2{font-size:1.4rem;font-weight:500;}.pdoc > section:not(.module-info) h3{font-size:1.3rem;font-weight:500;}.pdoc > section:not(.module-info) h4{font-size:1.2rem;}.pdoc > section:not(.module-info) h5{font-size:1.1rem;}.pdoc a{text-decoration:none;color:var(--link);}.pdoc a:hover{color:var(--link-hover);}.pdoc blockquote{margin-left:2rem;}.pdoc pre{border-top:1px solid var(--accent2);border-bottom:1px solid var(--accent2);margin-top:0;margin-bottom:1em;padding:.5rem 0 .5rem .5rem;overflow-x:auto;background-color:var(--code);}.pdoc code{color:var(--text);padding:.2em .4em;margin:0;font-size:85%;background-color:var(--code);border-radius:6px;}.pdoc a > code{color:inherit;}.pdoc pre > code{display:inline-block;font-size:inherit;background:none;border:none;padding:0;}.pdoc > section:not(.module-info){margin-bottom:1.5rem;}.pdoc .modulename{margin-top:0;font-weight:bold;}.pdoc .modulename a{color:var(--link);transition:100ms all;}.pdoc .git-button{float:right;border:solid var(--link) 1px;}.pdoc .git-button:hover{background-color:var(--link);color:var(--pdoc-background);}.view-source-toggle-state,.view-source-toggle-state ~ .pdoc-code{display:none;}.view-source-toggle-state:checked ~ .pdoc-code{display:block;}.view-source-button{display:inline-block;float:right;font-size:.75rem;line-height:1.5rem;color:var(--muted);padding:0 .4rem 0 1.3rem;cursor:pointer;text-indent:-2px;}.view-source-button > span{visibility:hidden;}.module-info .view-source-button{float:none;display:flex;justify-content:flex-end;margin:-1.2rem .4rem -.2rem 0;}.view-source-button::before{position:absolute;content:"View Source";display:list-item;list-style-type:disclosure-closed;}.view-source-toggle-state:checked ~ .attr .view-source-button::before,.view-source-toggle-state:checked ~ .view-source-button::before{list-style-type:disclosure-open;}.pdoc .docstring{margin-bottom:1.5rem;}.pdoc section:not(.module-info) .docstring{margin-left:clamp(0rem, 5vw - 2rem, 1rem);}.pdoc .docstring .pdoc-code{margin-left:1em;margin-right:1em;}.pdoc h1:target,.pdoc h2:target,.pdoc h3:target,.pdoc h4:target,.pdoc h5:target,.pdoc h6:target,.pdoc .pdoc-code > pre > span:target{background-color:var(--active);box-shadow:-1rem 0 0 0 var(--active);}.pdoc .pdoc-code > pre > span:target{display:block;}.pdoc div:target > .attr,.pdoc section:target > .attr,.pdoc dd:target > a{background-color:var(--active);}.pdoc *{scroll-margin:2rem;}.pdoc .pdoc-code .linenos{user-select:none;}.pdoc .attr:hover{filter:contrast(0.95);}.pdoc section, .pdoc .classattr{position:relative;}.pdoc .headerlink{--width:clamp(1rem, 3vw, 2rem);position:absolute;top:0;left:calc(0rem - var(--width));transition:all 100ms ease-in-out;opacity:0;}.pdoc .headerlink::before{content:"#";display:block;text-align:center;width:var(--width);height:2.3rem;line-height:2.3rem;font-size:1.5rem;}.pdoc .attr:hover ~ .headerlink,.pdoc *:target > .headerlink,.pdoc .headerlink:hover{opacity:1;}.pdoc .attr{display:block;margin:.5rem 0 .5rem;padding:.4rem .4rem .4rem 1rem;background-color:var(--accent);overflow-x:auto;}.pdoc .classattr{margin-left:2rem;}.pdoc .name{color:var(--name);font-weight:bold;}.pdoc .def{color:var(--def);font-weight:bold;}.pdoc .signature{background-color:transparent;}.pdoc .param, .pdoc .return-annotation{white-space:pre;}.pdoc .signature.multiline .param{display:block;}.pdoc .signature.condensed .param{display:inline-block;}.pdoc .annotation{color:var(--annotation);}.pdoc .inherited{margin-left:2rem;}.pdoc .inherited dt{font-weight:700;}.pdoc .inherited dt, .pdoc .inherited dd{display:inline;margin-left:0;margin-bottom:.5rem;}.pdoc .inherited dd:not(:last-child):after{content:", ";}.pdoc .inherited .class:before{content:"class ";}.pdoc .inherited .function a:after{content:"()";}.pdoc .search-result .docstring{overflow:auto;max-height:25vh;}.pdoc .search-result.focused > .attr{background-color:var(--active);}.pdoc .attribution{margin-top:2rem;display:block;opacity:0.5;transition:all 200ms;filter:grayscale(100%);}.pdoc .attribution:hover{opacity:1;filter:grayscale(0%);}.pdoc .attribution img{margin-left:5px;height:35px;vertical-align:middle;width:70px;transition:all 200ms;}.pdoc table{display:block;width:max-content;max-width:100%;overflow:auto;margin-bottom:1rem;}.pdoc table th{font-weight:600;}.pdoc table th, .pdoc table td{padding:6px 13px;border:1px solid var(--accent2);}</style>
+    <style>/*! custom.css */</style></head>
+<body>
+    <main class="pdoc">
+            <section class="module-info">
+                
+
+                
+                
+                
+                
+            </section>
+                <section id="unwrap">
+                    <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">unwrap</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">v</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="o">~</span><span class="n">T</span><span class="p">]</span></span><span class="return-annotation">) -> <span class="o">~</span><span class="n">T</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#unwrap"></a>
+    
+            <div class="docstring"><p>Simple function to placate pylance</p>
+</div>
+
+
+                </section>
+                <section id="BaselineConfig">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">BaselineConfig</span>:
+
+        
+    </div>
+    <a class="headerlink" href="#BaselineConfig"></a>
+    
+            <div class="docstring"><p>Abstract base class for Baseline config objects. Currently
+only FixedBaseline is implemented though SlidingBaseline and
+others are planned.</p>
+</div>
+
+
+                            <div id="BaselineConfig.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">BaselineConfig</span><span class="signature pdoc-code condensed">()</span>
+
+        
+    </div>
+    <a class="headerlink" href="#BaselineConfig.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="BaselineConfig.to_json" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">to_json</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#BaselineConfig.to_json"></a>
+    
+    
+
+                            </div>
+                </section>
+                <section id="FixedBaseline">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">FixedBaseline</span><wbr>(<span class="base"><a href="#BaselineConfig">BaselineConfig</a></span>):
+
+        
+    </div>
+    <a class="headerlink" href="#FixedBaseline"></a>
+    
+            <div class="docstring"><p>The FixedBaseline is calculate from the inferences from a
+specific time window.</p>
+</div>
+
+
+                            <div id="FixedBaseline.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">FixedBaseline</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">pipeline_name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">start</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span>,</span><span class="param">	<span class="n">end</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#FixedBaseline.__init__"></a>
+    
+    
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt><a href="#BaselineConfig">BaselineConfig</a></dt>
+                                <dd id="FixedBaseline.to_json" class="function"><a href="#BaselineConfig.to_json">to_json</a></dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="BaselineBuilder">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">BaselineBuilder</span><wbr>(<span class="base">abc.ABC</span>):
+
+        
+    </div>
+    <a class="headerlink" href="#BaselineBuilder"></a>
+    
+            <div class="docstring"><p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+</div>
+
+
+                            <div id="BaselineBuilder.build" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator">@abstractmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">build</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="#BaselineConfig">wallaroo.assay_config.BaselineConfig</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#BaselineBuilder.build"></a>
+    
+    
+
+                            </div>
+                            <div id="BaselineBuilder.to_json" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">to_json</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#BaselineBuilder.to_json"></a>
+    
+    
+
+                            </div>
+                </section>
+                <section id="ensure_tz">
+                    <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">ensure_tz</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">d</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span></span><span class="return-annotation">) -> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#ensure_tz"></a>
+    
+            <div class="docstring"><p>Ensure the date it tz aware. If naive assume it is in utc.</p>
+</div>
+
+
+                </section>
+                <section id="FixedBaselineBuilder">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">FixedBaselineBuilder</span><wbr>(<span class="base"><a href="#BaselineBuilder">BaselineBuilder</a></span>):
+
+        
+    </div>
+    <a class="headerlink" href="#FixedBaselineBuilder"></a>
+    
+            <div class="docstring"><p>Helps to easily create the config object for a FixedBaseline.</p>
+</div>
+
+
+                            <div id="FixedBaselineBuilder.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">FixedBaselineBuilder</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">pipeline_name</span><span class="p">:</span> <span class="nb">str</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#FixedBaselineBuilder.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="FixedBaselineBuilder.add_model_name" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_model_name</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#FixedBaselineBuilder.add_model_name"></a>
+    
+            <div class="docstring"><p>Specify the model to use in the baseline</p>
+</div>
+
+
+                            </div>
+                            <div id="FixedBaselineBuilder.add_start" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_start</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">start</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#FixedBaselineBuilder.add_start"></a>
+    
+            <div class="docstring"><p>Specify the start of the window for the baseline</p>
+</div>
+
+
+                            </div>
+                            <div id="FixedBaselineBuilder.add_end" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_end</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">end</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#FixedBaselineBuilder.add_end"></a>
+    
+            <div class="docstring"><p>Specify the end of the window for the baseline</p>
+</div>
+
+
+                            </div>
+                            <div id="FixedBaselineBuilder.build" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">build</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="#FixedBaseline">wallaroo.assay_config.FixedBaseline</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#FixedBaselineBuilder.build"></a>
+    
+            <div class="docstring"><p>Create the FixedBaseline object.</p>
+</div>
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt><a href="#BaselineBuilder">BaselineBuilder</a></dt>
+                                <dd id="FixedBaselineBuilder.to_json" class="function"><a href="#BaselineBuilder.to_json">to_json</a></dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="SummarizerConfig">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">SummarizerConfig</span>:
+
+        
+    </div>
+    <a class="headerlink" href="#SummarizerConfig"></a>
+    
+            <div class="docstring"><p>The summarizer specifies how the bins of the baseline and
+window should be compared.</p>
+</div>
+
+
+                            <div id="SummarizerConfig.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">SummarizerConfig</span><span class="signature pdoc-code condensed">()</span>
+
+        
+    </div>
+    <a class="headerlink" href="#SummarizerConfig.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="SummarizerConfig.to_json" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">to_json</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#SummarizerConfig.to_json"></a>
+    
+    
+
+                            </div>
+                </section>
+                <section id="BinMode">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">BinMode</span><wbr>(<span class="base">builtins.str</span>, <span class="base">enum.Enum</span>):
+
+        
+    </div>
+    <a class="headerlink" href="#BinMode"></a>
+    
+            <div class="docstring"><p>How should we calculate the bins.
+NONE - no bins. Only useful if we only care about the mean, median, etc.
+EQUAL - evenly spaced bins: min - max / num_bins
+QUANTILE - based on percentages. If num_bins is 5 then quintiles
+so bins are created at the 20%, 40%, 60%, 80% and 100% points.
+PROVIDED - user provides the edge points for the bins.</p>
+</div>
+
+
+                            <div id="BinMode.NONE" class="classattr">
+                                <div class="attr variable">
+            <span class="name">NONE</span><span class="default_value"> = &lt;<a href="#BinMode.NONE">BinMode.NONE</a>: &#39;None&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#BinMode.NONE"></a>
+    
+    
+
+                            </div>
+                            <div id="BinMode.EQUAL" class="classattr">
+                                <div class="attr variable">
+            <span class="name">EQUAL</span><span class="default_value"> = &lt;<a href="#BinMode.EQUAL">BinMode.EQUAL</a>: &#39;Equal&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#BinMode.EQUAL"></a>
+    
+    
+
+                            </div>
+                            <div id="BinMode.QUANTILE" class="classattr">
+                                <div class="attr variable">
+            <span class="name">QUANTILE</span><span class="default_value"> = &lt;<a href="#BinMode.QUANTILE">BinMode.QUANTILE</a>: &#39;Quantile&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#BinMode.QUANTILE"></a>
+    
+    
+
+                            </div>
+                            <div id="BinMode.PROVIDED" class="classattr">
+                                <div class="attr variable">
+            <span class="name">PROVIDED</span><span class="default_value"> = &lt;<a href="#BinMode.PROVIDED">BinMode.PROVIDED</a>: &#39;Provided&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#BinMode.PROVIDED"></a>
+    
+    
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>enum.Enum</dt>
+                                <dd id="BinMode.name" class="variable">name</dd>
+                <dd id="BinMode.value" class="variable">value</dd>
+
+            </div>
+            <div><dt>builtins.str</dt>
+                                <dd id="BinMode.encode" class="function">encode</dd>
+                <dd id="BinMode.replace" class="function">replace</dd>
+                <dd id="BinMode.split" class="function">split</dd>
+                <dd id="BinMode.rsplit" class="function">rsplit</dd>
+                <dd id="BinMode.join" class="function">join</dd>
+                <dd id="BinMode.capitalize" class="function">capitalize</dd>
+                <dd id="BinMode.casefold" class="function">casefold</dd>
+                <dd id="BinMode.title" class="function">title</dd>
+                <dd id="BinMode.center" class="function">center</dd>
+                <dd id="BinMode.count" class="function">count</dd>
+                <dd id="BinMode.expandtabs" class="function">expandtabs</dd>
+                <dd id="BinMode.find" class="function">find</dd>
+                <dd id="BinMode.partition" class="function">partition</dd>
+                <dd id="BinMode.index" class="function">index</dd>
+                <dd id="BinMode.ljust" class="function">ljust</dd>
+                <dd id="BinMode.lower" class="function">lower</dd>
+                <dd id="BinMode.lstrip" class="function">lstrip</dd>
+                <dd id="BinMode.rfind" class="function">rfind</dd>
+                <dd id="BinMode.rindex" class="function">rindex</dd>
+                <dd id="BinMode.rjust" class="function">rjust</dd>
+                <dd id="BinMode.rstrip" class="function">rstrip</dd>
+                <dd id="BinMode.rpartition" class="function">rpartition</dd>
+                <dd id="BinMode.splitlines" class="function">splitlines</dd>
+                <dd id="BinMode.strip" class="function">strip</dd>
+                <dd id="BinMode.swapcase" class="function">swapcase</dd>
+                <dd id="BinMode.translate" class="function">translate</dd>
+                <dd id="BinMode.upper" class="function">upper</dd>
+                <dd id="BinMode.startswith" class="function">startswith</dd>
+                <dd id="BinMode.endswith" class="function">endswith</dd>
+                <dd id="BinMode.removeprefix" class="function">removeprefix</dd>
+                <dd id="BinMode.removesuffix" class="function">removesuffix</dd>
+                <dd id="BinMode.isascii" class="function">isascii</dd>
+                <dd id="BinMode.islower" class="function">islower</dd>
+                <dd id="BinMode.isupper" class="function">isupper</dd>
+                <dd id="BinMode.istitle" class="function">istitle</dd>
+                <dd id="BinMode.isspace" class="function">isspace</dd>
+                <dd id="BinMode.isdecimal" class="function">isdecimal</dd>
+                <dd id="BinMode.isdigit" class="function">isdigit</dd>
+                <dd id="BinMode.isnumeric" class="function">isnumeric</dd>
+                <dd id="BinMode.isalpha" class="function">isalpha</dd>
+                <dd id="BinMode.isalnum" class="function">isalnum</dd>
+                <dd id="BinMode.isidentifier" class="function">isidentifier</dd>
+                <dd id="BinMode.isprintable" class="function">isprintable</dd>
+                <dd id="BinMode.zfill" class="function">zfill</dd>
+                <dd id="BinMode.format" class="function">format</dd>
+                <dd id="BinMode.format_map" class="function">format_map</dd>
+                <dd id="BinMode.maketrans" class="function">maketrans</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="Aggregation">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Aggregation</span><wbr>(<span class="base">builtins.str</span>, <span class="base">enum.Enum</span>):
+
+        
+    </div>
+    <a class="headerlink" href="#Aggregation"></a>
+    
+            <div class="docstring"><p>What we use to calculate the score.
+EDGES - distnces between the edges.
+DENSITY - percentage of values that fall in each bin.
+CUMULATIVE - cumulative percentage that fall in the bins.</p>
+</div>
+
+
+                            <div id="Aggregation.EDGES" class="classattr">
+                                <div class="attr variable">
+            <span class="name">EDGES</span><span class="default_value"> = &lt;<a href="#Aggregation.EDGES">Aggregation.EDGES</a>: &#39;Edges&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Aggregation.EDGES"></a>
+    
+    
+
+                            </div>
+                            <div id="Aggregation.DENSITY" class="classattr">
+                                <div class="attr variable">
+            <span class="name">DENSITY</span><span class="default_value"> = &lt;<a href="#Aggregation.DENSITY">Aggregation.DENSITY</a>: &#39;Density&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Aggregation.DENSITY"></a>
+    
+    
+
+                            </div>
+                            <div id="Aggregation.CUMULATIVE" class="classattr">
+                                <div class="attr variable">
+            <span class="name">CUMULATIVE</span><span class="default_value"> = &lt;<a href="#Aggregation.CUMULATIVE">Aggregation.CUMULATIVE</a>: &#39;Cumulative&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Aggregation.CUMULATIVE"></a>
+    
+    
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>enum.Enum</dt>
+                                <dd id="Aggregation.name" class="variable">name</dd>
+                <dd id="Aggregation.value" class="variable">value</dd>
+
+            </div>
+            <div><dt>builtins.str</dt>
+                                <dd id="Aggregation.encode" class="function">encode</dd>
+                <dd id="Aggregation.replace" class="function">replace</dd>
+                <dd id="Aggregation.split" class="function">split</dd>
+                <dd id="Aggregation.rsplit" class="function">rsplit</dd>
+                <dd id="Aggregation.join" class="function">join</dd>
+                <dd id="Aggregation.capitalize" class="function">capitalize</dd>
+                <dd id="Aggregation.casefold" class="function">casefold</dd>
+                <dd id="Aggregation.title" class="function">title</dd>
+                <dd id="Aggregation.center" class="function">center</dd>
+                <dd id="Aggregation.count" class="function">count</dd>
+                <dd id="Aggregation.expandtabs" class="function">expandtabs</dd>
+                <dd id="Aggregation.find" class="function">find</dd>
+                <dd id="Aggregation.partition" class="function">partition</dd>
+                <dd id="Aggregation.index" class="function">index</dd>
+                <dd id="Aggregation.ljust" class="function">ljust</dd>
+                <dd id="Aggregation.lower" class="function">lower</dd>
+                <dd id="Aggregation.lstrip" class="function">lstrip</dd>
+                <dd id="Aggregation.rfind" class="function">rfind</dd>
+                <dd id="Aggregation.rindex" class="function">rindex</dd>
+                <dd id="Aggregation.rjust" class="function">rjust</dd>
+                <dd id="Aggregation.rstrip" class="function">rstrip</dd>
+                <dd id="Aggregation.rpartition" class="function">rpartition</dd>
+                <dd id="Aggregation.splitlines" class="function">splitlines</dd>
+                <dd id="Aggregation.strip" class="function">strip</dd>
+                <dd id="Aggregation.swapcase" class="function">swapcase</dd>
+                <dd id="Aggregation.translate" class="function">translate</dd>
+                <dd id="Aggregation.upper" class="function">upper</dd>
+                <dd id="Aggregation.startswith" class="function">startswith</dd>
+                <dd id="Aggregation.endswith" class="function">endswith</dd>
+                <dd id="Aggregation.removeprefix" class="function">removeprefix</dd>
+                <dd id="Aggregation.removesuffix" class="function">removesuffix</dd>
+                <dd id="Aggregation.isascii" class="function">isascii</dd>
+                <dd id="Aggregation.islower" class="function">islower</dd>
+                <dd id="Aggregation.isupper" class="function">isupper</dd>
+                <dd id="Aggregation.istitle" class="function">istitle</dd>
+                <dd id="Aggregation.isspace" class="function">isspace</dd>
+                <dd id="Aggregation.isdecimal" class="function">isdecimal</dd>
+                <dd id="Aggregation.isdigit" class="function">isdigit</dd>
+                <dd id="Aggregation.isnumeric" class="function">isnumeric</dd>
+                <dd id="Aggregation.isalpha" class="function">isalpha</dd>
+                <dd id="Aggregation.isalnum" class="function">isalnum</dd>
+                <dd id="Aggregation.isidentifier" class="function">isidentifier</dd>
+                <dd id="Aggregation.isprintable" class="function">isprintable</dd>
+                <dd id="Aggregation.zfill" class="function">zfill</dd>
+                <dd id="Aggregation.format" class="function">format</dd>
+                <dd id="Aggregation.format_map" class="function">format_map</dd>
+                <dd id="Aggregation.maketrans" class="function">maketrans</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="Metric">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Metric</span><wbr>(<span class="base">builtins.str</span>, <span class="base">enum.Enum</span>):
+
+        
+    </div>
+    <a class="headerlink" href="#Metric"></a>
+    
+            <div class="docstring"><p>How we calculate the score.
+MAXDIFF - maximum difference between corresponding bins.
+SUMDIFF - sum of differences between corresponding bins.
+PSI - Population Stability Index</p>
+</div>
+
+
+                            <div id="Metric.MAXDIFF" class="classattr">
+                                <div class="attr variable">
+            <span class="name">MAXDIFF</span><span class="default_value"> = &lt;<a href="#Metric.MAXDIFF">Metric.MAXDIFF</a>: &#39;MaxDiff&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Metric.MAXDIFF"></a>
+    
+    
+
+                            </div>
+                            <div id="Metric.SUMDIFF" class="classattr">
+                                <div class="attr variable">
+            <span class="name">SUMDIFF</span><span class="default_value"> = &lt;<a href="#Metric.SUMDIFF">Metric.SUMDIFF</a>: &#39;SumDiff&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Metric.SUMDIFF"></a>
+    
+    
+
+                            </div>
+                            <div id="Metric.PSI" class="classattr">
+                                <div class="attr variable">
+            <span class="name">PSI</span><span class="default_value"> = &lt;<a href="#Metric.PSI">Metric.PSI</a>: &#39;PSI&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Metric.PSI"></a>
+    
+    
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>enum.Enum</dt>
+                                <dd id="Metric.name" class="variable">name</dd>
+                <dd id="Metric.value" class="variable">value</dd>
+
+            </div>
+            <div><dt>builtins.str</dt>
+                                <dd id="Metric.encode" class="function">encode</dd>
+                <dd id="Metric.replace" class="function">replace</dd>
+                <dd id="Metric.split" class="function">split</dd>
+                <dd id="Metric.rsplit" class="function">rsplit</dd>
+                <dd id="Metric.join" class="function">join</dd>
+                <dd id="Metric.capitalize" class="function">capitalize</dd>
+                <dd id="Metric.casefold" class="function">casefold</dd>
+                <dd id="Metric.title" class="function">title</dd>
+                <dd id="Metric.center" class="function">center</dd>
+                <dd id="Metric.count" class="function">count</dd>
+                <dd id="Metric.expandtabs" class="function">expandtabs</dd>
+                <dd id="Metric.find" class="function">find</dd>
+                <dd id="Metric.partition" class="function">partition</dd>
+                <dd id="Metric.index" class="function">index</dd>
+                <dd id="Metric.ljust" class="function">ljust</dd>
+                <dd id="Metric.lower" class="function">lower</dd>
+                <dd id="Metric.lstrip" class="function">lstrip</dd>
+                <dd id="Metric.rfind" class="function">rfind</dd>
+                <dd id="Metric.rindex" class="function">rindex</dd>
+                <dd id="Metric.rjust" class="function">rjust</dd>
+                <dd id="Metric.rstrip" class="function">rstrip</dd>
+                <dd id="Metric.rpartition" class="function">rpartition</dd>
+                <dd id="Metric.splitlines" class="function">splitlines</dd>
+                <dd id="Metric.strip" class="function">strip</dd>
+                <dd id="Metric.swapcase" class="function">swapcase</dd>
+                <dd id="Metric.translate" class="function">translate</dd>
+                <dd id="Metric.upper" class="function">upper</dd>
+                <dd id="Metric.startswith" class="function">startswith</dd>
+                <dd id="Metric.endswith" class="function">endswith</dd>
+                <dd id="Metric.removeprefix" class="function">removeprefix</dd>
+                <dd id="Metric.removesuffix" class="function">removesuffix</dd>
+                <dd id="Metric.isascii" class="function">isascii</dd>
+                <dd id="Metric.islower" class="function">islower</dd>
+                <dd id="Metric.isupper" class="function">isupper</dd>
+                <dd id="Metric.istitle" class="function">istitle</dd>
+                <dd id="Metric.isspace" class="function">isspace</dd>
+                <dd id="Metric.isdecimal" class="function">isdecimal</dd>
+                <dd id="Metric.isdigit" class="function">isdigit</dd>
+                <dd id="Metric.isnumeric" class="function">isnumeric</dd>
+                <dd id="Metric.isalpha" class="function">isalpha</dd>
+                <dd id="Metric.isalnum" class="function">isalnum</dd>
+                <dd id="Metric.isidentifier" class="function">isidentifier</dd>
+                <dd id="Metric.isprintable" class="function">isprintable</dd>
+                <dd id="Metric.zfill" class="function">zfill</dd>
+                <dd id="Metric.format" class="function">format</dd>
+                <dd id="Metric.format_map" class="function">format_map</dd>
+                <dd id="Metric.maketrans" class="function">maketrans</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="UnivariateContinousSummarizerConfig">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">UnivariateContinousSummarizerConfig</span><wbr>(<span class="base"><a href="#SummarizerConfig">SummarizerConfig</a></span>):
+
+        
+    </div>
+    <a class="headerlink" href="#UnivariateContinousSummarizerConfig"></a>
+    
+            <div class="docstring"><p>The UnivariateContinousSummarizer analyizes one input or output feature
+(Univariate) at a time. Expects the values to be continous or at least numerous
+enough to fall in various/all the bins.</p>
+</div>
+
+
+                            <div id="UnivariateContinousSummarizerConfig.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">UnivariateContinousSummarizerConfig</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">bin_mode</span><span class="p">:</span> <span class="n"><a href="#BinMode">wallaroo.assay_config.BinMode</a></span>,</span><span class="param">	<span class="n">aggregation</span><span class="p">:</span> <span class="n"><a href="#Aggregation">wallaroo.assay_config.Aggregation</a></span>,</span><span class="param">	<span class="n">metric</span><span class="p">:</span> <span class="n"><a href="#Metric">wallaroo.assay_config.Metric</a></span>,</span><span class="param">	<span class="n">num_bins</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">bin_weights</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">bin_width</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">provided_edges</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">add_outlier_edges</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#UnivariateContinousSummarizerConfig.__init__"></a>
+    
+    
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt><a href="#SummarizerConfig">SummarizerConfig</a></dt>
+                                <dd id="UnivariateContinousSummarizerConfig.to_json" class="function"><a href="#SummarizerConfig.to_json">to_json</a></dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="SummarizerBuilder">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">SummarizerBuilder</span><wbr>(<span class="base">abc.ABC</span>):
+
+        
+    </div>
+    <a class="headerlink" href="#SummarizerBuilder"></a>
+    
+            <div class="docstring"><p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+</div>
+
+
+                            <div id="SummarizerBuilder.build" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator">@abstractmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">build</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="#SummarizerConfig">wallaroo.assay_config.SummarizerConfig</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#SummarizerBuilder.build"></a>
+    
+    
+
+                            </div>
+                </section>
+                <section id="UnivariateContinousSummarizerBuilder">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">UnivariateContinousSummarizerBuilder</span><wbr>(<span class="base"><a href="#SummarizerBuilder">SummarizerBuilder</a></span>):
+
+        
+    </div>
+    <a class="headerlink" href="#UnivariateContinousSummarizerBuilder"></a>
+    
+            <div class="docstring"><p>Builds the UnviariateSummarizer</p>
+</div>
+
+
+                            <div id="UnivariateContinousSummarizerBuilder.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">UnivariateContinousSummarizerBuilder</span><span class="signature pdoc-code condensed">()</span>
+
+        
+    </div>
+    <a class="headerlink" href="#UnivariateContinousSummarizerBuilder.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="UnivariateContinousSummarizerBuilder.build" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">build</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="#UnivariateContinousSummarizerConfig">wallaroo.assay_config.UnivariateContinousSummarizerConfig</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#UnivariateContinousSummarizerBuilder.build"></a>
+    
+    
+
+                            </div>
+                            <div id="UnivariateContinousSummarizerBuilder.add_bin_mode" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_bin_mode</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">bin_mode</span><span class="p">:</span> <span class="n"><a href="#BinMode">wallaroo.assay_config.BinMode</a></span>,</span><span class="param">	<span class="n">edges</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#UnivariateContinousSummarizerBuilder.add_bin_mode"></a>
+    
+            <div class="docstring"><p>Sets the binning mode. If <a href="#BinMode.PROVIDED">BinMode.PROVIDED</a> is specified a list of edges
+is also required.</p>
+</div>
+
+
+                            </div>
+                            <div id="UnivariateContinousSummarizerBuilder.add_num_bins" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_num_bins</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">num_bins</span><span class="p">:</span> <span class="nb">int</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#UnivariateContinousSummarizerBuilder.add_num_bins"></a>
+    
+            <div class="docstring"><p>Sets the number of bins. If weights have been previously set they
+must be set to none to allow changing the number of bins.</p>
+</div>
+
+
+                            </div>
+                            <div id="UnivariateContinousSummarizerBuilder.add_bin_weights" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_bin_weights</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">weights</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#UnivariateContinousSummarizerBuilder.add_bin_weights"></a>
+    
+            <div class="docstring"><p>Specifies the weighting to be given to the bins. The number of weights
+must be 2 larger than the number of bins to accomodate outliers smaller
+and outliers larger than values seen in the baseline.
+The passed in values can be whole or real numbers and do not need to add
+up to 1 or any other specific value as they will be normalized during the
+score calculation phase.
+The weights passed in can be none to remove previously specified weights
+and to allow changing of the number of bins.</p>
+</div>
+
+
+                            </div>
+                            <div id="UnivariateContinousSummarizerBuilder.add_metric" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_metric</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">metric</span><span class="p">:</span> <span class="n"><a href="#Metric">wallaroo.assay_config.Metric</a></span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#UnivariateContinousSummarizerBuilder.add_metric"></a>
+    
+            <div class="docstring"><p>Sets the metric mode.</p>
+</div>
+
+
+                            </div>
+                            <div id="UnivariateContinousSummarizerBuilder.add_aggregation" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_aggregation</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">aggregation</span><span class="p">:</span> <span class="n"><a href="#Aggregation">wallaroo.assay_config.Aggregation</a></span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#UnivariateContinousSummarizerBuilder.add_aggregation"></a>
+    
+            <div class="docstring"><p>Sets the aggregation style.</p>
+</div>
+
+
+                            </div>
+                            <div id="UnivariateContinousSummarizerBuilder.add_bin_edges" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_bin_edges</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">edges</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#UnivariateContinousSummarizerBuilder.add_bin_edges"></a>
+    
+            <div class="docstring"><p>Specifies the right hand side (max value) of the bins. The number
+of edges must be equal to or one more than the number of bins. When
+equal to the number of bins the edge for the left outlier bin is
+calculated from the baseline. When an additional edge (one more than
+number of bins) that first (lower) value is used as the max value for
+the left outlier bin.  The max value for the right hand outlier bin is
+always Float MAX.</p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="WindowConfig">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">WindowConfig</span>:
+
+        
+    </div>
+    <a class="headerlink" href="#WindowConfig"></a>
+    
+            <div class="docstring"><p>Configures a window to be compared against the baseline.</p>
+</div>
+
+
+                            <div id="WindowConfig.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">WindowConfig</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">pipeline_name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">width</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">start</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">interval</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#WindowConfig.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="WindowConfig.to_json" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">to_json</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#WindowConfig.to_json"></a>
+    
+    
+
+                            </div>
+                </section>
+                <section id="WindowBuilder">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">WindowBuilder</span>:
+
+        
+    </div>
+    <a class="headerlink" href="#WindowBuilder"></a>
+    
+            <div class="docstring"><p>Helps build a WindowConfig. model and width are required but there are no
+good default values for them because they depend on the baseline. We leave it
+up to the assay builder to configure the window correctly after it is created.</p>
+</div>
+
+
+                            <div id="WindowBuilder.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">WindowBuilder</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">pipeline_name</span><span class="p">:</span> <span class="nb">str</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#WindowBuilder.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="WindowBuilder.add_model_name" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_model_name</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#WindowBuilder.add_model_name"></a>
+    
+            <div class="docstring"><p>The model name (model_id) that the window should analyze.</p>
+</div>
+
+
+                            </div>
+                            <div id="WindowBuilder.add_width" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_width</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#WindowBuilder.add_width"></a>
+    
+            <div class="docstring"><p>The width of the window to use when collecting data for analysis.</p>
+</div>
+
+
+                            </div>
+                            <div id="WindowBuilder.add_interval" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_interval</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#WindowBuilder.add_interval"></a>
+    
+            <div class="docstring"><p>The width of the window to use when collecting data for analysis.</p>
+</div>
+
+
+                            </div>
+                            <div id="WindowBuilder.add_start" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_start</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">start</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#WindowBuilder.add_start"></a>
+    
+    
+
+                            </div>
+                            <div id="WindowBuilder.build" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">build</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="#WindowConfig">wallaroo.assay_config.WindowConfig</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#WindowBuilder.build"></a>
+    
+    
+
+                            </div>
+                </section>
+                <section id="ConfigEncoder">
+                    <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">ConfigEncoder</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">o</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#ConfigEncoder"></a>
+    
+            <div class="docstring"><p>Used to format datetimes as we need when encoding to JSON</p>
+</div>
+
+
+                </section>
+                <section id="AssayConfig">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">AssayConfig</span>:
+
+        
+    </div>
+    <a class="headerlink" href="#AssayConfig"></a>
+    
+            <div class="docstring"><p>Configuration for an Assay record.</p>
+</div>
+
+
+                            <div id="AssayConfig.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">AssayConfig</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">client</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="client.html#Client">wallaroo.client.Client</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">pipeline_id</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">pipeline_name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">active</span><span class="p">:</span> <span class="nb">bool</span>,</span><span class="param">	<span class="n">status</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">iopath</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">baseline</span><span class="p">:</span> <span class="n"><a href="#BaselineConfig">wallaroo.assay_config.BaselineConfig</a></span>,</span><span class="param">	<span class="n">window</span><span class="p">:</span> <span class="n"><a href="#WindowConfig">wallaroo.assay_config.WindowConfig</a></span>,</span><span class="param">	<span class="n">summarizer</span><span class="p">:</span> <span class="n"><a href="#SummarizerConfig">wallaroo.assay_config.SummarizerConfig</a></span>,</span><span class="param">	<span class="n">warning_threshold</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>,</span><span class="param">	<span class="n">alert_threshold</span><span class="p">:</span> <span class="nb">float</span>,</span><span class="param">	<span class="n">run_until</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span>,</span><span class="param">	<span class="n">workspace_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayConfig.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="AssayConfig.to_json" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">to_json</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayConfig.to_json"></a>
+    
+    
+
+                            </div>
+                            <div id="AssayConfig.interactive_run" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">interactive_run</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="assay.html#AssayAnalysisList">wallaroo.assay.AssayAnalysisList</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayConfig.interactive_run"></a>
+    
+            <div class="docstring"><p>Runs this assay interactively. The assay is not saved to the database
+nor are analyis records saved to a Plateau topic. Useful for exploring
+pipeline inference data and experimenting with thresholds.</p>
+</div>
+
+
+                            </div>
+                            <div id="AssayConfig.interactive_baseline_run" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">interactive_baseline_run</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="assay.html#AssayAnalysis">wallaroo.assay.AssayAnalysis</a></span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayConfig.interactive_baseline_run"></a>
+    
+    
+
+                            </div>
+                            <div id="AssayConfig.interactive_input_run_arrow" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">interactive_input_run_arrow</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">inferences</span><span class="p">:</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span>,</span><span class="param">	<span class="n">labels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span></span><span class="return-annotation">) -> <span class="n"><a href="assay.html#AssayAnalysisList">wallaroo.assay.AssayAnalysisList</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayConfig.interactive_input_run_arrow"></a>
+    
+    
+
+                            </div>
+                            <div id="AssayConfig.interactive_input_run_legacy" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">interactive_input_run_legacy</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">inferences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span>,</span><span class="param">	<span class="n">labels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span></span><span class="return-annotation">) -> <span class="n"><a href="assay.html#AssayAnalysisList">wallaroo.assay.AssayAnalysisList</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayConfig.interactive_input_run_legacy"></a>
+    
+    
+
+                            </div>
+                            <div id="AssayConfig.interactive_input_run" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">interactive_input_run</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">inferences</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">],</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span>,</span><span class="param">	<span class="n">labels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span></span><span class="return-annotation">) -> <span class="n"><a href="assay.html#AssayAnalysisList">wallaroo.assay.AssayAnalysisList</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayConfig.interactive_input_run"></a>
+    
+            <div class="docstring"><p>Analyzes the inputs given to create an interactive run for each feature
+column. The assay is not saved to the database nor are analyis records saved
+to a Plateau topic. Usefull for exploring inputs for possible causes when a
+difference is detected in the output.</p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="AssayBuilder">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">AssayBuilder</span>:
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder"></a>
+    
+            <div class="docstring"><p>Helps build an AssayConfig</p>
+</div>
+
+
+                            <div id="AssayBuilder.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">AssayBuilder</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">client</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="client.html#Client">wallaroo.client.Client</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">pipeline_id</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">pipeline_name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">baseline_start</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span>,</span><span class="param">	<span class="n">baseline_end</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span>,</span><span class="param">	<span class="n">iopath</span><span class="p">:</span> <span class="nb">str</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="AssayBuilder.baseline_dataframe" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">baseline_dataframe</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.baseline_dataframe"></a>
+    
+    
+
+                            </div>
+                            <div id="AssayBuilder.baseline_histogram" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">baseline_histogram</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">bins</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">log_scale</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.baseline_histogram"></a>
+    
+    
+
+                            </div>
+                            <div id="AssayBuilder.baseline_kde" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">baseline_kde</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">log_scale</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.baseline_kde"></a>
+    
+    
+
+                            </div>
+                            <div id="AssayBuilder.baseline_ecdf" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">baseline_ecdf</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">log_scale</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.baseline_ecdf"></a>
+    
+    
+
+                            </div>
+                            <div id="AssayBuilder.build" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">build</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="#AssayConfig">wallaroo.assay_config.AssayConfig</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.build"></a>
+    
+    
+
+                            </div>
+                            <div id="AssayBuilder.upload" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">upload</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">int</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.upload"></a>
+    
+    
+
+                            </div>
+                            <div id="AssayBuilder.add_name" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_name</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.add_name"></a>
+    
+            <div class="docstring"><p>Specify the assay name</p>
+</div>
+
+
+                            </div>
+                            <div id="AssayBuilder.add_active" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_active</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">active</span><span class="p">:</span> <span class="nb">bool</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.add_active"></a>
+    
+            <div class="docstring"><p>Specify if the assay is active or not</p>
+</div>
+
+
+                            </div>
+                            <div id="AssayBuilder.add_iopath" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_iopath</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">iopath</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.add_iopath"></a>
+    
+            <div class="docstring"><p>Specify what the assay should analyze. Should start with input or output and have
+indexes (zero based) into row and column: For example 'input 0 1' specifies the second
+column of the first input.</p>
+</div>
+
+
+                            </div>
+                            <div id="AssayBuilder.fixed_baseline_builder" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">fixed_baseline_builder</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.fixed_baseline_builder"></a>
+    
+            <div class="docstring"><p>Specify creates a fixed baseline builder for this assay builder.</p>
+</div>
+
+
+                            </div>
+                            <div id="AssayBuilder.add_baseline" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_baseline</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">baseline</span><span class="p">:</span> <span class="n"><a href="#BaselineConfig">wallaroo.assay_config.BaselineConfig</a></span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.add_baseline"></a>
+    
+            <div class="docstring"><p>Adds a specific baseline created elsewhere.</p>
+</div>
+
+
+                            </div>
+                            <div id="AssayBuilder.window_builder" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">window_builder</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.window_builder"></a>
+    
+            <div class="docstring"><p>Returns this assay builders window builder.</p>
+</div>
+
+
+                            </div>
+                            <div id="AssayBuilder.add_window" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_window</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">window</span><span class="p">:</span> <span class="n"><a href="#WindowConfig">wallaroo.assay_config.WindowConfig</a></span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.add_window"></a>
+    
+            <div class="docstring"><p>Adds a window created elsewhere.</p>
+</div>
+
+
+                            </div>
+                            <div id="AssayBuilder.univariate_continuous_summarizer" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">univariate_continuous_summarizer</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="#UnivariateContinousSummarizerBuilder">wallaroo.assay_config.UnivariateContinousSummarizerBuilder</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.univariate_continuous_summarizer"></a>
+    
+            <div class="docstring"><p>Creates and adds an UCS to this assay builder.</p>
+</div>
+
+
+                            </div>
+                            <div id="AssayBuilder.add_summarizer" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_summarizer</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">summarizer</span><span class="p">:</span> <span class="n"><a href="#SummarizerConfig">wallaroo.assay_config.SummarizerConfig</a></span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.add_summarizer"></a>
+    
+            <div class="docstring"><p>Adds the summarizer created elsewhere to this builder.</p>
+</div>
+
+
+                            </div>
+                            <div id="AssayBuilder.add_warning_threshold" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_warning_threshold</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">warning_threshold</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.add_warning_threshold"></a>
+    
+            <div class="docstring"><p>Specify the warning threshold for this assay.</p>
+</div>
+
+
+                            </div>
+                            <div id="AssayBuilder.add_alert_threshold" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_alert_threshold</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">alert_threshold</span><span class="p">:</span> <span class="nb">float</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.add_alert_threshold"></a>
+    
+            <div class="docstring"><p>Specify the alert threshold for this assay.</p>
+</div>
+
+
+                            </div>
+                            <div id="AssayBuilder.add_run_until" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">add_run_until</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">run_until</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AssayBuilder.add_run_until"></a>
+    
+            <div class="docstring"><p>"How long should this assay run. Primarily useful for
+interactive runs to limit the number of analysis.</p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="calc_bins">
+                    <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calc_bins</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">num_samples</span><span class="p">:</span> <span class="nb">int</span>, </span><span class="param"><span class="n">bins</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span></span><span class="return-annotation">) -> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#calc_bins"></a>
+    
+            <div class="docstring"><p>If the users specifies a number of bins or a strategy for calculating
+it use that. Else us the min of the square root or 50.</p>
+</div>
+
+
+                </section>
+    </main>
+<script>
+    function escapeHTML(html) {
+        return document.createElement('div').appendChild(document.createTextNode(html)).parentNode.innerHTML;
+    }
+
+    const originalContent = document.querySelector("main.pdoc");
+    let currentContent = originalContent;
+
+    function setContent(innerHTML) {
+        let elem;
+        if (innerHTML) {
+            elem = document.createElement("main");
+            elem.classList.add("pdoc");
+            elem.innerHTML = innerHTML;
+        } else {
+            elem = originalContent;
+        }
+        if (currentContent !== elem) {
+            currentContent.replaceWith(elem);
+            currentContent = elem;
+        }
+    }
+
+    function getSearchTerm() {
+        return (new URL(window.location)).searchParams.get("search");
+    }
+
+    const searchBox = document.querySelector(".pdoc input[type=search]");
+    searchBox.addEventListener("input", function () {
+        let url = new URL(window.location);
+        if (searchBox.value.trim()) {
+            url.hash = "";
+            url.searchParams.set("search", searchBox.value);
+        } else {
+            url.searchParams.delete("search");
+        }
+        history.replaceState("", "", url.toString());
+        onInput();
+    });
+    window.addEventListener("popstate", onInput);
+
+
+    let search, searchErr;
+
+    async function initialize() {
+        try {
+            search = await new Promise((resolve, reject) => {
+                const script = document.createElement("script");
+                script.type = "text/javascript";
+                script.async = true;
+                script.onload = () => resolve(window.pdocSearch);
+                script.onerror = (e) => reject(e);
+                script.src = "../search.js";
+                document.getElementsByTagName("head")[0].appendChild(script);
+            });
+        } catch (e) {
+            console.error("Cannot fetch pdoc search index");
+            searchErr = "Cannot fetch search index.";
+        }
+        onInput();
+
+        document.querySelector("nav.pdoc").addEventListener("click", e => {
+            if (e.target.hash) {
+                searchBox.value = "";
+                searchBox.dispatchEvent(new Event("input"));
+            }
+        });
+    }
+
+    function onInput() {
+        setContent((() => {
+            const term = getSearchTerm();
+            if (!term) {
+                return null
+            }
+            if (searchErr) {
+                return `<h3>Error: ${searchErr}</h3>`
+            }
+            if (!search) {
+                return "<h3>Searching...</h3>"
+            }
+
+            window.scrollTo({top: 0, left: 0, behavior: 'auto'});
+
+            const results = search(term);
+
+            let html;
+            if (results.length === 0) {
+                html = `No search results for '${escapeHTML(term)}'.`
+            } else {
+                html = `<h4>${results.length} search result${results.length > 1 ? "s" : ""} for '${escapeHTML(term)}'.</h4>`;
+            }
+            for (let result of results.slice(0, 10)) {
+                let doc = result.doc;
+                let url = `../${doc.modulename.replaceAll(".", "/")}.html`;
+                if (doc.qualname) {
+                    url += `#${doc.qualname}`;
+                }
+
+                let heading;
+                switch (result.doc.type) {
+                    case "function":
+                        if (doc.fullname.endsWith(".__init__")) {
+                            heading = `<span class="name">${doc.fullname.replace(/\.__init__$/, "")}</span>${doc.signature}`;
+                        } else {
+                            heading = `<span class="def">${doc.funcdef}</span> <span class="name">${doc.fullname}</span>${doc.signature}`;
+                        }
+                        break;
+                    case "class":
+                        heading = `<span class="def">class</span> <span class="name">${doc.fullname}</span>`;
+                        if (doc.bases)
+                            heading += `<wbr>(<span class="base">${doc.bases}</span>)`;
+                        heading += `:`;
+                        break;
+                    case "variable":
+                        heading = `<span class="name">${doc.fullname}</span>`;
+                        if (doc.annotation)
+                            heading += `<span class="annotation">${doc.annotation}</span>`;
+                        if (doc.default_value)
+                            heading += `<span class="default_value">${doc.default_value}</span>`;
+                        break;
+                    default:
+                        heading = `<span class="name">${doc.fullname}</span>`;
+                        break;
+                }
+                html += `
+                        <section class="search-result">
+                        <a href="${url}" class="attr ${doc.type}">${heading}</a>
+                        <div class="docstring">${doc.doc}</div>
+                        </section>
+                    `;
+
+            }
+            return html;
+        })());
+    }
+
+    if (getSearchTerm()) {
+        initialize();
+        searchBox.value = getSearchTerm();
+        onInput();
+    } else {
+        searchBox.addEventListener("focus", initialize, {once: true});
+    }
+
+    searchBox.addEventListener("keydown", e => {
+        if (["ArrowDown", "ArrowUp", "Enter"].includes(e.key)) {
+            let focused = currentContent.querySelector(".search-result.focused");
+            if (!focused) {
+                currentContent.querySelector(".search-result").classList.add("focused");
+            } else if (
+                e.key === "ArrowDown"
+                && focused.nextElementSibling
+                && focused.nextElementSibling.classList.contains("search-result")
+            ) {
+                focused.classList.remove("focused");
+                focused.nextElementSibling.classList.add("focused");
+                focused.nextElementSibling.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "nearest"
+                });
+            } else if (
+                e.key === "ArrowUp"
+                && focused.previousElementSibling
+                && focused.previousElementSibling.classList.contains("search-result")
+            ) {
+                focused.classList.remove("focused");
+                focused.previousElementSibling.classList.add("focused");
+                focused.previousElementSibling.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "nearest"
+                });
+            } else if (
+                e.key === "Enter"
+            ) {
+                focused.querySelector("a").click();
+            }
+        }
+    });
+</script></body>

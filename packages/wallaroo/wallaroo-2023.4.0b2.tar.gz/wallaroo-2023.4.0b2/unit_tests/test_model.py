@@ -1,0 +1,143 @@
+import wallaroo
+from wallaroo.model import Model
+
+import datetime
+import responses
+import unittest
+import respx
+import httpx
+
+from . import testutil
+from .reusable_responders import (
+    add_default_workspace_responder,
+)
+
+from dateutil import parser as dateparse
+
+example_model_version_1 = {
+    "data": {
+        "model_by_pk": {
+            "id": 1,
+            "model_id": "kerasccfraud",
+            "model_version": "df0c6c5e-e0ee-41bc-9d6d-57ace8552b8d",
+            "models_pk_id": 1,
+            "sha": "bc85ce596945f876256f41515c7501c399fd97ebcb9ab3dd41bf03f8937b4507",
+            "file_name": "keras_ccfraud.onnx",
+            "image_path": None,
+            "updated_at": "2022-10-26T14:12:41.040083+00:00",
+            "visibility": "private",
+        }
+    }
+}
+
+example_models_1 = {
+    "id": 1,
+    "created_at": "2022-10-26T14:12:41.040083+00:00",
+    "name": "kerasccfraud",
+    "owner_id": '""',
+    "updated_at": "2022-10-26T14:12:41.040083+00:00",
+    "models": [
+        {
+            "id": 1,
+            "model_id": "kerasccfraud",
+            "model_version": "df0c6c5e-e0ee-41bc-9d6d-57ace8552b8d",
+            "models_pk_id": 1,
+            "sha": "bc85ce596945f876256f41515c7501c399fd97ebcb9ab3dd41bf03f8937b4507",
+            "file_name": "keras_ccfraud.onnx",
+            "image_path": None,
+            "updated_at": "2022-10-26T14:12:41.040083+00:00",
+            "visibility": "private",
+            "owner_id": '""',
+        }
+    ],
+}
+
+example_models_mlops_200 = {
+    "models": [
+        {
+            "id": 1,
+            "created_at": "2022-10-26T14:12:41.040083+00:00",
+            "name": "kerasccfraud",
+            "owner_id": '""',
+            "updated_at": "2022-10-26T14:12:41.040083+00:00",
+            "models": [
+                {"id": 1, "model_version": "df0c6c5e-e0ee-41bc-9d6d-57ace8552b8d"}
+            ],
+        }
+    ]
+}
+
+
+class TestModel(unittest.TestCase):
+    def setUp(self):
+        self.api_endpoint = "http://api-lb"
+        self.now = datetime.datetime.now()
+        self.gql_client = testutil.new_gql_client(
+            endpoint=f"{self.api_endpoint}/v1/graphql"
+        )
+        self.test_client = wallaroo.Client(
+            api_endpoint=self.api_endpoint,
+            gql_client=self.gql_client,
+            request_timeout=2,
+            interactive=False,
+            auth_type="test_auth",
+        )
+
+    @respx.mock(assert_all_mocked=True)
+    def test_model_from_data(self, respx_mock):
+        """Test that we can create a Models object directly by providing all the data."""
+
+        m = Model(client=self.test_client, data=example_models_1)
+        assert m.name() == example_models_1["name"]
+        assert m.id() == example_models_1["id"]
+        assert m.owner_id() == example_models_1["owner_id"]
+        assert m.last_update_time() == dateparse.isoparse(
+            example_models_1["updated_at"]
+        )
+        assert m.created_at() == dateparse.isoparse(example_models_1["created_at"])
+        assert (
+            m.versions()[0].version() == example_models_1["models"][0]["model_version"]
+        )
+
+    @respx.mock(assert_all_mocked=True)
+    def test_model_from_mock(self, respx_mock):
+        add_default_workspace_responder(self.test_client.api_endpoint)
+
+        respx_mock.post(f"{self.test_client.api_endpoint}/v1/api/models/get").mock(
+            return_value=httpx.Response(200, json=example_models_1)
+        )
+
+        m = Model(client=self.test_client, data={"id": 1})
+        assert m.name() == example_models_1["name"]
+        assert m.id() == example_models_1["id"]
+        assert m.owner_id() == example_models_1["owner_id"]
+
+    @responses.activate
+    @respx.mock(assert_all_mocked=True)
+    def test_list_models(self, respx_mock):
+        add_default_workspace_responder(self.test_client.api_endpoint)
+
+        respx_mock.post(f"{self.test_client.api_endpoint}/v1/api/models/list").mock(
+            return_value=httpx.Response(200, json=example_models_mlops_200)
+        )
+
+        [m] = self.test_client.list_models()
+        assert m.name() == example_models_1["name"]
+        assert m.id() == example_models_1["id"]
+        assert m.owner_id() == example_models_1["owner_id"]
+
+        responses.add(
+            responses.POST,
+            "http://api-lb/v1/graphql",
+            status=200,
+            match=[testutil.query_name_matcher("ModelById")],
+            json=example_model_version_1,
+        )
+        assert (
+            m.versions()[0].version()
+            == example_model_version_1["data"]["model_by_pk"]["model_version"]
+        )
+        assert (
+            m.versions()[0].sha()
+            == example_model_version_1["data"]["model_by_pk"]["sha"]
+        )
