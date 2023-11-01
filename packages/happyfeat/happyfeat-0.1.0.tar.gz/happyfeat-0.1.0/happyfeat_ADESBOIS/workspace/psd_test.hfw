@@ -1,0 +1,72 @@
+{
+    "HappyFeatVersion": "0.0",
+    "ovDesignerPath": "C:\\openvibe-3.5.0-64bit\\bin\\openvibe-designer.exe",
+    "pipelineType": "PowSpectrumGraz",
+    "sensorMontage": "standard_1020",
+    "customMontagePath": "",
+    "AcquisitionParams": {
+        "TrialNb": "20",
+        "Class1": "MI",
+        "Class2": "REST",
+        "Baseline": "20",
+        "TrialWait": "3",
+        "TrialLength": "3",
+        "EndTrialMin": "2.5",
+        "EndTrialMax": "3.5",
+        "FeedbackLength": "3"
+    },
+    "currentSessionId": "2",
+    "Sessions": {
+        "1": {
+            "ExtractionParams": {
+                "StimulationEpoch": "3",
+                "StimulationDelay": "1",
+                "TimeWindowLength": "0.25",
+                "TimeWindowShift": "0.161",
+                "AutoRegressiveOrderTime": "0.038",
+                "FreqRes": "1"
+            },
+            "ExtractedSignalFiles": [],
+            "TrainingAttempts": {}
+        },
+        "2": {
+            "ExtractionParams": {
+                "StimulationEpoch": "3",
+                "StimulationDelay": "1",
+                "TimeWindowLength": "0.5",
+                "TimeWindowShift": "0.4",
+                "AutoRegressiveOrderTime": "0.038",
+                "FreqRes": "1"
+            },
+            "ExtractedSignalFiles": [
+                "ONLINE-15.58.00.ov"
+            ],
+            "TrainingAttempts": {
+                "1": {
+                    "SignalFiles": [
+                        "ONLINE-15.58.00-TRIALS.csv"
+                    ],
+                    "CompositeFile": "ONLINE-15.58.00-TRAINCOMPOSITE.csv",
+                    "Features": {
+                        "PowSpectrumGraz": [
+                            "CP3;12"
+                        ]
+                    },
+                    "Score": "75.0"
+                },
+                "2": {
+                    "SignalFiles": [
+                        "ONLINE-15.58.00-TRIALS.csv"
+                    ],
+                    "CompositeFile": "ONLINE-15.58.00-TRAINCOMPOSITE.csv",
+                    "Features": {
+                        "PowSpectrumGraz": [
+                            "CP3;10"
+                        ]
+                    },
+                    "Score": "75.0"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,141 @@
+{
+    "HappyFeatVersion": "0.0",
+    "ovDesignerPath": "C:\\openvibe-3.5.0-64bit\\bin\\openvibe-designer.exe",
+    "pipelineType": "Psd+Connect",
+    "sensorMontage": "standard_1020",
+    "customMontagePath": "",
+    "AcquisitionParams": {
+        "TrialNb": "20",
+        "Class1": "MI",
+        "Class2": "REST",
+        "Baseline": "20",
+        "TrialWait": "3",
+        "TrialLength": "3",
+        "EndTrialMin": "2.5",
+        "EndTrialMax": "3.5",
+        "FeedbackLength": "3"
+    },
+    "currentSessionId": "2",
+    "Sessions": {
+        "1": {
+            "ExtractionParams": {
+                "StimulationEpoch": "3",
+                "StimulationDelay": "1",
+                "TimeWindowLength": "0.25",
+                "TimeWindowShift": "0.161",
+                "ConnectivityMetric": "MagnitudeSquaredCoherence",
+                "ConnectivityLength": "0.25",
+                "ConnectivityOverlap": "36",
+                "AutoRegressiveOrderTime": "0.038",
+                "FreqRes": "1"
+            },
+            "ExtractedSignalFiles": [],
+            "TrainingAttempts": {}
+        },
+        "2": {
+            "ExtractionParams": {
+                "StimulationEpoch": "3",
+                "StimulationDelay": "1",
+                "TimeWindowLength": "0.5",
+                "TimeWindowShift": "0.4",
+                "ConnectivityMetric": "Coherence",
+                "ConnectivityLength": "0.5",
+                "ConnectivityOverlap": "20",
+                "AutoRegressiveOrderTime": "0.038",
+                "FreqRes": "1"
+            },
+            "ExtractedSignalFiles": [
+                "Test-[2022.05.05-16.19.27].ov",
+                "Test-[2022.05.05-16.30.16].ov"
+            ],
+            "TrainingAttempts": {
+                "1": {
+                    "SignalFiles": [
+                        "Test-[2022.05.05-16.19.27]-TRIALS.csv",
+                        "Test-[2022.05.05-16.30.16]-TRIALS.csv"
+                    ],
+                    "CompositeFile": "Test-[2022.05.05-16.19.27]-TRAINCOMPOSITE.csv",
+                    "Features": {
+                        "PowSpectrumGraz": [
+                            "CP3;8"
+                        ]
+                    },
+                    "Score": "97.5"
+                },
+                "2": {
+                    "SignalFiles": [
+                        "Test-[2022.05.05-16.19.27]-TRIALS.csv",
+                        "Test-[2022.05.05-16.30.16]-TRIALS.csv"
+                    ],
+                    "CompositeFile": "Test-[2022.05.05-16.19.27]-TRAINCOMPOSITE.csv",
+                    "Features": {
+                        "Connectivity": [
+                            "CP3;12"
+                        ]
+                    },
+                    "Score": "72.5"
+                },
+                "3": {
+                    "SignalFiles": [
+                        "Test-[2022.05.05-16.19.27]-TRIALS.csv",
+                        "Test-[2022.05.05-16.30.16]-TRIALS.csv"
+                    ],
+                    "CompositeFile": "Test-[2022.05.05-16.19.27]-TRAINCOMPOSITE.csv",
+                    "Features": {
+                        "PowSpectrumGraz": [
+                            "CP3;9"
+                        ],
+                        "Connectivity": [
+                            "CP3;12"
+                        ]
+                    },
+                    "Score": "95.0"
+                },
+                "4": {
+                    "SignalFiles": [
+                        "Test-[2022.05.05-16.19.27]-TRIALS.csv",
+                        "Test-[2022.05.05-16.30.16]-TRIALS.csv"
+                    ],
+                    "CompositeFile": "Test-[2022.05.05-16.19.27]-TRAINCOMPOSITE.csv",
+                    "Features": {
+                        "PowSpectrumGraz": [
+                            "CP3;9",
+                            "CP3;8"
+                        ]
+                    },
+                    "Score": "97.5"
+                }
+            }
+        },
+        "3": {
+            "ExtractionParams": {
+                "StimulationEpoch": "3",
+                "StimulationDelay": "1",
+                "TimeWindowLength": "0.5",
+                "TimeWindowShift": "0.2",
+                "ConnectivityMetric": "Coherence",
+                "ConnectivityLength": "0.5",
+                "ConnectivityOverlap": "20",
+                "AutoRegressiveOrderTime": "0.038",
+                "FreqRes": "1"
+            },
+            "ExtractedSignalFiles": [],
+            "TrainingAttempts": {}
+        },
+        "4": {
+            "ExtractionParams": {
+                "StimulationEpoch": "3",
+                "StimulationDelay": "1",
+                "TimeWindowLength": "0.25",
+                "TimeWindowShift": "0.16",
+                "ConnectivityMetric": "Coherence",
+                "ConnectivityLength": "0.25",
+                "ConnectivityOverlap": "36",
+                "AutoRegressiveOrderTime": "0.038",
+                "FreqRes": "1"
+            },
+            "ExtractedSignalFiles": [],
+            "TrainingAttempts": {}
+        }
+    }
+}

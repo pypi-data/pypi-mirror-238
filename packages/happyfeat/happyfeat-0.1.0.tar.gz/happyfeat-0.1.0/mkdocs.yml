@@ -1,0 +1,42 @@
+site_name: HappyFeat Documentation
+site_url: https://happyfeat.readthedocs.io
+
+theme:
+  name: material
+  logo: img/brain_icon_vect.png
+  features:
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.sections
+    - navigation.footer
+    - search.suggest
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  
+nav:
+  - Home: index.md
+  - User Guide:
+    - Installation: user_guide/install.md
+    - Getting started: user_guide/start.md
+    - Sensor Montages: user_guide/montage.md
+    - Workspaces: user_guide/workspaces.md
+    - Using HappyFeat: user_guide/using_hf.md
+    - Feature Extraction: user_guide/extract.md
+    - Visualizations & analysis: user_guide/visualize.md
+    - Training the classifier: user_guide/train.md
+    - Using HappyFeat in BCI experiments: user_guide/bci_hf.md
+    
+plugins:
+  - search
+  
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/nerv_lab
+    - icon: fontawesome/brands/github
+      link: https://github.com/Inria-NERV/happyFeat
+      
+repo_url: https://github.com/Inria-NERV/happyFeat
