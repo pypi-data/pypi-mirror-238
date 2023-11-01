@@ -1,0 +1,56 @@
+---
+title: Quick Start
+format:
+    profinit-html:
+        number-sections: true
+---
+
+
+## Install
+
+Now we can install the package with the following command:
+
+```{.sh}
+python -m pip install profiplots
+```
+
+## Usage
+
+Now we can start using this package!
+
+First we import `profiplots` package and call `set_theme`.
+
+```{python}
+#| echo: true
+
+import profiplots as pf
+
+pf.set_theme(name="default")
+```
+
+Then we can start using `seaborn` or `matplotlib` plotting as usually. But instead of the default design, we will now have the **enhanced** Profinit theme.
+
+
+```{python}
+#| echo: true
+
+import seaborn as sns
+import seaborn.objects as so
+
+dataset = sns.load_dataset("titanic")[["sex", "survived"]]
+
+(
+    so.Plot(data=dataset, x="survived", y="sex")
+    .add(so.Bar(alpha=1), so.Agg(), legend=False)
+    .label(title="Female passengers survived much more frequently\nthan male passengers on Titanic", x="Survival Rate", y="Sex")
+)
+```
+
+## Next Steps
+
+After finishing up the Quick Start, we recommend to go check out a few [basic examples](examples/basic.qmd). They nicely demonstrate, how to do various basic plots.
+
+Then check out:
+
+- [Customization](customization.qmd)
+- [Examples](examples/index.qmd)

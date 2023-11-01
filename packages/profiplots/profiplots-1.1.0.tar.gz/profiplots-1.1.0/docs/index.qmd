@@ -1,0 +1,39 @@
+---
+title: profiplots
+format:
+    profinit-html:
+        toc: false
+---
+
+Make Matplotlib and Seaborn plots with Profinit theme!
+
+## Start your journey here!
+
+::: {.hero-buttons}
+[Quick Start](users/quickstart.qmd){.btn-secondary .btn .btn-lg role="button"}
+[Examples](users/examples/index.qmd){.btn-secondary .btn .btn-lg role="button"}
+::: 
+
+## Related Projects
+
+::: {}
+[👉Profigraf](https://datascience.profinitservices.cz/sablony/profitemplates/): Like `profiplots` but for `R`.
+:::
+
+::: {}
+[👉Quarto Templates](https://datascience.profinitservices.cz/sablony/quarto-templates/): Profinit Themes for Quarto (and Jupyter) notebooks.
+:::
+
+## Info
+
+
+```{python}
+#| echo: false
+#| warning: false
+#| output: asis
+import pkg_resources
+from IPython.display import display, Markdown
+
+version = pkg_resources.get_distribution("profiplots").version
+display(Markdown(f"`Latest version: {version}`"))
+```

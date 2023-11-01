@@ -1,0 +1,56 @@
+/*-- scss:defaults --*/
+
+$profinit_red: #E63C41;
+$profinit_blue: #465A9B;
+$profinit_grey: #282828;
+
+$table_blue_darker: #DADEEB;
+$table_blue_lighter: #ECEEF5;
+$table_border: 2px;
+
+$link-color: $profinit_blue;
+$primary: $profinit_blue !default;
+
+/* See https://quarto.org/docs/output-formats/html-themes.html#theme-options */
+
+/*-- scss:rules --*/
+
+h1.title, h2.title, h3.title, h4.title, p.subtitle {
+  color: $profinit_blue;
+}
+
+h1:not(.title), h2:not(.title), h3:not(.title), h4:not(.title) {
+  color: $profinit_blue;
+  font-style: normal;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+strong {
+  color: $profinit_blue;
+}
+
+.corporate-table table {
+  width: 100%;
+  border-collapse: collapse;
+  border: $table_border solid white;
+}
+
+.corporate-table thead {
+  background-color: $profinit_blue;
+  color: white;
+}
+
+.corporate-table tbody tr:nth-child(odd) {
+  background-color: $table_blue_darker;
+}
+
+.corporate-table tbody tr:nth-child(even) {
+  background-color: $table_blue_lighter;
+}
+
+.reveal .slide-logo {
+  max-height: 5rem !important;
+}

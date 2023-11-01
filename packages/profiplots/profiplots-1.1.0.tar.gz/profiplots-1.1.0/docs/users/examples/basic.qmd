@@ -1,0 +1,216 @@
+---
+title: Basic
+format:
+  profinit-html:
+    code-tools:
+      source: false
+    code-fold: true
+    embed-resources: true
+    code-overflow: wrap
+  profinit-pdf: default
+execute: 
+  warning: false
+---
+
+In this document, we will look at how to create various plots with Profi Plots templates.
+
+We will perform the demonstrations on the famous `titanic` dataset
+
+```{python}
+import profiplots as pf
+import profiplots.color as pfc
+import seaborn as sns
+import seaborn.objects as so
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Set theme
+pf.set_theme(name="default")
+
+# Load the Titanic dataset
+dataset = sns.load_dataset('titanic')[["sex", "age", "fare", "pclass", "survived"]]
+```
+
+```{python}
+#| echo: false
+#| output: true
+from IPython.display import Markdown
+from tabulate import tabulate
+
+Markdown(
+    tabulate(
+        dataset.head(),
+        headers=list(dataset.columns),
+        showindex=False
+    )
+)
+```
+
+## Scatter Plot
+
+::: {.panel-tabset}
+
+### seaborn
+
+```{python}
+data = (dataset
+    .dropna(subset=["age", "fare"])
+    .assign(highlight=lambda x: (x["age"] > 60) & (x["survived"] == 1))
+)
+
+(
+    so.Plot(data=data, x="age", y="fare", color="highlight")
+    .add(so.Dots(), legend=False)
+    .scale(color={True: pfc.BLACK, False: pfc.LIGHT_GREY})
+    .label(x="Age", y="Fare", title=r"$\mathbf{Survived\ Passengers}$ that were $\mathbf{over\ 60}$ years old")
+)
+```
+
+### matplotlib
+
+
+```{python}
+# Filter out rows with missing age or fare values
+data = dataset.dropna(subset=["age", "fare"])
+
+# Define colors = highlight in red those older than 60 that survived
+colors = (
+    data
+        .assign(highlight=lambda x: (x["age"] > 60) & (x["survived"] == 1))["highlight"]
+        .apply(lambda x: pfc.BLACK if x == True else pfc.LIGHT_GREY)
+)
+
+plt.scatter(data["age"], data["fare"], alpha=1, color=colors)
+
+plt.title(r"$\mathbf{Survived\ Passengers}$ that were $\mathbf{over\ 60}$ years old")
+plt.xlabel("Age")
+plt.ylabel("Fare")
+plt.show()
+```
+
+:::
+
+## Line Plot
+
+::: {.panel-tabset}
+
+### seaborn
+
+```{python}
+data = dataset.dropna(subset=["age", "fare"])
+data["age_bin"] = pd.cut(data["age"], bins=[0, 10, 20, 40, 60, 70], labels=["0-10", "11-20", "21-40", "41-60", "61-70"])
+avg_fares = data.groupby(['age_bin', 'sex'])["fare"].mean().reset_index()
+avg_fares["text"] = avg_fares.apply(lambda x: f"{x['fare']:.0f}" if x["fare"] > 30 and x["sex"] == "male" else "", axis=1)
+
+(
+    so.Plot(data=avg_fares, x="age_bin", y="fare", color="sex")
+    .add(so.Line(marker="o"))
+    .add(so.Text(halign="left", offset=6), text="text")
+    .label(x="Age", y=r"$\overline{\text{Fare}}$", color="Sex", title="Average Male Fare for given Age")
+    .scale(color={"female": pfc.RED, "male": pfc.BLUE})
+)
+```
+
+### matplotlib
+
+```{python}
+# Drop rows where age or fare are NaN
+data = dataset.dropna(subset=["age", "fare"])
+
+# Bin the ages
+data["age_bin"] = pd.cut(data["age"], bins=[0, 10, 20, 40, 60, 70], labels=["0-10", "11-20", "21-40", "41-60", "61-70"])
+
+# Compute average fare for each age bin and gender
+avg_fares = data.groupby(['age_bin', 'sex'])["fare"].mean().unstack()
+
+# Plot Lines for Male and Female
+plt.plot(avg_fares.index, avg_fares['female'], label='Female', color=pfc.RED, lw=2)
+plt.plot(avg_fares.index, avg_fares['male'], label='Male', color=pfc.BLUE, lw=3)
+
+# Write legend
+plt.legend(title="Sex", loc="center", bbox_to_anchor=(1.15, 0.5))
+
+# Write values for 'Female'
+for i in range(len(avg_fares) - 2, len(avg_fares)):
+    plt.plot(avg_fares.index[i], avg_fares['female'].values[i], 'o', color=pfc.RED, markersize=8)
+    plt.text(avg_fares.index[i], avg_fares['female'].values[i] - 4, f"{avg_fares['female'].values[i]:.0f}", fontsize=12, color=pfc.LIGHT_GREY, ha='center')
+
+# Write values for 'Male'
+for i in range(len(avg_fares) - 2, len(avg_fares)): 
+    plt.plot(avg_fares.index[i], avg_fares["male"][i], marker="o", color=pfc.BLUE, markersize=8)
+    plt.text(avg_fares.index[i], avg_fares['male'].values[i] - 4, f"{avg_fares['male'].values[i]:.0f}", fontsize=12, color=pfc.BLUE, ha='center')
+
+plt.title("Average Male Fare for given Age")
+plt.xlabel('Age')
+plt.ylabel(r'$\overline{\text{Fare}}$')
+
+plt.show()
+```
+
+:::
+
+## Bar Plot
+
+::: {.panel-tabset}
+
+### seaborn
+
+```{python}
+data = dataset.groupby("pclass")["survived"].mean().reset_index().assign(survived=lambda x: x["survived"] * 100)
+data["text"] = data["survived"].apply(lambda x: f"{x:.2f} %")
+
+(
+    so.Plot(data=data, x="survived", y="pclass", text="text")
+    .add(so.Bar(alpha=1), orient="y")
+    .add(so.Text(color="w", halign="right", offset=6, fontsize=14))
+    .scale(x=so.Continuous(), y=so.Nominal())
+    .label(x="Survival Rate (%)", y="Class", title="Survival Rate of various Passenger Classes")
+)
+```
+
+### matplotlib
+
+```{python}
+import pandas as pd
+
+# Calculate survival rates by passenger class
+survival_rates = dataset.groupby("pclass")["survived"].mean()
+
+# Plot the horizontal bars
+plt.barh(2, survival_rates.values[0] * 100)
+plt.barh(1, survival_rates.values[1] * 100)
+plt.barh(0, survival_rates.values[2] * 100)
+# Add tick labels for y class
+plt.yticks(ticks=[0, 1, 2], labels=["Class 3", "Class 2", "Class 1"])
+# Adding percentages to bars
+for i, v in enumerate(survival_rates.sort_values().mul(100)):
+    plt.text(v - 10, i, "{:.2f} %".format(v), va='center', fontsize=12, color='white')
+# Removing y-axis label
+plt.ylabel("")
+
+# Add title
+plt.xlabel("Survival Rate (%)")
+plt.title("Survival Rate of various Passenger Classes")
+
+plt.show()
+```
+
+:::
+
+## Heat Map
+
+::: {.panel-tabset}
+
+### seaborn
+
+```{python}
+data = dataset.copy()
+
+data = data[["fare", "pclass", "survived"]].corr()
+
+ax = sns.heatmap(data, vmin=-1, vmax=1, cmap="pf_blue_reds")
+ax.set(title="$\mathbf{Correlations}$ between various Titanic cols\nObservation: Higher the $\mathit{pclass}$, lower the $\mathit{fare}$")
+plt.show()
+```
+
+:::

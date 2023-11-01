@@ -1,0 +1,40 @@
+---
+title: Release Notes
+format:
+    profinit-html:
+        toc: true
+        toc-depth: 2
+---
+
+## 1.1.0
+
+### Features
+
+- Introduced new greyscale color palette style under `profiplots.style.greyscale`.
+- Introduced new profile: `profiplots.profile.presentation`.
+    - This profile should be used for presentations.
+    - It adds slight tweaks to the default palette so the colors are darker and visible with slide projector.
+
+### Fixes
+
+- Fixed an issue, where calling `profiplots.style.grid(x=False, y=False)` wouldn't turn off the grids.
+
+## 1.0.0
+
+### Features
+
+- Introduced customizations options called **styles**, such as `profiplots.style.colored`.
+    - Two color palettes: `grey` (no color), `colored` (color, for categories).
+    - More styles, like grid styles, tick styles,...
+- Introduced customizations called **profiles** into `profiplots.profiles`.
+    - Two profiles: `exploration`, `publish`.
+- Added many new sections to documentation, such as Customization section, that describes the new customizations.
+- Significantly improved API documentation using [quartodoc](https://machow.github.io/quartodoc/) package.
+    - Now many examples of the styles and profiles are in the API documentation.
+- Deployment to PyPi: now users can install package as any other Python package.
+
+
+## 0.2.0
+
+- Implemented basic styles into matplotlib rc file.
+- Created documentation describing how to install and use the package.

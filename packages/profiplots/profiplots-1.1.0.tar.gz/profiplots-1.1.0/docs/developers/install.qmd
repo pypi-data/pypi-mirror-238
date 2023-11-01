@@ -1,0 +1,70 @@
+---
+title: "Project Installation"
+format:
+    profinit-html:
+        number-sections: true
+---
+
+In this document, we describe how to install this project from a developer's perspective. Thus, we will install all dependencies and programs necessary for development.
+
+## Cloning the Project
+
+::: {.panel-tabset}
+
+## Linux (http)
+
+```sh
+git clone https://git.profinit.eu/datascience/sablony/profiplots
+```
+
+## Linux (ssh)
+
+```sh
+git clone git@git.profinit.eu:datascience/sablony/profiplots.git
+```
+
+## Windows (http)
+
+```sh
+git clone -c core.symlinks=true https://git.profinit.eu/datascience/sablony/profiplots.git
+```
+
+## Windows (ssh)
+
+```sh
+git clone -c core.symlinks=true git@git.profinit.eu:datascience/sablony/profiplots.git
+```
+
+:::
+
+## Dev Containers
+
+With Dev Containers, we can develop inside a Docker Container. This enables us to have everything pre-configured and the installation to be much easier.
+
+::: {.callout-important}
+
+Dev Containers is a Visual Studio Code feature. You need to use Visual Studio Code in order to develop thsi project.
+
+:::
+
+### Pre-requisities
+
+- Linux OS or Windows with WSL2.
+- Docker.
+- VSCode.
+    - Dev Containers Extension.
+
+### Initialization
+
+Dev Container needs some variables in order to create itself properly. Therefor go to the root of this repository and run the following command in terminal:
+
+```{.sh}
+make init
+```
+This will initialize all the necessary environment variables for development.
+
+### Creating Dev Container
+
+Press `Ctrl + Shift + P` and select `Dev Containers: Rebuild and Reopen in Container`.
+
+This step will take a while. It installs all the necessary libraries to develop in this project, like Python, R or Quarto. After the evaluation finishes, we should have the project opened in a Dev Container and we can develop as if we would work in any other project.

@@ -1,0 +1,193 @@
+---
+title: Customization
+format:
+    profinit-html:
+        code-tools:
+            source: false
+        code-fold: true
+        embed-resources: true
+        code-overflow: wrap
+---
+
+In the [Quick Start](quickstart.qmd) we saw that in order to set up global theme, we need to call `set_theme`. Now we will demonstrate how to add further customizations upon this base theme.
+
+Again, we are going to work with the famous titanic dataset.
+
+```{python}
+import profiplots as pf
+import profiplots.style as pfs
+import seaborn as sns
+
+pf.set_theme(name="default")
+
+dataset = sns.load_dataset("titanic")[["age", "fare", "pclass", "sex", "survived"]]
+```
+
+```{python}
+#| echo: false
+#| output: true
+from IPython.display import Markdown
+from tabulate import tabulate
+
+Markdown(
+    tabulate(
+        dataset.head(),
+        headers=list(dataset.columns),
+        showindex=False
+    )
+)
+```
+
+::: {.callout-important}
+
+Invoking `set_theme` function is also a pre-requisite for further customizations!
+
+:::
+
+## Styles
+
+`profiplots` come with a range of customization options that can be used for Seaborn Objects, Seaborn and Matplotlib.
+
+These options are available in `profiplots.style` package. Some of the configuration options include:
+
+- `colored`: adds colors to the default color-less cycle.
+- `grid`: show or hide grid. Set-up separately for x and y axis.
+- `ticks`: shows or hides ticks of the plot. Set-up separately for x and y axis.
+
+Internally, these methods return a Python dictionary with overriden matplotlib rc settings.
+
+```{python}
+pfs.grid(x=True, y=False)
+```
+
+We can concatenate the dictionaries using `|` operator.
+
+```{python}
+pfs.grid(x=True, y=False) | pfs.colored()
+```
+
+::: {.callout-note}
+
+The last applied dictionary has the highest priority. However, it is highly recommended to have distinct keys in all merged dictionaries for clarity.
+
+:::
+
+### Usage
+
+In this section, we will discover how to use the styles.
+
+#### Context
+
+To be able to apply the options for one or multiple plots, we can use `pf.style_context` with a Python context window.
+
+::: {.panel-tabset}
+
+##### seaborn objects
+
+```{python}
+import seaborn.objects as so
+import matplotlib.pyplot as plt
+
+with pf.style_context(pfs.ticks(x=False, y=False)):
+    p = (
+        so.Plot(dataset, x="age", y="fare")
+        .add(so.Dots())
+        .label(x="Age", y="Fare")
+        .plot()
+    )
+p
+```
+
+##### seaborn / matplotlib
+
+```{python}
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+with pf.style_context(pfs.ticks(x=False, y=False)):
+    ax = sns.scatterplot(dataset, x="age", y="fare")
+    ax.set_xlabel(xlabel="Age", visible=True)
+    ax.set_ylabel(ylabel="Fare", visible=True)
+
+ax.figure.show()
+```
+
+::: {.callout-note}
+
+We need to manually set `visible=True` because `scatterplot` hides labels if no ticks are present.
+
+:::
+
+:::
+
+#### Plot-Level
+
+Seaborn Objects support setting up plot-level configurations!
+
+```{python}
+import seaborn.objects as so
+
+(
+    so.Plot(data=dataset, x="age", y="survived")
+    .theme(pfs.colored())
+    .add(so.Bar(alpha=1), so.Hist(binwidth=10), so.Dodge(), color="sex")
+    .label(x="Age Category", y="Count", title="More males was aboard the Titanic in all categories", color="Sex")
+)
+```
+
+#### Global
+
+Lastly, we can set global styles with `set_style` function.
+
+```{python}
+pf.set_style(pfs.colored())
+
+(
+    so.Plot(data=dataset, x="age", y="pclass")
+    .add(so.Bar(alpha=1), so.Hist(binwidth=10, stat="probability"), so.Dodge(), color="sex")
+    .label(x="Age Category", y="Probability", color="Sex")
+)
+```
+
+
+## Profiles
+
+Profile is a composition of multiple settings built for a specific purpose. Its purpose can for example be:
+
+- `exploration`: useful for quick exploratory data analysis.
+- `publish`: final plot to be published. Removes visual clutter, such as the grid.
+
+### Usage
+
+In its essence, profile is just another style. Therefore we can use them exactly the same way.
+
+```{python}
+import seaborn.objects as so
+import profiplots.style as pfs
+
+(
+    so.Plot(data=dataset, x="age", y="fare", color="survived")
+    .theme(pf.profile.exploration() | pfs.colored())  # here we apply exploration profile and compose it with colored style
+    .add(so.Dots())
+    .scale(color=so.Nominal())
+    .label(x="Age", y="Fare", color="Survived")
+)
+```
+
+## Colors
+
+`profiplots` draws from a rich palette of Profinit colors. These colors can be found in `profiplots.color` module.
+
+### Usage
+
+```{python}
+import seaborn.objects as so
+
+(
+    so.Plot(dataset, x="age", y="fare", color="sex")
+    .add(so.Dots())
+    .add(so.Lines(), so.PolyFit(1))
+    .scale(color={"male": pf.color.BLUE, "female": pf.color.LIGHT_GREY})
+    .label(x="Age", y="Fare", color="Sex")
+)
+```

@@ -1,0 +1,27 @@
+version: 1.2.3
+quarto-required: ">=1.2.0"
+contributes:
+  formats:
+    html:
+      title-block-banner: transparent
+      theme: [default, profinit_html.scss]
+      css: logo.css
+      csl: iso690-numeric-brackets-cs.csl
+    pdf:
+      pdf-engine: pdflatex
+      include-in-header: header.tex
+      include-before-body: logo.tex
+      format-resources:
+        - "logo.pdf"
+        - "logo_small.pdf"
+      csl: iso690-numeric-brackets-cs.csl
+      linkcolor: profinitBlue
+      urlcolor: profinitBlue
+    revealjs:
+      theme: [default, profinit_revealjs.scss]
+      logo: logo.svg
+      css: brackets_logo_revealjs.css
+      csl: iso690-numeric-brackets-cs.csl
+    docx:
+      reference-doc: custom-reference-doc.docx
+      csl: iso690-numeric-brackets-cs.csl
