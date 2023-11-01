@@ -1,0 +1,37 @@
+[package]
+name = "sparrow-scheduler"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+description = """
+Scheduler for managing local, multi-threaded execution.
+"""
+
+[dependencies]
+core_affinity.workspace = true
+derive_more.workspace = true
+error-stack.workspace = true
+hashbrown.workspace = true
+index_vec.workspace = true
+parking_lot.workspace = true
+serde.workspace = true
+smallvec.workspace = true
+sparrow-batch = { path = "../sparrow-batch" }
+tracing.workspace = true
+tokio.workspace = true
+work-queue = "0.1.4"
+
+[package.metadata.cargo-machete]
+# index_vec generates code that requires serde
+ignored = ["serde"]
+
+[dev-dependencies]
+sparrow-testing = { path = "../sparrow-testing" }
+
+[target.'cfg(loom)'.dependencies]
+loom = "0.6.0"
+
+[lib]
+doctest = false

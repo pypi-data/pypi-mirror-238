@@ -1,0 +1,21 @@
+---
+source: crates/sparrow-physical/src/expr.rs
+expression: yaml
+---
+- name: column
+  literal_args:
+  - !Utf8 foo
+  args: []
+  result_type: Int32
+- name: column
+  literal_args:
+  - !Utf8 bar
+  args: []
+  result_type: Int32
+- name: add
+  literal_args: []
+  args:
+  - 0
+  - 1
+  result_type: Int32
+

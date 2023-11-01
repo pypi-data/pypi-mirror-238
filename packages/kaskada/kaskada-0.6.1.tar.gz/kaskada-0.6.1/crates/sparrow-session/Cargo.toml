@@ -1,0 +1,41 @@
+[package]
+name = "sparrow-session"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+description = """
+The Sparrow session builder.
+"""
+
+[dependencies]
+arrow-array.workspace = true
+hashbrown.workspace = true
+arrow-schema.workspace = true
+derive_more.workspace = true
+error-stack.workspace = true
+futures.workspace = true
+itertools.workspace = true
+smallvec.workspace = true
+sparrow-api = { path = "../sparrow-api" }
+sparrow-backend = { path = "../sparrow-backend" }
+sparrow-compiler = { path = "../sparrow-compiler" }
+sparrow-instructions = { path = "../sparrow-instructions" }
+sparrow-interfaces = { path = "../sparrow-interfaces" }
+sparrow-logical = { path = "../sparrow-logical" }
+sparrow-plan-execution = { path = "../sparrow-plan-execution" }
+sparrow-runtime = { path = "../sparrow-runtime" }
+sparrow-io = { path = "../sparrow-io" }
+sparrow-syntax = { path = "../sparrow-syntax" }
+static_init.workspace = true
+tempfile.workspace = true
+tokio.workspace = true
+tokio-stream.workspace = true
+uuid.workspace = true
+
+[dev-dependencies]
+
+[lib]
+bench = false
+doctest = false
