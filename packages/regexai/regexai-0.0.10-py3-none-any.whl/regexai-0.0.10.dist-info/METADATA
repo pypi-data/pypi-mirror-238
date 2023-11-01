@@ -1,0 +1,121 @@
+Metadata-Version: 2.1
+Name: regexai
+Version: 0.0.10
+Summary: Tranform regex into regexai
+Author: Shreyash Rote and Ritesh Tambe
+Author-email: shreyashrote321@gmail.com
+Keywords: openai,regex,pattern,text_analysis,text_preprocessing
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Description-Content-Type: text/markdown
+License-File: Licence.txt
+Requires-Dist: openai
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RegexAI Library</title>
+    <style>
+        /* Add some basic CSS for styling and animations */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            font-size: 16px;
+            white-space: pre-wrap;
+        }
+
+        pre code {
+            display: block;
+        }
+
+        a {
+            color: #007BFF;
+        }
+
+        /* Add a bounce animation to the code block */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animated-code {
+            animation: bounce 2s infinite;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>RegexAI Library</h1>
+
+<p>RegexAI is a user-friendly library that leverages generative AI to simplify the process of working with regular expressions (regex). With RegexAI, you can effortlessly create and interpret regex patterns using plain language, eliminating the need to understand complex regex syntax. This library's AI capabilities quickly understand your regex queries, making data extraction, string validation, and text manipulation a breeze. Whether you're a beginner or an expert, RegexAI streamlines regex tasks and adapts to your needs, enhancing your productivity and making regex more accessible and efficient for everyone.</p>
+
+<h2>Installation</h2>
+
+<p>To install RegexAI, use the following pip command:</p>
+
+<pre class="animated-code"><code>pip install regexai</code></pre>
+
+<h2>Usage</h2>
+
+<p>To use RegexAI, you can import the library and use the following code snippet as an example:</p>
+
+<pre class="animated-code"><code>from regexai.pattern import find_pattern</code></pre>
+<pre class="animated-code"><code>code_generator = find_pattern(OpenAi_api_key='Your-api-key')</code></pre>
+<pre class="animated-code"><code>generate = code_generator.generate_code(paragraph, user_query)</code></pre>
+<pre class="animated-code"><code>last_code = code_generator.get_code()</code></pre>
+
+<h2>Contribute and Use</h2>
+
+<p>Head to our official GitHub page to contribute and use the library:</p>
+
+<a href="https://github.com/riteshtambe/RegexAI">GitHub Repository</a>
+
+<script>
+    // JavaScript to add the 'animated-code' class to code blocks
+    const codeBlocks = document.querySelectorAll('.animated-code');
+    codeBlocks.forEach((block) => {
+        block.addEventListener('mouseover', () => {
+            block.classList.add('animated-code');
+        });
+
+        block.addEventListener('animationiteration', () => {
+            block.classList.remove('animated-code');
+        });
+    });
+</script>
+
+</body>
+
+</html>
