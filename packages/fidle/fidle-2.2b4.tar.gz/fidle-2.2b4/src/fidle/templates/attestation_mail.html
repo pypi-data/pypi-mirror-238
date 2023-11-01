@@ -1,0 +1,80 @@
+<html>
+    <head><title>Attestation</title></head>
+    <body>
+    <style>
+        body{
+            font-family: sans-serif;
+            font-size: 0.9em;
+        }
+        div.title{ 
+            font-size: 1.4em;
+            font-weight: bold;
+            padding: 20px 0px 0px 0px; }
+        a{
+            color: SteelBlue;
+            text-decoration:none;
+        }
+        hr{
+            border: 1px solid #eeeeee
+         }
+        .message{ padding: 0px 0px 0px 10px; }
+        .powered{ margin: 10px 0px 0px 0px; font-size:0.8em;color:lightgray;text-align:right;}
+        .footer{ margin: 0px 0px 0px 0px; font-size:0.8em;color:gray;}
+
+    </style>
+
+    <div class='title'>Confirmation de présence</div>
+    <div class='message'>
+        <p>Votre présence a bien été <b>prise en compte</b> par le gestionnaire de présence.<br>
+
+            <p>Les paramètres nécessaires à la récupération de votre attestation seront :
+                <ul>
+                    <li>Site        : <b>${recovery_url}</b></li>
+                    <li>Email-Id    : <b>${mail_id}</b></li>
+                    <li>Événement   : <b>${event_id}</b></li>
+                    <li>Visa        : <b>${attestation_visa}</b></li>
+                </ul>
+            </p>
+
+            <p>Votre attestation peut être récupérée via le lien direct suivant :</p>
+            ${direct_url}
+            
+        <p>Ce message est automatique et ne prend pas de réponse.
+        Si vous n'avez pas effectué de déclaration de présence et que vous recevez ce message, 
+        merci de contacter ${mail_contact}</p>
+    </div>
+
+    <div class='title'>Confirmation of attendance.</div>
+    <div class='message'>
+
+        <p>Your attendance has been <b>validated</b> by the attendance manager.<br>
+
+        <p>The parameters required to retrieve your certificate will be :
+            <ul>
+                <li>Site        : <b>${recovery_url}</b></li>
+                <li>Email-Id    : <b>${mail_id}</b></li>
+                <li>Event       : <b>${event_id}</b></li>
+                <li>Visa        : <b>${attestation_visa}</b></li>
+            </ul>
+        </p>
+
+        <p>Your attendance can be retrieved via the following direct link:</p>
+        ${direct_url}
+
+        <p>This link and these recovery parameters are **valid for 30 days**.</p>
+
+
+        <p>This message is automatic and takes no response.
+        If you have not made a declaration of presence and you receive this message, 
+        please contact ${mail_contact}</p>
+    </div>
+
+
+    <div class='powered'>Powered by Fidle/TimeSheetManager - Version : ${fidle_version}</div>
+    <hr>
+    <img src=' data:image/png;base64,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'>
+    <div class="footer">
+    https://fidle.cnrs.fr
+    </div>
+    </body>
+</html>
