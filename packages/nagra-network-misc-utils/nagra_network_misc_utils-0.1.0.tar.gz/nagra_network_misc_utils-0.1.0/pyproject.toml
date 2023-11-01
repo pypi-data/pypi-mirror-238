@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "nagra_network_misc_utils"
+version = "0.1.0"
+description = "Miscelleanous utilities for pipeline management"
+authors = ["David Gallay <david.gallay@nagra.com>"]
+readme = "README.md"
+packages = [{include = "nagra_network_misc_utils"}]
+
+[tool.poetry.dependencies]
+python = "^3.9.0"
+python-gitlab = "^3.15.0"
+click = "^8.1.7"
+rich = "^13.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
