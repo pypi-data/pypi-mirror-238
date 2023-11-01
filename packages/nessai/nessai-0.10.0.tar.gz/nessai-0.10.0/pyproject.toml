@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools", "wheel", "setuptools_scm[toml]"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+
+[tool.pytest.ini_options]
+addopts = [
+    "-ra",
+    "--cov=nessai",
+    "--import-mode=importlib",
+]
+testpaths = [
+    "tests"
+]
+
+[tool.coverage.run]
+source = [
+    "nessai"
+]
+omit = [
+    "nessai/gw/legacy.py"
+]
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+]
+
+[tool.black]
+line-length = 79
+target-version = ['py38', 'py39', 'py310']
