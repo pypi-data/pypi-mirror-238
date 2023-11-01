@@ -1,0 +1,75 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "edx-helper"
+dynamic = ["version"]
+description = "Simple tool to download video and lecture materials from edx.org."
+readme = "README.md"
+license = {file = "LICENSE"}
+maintainers = [
+    { name = "Ye Zheng", email = "csyezheng@gmail.com" },
+]
+keywords = [
+    "MOOCs",
+    "edX",
+    "edX-dl",
+    "download",
+    "education",
+    "video",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Education",
+]
+dependencies = [
+    "beautifulsoup4>=4.6.0",
+    "html5lib>=1.0.1",
+    "six>=1.11.0",
+    "youtube_dl>=2021.12.17",
+    "requests>=2.18.4",
+    "tqdm>=4.66.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "coverage>=3.7",
+    "mock>=1.0.1",
+    "pytest>=2.5",
+    "pytest-cov",
+    "pytest-xdist",
+    "tox",
+    "pandoc",
+]
+
+[project.scripts]
+edx-helper = "edx_helper.edx_dl:main"
+
+[project.urls]
+Homepage = "https://github.com/csyezheng/edx-helper"
+
+[tool.hatch.version]
+path = "edx_helper/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/edx_helper",
+    "/test"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["/edx_helper"]
