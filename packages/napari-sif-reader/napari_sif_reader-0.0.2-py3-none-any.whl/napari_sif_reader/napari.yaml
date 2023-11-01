@@ -1,0 +1,18 @@
+name: napari-sif-reader
+display_name: napari sif file reader
+contributions:
+  commands:
+    - id: napari-sif-reader.get_reader
+      python_name: napari_sif_reader._reader:napari_get_reader
+      title: Open data with napari sif file reader
+    - id: napari-sif-reader.make_sample_data
+      python_name: napari_sif_reader._sample_data:make_sample_data
+      title: Load sample data from napari sif file reader
+  readers:
+    - command: napari-sif-reader.get_reader
+      accepts_directories: false
+      filename_patterns: ['*.sif']
+  sample_data:
+    - command: napari-sif-reader.make_sample_data
+      display_name: napari sif file reader
+      key: unique_id.1
