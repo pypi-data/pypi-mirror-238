@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "chatgpt-command-line"
+version = "0.1.5"
+description = ""
+authors = ["obahamonde <oscarmartinbahamondemunoz@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+rich = "^13.6.0"
+click = "^8.1.7"
+openai = "^0.28.1"
+tenacity = "^8.2.3"
+tiktoken = "^0.5.1"
+numpy = "^1.26.1"
+pydantic = "1.10.12"
+linkify = "^1.4"
+flask = "^3.0.0"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.6.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+chatgpt = "chatgpt_command_line.main:main"
