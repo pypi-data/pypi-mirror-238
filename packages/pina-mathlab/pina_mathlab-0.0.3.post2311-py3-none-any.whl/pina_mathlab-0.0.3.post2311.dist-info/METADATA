@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: pina-mathlab
+Version: 0.0.3.post2311
+Summary: Physic Informed Neural networks for Advance modeling.
+Home-page: https://github.com/mathLab/PINA
+Author: Nicola Demo, Maria Strazzullo
+Author-email: demo.nicola@gmail.com, 
+License: MIT
+Keywords: physics-informed neural-network
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+License-File: LICENSE.rst
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: torch
+Provides-Extra: docs
+Requires-Dist: sphinx ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Provides-Extra: test
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+
+PINA is a Python package providing an easy interface to deal with physics-informed neural networks (PINN) for the approximation of (differential, nonlinear, ...) functions. Based on Pytorch, PINA offers a simple and intuitive way to formalize a specific problem and solve it using PINN. The approximated solution of a differential equation can be implemented using PINA in a few lines of code thanks to the intuitive and user-friendly interface.
