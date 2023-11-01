@@ -1,0 +1,92 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Liste de t\u00e2ches"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "Compl\u00e9t\u00e9",
+                "needs_action": "Non compl\u00e9t\u00e9"
+            }
+        }
+    },
+    "services": {
+        "add_item": {
+            "description": "Ajoute un nouvel \u00e9l\u00e9ment \u00e0 une liste de t\u00e2ches.",
+            "fields": {
+                "item": {
+                    "description": "Le nom qui repr\u00e9sente l'\u00e9l\u00e9ment de la liste de t\u00e2ches",
+                    "name": "Nom de l'\u00e9l\u00e9ment"
+                }
+            },
+            "name": "Ajouter un \u00e9l\u00e9ment \u00e0 une liste de t\u00e2ches"
+        },
+        "create_item": {
+            "description": "Ajoute un nouvel \u00e9l\u00e9ment \u00e0 une liste de t\u00e2ches.",
+            "fields": {
+                "status": {
+                    "description": "Un statut ou une confirmation de l'\u00e9l\u00e9ment de la liste de t\u00e2ches.",
+                    "name": "Statut"
+                },
+                "summary": {
+                    "description": "Le court r\u00e9sum\u00e9 qui repr\u00e9sente l'\u00e9l\u00e9ment de la liste de t\u00e2ches.",
+                    "name": "R\u00e9sum\u00e9"
+                }
+            },
+            "name": "Ajouter un \u00e9l\u00e9ment \u00e0 une liste de t\u00e2ches"
+        },
+        "delete_item": {
+            "description": "Supprime un \u00e9l\u00e9ment existant d'une liste de t\u00e2ches soit par son identifiant unique, soit par son r\u00e9sum\u00e9.",
+            "fields": {
+                "summary": {
+                    "description": "Le bref r\u00e9sum\u00e9 qui repr\u00e9sente l'\u00e9l\u00e9ment de t\u00e2ches.",
+                    "name": "R\u00e9sum\u00e9"
+                },
+                "uid": {
+                    "description": "Identifiants uniques pour les \u00e9l\u00e9ments de la liste de t\u00e2ches.",
+                    "name": "Identifiants uniques des \u00e9l\u00e9ments de la liste de t\u00e2ches"
+                }
+            },
+            "name": "Supprimer un \u00e9l\u00e9ment d'une liste de t\u00e2ches"
+        },
+        "remove_item": {
+            "description": "Supprime un \u00e9l\u00e9ment d'une liste de t\u00e2ches existante \u00e0 l'aide de son nom.",
+            "fields": {
+                "item": {
+                    "description": "Le nom des \u00e9l\u00e9ments de la liste de t\u00e2ches.",
+                    "name": "Nom de l'\u00e9l\u00e9ment"
+                }
+            },
+            "name": "Supprimer un \u00e9l\u00e9ment d'une liste de t\u00e2ches"
+        },
+        "update_item": {
+            "description": "Met \u00e0 jour un \u00e9l\u00e9ment d'une liste de t\u00e2ches existante en fonction de son nom.",
+            "fields": {
+                "item": {
+                    "description": "Le nom de l\u2019\u00e9l\u00e9ment de la liste de t\u00e2ches.",
+                    "name": "Nom de l'\u00e9l\u00e9ment"
+                },
+                "rename": {
+                    "description": "Le nouveau nom de l'\u00e9l\u00e9ment de la liste de t\u00e2ches",
+                    "name": "Renommer l'\u00e9l\u00e9ment"
+                },
+                "status": {
+                    "description": "Un statut ou une confirmation de l'\u00e9l\u00e9ment de la liste de t\u00e2ches.",
+                    "name": "D\u00e9finir l'\u00e9tat"
+                },
+                "summary": {
+                    "description": "Le court r\u00e9sum\u00e9 qui repr\u00e9sente l'\u00e9l\u00e9ment de la liste de t\u00e2ches.",
+                    "name": "R\u00e9sum\u00e9"
+                },
+                "uid": {
+                    "description": "Identifiant unique pour l'\u00e9l\u00e9ment de la liste de t\u00e2ches.",
+                    "name": "Identifiant unique de l'\u00e9l\u00e9ment de la liste de t\u00e2ches"
+                }
+            },
+            "name": "Mettre \u00e0 jour un \u00e9l\u00e9ment d'une liste de t\u00e2ches"
+        }
+    },
+    "title": "Liste de t\u00e2ches"
+}

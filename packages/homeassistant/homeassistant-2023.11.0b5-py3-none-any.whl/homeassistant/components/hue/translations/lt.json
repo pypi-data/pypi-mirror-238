@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "host": "Hostas"
+                }
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "1": "Pirmasis mygtukas",
+            "2": "Antras mygtukas",
+            "3": "Tre\u010dias mygtukas",
+            "4": "Ketvirtas mygtukas"
+        }
+    },
+    "entity": {
+        "event": {
+            "button": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "double_short_release": "Du kartus paspauskite",
+                            "initial_press": "Pradinis spaudimas",
+                            "long_press": "Ilgas paspaudimas",
+                            "long_release": "Ilgas i\u0161leidimas",
+                            "repeat": "Pakartokite",
+                            "short_release": "Trumpas paspaudimas"
+                        }
+                    }
+                }
+            },
+            "rotary": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "clock_wise": "Pagal laikrod\u017eio rodykl\u0119",
+                            "counter_clock_wise": "Prie\u0161 laikrod\u017eio rodykl\u0119"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "zigbee_connectivity": {
+                "name": "Zigbee ry\u0161ys",
+                "state": {
+                    "connectivity_issue": "Ry\u0161io problema",
+                    "unidirectional_incoming": "Vienakryptis \u012f\u0117jimas"
+                }
+            }
+        },
+        "switch": {
+            "light_sensor_enabled": {
+                "name": "\u0160viesos jutiklis \u012fjungtas"
+            },
+            "motion_sensor_enabled": {
+                "name": "Judesio jutiklis \u012fjungtas"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignore_availability": "Ignoruoti nurodyt\u0173 \u012frengini\u0173 ry\u0161io b\u016bsen\u0105"
+                }
+            }
+        }
+    },
+    "services": {
+        "activate_scene": {
+            "description": "\u012ejungiama \"Hue\" scena, kurioje galima geriau valdyti parinktis.",
+            "fields": {
+                "brightness": {
+                    "description": "Nustatykite scenos ry\u0161kum\u0105.",
+                    "name": "Ry\u0161kumas"
+                },
+                "dynamic": {
+                    "description": "\u012ejunkite dinamin\u012f scenos re\u017eim\u0105."
+                },
+                "speed": {
+                    "description": "Dinamin\u0117s palet\u0117s greitis \u0161iai scenai.",
+                    "name": "Greitis"
+                }
+            }
+        }
+    }
+}

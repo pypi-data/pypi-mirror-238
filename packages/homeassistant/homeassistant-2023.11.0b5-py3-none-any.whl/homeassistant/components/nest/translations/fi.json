@@ -1,0 +1,88 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Tili on jo m\u00e4\u00e4ritetty",
+            "authorize_url_timeout": "Valtuutus-URL-osoitteen luomisen aikakatkaisu.",
+            "invalid_access_token": "Virheellinen k\u00e4ytt\u00f6oikeustunnus",
+            "missing_configuration": "Komponenttia ei ole m\u00e4\u00e4ritetty. Seuraa dokumentaatiota.",
+            "no_url_available": "URL-osoitetta ei ole saatavilla. Lis\u00e4tietoja t\u00e4st\u00e4 virheest\u00e4 saat [t\u00e4\u00e4lt\u00e4]({docs_url})",
+            "reauth_successful": "Uudelleentodennus onnistui",
+            "unknown_authorize_url_generation": "Tuntematon virhe luotaessa valtuutus-URL-osoitetta."
+        },
+        "create_entry": {
+            "default": "Todennettu onnistuneesti"
+        },
+        "error": {
+            "internal_error": "Sis\u00e4inen virhe koodin vahvistamisessa",
+            "timeout": "Aikakatkaisu varmennettaessa koodia",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "auth_upgrade": {
+                "description": "Google on poistanut App Auth -toiminnon k\u00e4yt\u00f6st\u00e4 parantaakseen turvallisuutta, ja sinun on ryhdytt\u00e4v\u00e4 toimiin luomalla uudet sovelluksen tunnistetiedot.\n\nAvaa [documentation]({more_info_url}) seurataksesi mukana, sill\u00e4 seuraavat vaiheet opastavat sinua vaiheissa, jotka sinun on toteutettava, jotta voit palauttaa p\u00e4\u00e4syn Nest-laitteisiisi."
+            },
+            "cloud_project": {
+                "data": {
+                    "cloud_project_id": "Google Cloud Projektin tunnus"
+                },
+                "description": "Kirjoita alla oleva Cloud-projektin tunnus, esimerkiksi *example-project-12345*. Katso [Google Cloud Console]({cloud_console_url}) tai dokumentaation [lis\u00e4tietoja]({more_info_url})."
+            },
+            "create_cloud_project": {
+                "description": "Nest-integraation avulla voit integroida Nest-termostaatit, -kamerat ja -ovikellot Smart Device Management API:n avulla. SDM API **vaatii 5 Yhdysvaltain dollarin** kertaluonteisen asennusmaksun. Katso dokumentaatio [lis\u00e4tietoja]({more_info_url}).\n\n1. Siirry [Google Cloud Console]({cloud_console_url}).\n1. Jos t\u00e4m\u00e4 on ensimm\u00e4inen projektisi, valitse **Luo projekti** ja sitten **Uusi projekti**.\n1. Anna Cloud-projektillesi nimi ja napsauta sitten **Luo**.\n1. Tallenna pilviprojektin tunnus, esim. *example-project-12345*, koska tarvitset sit\u00e4 my\u00f6hemmin.\n1. Siirry API-kirjastoon [Smart Device Management API]({sdm_api_url}) ja napsauta **Enable**.\n1. Siirry API Library for [Cloud Pub/Sub API]({pubsub_api_url}) ja napsauta **Enable**.\n\nJatka, kun pilviprojektisi on perustettu."
+            },
+            "device_project": {
+                "description": "Luo Nest Device Access -projekti, jonka perustaminen **edellytt\u00e4\u00e4 Googlen 5 dollarin maksun** maksamista.\n1. Siirry [Device Access Console] ({device_access_console_url}) -palveluun ja mene maksuvirran kautta.\n1. Napsauta **Luo projekti**\n1. Anna Device Access -projektille nimi ja napsauta **Next**.\n1. Anna OAuth-asiakkaan tunnus\n1. Ota tapahtumat k\u00e4ytt\u00f6\u00f6n napsauttamalla **Enable** ja **Create project**.\n\nAnna Device Access Project ID alla ([lis\u00e4tietoja]({more_info_url})).\n"
+            },
+            "init": {
+                "data": {
+                    "flow_impl": "Tarjoaja"
+                },
+                "description": "Valitse todennusmenetelm\u00e4",
+                "title": "Todentamisen tarjoaja"
+            },
+            "link": {
+                "data": {
+                    "code": "PIN-koodi"
+                },
+                "description": "Voit yhdist\u00e4\u00e4 Nest-tilisi [valtuuta tilisi]({url}).\n\nValtuuttamisen j\u00e4lkeen kopioi ja liit\u00e4 PIN-koodi alas.",
+                "title": "Linkit\u00e4 Nest-tili"
+            },
+            "pick_implementation": {
+                "title": "Valitse todennusmenetelm\u00e4"
+            },
+            "pubsub": {
+                "data": {
+                    "cloud_project_id": "Google Cloud Projektin tunnus"
+                },
+                "description": "K\u00e4y [Cloud Console]({url}) -sivulla etsim\u00e4ss\u00e4 Google Cloud -projektin tunnus.",
+                "title": "M\u00e4\u00e4rit\u00e4 Google Cloud"
+            },
+            "reauth_confirm": {
+                "title": "Todenna integraatio uudelleen"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "camera_motion": "Liikett\u00e4 havaittu",
+            "camera_person": "Hahmo havaittu",
+            "camera_sound": "\u00c4\u00e4ni havaittu",
+            "doorbell_chime": "Ovikelloa painettu"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "humidity": {
+                "name": "Kosteus"
+            },
+            "temperature": {
+                "name": "L\u00e4mp\u00f6tila"
+            }
+        }
+    },
+    "issues": {
+        "removed_app_auth": {
+            "description": "Parantaakseen tietoturvaa ja v\u00e4hent\u00e4\u00e4kseen phishing-riski\u00e4 Google on poistanut Home Assistantin k\u00e4ytt\u00e4m\u00e4n todennusmenetelm\u00e4n k\u00e4yt\u00f6st\u00e4.\n\n**T\u00e4m\u00e4 edellytt\u00e4\u00e4 toimenpiteit\u00e4, jotta voit ratkaista t\u00e4m\u00e4n** ([lis\u00e4tietoja]({more_info_url})))\n\n1.  K\u00e4y integraatioiden sivulla\n1. Napsauta Nest-integraation kohdalla Reconfigure (M\u00e4\u00e4rit\u00e4 uudelleen).\n1. Home Assistant opastaa sinut vaiheiden kautta p\u00e4ivitt\u00e4m\u00e4\u00e4n Web-todennukseen.\n\nKatso vianm\u00e4\u00e4ritystietoja Nestin [integraatio-ohjeista]({documentation_url})."
+        }
+    }
+}

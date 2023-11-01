@@ -1,0 +1,159 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Tili on jo m\u00e4\u00e4ritetty",
+            "reauth_successful": "Uudelleentodennus onnistui"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "api_key": "API-avain"
+                }
+            },
+            "user": {
+                "data": {
+                    "api_key": "API-avain"
+                }
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "climate_device": {
+                "state_attributes": {
+                    "swing_mode": {
+                        "state": {
+                            "stopped": "Pois"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "horizontalswing": {
+                "state": {
+                    "stopped": "Pois"
+                }
+            },
+            "light": {
+                "name": "Valo",
+                "state": {
+                    "dim": "Himme\u00e4",
+                    "off": "Pois",
+                    "on": "P\u00e4\u00e4ll\u00e4"
+                }
+            }
+        },
+        "sensor": {
+            "climate_react_high": {
+                "state_attributes": {
+                    "horizontalswing": {
+                        "state": {
+                            "stopped": "Pois"
+                        }
+                    },
+                    "light": {
+                        "name": "Valo",
+                        "state": {
+                            "dim": "Himme\u00e4",
+                            "off": "Pois",
+                            "on": "P\u00e4\u00e4ll\u00e4"
+                        }
+                    },
+                    "mode": {
+                        "state": {
+                            "off": "Pois"
+                        }
+                    },
+                    "on": {
+                        "name": "P\u00e4\u00e4ll\u00e4",
+                        "state": {
+                            "false": "Pois",
+                            "true": "P\u00e4\u00e4ll\u00e4"
+                        }
+                    },
+                    "swing": {
+                        "state": {
+                            "stopped": "Pois"
+                        }
+                    }
+                }
+            },
+            "climate_react_low": {
+                "state_attributes": {
+                    "horizontalswing": {
+                        "state": {
+                            "stopped": "Pois"
+                        }
+                    },
+                    "light": {
+                        "name": "Valo",
+                        "state": {
+                            "dim": "Himme\u00e4",
+                            "off": "Pois",
+                            "on": "P\u00e4\u00e4ll\u00e4"
+                        }
+                    },
+                    "mode": {
+                        "state": {
+                            "off": "Pois"
+                        }
+                    },
+                    "on": {
+                        "name": "P\u00e4\u00e4ll\u00e4",
+                        "state": {
+                            "false": "Pois",
+                            "true": "P\u00e4\u00e4ll\u00e4"
+                        }
+                    },
+                    "swing": {
+                        "state": {
+                            "stopped": "Pois"
+                        }
+                    }
+                }
+            },
+            "smart_type": {
+                "state": {
+                    "humidity": "Kosteus",
+                    "temperature": "L\u00e4mp\u00f6tila"
+                }
+            }
+        },
+        "switch": {
+            "climate_react_switch": {
+                "state_attributes": {
+                    "type": {
+                        "state": {
+                            "humidity": "Kosteus",
+                            "temperature": "L\u00e4mp\u00f6tila"
+                        }
+                    }
+                }
+            },
+            "timer_on_switch": {
+                "state_attributes": {
+                    "turn_on": {
+                        "state": {
+                            "false": "Pois",
+                            "true": "P\u00e4\u00e4ll\u00e4"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "enable_climate_react": {
+            "fields": {
+                "smart_type": {
+                    "name": "Laukaisutyyppi"
+                }
+            }
+        }
+    }
+}

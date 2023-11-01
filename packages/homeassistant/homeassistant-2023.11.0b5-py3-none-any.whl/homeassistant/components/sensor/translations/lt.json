@@ -1,0 +1,141 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_apparent_power": "Dabartin\u0117 {entity_name} tariama galia",
+            "is_data_rate": "Dabartinis {entity_name} duomen\u0173 perdavimo greitis",
+            "is_data_size": "Dabartinis {entity_name} duomen\u0173 dydis",
+            "is_illuminance": "Dabartinis {entity_name} ap\u0161vietimas",
+            "is_irradiance": "Dabartin\u0117 {entity_name} ap\u0161vita",
+            "is_ph": "Dabartinis {entity_name} pH lygis",
+            "is_reactive_power": "Dabartin\u0117 {entity_name} reaktyvioji galia",
+            "is_sound_pressure": "Dabartinis {entity_name} garso sl\u0117gis",
+            "is_wind_speed": "Dabartinis {entity_name} v\u0117jo greitis"
+        },
+        "trigger_type": {
+            "apparent_power": "{entity_name} matomi galios poky\u010diai",
+            "aqi": "{entity_name} oro kokyb\u0117s indekso poky\u010diai",
+            "data_rate": "{entity_name} duomen\u0173 perdavimo spartos poky\u010diai",
+            "data_size": "{entity_name} duomen\u0173 dyd\u017eio poky\u010diai",
+            "duration": "{entity_name} trukm\u0117s poky\u010diai",
+            "illuminance": "{entity_name} ap\u0161vietimas pakito",
+            "irradiance": "{entity_name} ap\u0161vitos poky\u010diai",
+            "monetary": "{entity_name} pinig\u0173 poky\u010diai",
+            "ph": "{entity_name} pH lygio poky\u010diai",
+            "reactive_power": "{entity_name} reaktyviosios galios poky\u010diai",
+            "sound_pressure": "{entity_name} garso sl\u0117gio poky\u010diai"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "state": {
+                "off": "I\u0161jungta"
+            },
+            "state_attributes": {
+                "last_reset": {
+                    "name": "Paskutinis nustatymas i\u0161 naujo"
+                },
+                "options": {
+                    "name": "Galimos b\u016bsenos"
+                },
+                "state_class": {
+                    "name": "B\u016bsenos klas\u0117",
+                    "state": {
+                        "measurement": "Matavimas",
+                        "total": "I\u0161 viso",
+                        "total_increasing": "I\u0161 viso did\u0117ja"
+                    }
+                }
+            }
+        },
+        "aqi": {
+            "name": "Oro kokyb\u0117s indeksas"
+        },
+        "atmospheric_pressure": {
+            "name": "Atmosferos sl\u0117gis"
+        },
+        "battery": {
+            "name": "Baterija"
+        },
+        "carbon_dioxide": {
+            "name": "Anglies dioksidas"
+        },
+        "carbon_monoxide": {
+            "name": "Anglies monoksidas"
+        },
+        "current": {
+            "name": "Dabartin\u0117"
+        },
+        "data_rate": {
+            "name": "Duomen\u0173 perdavimo sparta"
+        },
+        "data_size": {
+            "name": "Duomen\u0173 dydis"
+        },
+        "date": {
+            "name": "Data"
+        },
+        "distance": {
+            "name": "Atstumas"
+        },
+        "duration": {
+            "name": "Trukm\u0117"
+        },
+        "energy": {
+            "name": "Energija"
+        },
+        "energy_storage": {
+            "name": "Sukaupta energija"
+        },
+        "frequency": {
+            "name": "Da\u017enis"
+        },
+        "gas": {
+            "name": "Dujos"
+        },
+        "humidity": {
+            "name": "Dr\u0117gm\u0117"
+        },
+        "illuminance": {
+            "name": "Ap\u0161vietimas"
+        },
+        "irradiance": {
+            "name": "\u0160vitinimas"
+        },
+        "moisture": {
+            "name": "Dr\u0117gm\u0117"
+        },
+        "monetary": {
+            "name": "Balansas"
+        },
+        "nitrogen_dioxide": {
+            "name": "Azoto dioksidas"
+        },
+        "nitrogen_monoxide": {
+            "name": "Azoto monoksidas"
+        },
+        "nitrous_oxide": {
+            "name": "Azoto oksidas"
+        },
+        "ozone": {
+            "name": "Ozonas"
+        },
+        "ph": {
+            "name": "pH"
+        },
+        "water": {
+            "name": "Vanduo"
+        },
+        "weight": {
+            "name": "Svoris"
+        },
+        "wind_speed": {
+            "name": "V\u0117jo greitis"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform} platforma, skirta {domain} integravimui, nepalaiko platformos s\u0105rankos. \n\n Pa\u0161alinkite j\u012f i\u0161 konfig\u016bracijos ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Platformos palaikymas nepalaikomas"
+        }
+    }
+}

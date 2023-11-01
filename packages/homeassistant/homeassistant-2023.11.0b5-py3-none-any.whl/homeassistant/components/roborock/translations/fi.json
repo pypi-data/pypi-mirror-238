@@ -1,0 +1,91 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty"
+        },
+        "error": {
+            "invalid_code": "Antamasi koodi oli virheellinen, tarkista se ja yrit\u00e4 uudelleen.",
+            "invalid_email": "Antamaasi s\u00e4hk\u00f6postiosoitteeseen ei ole liitetty tili\u00e4. Yrit\u00e4 uudelleen.",
+            "invalid_email_format": "S\u00e4hk\u00f6postisi muotoilussa on ongelma - yrit\u00e4 uudelleen.",
+            "unknown": "Odottamaton virhe",
+            "unknown_url": "Robock-tilisi oikean URL-osoitteen m\u00e4\u00e4ritt\u00e4misess\u00e4 oli ongelma - tarkista lokit."
+        },
+        "step": {
+            "code": {
+                "data": {
+                    "code": "Vahvistuskoodi"
+                },
+                "description": "Kirjoita s\u00e4hk\u00f6postiisi l\u00e4hetetty vahvistuskoodi"
+            },
+            "user": {
+                "data": {
+                    "username": "S\u00e4hk\u00f6posti"
+                },
+                "description": "Kirjoita Roborock-s\u00e4hk\u00f6postiosoitteesi."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "in_cleaning": {
+                "name": "Siivoaa"
+            }
+        },
+        "select": {
+            "mop_intensity": {
+                "state": {
+                    "off": "Pois"
+                }
+            },
+            "mop_mode": {
+                "name": "Moppitila"
+            }
+        },
+        "sensor": {
+            "status": {
+                "state": {
+                    "charging": "Latautuu",
+                    "charging_complete": "Lataus valmis",
+                    "charging_problem": "Latausongelma",
+                    "idle": "Lepotilassa",
+                    "paused": "Pys\u00e4ytetty"
+                }
+            },
+            "vacuum_error": {
+                "state": {
+                    "charging_error": "Latausvirhe"
+                }
+            }
+        },
+        "switch": {
+            "off_peak_switch": {
+                "name": "Lataus huippujen ulkopuolella"
+            }
+        },
+        "time": {
+            "off_peak_end": {
+                "name": "Huippujen ulkopuolella loppu"
+            },
+            "off_peak_end_time": {
+                "name": "Huippujen ulkopuolella loppu"
+            },
+            "off_peak_start": {
+                "name": "Huippujen ulkopuolella alku"
+            },
+            "off_peak_start_time": {
+                "name": "Huippujen ulkopuolella alku"
+            }
+        },
+        "vacuum": {
+            "roborock": {
+                "state_attributes": {
+                    "fan_speed": {
+                        "state": {
+                            "off": "Pois"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

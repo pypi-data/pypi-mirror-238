@@ -1,0 +1,92 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Teend\u0151k list\u00e1ja"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "Befejezve",
+                "needs_action": "Nincs k\u00e9sz"
+            }
+        }
+    },
+    "services": {
+        "add_item": {
+            "description": "Adjon hozz\u00e1 egy \u00faj teend\u0151lista t\u00e9telt.",
+            "fields": {
+                "item": {
+                    "description": "A teend\u0151t jel\u00f6l\u0151 n\u00e9v.",
+                    "name": "T\u00e9tel neve"
+                }
+            },
+            "name": "Teend\u0151lista t\u00e9tel hozz\u00e1ad\u00e1sa"
+        },
+        "create_item": {
+            "description": "\u00daj teend\u0151lista t\u00e9tel hozz\u00e1ad\u00e1sa.",
+            "fields": {
+                "status": {
+                    "description": "A teend\u0151 t\u00e9tel \u00e1llapota vagy meger\u0151s\u00edt\u00e9se.",
+                    "name": "\u00c1llapot"
+                },
+                "summary": {
+                    "description": "A teend\u0151t bemutat\u00f3 r\u00f6vid \u00f6sszefoglal\u00f3.",
+                    "name": "\u00d6sszefoglal\u00f3"
+                }
+            },
+            "name": "Hozzon l\u00e9tre egy teend\u0151lista t\u00e9telt"
+        },
+        "delete_item": {
+            "description": "T\u00f6r\u00f6lj\u00f6n egy megl\u00e9v\u0151 teend\u0151lista t\u00e9telt egyedi azonos\u00edt\u00f3j\u00e1val vagy \u00f6sszegz\u00e9s\u00e9vel.",
+            "fields": {
+                "summary": {
+                    "description": "A teend\u0151t bemutat\u00f3 r\u00f6vid \u00f6sszefoglal\u00f3.",
+                    "name": "\u00d6sszefoglal\u00f3"
+                },
+                "uid": {
+                    "description": "A teend\u0151lista t\u00e9teleinek egyedi azonos\u00edt\u00f3i.",
+                    "name": "A teend\u0151k egyedi azonos\u00edt\u00f3i"
+                }
+            },
+            "name": "T\u00f6r\u00f6lj\u00f6n egy teend\u0151lista t\u00e9telt"
+        },
+        "remove_item": {
+            "description": "T\u00e1vol\u00edtson el egy megl\u00e9v\u0151 teend\u0151lista t\u00e9telt a neve alapj\u00e1n.",
+            "fields": {
+                "item": {
+                    "description": "A teend\u0151lista t\u00e9teleinek neve.",
+                    "name": "T\u00e9tel neve"
+                }
+            },
+            "name": "T\u00e1vol\u00edtson el egy teend\u0151lista t\u00e9telt"
+        },
+        "update_item": {
+            "description": "Friss\u00edtsen egy megl\u00e9v\u0151 teend\u0151lista t\u00e9telt a neve alapj\u00e1n.",
+            "fields": {
+                "item": {
+                    "description": "A teend\u0151lista t\u00e9tel\u00e9nek neve.",
+                    "name": "T\u00e9tel neve"
+                },
+                "rename": {
+                    "description": "A teend\u0151 t\u00e9tel \u00faj neve",
+                    "name": "T\u00e9tel \u00e1tnevez\u00e9se"
+                },
+                "status": {
+                    "description": "A teend\u0151 t\u00e9tel \u00e1llapota vagy meger\u0151s\u00edt\u00e9se.",
+                    "name": "\u00c1llapot be\u00e1ll\u00edt\u00e1sa"
+                },
+                "summary": {
+                    "description": "A teend\u0151t bemutat\u00f3 r\u00f6vid \u00f6sszefoglal\u00f3.",
+                    "name": "\u00d6sszefoglal\u00f3"
+                },
+                "uid": {
+                    "description": "A teend\u0151lista t\u00e9tel\u00e9nek egyedi azonos\u00edt\u00f3ja.",
+                    "name": "A teend\u0151k egyedi azonos\u00edt\u00f3ja"
+                }
+            },
+            "name": "Friss\u00edtse a teend\u0151lista t\u00e9tel\u00e9t"
+        }
+    },
+    "title": "Teend\u0151k list\u00e1ja"
+}

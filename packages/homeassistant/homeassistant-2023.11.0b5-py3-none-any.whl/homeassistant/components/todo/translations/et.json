@@ -1,0 +1,92 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "\u00dclesannete loend"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "L\u00f5petatud",
+                "needs_action": "Vajab tegevust"
+            }
+        }
+    },
+    "services": {
+        "add_item": {
+            "description": "Lisa uus \u00fclesannete loendi \u00fcksus.",
+            "fields": {
+                "item": {
+                    "description": "\u00dclesande\u00fcksust t\u00e4histav nimi.",
+                    "name": "\u00dcksuse nimi"
+                }
+            },
+            "name": "Lisa \u00fclesannete loendi \u00fcksus"
+        },
+        "create_item": {
+            "description": "Lisa uus \u00fclesannete loendi \u00fcksus.",
+            "fields": {
+                "status": {
+                    "description": "\u00dclesande \u00fcksuse olek v\u00f5i kinnitus.",
+                    "name": "Olek"
+                },
+                "summary": {
+                    "description": "\u00dclesande\u00fcksust kirjeldav l\u00fchikokkuv\u00f5te.",
+                    "name": "Kokkuv\u00f5te"
+                }
+            },
+            "name": "Loo \u00fclesannete loendi \u00fcksus"
+        },
+        "delete_item": {
+            "description": "Kustuta olemasolev \u00fclesannete loendi \u00fcksus kas selle kordumatu ID v\u00f5i kokkuv\u00f5tte j\u00e4rgi.",
+            "fields": {
+                "summary": {
+                    "description": "\u00dclesande\u00fcksust kirjeldav l\u00fchikokkuv\u00f5te.",
+                    "name": "Kokkuv\u00f5te"
+                },
+                "uid": {
+                    "description": "\u00dclesannete loendi \u00fcksuste kordumatud identifikaatorid.",
+                    "name": "\u00dclesannete \u00fcksuse kordumatud ID-d"
+                }
+            },
+            "name": "\u00dclesannete loendi \u00fcksuse kustutamine"
+        },
+        "remove_item": {
+            "description": "Eemalda olemasolev \u00fclesannete loendi \u00fcksus selle nime j\u00e4rgi.",
+            "fields": {
+                "item": {
+                    "description": "\u00dclesannete loendi \u00fcksuste nimi.",
+                    "name": "\u00dcksuse nimi"
+                }
+            },
+            "name": "Eemalda \u00fclesannete loendi \u00fcksus"
+        },
+        "update_item": {
+            "description": "V\u00e4rskenda olemasolevat \u00fclesandeloendi \u00fcksust selle nime p\u00f5hjal.",
+            "fields": {
+                "item": {
+                    "description": "\u00dclesannete loendi \u00fcksuse nimi.",
+                    "name": "\u00dcksuse nimi"
+                },
+                "rename": {
+                    "description": "\u00dclesande\u00fcksuse uus nimi",
+                    "name": "Nimeta \u00fcksus \u00fcmber"
+                },
+                "status": {
+                    "description": "\u00dclesande \u00fcksuse olek v\u00f5i kinnitus.",
+                    "name": "M\u00e4\u00e4ra olek"
+                },
+                "summary": {
+                    "description": "\u00dclesande\u00fcksust kirjeldav l\u00fchikokkuv\u00f5te.",
+                    "name": "Kokkuv\u00f5te"
+                },
+                "uid": {
+                    "description": "\u00dclesannete loendi \u00fcksuse kordumatu identifikaator.",
+                    "name": "\u00dclesande \u00fcksuse kordumatu ID"
+                }
+            },
+            "name": "V\u00e4rskenda \u00fclesannete loendi \u00fcksust"
+        }
+    },
+    "title": "\u00dclesannete loend"
+}

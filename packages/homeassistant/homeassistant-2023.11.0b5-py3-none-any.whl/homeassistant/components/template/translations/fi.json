@@ -1,0 +1,109 @@
+{
+    "config": {
+        "step": {
+            "binary_sensor": {
+                "data": {
+                    "name": "Nimi",
+                    "state_template": "Tilamalli"
+                }
+            },
+            "sensor": {
+                "data": {
+                    "name": "Nimi",
+                    "state_class": "Tilan luokka",
+                    "state_template": "Tilamalli",
+                    "unit_of_measurement": "Mittayksikk\u00f6"
+                },
+                "title": "Mallisensori"
+            },
+            "user": {
+                "menu_options": {
+                    "sensor": "Tee sensorimalli"
+                },
+                "title": "Malliavustin"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "binary_sensor": {
+                "data": {
+                    "state_template": "Tilamalli"
+                }
+            },
+            "sensor": {
+                "data": {
+                    "state_class": "Tilan luokka",
+                    "state_template": "Tilamalli",
+                    "unit_of_measurement": "Mittayksikk\u00f6"
+                },
+                "title": "Mallisensori"
+            }
+        }
+    },
+    "selector": {
+        "binary_sensor_device_class": {
+            "options": {
+                "battery_charging": "Latautuu",
+                "carbon_monoxide": "H\u00e4k\u00e4",
+                "light": "Valo",
+                "moisture": "Kosteus",
+                "none": "Ei laiteluokkaa",
+                "opening": "Avataan",
+                "presence": "Paikallaolo",
+                "problem": "Ongelma",
+                "running": "K\u00e4ynniss\u00e4",
+                "safety": "Turva",
+                "smoke": "Savu",
+                "sound": "\u00c4\u00e4ni",
+                "update": "P\u00e4ivit\u00e4",
+                "vibration": "V\u00e4rin\u00e4",
+                "window": "Ikkuna"
+            }
+        },
+        "sensor_device_class": {
+            "options": {
+                "atmospheric_pressure": "Ilmakeh\u00e4n paine",
+                "carbon_monoxide": "H\u00e4k\u00e4",
+                "energy": "Energia",
+                "energy_storage": "Varastoitu energia",
+                "frequency": "Taajuus",
+                "humidity": "Kosteus",
+                "illuminance": "Valaistusvoimakkuus",
+                "moisture": "Kosteus",
+                "monetary": "Saldo",
+                "none": "Ei laiteluokkaa",
+                "power": "Teho",
+                "power_factor": "Tehokerroin",
+                "pressure": "Paine",
+                "reactive_power": "Loisteho",
+                "signal_strength": "Signaalin voimakkuus",
+                "sound_pressure": "\u00c4\u00e4nenpaine",
+                "speed": "Nopeus",
+                "temperature": "L\u00e4mp\u00f6tila",
+                "voltage": "J\u00e4nnite",
+                "volume": "Tilavuus",
+                "volume_storage": "Varastoitu tilavuus",
+                "water": "Vesi"
+            }
+        },
+        "sensor_state_class": {
+            "options": {
+                "measurement": "Mittaus",
+                "none": "Ei tilaluokkaa",
+                "total": "Yhteens\u00e4",
+                "total_increasing": "Nousu yhteens\u00e4"
+            }
+        },
+        "sensor_unit_of_measurement": {
+            "options": {
+                "none": "Ei mittayksikk\u00f6\u00e4"
+            }
+        }
+    },
+    "services": {
+        "reload": {
+            "name": "Uudelleenlataa"
+        }
+    }
+}
