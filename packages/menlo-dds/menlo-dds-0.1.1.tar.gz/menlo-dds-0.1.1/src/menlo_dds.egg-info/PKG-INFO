@@ -1,0 +1,131 @@
+Metadata-Version: 2.1
+Name: menlo-dds
+Version: 0.1.1
+Summary: Unofficial Python framework for communication with the Menlo DDS-120
+Author-email: Florin Boariu <florin.pt@rootshell.ro>
+Project-URL: Source Code, https://gitlab.com/codedump2/diddy
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: COPYING.md
+Requires-Dist: pyserial
+Requires-Dist: pyyaml
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-cov; extra == "test"
+
+Diddy -- for Menlo DDS-120
+==========================
+
+Diddy is an unofficial Python library for communication with the DDS-120
+of [Menlo Systems](https://www.menlosystems.com/products/photodetectors/).
+"Unofficial" here meaning that the work is neither sanctioned nor officially
+supported by Menlo.
+
+Installation
+------------
+
+Currently only installation from sources/GitLab is available:
+```
+$ git clone https://gitlab.com:codedump2/diddy
+$ cd diddy
+$ pip install .
+```
+
+Alternatively, if you have a Python >= 3.11, you can install Diddy
+as an in-place "editable" package, allowing you to modify code
+and have it available as if it were regularly installed, by changing
+the last line to this:
+```
+$ pip install . -e
+```
+
+Setup
+-----
+
+The DDS-120 communicates with the PC via a serial interface. Typically
+that's something like `/dev/ttyUSB0` or similar. Mostly, as a regular
+user you don't have the required permissions to access the device. A quick
+and dirty way of doing that is issuing a `chmod 0666` as `root`. For most
+distrbutions, assinging your user to the `dialout` group will mostly grant
+you privileges to the `tty` class of devices.
+
+A persistent way of doing this is by setting up proper udev rules. One way
+to do this is to create a file `/etc/udev/99-menlodds.rules` with the following
+contents:
+```
+KERNEL=="ttyUSB*",ATTRS{idVendor}=="0403",ATTRS{idProduct}=="6001",ATTRS{product}=="DDS", MODE="0666",SYMLINK+="menlodds%n"
+```
+
+Then issue the udev commands for reloading:
+```
+$ sudo udevadm control --reload
+$ sudo udevadm trigger
+```
+
+This should trigger re-initialization of all USB devices, inlcuding the
+USB-to-serial converter incorporated in the Menlo DDS-120. If successful,
+it will create a device `/dev/menlodds0` that everybody can use. 
+
+Note that you might want to change permissions (away for `0666` giving everyone
+logged into the system access), or may want to change ownership. Refer
+to udev documentation for details.
+
+Usage
+-----
+
+There's not much to Diddy; essentially, all the magic happens in a
+Python object `DdsIo` (here's assuming that the DDS-120 is attached
+as `/dev/ttyUSB0` -- change accordingly e.g. if the device is named
+`/dev/menlodds0`):
+
+```
+dds = DdsIo("/dev/ttyUSB0")
+print (dds.settings)
+```
+
+In the example above a property `settings` of `DdsIo` was used. It displays
+a JSON formatted summary of the device settings. 
+
+Other properties are as follows. Most of these can be either read (to
+report current values) or set (to change corresponding values within the
+DDS-120). Please refer to the DDS-120 documentation, or ask the manufacturer
+for details, as to what these parameters actually do. For each of these
+there's a 1:1 correspondence in the device's official documentation:
+
+- `remoteControl`: set to `True` or `False`, depending on whether a PC
+  is currently controlling the DDS-120
+
+- `amplitude`: the current signal amplitude
+
+- `frequencyHz`: the current frequency, in Hz
+
+- `phaseDeg`: singnal phase, in degrees
+
+- `outputChannel`: which output channel is used
+
+- `configuration`: this is a cryptic, but otherwise human-readable
+  string which sets up specific work parameters of DDS-120. As of
+  January 2023, the set function is broken (inside the DDS-120 itself),
+  only reading works. But Diddy in principle supports setting, too.
+
+- `firmwareVersion`: read-only property that returns the self-reported
+  DDS-120 firmare information
+
+- `serialNumber`: read-only property that returns self-reported
+  device identity information.
+
+- `frequencyOffset`: the DDS-120 documentation refers to a command
+  (`"GO"`) that is supposed to report to return a frequency offset;
+  this is implemented here, but apparently is rejected by the device.
+
+
+Enjoy. As always, if you break it, it you get to keep both pieces :-)
+
+F.
