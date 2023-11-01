@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: pymdfu
+Version: 0.1.4.4
+Summary: Microchip Device Firmware Upgrade Application
+Author-email: Microchip Technology <support@microchip.com>
+License: MIT
+Project-URL: Homepage, https://www.microchip.com
+Keywords: Microchip
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Embedded Systems
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: pyyaml
+Requires-Dist: appdirs
+Requires-Dist: pyserial
+Provides-Extra: dev
+Requires-Dist: pylint >=2.15 ; extra == 'dev'
+Provides-Extra: doc
+Requires-Dist: mock ; extra == 'doc'
+Requires-Dist: sphinx ; extra == 'doc'
+Provides-Extra: test
+Requires-Dist: mock ; extra == 'test'
+Requires-Dist: pytest ; extra == 'test'
+
+# pymdfu - Microchip Device Firmware Upgrade application
+pymdfu is a tool and library for upgrading Microchip device firmware.
+
+![PyPI - Format](https://img.shields.io/pypi/format/pymdfu)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pymdfu)
+![PyPI - License](https://img.shields.io/pypi/l/pymdfu)
+
+## Usage
+
+pymdfu can be used as a command-line interface or a library
+
+### Building an image from the command-line
+For help, use:
+```bash
+pyfmdfu --help
+```
+
+Example usage:
+```bash
+pymdfu update serial myimage.img --port COM11 --baudrate 9600
+```
+
+### Additional command-line switches
+* -v LEVEL for selecting logging verbosity ('debug', 'info', 'warning', 'error', 'critical')
+
+# Changelog
+
+## [0.1.4] - October 2023
+
+Initial public beta release.
+
+### Initial beta release
+
+## [0.0.1] - October 2023
+
+- Placeholder release
