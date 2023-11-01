@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: hash-controller
+Version: 1.0.1
+Summary: File controller via hash
+Home-page: https://github.com/edmachina/hash_controller
+Author: Ezequiel Marcel
+Author-email: ezequiel.marcel@edmachina.com
+Keywords: pip,hash,controller
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: pymongo>=4.5.0
+
+# Hash controller
+
+Package for file controller via hash creation and storage in MongoDB
+
+## Install and Import
+
+Install with pip
+
+    pip install hash_controller
+
+import as:
+
+    from hash_controller.main import HashClient
+
+## Use
+
+The parameters for the functions are:
+
+    customer_uuid: str
+    type: str
+    obj: dict
+    objs: list[dict]
+
+None of them should be empty
+
+To check if an item exist in the database use:
+
+    HashClient.exist(customer_uuid, type, obj)
+
+In order to create a new registry user:
+
+    HashClient.create(customer_uuid, type, obj)
+
+If you want to do the same but as a batch you can use the many functions, using a list of obj
+
+    HashClient.create_many(customer_uuid, type, objs)
+    HashClient.exist_many(customer_uuid, type, objs)
+
+Also if you want to get the full items use:
+
+    HashClient.get_many(filter)
+
+with filter as a dict of the data filtered. Example:
+
+    filter = {"customer_uuid": "123"}
+    filter = {"created_at": 123456789}
+    filter = {"customer_uuid": "123", "type": "user"}
