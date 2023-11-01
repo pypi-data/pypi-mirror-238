@@ -1,0 +1,20 @@
+## 2.1.0
+Explicit django 4 support
+
+### 2.0.2
+Explicit Pillow 9 support
+
+### 2.0.1
+Documented stricter Pillow requirements, since 7.2.0 -> 8.2.* all fail one of our tests
+
+# 2.0.0
+Changed url format (put source in querystring, rather than path), 
+to avoid issue with apache removing empty segments from url paths.
+
+Backward compatible with 1.x iff you always use our utils for url generation 
+(you'll need to adjust if you manually generate urls).
+
+### 1.0.1
+Explicit Django 2.2 support
+
+# 1.0.0
