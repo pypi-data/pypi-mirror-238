@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "essx"
+version = "0.0.0a"
+authors = [
+  { name="StreamSets, Inc." },
+]
+description = "A data science package for data movement and transformation"
+readme = "essx/README.md"
+requires-python = ">=3.10"
+dependencies = [
+        'streamsets==6.0.1',
+        'pymysql==0.10.1',
+        'pandas==1.5.3',
+        'snowflake-connector-python==2.9.0'
+]
+classifiers = [
+        'Development Status :: 2 - Pre-Alpha',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+]
