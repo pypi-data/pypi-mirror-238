@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: psweep
+Version: 0.11.0
+Summary: loop like a pro, make parameter studies fun
+Author-email: Steve Schmerler <git@elcorto.com>
+License: Copyright (c) 2022, Steve Schmerler <git@elcorto.com>
+        All rights reserved.
+        
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are met:
+        
+        1. Redistributions of source code must retain the above copyright notice, this
+           list of conditions and the following disclaimer.
+        
+        2. Redistributions in binary form must reproduce the above copyright notice,
+           this list of conditions and the following disclaimer in the documentation
+           and/or other materials provided with the distribution.
+        
+        3. Neither the name of the copyright holder nor the names of its contributors
+           may be used to endorse or promote products derived from this software
+           without specific prior written permission.
+        
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+        ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+        WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+        DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+        FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+        DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+        SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+        CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+        OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+        OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        
+Keywords: computational-experiment,parameter-sweep,parameter-scan,parameter-study,pandas,database
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: pandas >=0.19.2
+Requires-Dist: pyyaml
+Requires-Dist: joblib
+Requires-Dist: docopt
+Requires-Dist: tabulate >=0.8.2
+Provides-Extra: dask
+Requires-Dist: dask ; extra == 'dask'
+Requires-Dist: dask-jobqueue ; extra == 'dask'
+Requires-Dist: distributed ; extra == 'dask'
+Provides-Extra: test
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: pytest-xdist ; extra == 'test'
+
+[![pypi](https://img.shields.io/pypi/v/psweep?color=blue)](https://pypi.org/project/psweep)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/elcorto/psweep/tests.yml?branch=master&label=tests)
+[![DOI](https://zenodo.org/badge/92956212.svg)](https://zenodo.org/badge/latestdoi/92956212)
+
+![](doc/source/psweep-logo.png)
+
+This package helps you to set up and run parameter studies.
+
+Mostly, you'll start with a script and a for-loop and ask "why do I
+need a package for that"? Well, soon you'll want housekeeping tools
+and a database for your runs and results. This package exists because
+sooner or later, everyone doing parameter scans arrives at roughly the
+same workflow and tools.
+
+**Check the [docs here](https://elcorto.github.io/psweep)**.
