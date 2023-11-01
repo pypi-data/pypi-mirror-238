@@ -1,0 +1,64 @@
+[project]
+name = "red_sysinfo"
+version = "0.1.0"
+description = "Compile platform information from 'sys' and 'platform' modules into a single PLATFORM class."
+authors = [
+    { name = "redjax", email = "none@none.com" },
+    { name = "redjax", email = "jackenyon@gmail.com" },
+]
+dependencies = []
+requires-python = ">=3.11"
+readme = "README.md"
+
+[project.license]
+text = "MIT"
+
+[project.urls]
+Repository = "https://github.com/redjax/red-sysinfo"
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "black>=23.10.1",
+    "pytest>=7.4.3",
+    "ruff>=0.1.3",
+    "pre-commit>=3.5.0",
+    "pdm-bump>=0.7.3",
+]
+
+[tool.pdm.scripts]
+
+#################
+# Start scripts #
+#################
+
+start-example = { shell = "cd src && pdm run python example.py" }
+
+###############
+# Format/Lint #
+###############
+
+# Run black & ruff
+lint = { shell = "pdm run black . && pdm run ruff check . --fix" }
+# Check only, don't fix
+check = { cmd = "black ." }
+# Check and fix
+format = { cmd = "ruff check . --fix" }
+
+## Prune tags
+git-prune-tags = { cmd = "git fetch --prune origin '+refs/tags/*:refs/tags/*'" }
+
+## Create releases
+create-major-release = { shell = "pdm bump major && pdm bump tag && pdm lock && pdm build && git push --tags" }
+create-minor-release = { shell = "pdm bump minor && pdm bump tag && pdm lock && pdm build && git push --tags" }
+create-micro-release = { shell = "pdm bump micro && pdm bump tag && pdm lock && pdm build && git push --tags" }
+
+## Package uploads
+upload-pypi = { shell = "pdm lock && pdm publish --repository pypi --verbose" }
+upload-pypi-test = { shell = "pdm lock && pdm publish --repository test-pypi --verbose" }
+
+#######################
+# Requirements Export #
+#######################
+
+export = { shell = "pdm export --prod -o requirements.txt --without-hashes" }
+export-dev = { shell = "pdm export -d -o requirements.dev.txt --without-hashes" }
