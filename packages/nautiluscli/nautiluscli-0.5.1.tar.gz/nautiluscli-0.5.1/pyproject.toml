@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "nautiluscli"
+description = "Command-line interface for NautilusDB"
+version = "0.5.1"
+requires-python = ">=3.10"
+authors = ["NautilusDB <contact@nautilusdb.com>"]
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+click = "^8.1.7"
+requests = "^2.31.0"
+pydantic = "^2.4.2"
+lib = "^4.0.0"
+api = "^0.0.7"
+
+[tool.poetry.scripts]
+nautiluscli = 'nautiluscli.cli:run'
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[project.urls]
+"Homepage" = "https://www.nautilusdb.com"
+"Bug Tracker" = "https://forms.gle/pif6Vx2LqPjW5v4w5"
