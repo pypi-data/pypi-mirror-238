@@ -1,0 +1,64 @@
+Metadata-Version: 2.1
+Name: OpenOCR
+Version: 0.1.0
+Summary: Python package for Chinese and English OCR.
+Author-email: Mark Hoo <markhoo@foxmail.com>
+Project-URL: Homepage, https://github.com/MarkHoo/openocr
+Project-URL: Bug Tracker, https://github.com/MarkHoo/openocr/issues
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: Operating System :: Unix
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: C++
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: opencv-python >=4.8.1.78
+Requires-Dist: Pillow >=10.1.0
+Requires-Dist: torch >=2.1.0
+Requires-Dist: torchvision >=0.16.0
+
+# OpenOCR
+
+#### Installing
+
+Install and update using pip:
+
+```
+$ pip install -U openocr
+```
+
+#### A Simple Example
+
+```
+from openocr import OpenOCR
+
+# Create an OpenOCR object
+ocr = OpenOCR()
+
+# Use the object to perform OCR on an image
+text = ocr.ocr_image('path_to_your_image.jpg')
+print(text)
+```
+
+#### Links
+
+- Documentation: [https://github.com/MarkHoo/openocr](https://github.com/MarkHoo/openocr)
+- PyPI Releases: [https://pypi.org/project/openocr/](https://pypi.org/project/openocr/)
+- Source Code: [https://github.com/MarkHoo/openocr](https://github.com/MarkHoo/openocr)
+- Issue Tracker: [https://github.com/MarkHoo/openocr/issues](https://github.com/MarkHoo/openocr/issues)
+- Website: [https://pypi.org/project/openocr/](https://pypi.org/project/openocr/)
+
