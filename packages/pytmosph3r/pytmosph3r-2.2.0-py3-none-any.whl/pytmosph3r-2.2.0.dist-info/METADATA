@@ -1,0 +1,95 @@
+Metadata-Version: 2.1
+Name: pytmosph3r
+Version: 2.2.0
+Summary: Pytmosph3R, generating transmission spectra from 3D atmospheric simulations
+Home-page: https://forge.oasu.u-bordeaux.fr/LAB/whiplash/pytmosph3r-2
+License: BSD
+Keywords: exoplanet,simulation,pytmosph3r,spectra,atmosphere,atmospheric
+Author: Aurélien Falco
+Author-email: aurelien.falco@u-bordeaux.fr
+Requires-Python: >=3.8,<3.12
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: OS Independent
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Astronomy
+Classifier: Topic :: Scientific/Engineering :: Atmospheric Science
+Classifier: Topic :: Software Development :: Libraries
+Provides-Extra: fastchem
+Provides-Extra: taurex
+Requires-Dist: Wand (>=0.6.11)
+Requires-Dist: ai.cs (>=1.0.7)
+Requires-Dist: configobj (>=5.0.8)
+Requires-Dist: exo-k (>=1.2.2,<2.0.0)
+Requires-Dist: matplotlib (<=3.7.3) ; python_version == "3.8"
+Requires-Dist: matplotlib (>3.7.3) ; python_version >= "3.9" and python_version < "3.12"
+Requires-Dist: netCDF4 (>=1.6.4)
+Requires-Dist: psutil (>=5.9.5)
+Requires-Dist: pyfastchem (>=3.0.4) ; extra == "fastchem"
+Requires-Dist: taurex (>=3.1.4a0) ; extra == "taurex"
+Requires-Dist: taurex-ace (>=1.0.2.dev0) ; extra == "taurex"
+Requires-Dist: tqdm (>=4.66.1)
+Project-URL: Repository, https://forge.oasu.u-bordeaux.fr/LAB/whiplash/pytmosph3r-2
+Description-Content-Type: text/markdown
+
+# pytmosph3r
+
+Pytmosph3R is a Python-3 library that computes transmission spectra based on 3D atmospheric simulations, for example performed with the LMDZ generic global climate model.
+
+## Prerequisites
+
+* numpy
+
+## Installing from PyPI
+
+Pytmosph3r is available on the PyPI repository. You can install the latest version avaible with:
+```
+pip install pytmosph3r
+```
+Don't forget to install numpy beforehand.
+
+## Installing from source
+
+If you intend to develop or get the latest (unreleased) developments, you can clone (and move in) the current repository and then install Pytmosph3R using:
+```
+pip install -e .
+```
+
+Don't forget to update `pip` if errors are raised.
+
+To generate the documentation, you will need to install the following packages:
+```
+pip install nbsphinx sphinx-autoapi sphinx_rtd_theme sphinxcontrib-bibtex sphinx-argparse
+conda install sphinx pandoc # installs more (required) dependencies than pip
+```
+You can then generate the documentation by running:
+```
+python setup.py doc
+```
+(or by simply running `make` in the `doc/` folder). The documentation will be generated in the doc/html folder (you can open the [index.html](doc/html/index.html) file to check it out using your favorite browser).
+
+Note that you need to set the environment variable `FASTCHEM_DIR` to the location of the folder containing [FastChem](https://github.com/exoclime/FastChem) if you want to use that functionality (WIP).
+
+## Running
+
+To get help:
+```
+pytmosph3r -h
+```
+
+See the [documentation](http://perso.astrophy.u-bordeaux.fr/~jleconte/pytmosph3r-doc/index.html) for more information (read instructions in `Installation` just above to generate the doc).
