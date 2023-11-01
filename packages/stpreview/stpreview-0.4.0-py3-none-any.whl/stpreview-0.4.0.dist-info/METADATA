@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: stpreview
+Version: 0.4.0
+Summary: build downsampled previews of space telescope products
+Author-email: Zach Burnett <zburnett@stsci.edu>
+License: Copyright (C) 2010 Association of Universities for Research in Astronomy (AURA)
+        
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are met:
+        
+            1. Redistributions of source code must retain the above copyright
+              notice, this list of conditions and the following disclaimer.
+        
+            2. Redistributions in binary form must reproduce the above
+              copyright notice, this list of conditions and the following
+              disclaimer in the documentation and/or other materials provided
+              with the distribution.
+        
+            3. The name of AURA and its representatives may not be used to
+              endorse or promote products derived from this software without
+              specific prior written permission.
+        
+        THIS SOFTWARE IS PROVIDED BY AURA ``AS IS'' AND ANY EXPRESS OR IMPLIED
+        WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+        MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+        DISCLAIMED. IN NO EVENT SHALL AURA BE LIABLE FOR ANY DIRECT, INDIRECT,
+        INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+        BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+        OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+        ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
+        TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+        USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+        DAMAGE.
+        
+Project-URL: repository, https://github.com/spacetelescope/stpreview.git
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Astronomy
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: asdf
+Requires-Dist: astropy
+Requires-Dist: matplotlib
+Requires-Dist: numpy
+Requires-Dist: scikit-image
+Requires-Dist: typer
+Provides-Extra: test
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: roman-datamodels ; extra == 'test'
+
+> # Space Telescope Product Downsampling
+
+[![Powered by STScI Badge](https://img.shields.io/badge/powered%20by-STScI-blue.svg?colorA=707170&colorB=3e8ddd&style=flat)](http://www.stsci.edu)
+[![Powered by Astropy Badge](http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat)](http://www.astropy.org/)
+[![build](https://github.com/spacetelescope/stpreview/actions/workflows/build.yml/badge.svg)](https://github.com/spacetelescope/stpreview/actions/workflows/build.yml)
+[![test](https://github.com/spacetelescope/stpreview/actions/workflows/tests.yml/badge.svg)](https://github.com/spacetelescope/stpreview/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/spacetelescope/stpreview/graph/badge.svg?token=tSEFJ5vwgH)](https://codecov.io/gh/spacetelescope/stpreview)
