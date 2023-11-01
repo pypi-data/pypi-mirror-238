@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: brainglobe-utils
+Version: 0.2.7
+Summary: Shared general purpose tools for the BrainGlobe project
+Author-email: Adam Tyson <code@adamltyson.com>
+License: MIT
+Project-URL: homepage, https://brainglobe.info
+Project-URL: bug_tracker, https://github.com/brainglobe/brainglobe-utils/issues
+Project-URL: source_code, https://github.com/brainglobe/brainglobe-utils
+Project-URL: user_support, https://github.com/brainglobe/brainglobe-utils/issues
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: natsort
+Requires-Dist: pandas
+Requires-Dist: psutil
+Requires-Dist: slurmio
+Requires-Dist: configobj
+Requires-Dist: tqdm
+Requires-Dist: PyYAML
+Requires-Dist: scipy
+Requires-Dist: scikit-image
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"
+Requires-Dist: coverage; extra == "dev"
+Requires-Dist: tox; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: pre-commit; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Requires-Dist: setuptools_scm; extra == "dev"
+Provides-Extra: slumrmio
+Requires-Dist: slurmio; extra == "slumrmio"
+
+# brainglobe-utils
+Shared general purpose tools for the BrainGlobe project
