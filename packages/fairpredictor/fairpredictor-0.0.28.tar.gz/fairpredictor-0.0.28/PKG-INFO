@@ -1,0 +1,73 @@
+Metadata-Version: 2.1
+Name: fairpredictor
+Version: 0.0.28
+Summary: A package for running predictions using fAIr
+Home-page: https://github.com/kshitijrajsharma/fairpredictor
+Author: Kshitij Raj Sharma
+Author-email: skshitizraj@gmail.com
+License: MIT
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests
+Requires-Dist: Pillow
+Requires-Dist: rtree<=1.1.0,>=1.0.0
+Requires-Dist: tqdm<=4.62.3,>=4.0.0
+Requires-Dist: geopandas<=0.14.5
+Requires-Dist: shapely<=2.0.2,>=1.0.0
+Requires-Dist: rasterio<=1.3.8,>=1.0.0
+
+## fAIr Predictor
+
+Run your fAIr Model Predictions anywhere ! 
+
+## Prerequisites
+
+fAIr Predictor has support for GPU , CPU and tflite based devices 
+
+- Install ```tensorflow-cpu``` or ```tflite-runtime``` according to your requirements 
+
+```tflite-runtime``` support is for having very light deployment in order to run inference & 
+```tensorflow-cpu``` might require installation of ```efficientnet```
+
+## Example on Collab 
+```python
+# Install 
+!pip install fairpredictor
+
+# Import 
+from predictor import predict
+
+# Parameters for your predictions 
+bbox=[100.56228021333352,13.685230854641182,100.56383321235313,13.685961853747969]
+model_path='checkpoint.h5'
+zoom_level=20
+tms_url='https://tiles.openaerialmap.org/6501a65c0906de000167e64d/0/6501a65c0906de000167e64e/{z}/{x}/{y}'
+
+# Run your prediction 
+my_predictions=predict(bbox,model_path,zoom_level,tms_url)
+print(my_predictions)
+
+## Visualize your predictions 
+
+import geopandas as gpd
+import matplotlib.pyplot as plt
+gdf = gpd.GeoDataFrame.from_features(my_predictions)
+gdf.plot()
+plt.show()
+```
+
+Works on CPU ! Can work on serverless functions, No other dependencies to run predictions 
+
+## Use raster2polygon 
+
+There is another postprocessing option that supports distance threshold between polygon for merging them , If it is useful for you install raster2polygon by : 
+```
+pip install raster2polygon
+```
