@@ -1,0 +1,492 @@
+{
+  "account_by_key_api": {
+    "methods": {
+      "get_key_references": {
+        "keys": []
+      }
+    }
+  },
+  "account_history_api": {
+    "methods": {
+      "enum_virtual_ops": {
+        "block_range_begin": 1,
+        "block_range_end": 2
+      },
+      "get_account_history": {
+        "account": "",
+        "start": "18446744073709551615",
+        "limit": 1000
+      },
+      "get_ops_in_block": {
+        "block_num": 0,
+        "only_virtual": false
+      },
+      "get_transaction": {
+        "id": ""
+      }
+    }
+  },
+  "block_api": {
+    "methods": {
+      "get_block": {
+        "block_num": 0
+      },
+      "get_block_header": {
+        "block_num": 0
+      },
+      "get_block_range": {
+        "starting_block_num": 0,
+        "count": 0
+      }
+    }
+  },
+  "condenser_api": {
+    "methods": {
+      "broadcast_transaction": [],
+      "broadcast_transaction_synchronous": [],
+      "find_proposals": [],
+      "find_rc_accounts": [],
+      "find_recurrent_transfers": [],
+      "get_account_count": [],
+      "get_account_history": [],
+      "get_account_references": [],
+      "get_account_reputations": [],
+      "get_account_votes": [],
+      "get_accounts": [],
+      "get_active_votes": [],
+      "get_active_witnesses": [],
+      "get_block": [],
+      "get_block_header": [],
+      "get_blog": [],
+      "get_blog_authors": [],
+      "get_blog_entries": [],
+      "get_chain_properties": [],
+      "get_collateralized_conversion_requests": [],
+      "get_comment_discussions_by_payout": [],
+      "get_config": [],
+      "get_content": [],
+      "get_content_replies": [],
+      "get_conversion_requests": [],
+      "get_current_median_history_price": [],
+      "get_discussions_by_active": [],
+      "get_discussions_by_author_before_date": [],
+      "get_discussions_by_blog": [],
+      "get_discussions_by_cashout": [],
+      "get_discussions_by_children": [],
+      "get_discussions_by_comments": [],
+      "get_discussions_by_created": [],
+      "get_discussions_by_feed": [],
+      "get_discussions_by_hot": [],
+      "get_discussions_by_promoted": [],
+      "get_discussions_by_trending": [],
+      "get_discussions_by_votes": [],
+      "get_dynamic_global_properties": [],
+      "get_escrow": [],
+      "get_expiring_vesting_delegations": [],
+      "get_feed": [],
+      "get_feed_entries": [],
+      "get_feed_history": [],
+      "get_follow_count": [],
+      "get_followers": [],
+      "get_following": [],
+      "get_hardfork_version": [],
+      "get_key_references": [],
+      "get_market_history": [],
+      "get_market_history_buckets": [],
+      "get_next_scheduled_hardfork": [],
+      "get_open_orders": [],
+      "get_ops_in_block": [],
+      "get_order_book": [],
+      "get_owner_history": [],
+      "get_post_discussions_by_payout": [],
+      "get_potential_signatures": [],
+      "get_reblogged_by": [],
+      "get_recent_trades": [],
+      "get_recovery_request": [],
+      "get_replies_by_last_update": [],
+      "get_required_signatures": [],
+      "get_reward_fund": [],
+      "get_savings_withdraw_from": [],
+      "get_savings_withdraw_to": [],
+      "get_state": [],
+      "get_tags_used_by_author": [],
+      "get_ticker": [],
+      "get_trade_history": [],
+      "get_transaction": [],
+      "get_transaction_hex": [],
+      "get_trending_tags": [],
+      "get_version": [],
+      "get_vesting_delegations": [],
+      "get_volume": [],
+      "get_withdraw_routes": [],
+      "get_witness_by_account": [],
+      "get_witness_count": [],
+      "get_witness_schedule": [],
+      "get_witnesses": [],
+      "get_witnesses_by_vote": [],
+      "is_known_transaction": [],
+      "list_proposal_votes": [],
+      "list_proposals": [],
+      "list_rc_accounts": [],
+      "list_rc_direct_delegations": [],
+      "lookup_account_names": [],
+      "lookup_accounts": [],
+      "lookup_witness_accounts": [],
+      "verify_account_authority": [],
+      "verify_authority": []
+    }
+  },
+  "database_api": {
+    "methods": {
+      "find_account_recovery_requests": {
+        "accounts": []
+      },
+      "find_accounts": {
+        "accounts": [],
+        "delayed_votes_active": true
+      },
+      "find_change_recovery_account_requests": {
+        "accounts": []
+      },
+      "find_collateralized_conversion_requests": {
+        "account": ""
+      },
+      "find_comments": {
+        "comments": []
+      },
+      "find_decline_voting_rights_requests": {
+        "accounts": []
+      },
+      "find_escrows": {
+        "from": ""
+      },
+      "find_hbd_conversion_requests": {
+        "account": ""
+      },
+      "find_limit_orders": {
+        "account": ""
+      },
+      "find_owner_histories": {
+        "owner": ""
+      },
+      "find_proposals": {
+        "proposal_ids": []
+      },
+      "find_recurrent_transfers": {
+        "from": ""
+      },
+      "find_savings_withdrawals": {
+        "account": ""
+      },
+      "find_vesting_delegation_expirations": {
+        "account": ""
+      },
+      "find_vesting_delegations": {
+        "account": ""
+      },
+      "find_votes": {
+        "author": "",
+        "permlink": ""
+      },
+      "find_withdraw_vesting_routes": {
+        "account": "",
+        "order": "not_set"
+      },
+      "find_witnesses": {
+        "owners": []
+      },
+      "get_active_witnesses": {
+        "include_future": false
+      },
+      "get_comment_pending_payouts": {
+        "comments": []
+      },
+      "get_config": {},
+      "get_current_price_feed": {},
+      "get_dynamic_global_properties": {},
+      "get_feed_history": {},
+      "get_hardfork_properties": {},
+      "get_order_book": {
+        "limit": 0
+      },
+      "get_potential_signatures": {
+        "trx": {
+          "ref_block_num": 0,
+          "ref_block_prefix": 0,
+          "expiration": "1970-01-01T00:00:00",
+          "operations": [],
+          "extensions": [],
+          "signatures": []
+        }
+      },
+      "get_required_signatures": {
+        "trx": {
+          "ref_block_num": 0,
+          "ref_block_prefix": 0,
+          "expiration": "1970-01-01T00:00:00",
+          "operations": [],
+          "extensions": [],
+          "signatures": []
+        },
+        "available_keys": []
+      },
+      "get_reward_funds": {},
+      "get_transaction_hex": {
+        "trx": {
+          "ref_block_num": 0,
+          "ref_block_prefix": 0,
+          "expiration": "1970-01-01T00:00:00",
+          "operations": [],
+          "extensions": [],
+          "signatures": []
+        }
+      },
+      "get_version": {},
+      "get_witness_schedule": {
+        "include_future": false
+      },
+      "is_known_transaction": {
+        "id": "0000000000000000000000000000000000000000"
+      },
+      "list_account_recovery_requests": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "list_accounts": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set",
+        "delayed_votes_active": true
+      },
+      "list_change_recovery_account_requests": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "list_collateralized_conversion_requests": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "list_decline_voting_rights_requests": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "list_escrows": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "list_hbd_conversion_requests": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "list_limit_orders": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "list_owner_histories": {
+        "start": null,
+        "limit": 0
+      },
+      "list_proposal_votes": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set",
+        "order_direction": "ascending",
+        "status": "all"
+      },
+      "list_proposals": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set",
+        "order_direction": "ascending",
+        "status": "all"
+      },
+      "list_savings_withdrawals": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "list_vesting_delegation_expirations": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "list_vesting_delegations": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "list_votes": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "list_withdraw_vesting_routes": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "list_witness_votes": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "list_witnesses": {
+        "start": null,
+        "limit": 0,
+        "order": "not_set"
+      },
+      "verify_account_authority": {
+        "account": "",
+        "signers": []
+      },
+      "verify_authority": {
+        "trx": {
+          "ref_block_num": 0,
+          "ref_block_prefix": 0,
+          "expiration": "1970-01-01T00:00:00",
+          "operations": [],
+          "extensions": [],
+          "signatures": []
+        },
+        "pack": "legacy"
+      },
+      "verify_signatures": {
+        "hash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "signatures": [],
+        "required_owner": [],
+        "required_active": [],
+        "required_posting": [],
+        "required_witness": [],
+        "required_other": []
+      }
+    }
+  },
+  "jsonrpc": {
+    "methods": {
+      "get_methods": {},
+      "get_signature": {
+        "method": ""
+      }
+    }
+  },
+  "market_history_api": {
+    "methods": {
+      "get_market_history": {
+        "bucket_seconds": 0,
+        "start": "1970-01-01T00:00:00",
+        "end": "1970-01-01T00:00:00"
+      },
+      "get_market_history_buckets": {},
+      "get_order_book": {
+        "limit": 500
+      },
+      "get_recent_trades": {
+        "limit": 1000
+      },
+      "get_ticker": {},
+      "get_trade_history": {
+        "start": "1970-01-01T00:00:00",
+        "end": "1970-01-01T00:00:00",
+        "limit": 1000
+      },
+      "get_volume": {}
+    }
+  },
+  "network_broadcast_api": {
+    "methods": {
+      "broadcast_transaction": {
+        "trx": {
+          "ref_block_num": 0,
+          "ref_block_prefix": 0,
+          "expiration": "1970-01-01T00:00:00",
+          "operations": [],
+          "extensions": [],
+          "signatures": []
+        },
+        "max_block_age": -1
+      }
+    }
+  },
+  "rc_api": {
+    "methods": {
+      "find_rc_accounts": {
+        "accounts": []
+      },
+      "get_rc_operation_stats": {
+        "operation": ""
+      },
+      "get_rc_stats": {},
+      "get_resource_params": {},
+      "get_resource_pool": {},
+      "list_rc_accounts": {
+        "start": null,
+        "limit": 0
+      },
+      "list_rc_direct_delegations": {
+        "start": null,
+        "limit": 0
+      }
+    }
+  },
+  "reputation_api": {
+    "methods": {
+      "get_account_reputations": {
+        "account_lower_bound": "",
+        "limit": 1000
+      }
+    }
+  },
+  "transaction_status_api": {
+    "methods": {
+      "find_transaction": {
+        "transaction_id": "0000000000000000000000000000000000000000"
+      }
+    }
+  },
+  "wallet_bridge_api": {
+    "methods": {
+      "broadcast_transaction": null,
+      "broadcast_transaction_synchronous": null,
+      "find_proposals": null,
+      "find_rc_accounts": null,
+      "find_recurrent_transfers": null,
+      "get_account": null,
+      "get_account_history": null,
+      "get_accounts": null,
+      "get_active_witnesses": null,
+      "get_block": null,
+      "get_chain_properties": null,
+      "get_collateralized_conversion_requests": null,
+      "get_conversion_requests": null,
+      "get_current_median_history_price": null,
+      "get_dynamic_global_properties": null,
+      "get_feed_history": null,
+      "get_hardfork_version": null,
+      "get_open_orders": null,
+      "get_ops_in_block": null,
+      "get_order_book": null,
+      "get_owner_history": null,
+      "get_reward_fund": null,
+      "get_transaction": null,
+      "get_version": null,
+      "get_withdraw_routes": null,
+      "get_witness": null,
+      "get_witness_schedule": null,
+      "is_known_transaction": null,
+      "list_accounts": null,
+      "list_my_accounts": null,
+      "list_proposal_votes": null,
+      "list_proposals": null,
+      "list_rc_accounts": null,
+      "list_rc_direct_delegations": null,
+      "list_witnesses": null
+    }
+  }
+}
