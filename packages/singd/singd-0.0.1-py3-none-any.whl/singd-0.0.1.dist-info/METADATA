@@ -1,0 +1,60 @@
+Metadata-Version: 2.1
+Name: singd
+Version: 0.0.1
+Summary: KFAC-like Structured Inverse-Free Natural Gradient Descent
+Home-page: https://github.com/f-dangel/singd
+Author: Wu Lin, Runa Eschenhagen, Felix Dangel, Agustinus Kristiadi, Kirill Neklyudov, Alireza Makhzani
+Author-email: 
+License: MIT
+Keywords: natural gradient descent,KFAC
+Platform: any
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.9
+Requires-Dist: numpy
+Requires-Dist: torch
+Requires-Dist: einops
+Provides-Extra: doc
+Requires-Dist: mkdocs ==1.4.3 ; extra == 'doc'
+Requires-Dist: mkdocs-material ==9.1.17 ; extra == 'doc'
+Requires-Dist: mkdocstrings[python] ==0.22.0 ; extra == 'doc'
+Requires-Dist: mkdocs-gallery ==0.7.8 ; extra == 'doc'
+Requires-Dist: matplotlib ; extra == 'doc'
+Requires-Dist: torchvision ; extra == 'doc'
+Provides-Extra: fine_tuning
+Requires-Dist: wandb ; extra == 'fine_tuning'
+Requires-Dist: transformers ; extra == 'fine_tuning'
+Requires-Dist: datasets ; extra == 'fine_tuning'
+Requires-Dist: evaluate ; extra == 'fine_tuning'
+Requires-Dist: py7zr ; extra == 'fine_tuning'
+Requires-Dist: tqdm ; extra == 'fine_tuning'
+Requires-Dist: torchmetrics ; extra == 'fine_tuning'
+Requires-Dist: backpack-for-pytorch ; extra == 'fine_tuning'
+Provides-Extra: lint
+Requires-Dist: black ; extra == 'lint'
+Requires-Dist: isort ; extra == 'lint'
+Requires-Dist: flake8 ; extra == 'lint'
+Requires-Dist: mccabe ; extra == 'lint'
+Requires-Dist: pycodestyle ; extra == 'lint'
+Requires-Dist: pyflakes ; extra == 'lint'
+Requires-Dist: pep8-naming ; extra == 'lint'
+Requires-Dist: flake8-bugbear ; extra == 'lint'
+Requires-Dist: flake8-comprehensions ; extra == 'lint'
+Requires-Dist: flake8-tidy-imports ; extra == 'lint'
+Requires-Dist: darglint ; extra == 'lint'
+Requires-Dist: pydocstyle ; extra == 'lint'
+Provides-Extra: test
+Requires-Dist: coveralls ; extra == 'test'
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+Requires-Dist: pytest-optional-tests ; extra == 'test'
+Requires-Dist: ipdb ; extra == 'test'
+Requires-Dist: torchvision ; extra == 'test'
+Requires-Dist: matplotlib ; extra == 'test'
+Requires-Dist: imageio ; extra == 'test'
+
+KFAC-like Structured Inverse-Free Natural Gradient Descent
