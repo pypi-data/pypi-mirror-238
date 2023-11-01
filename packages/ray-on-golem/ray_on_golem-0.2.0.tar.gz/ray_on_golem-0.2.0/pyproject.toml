@@ -1,0 +1,100 @@
+[tool.poetry]
+name = "ray-on-golem"
+version = "0.2.0"
+description = "Golem Network integration with Ray"
+authors = ["Golem Factory <contact@golem.network>"]
+readme = "README.md"
+packages = [{include = "ray_on_golem"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+ray = {version="^2.7.1", extras=["default"]}
+# golem-core = { path="../golem-core-python", develop=true }
+# golem-core = { git="https://github.com/golemfactory/golem-core-python.git", branch="main" }
+golem-core = "^0.2.0"
+aiohttp = "^3"
+requests = "^2"
+click = "^8"
+pydantic = "<2"
+websocat = "^1.12.0"
+golem-node = "0.12.3"
+
+setuptools = "*"
+
+[tool.poetry.group.ray.dependencies]
+python = "^3.8"
+ray = {version="^2.7.1", extras=["default"]}
+# golem-core = { path="../golem-core-python", develop=true }
+# golem-core = { git="https://github.com/golemfactory/golem-core-python.git", branch="main" }
+golem-core = "^0.2.0"
+aiohttp = "^3"
+requests = "^2"
+click = "^8"
+pydantic = "<2"
+
+
+[tool.poetry.scripts]
+ray-on-golem = "ray_on_golem.server.run:main"
+
+[tool.poetry.group.dev.dependencies]
+poethepoet = "^0.22.0"
+liccheck = "^0.9.1"
+
+black = "^23.7.0"
+isort = "^5.12.0"
+autoflake = "^2.2.0"
+gvmkit-build = "^0.3.13"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks]
+format = {sequence = ["_format_autoflake", "_format_isort", "_format_black"], help = "Run code auto formatting"}
+_format_autoflake = "autoflake ."
+_format_isort = "isort ."
+_format_black = "black ."
+check_license = {sequence = ["_check_license_export", "_check_license_verify"], help = "Check license compatibility"}
+_check_license_export = "poetry export -f requirements.txt -o .requirements.txt"
+_check_license_verify = "liccheck -r .requirements.txt"
+
+[tool.isort]
+profile = "black"
+py_version = 38
+line_length = 100
+
+[tool.autoflake]
+recursive = true
+in-place = true
+remove-all-unused-imports = true
+ignore-init-module-imports = true
+
+[tool.black]
+line-length = 100
+target-version = ['py38']
+
+[tool.liccheck]
+authorized_licenses = [
+  "bsd",
+  "new bsd",
+  "bsd license",
+  "3-Clause BSD",
+  "apache 2",
+  "apache",
+  "Apache Software",
+  "Apache Software License",
+  "Apache 2.0",
+  "MPL-2.0",
+  "Mozilla Public License 2.0 (MPL 2.0)",
+  "MIT",
+  "MIT License",
+  "LGPL",
+  "LGPL-3.0-or-later",
+  "GNU Lesser General Public License v3 or later (LGPLv3+)",
+  "GNU Lesser General Public License v3 (LGPLv3)",
+  "GNU Library or Lesser General Public License (LGPL)",
+  "Python Software Foundation",
+  "ISC",
+  "ISC License (ISCL)",
+  "The Unlicense (Unlicense)",
+]
