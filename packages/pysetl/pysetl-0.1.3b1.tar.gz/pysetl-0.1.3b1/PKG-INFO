@@ -1,0 +1,72 @@
+Metadata-Version: 2.1
+Name: pysetl
+Version: 0.1.3b1
+Summary: PySetl: Python Spark ETL Framework.
+Keywords: spark,aws,etl
+Author-email: Jhosse Paul Marquez Ruiz <jpaul.marquez.ruiz@gmail.com>
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development
+Classifier: Typing :: Typed
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Requires-Dist: pyspark ; extra == "pyspark"
+Project-URL: Home, https://github.com/JhossePaul/pysetl
+Project-URL: Source, https://github.com/JhossePaul/pysetl
+Provides-Extra: pyspark
+
+PySetl - Python Spark ETL Framework
+============================================
+
+
+Acknowledgments
+--------------------------------------------
+
+PySetl is a port from [SETL](https://setl-framework.github.io/setl/).  We want
+to fully recognise this package is heavily inspired by the work of the SETL
+team. We just adapted things to work in Python. 
+
+PySetl is designed with Python typing syntax at its core. Hence, we strongly
+suggest [typedspark](https://typedspark.readthedocs.io/en/latest/) and
+[pydantic](https://docs.pydantic.dev/latest/) for development.
+
+
+Overview
+--------------------------------------------
+PySetl is a framework focused to improve readability and structure of PySpark
+ETL projects. Also, it is designed to take advantage of Python's typing syntax
+to reduce runtime errors through linting tools and verifying types at runtime.
+Thus, effectively enhacing stability for large ETL pipelines.
+
+In order to accomplish this task we provide some tools:
+
+- pysetl.config: Type-validated configurations.
+- pysetl.storage: Agnostic and extensible data sources connections.
+- pysetl.workflow: Pipeline management and dependency injection.
+
+
+Installation
+--------------------------------------------
+PySetl is available in PyPI:
+
+```
+$ pip install pysetl
+```
+
+PySetl doesn't list `pyspark` as dependency since most environments have their own
+Spark environment. Nevertheless, you can install pyspark running:
+
+```
+$ pip install pysetl[pyspark]
+```
+
+Why use PySetl?
+--------------------------------------------
+- Model complex data pipelines.
+- Reduce risks at production with type-safe development.
+- Improve large project structure and readability.
+

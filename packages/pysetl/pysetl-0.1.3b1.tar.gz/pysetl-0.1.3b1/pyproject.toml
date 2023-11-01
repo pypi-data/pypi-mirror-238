@@ -1,0 +1,50 @@
+[build-system]
+requires = ["flit_core >=3.2,<4", "setuptools"]
+
+[project]
+name="pysetl"
+license={text="Apache-2.0"}
+readme="README.md"
+requires-python = ">=3.9"
+authors=[
+    {name = "Jhosse Paul Marquez Ruiz", email="jpaul.marquez.ruiz@gmail.com"}
+]
+dynamic=["version", "description"]
+keywords=["spark", "aws", "etl"]
+classifiers=[
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development",
+    "Typing :: Typed",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
+
+[project.urls]
+Home = "https://github.com/JhossePaul/pysetl"
+Source = "https://github.com/JhossePaul/pysetl"
+
+[project.optional-dependencies]
+pyspark = [ "pyspark" ]
+
+[tool.pytest.ini_options]
+addopts="--cov --cov-report lcov --cov-report term"
+
+[tool.coverage.run]
+concurrency=["multiprocessing"]
+source=["src"]
+parallel=true
+branch=true
+omit=[
+    "src/pysetl/utils/mixins/can_*.py"
+]
+
+[tool.coverage.report]
+skip_covered=true
+skip_empty=true
+show_missing=true
+
+[tool.coverage.lcov]
+output="lcov.info"
