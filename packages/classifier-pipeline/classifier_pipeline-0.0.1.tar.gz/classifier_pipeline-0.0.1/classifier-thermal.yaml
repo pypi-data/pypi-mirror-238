@@ -1,0 +1,79 @@
+# root folder where the source and output folders belong
+# base_data_folder: "/home/gp/cacophony/classifier-data/irvideos"
+
+# thermal
+base_data_folder: "/home/gp/cacophony/classifier-data"
+
+labels : ['bird', 'bird/kiwi','cat', 'false-positive', 'hedgehog', 'insect', 'leporidae', 'mustelid', 'possum', 'penguin','rodent', 'wallaby','vehicle']
+verbose: true
+debug: True
+# tracks_folder is where the track data files will be created. It is
+# specified relative to base_data_folder.
+tracks_folder: tracks
+use_opt_flow: false
+# build:
+  # segment_length: 1
+
+train:
+  epochs: 1
+  tfrecords: True
+  # type: "IR"
+  hyper_params:
+    model_name: "wr-resnet"
+    batch_size: 32
+    # learning_rate_decay: 1.0
+    learning_rate: 0.00001
+    mvm: false
+    mvm_forest: false
+    dropout: 0.3
+    square_width: 5
+    frame_size: 32
+    use_segments: true
+tracking:
+    IR:
+      preview: tracking
+    thermal:
+      preview: null
+classify:
+  preview: classified
+  models:
+      - id: 2
+      # old model
+        name: "IR New"
+        type: "Keras"
+        model_file: "/home/gp/cacophony/classifier-data/irvideos/newTraining27072023/irNewWeighted_TEST/saved_model.pb"
+        model_weights: "/home/gp/cacophony/classifier-data/irvideos/newTraining27072023/irNewWeighted_TEST/val_accW"
+
+      # - id: 4
+        # name: "Inc3 IR"
+        # model_file: "/home/gp/cacophony/classifier-data/irvideos/ir-training/incThermal/tflite/converted_model.tflite"
+        # model_weights: "/home/gp/cacophony/classifier-data/irvideos/ir-training/incThermal/val_acc"
+        # type: "TFLite"
+      # - name: "Inc3"
+        # - id: 1
+        # # old model
+        #   name: "Thermal RF Prod"
+        #   type: "Keras"
+        #   model_file: "/home/gp/cacophony/classifier-data/thermal-training/prod-rf/latest-model"
+          # model_file: "/home/gp/cacophony/classifier-data/thermal-training/prod-rf-model/saved_model.pb"
+          # model_weights: "/home/gp/cacophony/classifier-data/thermal-training/prod-rf-model/val_acc"
+          # model_file: "/home/gp/cacophony/classifier-data/thermal-training/quantized/inc3-19012023/tflite/converted_model.tflite"
+          # /home/gp/cacophony/classifier-data/irvideos/ir-training/23012023/inc3IR-23012023/"
+          # /home/gp/cacophony/classifier-data/thermal-training/15082022/inc3-ttf/"
+          # model_weights: "/home/gp/cacophony/classifier-data/thermal-training/15082022/inc3-ttf/val_acc"
+      # - name: "Forest Bird"
+      # - id: 2
+      #   name: "RB"
+      #   model_file: "/home/gp/cacophony/classifier-data/random-forest/irmodel/fp-irMediumFast.joblib"
+      #   # /home/gp/cacophony/classifier-data/random-forest/models/fpModel2.joblib"
+      #   type: "RandomForest"
+      #   submodel: True
+      #
+      # - name: "Forest"
+      #   id: 3
+      #   # old model
+      #   model_file: "/home/gp/cacophony/classifier-data/random-forest/models/random_forest.joblib"
+      #   type: "RandomForest"
+      #   # reclassify:
+      #   #   bird/rodent: 2
+      #   submodel: True
