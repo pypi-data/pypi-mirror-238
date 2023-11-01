@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: blivomdeler-api
+Version: 0.2.0
+Summary: A python library for doing all sorts of things on the https://blivomdeler.nu site.
+Home-page: https://github.com/objectiveSquid/blivomdeler-api
+Author: Magnus Zahle
+Author-email: objectivesquid@outlook.com
+License: MIT
+Keywords: python,api,api-wrapper,blivomdeler,website-api
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Natural Language :: English
+Classifier: Natural Language :: Danish
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests
+Requires-Dist: bs4
+
+# Blivomdeler-API
+An API wrapper for the danish Blivomdeler site: https://blivomdeler.nu <br>
+The words "Bliv Omdeler" in danish translates to "Become Distributor", as in a newpaper distributor.
+
+
+# Changelog
+
+## 0.1.0
+First release <br>
+Added main class <br>
+Added function to get earned points <br>
+Added login functionality <br>
+Added logout functionality
+
+## 0.2.0
+Added classes for some function returns <br>
+Added some more exception handling <br>
+Added function to get giftshop items <br>
+Added function to get history of points collected, earned or spent <br>
+Added function to get information about the current user <br>
+Added function to change information about the current user <br>
+Removed option to login when creating an instance of the APISession class, use APISession.login() after creating an instance. <br>
+Removed APISession.earned_points property, use APISession.get_earned_points() instead.

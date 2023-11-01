@@ -1,0 +1,5 @@
+POINTS_URL = "https://blivomdeler.nu/mine-fordele/pointoversigt"
+LOGIN_URL = "https://blivomdeler.nu/wp-admin/admin-ajax.php"
+LOGOUT_URL = "https://blivomdeler.nu/wp-admin/admin-ajax.php?action=disy_logout"
+GIFTS_URL = "https://blivomdeler.nu/wp-admin/admin-ajax.php"
+INFO_URL = "https://blivomdeler.nu/min-side/stamdata-og-ansaettelsesaftale"
