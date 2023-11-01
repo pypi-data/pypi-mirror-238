@@ -1,0 +1,40 @@
+[project]
+name = "openslide-bin"
+version = "0.0.0"
+description = "Binary build of OpenSlide"
+readme = "README.md"
+requires-python = ">= 3.8"
+license = {text = "GNU Lesser General Public License, version 2.1"}
+maintainers = [
+    {name = "OpenSlide project", email = "openslide-users@lists.andrew.cmu.edu"}
+]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Healthcare Industry",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics"
+]
+
+[project.urls]
+Homepage = "https://openslide.org/"
+Documentation = "https://openslide.org/api/python/#installing"
+Repository = "https://github.com/openslide/openslide-winbuild"
+
+[tool.setuptools]
+packages = ["openslide_bin"]
+
+[build-system]
+requires = ["setuptools>=43.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
