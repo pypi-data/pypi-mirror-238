@@ -1,0 +1,91 @@
+[build-system]
+requires = [
+    "setuptools >= 61",
+    "setuptools_scm",
+]
+build-backend = "setuptools.build_meta"
+
+# PEP 621: Storing project metadata in pyproject.toml
+# https://peps.python.org/pep-0621/
+[project]
+name = "objectref"
+description = "deal with object reference notations"
+readme = "README.md"
+authors = [
+    { name = "Aaron Tsang" },
+]
+license = { text = "MIT" }
+keywords = []
+dynamic = ["version"]
+requires-python = ">=3.7"
+classifiers = [
+    # classifier list on https://pypi.org/classifiers/
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.7",
+    "Typing :: Typed",
+]
+
+# optional-dependencies is a table whose values are lists of PEP 508 strings
+[project.optional-dependencies]
+dev = [
+    "mypy >= 1.5.1",
+    "black >= 23.9.0",
+    "isort >= 5.12.0",
+]
+test = [
+    "pytest >= 7.4.2",
+    "coverage[toml] >= 6.4.4",
+]
+
+[project.urls]
+Homepage = "https://github.com/tsangwpx/objectref"
+Source = "https://github.com/tsangwpx/objectref"
+
+[tool.setuptools.dynamic]
+version = { attr = "objectref.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+target-version = ["py37", "py38", "py39", "py310", "py311"]
+
+[tool.isort]
+line_length = 100
+profile = "black"
+
+[tool.mypy]
+warn_unused_configs = true
+python_version = "3.7"
+check_untyped_defs = true
+show_error_codes = true
+warn_unused_ignores = true
+no_implicit_optional = true
+sqlite_cache = true
+disallow_any_unimported = true
+disallow_any_generics = true
+disallow_subclassing_any = true
+
+[tool.coverage.run]
+relative_files = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "\\bpragma: no cover\\b",
+    "^\\s*raise (AssertionError|NotImplementedError)\\b",
+    "^\\s*return (NotImplemented)\\b",
+    "^\\s*(assert True|pass|\\.\\.\\.)",
+    "^\\s*if TYPE_CHECKING:",
+    "^\\s*def __repr__",
+]
+omit = [
+    "tests/*"
+]

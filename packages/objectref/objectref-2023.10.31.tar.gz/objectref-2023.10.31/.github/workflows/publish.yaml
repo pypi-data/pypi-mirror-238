@@ -1,0 +1,81 @@
+---
+# Build package and upload it to GitHub release and to PyPI.org
+
+name: publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    name: Build package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install build
+
+      - name: Build package
+        run: python -m build
+
+      - name: Compute hashes
+        run: sha256sum -b dist/*
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+  release:
+    name: Upload artifacts to GitHub release
+    runs-on: ubuntu-latest
+    needs: [build]
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+      - name: Upload artifacts to release
+        run: |
+          gh release upload \
+            "$GITHUB_REF_NAME" \
+            dist/*
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    name: Publish package to PyPI
+    runs-on: ubuntu-latest
+    needs: [build]
+    permissions:
+      id-token: write
+    if: github.repository == 'tsangwpx/objectref'
+    environment: publish
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+      - name: Publish package
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          print-hash: true
