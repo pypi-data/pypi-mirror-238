@@ -1,0 +1,71 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Export these before calling the script to change behavior
+HHLIB_URL=${HHLIB_URL:=https://github.com/PicoQuant/HH400-v3.x-Demos/raw/master/Linux/64bit/library/hhlib.so}
+HHLIB_AUTO=${HHLIB_AUTO:="no"}
+
+
+# You shouldn't have to touch anything beyond this point
+
+
+if [ `id -u` == "0" ]; then
+    HHLIB_DEFAULT=/usr/loca/share/picoquant/harp/hhlib.so
+else
+    HHLIB_DEFAULT=~/.local/share/picoquant/harp/hhlib.so
+fi
+
+
+if [ "$HHLIB_AUTO" != "yes" ]; then
+    echo "This will download the 64-bit version of the hhlib.so needed for Miniquant"
+    echo "from the official repository of the manufacturer on GitHub. The URL is:"
+    echo "$HHLIB_URL"
+    echo
+    echo "If you don't wish that, press Ctrl+C now."
+    echo
+    read -p "Path where to store the file [$HHLIB_DEFAULT]: " HHLIB_PATH
+else
+    HHLIB_PATH=${HHLIB_PATH:=$HHLIB_DEFAULT}
+fi
+
+if [ "foo$HHLIB_PATH" == "foo" ]; then
+    HHLIB_PATH="$HHLIB_DEFAULT"
+fi
+
+echo From URL: $HHLIB_URL
+echo To path:  $HHLIB_PATH
+
+DOWNLOADER=`which wget && echo -O` || `which curl && echo -o"`
+
+if [ $? -ne 0 ]; then
+    echo "Can\'t find any download utility (tried wget and curl). Exitting now."
+fi
+
+REAL_DOWNLOADER=`echo $DOWNLOADER | sed "N;s/\n/ /"`
+
+echo Downloader: \"$REAL_DOWNLOADER\"
+
+if [ -f "$HHLIB_PATH" -a "$HHLIB_AUTO" != "yes" ]; then
+
+    read -p "$HHLIB_PATH already exists; do you want to overwrite? [no] " OVERWRITE
+    
+    if [ "$OVERWRITE" != "y" -a "$OVERWRITE" != "yes" ]; then
+        echo
+        echo Aborting on user request.
+	exit 0
+    fi
+fi
+
+mkdir -p `dirname $HHLIB_PATH`
+
+$REAL_DOWNLOADER "$HHLIB_PATH" "$HHLIB_URL"
+
+if [ ! -f "$HHLIB_PATH" ]; then
+    echo Download failed.
+    exit -1
+fi
+
+echo "Download successful. Be sure to export:"
+echo
+echo "    MINIQUANT_HHLIB=$HHLIB_PATH"
