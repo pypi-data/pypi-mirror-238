@@ -1,0 +1,35 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qasem_parser"
+version = "1.1.2"
+description = "QA based Semantics"
+readme = "README.md"
+authors = [{ name = "Paul Roit", email = "plroit@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["qasem", "nlp", "semantics"]
+dependencies = [
+    "torch",
+    "transformers",
+    "spacy",
+    "qanom"
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = []
+
+[project.urls]
+Homepage = "https://github.com/plroit/qasem_parser"
+
+[tool.setuptools.packages.find]
+exclude = ["docs*", "tests*", "images*", "examples*"]
