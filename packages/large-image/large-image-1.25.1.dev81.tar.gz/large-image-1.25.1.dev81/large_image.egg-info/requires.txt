@@ -1,0 +1,177 @@
+cachetools
+palettable
+Pillow
+numpy
+
+[:python_version < "3.8"]
+importlib-metadata<5
+
+[all]
+large-image-source-bioformats>=1.25.1.dev81
+large-image-converter>=1.25.1.dev81
+psutil>=4.2.0
+large-image-source-openslide>=1.25.1.dev81
+large-image-source-gdal>=1.25.1.dev81
+large-image-source-test>=1.25.1.dev81
+large-image-source-ometiff>=1.25.1.dev81
+large-image-source-deepzoom>=1.25.1.dev81
+large-image-source-mapnik>=1.25.1.dev81
+large-image-source-multi>=1.25.1.dev81
+large-image-source-zarr>=1.25.1.dev81
+large-image-source-dummy>=1.25.1.dev81
+matplotlib
+large-image-source-vips>=1.25.1.dev81
+large-image-source-pil>=1.25.1.dev81
+large-image-source-openjpeg>=1.25.1.dev81
+large-image-source-pil[all]>=1.25.1.dev81
+large-image-source-tiff>=1.25.1.dev81
+pyvips
+
+[all:platform_system != "Windows"]
+pylibmc>=1.5.1
+
+[all:python_version < "3.7"]
+simplejpeg<1.6.6
+
+[all:python_version >= "3.7"]
+large-image-source-nd2>=1.25.1.dev81
+simplejpeg
+large-image-source-tifffile>=1.25.1.dev81
+
+[all:python_version >= "3.8"]
+large-image-source-dicom>=1.25.1.dev81
+large-image-source-rasterio[all]>=1.25.1.dev81
+large-image-source-rasterio>=1.25.1.dev81
+
+[bioformats]
+large-image-source-bioformats>=1.25.1.dev81
+
+[colormaps]
+matplotlib
+
+[common]
+large-image-source-zarr>=1.25.1.dev81
+psutil>=4.2.0
+matplotlib
+large-image-source-test>=1.25.1.dev81
+large-image-source-pil[all]>=1.25.1.dev81
+large-image-source-deepzoom>=1.25.1.dev81
+large-image-source-multi>=1.25.1.dev81
+
+[common:platform_system != "Windows"]
+pylibmc>=1.5.1
+
+[common:python_version < "3.7"]
+simplejpeg<1.6.6
+
+[common:python_version >= "3.7"]
+large-image-source-tifffile>=1.25.1.dev81
+large-image-source-nd2>=1.25.1.dev81
+simplejpeg
+
+[common:python_version >= "3.8"]
+large-image-source-dicom>=1.25.1.dev81
+large-image-source-rasterio[all]>=1.25.1.dev81
+
+[converter]
+large-image-converter>=1.25.1.dev81
+
+[deepzoom]
+large-image-source-deepzoom>=1.25.1.dev81
+
+[dicom]
+
+[dicom:python_version >= "3.8"]
+large-image-source-dicom>=1.25.1.dev81
+
+[dummy]
+large-image-source-dummy>=1.25.1.dev81
+
+[gdal]
+large-image-source-gdal>=1.25.1.dev81
+
+[mapnik]
+large-image-source-mapnik>=1.25.1.dev81
+
+[memcached]
+
+[memcached:platform_system != "Windows"]
+pylibmc>=1.5.1
+
+[multi]
+large-image-source-multi>=1.25.1.dev81
+
+[nd2]
+
+[nd2:python_version >= "3.7"]
+large-image-source-nd2>=1.25.1.dev81
+
+[ometiff]
+large-image-source-ometiff>=1.25.1.dev81
+
+[openjpeg]
+large-image-source-openjpeg>=1.25.1.dev81
+
+[openslide]
+large-image-source-openslide>=1.25.1.dev81
+
+[performance]
+psutil>=4.2.0
+
+[performance:python_version < "3.7"]
+simplejpeg<1.6.6
+
+[performance:python_version >= "3.7"]
+simplejpeg
+
+[pil]
+large-image-source-pil>=1.25.1.dev81
+
+[rasterio]
+
+[rasterio:python_version >= "3.8"]
+large-image-source-rasterio>=1.25.1.dev81
+
+[sources]
+large-image-source-zarr>=1.25.1.dev81
+large-image-source-bioformats>=1.25.1.dev81
+large-image-source-dummy>=1.25.1.dev81
+large-image-source-openslide>=1.25.1.dev81
+large-image-source-gdal>=1.25.1.dev81
+large-image-source-test>=1.25.1.dev81
+large-image-source-ometiff>=1.25.1.dev81
+large-image-source-vips>=1.25.1.dev81
+large-image-source-pil>=1.25.1.dev81
+large-image-source-openjpeg>=1.25.1.dev81
+large-image-source-deepzoom>=1.25.1.dev81
+large-image-source-tiff>=1.25.1.dev81
+large-image-source-mapnik>=1.25.1.dev81
+large-image-source-multi>=1.25.1.dev81
+
+[sources:python_version >= "3.7"]
+large-image-source-tifffile>=1.25.1.dev81
+large-image-source-nd2>=1.25.1.dev81
+
+[sources:python_version >= "3.8"]
+large-image-source-dicom>=1.25.1.dev81
+large-image-source-rasterio>=1.25.1.dev81
+
+[test]
+large-image-source-test>=1.25.1.dev81
+
+[tiff]
+large-image-source-tiff>=1.25.1.dev81
+
+[tifffile]
+
+[tifffile:python_version >= "3.7"]
+large-image-source-tifffile>=1.25.1.dev81
+
+[tiledoutput]
+pyvips
+
+[vips]
+large-image-source-vips>=1.25.1.dev81
+
+[zarr]
+large-image-source-zarr>=1.25.1.dev81
