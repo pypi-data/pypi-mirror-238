@@ -1,0 +1,171 @@
+Metadata-Version: 2.0
+Name: dictmaper
+Version: 0.0.2
+Summary: Library created to map keys in dictionaries.
+Home-page: UNKNOWN
+Author: Arnold Blandon and Santiago Gonzalez
+Author-email: arnold.blandon1@gmail.com
+Maintainer: Santiago Gonzalez
+Maintainer-email: alejandro980619@outlook.com
+License: UNKNOWN
+Keywords: python,dict,map,data
+Platform: UNKNOWN
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Description-Content-Type: text/x-rst
+
+Package Documentation
+=====================
+
+With this library you can map your dictionaries easily, you just need to
+pass it:
+
+1- output: the dictionary you want to receive, the variables you want to
+map must go with {}
+
+.. code:: python
+
+       from DictMaper import MapDict
+       result = MapDict(
+           output={
+               "{var_1}": "Hi! {var_2}, welcome to {company_name}"
+               "company name":"{company_name}"
+           }
+           ......
+       )
+
+2- context: context is the data from which the information will be
+obtained:
+
+.. code:: python
+
+       from DictMaper import MapDict
+       result = MapDict(
+           output={
+               "{var_1}": "Hi! {var_2}, welcome to {company_name}"
+               "company name":"{company_name}"
+           }
+           context={
+               "user": {
+                 "name":"user name",
+                 "email":"test_email@..."
+               }
+               "company":{
+                "information":{
+                   "name":"Company name",
+                   "id":"1234"
+                   }
+               }
+          }
+       )
+
+3- vars: vars are the variables you want to map to your output and the
+value is where they are located within context:
+
+.. code:: python
+
+       from DictMaper import MapDict
+       result = MapDict(
+           output={
+               "{var_1}": "Hi! {var_2}, welcome to {company_name}",
+               "company":"{company_name}"
+           }
+           context={
+               "user": {
+                 "name":"user name",
+                 "email":"test_email@..."
+               },
+               "company":{
+                "information":{
+                   "name":"Company name",
+                   "id":"1234"
+                   }
+               }
+          }
+          vars={
+            "var_1": "user.email",
+            "var_2": "user.name",
+            "company_name": "company.information.name"
+          }
+       )
+
+That’s all, process the data making .process() and as a result you will
+have:
+
+.. code:: python
+
+       from DictMaper import MapDict
+       result = MapDict(...).process()
+       {
+           "test_email@...": "Hi! user name, welcome to Company name",
+           "company":"Company name"
+       }
+       ```
+
+   If your context dictionary contains nested dictionaries or lists, you can use this flag variable complex_dict_mapping=True to process more complex dictionaries.
+   But you must take into account the following restrictions:
+   - If the 'context' dictionary contains a key with a list, the name of the key must be the same in the 'vars' dictionary and in the 'output'
+   - You can only search at level 1 depth in the keys that contain LISTS in the 'context' dictionary, where the paths defined in the 'variables' dictionary will be searched.
+   - It is not possible to place a variable from the 'vars' dictionary in the 'output' dictionary as a key in any of the values ​​of the dictionaries that are within some list that are within the same 'output' dictionary.
+
+   Example:
+   1- output: the dictionary you want to receive, the variables you want to map must go with {}
+   ```python
+       output = {
+           "contacts": [{
+               "name": "{var_name}",
+               "email": "{var_email}",
+               "adresses": [{"main address": "{var_main_address}"}]
+           }],
+           "company name":"{company_name}"
+       }
+
+2- context: context is the data from which the information will be
+obtained:
+
+.. code:: python
+
+       context = {
+           "contacts": [
+               {
+                   "name":"user name",
+                   "email":"test_email@...",
+                   "address": {"main": "customer address"}
+               },
+               {
+                   "name":"user2 name2",
+                   "email":"test2_email2@...",
+                   "address": {"main": "customer address2"}
+               }
+           ],
+           "company":{
+               "information":{
+                   "name":"Company name",
+                   "id":"1234",
+               }
+           }
+       }
+
+3- vars: vars are the variables you want to map to your output and the
+value is where they are located within context:
+
+.. code:: python
+
+       vars = {
+           "contacts": [{
+               "var_name": "name",
+               "var_email": "email",
+               "var_main_address": "address.main",
+           }],
+           "company_name": "company.information.name",
+       }
+
+That’s all, process the data doing .process() and as a result you will
+have:
+\`\ ``python     from DictMaper import MapDict     result = MapDict(         output=output,         context=context,         vars=vars,          complex_dict_mapping=True     )     result.process()     {         "contacts":[             {                 "name":"user name",                 "email":"test_email@...",                 "adresses":[                     {                     "main address":"customer address"                     }                 ]             },             {                 "name":"user2 name2",                 "email":"test2_email2@...",                 "adresses":[                     {                     "main address":"customer address2"                     }                 ]             }         ],         "company name":"Company name"     }``
+
+
