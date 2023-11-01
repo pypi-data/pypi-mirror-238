@@ -1,0 +1,33 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: project-structure
+Upstream-Contact: Ross Patterson <me@rpatterson.net>
+Source: https://gitlab.com/rpatterson/project-structure
+
+Files:
+ newsfragments/*
+ NEWS-VERSION.rst
+ NEWS.rst
+Copyright: 2023 Ross Patterson <me@rpatterson.net>
+License: MIT
+Comment:
+ [Towncrier](https://towncrier.readthedocs.io) manages the release notes, AKA the
+ ChangeLog, and thus these files are inappropriate for header annotations/commments.
+
+# TODO: What is the right declaration to make about external content managed in VCS?
+Files:
+ styles/*/meta.json
+ styles/*/*.yml
+Copyright: 2023 Ross Patterson <me@rpatterson.net>
+License: MIT
+Comment:
+ [Vale](https://vale.sh) manages [the rule definitions of the
+ styles](https://vale.sh/docs/topics/packages/) used to lint prose.
+
+Files:
+ requirements/*/*.txt
+Copyright: 2023 Ross Patterson <me@rpatterson.net>
+License: MIT
+Comment:
+ Version pins/locks/freezes that [Pip
+ Tools](https://pip-tools.readthedocs.io/en/latest/) manage and are thus inappropriate
+ for header annotations/commments.
