@@ -1,0 +1,96 @@
+[tool.poetry]
+name = "logging-discord"
+version = "0.2.2"
+description = "The Logging Discord is a tool that simplifies the logging of error messages to a Discord channel. It allows you to send error messages with custom information, including a traceback and specific messages"
+license = "MIT"
+authors = ["bruno_brown <brunobrown.86@gmail.com>"]
+readme = "README.md"
+packages = [{include = "logging_discord"}]
+classifiers = [
+    "Topic :: Software Development :: Debuggers",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Natural Language :: Portuguese (Brazilian)",
+
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11"
+]
+
+[tool.poetry.urls]
+"Documentation" = "https://logging-discord.readthedocs.io/en/latest/"
+"GitHub" = "https://github.com/brunobrown/logging-discord"
+"Bug Tracker" = "https://github.com/brunobrown/logging-discord/issues"
+"Donate" = "https://logging-discord.readthedocs.io/en/latest/#support-the-project"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+httpx = "^0.25.0"
+dynaconf = "^3.2.3"
+config = "^0.5.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.2"
+pytest-cov = "^4.1.0"
+blue = "^0.9.1"
+isort = "^5.12.0"
+taskipy = "^1.11.0"
+pytest-mock = "^3.11.1"
+pylint = "^3.0.1"
+
+
+[tool.poetry.group.doc.dependencies]
+mkdocs-material = "^9.1.16"
+mkdocstrings = "^0.22.0"
+mkdocstrings-python = "^1.1.2"
+mkdocs-macros-plugin = "^1.0.1"
+jinja2 = "^3.1.2"
+mdx-include = "^1.4.2"
+mkdocs-i18n = "^0.4.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = '.'
+addopts = "--doctest-modules"
+
+[tool.isort]
+profile = "black"
+line_length = 79
+force_single_line = true
+combine_as_imports = true
+lines_between_types = 1
+lines_after_imports = 2
+src_paths = ["project", "tests"]
+
+[tool.black]
+line-length = 79
+targer-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.venv
+  | \.env
+  | cdk.out
+  | \.vscode
+  | build
+  | dist
+  | \.mypy_cache
+  | \.idea
+)\
+'''
+
+[tool.taskipy.tasks]
+lint = "blue --check --diff . && isort --check --diff . && blue ."
+docs = "mkdocs serve -f docs/mkdocs.yml"
+pre_test = "task lint"
+test = "pytest -s -x --cov=logging_discord -vv"
+post_test = "coverage html"
