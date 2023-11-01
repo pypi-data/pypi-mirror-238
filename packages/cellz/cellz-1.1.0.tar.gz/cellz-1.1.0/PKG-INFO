@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: cellz
+Version: 1.1.0
+Summary: An interactive cell runner for python
+Author-email: Henry Watkins <h.watkins@ucl.ac.uk>
+License-Expression: MIT
+License-File: LICENSE.txt
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.7
+Requires-Dist: click
+Description-Content-Type: text/markdown
+
+# cellz
+
+[![PyPI - Version](https://img.shields.io/pypi/v/cell.svg)](https://pypi.org/project/cell)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/cell.svg)](https://pypi.org/project/cell)
+
+## Installation
+
+```console
+pip install cellz
+```
+
+## Usage
+
+Cellz is an interactive cell interpreter for python. It allows you to run python code from a source file, cell-by-cell: similar to the way we use cells in jupyter notebooks, and all from the command line.
+
+Cellz is interactive: you can continue to develop the source code without leaving the interpreter!
+
+First split you code into separate cells using the token '#%% cellname'
+
+```python
+#file.py
+import sys
+
+#%% cell1
+print("hello!")
+
+#%% cell2
+
+def add1(x):
+	return x+1
+	
+#%% cell3
+print(add1(5))
+```
+
+Then run the file in the cellz interpreter
+
+```
+cellz file.py
+```
+
+This will start the interpreter, from which one can run specific cells of code, one at a time.  
+
+## License
+
+`cellz` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
