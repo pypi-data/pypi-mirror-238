@@ -1,0 +1,78 @@
+Metadata-Version: 2.1
+Name: aiapy
+Version: 0.7.4
+Summary: Python package for AIA analysis.
+Home-page: https://gitlab.com/LMSAL_HUB/aia_hub/aiapy
+Author: AIA Instrument Team
+Author-email: cheung@lmsal.com
+License: BSD 3-Clause
+Keywords: solar physics,solar,science,sun,sdo,aia,solar dynamics observatory,atmospheric imaging assembly
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering :: Astronomy
+Requires-Python: >=3.8
+License-File: LICENSE.rst
+Requires-Dist: sunpy[image,map,net]>=4.0.4
+Provides-Extra: test
+Requires-Dist: hissw; extra == "test"
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-astropy; extra == "test"
+Provides-Extra: docs
+Requires-Dist: packaging; extra == "docs"
+Requires-Dist: sphinx; extra == "docs"
+Requires-Dist: sphinx-automodapi; extra == "docs"
+Requires-Dist: sphinx-changelog; extra == "docs"
+Requires-Dist: sphinx-copybutton; extra == "docs"
+Requires-Dist: sphinx-design; extra == "docs"
+Requires-Dist: sphinx-gallery; extra == "docs"
+Requires-Dist: sphinx-hoverxref; extra == "docs"
+Requires-Dist: sphinxext-opengraph; extra == "docs"
+Requires-Dist: sunpy-sphinx-theme; extra == "docs"
+Requires-Dist: towncrier<22.12.0; extra == "docs"
+Provides-Extra: dev
+Requires-Dist: hissw; extra == "dev"
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-astropy; extra == "dev"
+Requires-Dist: packaging; extra == "dev"
+Requires-Dist: sphinx; extra == "dev"
+Requires-Dist: sphinx-automodapi; extra == "dev"
+Requires-Dist: sphinx-changelog; extra == "dev"
+Requires-Dist: sphinx-copybutton; extra == "dev"
+Requires-Dist: sphinx-design; extra == "dev"
+Requires-Dist: sphinx-gallery; extra == "dev"
+Requires-Dist: sphinx-hoverxref; extra == "dev"
+Requires-Dist: sphinxext-opengraph; extra == "dev"
+Requires-Dist: sunpy-sphinx-theme; extra == "dev"
+Requires-Dist: towncrier<22.12.0; extra == "dev"
+Provides-Extra: all
+Requires-Dist: hissw; extra == "all"
+Requires-Dist: pytest; extra == "all"
+Requires-Dist: pytest-astropy; extra == "all"
+
+=========
+``aiapy``
+=========
+
+``aiapy`` is a Python package for analyzing data from the Atmospheric Imaging Assembly (AIA) instrument onboard NASA's Solar Dynamics Observatory (SDO) spacecraft.
+For more information, see the `aiapy documentation <https://aiapy.readthedocs.io/en/latest/>`__.
+For some examples of using aiapy, see `our gallery <https://aiapy.readthedocs.io/en/latest/generated/gallery/index.html>`__.
+
+Citing
+------
+
+If you use ``aiapy`` in your scientific work, we would appreciate you citing it in your publications.
+The latest citation information can be found in the `documentation <https://aiapy.readthedocs.io/en/latest/about.html>`__, or obtained with ``aiapy.__citation__``.
+
+Contributing
+------------
+
+``aiapy`` is open source software, built on top of other open source software, and we'd love to have you contribute
+
+Please checkout the `contributing guide <https://aiapy.readthedocs.io/en/latest/develop.html>`__ for more information on how to contribute to aiapy.
