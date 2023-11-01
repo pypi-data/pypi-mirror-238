@@ -1,0 +1,71 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="collective.accordionviews">
+
+  <!-- -*- extra stuff goes here -*- -->
+
+  <browser:page
+    name="slideshow_view"
+    for="plone.app.contenttypes.interfaces.IFolder"
+    menu="plone_displayviews"
+    title="Slideshow"
+    class=".slides_view.SlidesView"
+    template="slides_view.pt"
+    permission="zope2.View"
+    layer="collective.accordionviews.interfaces.ICollectiveAccordionviewsLayer"
+    />
+
+  <browser:page
+    name="tabbed_view"
+    for="plone.app.contenttypes.interfaces.IFolder"
+    menu="plone_displayviews"
+    title="Tabbed"
+    class=".tabbed_view.TabbedView"
+    template="tabbed_view.pt"
+    permission="zope2.View"
+    layer="collective.accordionviews.interfaces.ICollectiveAccordionviewsLayer"
+    />
+
+  <browser:page
+    name="accordion_folders_view"
+    for="Products.CMFCore.interfaces.IFolderish"
+    menu="plone_displayviews"
+    title="Accordion Folders"
+    class=".accordion_folders_view.AccordionFoldersView"
+    template="accordion_folders_view.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="accordion_folders_view"
+    for="plone.app.contenttypes.interfaces.ICollection"
+    menu="plone_displayviews"
+    title="Accordion Folders"
+    class=".accordion_folders_view.AccordionFoldersView"
+    template="accordion_folders_view.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="accordion_view"
+    for="Products.CMFCore.interfaces.IFolderish"
+    menu="plone_displayviews"
+    title="Accordion"
+    class=".accordion_view.AccordionView"
+    template="accordion_view.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="accordion_view"
+    for="plone.app.contenttypes.interfaces.ICollection"
+    menu="plone_displayviews"
+    title="Accordion"
+    class=".accordion_view.AccordionView"
+    template="accordion_view.pt"
+    permission="zope2.View"
+    />
+
+</configure>

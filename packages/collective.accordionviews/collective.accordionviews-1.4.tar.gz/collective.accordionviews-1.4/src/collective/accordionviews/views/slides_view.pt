@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="collective.accordionviews"
+      metal:use-macro="context/main_template/macros/master">
+<body>
+  <metal:content-core fill-slot="content-core">
+  <metal:block define-macro="content-core">
+
+    <div id="carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button tal:repeat="item python:view.results"
+          type="button"
+          data-bs-target="#carousel"
+          data-bs-slide-to="${python: repeat.item.index}"
+          class="${python: repeat.item.start and 'active' or ''}"
+          aria-current="${python: repeat.item.start and 'true' or ''}"
+          aria-label="Slide ${python: repeat.item.number}"></button>
+      </div>
+      <div class="carousel-inner">
+        <div tal:repeat="item python:view.results"
+          class="carousel-item ${python: repeat.item.start and 'active' or ''}"
+          id="slide-${item/uuid}">
+          <img
+            tal:define="imageObj python: item.getObject();
+                        images imageObj/@@images"
+            tal:replace="structure python:images.tag('image', scale='larger', css_class='d-block w-100')"
+             />
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+  </metal:block>
+  </metal:content-core>
+</body>
+</html>

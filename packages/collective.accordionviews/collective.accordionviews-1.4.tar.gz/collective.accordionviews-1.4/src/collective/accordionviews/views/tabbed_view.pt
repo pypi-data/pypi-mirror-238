@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="collective.accordionviews"
+  metal:use-macro="context/main_template/macros/master">
+  <body>
+    <metal:content-core fill-slot="content-core">
+      <metal:block define-macro="content-core">
+
+      <div id="tab-contents">
+        <ul class="nav nav-tabs">
+          <li class="nav-item"
+            tal:repeat="item python:view.results">
+            <a tal:define="is_active python: view.tab_is_active(item, repeat.item.start)"
+              id="nav-link-${item/uuid}"
+              class="nav-link ${python: is_active and 'active' or ''}"
+              aria-current="${python: is_active and 'page' or 'false'}"
+              data-bs-target="#tab-content-${item/uuid}"
+              href="${context_state/current_base_url}?tabid=nav-link-${item/uuid}">${item/Title}</a>
+          </li>
+        </ul>
+        <div class="tab-content"
+          id="tab-content-${item/uuid}"
+          tal:repeat="item python:view.results"
+         >
+          <div tal:define="is_active python: view.tab_is_active(item, repeat.item.start)"
+            tal:condition="is_active"
+            tal:replace="structure python:view.render_item(item)" />
+        </div>
+      </div>
+
+      </metal:block>
+    </metal:content-core>
+  </body>
+</html>
