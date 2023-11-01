@@ -1,0 +1,74 @@
+[project]
+name = 'itertools-len'
+authors = [{ name = 'Philipp A.', email = 'flying-sheep@web.de' }]
+urls.Source = 'https://github.com/flying-sheep/itertools-len'
+urls.Documentation = 'https://itertools-len.readthedocs.io/'
+readme = 'README.rst'
+license = 'GPL-3.0-or-later'
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Developers',
+    'Programming Language :: Python :: 3',
+    'Typing :: Typed',
+]
+requires-python = '>= 3.9'
+dependencies = [
+    'typing-extensions; python_version < "3.10"',
+]
+dynamic = ['version']
+
+[project.optional-dependencies]
+speedups = ['scipy']
+test = ['pytest', 'pytest-cov']
+docs = ['sphinx', 'furo']
+
+[tool.hatch.version]
+source = 'vcs'
+
+[tool.hatch.envs.test]
+features = ['test', 'speedups']
+[[tool.hatch.envs.test.matrix]]
+python = ['3.9', '3.10', '3.11', '3.12']
+[tool.hatch.envs.test.scripts]
+run = 'pytest -vv {args}'
+cov = 'pytest -vv --cov-report=term-missing --cov=src {args}'
+
+[tool.coverage.report]
+exclude_also = [  # those are regexes
+    'if TYPE_CHECKING:',
+]
+
+[tool.ruff.isort]
+lines-after-imports = 2
+
+[tool.ruff]
+select = ['ALL']
+ignore = [
+  'Q',      # Quotes covered by formatter
+  'ANN101', # Don’t type-annotate self
+  'C408',   # dict() calls are fine
+  'E74',    # Ambiguous variable/class/… name
+  'FIX002', # TODOs are OK
+  'D101',   # Docstrings in classes are wrapped
+  'D105',   # No need to document magic methods
+  'D107',   # Docstrings in __init__ are also wrapped
+  'D203',   # No blank line before class body
+  'D212',   # Multi-line docstring summary should start at the first line
+  'N801',   # We mirror itertools which uses lowercase class names
+  'TD002',  # No TODO names
+]
+src = ['src', 'tests']
+allowed-confusables = ['×', '’']
+[tool.ruff.extend-per-file-ignores]
+'docs/*' = ['INP001'] # No __init__.py in docs
+'tests/*' = [
+    'D103',    # No docstrings necessary
+    'INP001',  # No __init__.py in tests
+    'PLR2004', # Magic values in tests are fine
+    'S101',    # Pytest prefers assert
+    'SLF001',  # Private access in test is file
+]
+
+[build-system]
+requires = ['hatchling', 'hatch-vcs']
+build-backend = 'hatchling.build'
