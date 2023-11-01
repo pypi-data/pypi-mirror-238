@@ -1,0 +1,67 @@
+Metadata-Version: 2.1
+Name: fscan
+Version: 0.1.0
+Summary: Fscan tool for monitoring narrow spectral artifacts in LIGO data
+Author-email: Evan Goetz <evan.goetz@ligo.org>, Ansel Neunzert <ansel.neunzert@ligo.org>, Sudhagar Suyamprakasam <sudhagar.suyamprakasam@ligo.org>
+License: GPL-3.0-or-later
+Project-URL: Source Code, https://git.ligo.org/CW/instrumental/fscan
+Project-URL: Bug Tracker, https://git.ligo.org/CW/instrumental/fscan/-/issues
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering :: Astronomy
+Classifier: Topic :: Scientific/Engineering :: Physics
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: bokeh
+Requires-Dist: gwdetchar
+Requires-Dist: pycondor
+Provides-Extra: test
+Requires-Dist: flake8; extra == "test"
+Provides-Extra: conda
+Requires-Dist: lalpulsar>=6.0.4; extra == "conda"
+
+# Fscan
+
+Fscan pipeline for characterizing persistent narrowband spectral artifacts in gravitational wave detector data
+
+## Installation
+
+To use the Fscan workflow, the best practice is to use either the
+installed version (in the pulsar user account at LHO and LLO) or to
+clone the repository and use the scripts from a local version. To
+install Fscan, please follow these instructions
+
+1. Clone the Fscan repository
+
+2. Create / activate a conda environment (e.g. `conda create -n
+   fscan-py3.10 -c conda-forge python=3.10`)
+
+3. Activate the `fscan-py3.10` environment and install using `pip
+   install fscan/`. This enables the environment to gain access to
+   Fscan command line scripts
+
+## Example for running Fscan
+
+Run the `FscanDriver <args>` exectuable with appropriate arguments (see `FscanDriver -h` for additional details). For example at CIT:
+
+```bash
+[...@ldas-grid public_html]$ /home/evan.goetz/lscrepos/fscan-eg/scripts/FscanDriver -C 1 -O 1 -A ligo.dev.o4.detchar.linefind.fscan -U evan.goetz --full-band-avg=1 --analysisStart=20200229 --analysisDuration=1day --averageDuration=1day -y /home/evan.goetz/lscrepos/fscan-eg/configuration/example_ch_info.yml -f . -s /home/evan.goetz/opt/lscsoft/bin/ -a /home/evan.goetz/opt/lscsoft/bin/ -S /home/evan.goetz/opt/lscsoft/bin/
+```
+
+### Another example (using a configuration file)
+
+Running from the Fscan source directory,
+
+```bash
+FscanDriver --config configuration/example.config
+```
+
+Be sure to edit the arguments in `example.config` to reflect the locations of your lalsuite and fscan installations.
