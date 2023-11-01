@@ -1,0 +1,55 @@
+Metadata-Version: 2.1
+Name: studiolab-ml
+Version: 0.1.0
+Summary: STUDIOLAB ML inference Package
+Home-page: https://github.com/StudioLABdev/ML-inference-package
+Author: STUDIOLAB
+Author-email: jaeseung.lim@studiolab.ai
+License: GPL-3.0
+Project-URL: Bug Reports, https://github.com/StudioLABdev/ML-inference-package/issues
+Project-URL: Source, https://github.com/StudioLABdev/ML-inference-package
+Keywords: STUDIOLAB,MLFT,PCP,PoseCompo,inference,ML,DL
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Software Development
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Scientific/Engineering :: Image Recognition
+Classifier: Operating System :: POSIX :: Linux
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# STUDIOLAB ML inference Package
+
+# Install
+- pip install studiolab-ml
+# RUN
+All input image type is PIL Image 
+## MLFT
+ ```
+from studiolab_ml import MLFT
+
+mlft = MLFT()
+out = mlft.predict(img, cat_id)
+ ```
+- result is same dict type as "get_attributes" in ML-API
+## Pose Compo
+```
+from studiolab_ml import PoseCompo
+
+pcp = PoseCompo()
+out = pcp.predict(img)
+```
+- output examples
+ - outfit image - {'cut': 'outfit', 'background': 'blind', 'direction': 'front', 'head': 'head', 'part': 'full', 'pose': 'stand', 'detail': None}
+ - product image - {'cut': 'product', 'background': None, 'direction': 'front', 'head': None, 'part': None, 'pose': None, 'detail': None}
+ - detail image - {'cut': 'detail', 'background': None, 'direction': None, 'head': None, 'part': None, 'pose': None, 'detail': [shoulder, sleeve, ..]}
+ - noise image - {'cut': 'noise', 'background': None, 'direction': None, 'head': None, 'part': None, 'pose': None, 'detail': None}
+# TODO
+- create model cloud storage
+- model download from cloud
+- GPU inference

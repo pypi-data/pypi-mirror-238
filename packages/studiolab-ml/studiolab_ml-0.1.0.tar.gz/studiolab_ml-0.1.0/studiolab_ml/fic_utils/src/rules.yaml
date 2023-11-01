@@ -1,0 +1,49 @@
+# template label에 대응하는 gpt 생성 목록 이며, 공백이 없어야 합니다.
+template_label_dict :
+  "prod-name-kr": "제품명" 
+  "prod-name-en": "영어제품명" 
+  "prod-overview-kr": "제품요약" 
+  "prod-overview-en": "제품영문요약" 
+  "copy-description_1": "제품주요설명1" 
+  "copy-summary_1": "제품주요설명요약1" 
+  "copy-title_1": "제품주요설명제목1" 
+  "copy-description_2": "제품주요설명2" 
+  "copy-summary_2": "제품주요설명요약2" 
+  "copy-title_2": "제품주요설명제목2" 
+  "detail-description_1": "상세포인트설명1" 
+  "detail-summary_1": "상세포인트설명요약1" 
+  "detail-title_1": "상세포인트설명제목1" 
+  "detail-description_2": "상세포인트설명2" 
+  "detail-summary_2": "상세포인트설명요약2" 
+  "detail-title_2": "상세포인트설명제목2" 
+  "detail-description_3": "상세포인트설명3" 
+  "detail-summary_3": "상세포인트설명요약3" 
+  "detail-title_3": "상세포인트설명제목3" 
+  "detail-description_4": "상세포인트설명4" 
+  "detail-summary_4": "상세포인트설명요약4" 
+  "detail-title_4": "상세포인트설명제목4" 
+  "fabric-description": "재질설명" 
+  "fabric-sub-title": "재질요약" 
+  "fabric-title": "재질제목" 
+  "color-description": "컬러설명"
+
+# (A, B) -> 생성된 결과중 A를 B로 바꿉니다.
+word_changes : 
+ - ['쉐어링', '셔링']
+ - ['쉬크', '시크']
+ - ['독특', '유니크']
+ - ['퍼픙', '퍼플']
+ - ['느낄을', '느낌을']
+ - ['포말', '포멀']
+ - ['심피한', '심플한']
+ - [' 시즘', ' 시즌']
+ - ['크롭한 기장', '크롭 기장']
+
+
+# 제품의 category를 결정하는 superclass 목록
+category_superclass : ['아우터', '상의', '스커트', '바지', '원피스']
+
+
+# 한국어 1토큰 != 1단어 주의 (only 1 character with/without whitespace is recommended)
+negative_tokens : ["멋", " 멋", " 좌"]    # gpt가 생성하지 않는 토큰 목록
+positive_tokens : ["소재", " 소재"]       # gpt가 생성할 확률이 높은 토큰 목록 
