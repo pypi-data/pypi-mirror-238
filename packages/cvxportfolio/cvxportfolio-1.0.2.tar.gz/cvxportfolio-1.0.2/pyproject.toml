@@ -1,0 +1,48 @@
+[project]
+name = "cvxportfolio"
+version = "1.0.2"
+description = "Portfolio optimization and back-testing."
+readme = "README.md"
+license = {text = "Apache License (2.0)"}
+authors = [{name = "Enzo Busseti"}, {name = "Stephen Boyd"},
+    {name = "Steven Diamond"}, {name = "BlackRock Inc."}]
+maintainers = [{name = "Enzo Busseti", email = "enzo.busseti@gmail.com"}]
+dependencies = ["pandas", "numpy", "scipy", "matplotlib", "requests", "cvxpy",
+    "multiprocess"]
+
+[project.urls]
+Homepage = "https://www.cvxportfolio.com"
+Repository = "https://github.com/cvxgrp/cvxportfolio"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["cvxportfolio", "cvxportfolio.tests"]
+include-package-data = true
+
+[tool.pylint.main]
+fail-under = 9.0
+jobs = 0 # multiprocessing pylint
+max-line-length = 79 # PEP8 default
+
+[tool.pylint.basic]
+# These variable names are defined in the paper.
+good-names = ["t", "u", "v", "w", "h", "z", "F", "d", "Sigma"]
+
+[tool.pylint.variables]
+# These are sometimes ignored, we might instead use dataclasses for
+# sharing data between elements of a policy's DAG
+ignored-argument-names = "args|kwargs|universe|trading_calendar"
+
+[tool.coverage.report]
+fail_under = 98
+
+[tool.diff_cover]
+compare_branch = "origin/master"
+fail_under = 99
+
+[tool.autopep8]
+# these have been selected by hand, whitespaces and empty lines
+select = ["W291","W293","W391","E231","E225","E303"]
