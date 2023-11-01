@@ -1,0 +1,43 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "spectral-sdk"
+version = "0.1.14"
+description = "Spectral SDK allows you to participate in the challenges and competitions on Spectral Finance platform."
+authors = ["Spectral Finance <maciej@spectral.finance>"]
+keywords = ["machine learning", "ai", "data science", "web3"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11"
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11.5,<3.13"
+cloudpickle = ">=2.2.1"
+ezkl = ">=1.11.5"
+numpy = ">=1.25.2"
+onnx = ">=1.14.0"
+torch = ">=2.0.1"
+requests = ">=2.31.0"
+web3 = ">=6.11.1"
+click = "^8.1.7"
+tqdm = "^4.66.1"
+retrying = "^1.3.4"
+onnxruntime = "^1.16.1"
+pandas = "^2.1.1"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+spectral-sdk = "spectral_sdk.spectralaisdk:cli"
+
+[tool.poetry.urls]
+Repository = "https://github.com/Spectral-Finance/spectral-ai-sdk"
