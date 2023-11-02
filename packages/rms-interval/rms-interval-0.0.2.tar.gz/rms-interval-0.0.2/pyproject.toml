@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools", "setuptools_scm[toml]"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rms-interval"
+dynamic = ["version"]
+description = "A dictionary keyed by ranges of floating point numbers"
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+    "numpy"
+]
+license = {text = "Apache-2.0"}
+maintainers = [
+  {name = "Robert S. French", email = "rfrench@seti.org"}
+]
+keywords = ["dictionary"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Natural Language :: English",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Mathematics",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Utilities",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: Microsoft :: Windows"
+]
+
+[project.urls]
+Homepage = "https://github.com/SETI/rms-interval"
+Repository = "https://github.com/SETI/rms-interval"
+Source = "https://github.com/SETI/rms-interval"
+Issues = "https://github.com/SETI/rms-interval/issues"
+
+[tool.setuptools]
+packages = ["interval"]
+
+[tool.setuptools_scm]
+local_scheme = "no-local-version"
+write_to = "interval/_version.py"

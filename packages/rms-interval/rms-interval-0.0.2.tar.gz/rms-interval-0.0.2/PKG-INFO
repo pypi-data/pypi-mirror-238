@@ -1,0 +1,49 @@
+Metadata-Version: 2.1
+Name: rms-interval
+Version: 0.0.2
+Summary: A dictionary keyed by ranges of floating point numbers
+Maintainer-email: "Robert S. French" <rfrench@seti.org>
+License: Apache-2.0
+Project-URL: Homepage, https://github.com/SETI/rms-interval
+Project-URL: Repository, https://github.com/SETI/rms-interval
+Project-URL: Source, https://github.com/SETI/rms-interval
+Project-URL: Issues, https://github.com/SETI/rms-interval/issues
+Keywords: dictionary
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Natural Language :: English
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: Microsoft :: Windows
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+
+| PyPI Release | Test Status | Code Coverage |
+| ------------ | ----------- | ------------- |
+| [![PyPI version](https://badge.fury.io/py/rms-interval.svg)](https://badge.fury.io/py/rms-interval) | [![Build status](https://img.shields.io/github/actions/workflow/status/SETI/rms-interval/run-tests.yml?branch=master)](https://github.com/SETI/rms-interval/actions) | [![Code coverage](https://img.shields.io/codecov/c/github/SETI/rms-interval/main?logo=codecov)](https://codecov.io/gh/SETI/rms-interval) |
+
+# rms-interval
+
+PDS Ring-Moon Systems Node, SETI Institute
+
+Supported versions: Python >= 3.7
+
+The interval class behaves like a dictionary keyed by ranges of
+floating-point numbers. Each value of the dictionary applies for any key
+value within the numeric range. Later entries into the dictionary can
+partially or completely replace earlier values.
+
+Note that this package is deprecated in favor of the `portion` module.
+Eventually this package may be removed entirely.
