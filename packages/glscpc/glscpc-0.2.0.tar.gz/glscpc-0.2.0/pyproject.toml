@@ -1,0 +1,58 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "glscpc"
+description = "GitLab CI ShellCheck pre-commit hook"
+readme = "README.md"
+license = {file="LICENSE"}
+authors = [
+    {name = "Dries Kennes", email = "dries.kennes@qteal.com"}
+]
+requires-python = ">=3.10"
+dynamic = ["version"]
+
+dependencies = [
+    "click~=8.1",
+    "ruamel.yaml~=0.17.32",
+]
+
+[project.scripts]
+glscpc = "glscpc.__main__:main"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "glscpc/_version.py"
+
+#  ___  _            _
+# | _ )| | __ _  __ | |__
+# | _ \| |/ _` |/ _|| / /
+# |___/|_|\__,_|\__||_\_\
+[tool.black]
+line-length = 140
+target-version = ['py311']
+exclude = '''
+/(
+    \.git
+  | \..*_cache
+  | \.tox
+  | \.?venv
+  | _?build
+  | generated
+  | dist
+)/
+'''
+
+#  _                _
+# (_) ___ ___  _ _ | |_
+# | |(_-</ _ \| '_||  _|
+# |_|/__/\___/|_|   \__|
+[tool.isort]
+profile = "black"
+skip_gitignore = true
+py_version = 311
+line_length = 140
+atomic = true

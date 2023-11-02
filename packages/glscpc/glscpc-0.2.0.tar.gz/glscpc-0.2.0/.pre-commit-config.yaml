@@ -1,0 +1,79 @@
+default_language_version:
+  python: python3
+
+repos:
+  - repo: meta
+    hooks:
+      - id: check-useless-excludes
+
+  - repo: https://github.com/abravalheri/validate-pyproject
+    rev: v0.14
+    hooks:
+      - id: validate-pyproject
+
+  - repo: https://github.com/bjd2385/pre-commit-gitlabci-lint
+    rev: v1.3.0
+    hooks:
+      - id: gitlabci-lint
+        args: ['-p', '49052761']
+
+  - repo: local
+    hooks:
+      - id: can-build
+        name: can build
+        description: Make sure the project can actually be build.
+        entry: hatch build
+        language: python
+        additional_dependencies: [ hatch ]
+        always_run: true
+        require_serial: true
+        pass_filenames: false
+      - id: glscpc
+        name: GitLab CI ShellCheck
+        description: Run ShellCheck on the scripts inside of the gitlab-ci file
+        language: python
+        additional_dependencies: [ hatch ]
+        pass_filenames: false
+        always_run: true
+        files: .gitlab-ci.yml
+        entry: hatch run glscpc
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-ast
+      - id: check-builtin-literals
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-yaml
+      - id: destroyed-symlinks
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+        args: [ --markdown-linebreak-ext=md ]
+      - id: pretty-format-json
+        args: [ --autofix, --no-ensure-ascii ]
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: [ --filter-files ]
+
+  - repo: https://github.com/pycqa/pylint
+    rev: v3.0.0a7
+    hooks:
+      - id: pylint
+        args: [ --disable=all, --enable=unused-import ]
+
+  - repo: https://github.com/psf/black
+    rev: 23.9.1
+    hooks:
+      - id: black

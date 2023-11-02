@@ -1,0 +1,22 @@
+test2:
+  script:
+    - echo $qsds
+    - echo $qsds${kaka}
+    - >
+      echo $qsds;
+      test;
+      boop;
+    - |
+      echo $qsds
+
+      echo $qsds
+
+    - "duble quote echo
+$sqdqsd
+echo $boop
+"
+    - "duble quote qsdsqd\nsqd"
+    - 'single quote qsdsqd
+sqd'
+    - echo "Hello World"
+    - if test; then boop; fi

@@ -1,0 +1,8 @@
+- id: glscpc
+  name: GitLab CI ShellCheck
+  description: Run ShellCheck on the scripts inside of the gitlab-ci file
+  language: python
+  files: .gitlab-ci.yml
+  entry: glscpc
+  types: [yaml]
+  pass_filenames: false

@@ -1,0 +1,163 @@
+# GitLab CI file
+stages:
+  - build python
+  - build image
+  - test
+  - deploy
+
+# Use official Python image
+default:
+  image: python:3.11
+
+variables:
+  # Update all docker images at once.
+  DOCKER_IMAGE: "docker:23.0.1"
+  CONTAINER_NAME: "$CI_REGISTRY_IMAGE/glscpc"
+  # Change cache directories to be inside the project directory since we can only cache local items.
+  XDG_CACHE_HOME: "$CI_PROJECT_DIR/.cache"
+  PIP_CACHE_DIR: "$XDG_CACHE_HOME/pip"
+  PRE_COMMIT_HOME: "$XDG_CACHE_HOME/pre-commit"
+  # Disable keyring for publishing hatch packages.
+  PYTHON_KEYRING_BACKEND: "keyring.backends.null.Keyring"
+
+cache:
+  paths:
+    - .cache
+
+# Run pre-commit & build package
+build package:
+  stage: build python
+  before_script:
+    - apt update && apt install shellcheck
+    - pip install hatch pre-commit
+  script:
+    - hatch build
+    - SKIP=gitlabci-lint pre-commit run --all-files
+  artifacts:
+    paths:
+      - dist
+
+# Run glscpc on some example files that should fail
+test:
+  stage: test
+  dependencies:
+    - build package
+  before_script:
+    - apt update && apt install shellcheck
+  script:
+    - pip install --upgrade --upgrade-strategy eager "$(find dist -name '*.whl' | head -n1)"
+    - glscpc --version
+    - glscpc --help
+    - if glscpc -v -f tests/*.yml; then echo "Did not find issues in example files?"; exit 1; fi
+
+build image:
+  image: $DOCKER_IMAGE
+  services:
+    - name: "$DOCKER_IMAGE-dind"
+  stage: build image
+  dependencies:
+    - build package
+  before_script:
+    - apk add git zstd
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  script:
+    # Try to download a recently built image from the registry to be used as cache.
+    # We could just download them all, but then we'd be waisting more time than we save, so stop after first success.
+    # The seq abomination is required because we're in a POSIX shell here, not bash.
+    - COMMIT_BEFORE_SHA="latest"
+    - |
+      for i in $(seq $((${GIT_DEPTH:-10}-1))); do
+        COMMIT_BEFORE_SHA="$(git rev-parse HEAD~"$i")" || break
+        if docker pull "$CONTAINER_NAME:$COMMIT_BEFORE_SHA"; then
+          break
+        fi
+      done
+    # Build container image. Not all tags will be used/pushed in all situations, but might as well add them here.
+    - >
+      docker build
+      --file Dockerfile
+      --cache-from "$CONTAINER_NAME:$COMMIT_BEFORE_SHA"
+      --label "org.opencontainers.image.title=$CI_PROJECT_TITLE"
+      --label "org.opencontainers.image.url=$CI_PROJECT_URL"
+      --label "org.opencontainers.image.created=$CI_JOB_STARTED_AT"
+      --label "org.opencontainers.image.revision=$CI_COMMIT_SHA"
+      --label "org.opencontainers.image.version=$CI_COMMIT_REF_NAME"
+      --tag "$CONTAINER_NAME:$CI_COMMIT_SHA"
+      --tag "$CONTAINER_NAME:$CI_COMMIT_REF_NAME"
+      --tag "$CONTAINER_NAME:latest"
+      .
+    - docker image ls -a "$CONTAINER_NAME"
+    # Only push the commit SHA here.
+    - docker push "$CONTAINER_NAME:$CI_COMMIT_SHA"
+    # The saved file does contain all tags for later use.
+    - docker save "$CONTAINER_NAME:$CI_COMMIT_SHA" "$CONTAINER_NAME:$CI_COMMIT_REF_NAME" "$CONTAINER_NAME:latest" | zstd > glscpc.tar.zst
+    - ls -Alh glscpc.tar.zst
+  artifacts:
+    paths:
+      - glscpc.tar.zst
+
+# Push pip package(s) to Gitlab repo
+# This must happen only on main or tags, so the version numbers in the package registry are consistent!
+deploy package:
+  # Must clone even though the artifact is pre-built because hatch needs the pyproject.toml file
+  stage: deploy
+  dependencies:
+    - build package
+  before_script:
+    - pip install hatch
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_TAG
+  script:
+    - hatch publish -n -u gitlab-ci-token -a "${CI_JOB_TOKEN}" -r "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi"
+
+# Push pip package(s) to pypi, only on a tagged build.
+deploy package pypi:
+  # Must clone even though the artifact is pre-built because hatch needs the pyproject.toml file
+  stage: deploy
+  dependencies:
+    - build package
+  before_script:
+    - pip install hatch
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - hatch publish -n -u __token__ -a "${PYPI_TOKEN}"
+
+# Tag containers for main/latest and tags (without cloning source code)
+publish latest container:
+  image: $DOCKER_IMAGE
+  stage: deploy
+  dependencies:
+    - build image
+  services:
+    - name: "$DOCKER_IMAGE-dind"
+  variables:
+    GIT_STRATEGY: none
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  before_script:
+    - apk add zstd
+    - docker load -i glscpc.tar.zst
+    - docker image ls -a "$CONTAINER_NAME"
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  script:
+    - docker push "$CONTAINER_NAME:latest"
+publish tag container:
+  image: $DOCKER_IMAGE
+  stage: deploy
+  needs:
+    - build image
+  services:
+    - name: "$DOCKER_IMAGE-dind"
+  variables:
+    GIT_STRATEGY: none
+  only:
+    - tags
+  before_script:
+    - apk add zstd
+    - docker load -i glscpc.tar.zst
+    - docker image ls -a "$CONTAINER_NAME"
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  script:
+    - docker push "$CONTAINER_NAME:$CI_COMMIT_REF_NAME"
