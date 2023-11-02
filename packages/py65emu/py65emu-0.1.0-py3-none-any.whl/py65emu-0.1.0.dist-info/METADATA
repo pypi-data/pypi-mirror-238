@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: py65emu
+Version: 0.1.0
+Summary: Python 6502 Emulator
+Author-email: Jonas Marklén <txc@txc.se>
+License: WTFPL
+Project-URL: Homepage, https://github.com/TXC/py65emu
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.10
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+License-File: AUTHORS.rst
+Provides-Extra: dev
+Requires-Dist: black >=23.10 ; extra == 'dev'
+Requires-Dist: coverage >=7.3 ; extra == 'dev'
+Requires-Dist: flake8 >=6.1 ; extra == 'dev'
+Requires-Dist: mypy >=1.6 ; extra == 'dev'
+Requires-Dist: pytest >=7.4 ; extra == 'dev'
+Requires-Dist: tox >=4.11 ; extra == 'dev'
+Requires-Dist: tox-venv >=0.4.0 ; extra == 'dev'
+Requires-Dist: virtualenv ; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: Sphinx >=1.0 ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme >=1.3 ; extra == 'docs'
+Requires-Dist: tomli >=2.0 ; extra == 'docs'
+
+Python 6502 Emulator
+====================
+
+|Tests|
+
+A MOS 6502 Emulator intended to be used from within other programs. All
+opcodes, included the undocumented illegal opcodes are implemented.
+
+.. image:: https://github.com/YOU/YOUR-PROJECT/workflows/CI/badge.svg?branch=master
+     :target: https://github.com/YOU/YOUR-PROJECT/actions?workflow=CI
+     :alt: CI Status
+
+.. |Tests| image:: https://github.com/TXC/py65emu/actions/workflows/run-tests.yml/badge.svg?branch=master
+   :target: https://github.com/TXC/py65emu/actions/workflows/run-tests.yml
