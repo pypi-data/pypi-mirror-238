@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "aidon"
+version = "0.0.4"
+requires-python = ">=3.9" 
+dependencies = [
+    "pyserial",
+    "crcmod",
+    "requests"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/TrondKjeldas/meter_reading"
+
+[project.scripts]
+aidon_test = "aidon.aidon_test:main"
+aidon_forward = "aidon.aidon_forward:main"
+
