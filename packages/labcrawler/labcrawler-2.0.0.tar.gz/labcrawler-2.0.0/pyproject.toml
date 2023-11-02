@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "labcrawler"
+version = "2.0.0"
+description = "Analysis tool for GitLab project and CI configurations"
+authors = ["Steampunk Wizard <labcrawler@steampunkwizard.ca>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+meltano = "^3.1.0"
+pandas = "^2.1.1"
+tabulate = "^0.9.0"
+platformdirs = "^3.10.0"
+wizlib = "^1.1.1"
+
+[tool.poetry.group.dev.dependencies]
+pycodestyle = "^2.11.0"
+autopep8 = "^2.0.4"
+coverage = "^7.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+labcrawler = "labcrawler.cli:LabCrawlerCLI"
+meltano = "meltano.cli:main"
+
+[tool.poetry-dynamic-versioning]
+enable = false
+vcs = "git"
+format = "{base}"
