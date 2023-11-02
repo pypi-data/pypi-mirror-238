@@ -1,0 +1,76 @@
+#!python
+import os
+import sys
+from rich import print
+from rich.panel import Panel
+import platform
+if getattr(sys, 'frozen', False):
+    script_dir = os.path.dirname(sys.executable)
+else:
+    script_dir = os.path.dirname(__file__)
+if platform.system() == "Linux":
+    from wglib.wg import Wireguard
+elif platform.system() == "Windows":
+    from wglib.windowswg import windowswireguard as Wireguard
+elif platform.system() == "Mac":
+    pass
+else:
+    print("[bold red]Unsupported Platform[/bold red]")
+# Actions for the WireGuard VPN
+ACTIONS = {
+    "connect": "wgconnect",
+    "disconnect": "wgdisconnect",
+    "configure": "configure",
+    "login": "login",
+    "logout": "logout",
+    "add_device": "add_device",
+    "showinfo": "showinfo",
+    "isinstalled":"isinstalled",
+    "mypublickey":"mypublickey",
+    "listdevices":"listdevices",
+    "wizmode":"wizmode",
+    "removedevice":"removedevice"
+}
+
+# Manually formatted help message
+help_message = """
+[bold green1]Ninja Connect[/bold green1]
+
+[bold green1]OPTIONS:[/bold green1]
+        :small_blue_diamond:[bold]-h | --help[/bold]: help show the options
+        :small_blue_diamond:[bold]configure[/bold]: Set up your wireguard
+        :small_blue_diamond:[bold]login[/bold]: Log in to your Gitlab account
+        :small_blue_diamond:[bold]add_device[/bold]: Add a new device
+        :small_blue_diamond:[bold]connect[/bold]: Establish a connection
+        :small_blue_diamond:[bold]disconnect[/bold]: Terminate the connection
+        :small_blue_diamond:[bold]logout[/bold]: Loggedout form gitlabs
+        :small_blue_diamond:[bold]removedevice[/bold]: Remove the device from labs
+
+[bold green1]Example Commands:[/bold green1]
+        $ [bold]ninja connect[/bold]
+        $ [bold]ninja disconnect[/bold]
+
+[bold orchid]Discover the power of labs with these commands![/bold orchid] :Star:
+"""
+def main():
+    if len(sys.argv) < 2 or sys.argv[1] == "--help" or sys.argv[1] =="-h":
+        print(help_message)
+        return
+
+    action = sys.argv[1]
+
+    if action in ACTIONS:
+        action_function_name = ACTIONS[action]
+        wireguard = Wireguard()
+
+        if hasattr(wireguard, action_function_name):
+            action_function = getattr(wireguard, action_function_name)
+            print(f"[bold green1]:small_blue_diamond: Performing action: [bold]{action}[/bold][/bold green1]")
+            action_function()
+        else:
+            print(f"[red]Error:[/red] Action '{action}' not supported.")
+    else:
+        print(f"[red]Error:[/red] Action '{action}' not recognized. see ninja -h or --help")
+
+if __name__ == "__main__":
+    main()
