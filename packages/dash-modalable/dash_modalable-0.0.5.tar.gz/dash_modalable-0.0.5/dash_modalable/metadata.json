@@ -1,0 +1,119 @@
+{
+  "src/lib/components/DashModalable.react.js": {
+    "description": "ExampleComponent is an example component.\nIt takes a property, `label`, and\ndisplays it.\nIt renders an input with the property `value`\nwhich is editable by the user.",
+    "displayName": "DashModalable",
+    "methods": [
+      {
+        "name": "openModal",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "closeModal",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "children": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "node"
+            },
+            {
+              "name": "array"
+            }
+          ]
+        },
+        "required": false,
+        "description": "This option controls the content of the current component."
+      },
+      "modalChildren": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "node"
+            },
+            {
+              "name": "array"
+            }
+          ]
+        },
+        "required": false,
+        "description": "This option controls the content of the pop-up Modal."
+      },
+      "modalZoomable": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "This option controls whether the pop-up Modal allows free content scaling.",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "buttonOpen": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "This option controls whether the pop-up Modal is opened by a button.",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "closeOnModalContentClick": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "This option controls whether the pop-up Modal is closed by clicking on the content of the Modal.",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "This option controls the style of the current component (before popping up), and the core aspect to control is the width and height of the component.",
+        "defaultValue": {
+          "value": "{\n    modalZoomable: true,\n    style: {\n        width: \"100%\",\n        height: \"100%\"\n    }\n}",
+          "computed": false
+        }
+      },
+      "modalStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "This option controls the style of the current component after it pops up. The core elements to control are the width and height of the component, as well as the z-index, etc."
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+      }
+    }
+  }
+}
