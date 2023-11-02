@@ -1,0 +1,11 @@
+include MANIFEST.in
+include LICENSE.txt
+include README.md
+include setup.py
+include setup.cfg
+graft src
+graft src/proxiestor
+recursive-include src/proxiestor __init__.py
+recursive-include src/proxiestor setup.py
+recursive-include src/proxiestor pytor.cpp
+global-include *.py *.cpp *.in *.txt *.md *.cfg
