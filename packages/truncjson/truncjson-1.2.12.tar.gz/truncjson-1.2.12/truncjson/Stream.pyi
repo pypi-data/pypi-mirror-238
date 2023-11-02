@@ -1,0 +1,6 @@
+from typing import List
+
+class Stream:
+    def __init__(self) -> None: ...
+
+    def extract(self, chunk: str) -> List[str]: ...
