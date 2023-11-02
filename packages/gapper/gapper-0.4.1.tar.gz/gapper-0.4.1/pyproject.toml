@@ -1,0 +1,53 @@
+[tool.poetry]
+name = "gapper"
+version = "0.4.1"
+description = "Gradescope Assignment Packer"
+authors = ["Heyuan Zeng <hi@universe.observer>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/FlickerSoul/gapper"
+documentation = "https://github.com/FlickerSoul/gapper/wiki"
+
+[tool.poetry.scripts]
+gap = "gapper.cli:app"
+gapper = "gapper.cli:app"
+gradescope-autograder-packer = "gapper.cli:app"
+
+[tool.coverage.report]
+exclude_also = [
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+]
+
+[tool.coverage.run]
+omit = [
+    "src/gap/gradescope/resources/*"
+]
+
+[tool.isort]
+profile = "black"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+typer = "^0.9.0"
+dill = "^0.3.7"
+dataclasses-json = "^0.6.1"
+dacite = "^1.8.1"
+rich = "^13.6.0"
+pytest = "^7.4.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+mypy = "^1.5.1"
+pylint = "^3.0.1"
+black = "^23.9.1"
+isort = "^5.12.0"
+coverage = "^7.3.2"
+pre-commit = "^3.5.0"
+pytest-mock = "^3.12.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
