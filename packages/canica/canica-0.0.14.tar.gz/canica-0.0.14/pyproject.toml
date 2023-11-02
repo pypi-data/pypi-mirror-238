@@ -1,0 +1,60 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "canica"
+version = "0.0.14"
+requires-python = ">=3.9"
+dependencies = [
+    "anywidget>=0.6.5",
+    "jupyterlab>=4.0.6",
+    "numpy>=1.26.0",
+    "pandas>=2.1.1",
+    "pyarrow>=13.0.0",
+    "pydantic>=2.4.2",
+    "traitlets>=5.13.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pre-commit>=3.4.0",
+    "mypy>=1.5.1",
+    "pytest>=7.4.2",
+    "black>=23.9.1",
+    "nbstripout>=0.6.1",
+]
+dev = ["canica[test]", "watchfiles>=0.20.0", "pandas-stubs>=2.1.1.230928"]
+
+[tool.hatch.envs.default]
+python = "3.11"
+type = "virtual"
+skip-install = true
+
+[tool.hatch.envs.dev]
+template = "default"
+skip-install = false
+features = ["dev"]
+
+[tool.hatch.envs.test]
+template = "default"
+skip-install = false
+features = ["test"]
+
+[[tool.hatch.envs.test.matrix]]
+python = ["3.9", "3.10", "3.11"]
+
+[tool.hatch.build]
+only-packages = true
+artifacts = ["src/canica/static/*"]
+
+[tool.hatch.build.hooks.jupyter-builder]
+enable-by-default = true
+build-function = "hatch_jupyter_builder.npm_builder"
+ensured-targets = ["src/canica/static/widget.js"]
+skip-if-exists = ["src/canica/static/widget.js"]
+dependencies = ["hatch-jupyter-builder>=0.5.0"]
+
+[tool.hatch.build.hooks.jupyter-builder.build-kwargs]
+npm = "npm"
+build_cmd = "build"
