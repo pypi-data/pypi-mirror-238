@@ -1,0 +1,53 @@
+Metadata-Version: 2.1
+Name: proxiestor
+Version: 1.5
+Summary: Automate Tor Ip Rotation
+Home-page: https://github.com/sptty-chan/proxiestor
+Author: Sptty Chan
+Author-email: sptty_chan@ccmail.uk
+License: MIT
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: stem (==1.8.0)
+Requires-Dist: psutil (==5.9.6)
+Requires-Dist: cython (==0.29.33)
+
+proxiestor (tor proxies automate IP rotation)
+============================================================
+
+Author: [Sptty Chan (Fanda\)](https://www.facebook.com/profile.php?id=100024425583446)<br>
+Github & Examples: [proxiestor](https://github.com/sptty-chan/proxiestor)
+
+## About Proxiestor
+Proxiestor is a Python library designed to automate Tor. With Proxiestor, you can easily run Tor without the need to open a new terminal window. Just call the function from Proxiestor, and Tor will be up and running. You can even rotate the IP by adding arguments when calling the Proxiestor library function. Please take a look at the example below.
+
+## example 
+
+    #import library
+    from proxiestor import Tor
+    import requests
+
+    #Class initiation
+    #Tor without IP rotation
+    tor = Tor(ip_rotation=False) #Change "False" to "True" if you want to enable IP rotation
+
+    #Start tor
+    tor.start()
+
+    #Your program should be executed after calling the "start" function and concluded by calling the "close" function
+    r=requests.get("https://httpbin.org/ip").json()["origin"]
+    print(f"your IP: {r}")
+    #You can create a loop here
+
+    #Close/stop tor
+    tor.close()
+
+Check our GitHub for more examples.
+
