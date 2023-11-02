@@ -1,0 +1,85 @@
+# PyWiliot: wiliot-tools #
+
+wiliot-tools is a python library for accessing Wiliot's Tools
+
+## Public Library
+
+### MAC Installation
+#### Getting around SSL issue on Mac with Python 3.7 and later versions
+
+Python version 3.7 on Mac OS has stopped using the OS's version of SSL and started using Python's implementation instead. As a result, the CA
+certificates included in the OS are no longer usable. To avoid getting SSL related errors from the code when running under this setup you need
+to execute Install Certificates.command Python script. Typically you will find it under
+~~~~
+/Applications/Python\ 3.7/Install\ Certificates.command
+~~~~
+
+#### Python 3 on Mac
+The default Python version on mac is 2.x. Since Wiliot package requires Python 3.x you should download Python3 
+(e.g.  Python3.7) and make python 3 your default.
+There are many ways how to do it such as add python3 to your PATH (one possible solution https://www.educative.io/edpresso/how-to-add-python-to-the-path-variable-in-mac) 
+
+#### Git is not working after Mac update
+please check the following solution:
+https://stackoverflow.com/questions/52522565/git-is-not-working-after-macos-update-xcrun-error-invalid-active-developer-pa
+
+
+### Installing pyWiliot
+````commandline
+pip install wiliot-tools
+````
+
+### Using pyWiliot
+Wiliot package location can be found, by typing in the command line:
+````commandline
+pip show wiliot-tools
+````
+please check out our tools, including:
+* [Local Gateway GUI](wiliot_tools/local_gateway_gui/local_gateway_gui.py)
+
+For more documentation and instructions, please contact us: support@wiliot.com
+
+
+## Release Notes:
+
+Version 4.2.2:
+-----------------
+* Gateway GUI
+  * add logger and improving data logging
+  * improve UID only mode
+  * added macro for Gateway firmware update
+* Owner change GUI - new tool for changing owner to pixels
+
+Version 4.1.0:
+-----------------
+* Gateway GUI
+  * add the option to wrap it up as application
+  * handle better packet parsing exceptions
+
+Version 4.0.5:
+-----------------
+* Gateway GUI - Live Plots:
+  * improve visualization - add sample points, clear after changing feature
+  * add empty feature
+  * add option to save the last configuration
+* Gateway GUI - General:
+  * add sample points
+  * fix libraries compatibility
+  * improve logging from all data type and fix bugs
+  * enhance gw macros
+
+Version 4.0.4:
+-----------------
+* Gateway GUI
+    * add mode for printing full UID, advertising address
+    * show only Silicon Lab port as options for the gw GUI
+    * add button to print the macro file to create new macros.
+    * update GUI visualization
+
+Version 4.0.2:
+-----------------
+* First version
+
+
+The package previous content was published under the name 'wiliot' package.
+for more information please read 'wiliot' package's release notes
