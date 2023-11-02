@@ -1,0 +1,224 @@
+Metadata-Version: 2.1
+Name: embedchain
+Version: 0.0.89
+Summary: Data platform for LLMs - Load, index, retrieve and sync any unstructured data
+License: Apache License
+Author: Taranjeet Singh
+Author-email: taranjeet@embedchain.ai
+Requires-Python: >=3.9,<3.13
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Provides-Extra: cohere
+Provides-Extra: community
+Provides-Extra: dataloaders
+Provides-Extra: discord
+Provides-Extra: elasticsearch
+Provides-Extra: gmail
+Provides-Extra: huggingface-hub
+Provides-Extra: images
+Provides-Extra: json
+Provides-Extra: llama2
+Provides-Extra: milvus
+Provides-Extra: opensearch
+Provides-Extra: opensource
+Provides-Extra: pinecone
+Provides-Extra: poe
+Provides-Extra: qdrant
+Provides-Extra: slack
+Provides-Extra: streamlit
+Provides-Extra: vertexai
+Provides-Extra: weaviate
+Provides-Extra: whatsapp
+Requires-Dist: beautifulsoup4 (>=4.12.2,<5.0.0) ; extra == "dataloaders"
+Requires-Dist: chromadb (>=0.4.8,<0.5.0)
+Requires-Dist: cohere (>=4.27,<5.0) ; extra == "cohere"
+Requires-Dist: discord (>=2.3.2,<3.0.0) ; extra == "discord"
+Requires-Dist: docx2txt (>=0.8,<0.9) ; extra == "dataloaders"
+Requires-Dist: duckduckgo-search (>=3.8.5,<4.0.0) ; extra == "dataloaders"
+Requires-Dist: elasticsearch (>=8.9.0,<9.0.0) ; extra == "elasticsearch"
+Requires-Dist: fastapi-poe (==0.0.16) ; extra == "poe"
+Requires-Dist: flask (>=2.3.3,<3.0.0) ; extra == "slack" or extra == "whatsapp"
+Requires-Dist: ftfy (==6.1.1) ; extra == "images"
+Requires-Dist: google-cloud-aiplatform (>=1.26.1,<2.0.0) ; extra == "vertexai"
+Requires-Dist: gpt4all (==1.0.8) ; extra == "opensource"
+Requires-Dist: huggingface_hub (>=0.17.3,<0.18.0) ; extra == "huggingface-hub"
+Requires-Dist: langchain (>=0.0.303,<0.0.304)
+Requires-Dist: llama-hub (>=0.0.29,<0.0.30) ; extra == "community" or extra == "gmail" or extra == "json"
+Requires-Dist: openai (>=0.28.0)
+Requires-Dist: opensearch-py (==2.3.1) ; extra == "opensearch"
+Requires-Dist: pillow (==10.0.1) ; extra == "images"
+Requires-Dist: pinecone-client (>=2.2.4,<3.0.0) ; extra == "pinecone"
+Requires-Dist: posthog (>=3.0.2,<4.0.0)
+Requires-Dist: pymilvus (==2.3.1) ; extra == "milvus"
+Requires-Dist: pypdf (>=3.11.0,<4.0.0) ; extra == "dataloaders"
+Requires-Dist: python-dotenv (>=1.0.0,<2.0.0)
+Requires-Dist: pytube (>=15.0.0,<16.0.0) ; extra == "dataloaders"
+Requires-Dist: qdrant-client (==1.6.3) ; extra == "qdrant"
+Requires-Dist: regex (==2023.8.8) ; extra == "images"
+Requires-Dist: replicate (>=0.15.4,<0.16.0) ; extra == "llama2"
+Requires-Dist: requests (>=2.31.0,<3.0.0) ; extra == "gmail"
+Requires-Dist: sentence-transformers (>=2.2.2,<3.0.0) ; extra == "opensource" or extra == "dataloaders"
+Requires-Dist: slack-sdk (==3.21.3) ; extra == "slack"
+Requires-Dist: tiktoken (>=0.4.0,<0.5.0)
+Requires-Dist: torch (==2.0.0) ; extra == "opensource" or extra == "images"
+Requires-Dist: torchvision (>=0.15.1,!=0.15.2) ; extra == "images"
+Requires-Dist: twilio (>=8.5.0,<9.0.0) ; extra == "whatsapp"
+Requires-Dist: unstructured[local-inference] (>=0.10.18,<0.11.0) ; extra == "dataloaders"
+Requires-Dist: weaviate-client (>=3.24.1,<4.0.0) ; extra == "weaviate"
+Requires-Dist: youtube-transcript-api (>=0.6.1,<0.7.0)
+Description-Content-Type: text/markdown
+
+# embedchain
+
+<a href="https://runacap.com/ross-index/q3-2023/" target="_blank" rel="noopener"><img style="width: 260px; height: 56px" src="https://runacap.com/wp-content/uploads/2023/10/ROSS_badge_black_Q3_2023.svg" alt="ROSS Index - Fastest Growing Open-Source Startups in Q3 2023 | Runa Capital" width="260" height="56"/></a>
+
+[![PyPI](https://img.shields.io/pypi/v/embedchain)](https://pypi.org/project/embedchain/)
+[![Slack](https://img.shields.io/badge/slack-embedchain-brightgreen.svg?logo=slack)](https://join.slack.com/t/embedchain/shared_invite/zt-22uwz3c46-Zg7cIh5rOBteT_xe1jwLDw)
+[![Discord](https://dcbadge.vercel.app/api/server/6PzXDgEjG5?style=flat)](https://discord.gg/CUU9FPhRNt)
+[![Twitter](https://img.shields.io/twitter/follow/embedchain)](https://twitter.com/embedchain)
+[![Substack](https://img.shields.io/badge/Substack-%23006f5c.svg?logo=substack)](https://embedchain.substack.com/)
+[![Open in Colab](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/138lMWhENGeEu7Q1-6lNbNTHGLZXBBz_B?usp=sharing)
+[![codecov](https://codecov.io/gh/embedchain/embedchain/graph/badge.svg?token=EMRRHZXW1Q)](https://codecov.io/gh/embedchain/embedchain)
+
+Embedchain is a Data Platform for LLMs - load, index, retrieve, and sync any unstructured data. Using embedchain, you can easily create LLM powered apps over any data. If you want a javascript version, check out [embedchain-js](https://github.com/embedchain/embedchain/tree/main/embedchain-js)
+
+## Community
+
+* Join embedchain community on slack by accepting [this invite](https://join.slack.com/t/embedchain/shared_invite/zt-22uwz3c46-Zg7cIh5rOBteT_xe1jwLDw)
+
+## 🤝 Schedule a 1-on-1 Session
+
+Book a [1-on-1 Session](https://cal.com/taranjeetio/ec) with Taranjeet, the founder, to discuss any issues, provide feedback, or explore how we can improve Embedchain for you.
+
+## 🔧 Quick install
+
+```bash
+pip install --upgrade embedchain
+```
+
+## 🔍 Demo
+
+Try out embedchain in your browser:
+
+[![Open in Colab](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/17ON1LPonnXAtLaZEebnOktstB_1cJJmh?usp=sharing)
+
+## 📖 Documentation
+
+The documentation for embedchain can be found at [docs.embedchain.ai](https://docs.embedchain.ai).
+
+## 💻 Usage
+
+Embedchain empowers you to create ChatGPT like apps, on your own dynamic dataset.
+
+### Data types supported
+
+* Youtube video
+* PDF file
+* CSV file
+* Web page
+* MDX file
+* XML file
+* Sitemap
+* Doc file
+* Notion
+* JSON file
+* OpenAPI specs
+* Code docs website
+* Unstructured file loader and many more
+
+You can find the full list of data types on [our documentation](https://docs.embedchain.ai/data-sources/).
+
+### Queries
+
+For example, you can use Embedchain to create an Elon Musk bot using the following code:
+
+```python
+import os
+from embedchain import Pipeline as App
+
+# Create a bot instance
+os.environ["OPENAI_API_KEY"] = "YOUR API KEY"
+elon_bot = App()
+
+# Embed online resources
+elon_bot.add("https://en.wikipedia.org/wiki/Elon_Musk")
+elon_bot.add("https://www.forbes.com/profile/elon-musk")
+elon_bot.add("https://www.youtube.com/watch?v=RcYjXbSJBN8")
+
+# Query the bot
+elon_bot.query("How many companies does Elon Musk run and name those?")
+# Answer: Elon Musk currently runs several companies. As of my knowledge, he is the CEO and lead designer of SpaceX, the CEO and product architect of Tesla, Inc., the CEO and founder of Neuralink, and the CEO and founder of The Boring Company. However, please note that this information may change over time, so it's always good to verify the latest updates.
+
+# (Optional): Deploy app to Embedchain Platform
+app.deploy()
+# 🔑 Enter your Embedchain API key. You can find the API key at https://app.embedchain.ai/settings/keys/
+# ec-xxxxxx
+
+# 🛠️ Creating pipeline on the platform...
+# 🎉🎉🎉 Pipeline created successfully! View your pipeline: https://app.embedchain.ai/pipelines/xxxxx
+
+# 🛠️ Adding data to your pipeline...
+# ✅ Data of type: web_page, value: https://www.forbes.com/profile/elon-musk added successfully.
+```
+
+## Examples
+
+| LLM          | Google Colab  | Replit   |
+|--------------|---------------|----------|
+| OpenAI       | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/openai.ipynb)           | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/openai#main.py)      |
+| Anthropic    | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/anthropic.ipynb)        | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/anthropic#main.py)   |
+| Azure OpenAI | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/azure-openai.ipynb)     | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/azureopenai#main.py) |
+| VertexAI     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/vertex_ai.ipynb)        | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/vertexai#main.py)    |
+| Cohere       | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/cohere.ipynb)           | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/cohere#main.py)      |
+| Hugging Face | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/hugging_face_hub.ipynb) | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/huggingface#main.py) |
+| JinaChat     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/jina.ipynb)             | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/jina#main.py)        |
+| GPT4All      | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/gpt4all.ipynb)          | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/gpt4all#main.py)     |
+| Llama2       | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/llama2.ipynb)           | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/llama2#main.py)      |
+
+| Embedding model     | Google Colab                                                                                                                                                                            | Replit                                                                                                                        |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| OpenAI       | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/openai.ipynb)           | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/openai#main.py)      |
+| VertexAI     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/vertex_ai.ipynb)        | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/vertexai#main.py)    |
+| GPT4All      | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/gpt4all.ipynb)          | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/gpt4all#main.py)     |
+| Hugging Face | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/hugging_face_hub.ipynb) | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/huggingface#main.py) |
+
+| Vector DB     | Google Colab                                                                                                                                                                         | Replit                                                                                                                          |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| ChromaDB      | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/chromadb.ipynb)      | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/chromadb#main.py)      |
+| Elasticsearch | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/elasticsearch.ipynb) | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/elasticsearchdb#main.py) |
+| Opensearch    | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/opensearch.ipynb)    | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/opensearchdb#main.py)    |
+| Pinecone      | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/embedchain/embedchain/blob/main/notebooks/pinecone.ipynb)      | [![Try with Replit Badge](https://replit.com/badge?caption=Try%20with%20Replit&variant=small)](https://replit.com/@taranjeetio/pineconedb#main.py)      |
+
+## 🤝 Contributing
+
+Contributions are welcome! Please check out the issues on the repository, and feel free to open a pull request.
+For more information, please see the [contributing guidelines](CONTRIBUTING.md).
+
+For more reference, please go through [Development Guide](https://docs.embedchain.ai/contribution/dev) and [Documentation Guide](https://docs.embedchain.ai/contribution/docs).
+
+<a href="https://github.com/embedchain/embedchain/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=embedchain/embedchain" />
+</a>
+
+## Telemetry
+
+We collect anonymous usage metrics to enhance our package's quality and user experience. This includes data like feature usage frequency and system info, but never personal details. The data helps us prioritize improvements and ensure compatibility. If you wish to opt-out, set the `app.config.collect_metrics = False` in the code. We prioritize data security and don't share this data externally.
+
+## Citation
+
+If you utilize this repository, please consider citing it with:
+
+```
+@misc{embedchain,
+  author = {Taranjeet Singh, Deshraj Yadav},
+  title = {Embedchain: Data platform for LLMs - load, index, retrieve, and sync any unstructured data},
+  year = {2023},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/embedchain/embedchain}},
+}
+```
+
