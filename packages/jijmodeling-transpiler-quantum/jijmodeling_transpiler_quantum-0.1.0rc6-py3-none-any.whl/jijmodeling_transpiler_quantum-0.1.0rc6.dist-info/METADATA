@@ -1,0 +1,98 @@
+Metadata-Version: 2.1
+Name: jijmodeling-transpiler-quantum
+Version: 0.1.0rc6
+Summary: 
+Author: Jij Inc.
+Author-email: info@j-ij.com
+Requires-Python: >=3.9.8,<3.11
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Provides-Extra: qiskit
+Provides-Extra: quri-parts
+Requires-Dist: jijmodeling-transpiler (>=0.6.0rc3)
+Requires-Dist: qiskit[qiskit] (>=0.44.0) ; extra == "qiskit"
+Requires-Dist: quri-parts[quri-parts] (>=0.13.0) ; extra == "quri-parts"
+Description-Content-Type: text/markdown
+
+# JijModeling-Transpiler-Quantum
+
+`JijModeling-Transpiler-Quantum` is a transpiler from model written in [JijModeling]() to quantum optimization algorithms on variaous quantum platform.
+
+- [Qiskit](#qiskit)
+- [QURI-Parts](#quri-parts)
+
+## Qiskit
+
+[Qiskit](https://qiskit.org/) is an open-source SDK for working with quantum computers at the level of circuits, algorithms, and application modules.
+
+### Installation
+
+```bash
+pip install "jijmodeling-transpiler-quantum[qiskit]"
+```
+
+### Quantum Approximate Optimization Algorithm (QAOA)
+
+```python
+import jijmodeling as jm
+import jijmodeling_transpiler as jmt
+import jijmodeling_transpiler_quantum as jtq
+
+# Create model
+problem = jm.Problem("model")
+...  # Modeling ...
+
+# Compile
+compiled_instance = jmt.compile_model(problem, instance_data, fixed_vars)
+
+# Transpile to QAOA of qikit
+qaoa_builder = jtq.qiskit.transpile_to_qaoa(compiled_instance)
+```
+
+
+## QURI-Parts
+
+[QURI Parts](https://quri-parts.qunasys.com/) is an open source library suite for creating and executing quantum algorithms on various quantum computers and simulators.
+
+```bash
+pip install "jijmodeling-transpiler-quantum[quri-parts]"
+```
+
+### Quantum Approximate Optimization Algorithm (QAOA)
+
+```python
+import jijmodeling as jm
+import jijmodeling_transpiler as jmt
+import jijmodeling_transpiler_quantum as jtq
+
+# Create model
+problem = jm.Problem("model")
+...  # Modeling ...
+
+# Compile
+compiled_instance = jmt.compile_model(problem, instance_data, fixed_vars)
+
+# Transpile to QAOA of qikit
+qaoa_builder = jtq.quri.transpile_to_qaoa(compiled_instance)
+```
+
+
+## Contributing
+
+### Setup
+
+```bash
+pip install poetry
+poetry install --all-extras
+poetry shell
+```
+
+### Test
+
+```bash
+pytest tests
+```
+
+
+
+
