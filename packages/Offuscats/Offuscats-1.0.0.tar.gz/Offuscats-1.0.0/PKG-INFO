@@ -1,0 +1,86 @@
+Metadata-Version: 2.1
+Name: Offuscats
+Version: 1.0.0
+Summary: A Python obfuscator. Github official : https://github.com/TryWarzFiles/Offuscat
+Home-page: https://github.com/TryWarzFiles/Offuscat
+Author: TryWarz
+Author-email: trywarz@trywarz.online
+License: apache-2.0
+Description: # Offuscat Documentation
+        
+        **Offuscat** is a Python module for obfuscating and decoding Python code using base64 encoding and character replacement.
+        
+        ## Installation
+        
+        You can install **Offuscat** using pip:
+        
+        ```shell
+        pip install Offuscats.py
+        ```
+        
+        ## Usage
+        To use Offuscat.py, you can follow the example below:
+        ```py
+        from Offuscats import Offuscats
+        
+        # Create an instance of Offuscat with your Python code
+        
+        my_code = "print('Hello, World!')"
+        offuscat_instance = Offuscats(script=my_code)
+        
+        # Obfuscate the code
+        
+        obfuscated_code = offuscat_instance.obfuscate()
+        
+        # Make the code illegible
+        
+        illegible_code = offuscat_instance.make_ilisible()
+        
+        # Decode and execute the obfuscated code
+        offuscat_instance.decode()
+        ```
+        Class: Offuscats
+        __init__(self, script=None, file=None)
+        Initialize an instance of Offuscat.
+        
+        script (str, optional): The Python code to be obfuscated or decoded.
+        file (str, optional): The file to be obfuscated.
+        obfuscate(self)
+        Obfuscates the code using base64 encoding.
+        
+        Returns:
+        
+        str: The obfuscated code.
+        make_ilisible(self)
+        Replaces each character in the obfuscated code with a string of special characters.
+        
+        Returns:
+        
+        str: The illegible code.
+        decode(self)
+        Decodes the obfuscated code using base64 decoding and executes it.
+        
+        obfuscate_file(self)
+        Obfuscates a Python file using base64 encoding and character replacement.
+        
+        Parameters:
+        
+        file (str): The file to be obfuscated.
+        Example
+        You can obfuscate a Python file with the following code:
+        
+        ```py
+        from Offuscats import Offuscats
+        
+        # Create an instance of Offuscat with a file path
+        file_path = "example.py"
+        offuscat_instance = Offuscats(file=file_path)
+        
+        # Obfuscate the file
+        offuscat_instance.obfuscate_file()
+        ```
+        This is a basic example of how to use the Offuscat module. You can customize it and provide more detailed explanations as needed.
+        
+Keywords: obfuscation,obfuscate,obfuscator,obfuscating,obfuscated,obfuscates,obfuscators
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
