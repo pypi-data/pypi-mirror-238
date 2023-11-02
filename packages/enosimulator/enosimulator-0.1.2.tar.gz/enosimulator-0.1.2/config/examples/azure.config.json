@@ -1,0 +1,29 @@
+{
+   "setup": {
+      "ssh-config-path": "C:/Users/janni/.ssh/simconfig",
+      "location": "azure",
+      "vm-sizes": {
+         "vulnbox": "Standard_A1_v2",
+         "checker": "Standard_A1_v2",
+         "engine": "Standard_A1_v2"
+      },
+      "vm-image-references": {
+         "vulnbox": "vulnbox-CVExchange-bollwerk-expenses",
+         "checker": "vulnbox-checker-CVExchange-bollwerk-expenses",
+         "engine": "engine-configured"
+      }
+   },
+   "settings": {
+      "duration-in-minutes": 30,
+      "teams": 5,
+      "services": ["enowars7-service-CVExchange"],
+      "checker-ports": [7331],
+      "simulation-type": "realistic"
+   },
+   "ctf-json": {
+      "title": "ctf-sim",
+      "flag-validity-in-rounds": 2,
+      "checked-rounds-per-round": 3,
+      "round-length-in-seconds": 60
+   }
+}
