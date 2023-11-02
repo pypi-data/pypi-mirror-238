@@ -1,0 +1,238 @@
+Metadata-Version: 2.1
+Name: jewcal
+Version: 0.5.0
+Summary: Convert Gregorian to Jewish dates and get Shabbos / Yom Tov details for Diaspora and Israel.
+Author-email: essel-dev <info@essel.dev>
+License: MIT
+Project-URL: Homepage, https://github.com/essel-dev/jewcal
+Project-URL: Documentation, https://jewcal.readthedocs.io/
+Project-URL: Changelog, https://github.com/essel-dev/jewcal/releases
+Project-URL: Bug Tracker, https://github.com/essel-dev/jewcal/issues
+Keywords: jewish calendar
+Requires-Python: >=3.10
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: pre-commit; extra == "dev"
+Requires-Dist: tox; extra == "dev"
+Requires-Dist: sphinx; extra == "dev"
+Requires-Dist: sphinx-rtd-theme; extra == "dev"
+
+.. include_title_start
+
+JewCal
+======
+
+.. include_title_end
+
+
+
+.. image:: https://github.com/essel-dev/jewcal/actions/workflows/tests.yml/badge.svg
+    :target: https://github.com/essel-dev/jewcal/actions/workflows/tests.yml
+    :alt: Tests Status
+.. image:: https://github.com/essel-dev/jewcal/actions/workflows/pypi.yml/badge.svg
+    :target: https://github.com/essel-dev/jewcal/actions/workflows/pypi.yml
+    :alt: PyPi Status
+.. image:: https://readthedocs.org/projects/jewcal/badge/?version=stable
+    :target: https://jewcal.readthedocs.io/en/stable/?badge=stable
+    :alt: Documentation Status
+
+|
+
+
+
+.. include_intro_start
+
+Convert Gregorian to Jewish dates and get Shabbos / Yom Tov details for Diaspora and Israel.
+
+.. include_intro_end
+
+
+
+.. include_content_start
+
+Installation
+============
+
+.. code-block:: bash
+
+  pip install jewcal
+
+Usage
+=====
+
+Diaspora
+--------
+
+.. code-block:: python
+
+  >>> from datetime import date
+  >>> from jewcal import JewCal
+
+  >>> jewcal = JewCal(date(2022, 4, 17))
+  >>> print(jewcal)
+  16 Nisan 5782
+  >>> print(repr(jewcal))
+  JewCal(year=5782, month=1, day=16, gregorian_date=datetime.date(2022, 4, 17),
+  shabbos=None, yomtov='Pesach 2', category='Havdalah', diaspora=True)
+
+
+Israel
+------
+
+.. code-block:: python
+
+  >>> from datetime import date
+  >>> from jewcal import JewCal
+
+  >>> jewcal = JewCal(date(2022, 4, 17), diaspora=False)
+  >>> print(jewcal)
+  16 Nisan 5782
+  >>> print(repr(jewcal))
+  JewCal(year=5782, month=1, day=16, gregorian_date=datetime.date(2022, 4, 17),
+  shabbos=None, yomtov='Chol HaMoed 1 (Pesach 2)', category=None, diaspora=False)
+
+
+
+Possible values
+===============
+
+Shabbos
+-------
+
++---------------------+----------------------+
+| ``jewcal.shabbos``  | ``jewcal.category``  |
++=====================+======================+
+| ``None``            | ``None``             |
++---------------------+----------------------+
+| Erev Shabbos        | Candles              |
++---------------------+----------------------+
+| Shabbos             | Havdalah             |
++---------------------+----------------------+
+
+
+Yom Tov
+-------
+
+Diaspora
+~~~~~~~~
+
++---------------------------+----------------------+
+|``jewcal.yomtov``          | ``jewcal.category``  |
++===========================+======================+
+| ``None``                  | ``None``             |
++---------------------------+----------------------+
+| Erev Rosh Hashana         | Candles              |
++---------------------------+----------------------+
+| Rosh Hashana 1            | Candles              |
++---------------------------+----------------------+
+| Rosh Hashana 2            | Havdalah             |
++---------------------------+----------------------+
+| Erev Yom Kippur           | Candles              |
++---------------------------+----------------------+
+| Yom Kippur                | Havdalah             |
++---------------------------+----------------------+
+| Erev Sukkos               | Candles              |
++---------------------------+----------------------+
+| Sukkos 1                  | Candles              |
++---------------------------+----------------------+
+| Sukkos 2                  | Havdalah             |
++---------------------------+----------------------+
+| Chol HaMoed 1 (Sukkos 3)  | ``None``             |
++---------------------------+----------------------+
+| Chol HaMoed 2 (Sukkos 4)  | ``None``             |
++---------------------------+----------------------+
+| Chol HaMoed 3 (Sukkos 5)  | ``None``             |
++---------------------------+----------------------+
+| Chol HaMoed 4 (Sukkos 6)  | ``None``             |
++---------------------------+----------------------+
+| Hoshana Rabba (Sukkos 7)  | Candles              |
++---------------------------+----------------------+
+| Shmini Atzeres (Sukkos 8) | Candles              |
++---------------------------+----------------------+
+| Simchas Tora              | Havdalah             |
++---------------------------+----------------------+
+| Erev Pesach               | Candles              |
++---------------------------+----------------------+
+| Pesach 1                  | Candles              |
++---------------------------+----------------------+
+| Pesach 2                  | Havdalah             |
++---------------------------+----------------------+
+| Chol HaMoed 1 (Pesach 3)  | ``None``             |
++---------------------------+----------------------+
+| Chol HaMoed 2 (Pesach 4)  | ``None``             |
++---------------------------+----------------------+
+| Chol HaMoed 3 (Pesach 5)  | ``None``             |
++---------------------------+----------------------+
+| Chol HaMoed 4 (Pesach 6)  | Candles              |
++---------------------------+----------------------+
+| Pesach 7                  | Candles              |
++---------------------------+----------------------+
+| Pesach 8                  | Havdalah             |
++---------------------------+----------------------+
+| Erev Shavuos              | Candles              |
++---------------------------+----------------------+
+| Shavuos 1                 | Candles              |
++---------------------------+----------------------+
+| Shavuos 2                 | Havdalah             |
++---------------------------+----------------------+
+
+
+Israel
+~~~~~~
+
++-------------------------------+----------------------+
+|``jewcal.yomtov``              |``jewcal.category``   |
++===============================+======================+
+| ``None``                      | ``None``             |
++-------------------------------+----------------------+
+| Erev Rosh Hashana             | Candles              |
++-------------------------------+----------------------+
+| Rosh Hashana 1                | Candles              |
++-------------------------------+----------------------+
+| Rosh Hashana 2                | Havdalah             |
++-------------------------------+----------------------+
+| Erev Yom Kippur               | Candles              |
++-------------------------------+----------------------+
+| Yom Kippur                    | Havdalah             |
++-------------------------------+----------------------+
+| Erev Sukkot                   | Candles              |
++-------------------------------+----------------------+
+| Sukkot 1                      | Havdalah             |
++-------------------------------+----------------------+
+| Chol HaMoed 1 (Sukkot 2)      | ``None``             |
++-------------------------------+----------------------+
+| Chol HaMoed 2 (Sukkot 3)      | ``None``             |
++-------------------------------+----------------------+
+| Chol HaMoed 3 (Sukkot 4)      | ``None``             |
++-------------------------------+----------------------+
+| Chol HaMoed 4 (Sukkot 5)      | ``None``             |
++-------------------------------+----------------------+
+| Chol HaMoed 5 (Sukkot 6)      | ``None``             |
++-------------------------------+----------------------+
+| Hoshana Rabba (Sukkot 7)      | Candles              |
++-------------------------------+----------------------+
+| Shmini Atzeret / Simchat Tora | Havdalah             |
++-------------------------------+----------------------+
+| Erev Pesach                   | Candles              |
++-------------------------------+----------------------+
+| Pesach 1                      | Havdalah             |
++-------------------------------+----------------------+
+| Chol HaMoed 1 (Pesach 2)      | ``None``             |
++-------------------------------+----------------------+
+| Chol HaMoed 2 (Pesach 3)      | ``None``             |
++-------------------------------+----------------------+
+| Chol HaMoed 3 (Pesach 4)      | ``None``             |
++-------------------------------+----------------------+
+| Chol HaMoed 4 (Pesach 5)      | ``None``             |
++-------------------------------+----------------------+
+| Chol HaMoed 5 (Pesach 6)      | Candles              |
++-------------------------------+----------------------+
+| Pesach 7                      | Havdalah             |
++-------------------------------+----------------------+
+| Erev Shavuot                  | Candles              |
++-------------------------------+----------------------+
+| Shavuot                       | Havdalah             |
++-------------------------------+----------------------+
+
+.. include_content_end
