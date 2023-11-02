@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: colorsynth
+Version: 0.0.0
+Summary: A Python library for creating false-color images from arrays of spectral radiance
+Author-email: "Roy T. Smart" <roytsmart@gmail.com>
+Project-URL: Homepage, https://github.com/sun-data/colorsynth
+Project-URL: Documentation, https://colorsynth.readthedocs.io/en/latest
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: astropy
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Provides-Extra: doc
+Requires-Dist: pytest; extra == "doc"
+Requires-Dist: graphviz; extra == "doc"
+Requires-Dist: sphinx-autodoc-typehints; extra == "doc"
+Requires-Dist: sphinxcontrib-bibtex; extra == "doc"
+Requires-Dist: pydata-sphinx-theme; extra == "doc"
+Requires-Dist: ipykernel; extra == "doc"
+Requires-Dist: jupyter-sphinx; extra == "doc"
+Requires-Dist: sphinx-favicon; extra == "doc"
+
+# colorsynth
+
+[![tests](https://github.com/sun-data/colorsynth/actions/workflows/tests.yml/badge.svg)](https://github.com/sun-data/colorsynth/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/sun-data/colorsynth/graph/badge.svg?token=8QettIppCi)](https://codecov.io/gh/sun-data/colorsynth)
+[![Black](https://github.com/sun-data/colorsynth/actions/workflows/black.yml/badge.svg)](https://github.com/sun-data/colorsynth/actions/workflows/black.yml)
+[![Documentation Status](https://readthedocs.org/projects/colorsynth/badge/?version=latest)](https://colorsynth.readthedocs.io/en/latest/?badge=latest)
+
+A Python library for creating false-color images from Numpy arrays of spectral intensity
