@@ -1,0 +1,161 @@
+[data-bs-theme="light"] svg.simple-diagram {
+    font-family: Arial, Helvetica, sans-serif;
+    /*background: #0f5132;*/
+}
+
+[data-bs-theme="dark"] svg.simple-diagram {
+    font-family: Arial, Helvetica, sans-serif;
+    /*background: #0a53be;*/
+}
+
+[data-bs-theme="light"] svg.simple-diagram .node .node-shape {
+    stroke: var(--bs-border-color);
+    fill: rgba(var(--bs-body-color-rgb), 0.03);
+    stroke-width: 1px;
+}
+
+[data-bs-theme="dark"] svg.simple-diagram .node .node-shape {
+    stroke: var(--bs-border-color);
+    fill: rgba(var(--bs-body-color-rgb), 0.03);
+    stroke-width: 1px;
+}
+
+svg.simple-diagram .node .square {
+    shape-rendering: crispEdges;
+}
+
+svg.simple-diagram .node.active .node-shape {
+    fill: rgb(255, 225, 225);
+}
+
+svg.simple-diagram .box {
+    fill: rgb(230, 237, 255);
+    fill-opacity: 0.5;
+    stroke: #999;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
+}
+
+svg.simple-diagram .node .label {
+    cursor: default;
+    stroke: none;
+    fill: var(--bs-body-color);
+}
+
+svg.simple-diagram .subscript,
+svg.simple-diagram .superscript {
+    font-size: 0.8em;
+}
+
+[data-bs-theme="dark"] svg.simple-diagram marker#arrow {
+    fill: var(--bs-border-color);
+}
+
+[data-bs-theme="light"] svg.simple-diagram marker#arrow {
+    fill: var(--bs-border-color);
+}
+
+[data-bs-theme="light"] svg.simple-diagram .line {
+    fill: none;
+    stroke: var(--bs-border-color);
+    stroke-width: 1px;
+}
+
+[data-bs-theme="dark"] svg.simple-diagram .line {
+    fill: none;
+    stroke: var(--bs-border-color);
+    stroke-width: 1px;
+}
+
+/*[data-bs-theme="light"] svg.simple-diagram .grid {*/
+/*    stroke: var(--bs-border-color);*/
+/*    stroke-width: 1px;*/
+/*    shape-rendering: crispEdges;*/
+/*}*/
+
+/*[data-bs-theme="dark"] svg.simple-diagram .grid {*/
+/*    stroke: var(--bs-border-color);*/
+/*    stroke-width: 1px;*/
+/*    shape-rendering: crispEdges;*/
+/*}*/
+
+.simple-diagram-tooltip {
+    padding: 8px;
+    font-size: 12px;
+    width: 280px;
+    border: 1px solid rgb(214, 211, 132);
+    background-color: rgb(255, 250, 226);
+    opacity: 0.9
+}
+
+/** Mermaid **/
+span.nodeLabel, .label text {
+    color: rgba(var(--bs-body-color-rgb), 0.77) !important;
+    fill: rgba(var(--bs-body-color-rgb), 0.77) !important;
+}
+
+.edgeLabel .label span {
+    background: rgba(var(--bs-body-color-rgb), 0.03) !important;
+    color: rgba(var(--bs-body-color-rgb), 0.77) !important;
+    font-variant: small-caps
+}
+
+.node rect {
+    fill: rgba(var(--bs-body-color-rgb), 0.03) !important;
+    stroke: var(--bs-border-color) !important;
+}
+
+.flowchart-link, .relation, .divider{
+    stroke: var(--bs-border-color) !important;
+}
+
+.marker {
+    fill: var(--bs-border-color) !important;
+    stroke: var(--bs-border-color) !important;
+}
+
+path {
+    fill: var(--bs-border-color);
+    stroke: var(--bs-border-color) !important;
+}
+
+path[marker-start] {
+    fill: none !important;
+}
+
+.classTitle {
+    text-transform: uppercase;
+}
+
+.clusters rect {
+    fill: rgba(var(--bs-body-color-rgb), 0.015) !important;
+    stroke: var(--bs-border-color) !important;
+}
+
+.label0, .commit0 {
+    border-color: rgba(var(--bs-primary-rgb), 0.25) !important;
+    background-color: rgba(var(--bs-primary-rgb), 0.25) !important;
+    stroke: rgba(var(--bs-primary-rgb), 0.25) !important;
+    fill: rgba(var(--bs-primary-rgb), 0.25) !important;
+}
+
+.label1, .commit1 {
+    border-color: rgba(var(--bs-warning-rgb), 0.25) !important;
+    background-color: rgba(var(--bs-warning-rgb), 0.25) !important;
+    stroke: rgba(var(--bs-warning-rgb), 0.25) !important;
+    fill: rgba(var(--bs-warning-rgb), 0.25) !important;
+}
+
+.commit-label-bkg {
+    fill: rgba(var(--bs-body-color-rgb), 0.03) !important;
+}
+
+.commit-label {
+    fill: rgba(var(--bs-body-color-rgb), 0.77) !important;
+}
+
+text tspan {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    font-variant: all-small-caps;
+}
