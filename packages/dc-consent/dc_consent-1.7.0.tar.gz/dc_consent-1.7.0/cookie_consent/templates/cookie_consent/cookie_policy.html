@@ -1,0 +1,46 @@
+{% extends extends_from %}
+
+{% load i18n %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-12">
+            {% translate "Cookie Policy/Statement" %}
+        </div>
+
+        {% for panel in panels %}
+
+            <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="cookie-consent-panel-title">
+                    <h3>{{panel.title}}</h3>
+                </div>
+                <div class="cookie-consent-panel-body">
+                    <p>{{panel.long_description}}</p>
+                </div>
+            </div>
+
+        {% endfor %}
+
+        {% for panel in extra_panels %}
+            <div class="col-12">
+                <div class="cookie-consent-panel-title">
+                    <h3>{{panel.title}}</h3>
+                </div>
+                <div class="cookie-consent-panel-body">
+                    <p>{{panel.description}}</p>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="col-12">
+            <!--In accordance to EU guidelines.-->
+            <div class="cookie-policy-revoke">
+                <a href="{% url 'cookie_consent:revoke' %}" class="link">{% translate "Revoke Cookie Consent" %}</a>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
