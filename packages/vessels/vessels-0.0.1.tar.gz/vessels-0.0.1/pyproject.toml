@@ -1,0 +1,28 @@
+
+
+
+#
+#	how to publish:
+#
+#		python3 status/status.py
+#		(rm -rf dist && python3 -m build --sdist && twine upload dist/*)
+#
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vessels"
+version = "0.0.1"
+description = "flask tools"
+readme = "module.txt"
+
+[tool.setuptools.packages.find]
+where = [ "places/structures" ]
+
+#
+#	https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+#
+[tool.setuptools.package-data]
+"*" = [ "*.html" ]
