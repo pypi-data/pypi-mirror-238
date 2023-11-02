@@ -1,0 +1,39 @@
+Metadata-Version: 2.1
+Name: ddcci-plasmoid-backend
+Version: 0.1.9
+Summary: Backend for ddcci-plasmoid
+Home-page: https://github.com/davidhi7/ddcci-plasmoid
+License: MIT
+Keywords: ddcci,brightmess,widget,kde,plasma
+Author: David Himmelstoß
+Author-email: 77309510+davidhi7@users.noreply.github.com
+Requires-Python: >=3.8,<4.0
+Classifier: Environment :: X11 Applications :: KDE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Desktop Environment :: K Desktop Environment (KDE)
+Classifier: Topic :: System :: Hardware
+Requires-Dist: fasteners (>=0.18,<0.19)
+Project-URL: Repository, https://github.com/davidhi7/ddcci-plasmoid
+Description-Content-Type: text/markdown
+
+# KDE Plasma Widget for external monitor brightness adjustment
+
+![Screenshot](https://raw.githubusercontent.com/davidhi7/ddcci-plasmoid/main/screenshots/banner.png)
+
+* This widget allows you to adjust the brightness of external monitors. We accomplish that using [DDC/CI](https://en.wikipedia.org/wiki/Display_Data_Channel#DDC/CI), a protocol that allows your computer to control monitors and change options like the brightness or contrast.
+* A seamless integration into the Plasma desktop is a major goal of this project. The widget is versatile and can be used as a standalone widget or integrated into the system tray.
+* Notebook monitors are currently unsupported because they use different interfaces to communicate with the operating system.
+
+## Requirements
+
+* Python 3.8 or newer
+* [fasteners](https://pypi.org/project/fasteners/)
+* ddcutil 1.4.1 or newer (older versions may work but caused issues in the past)
+
+## This package acts as the backend for the widget.
+For a full installation guide, refer to the [GitHub repository](https://github.com/davidhi7/ddcci-plasmoid).
