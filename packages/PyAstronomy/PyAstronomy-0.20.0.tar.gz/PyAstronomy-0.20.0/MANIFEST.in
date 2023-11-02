@@ -1,0 +1,46 @@
+# Documentation
+include src/doc/conf.py
+include src/doc/Makefile
+include src/doc/*.rst
+include src/doc/logo/*.png
+include src/doc/logo/*.ico
+include src/setup.cfg
+include src/doc/changeLog/*.rst
+include src/constants/*.dat# Package data for: PyAstronomy
+include src/setup.cfg
+# Package data for: PyAstronomy.pyasl.asl
+include src/pyasl/asl/testPro/*.pro
+include src/pyasl/asl/*.cfg
+include src/pyasl/asl/*.dat
+# Package data for: PyAstronomy.pyasl.asl.aslExt_1
+include src/pyasl/asl/aslExt_1/*.dat
+# Package data for: PyAstronomy.pyasl.resBased
+include src/pyasl/resBased/*.dat
+# Package data for: PyAstronomy.modelSuite.XTran.palTrans
+include src/modelSuite/XTran/palTrans/ellint/makefile_template
+include src/modelSuite/XTran/palTrans/ellint/ell.cpp
+# Package data for: PyAstronomy.modelSuite.XTran.forTrans
+include src/modelSuite/XTran/forTrans/*.f
+include src/modelSuite/XTran/forTrans/*.pyf
+# Package data for: PyAstronomy.pyaC
+include src/pyaC/*.dat
+# Package data for: PyAstronomy.pyaC.mtools
+include src/pyaC/mtools/*.dat
+# Package data for: PyAstronomy.constants
+include src/constants/*.dat
+# Documentation for: PyAstronomy.funcFit
+recursive-include src/doc/funcFitDoc *.rst *.png
+# Documentation for: PyAstronomy.funcFit2
+recursive-include src/doc/funcFit2Doc *.rst *.png
+# Documentation for: PyAstronomy.pyasl
+recursive-include src/doc/pyaslDoc *.rst *.png
+# Documentation for: PyAstronomy.modelSuite
+recursive-include src/doc/modelSuiteDoc *.rst *.png
+# Documentation for: PyAstronomy.pyTiming
+recursive-include src/doc/pyTimingDoc *.rst *.png
+# Documentation for: PyAstronomy.pyaC
+recursive-include src/doc/pyaCDoc *.rst *.png
+# Documentation for: PyAstronomy.constants
+recursive-include src/doc/constantsDoc *.rst *.png
+# Documentation for: PyAstronomy.pyaGui
+recursive-include src/doc/pyaGuiDoc *.rst *.png
