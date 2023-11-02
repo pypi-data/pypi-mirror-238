@@ -1,0 +1,2004 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>ObsCoords &#8212; TrackLib 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/core/core-obscoords';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ObsTime" href="core-obstime.html" />
+    <link rel="prev" title="Obs" href="core-obs.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/TracklibLogo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/TracklibLogo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Section navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">
+    Section Navigation
+  </p>
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../algo.html">Module algo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-analytics.html">Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-cinematics.html">Cinematics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-comparison.html">Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-dynamics.html">Dynamics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-filtering.html">Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-geometrics.html">Geometrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-interpolation.html">Interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-mapping.html">Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-segmentation.html">Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-selection.html">Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-simplification.html">Simplification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-stochastics.html">Stochastics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-summarising.html">Summarising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-synthetics.html">Synthetics</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../core.html">Module core</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core-bbox.html">Bbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-kernel.html">Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-network.html">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-obs.html">Obs</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">ObsCoords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-obstime.html">ObsTime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-operator.html">Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-raster.html">Raster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-rasterband.html">RasterBand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-index.html">SpatialIndex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-track.html">Track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-trackcollection.html">TrackCollection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../io.html">Module io</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-trackreader.html">TrackReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-trackwriter.html">TrackWriter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-networkreader.html">NetworkReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-networkwriter.html">NetworkWriter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-rasterreader.html">RasterReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-rasterwriter.html">RasterWriter</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../util.html">Module util</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../util/util-geometry.html">Geometry</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</nav>
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <section id="module-tracklib.core.ObsCoords">
+<span id="obscoords"></span><h1>ObsCoords<a class="headerlink" href="#module-tracklib.core.ObsCoords" title="Permalink to this heading">#</a></h1>
+<p>This Module contains the classes to manage point coordinates:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a> : For representation og geographic coordinates (lon, lat, alti)</p></li>
+<li><p><a class="reference internal" href="#tracklib.core.ObsCoords.ENUCoords" title="tracklib.core.ObsCoords.ENUCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENUCoords</span></code></a> : For local projection (East, North, Up)</p></li>
+<li><p><a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a> : For Earth-Centered-Earth-Fixed coordinates (X, Y, Z)</p></li>
+</ul>
+</div></blockquote>
+<dl class="py data">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.Re">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.ObsCoords.</span></span><span class="sig-name descname"><span class="pre">Re</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6378137.0</span></em><a class="headerlink" href="#tracklib.core.ObsCoords.Re" title="Permalink to this definition">#</a></dt>
+<dd><p>Earth semi-major axis</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.Be">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.ObsCoords.</span></span><span class="sig-name descname"><span class="pre">Be</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6356752.314</span></em><a class="headerlink" href="#tracklib.core.ObsCoords.Be" title="Permalink to this definition">#</a></dt>
+<dd><p>Earth semi-minor axis</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.Fe">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.ObsCoords.</span></span><span class="sig-name descname"><span class="pre">Fe</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0033528106647474805</span></em><a class="headerlink" href="#tracklib.core.ObsCoords.Fe" title="Permalink to this definition">#</a></dt>
+<dd><p>Earth flattening</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.Ee">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.ObsCoords.</span></span><span class="sig-name descname"><span class="pre">Ee</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0818191910428</span></em><a class="headerlink" href="#tracklib.core.ObsCoords.Ee" title="Permalink to this definition">#</a></dt>
+<dd><p>Earth eccentricity</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.ObsCoords.</span></span><span class="sig-name descname"><span class="pre">GeoCoords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hgt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Class to represent geographics coordinates</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hgt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Constructor of <a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a> class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lon</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – longitude in decimal degrees</p></li>
+<li><p><strong>lat</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – latitude in decimal degrees</p></li>
+<li><p><strong>hgt</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – height in meters above geoid or ellipsoid, defaults to 0</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.__str__" title="Permalink to this definition">#</a></dt>
+<dd><p>Transform the object in string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String representation of coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.copy" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.toECEFCoords">
+<span class="sig-name descname"><span class="pre">toECEFCoords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.toECEFCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.toECEFCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert geodetic coordinates to absolute ECEF</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>absolute ECEF coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.toENUCoords">
+<span class="sig-name descname"><span class="pre">toENUCoords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.toENUCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.toENUCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert geodetic coordinates to local ENU coords</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a>, <a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a>]) – Base coordinates for conversion</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tracklib.core.ObsCoords.ENUCoords" title="tracklib.core.ObsCoords.ENUCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENUCoords</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Converted coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.toGeoCoords">
+<span class="sig-name descname"><span class="pre">toGeoCoords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.toGeoCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.toGeoCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Artificial function to ensure point is GeoCoords</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Copy of current object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.distanceTo">
+<span class="sig-name descname"><span class="pre">distanceTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.distanceTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.distanceTo" title="Permalink to this definition">#</a></dt>
+<dd><p>Distance between two geodetic coordinates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> (<a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a>) – Geographic coordinate</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Distance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.distance2DTo">
+<span class="sig-name descname"><span class="pre">distance2DTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.distance2DTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.distance2DTo" title="Permalink to this definition">#</a></dt>
+<dd><p>2D Distance between two geodetic coordinates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> (<a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a>) – Geographic coordinate</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>2D Distance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.elevationTo">
+<span class="sig-name descname"><span class="pre">elevationTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.elevationTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.elevationTo" title="Permalink to this definition">#</a></dt>
+<dd><p>Elevation between two geodetic coordinates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> (<a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a>) – Geographic coordinate</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Elevation (in rad)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.azimuthTo">
+<span class="sig-name descname"><span class="pre">azimuthTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.azimuthTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.azimuthTo" title="Permalink to this definition">#</a></dt>
+<dd><p>Azimut between two geodetic coordinates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> (<a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a>) – Geographic coordinate</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Azimut (in rad)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.toProjCoords">
+<span class="sig-name descname"><span class="pre">toProjCoords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">srid_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.toProjCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.toProjCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Special function to convert to specific ENU srid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>srid_number</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – A SRID number describing projection coords
+(e.g. 2154 for Lambert 93)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tracklib.core.ObsCoords.ENUCoords" title="tracklib.core.ObsCoords.ENUCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENUCoords</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>an ENUCoords object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.getX">
+<span class="sig-name descname"><span class="pre">getX</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.getX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.getX" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the X coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.getY">
+<span class="sig-name descname"><span class="pre">getY</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.getY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.getY" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the Y coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.getZ">
+<span class="sig-name descname"><span class="pre">getZ</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.getZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.getZ" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the Z coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.setX">
+<span class="sig-name descname"><span class="pre">setX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.setX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.setX" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the X coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>X</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – X coordinate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.setY">
+<span class="sig-name descname"><span class="pre">setY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.setY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.setY" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the Y coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Y</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Y coordinate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.setZ">
+<span class="sig-name descname"><span class="pre">setZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.setZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.setZ" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the Z coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Z</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Z coordinate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.GeoCoords.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ro'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#GeoCoords.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.GeoCoords.plot" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.ObsCoords.</span></span><span class="sig-name descname"><span class="pre">ENUCoords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">U</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Class for representation of local projection (East, North, Up)</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">U</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Constructor of class:<cite>ENUCoords</cite>  class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – East coordinate (in meters)</p></li>
+<li><p><strong>N</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – North coordinate (in meters)</p></li>
+<li><p><strong>U</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Elevation (in meter), defaults to 0</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.__str__" title="Permalink to this definition">#</a></dt>
+<dd><p>Transform the object in string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>String representation of coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.copy" title="Permalink to this definition">#</a></dt>
+<dd><p>Copy the current object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tracklib.core.ObsCoords.ENUCoords" title="tracklib.core.ObsCoords.ENUCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENUCoords</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A copy of current object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.toECEFCoords">
+<span class="sig-name descname"><span class="pre">toECEFCoords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.toECEFCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.toECEFCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert local planimetric to absolute geocentric</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a>, <a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a>]) – Base coordinates</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Transformet coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.toGeoCoords">
+<span class="sig-name descname"><span class="pre">toGeoCoords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.toGeoCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.toGeoCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert local ENU coordinates to geo coords</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a>, <a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a>]) – Base coordinates</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Transformed coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.toENUCoords">
+<span class="sig-name descname"><span class="pre">toENUCoords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.toENUCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.toENUCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert local ENU coordinates relative to base1 to
+local ENU coordinates relative to base2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base1</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a>, <a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a>]) – Base 1 coordinates</p></li>
+<li><p><strong>base2</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a>, <a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a>]) – Base 2 coordinates</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tracklib.core.ObsCoords.ENUCoords" title="tracklib.core.ObsCoords.ENUCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENUCoords</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Transformed coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.norm2D">
+<span class="sig-name descname"><span class="pre">norm2D</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.norm2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.norm2D" title="Permalink to this definition">#</a></dt>
+<dd><p>Planimetric euclidian norm of point</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Euclidian norm</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.norm">
+<span class="sig-name descname"><span class="pre">norm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.norm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.norm" title="Permalink to this definition">#</a></dt>
+<dd><p>R^3 space euclidian norm of point</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>R^3 space euclidian norm of point</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.dot">
+<span class="sig-name descname"><span class="pre">dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.dot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.dot" title="Permalink to this definition">#</a></dt>
+<dd><p>Dot product between two vectors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> – [description]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>[description]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.elevationTo">
+<span class="sig-name descname"><span class="pre">elevationTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.elevationTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.elevationTo" title="Permalink to this definition">#</a></dt>
+<dd><p>Elevation between two ENU coordinates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> (<a class="reference internal" href="#tracklib.core.ObsCoords.ENUCoords" title="tracklib.core.ObsCoords.ENUCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENUCoords</span></code></a>) – A ENUCoordinate</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Elevation (in rad)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.azimuthTo">
+<span class="sig-name descname"><span class="pre">azimuthTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.azimuthTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.azimuthTo" title="Permalink to this definition">#</a></dt>
+<dd><p>Azimut between two ENU coordinates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> (<a class="reference internal" href="#tracklib.core.ObsCoords.ENUCoords" title="tracklib.core.ObsCoords.ENUCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENUCoords</span></code></a>) – A ENUCoordinate</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Azimut (in rad)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.distance2DTo">
+<span class="sig-name descname"><span class="pre">distance2DTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.distance2DTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.distance2DTo" title="Permalink to this definition">#</a></dt>
+<dd><p>Distance 2D between two ENU coordinates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> (<a class="reference internal" href="#tracklib.core.ObsCoords.ENUCoords" title="tracklib.core.ObsCoords.ENUCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENUCoords</span></code></a>) – A ENU coordinate</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>2D distance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.distanceTo">
+<span class="sig-name descname"><span class="pre">distanceTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.distanceTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.distanceTo" title="Permalink to this definition">#</a></dt>
+<dd><p>Distance 3D between two ENU coordinates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> (<a class="reference internal" href="#tracklib.core.ObsCoords.ENUCoords" title="tracklib.core.ObsCoords.ENUCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENUCoords</span></code></a>) – A ENU coordinate</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>2D distance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.rotate">
+<span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.rotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.rotate" title="Permalink to this definition">#</a></dt>
+<dd><p>Rotation (2D) of point</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>theta</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Angle of rotation (in rad)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.scale">
+<span class="sig-name descname"><span class="pre">scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.scale" title="Permalink to this definition">#</a></dt>
+<dd><p>Homotehtic transformation (2D) of point</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>h</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – factor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.translate">
+<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.translate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.translate" title="Permalink to this definition">#</a></dt>
+<dd><p>Translation (3D) of point</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tx</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – X translation</p></li>
+<li><p><strong>ty</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Y translation</p></li>
+<li><p><strong>tz</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Z translation, defaults to 0</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.getX">
+<span class="sig-name descname"><span class="pre">getX</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.getX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.getX" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the X coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.getY">
+<span class="sig-name descname"><span class="pre">getY</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.getY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.getY" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the Y coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.getZ">
+<span class="sig-name descname"><span class="pre">getZ</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.getZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.getZ" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the Z coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.setX">
+<span class="sig-name descname"><span class="pre">setX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.setX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.setX" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the X coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>X</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – X coordinate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.setY">
+<span class="sig-name descname"><span class="pre">setY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.setY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.setY" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the Y coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Y</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Y coordinate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.setZ">
+<span class="sig-name descname"><span class="pre">setZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.setZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.setZ" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the Z coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Z</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Z coordinate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ENUCoords.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ro'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ENUCoords.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ENUCoords.plot" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.ObsCoords.</span></span><span class="sig-name descname"><span class="pre">ECEFCoords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Class to represent Earth-Centered-Earth-Fixed coordinates</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Constructor of <a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a> class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – X corrdinate (meters)</p></li>
+<li><p><strong>Y</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Y corrdinate (meters)</p></li>
+<li><p><strong>Z</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Z corrdinate (meters)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.__str__" title="Permalink to this definition">#</a></dt>
+<dd><p>Transform the object in string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String representation of coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.copy" title="Permalink to this definition">#</a></dt>
+<dd><p>Copy the current object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A copy of current object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.toGeoCoords">
+<span class="sig-name descname"><span class="pre">toGeoCoords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.toGeoCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.toGeoCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert absolute geocentric coords to geodetic longitude, latitude and height</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>GeoCoords representation of current coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.toENUCoords">
+<span class="sig-name descname"><span class="pre">toENUCoords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.toENUCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.toENUCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert local coordinates to absolute geocentric</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a>, <a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a>]) – Base coordinates</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tracklib.core.ObsCoords.ENUCoords" title="tracklib.core.ObsCoords.ENUCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENUCoords</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Transformed coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.toECEFCoords">
+<span class="sig-name descname"><span class="pre">toECEFCoords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.toECEFCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.toECEFCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Artificial function to ensure point is ECEFCoords</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>ECEFCoords</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.elevationTo">
+<span class="sig-name descname"><span class="pre">elevationTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.elevationTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.elevationTo" title="Permalink to this definition">#</a></dt>
+<dd><p>Elevation between two ECEF coordinates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> (<a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a>) – Coordinate 2</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Elevation (rad)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.azimuthTo">
+<span class="sig-name descname"><span class="pre">azimuthTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.azimuthTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.azimuthTo" title="Permalink to this definition">#</a></dt>
+<dd><p>Azimut between two ECEF coordinates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> (<a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a>) – Coordinate 2</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Azimuth (rad)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.dot">
+<span class="sig-name descname"><span class="pre">dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.dot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.dot" title="Permalink to this definition">#</a></dt>
+<dd><p>Dot product between two vectors</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.norm">
+<span class="sig-name descname"><span class="pre">norm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.norm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.norm" title="Permalink to this definition">#</a></dt>
+<dd><p>R^3 space euclidian norm of point</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>R^3 space euclidian norm</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.scalar">
+<span class="sig-name descname"><span class="pre">scalar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.scalar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.scalar" title="Permalink to this definition">#</a></dt>
+<dd><p>Scalar multiplication of a vector</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>factor</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Multiplication factor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.distanceTo">
+<span class="sig-name descname"><span class="pre">distanceTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.distanceTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.distanceTo" title="Permalink to this definition">#</a></dt>
+<dd><p>Distance between two ECEF coordinates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> (<a class="reference internal" href="#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a>) – Corrdinate 2</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Distance (meters)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.getX">
+<span class="sig-name descname"><span class="pre">getX</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.getX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.getX" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the X coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.getY">
+<span class="sig-name descname"><span class="pre">getY</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.getY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.getY" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the X coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.getZ">
+<span class="sig-name descname"><span class="pre">getZ</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.getZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.getZ" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the X coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.setX">
+<span class="sig-name descname"><span class="pre">setX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.setX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.setX" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the X coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>X</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – X coordinate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.setY">
+<span class="sig-name descname"><span class="pre">setY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.setY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.setY" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the Y coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Y</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Y coordinate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.ECEFCoords.setZ">
+<span class="sig-name descname"><span class="pre">setZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#ECEFCoords.setZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.ECEFCoords.setZ" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the Z coordinate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Z</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Z coordinate</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords._proj">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.ObsCoords.</span></span><span class="sig-name descname"><span class="pre">_proj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#_proj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords._proj" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords._unproj">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.ObsCoords.</span></span><span class="sig-name descname"><span class="pre">_unproj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#_unproj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords._unproj" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords.__projFromLambert93">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.ObsCoords.</span></span><span class="sig-name descname"><span class="pre">__projFromLambert93</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#__projFromLambert93"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords.__projFromLambert93" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords._projToLambert93">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.ObsCoords.</span></span><span class="sig-name descname"><span class="pre">_projToLambert93</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#_projToLambert93"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords._projToLambert93" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tracklib.core.ObsCoords.ENUCoords" title="tracklib.core.ObsCoords.ENUCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENUCoords</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.ObsCoords._projFromUTM">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.ObsCoords.</span></span><span class="sig-name descname"><span class="pre">_projFromUTM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">northern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsCoords.html#_projFromUTM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsCoords._projFromUTM" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+</section>
+
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="core-obs.html" title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">Obs</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="core-obstime.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">ObsTime</p>
+  </div>
+  <i class="fa-solid fa-angle-right"></i>
+  </a>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.Re">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Re
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.Be">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Be
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.Fe">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Fe
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.Ee">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Ee
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     GeoCoords
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.__str__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.__str__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.copy">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.copy()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.toECEFCoords">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.toECEFCoords()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.toENUCoords">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.toENUCoords()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.toGeoCoords">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.toGeoCoords()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.distanceTo">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.distanceTo()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.distance2DTo">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.distance2DTo()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.elevationTo">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.elevationTo()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.azimuthTo">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.azimuthTo()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.toProjCoords">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.toProjCoords()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.getX">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.getX()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.getY">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.getY()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.getZ">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.getZ()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.setX">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.setX()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.setY">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.setY()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.setZ">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.setZ()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.GeoCoords.plot">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GeoCoords.plot()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     ENUCoords
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.__str__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.__str__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.copy">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.copy()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.toECEFCoords">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.toECEFCoords()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.toGeoCoords">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.toGeoCoords()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.toENUCoords">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.toENUCoords()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.norm2D">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.norm2D()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.norm">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.norm()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.dot">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.dot()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.elevationTo">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.elevationTo()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.azimuthTo">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.azimuthTo()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.distance2DTo">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.distance2DTo()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.distanceTo">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.distanceTo()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.rotate">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.rotate()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.scale">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.scale()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.translate">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.translate()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.getX">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.getX()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.getY">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.getY()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.getZ">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.getZ()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.setX">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.setX()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.setY">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.setY()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.setZ">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.setZ()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ENUCoords.plot">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ENUCoords.plot()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     ECEFCoords
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.__str__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.__str__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.copy">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.copy()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.toGeoCoords">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.toGeoCoords()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.toENUCoords">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.toENUCoords()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.toECEFCoords">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.toECEFCoords()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.elevationTo">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.elevationTo()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.azimuthTo">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.azimuthTo()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.dot">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.dot()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.norm">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.norm()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.scalar">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.scalar()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.distanceTo">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.distanceTo()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.getX">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.getX()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.getY">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.getY()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.getZ">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.getZ()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.setX">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.setX()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.setY">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.setY()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.ECEFCoords.setZ">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ECEFCoords.setZ()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.ObsCoords._proj">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     _proj()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.ObsCoords._unproj">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     _unproj()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.ObsCoords.__projFromLambert93">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     __projFromLambert93()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.ObsCoords._projToLambert93">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     _projToLambert93()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.ObsCoords._projFromUTM">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     _projFromUTM()
+    </span>
+   </code>
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../../_sources/api/core/core-obscoords.rst.txt">
+        <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2023, LASTIG lab, French National Institute of Geographic and Forest Information.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="theme-version">
+    Built with the
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">
+        PyData Sphinx Theme
+    </a>
+    0.12.0.
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

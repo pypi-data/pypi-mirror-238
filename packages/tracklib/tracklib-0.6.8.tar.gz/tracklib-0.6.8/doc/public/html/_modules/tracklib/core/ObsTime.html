@@ -1,0 +1,935 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tracklib.core.ObsTime &#8212; TrackLib 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/tracklib/core/ObsTime';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../../_static/TracklibLogo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../../_static/TracklibLogo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <h1>Source code for tracklib.core.ObsTime</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains the class to manage timestamps</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># For type annotation</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>   
+<span class="c1"># from typing import Union</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+
+<div class="viewcode-block" id="ObsTime"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime">[docs]</a><span class="k">class</span> <span class="nc">ObsTime</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to represent the phenomenom time of an observation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">BASE_YEAR</span> <span class="o">=</span> <span class="mi">2000</span>
+    <span class="n">UNIX_BASE_YEAR</span> <span class="o">=</span> <span class="mi">1970</span>
+	
+    <span class="n">ROUND_TO_SEC</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">__READ_FMT</span> <span class="o">=</span> <span class="s2">&quot;2D/2M/4Y 2h:2m:2s&quot;</span>
+    <span class="n">__PRINT_FMT</span> <span class="o">=</span> <span class="s2">&quot;2D/2M/4Y 2h:2m:2s&quot;</span>
+    <span class="n">__PRECOMPILED_READ_FMT</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;2D&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;2M&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;4Y&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;2h&quot;</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;2m&quot;</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;2s&quot;</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="n">__fmt_nd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">{:01d}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{:02d}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{:03d}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{:04d}</span><span class="s2">&quot;</span><span class="p">]</span>
+    <span class="n">__codes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;1D&quot;</span><span class="p">,</span> <span class="s2">&quot;2D&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;1M&quot;</span><span class="p">,</span> <span class="s2">&quot;2M&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;2Y&quot;</span><span class="p">,</span> <span class="s2">&quot;4Y&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;1h&quot;</span><span class="p">,</span> <span class="s2">&quot;2h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;1m&quot;</span><span class="p">,</span> <span class="s2">&quot;2m&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;1s&quot;</span><span class="p">,</span> <span class="s2">&quot;2s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;1z&quot;</span><span class="p">,</span> <span class="s2">&quot;2z&quot;</span><span class="p">,</span> <span class="s2">&quot;3z&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="n">__day_per_month</span> <span class="o">=</span> <span class="p">[</span><span class="mi">31</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">]</span>
+
+    <span class="n">__month_names</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;Jan&quot;</span><span class="p">,</span> <span class="s2">&quot;Feb&quot;</span><span class="p">,</span> <span class="s2">&quot;Mar&quot;</span><span class="p">,</span> <span class="s2">&quot;Apr&quot;</span><span class="p">,</span> <span class="s2">&quot;May&quot;</span><span class="p">,</span> <span class="s2">&quot;Jun&quot;</span><span class="p">,</span> 
+        <span class="s2">&quot;Jul&quot;</span><span class="p">,</span> <span class="s2">&quot;Aug&quot;</span><span class="p">,</span> <span class="s2">&quot;Sep&quot;</span><span class="p">,</span> <span class="s2">&quot;Oct&quot;</span><span class="p">,</span> <span class="s2">&quot;Nov&quot;</span><span class="p">,</span> <span class="s2">&quot;Dec&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">__day_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Mon&quot;</span><span class="p">,</span> <span class="s2">&quot;Tue&quot;</span><span class="p">,</span> <span class="s2">&quot;Wed&quot;</span><span class="p">,</span> <span class="s2">&quot;Thu&quot;</span><span class="p">,</span> <span class="s2">&quot;Fri&quot;</span><span class="p">,</span> <span class="s2">&quot;Sat&quot;</span><span class="p">,</span> <span class="s2">&quot;Sun&quot;</span><span class="p">]</span>
+
+    <span class="n">__day_of_base_date</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Thu 01/01/1970</span>
+    
+
+<div class="viewcode-block" id="ObsTime.__init__"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1970</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">hour</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sec</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">zone</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;__init__ Constructor of :class:`ObsTime` class</span>
+
+<span class="sd">        Default value : 01/01/1970 00:00:00.000</span>
+
+<span class="sd">        :param year: Year, defaults to 1970</span>
+<span class="sd">        :param month: month defaults to 1</span>
+<span class="sd">        :param day: day of month, defaults to 1</span>
+<span class="sd">        :param hour: your, defaults to 0</span>
+<span class="sd">        :param min: minute, defaults to 0</span>
+<span class="sd">        :param sec: second, defaults to 0</span>
+<span class="sd">        :param ms: millisecond, defaults to 0</span>
+<span class="sd">        :param zone: time zone, defaults to 0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+
+            <span class="n">time</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readTimestamp</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">day</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">month</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">year</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">hour</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">min</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sec</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">sec</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ms</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">ms</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">zone</span> <span class="o">=</span> <span class="n">zone</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="n">day</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="n">month</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="n">hour</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sec</span> <span class="o">=</span> <span class="n">sec</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ms</span> <span class="o">=</span> <span class="n">ms</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">zone</span> <span class="o">=</span> <span class="n">zone</span></div>
+
+<div class="viewcode-block" id="ObsTime.copy"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObsTime</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Copy the object</span>
+
+<span class="sd">        :return: copy of current object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObsTime.setPrintFormat"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.setPrintFormat">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">setPrintFormat</span><span class="p">(</span><span class="nb">format</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>   
+        <span class="sd">&quot;&quot;&quot;Set the format for printing a ObsTime object</span>
+
+<span class="sd">        The print format is use by the :func:`ObsTime.__str__` method</span>
+
+<span class="sd">        :param format: Format for printing ObsTime</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ObsTime</span><span class="o">.</span><span class="n">__PRINT_FMT</span> <span class="o">=</span> <span class="nb">format</span></div>
+
+<div class="viewcode-block" id="ObsTime.setReadFormat"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.setReadFormat">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">setReadFormat</span><span class="p">(</span><span class="nb">format</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>   
+        <span class="sd">&quot;&quot;&quot;Set the format for reading a ObsTime object</span>
+
+<span class="sd">        :param format: Format for reading</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ObsTime</span><span class="o">.</span><span class="n">__READ_FMT</span> <span class="o">=</span> <span class="nb">format</span>
+        <span class="n">ObsTime</span><span class="o">.</span><span class="n">__PRECOMPILED_READ_FMT</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__precompileReadFmt</span><span class="p">(</span><span class="n">ObsTime</span><span class="o">.</span><span class="n">__READ_FMT</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObsTime.getPrintFormat"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.getPrintFormat">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">getPrintFormat</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Return the print format</span>
+
+<span class="sd">        :return: The print format</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__PRINT_FMT</span></div>
+
+<div class="viewcode-block" id="ObsTime.getReadFormat"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.getReadFormat">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">getReadFormat</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Return the read format</span>
+
+<span class="sd">        :return: The read format</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__READ_FMT</span></div>
+
+<div class="viewcode-block" id="ObsTime.readUnixTime"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.readUnixTime">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">readUnixTime</span><span class="p">(</span><span class="n">elapsed_seconds</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObsTime</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Converting elapsed float seconds since 01/01/1970 in ObsTime</span>
+
+<span class="sd">        **Warning:** does not consider leap seconds (31 since 1970)</span>
+
+<span class="sd">        :param elapsed_seconds: Elapsed seconds</span>
+<span class="sd">        :return: Coverted time</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        # elapsed is in second or in millisecond ?</span>
+<span class="sd">        from datetime import datetime</span>
+<span class="sd">        from calendar import timegm</span>
+<span class="sd">        nowobj = datetime.now()</span>
+<span class="sd">        t = datetime(nowobj.year, nowobj.month, nowobj.day, 0, 0, 0)</span>
+<span class="sd">        tps = timegm(t.timetuple())</span>
+<span class="sd">        if elapsed_seconds &gt; tps:</span>
+<span class="sd">            elapsed_seconds = elapsed_seconds / 1000</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">time</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="p">()</span>
+
+        <span class="n">SECOND_PER_YEAR</span> <span class="o">=</span> <span class="mi">86400</span> <span class="o">*</span> <span class="mi">365</span>
+        <span class="c1"># SECOND_PER_MONTH = 86400 * 28</span>
+
+        <span class="c1"># Year</span>
+        <span class="n">sec</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">UNIX_BASE_YEAR</span>
+        <span class="k">while</span> <span class="n">sec</span> <span class="o">&lt;</span> <span class="n">elapsed_seconds</span> <span class="o">-</span> <span class="n">SECOND_PER_YEAR</span><span class="p">:</span>
+            <span class="n">sec</span> <span class="o">+=</span> <span class="n">SECOND_PER_YEAR</span>
+            <span class="k">if</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sec</span> <span class="o">+=</span> <span class="mi">86400</span>
+            <span class="n">year</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
+        <span class="n">elapsed_seconds</span> <span class="o">-=</span> <span class="n">sec</span>
+
+        <span class="c1"># Month</span>
+        <span class="n">month</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+            <span class="n">sec_on_month</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__day_per_month</span><span class="p">[</span><span class="n">month</span><span class="p">]</span> <span class="o">*</span> <span class="mi">86400</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">month</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">sec_on_month</span> <span class="o">+=</span> <span class="mi">86400</span>
+            <span class="k">if</span> <span class="n">elapsed_seconds</span> <span class="o">&lt;</span> <span class="n">sec_on_month</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">elapsed_seconds</span> <span class="o">-=</span> <span class="n">sec_on_month</span>
+            <span class="n">month</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">time</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="n">month</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1"># Day</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">elapsed_seconds</span> <span class="o">/</span> <span class="mi">86400</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">elapsed_seconds</span> <span class="o">-=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">day</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">86400</span>
+
+        <span class="c1"># Hour</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">elapsed_seconds</span> <span class="o">/</span> <span class="mi">3600</span><span class="p">)</span>
+        <span class="n">elapsed_seconds</span> <span class="o">-=</span> <span class="n">time</span><span class="o">.</span><span class="n">hour</span> <span class="o">*</span> <span class="mi">3600</span>
+
+        <span class="c1"># Minute</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">elapsed_seconds</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span>
+        <span class="n">elapsed_seconds</span> <span class="o">-=</span> <span class="n">time</span><span class="o">.</span><span class="n">min</span> <span class="o">*</span> <span class="mi">60</span>
+
+        <span class="c1"># Second</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sec</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">elapsed_seconds</span><span class="p">)</span>
+        <span class="n">elapsed_seconds</span> <span class="o">-=</span> <span class="n">time</span><span class="o">.</span><span class="n">sec</span>
+
+        <span class="c1"># Milisecond</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">ms</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">elapsed_seconds</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">time</span></div>
+
+<div class="viewcode-block" id="ObsTime.toAbsTime"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.toAbsTime">[docs]</a>    <span class="k">def</span> <span class="nf">toAbsTime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Converting to elapsed float seconds since 01/01/1970 (or 01/01/UNIX_BASE_YEAR)</span>
+
+<span class="sd">        **Warning:** does not consider leap seconds since 1972</span>
+
+<span class="sd">        :return: elapsed float seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">seconds</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ObsTime</span><span class="o">.</span><span class="n">UNIX_BASE_YEAR</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">):</span>
+            <span class="n">seconds</span> <span class="o">+=</span> <span class="mi">86400</span> <span class="o">*</span> <span class="mi">365</span>
+            <span class="k">if</span> <span class="n">y</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">seconds</span> <span class="o">+=</span> <span class="mi">86400</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">):</span>
+            <span class="n">seconds</span> <span class="o">+=</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__day_per_month</span><span class="p">[</span><span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">86400</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">m</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">seconds</span> <span class="o">+=</span> <span class="mi">86400</span>
+        <span class="n">seconds</span> <span class="o">+=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">86400</span>
+        <span class="n">seconds</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour</span> <span class="o">*</span> <span class="mi">3600</span>
+        <span class="n">seconds</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">*</span> <span class="mi">60</span>
+        <span class="n">seconds</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sec</span>
+        <span class="n">seconds</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ms</span> <span class="o">/</span> <span class="mf">1000.0</span>
+
+        <span class="k">return</span> <span class="n">seconds</span></div>
+
+<div class="viewcode-block" id="ObsTime.random"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.random">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">random</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ObsTime</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Generate random date between 01/01/1970 and 01/01/2050&quot;&quot;&quot;</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="p">(</span><span class="mi">2050</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">s0</span> <span class="o">=</span> <span class="n">t0</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readUnixTime</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="n">s0</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="ObsTime.now"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.now">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">now</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ObsTime</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Get Current Date and Time&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+        <span class="n">nowobj</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        
+        <span class="n">tps</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="p">(</span><span class="n">nowobj</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">nowobj</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">nowobj</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> 
+                     <span class="n">nowobj</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">nowobj</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="n">nowobj</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tps</span></div>
+
+<div class="viewcode-block" id="ObsTime.printZone"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.printZone">[docs]</a>    <span class="k">def</span> <span class="nf">printZone</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Print zone code (Z if greenwhich) ISO 8601&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">zone</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;Z&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">zone</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;+&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{:02d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zone</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;:00&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{:02d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zone</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;:00&quot;</span></div>
+
+<div class="viewcode-block" id="ObsTime.timeWithZone"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.timeWithZone">[docs]</a>    <span class="k">def</span> <span class="nf">timeWithZone</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Print as Gpx time&quot;&quot;&quot;</span>
+        <span class="n">fmt_save</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">getPrintFormat</span><span class="p">()</span>
+        <span class="n">ObsTime</span><span class="o">.</span><span class="n">setPrintFormat</span><span class="p">(</span><span class="s2">&quot;4Y-2M-2DT2h:2m:2s&quot;</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">printZone</span><span class="p">()</span>
+        <span class="n">ObsTime</span><span class="o">.</span><span class="n">setPrintFormat</span><span class="p">(</span><span class="n">fmt_save</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+
+<div class="viewcode-block" id="ObsTime.convertToZone"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.convertToZone">[docs]</a>    <span class="k">def</span> <span class="nf">convertToZone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zone</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObsTime</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Zone conversion</span>
+
+<span class="sd">        :param zone: Time zone</span>
+<span class="sd">        :return: Time for the set time zone</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">shift</span> <span class="o">=</span> <span class="n">zone</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">zone</span>
+        <span class="n">new_time</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readUnixTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span> <span class="o">+</span> <span class="mi">3600</span> <span class="o">*</span> <span class="n">shift</span><span class="p">)</span>
+        <span class="n">new_time</span><span class="o">.</span><span class="n">zone</span> <span class="o">=</span> <span class="n">zone</span>
+        <span class="k">return</span> <span class="n">new_time</span></div>
+
+<div class="viewcode-block" id="ObsTime.getDayOfWeek"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.getDayOfWeek">[docs]</a>    <span class="k">def</span> <span class="nf">getDayOfWeek</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Return the current day of week&quot;&quot;&quot;</span>
+        <span class="n">seconds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__day_names</span><span class="p">[</span>
+            <span class="p">((</span><span class="nb">int</span><span class="p">)(</span><span class="n">seconds</span> <span class="o">/</span> <span class="mi">86400</span><span class="p">)</span> <span class="o">+</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__day_of_base_date</span><span class="p">)</span> <span class="o">%</span> <span class="mi">7</span>
+        <span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="nf">__fillMember</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adding value in a field according to code&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;M&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;h&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hour</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;m&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;s&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sec</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="s2">&quot;2Y&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">BASE_YEAR</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="s2">&quot;4Y&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ms</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">code</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__takeSecond</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Methods to prepare reading timestamp format&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">elem</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__rep</span><span class="p">(</span><span class="n">char</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Generate a string repeting a char</span>
+
+<span class="sd">        :param char: Caracter to repeate</span>
+<span class="sd">        :param n: Number or repetitions</span>
+<span class="sd">        :retunr: A string of `n` repetitions of `c`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">output</span> <span class="o">+=</span> <span class="n">char</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__precompileReadFmt</span><span class="p">(</span><span class="nb">format</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>   
+        <span class="sd">&quot;&quot;&quot;Precompile the reader</span>
+
+<span class="sd">        :param format: A format string</span>
+<span class="sd">        :return: A list of precompiled symbols</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">shift</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">PRECOMPILED_LIST</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Replacing &#39;*&#39; symbols</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="nb">format</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="nb">format</span><span class="p">[</span><span class="n">index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="nb">format</span> <span class="o">=</span> <span class="nb">format</span><span class="p">[:</span> <span class="n">index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__rep</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="nb">format</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="nb">format</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Filling preccompiled list</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ObsTime</span><span class="o">.</span><span class="n">__codes</span><span class="p">)):</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__codes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="nb">format</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">PRECOMPILED_LIST</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">code</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+        <span class="n">PRECOMPILED_LIST</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">ObsTime</span><span class="o">.</span><span class="n">__takeSecond</span><span class="p">)</span>
+
+        <span class="c1"># Shift to manage &#39;4Y&#39;, &#39;1X&#39; and &#39;3z&#39; symbols</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">PRECOMPILED_LIST</span><span class="p">)):</span>
+            <span class="n">PRECOMPILED_LIST</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">PRECOMPILED_LIST</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">PRECOMPILED_LIST</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">shift</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">shift</span> <span class="o">+=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">PRECOMPILED_LIST</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">2</span>
+
+        <span class="k">return</span> <span class="n">PRECOMPILED_LIST</span>
+
+<div class="viewcode-block" id="ObsTime.readTimestamp"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.readTimestamp">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">readTimestamp</span><span class="p">(</span><span class="n">timeAsString</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObsTime</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Build timestamp from string according to READ_FMT</span>
+
+<span class="sd">        :param timeAsString: Timestamp in string format</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">time</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="p">()</span>
+        <span class="n">PCL</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__PRECOMPILED_READ_FMT</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">PCL</span><span class="p">)):</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">PCL</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">__fillMember</span><span class="p">(</span>
+                <span class="n">timeAsString</span><span class="p">[</span><span class="n">index</span> <span class="p">:</span> <span class="n">index</span> <span class="o">+</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">PCL</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])],</span> <span class="n">PCL</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">time</span></div>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Remplacing substring of length &#39;length&#39;, starting at pos id</span>
+    <span class="c1"># in string &#39;chaine&#39; with new string &#39;new&#39;</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__replace</span><span class="p">(</span><span class="n">chaine</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">new</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Remplacing substring of length `length`, starting at pos `id`</span>
+<span class="sd">        in string `chaine` with new string `new`</span>
+
+<span class="sd">        :param chaine: String to remplace</span>
+<span class="sd">        :param id: Starting position of replacement</span>
+<span class="sd">        :param length: Length of substring to remplace</span>
+<span class="sd">        :param new: String of replacement</span>
+<span class="sd">        :return: Replaced string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">chaine</span><span class="p">[:</span><span class="nb">id</span><span class="p">]</span> <span class="o">+</span> <span class="n">new</span> <span class="o">+</span> <span class="n">chaine</span><span class="p">[</span><span class="nb">id</span> <span class="o">+</span> <span class="n">length</span> <span class="p">:]</span>
+
+<div class="viewcode-block" id="ObsTime.__str__"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Prints timestamp according to PRINT_FMT specification</span>
+
+<span class="sd">        :retunr: the timestamp to print</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">subst</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">%</span> <span class="mi">100</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sec</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sec</span><span class="p">,</span>
+            <span class="p">(</span><span class="nb">int</span><span class="p">)((</span><span class="bp">self</span><span class="o">.</span><span class="n">ms</span> <span class="o">+</span> <span class="mi">50</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">),</span>
+            <span class="p">(</span><span class="nb">int</span><span class="p">)((</span><span class="bp">self</span><span class="o">.</span><span class="n">ms</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ms</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="n">output</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__PRINT_FMT</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ObsTime</span><span class="o">.</span><span class="n">__codes</span><span class="p">)):</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__codes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+            <span class="k">while</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">code</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__replace</span><span class="p">(</span>
+                    <span class="n">output</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__fmt_nd</span><span class="p">[</span><span class="n">value</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subst</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="p">)</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">__replace</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">output</span></div>
+
+<div class="viewcode-block" id="ObsTime.addSec"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.addSec">[docs]</a>    <span class="k">def</span> <span class="nf">addSec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nb</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObsTime</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Add `nb` seconds to current time</span>
+
+<span class="sd">        :param nb: Number of seconds to add</span>
+<span class="sd">        :return: A :class:`ObsTime` incremented of `nb` second(s)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span> <span class="o">+</span> <span class="n">nb</span>
+        <span class="k">return</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readUnixTime</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObsTime.addMin"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.addMin">[docs]</a>    <span class="k">def</span> <span class="nf">addMin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nb</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObsTime</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Add `nb` minutes to current time</span>
+
+<span class="sd">        :param nb: Number of minutes to add</span>
+<span class="sd">        :return: A :class:`ObsTime` incremented of `nb` minute(s)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span> <span class="o">+</span> <span class="n">nb</span> <span class="o">*</span> <span class="mi">60</span>
+        <span class="k">return</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readUnixTime</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObsTime.addHour"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.addHour">[docs]</a>    <span class="k">def</span> <span class="nf">addHour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nb</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add `nb` hours to current time</span>
+
+<span class="sd">        :param nb: Number of hours to add</span>
+<span class="sd">        :return: A :class:`ObsTime` incremented of `nb` hour(s)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span> <span class="o">+</span> <span class="n">nb</span> <span class="o">*</span> <span class="mi">3600</span>
+        <span class="k">return</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readUnixTime</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ObsTime.addDay"><a class="viewcode-back" href="../../../api/core/core-obstime.html#tracklib.core.ObsTime.ObsTime.addDay">[docs]</a>    <span class="k">def</span> <span class="nf">addDay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nb</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add `nb` days to current time</span>
+
+<span class="sd">        :param nb: Number of days to add</span>
+<span class="sd">        :return: A :class:`ObsTime` incremented of `nb` day(s)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span> <span class="o">+</span> <span class="n">nb</span> <span class="o">*</span> <span class="mi">86400</span>
+        <span class="k">return</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readUnixTime</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="n">ObsTime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Difference between 2 dates</span>
+
+<span class="sd">        :param time: :class:`ObsTime` to substract</span>
+<span class="sd">        :return: Difference (in floating point seconds) between 2 date</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="n">ObsTime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Tests if two timestamps are strictly equal (up to 1 ms)</span>
+
+<span class="sd">        :param time: :class:`ObsTime` to compare</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ms</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">ms</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sec</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">sec</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">hour</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">day</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">month</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">year</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="n">ObsTime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Test if two timestamps are different</span>
+
+<span class="sd">        :param time: :class:`ObsTime` to compare</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="n">time</span> <span class="o">==</span> <span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="n">ObsTime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Tests chronological order of two timestamps</span>
+
+<span class="sd">        :param time: :class:`ObsTime` to compare</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">year</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">year</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">month</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">month</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">day</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">day</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">hour</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour</span> <span class="o">&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">hour</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">min</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sec</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">sec</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sec</span> <span class="o">&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sec</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ms</span> <span class="o">&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">ms</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="n">ObsTime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Tests chronological order of two timestamps</span>
+
+<span class="sd">        :param time: :class:`ObsTime` to compare</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">year</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">&lt;</span> <span class="n">time</span><span class="o">.</span><span class="n">year</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">month</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">&lt;</span> <span class="n">time</span><span class="o">.</span><span class="n">month</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">day</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">&lt;</span> <span class="n">time</span><span class="o">.</span><span class="n">day</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">hour</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour</span> <span class="o">&lt;</span> <span class="n">time</span><span class="o">.</span><span class="n">hour</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">min</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">&lt;</span> <span class="n">time</span><span class="o">.</span><span class="n">min</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sec</span> <span class="o">!=</span> <span class="n">time</span><span class="o">.</span><span class="n">sec</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sec</span> <span class="o">&lt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sec</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ms</span> <span class="o">&lt;</span> <span class="n">time</span><span class="o">.</span><span class="n">ms</span>
+
+    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="n">ObsTime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Inverse of :method:`__gt__`</span>
+
+<span class="sd">        :param time: :class:`ObsTime` to compare</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span> <span class="o">&lt;</span> <span class="n">time</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="n">ObsTime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>   
+        <span class="sd">&quot;&quot;&quot;Inverse of :method:`__lt__`</span>
+
+<span class="sd">        :param time: :class:`ObsTime` to compare</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span> <span class="o">&gt;</span> <span class="n">time</span><span class="p">)</span></div>
+</pre></div>
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2023, LASTIG lab, French National Institute of Geographic and Forest Information.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="theme-version">
+    Built with the
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">
+        PyData Sphinx Theme
+    </a>
+    0.12.0.
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

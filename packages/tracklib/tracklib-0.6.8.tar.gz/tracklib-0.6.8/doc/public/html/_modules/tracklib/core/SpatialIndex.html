@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tracklib.core.SpatialIndex &mdash; TrackLib 1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> TrackLib
+            <img src="../../../_static/TracklibLogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebook/index.html">Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TrackLib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tracklib.core.SpatialIndex</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tracklib.core.SpatialIndex</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>   
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">progressbar</span>
+
+<span class="kn">from</span> <span class="nn">tracklib.core.Bbox</span> <span class="kn">import</span> <span class="n">Bbox</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.Track</span> <span class="kn">import</span> <span class="n">Track</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.Network</span> <span class="kn">import</span> <span class="n">Edge</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.TrackCollection</span> <span class="kn">import</span> <span class="n">TrackCollection</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.ObsCoords</span> <span class="kn">import</span> <span class="n">GeoCoords</span><span class="p">,</span> <span class="n">ENUCoords</span>
+
+<span class="kn">import</span> <span class="nn">tracklib.plot.IPlotVisitor</span> <span class="k">as</span> <span class="nn">ivisitor</span>
+<span class="kn">import</span> <span class="nn">tracklib.util.Geometry</span> <span class="k">as</span> <span class="nn">Geometry</span>
+
+
+<div class="viewcode-block" id="SpatialIndex"><a class="viewcode-back" href="../../../api/core/core-index.html#tracklib.core.SpatialIndex.SpatialIndex">[docs]</a><span class="k">class</span> <span class="nc">SpatialIndex</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This module contains the class to manipulate a spatial Index.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SpatialIndex.__init__"><a class="viewcode-back" href="../../../api/core/core-index.html#tracklib.core.SpatialIndex.SpatialIndex.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor of :class:`SaptialIndex` class</span>
+
+<span class="sd">        TODO: update documentation</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        features : bbox() + iterable</span>
+
+
+<span class="sd">            TrackCollection : on construit une grille</span>
+<span class="sd">                dont l’emprise est calculée sur la fonction getBBox</span>
+<span class="sd">                de TrackCollection et dans un deuxième temps on appelle</span>
+<span class="sd">                addSegment([c1,c2], [i,j]) pour chaque segment [c1,c2]</span>
+<span class="sd">                (localisé entre les points GPS i et i+1) de chaque trace j,</span>
+<span class="sd">                de la collection.</span>
+<span class="sd">            Network : on construit une grille (de taille 100 x 100) par défaut,</span>
+<span class="sd">                  dont l’emprise est calculée sur celle du réseau, et on appelle</span>
+<span class="sd">                  addSegment ([c1,c2], [i,j]) pour chaque segment [c1,c2]</span>
+<span class="sd">                  (localisé entre les points GPS i et i+1) de chaque tronçon j,</span>
+<span class="sd">                  du réseau.</span>
+
+
+<span class="sd">        resolution : tuple (xsize, ysize)</span>
+<span class="sd">            DESCRIPTION. The default is (100, 100).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Bbox only or collection</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">Bbox</span><span class="p">):</span>
+            <span class="n">bb</span> <span class="o">=</span> <span class="n">collection</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bb</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span>
+
+        <span class="n">bb</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">bb</span><span class="o">.</span><span class="n">addMargin</span><span class="p">(</span><span class="n">margin</span><span class="p">)</span>
+        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ymin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ymax</span><span class="p">)</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">asTuple</span><span class="p">()</span>
+
+        <span class="n">ax</span><span class="p">,</span> <span class="n">ay</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">getDimensions</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">resolution</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">am</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">)</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">am</span> <span class="o">/</span> <span class="mi">100</span>
+            <span class="n">resolution</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ax</span> <span class="o">/</span> <span class="n">r</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">ay</span> <span class="o">/</span> <span class="n">r</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">resolution</span>
+            <span class="n">resolution</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ax</span> <span class="o">/</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">ay</span> <span class="o">/</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">collection</span>
+
+        <span class="c1"># Keeps track of registered features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inventaire</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="c1"># Nombre de dalles par cote</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">csize</span> <span class="o">=</span> <span class="n">resolution</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lsize</span> <span class="o">=</span> <span class="n">resolution</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># print (&#39;nb cellule&#39;, self.xsize * self.ysize)</span>
+
+        <span class="c1"># Tableau de collections de features appartenant a chaque dalle.</span>
+        <span class="c1"># Un feature peut appartenir a plusieurs dalles.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">csize</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lsize</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dX</span> <span class="o">=</span> <span class="n">ax</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">csize</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dY</span> <span class="o">=</span> <span class="n">ay</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">lsize</span>
+
+        <span class="c1"># Calcul de la grille</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">TrackCollection</span><span class="p">()</span>
+            <span class="k">return</span>
+
+        <span class="n">boucle</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">collection</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;Building [&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">csize</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot; x &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lsize</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot;] spatial index...&quot;</span>
+            <span class="p">)</span>
+            <span class="n">boucle</span> <span class="o">=</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">boucle</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">boucle</span><span class="p">:</span>
+            <span class="n">feature</span> <span class="o">=</span> <span class="n">collection</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
+            <span class="c1"># On récupere la trace</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">Track</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+            <span class="c1"># On récupère l&#39;arc du reseau qui est une trace</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">Edge</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">feature</span><span class="o">.</span><span class="n">geom</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SpatialIndex.__str__"><a class="viewcode-back" href="../../../api/core/core-index.html#tracklib.core.SpatialIndex.SpatialIndex.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmin</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmax</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ymin</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ymax</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">]</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;[&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">csize</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; x &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lsize</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;] &quot;</span>
+        <span class="n">output</span> <span class="o">+=</span> <span class="s2">&quot;spatial index centered on [&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+
+<div class="viewcode-block" id="SpatialIndex.addFeature"><a class="viewcode-back" href="../../../api/core/core-index.html#tracklib.core.SpatialIndex.SpatialIndex.addFeature">[docs]</a>    <span class="k">def</span> <span class="nf">addFeature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">coord1</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">coord2</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">position</span>
+            <span class="k">if</span> <span class="n">coord1</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getCell</span><span class="p">(</span><span class="n">coord1</span><span class="p">)</span>
+                <span class="n">p2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getCell</span><span class="p">(</span><span class="n">coord2</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">p1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">p2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__addSegment</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+            <span class="n">coord1</span> <span class="o">=</span> <span class="n">coord2</span></div>
+
+    <span class="k">def</span> <span class="nf">__addSegment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coord1</span><span class="p">,</span> <span class="n">coord2</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">        data de type: int, liste, tuple, dictionnaire</span>
+<span class="sd">        ajoute les données data dans toutes les cellules de la grille</span>
+<span class="sd">               traversée par le segment [coord1, coord2] avec</span>
+<span class="sd">               coord1 : indices de la grille</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">CELLS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cellsCrossSegment</span><span class="p">(</span><span class="n">coord1</span><span class="p">,</span> <span class="n">coord2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">CELLS</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>  <span class="c1"># out of grid</span>
+        <span class="c1"># print (CELLS, coord1, coord2)</span>
+
+        <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">CELLS</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">cell</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">csize</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error, depassement en x&quot;</span><span class="p">)</span>
+                <span class="n">exit</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lsize</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error, depassement en y&quot;</span><span class="p">)</span>
+                <span class="n">exit</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">data</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inventaire</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">inventaire</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__addPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Normalized coordinates of coord: (x,) -&gt; (i,j) with:   </span>
+    <span class="c1">#   i = (x-xmin)/(xmax-xmin)*nb_cols</span>
+    <span class="c1">#   j = (y-ymin)/(ymax-ymin)*nb_rows</span>
+    <span class="c1"># Returns None if out of grid</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="nf">__getCell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmin</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmax</span><span class="p">):</span>
+            <span class="n">overflow</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:5.5f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmin</span> <span class="o">-</span> <span class="n">coord</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">coord</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmax</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: x overflow &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;  OVERFLOW = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">overflow</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ymin</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ymax</span><span class="p">):</span>
+            <span class="n">overflow</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:5.5f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ymin</span> <span class="o">-</span> <span class="n">coord</span><span class="o">.</span><span class="n">getY</span><span class="p">(),</span> <span class="n">coord</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">ymax</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: y overflow &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;  OVERFLOW = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">overflow</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">idx</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">getX</span><span class="p">())</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmin</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dX</span>
+        <span class="n">idy</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">getY</span><span class="p">())</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">ymin</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dY</span>
+        <span class="c1"># idy = self.nrow - idy ??</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">idy</span><span class="p">)</span>
+    
+    
+<div class="viewcode-block" id="SpatialIndex.plot"><a class="viewcode-back" href="../../../api/core/core-index.html#tracklib.core.SpatialIndex.SpatialIndex.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span><span class="n">ivisitor</span><span class="o">.</span><span class="n">IPlotVisitor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">tracklib.plot.MatplotlibVisitor</span> <span class="k">as</span> <span class="nn">visitor</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">visitor</span><span class="o">.</span><span class="n">MatplotlibVisitor</span><span class="p">()</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">plotSpatialIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">append</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SpatialIndex.highlight"><a class="viewcode-back" href="../../../api/core/core-index.html#tracklib.core.SpatialIndex.SpatialIndex.highlight">[docs]</a>    <span class="k">def</span> <span class="nf">highlight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span><span class="n">ivisitor</span><span class="o">.</span><span class="n">IPlotVisitor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sym</span><span class="o">=</span><span class="s2">&quot;r-&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">tracklib.plot.MatplotlibVisitor</span> <span class="k">as</span> <span class="nn">visitor</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">visitor</span><span class="o">.</span><span class="n">MatplotlibVisitor</span><span class="p">()</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">highlightCellInSpatialIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">sym</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span></div>
+    
+    
+<div class="viewcode-block" id="SpatialIndex.request"><a class="viewcode-back" href="../../../api/core/core-index.html#tracklib.core.SpatialIndex.SpatialIndex.request">[docs]</a>    <span class="k">def</span> <span class="nf">request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">j</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>   
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Request function to get data registered in spatial index</span>
+<span class="sd">        Inputs:</span>
+<span class="sd">            - request(i,j) returns data registered in cell (i,j)</span>
+<span class="sd">               	- i: row index i of spatial index grid</span>
+<span class="sd">     		    - j: col index j of spatial index grid</span>
+<span class="sd">            - request(coord) returns data registered in the cell</span>
+<span class="sd">              containing GeoCoords or ENUCoors object coord</span>
+<span class="sd">            - request(list) returns data registered in all cells</span>
+<span class="sd">              crossed by a segment list=[coord1, coord2].</span>
+<span class="sd">     	    - request(track) returns data registered in all cells</span>
+<span class="sd">              crossed by a track.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;dans la cellule (i,j)&quot;&quot;&quot;</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">GeoCoords</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">ENUCoords</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;dans la cellule contenant le point coord&quot;&quot;&quot;</span>
+            <span class="n">coord</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getCell</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;dans les cellules traversées par le segment défini</span>
+<span class="sd">            par des coordonnées géographiques&quot;&quot;&quot;</span>
+            <span class="p">[</span><span class="n">coord1</span><span class="p">,</span> <span class="n">coord2</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getCell</span><span class="p">(</span><span class="n">coord1</span><span class="p">)</span>
+            <span class="n">p2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getCell</span><span class="p">(</span><span class="n">coord2</span><span class="p">)</span>
+
+            <span class="c1"># Les cellules traversées par le segment</span>
+            <span class="n">CELLS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cellsCrossSegment</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
+            <span class="n">TAB</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">CELLS</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__addCellValuesInTAB</span><span class="p">(</span><span class="n">TAB</span><span class="p">,</span> <span class="n">cell</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">TAB</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Track</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;dans les cellules traversée par la track&quot;&quot;&quot;</span>
+            <span class="n">track</span> <span class="o">=</span> <span class="n">obj</span>
+
+            <span class="c1"># récupération des cellules de la track</span>
+            <span class="n">TAB</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">pos1</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+                <span class="n">obs</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">pos2</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">position</span>
+                <span class="k">if</span> <span class="n">pos1</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">coord1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getCell</span><span class="p">(</span><span class="n">pos1</span><span class="p">)</span>
+                    <span class="n">coord2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getCell</span><span class="p">(</span><span class="n">pos2</span><span class="p">)</span>
+
+                    <span class="n">CELLS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cellsCrossSegment</span><span class="p">(</span><span class="n">coord1</span><span class="p">,</span> <span class="n">coord2</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">CELLS</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">__addCellValuesInTAB</span><span class="p">(</span><span class="n">TAB</span><span class="p">,</span> <span class="n">cell</span><span class="p">)</span>
+                <span class="n">pos1</span> <span class="o">=</span> <span class="n">pos2</span>
+
+            <span class="k">return</span> <span class="n">TAB</span></div>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Neighborhood function to get all data registered in spatial</span>
+    <span class="c1"># index and located in the vicinity of a given location.</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># - neighborhood(i,j,unit) returns all data (as a plain list)</span>
+    <span class="c1">#   registered in a cell located at less than &#39;unit&#39; distance</span>
+    <span class="c1">#   from (i,j) cell.</span>
+    <span class="c1"># - neighborhood(coord, unit) returns data (as a plain list)</span>
+    <span class="c1">#   registered in a cells located at less than &#39;unit&#39; distance</span>
+    <span class="c1">#   from cell containing coord.</span>
+    <span class="c1"># - neighborhood([c1, c2], unit) returns data (as a plain</span>
+    <span class="c1">#   list) registered in a cells located at less than &#39;unit&#39;</span>
+    <span class="c1">#   distance from cells containing segment [c1, c2]</span>
+    <span class="c1"># - neighborhood(track, unit) returns data (as a plain list)</span>
+    <span class="c1">#   registered in a cells located at less than &#39;unit&#39; distance</span>
+    <span class="c1">#   from cells containing track</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># As default value, unit=0, meaning that only data located in</span>
+    <span class="c1"># (i,j) cell are selected. If unit=-1, the minimal value is</span>
+    <span class="c1"># selected in order to get at least 1 data in function output.</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># The number of cells inspected is given by:</span>
+    <span class="c1">#    - (1+2*unit)^2 if unit &gt;= 0</span>
+    <span class="c1">#    - (1+2*(unit&#39;+1))^2 if unit &lt; 0, with unit&#39; is the min</span>
+    <span class="c1">#      value of unit such that output is not empty</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="SpatialIndex.neighborhood"><a class="viewcode-back" href="../../../api/core/core-index.html#tracklib.core.SpatialIndex.SpatialIndex.neighborhood">[docs]</a>    <span class="k">def</span> <span class="nf">neighborhood</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">j</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">        retourne toutes les données (sous forme de liste simple) référencées</span>
+<span class="sd">        dans la cellule (i,j).</span>
+
+<span class="sd">        Si unit=-1, calcule la valeur minimale à donner à unit,</span>
+<span class="sd">        pour que la liste ne soit pas vide*.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># --------------------------------------------------------</span>
+        <span class="c1"># neighborhood(i,j,unit)</span>
+        <span class="c1"># --------------------------------------------------------</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="k">if</span> <span class="n">unit</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">TAB</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                <span class="n">NC</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__neighboringcells</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">NC</span><span class="p">:</span>
+                    <span class="n">TAB</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">TAB</span><span class="p">)</span>
+
+            <span class="c1"># -----------------------------------------</span>
+            <span class="c1"># Case: unit &lt; 0 -&gt; search for unit value</span>
+            <span class="c1"># -----------------------------------------</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">TAB</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">while</span> <span class="n">u</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">csize</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lsize</span><span class="p">):</span>
+                <span class="n">NC</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__neighboringcells</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">NC</span><span class="p">:</span>
+                    <span class="n">TAB</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+                <span class="n">found</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">TAB</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+                <span class="n">u</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">TAB</span><span class="p">)</span>
+
+        <span class="c1"># --------------------------------------------------------</span>
+        <span class="c1"># neighborhood(coord, unit)</span>
+        <span class="c1"># --------------------------------------------------------</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">GeoCoords</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">ENUCoords</span><span class="p">):</span>
+            <span class="n">coord</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">coord</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">coord</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getCell</span><span class="p">(</span><span class="n">ENUCoords</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">unit</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+            <span class="c1">#return self.neighborhood(c, unit)</span>
+
+        <span class="c1"># --------------------------------------------------------</span>
+        <span class="c1"># neighborhood([c1, c2], unit)</span>
+        <span class="c1"># --------------------------------------------------------</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;cellules voisines traversées par le segment coord&quot;&quot;&quot;</span>
+            <span class="p">[</span><span class="n">coord1</span><span class="p">,</span> <span class="n">coord2</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getCell</span><span class="p">(</span><span class="n">coord1</span><span class="p">)</span>
+            <span class="n">p2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getCell</span><span class="p">(</span><span class="n">coord2</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">unit</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Tableau à retourner</span>
+                <span class="n">TAB</span> <span class="o">=</span> <span class="p">[]</span>
+
+                <span class="c1"># Les cellules traversées par le segment</span>
+                <span class="n">CELLS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cellsCrossSegment</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">CELLS</span><span class="p">:</span>
+                    <span class="n">NC</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__neighboringcells</span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">unit</span><span class="p">)</span>
+                    <span class="c1"># print (&#39;    &#39;, cell, NC)</span>
+                    <span class="k">for</span> <span class="n">cellu</span> <span class="ow">in</span> <span class="n">NC</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">__addCellValuesInTAB</span><span class="p">(</span><span class="n">TAB</span><span class="p">,</span> <span class="n">cellu</span><span class="p">)</span>
+
+                <span class="k">return</span> <span class="n">TAB</span>
+
+            <span class="n">u</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">u</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">csize</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lsize</span><span class="p">):</span>
+                <span class="n">TAB</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">CELLS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cellsCrossSegment</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">CELLS</span><span class="p">:</span>
+                    <span class="n">NC</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__neighboringcells</span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">)</span>
+                    <span class="c1"># print (cell, NC)</span>
+                    <span class="k">for</span> <span class="n">cellu</span> <span class="ow">in</span> <span class="n">NC</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">__addCellValuesInTAB</span><span class="p">(</span><span class="n">TAB</span><span class="p">,</span> <span class="n">cellu</span><span class="p">)</span>
+
+                <span class="c1"># print (TAB)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">TAB</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">u</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Plus une marge de sécurité</span>
+                <span class="n">CELLS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cellsCrossSegment</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">CELLS</span><span class="p">:</span>
+                    <span class="n">NC</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__neighboringcells</span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="c1"># print (cell, NC)</span>
+                    <span class="k">for</span> <span class="n">cellu</span> <span class="ow">in</span> <span class="n">NC</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">__addCellValuesInTAB</span><span class="p">(</span><span class="n">TAB</span><span class="p">,</span> <span class="n">cellu</span><span class="p">)</span>
+                <span class="c1"># print (TAB)</span>
+                <span class="k">return</span> <span class="n">TAB</span>
+
+        <span class="c1"># --------------------------------------------------------</span>
+        <span class="c1"># neighborhood(track, unit)</span>
+        <span class="c1"># --------------------------------------------------------</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Track</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;cellules voisines traversées par Track&quot;&quot;&quot;</span>
+
+            <span class="n">track</span> <span class="o">=</span> <span class="n">obj</span>
+
+            <span class="n">TAB2</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">pos1</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+                <span class="n">obs</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">pos2</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">position</span>
+
+                <span class="k">if</span> <span class="n">pos1</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">CELLS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighborhood</span><span class="p">([</span><span class="n">pos1</span><span class="p">,</span> <span class="n">pos2</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span>
+                    <span class="c1"># print (CELLS, unit)</span>
+                    <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">CELLS</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">cell</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">TAB2</span><span class="p">:</span>
+                            <span class="n">TAB2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+                <span class="n">pos1</span> <span class="o">=</span> <span class="n">pos2</span>
+
+            <span class="k">return</span> <span class="n">TAB2</span></div>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Function to convert ground distance (metric system is</span>
+    <span class="c1"># assumed to be orthonormal) into unit number</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+<div class="viewcode-block" id="SpatialIndex.groundDistanceToUnits"><a class="viewcode-back" href="../../../api/core/core-index.html#tracklib.core.SpatialIndex.SpatialIndex.groundDistanceToUnits">[docs]</a>    <span class="k">def</span> <span class="nf">groundDistanceToUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">distance</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dX</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dY</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Returns all cells (i&#39;,j&#39;) in a vicinity unit of (i,j)</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># - incremental = True: gets all cells where distance is to</span>
+    <span class="c1">#   central cell is exactly u units (Manhattan L1 discretized</span>
+    <span class="c1">#   distance). Used for incremental search of neighbors.</span>
+    <span class="c1"># - incremental = False: gets all cells where distance is less</span>
+    <span class="c1">#   or equal than u units (Manhattan L1 discretized distance)</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="nf">__neighboringcells</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">u</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">incremental</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">NC</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">imin</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">u</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">imax</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">u</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">csize</span><span class="p">)</span>
+        <span class="n">jmin</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">u</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">jmax</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="n">u</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lsize</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">imin</span><span class="p">,</span> <span class="n">imax</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">jmin</span><span class="p">,</span> <span class="n">jmax</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">incremental</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">ii</span> <span class="o">!=</span> <span class="n">imin</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ii</span> <span class="o">!=</span> <span class="n">imax</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">jj</span> <span class="o">!=</span> <span class="n">jmin</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">jj</span> <span class="o">!=</span> <span class="n">jmax</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                            <span class="k">continue</span>
+                <span class="n">NC</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ii</span><span class="p">,</span> <span class="n">jj</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">NC</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Add data registered in cell within TAB structure</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="nf">__addCellValuesInTAB</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">TAB</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">d</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">TAB</span><span class="p">:</span>
+                <span class="n">TAB</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># List of cells crossing segment [coord1, coord2] (in px)</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="nf">__cellsCrossSegment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coord1</span><span class="p">,</span> <span class="n">coord2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+
+        <span class="n">CELLS</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">segment2</span> <span class="o">=</span> <span class="p">[</span><span class="n">coord1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coord1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">coord2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coord2</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+
+        <span class="n">xmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">coord1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">coord2</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">xmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">coord1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">coord2</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+        <span class="n">ymin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">coord1</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">coord2</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">coord1</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">coord2</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+
+                <span class="c1"># complètement inclus</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">i</span> <span class="o">&lt;</span> <span class="n">coord1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="ow">and</span> <span class="n">coord1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">coord2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="ow">and</span> <span class="n">coord2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">coord1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="ow">and</span> <span class="n">coord1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">coord2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="ow">and</span> <span class="n">coord2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">CELLS</span><span class="p">:</span>
+                        <span class="n">CELLS</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># traverse</span>
+                <span class="n">segment1</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">Geometry</span><span class="o">.</span><span class="n">isSegmentIntersects</span><span class="p">(</span><span class="n">segment1</span><span class="p">,</span> <span class="n">segment2</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">CELLS</span><span class="p">:</span>
+                        <span class="n">CELLS</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+                    <span class="k">continue</span>
+
+                <span class="n">segment1</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">Geometry</span><span class="o">.</span><span class="n">isSegmentIntersects</span><span class="p">(</span><span class="n">segment1</span><span class="p">,</span> <span class="n">segment2</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">CELLS</span><span class="p">:</span>
+                        <span class="n">CELLS</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+                    <span class="k">continue</span>
+
+                <span class="n">segment1</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">Geometry</span><span class="o">.</span><span class="n">isSegmentIntersects</span><span class="p">(</span><span class="n">segment1</span><span class="p">,</span> <span class="n">segment2</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">CELLS</span><span class="p">:</span>
+                        <span class="n">CELLS</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+                    <span class="k">continue</span>
+
+                <span class="n">segment1</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">Geometry</span><span class="o">.</span><span class="n">isSegmentIntersects</span><span class="p">(</span><span class="n">segment1</span><span class="p">,</span> <span class="n">segment2</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">CELLS</span><span class="p">:</span>
+                        <span class="n">CELLS</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+                    <span class="k">continue</span>
+
+        <span class="k">return</span> <span class="n">CELLS</span>
+
+<div class="viewcode-block" id="SpatialIndex.save"><a class="viewcode-back" href="../../../api/core/core-index.html#tracklib.core.SpatialIndex.SpatialIndex.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
+        <span class="n">outfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="SpatialIndex.load"><a class="viewcode-back" href="../../../api/core/core-index.html#tracklib.core.SpatialIndex.SpatialIndex.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">infile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+        <span class="n">infile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">index</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LASTIG lab, French National Institute of Geographic and Forest Information.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

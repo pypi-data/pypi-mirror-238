@@ -1,0 +1,988 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Utils &#8212; TrackLib 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/core/core-utils';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Module io" href="../io.html" />
+    <link rel="prev" title="TrackCollection" href="core-trackcollection.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/TracklibLogo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/TracklibLogo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Section navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">
+    Section Navigation
+  </p>
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../algo.html">Module algo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-analytics.html">Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-cinematics.html">Cinematics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-comparison.html">Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-dynamics.html">Dynamics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-filtering.html">Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-geometrics.html">Geometrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-interpolation.html">Interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-mapping.html">Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-segmentation.html">Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-selection.html">Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-simplification.html">Simplification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-stochastics.html">Stochastics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-summarising.html">Summarising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-synthetics.html">Synthetics</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../core.html">Module core</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core-bbox.html">Bbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-kernel.html">Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-network.html">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-obs.html">Obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-obscoords.html">ObsCoords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-obstime.html">ObsTime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-operator.html">Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-raster.html">Raster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-rasterband.html">RasterBand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-index.html">SpatialIndex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-track.html">Track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-trackcollection.html">TrackCollection</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../io.html">Module io</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-trackreader.html">TrackReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-trackwriter.html">TrackWriter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-networkreader.html">NetworkReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-networkwriter.html">NetworkWriter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-rasterreader.html">RasterReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-rasterwriter.html">RasterWriter</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../util.html">Module util</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../util/util-geometry.html">Geometry</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</nav>
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <section id="module-tracklib.core.Utils">
+<span id="utils"></span><h1>Utils<a class="headerlink" href="#module-tracklib.core.Utils" title="Permalink to this heading">#</a></h1>
+<p>This module contains an algorithm of Analytical Features calculation and 
+some utility functions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.isnan">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">isnan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#isnan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.isnan" title="Permalink to this definition">#</a></dt>
+<dd><p>Check if two numbers are different</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.removeNan">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">removeNan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#removeNan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.removeNan" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.isfloat">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">isfloat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#isfloat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.isfloat" title="Permalink to this definition">#</a></dt>
+<dd><p>Check is a value is a float</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.islist">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">islist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#islist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.islist" title="Permalink to this definition">#</a></dt>
+<dd><p>Check is a value is a list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.listify">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">listify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#listify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.listify" title="Permalink to this definition">#</a></dt>
+<dd><p>Make to list if needed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.unlistify">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">unlistify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#unlistify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.unlistify" title="Permalink to this definition">#</a></dt>
+<dd><p>Remove list if needed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input</strong> – TODO</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>TODO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.compLike">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">compLike</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#compLike"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.compLike" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s1</strong> – TODO</p></li>
+<li><p><strong>s2</strong> – TODO</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>TODO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.makeCoords">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">makeCoords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#makeCoords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.makeCoords" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to form coords object from (x,y,z) data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – 1st coordinate (X, lon or E)</p></li>
+<li><p><strong>y</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – 2nd coordinate (Y, lat or N)</p></li>
+<li><p><strong>z</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – 3rd coordinate (Z, hgt or U)</p></li>
+<li><p><strong>srid</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Id of coord system (ECEF, GEO or ENU)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="core-obscoords.html#tracklib.core.ObsCoords.ENUCoords" title="tracklib.core.ObsCoords.ENUCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENUCoords</span></code></a>, <a class="reference internal" href="core-obscoords.html#tracklib.core.ObsCoords.ECEFCoords" title="tracklib.core.ObsCoords.ECEFCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">ECEFCoords</span></code></a>, <a class="reference internal" href="core-obscoords.html#tracklib.core.ObsCoords.GeoCoords" title="tracklib.core.ObsCoords.GeoCoords"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCoords</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Coords object in the proper srid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.makeDistanceMatrixOld">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">makeDistanceMatrixOld</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#makeDistanceMatrixOld"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.makeDistanceMatrixOld" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.makeDistanceMatrix">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">makeDistanceMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#makeDistanceMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.makeDistanceMatrix" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to form distance matrix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>track</strong> – a track
+:mode: computation mode (‘linear’, ‘circular’ or ‘euclidian’)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>numpy distance matrix with a track</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.makeCovarianceMatrixFromKernelOld">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">makeCovarianceMatrixFromKernelOld</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cycle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#makeCovarianceMatrixFromKernelOld"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.makeCovarianceMatrixFromKernelOld" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to form covariance matrix from kernel
+:param kernel: A function describing statistical similarity between points
+:type T1: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]
+:param T1: A list of points
+:type T2: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]
+:param T2: A list of points
+:type factor: <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>
+:param factor: Unit factor of std dev (default 1.0)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.makeCovarianceMatrixFromKernel">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">makeCovarianceMatrixFromKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#makeCovarianceMatrixFromKernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.makeCovarianceMatrixFromKernel" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to form covariance matrix from kernel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kernel</strong> – A function describing statistical similarity between points</p></li>
+<li><p><strong>track</strong> – A track
+:mode: computation mode (‘linear’, ‘circular’ or ‘euclidian’)</p></li>
+<li><p><strong>factor</strong> – Unit factor of std dev (default 1.0)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.rgbToHex">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">rgbToHex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#rgbToHex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.rgbToHex" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to convert RGBA color to hexadecimal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>color</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]) – A 3 or 4-element array R, G, B [,alpha]. Each color and transparency
+channel is in [0,1]</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string containing color in hexadecimal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.interpColors">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">interpColors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#interpColors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.interpColors" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to interpolate RGBA (or RGB) color between two values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – a float value</p></li>
+<li><p><strong>vmin</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – minimal value of v (color cmin)</p></li>
+<li><p><strong>vmax</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – maximal value of v (color cmin)</p></li>
+<li><p><strong>cmin</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]) – a 3 or 4-element array R, G, B [,alpha]</p></li>
+<li><p><strong>cmax</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]) – a 3 or 4-element array R, G, B [,alpha]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A 4-element array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.getColorMap">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">getColorMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#getColorMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.getColorMap" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmin</strong> – TODO</p></li>
+<li><p><strong>cmax</strong> – TODO</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>TODO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.core.Utils.getOffsetColorMap">
+<span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">getOffsetColorMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#getOffsetColorMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.getOffsetColorMap" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmin</strong> – TODO</p></li>
+<li><p><strong>cmax</strong> – TODO</p></li>
+<li><p><strong>part</strong> – TODO</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>TODO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.Utils.priority_dict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.Utils.</span></span><span class="sig-name descname"><span class="pre">priority_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#priority_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.priority_dict" title="Permalink to this definition">#</a></dt>
+<dd><p>Dictionary that can be used as a priority queue.</p>
+<p>Keys of the dictionary are items to be put into the queue, and values
+are their respective priorities. All dictionary methods work as expected.
+The advantage over a standard heapq-based priority queue is
+that priorities of items can be efficiently updated (amortized O(1))
+using code as ‘thedict[item] = new_priority.’</p>
+<p>The ‘smallest’ method can be used to return the object with lowest
+priority, and ‘pop_smallest’ also removes it.</p>
+<p>The ‘sorted_iter’ method provides a destructive sorted iterator.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Utils.priority_dict.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#priority_dict.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.priority_dict.__init__" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Utils.priority_dict._rebuild_heap">
+<span class="sig-name descname"><span class="pre">_rebuild_heap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#priority_dict._rebuild_heap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.priority_dict._rebuild_heap" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Utils.priority_dict.smallest">
+<span class="sig-name descname"><span class="pre">smallest</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#priority_dict.smallest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.priority_dict.smallest" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the item with the lowest priority.</p>
+<p>Raises IndexError if the object is empty.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Utils.priority_dict.pop_smallest">
+<span class="sig-name descname"><span class="pre">pop_smallest</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#priority_dict.pop_smallest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.priority_dict.pop_smallest" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the item with the lowest priority and remove it.</p>
+<p>Raises IndexError if the object is empty.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Utils.priority_dict.setdefault">
+<span class="sig-name descname"><span class="pre">setdefault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#priority_dict.setdefault"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.priority_dict.setdefault" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Utils.priority_dict.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#priority_dict.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.priority_dict.update" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Utils.priority_dict.sorted_iter">
+<span class="sig-name descname"><span class="pre">sorted_iter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Utils.html#priority_dict.sorted_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Utils.priority_dict.sorted_iter" title="Permalink to this definition">#</a></dt>
+<dd><p>Sorted iterator of the priority dictionary items.</p>
+<p>Beware: this will destroy elements as they are returned.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="core-trackcollection.html" title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">TrackCollection</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="../io.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">Module io</p>
+  </div>
+  <i class="fa-solid fa-angle-right"></i>
+  </a>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.isnan">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     isnan()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.removeNan">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     removeNan()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.isfloat">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     isfloat()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.islist">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     islist()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.listify">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     listify()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.unlistify">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     unlistify()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.compLike">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     compLike()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.makeCoords">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     makeCoords()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.makeDistanceMatrixOld">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     makeDistanceMatrixOld()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.makeDistanceMatrix">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     makeDistanceMatrix()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.makeCovarianceMatrixFromKernelOld">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     makeCovarianceMatrixFromKernelOld()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.makeCovarianceMatrixFromKernel">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     makeCovarianceMatrixFromKernel()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.rgbToHex">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     rgbToHex()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.interpColors">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     interpColors()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.getColorMap">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     getColorMap()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.getOffsetColorMap">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     getOffsetColorMap()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Utils.priority_dict">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     priority_dict
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Utils.priority_dict.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       priority_dict.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Utils.priority_dict._rebuild_heap">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       priority_dict._rebuild_heap()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Utils.priority_dict.smallest">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       priority_dict.smallest()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Utils.priority_dict.pop_smallest">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       priority_dict.pop_smallest()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Utils.priority_dict.setdefault">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       priority_dict.setdefault()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Utils.priority_dict.update">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       priority_dict.update()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Utils.priority_dict.sorted_iter">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       priority_dict.sorted_iter()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../../_sources/api/core/core-utils.rst.txt">
+        <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2023, LASTIG lab, French National Institute of Geographic and Forest Information.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="theme-version">
+    Built with the
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">
+        PyData Sphinx Theme
+    </a>
+    0.12.0.
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,870 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Operation for manipulating track &#8212; TrackLib 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'userguide/2_operator';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Read/Write track, network and raster" href="reader_writer.html" />
+    <link rel="prev" title="Core concept" href="1_coreconcept.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../_static/TracklibLogo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/TracklibLogo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Section navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">
+    Section Navigation
+  </p>
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1_coreconcept.html">Core concept</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Operation for manipulating track</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reader_writer.html">Read/Write track(s), network and raster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_trackquery.html">Querying obstervations in a track</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebook/MapMatchingOnNetwork.html">Map matching on network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook/StopPoints.html">Different methods to detect stops points</a></li>
+</ul>
+
+  </div>
+</nav>
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <section id="operation-for-manipulating-track">
+<h1>Operation for manipulating track<a class="headerlink" href="#operation-for-manipulating-track" title="Permalink to this heading">#</a></h1>
+<p>La librairie tracklib propose une multitude d’opérateurs et de fonctions
+qui permettent de simplifier au maximum la création d’analytical features sur une trace.
+Ils opèrent aussi bien sur les coordonnées que sur le timestamp de la trace.</p>
+<p>Les opérations sur les points sont fournies et leur appel évite les parcours des points de la trace.
+Il est aussi possible de se créer son propore opérateur.</p>
+<p>Ces opérateurs retournent aussi bien un attribut de la trace, un attribut du point ou une valeur pour la trace</p>
+<p>Fonctions existantes: x(), y(),</p>
+<p>Fonctions à disposition: ds, speed, abs_curv</p>
+<p>D’autres algorithmes dans : AlgoAF</p>
+<section id="add-analytical-feature-with-available-operators">
+<h2>Add analytical feature with available operators<a class="headerlink" href="#add-analytical-feature-with-available-operators" title="Permalink to this heading">#</a></h2>
+<section id="unary-void-operator">
+<h3>Unary void operator<a class="headerlink" href="#unary-void-operator" title="Permalink to this heading">#</a></h3>
+<p>These operators give us the possibility to create a new analytical feature <em>y(t)</em> on the same observation
+according to one existing analytical feature <em>x(t)</em>:</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/op_unary_void_02.png"><img alt="../_images/op_unary_void_02.png" src="../_images/op_unary_void_02.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figure 1 : Apply an unary void operator on an observation</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Example :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trace</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">tl</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">DIFFERENTIATOR</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;dx&quot;</span><span class="p">)</span>
+<span class="n">trace</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">tl</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">DIFFERENTIATOR</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;dy&quot;</span><span class="p">)</span>
+<span class="n">trace</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">tl</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">SQUARE</span><span class="p">,</span> <span class="s2">&quot;dx&quot;</span><span class="p">,</span> <span class="s2">&quot;dx2&quot;</span><span class="p">)</span>
+<span class="n">trace</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">tl</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">SQUARE</span><span class="p">,</span> <span class="s2">&quot;dy&quot;</span><span class="p">,</span> <span class="s2">&quot;dy2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All available unary void operator:</p>
+<table class="table">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 30%" />
+<col style="width: 48%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>IDENTITY</p></td>
+<td><p>Identity</p></td>
+<td><p>y(t) = x(t)</p></td>
+</tr>
+<tr class="row-even"><td><p>RECTIFIER</p></td>
+<td><p>Rectifier</p></td>
+<td><p>y(t) = |x(t)|</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTEGRATOR</p></td>
+<td><p>Integrator</p></td>
+<td><p>y(t) = y(t-1) + y(t)</p></td>
+</tr>
+<tr class="row-even"><td><p>SHIFT_RIGHT</p></td>
+<td><p>ShiftRight</p></td>
+<td><p>y(t) = x(t-1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHIFT_LEFT</p></td>
+<td><p>ShiftLeft</p></td>
+<td><p>y(t) = x(t+1)</p></td>
+</tr>
+<tr class="row-even"><td><p>INVERTER</p></td>
+<td><p>Inverter</p></td>
+<td><p>y(t) = -x(t)</p></td>
+</tr>
+<tr class="row-odd"><td><p>DEBIASER</p></td>
+<td><p>Debiaser</p></td>
+<td><p>y(t) = x(t) - mean(x)</p></td>
+</tr>
+<tr class="row-even"><td><p>SQUARE</p></td>
+<td><p>Square</p></td>
+<td><p>y(t) = x(t)*x(t)</p></td>
+</tr>
+<tr class="row-odd"><td><p>SQRT</p></td>
+<td><p>Sqrt</p></td>
+<td><p>y(t) = x(t)**(0.5)</p></td>
+</tr>
+<tr class="row-even"><td><p>NORMALIZER</p></td>
+<td><p>Normalizer</p></td>
+<td><p>y(t) = (x(t) - mean(x))/sigma(x)</p></td>
+</tr>
+<tr class="row-odd"><td><p>DIFFERENTIATOR</p></td>
+<td><p>Differentiator</p></td>
+<td><p>y(t) = x(t) - x(t-1)</p></td>
+</tr>
+<tr class="row-even"><td><p>DIODE</p></td>
+<td><p>Diode</p></td>
+<td><p>y(t) = 1[x&gt;0] * x(t)</p></td>
+</tr>
+<tr class="row-odd"><td><p>SIGN</p></td>
+<td><p>Sign</p></td>
+<td><p>y(t) = x(t)/|x(t)|</p></td>
+</tr>
+<tr class="row-even"><td><p>EXP</p></td>
+<td><p>Exp</p></td>
+<td><p>y(t) = exp(x(t))</p></td>
+</tr>
+<tr class="row-odd"><td><p>LOG</p></td>
+<td><p>Log</p></td>
+<td><p>y(t) = log(x(t))</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="binary-void-operator">
+<h3>Binary void operator<a class="headerlink" href="#binary-void-operator" title="Permalink to this heading">#</a></h3>
+<p>These operators give us the possibility to create a new analytical feature <em>y(t)</em> on the same observation
+according to two existing analytical features <em>x1(t)</em> and <em>x2(t)</em>:</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/op_binary_void_01.png"><img alt="../_images/op_binary_void_01.png" src="../_images/op_binary_void_01.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figure 2 : Apply a binary void operator on an observation</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Example :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">track</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">ADDER</span><span class="p">,</span> <span class="s2">&quot;dx2&quot;</span><span class="p">,</span> <span class="s2">&quot;dy2&quot;</span><span class="p">,</span> <span class="s2">&quot;dx2+dy2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All available binary void operator:</p>
+<table class="table">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 23%" />
+<col style="width: 55%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>ADDER</p></td>
+<td><p>Adder</p></td>
+<td><p>y(t) = x1(t) + x2(t)</p></td>
+</tr>
+<tr class="row-even"><td><p>SUBSTRACTER</p></td>
+<td><p>Substracter</p></td>
+<td><p>y(t) = x1(t) - x2(t)</p></td>
+</tr>
+<tr class="row-odd"><td><p>MULTIPLIER</p></td>
+<td><p>Multiplier</p></td>
+<td><p>y(t) = x1(t) * x2(t)</p></td>
+</tr>
+<tr class="row-even"><td><p>DIVIDER</p></td>
+<td><p>Divider</p></td>
+<td><p>y(t) = x1(t) / x2(t)</p></td>
+</tr>
+<tr class="row-odd"><td><p>POWER</p></td>
+<td><p>Power</p></td>
+<td><p>y(t) = x1(t) ** x2(t)</p></td>
+</tr>
+<tr class="row-even"><td><p>RENORMALIZER</p></td>
+<td><p>Renormalizer</p></td>
+<td><p>y(t) = (x1(t)-m(x1))* s(x2)/s(x1) + m(x2)</p></td>
+</tr>
+<tr class="row-odd"><td><p>DERIVATOR</p></td>
+<td><p>Derivator</p></td>
+<td><p>y(t) = (x1(t)-x1(t-1))/(x2(t)-x2(t-1)) = dx1/dx2</p></td>
+</tr>
+<tr class="row-even"><td><p>POINTWISE_EQUALER</p></td>
+<td><p>PointwiseEqualer</p></td>
+<td><p>y(t) = 1 if x1(t)=x2(t), 0 otherwise</p></td>
+</tr>
+<tr class="row-odd"><td><p>CONVOLUTION</p></td>
+<td><p>Convolution</p></td>
+<td><p>y(t) = int(x1(h)*x2(t-h)dh)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="unary-operator">
+<h3>Unary operator<a class="headerlink" href="#unary-operator" title="Permalink to this heading">#</a></h3>
+<p>These operators give us the possibility to create a new analytical feature <em>y</em> on the trajectory
+according to one existing analytical feature <em>x(t)</em> defined on all observations:</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../_images/op_unary_01.png"><img alt="../_images/op_unary_01.png" src="../_images/op_unary_01.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figure 3 : Apply a unary operator on a trajectory</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Example :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trace</span><span class="o">.</span><span class="n">addAnalyticalFeature</span><span class="p">(</span><span class="n">tl</span><span class="o">.</span><span class="n">speed</span><span class="p">)</span>
+<span class="n">moyspeed</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">tl</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">AVERAGER</span><span class="p">,</span> <span class="s2">&quot;speed&quot;</span><span class="p">,</span> <span class="s2">&quot;mspeed&quot;</span><span class="p">)</span>
+<span class="n">medspeed</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">tl</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">MEDIAN</span><span class="p">,</span> <span class="s2">&quot;speed&quot;</span><span class="p">,</span> <span class="s2">&quot;mspeed&quot;</span><span class="p">)</span>
+<span class="n">trace</span><span class="o">.</span><span class="n">plotAnalyticalFeature</span><span class="p">(</span><span class="s1">&#39;speed&#39;</span><span class="p">,</span> <span class="s1">&#39;BOXPLOT&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">moyspeed</span><span class="p">,</span> <span class="n">medspeed</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All available unary operator:</p>
+<table class="table">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 33%" />
+<col style="width: 48%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>SUM</p></td>
+<td><p>Sum operator</p></td>
+<td><p>y = sum(x)</p></td>
+</tr>
+<tr class="row-even"><td><p>AVERAGER</p></td>
+<td><p>Average operator</p></td>
+<td><p>y = mean(x)</p></td>
+</tr>
+<tr class="row-odd"><td><p>VARIANCE</p></td>
+<td></td>
+<td><p>y = Var(x)</p></td>
+</tr>
+<tr class="row-even"><td><p>STDDEV</p></td>
+<td><p>Standard deviation</p></td>
+<td><p>y = sqrt(Var(x))</p></td>
+</tr>
+<tr class="row-odd"><td><p>MSE</p></td>
+<td><p>Mean square</p></td>
+<td><p>y = mean(x**2)</p></td>
+</tr>
+<tr class="row-even"><td><p>RMSE</p></td>
+<td><p>Root mean square</p></td>
+<td><p>y = sqrt(mean(x**2))</p></td>
+</tr>
+<tr class="row-odd"><td><p>MAD</p></td>
+<td></td>
+<td><p>y = median(abs(x))</p></td>
+</tr>
+<tr class="row-even"><td><p>MIN</p></td>
+<td></td>
+<td><p>y = min(x)</p></td>
+</tr>
+<tr class="row-odd"><td><p>MAX</p></td>
+<td></td>
+<td><p>y = max(x)</p></td>
+</tr>
+<tr class="row-even"><td><p>MEDIAN</p></td>
+<td></td>
+<td><p>y = median(x)</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARGMIN</p></td>
+<td></td>
+<td><p>y = min {t | x(t) = min(x)}</p></td>
+</tr>
+<tr class="row-even"><td><p>ARGMAX</p></td>
+<td></td>
+<td><p>y = min {t | x(t) = max(x)}</p></td>
+</tr>
+<tr class="row-odd"><td><p>ZEROS</p></td>
+<td></td>
+<td><p>y = {t | x(t) = 0}</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="binary-operator">
+<h3>Binary operator<a class="headerlink" href="#binary-operator" title="Permalink to this heading">#</a></h3>
+<p>These operators give us the possibility to create a new analytical feature <em>y</em> on the trajectory
+according to two existing analytical features <em>x1(t)</em> and <em>x2(t)</em> defined on all observations:</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="../_images/op_binary_01.png"><img alt="../_images/op_binary_01.png" src="../_images/op_binary_01.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figure 4 : Apply a binary operator on a trajectory</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>All available unary operator:</p>
+<table class="table">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 27%" />
+<col style="width: 55%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>COVARIANCE</p></td>
+<td><p>Covariance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">m[x1x2]</span> <span class="pre">-</span> <span class="pre">m[x1]*m[x2]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>CORRELATOR</p></td>
+<td><p>Correlator</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">cov(x1,x2)/(sigma(x1)*sigma(x2))</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>L0</p></td>
+<td><p>L0Diff</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">#{t</span> <span class="pre">|</span> <span class="pre">x1(t)</span> <span class="pre">!=</span> <span class="pre">x2(t)}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>L1</p></td>
+<td><p>L1Diff</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">mean(|x1(t)-x2(t)|)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>L2</p></td>
+<td><p>L2Diff</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">mean(|x1(t)-x2(t)|**2)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>LINF</p></td>
+<td><p>LInfDiff</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">max(|x1(t)-x2(t)|)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>EQUAL</p></td>
+<td><p>Equal</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">if</span> <span class="pre">{x1(t)</span> <span class="pre">=</span> <span class="pre">x2(t)</span> <span class="pre">for</span> <span class="pre">all</span> <span class="pre">t}</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="scalar-operator">
+<h3>Scalar operator<a class="headerlink" href="#scalar-operator" title="Permalink to this heading">#</a></h3>
+<table class="table">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 26%" />
+<col style="width: 57%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>AGGREGATE</p></td>
+<td><p>Aggregate</p></td>
+<td><p>y(t) = arg({x(t)})   (arg is a list function)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="scalar-void-operator">
+<h3>Scalar void operator<a class="headerlink" href="#scalar-void-operator" title="Permalink to this heading">#</a></h3>
+<table class="table">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 19%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>SHIFT</p></td>
+<td></td>
+<td><p>y(t) = x(t-arg) with arg a integer</p></td>
+</tr>
+<tr class="row-even"><td><p>APPLY</p></td>
+<td></td>
+<td><p>y(t) = arg(x(t)) with arg a real function</p></td>
+</tr>
+<tr class="row-odd"><td><p>FILTER</p></td>
+<td></td>
+<td><p>y(t) = int[x(z)*h(t-z)dz] with arg an odd-dimension vector or a kernel</p></td>
+</tr>
+<tr class="row-even"><td><p>SCALAR_ADDER</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>RANDOM</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>THRESHOLDER</p></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="application">
+<h2>Application<a class="headerlink" href="#application" title="Permalink to this heading">#</a></h2>
+<p>Calculation of the root mean square error</p>
+<p><strong>TODO</strong></p>
+</section>
+<section id="new-operators-statement-syntax">
+<h2>New operators statement syntax<a class="headerlink" href="#new-operators-statement-syntax" title="Permalink to this heading">#</a></h2>
+<p>To create a new operator named <em>nom_operateur</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">nom_operateur</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">type_operateur</span><span class="o">&gt;</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">af_input</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">af_output</span><span class="p">):</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+        <span class="n">track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="n">af_output</span><span class="p">)</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">addListToAF</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">af_output</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">temp</span>
+</pre></div>
+</div>
+<p>Depends on what you want to create, <strong>type_operateur</strong> will specify your choice.</p>
+</section>
+<section id="add-analytical-feature-with-algorithm">
+<h2>Add analytical feature with algorithm<a class="headerlink" href="#add-analytical-feature-with-algorithm" title="Permalink to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trace</span><span class="o">.</span><span class="n">addAnalyticalFeature</span><span class="p">(</span><span class="n">tl</span><span class="o">.</span><span class="n">speed</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="new-algorithms-statement-syntax">
+<h2>New algorithms statement syntax<a class="headerlink" href="#new-algorithms-statement-syntax" title="Permalink to this heading">#</a></h2>
+<p>To create a new algorithm named <em>nom_operateur</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">nom_operateur</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="1_coreconcept.html" title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">Core concept</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="reader_writer.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">Read/Write track, network and raster</p>
+  </div>
+  <i class="fa-solid fa-angle-right"></i>
+  </a>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#add-analytical-feature-with-available-operators">
+   Add analytical feature with available operators
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unary-void-operator">
+     Unary void operator
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#binary-void-operator">
+     Binary void operator
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unary-operator">
+     Unary operator
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#binary-operator">
+     Binary operator
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scalar-operator">
+     Scalar operator
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scalar-void-operator">
+     Scalar void operator
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#application">
+   Application
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#new-operators-statement-syntax">
+   New operators statement syntax
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#add-analytical-feature-with-algorithm">
+   Add analytical feature with algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#new-algorithms-statement-syntax">
+   New algorithms statement syntax
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../_sources/userguide/2_operator.rst.txt">
+        <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2023, LASTIG lab, French National Institute of Geographic and Forest Information.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="theme-version">
+    Built with the
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">
+        PyData Sphinx Theme
+    </a>
+    0.12.0.
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,857 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Segmentation &#8212; TrackLib 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/algo/algo-segmentation';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Selection" href="algo-selection.html" />
+    <link rel="prev" title="Mapping" href="algo-mapping.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/TracklibLogo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/TracklibLogo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Section navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">
+    Section Navigation
+  </p>
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../algo.html">Module algo</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="algo-analytics.html">Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-cinematics.html">Cinematics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-comparison.html">Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-dynamics.html">Dynamics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-filtering.html">Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-geometrics.html">Geometrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-interpolation.html">Interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-mapping.html">Mapping</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-selection.html">Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-simplification.html">Simplification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-stochastics.html">Stochastics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-summarising.html">Summarising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-synthetics.html">Synthetics</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../core.html">Module core</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-bbox.html">Bbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-kernel.html">Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-network.html">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-obs.html">Obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-obscoords.html">ObsCoords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-obstime.html">ObsTime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-operator.html">Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-raster.html">Raster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-rasterband.html">RasterBand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-index.html">SpatialIndex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-track.html">Track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-trackcollection.html">TrackCollection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../io.html">Module io</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-trackreader.html">TrackReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-trackwriter.html">TrackWriter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-networkreader.html">NetworkReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-networkwriter.html">NetworkWriter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-rasterreader.html">RasterReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-rasterwriter.html">RasterWriter</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../util.html">Module util</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../util/util-geometry.html">Geometry</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</nav>
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <section id="module-tracklib.algo.Segmentation">
+<span id="segmentation"></span><h1>Segmentation<a class="headerlink" href="#module-tracklib.algo.Segmentation" title="Permalink to this heading">#</a></h1>
+<p>Class to manage segmentation of GPS tracks</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.segmentation">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">segmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">afs_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">af_output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholds_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode_comparaison</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#segmentation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.segmentation" title="Permalink to this definition">#</a></dt>
+<dd><p>Method to divide a track into multiple according to analytical feaures value.
+Creates an AF with 0 if change of division, 1 otherwise</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.split">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.split" title="Permalink to this definition">#</a></dt>
+<dd><p>Splits track according to :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>af name (considered as a marker) if <cite>source</cite> is a string</p></li>
+<li><p>list of index if <cite>source</cite> is a list</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection" title="tracklib.core.TrackCollection.TrackCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrackCollection</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>No track if no segmentation, otherwise a TrackCollection object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.findStops">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">findStops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temporal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#findStops"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.findStops" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to find stop positions from a track</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">#</a></h2>
+<p>track : Track</p>
+<p>spatial : float</p>
+<p>temporal : float</p>
+<p>mode : MODE_STOPS_LOCAL, MODE_STOPS_GLOBAL, MODE_STOPS_RTK, MODE_STOPS_ACC</p>
+<dl class="simple">
+<dt>verbose<span class="classifier">bool, optional</span></dt><dd><p>The default is True.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>TYPE</dt><dd><p>DESCRIPTION.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../core/core-track.html#tracklib.core.Track.Track" title="tracklib.core.Track.Track"><code class="xref py py-class docutils literal notranslate"><span class="pre">Track</span></code></a></p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.findStopsLocal">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">findStopsLocal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#findStopsLocal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.findStopsLocal" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.backtracking">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">backtracking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#backtracking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.backtracking" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.backward">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#backward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.backward" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.plotStops">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">plotStops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stops</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'y'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'radius'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sym</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r-'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#plotStops"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.plotStops" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.findStopsGlobal">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">findStopsGlobal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diameter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downsampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#findStopsGlobal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.findStopsGlobal" title="Permalink to this definition">#</a></dt>
+<dd><p>Find stop points in a track based on two parameters:
+Maximal size of a stop (as the diameter of enclosing circle,
+in ground units) and minimal time duration (in seconds).
+Use downsampling parameter &gt; 1 to speed up the process</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>track<span class="classifier">Track</span></dt><dd><p>track to detect stop points</p>
+</dd>
+<dt>diameter<span class="classifier">float, optional</span></dt><dd><p>Maximal size of a stop (as the diameter of enclosing circle,
+in ground units). The default is 20.</p>
+</dd>
+<dt>duration<span class="classifier">float, optional</span></dt><dd><p>minimal time duration (in seconds). The default is 60.</p>
+</dd>
+<dt>downsampling<span class="classifier">float, optional</span></dt><dd><p>to speed up the process, value need to be &gt; 1. The default is 1.</p>
+</dd>
+<dt>verbose<span class="classifier">boolean, optional</span></dt><dd><p>verbose or not. The default is True.</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>Returns<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>stops<span class="classifier">Track</span></dt><dd><p>stops points constitute a new Track.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.findStopsGlobalForRTK">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">findStopsGlobalForRTK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downsampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#findStopsGlobalForRTK"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.findStopsGlobalForRTK" title="Permalink to this definition">#</a></dt>
+<dd><p>Find stop points in a track based on maximal size of a stop and minimal
+time duration</p>
+<p>Two parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Maximal size of a stop (as the standard deviation per axis, in ground units)</p></li>
+<li><p>Minimal time duration (in seconds)</p></li>
+</ul>
+</div></blockquote>
+<p>Use downsampling parameter &gt; 1 to speed up the process.</p>
+<p>Default is set for precise RTK GNSS survey (2 cm for 5 sec)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.splitReturnTrip">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">splitReturnTrip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#splitReturnTrip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.splitReturnTrip" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.splitReturnTripExhaustive">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">splitReturnTripExhaustive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#splitReturnTripExhaustive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.splitReturnTripExhaustive" title="Permalink to this definition">#</a></dt>
+<dd><p>Split track when there is a return trip to keep only the first part</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.splitReturnTripFast">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">splitReturnTripFast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">side_effect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#splitReturnTripFast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.splitReturnTripFast" title="Permalink to this definition">#</a></dt>
+<dd><p>Split track when there is a return trip to keep only the first part.
+Second version with Fast Fourier Transform</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.optimalPartition">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">optimalPartition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cost_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#optimalPartition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.optimalPartition" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.optimalSegmentation">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">optimalSegmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">glob_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#optimalSegmentation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.optimalSegmentation" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.splitAR">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">splitAR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pt1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pt2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_min_pts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#splitAR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.splitAR" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.stdbscan">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">stdbscan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minPts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deltaT</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#stdbscan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.stdbscan" title="Permalink to this definition">#</a></dt>
+<dd><p>Birant, D., &amp; Kut, A. (2007). ST-DBSCAN: An algorithm for clustering
+spatial–temporal data. Data &amp; Knowledge Engineering, 60(1), 208-221.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>track<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+<dt>eps1<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+<dt>eps2<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+<dt>minPts<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+<dt>deltaT<span class="classifier">float</span></dt><dd><p>threshold value to be included in a cluster.</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h2>Returns<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>Cluster in AF</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.retrieveNeighbors">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">retrieveNeighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#retrieveNeighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.retrieveNeighbors" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.stop_point_with_acceleration_criteria">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">stop_point_with_acceleration_criteria</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#stop_point_with_acceleration_criteria"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.stop_point_with_acceleration_criteria" title="Permalink to this definition">#</a></dt>
+<dd><p>This algorithm detect stop point.
+A point is a stop when speed is null and acceleration is negative.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Segmentation.stop_point_with_time_window_criteria">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Segmentation.</span></span><span class="sig-name descname"><span class="pre">stop_point_with_time_window_criteria</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Segmentation.html#stop_point_with_time_window_criteria"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Segmentation.stop_point_with_time_window_criteria" title="Permalink to this definition">#</a></dt>
+<dd><p>This algorithm of stop detection is based on geographical moving distance in time windows.</p>
+<p>The AF has value:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>stop (<em>1</em>)</p></li>
+<li><p>not stop (<em>0</em>)</p></li>
+<li><p>not yet examined (<em>-1</em>)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+</section>
+
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="algo-mapping.html" title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">Mapping</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="algo-selection.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">Selection</p>
+  </div>
+  <i class="fa-solid fa-angle-right"></i>
+  </a>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.segmentation">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     segmentation()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.split">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     split()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.findStops">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     findStops()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.findStopsLocal">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     findStopsLocal()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.backtracking">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     backtracking()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.backward">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     backward()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.plotStops">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     plotStops()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.findStopsGlobal">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     findStopsGlobal()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.findStopsGlobalForRTK">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     findStopsGlobalForRTK()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.splitReturnTrip">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     splitReturnTrip()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.splitReturnTripExhaustive">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     splitReturnTripExhaustive()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.splitReturnTripFast">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     splitReturnTripFast()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.optimalPartition">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     optimalPartition()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.optimalSegmentation">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     optimalSegmentation()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.splitAR">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     splitAR()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.stdbscan">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     stdbscan()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.retrieveNeighbors">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     retrieveNeighbors()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.stop_point_with_acceleration_criteria">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     stop_point_with_acceleration_criteria()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Segmentation.stop_point_with_time_window_criteria">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     stop_point_with_time_window_criteria()
+    </span>
+   </code>
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../../_sources/api/algo/algo-segmentation.rst.txt">
+        <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2023, LASTIG lab, French National Institute of Geographic and Forest Information.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="theme-version">
+    Built with the
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">
+        PyData Sphinx Theme
+    </a>
+    0.12.0.
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

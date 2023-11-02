@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tracklib.algo.Comparison &mdash; TrackLib 1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> TrackLib
+            <img src="../../../_static/TracklibLogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebook/index.html">Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TrackLib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tracklib.algo.Comparison</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tracklib.algo.Comparison</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;to manage comparisons of GPS tracks&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Union</span>   
+<span class="kn">import</span> <span class="nn">progressbar</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">tracklib.core.TrackCollection</span> <span class="kn">import</span> <span class="n">TrackCollection</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.Track</span> <span class="kn">import</span> <span class="n">Track</span>
+
+<span class="kn">import</span> <span class="nn">tracklib.algo.Cinematics</span> <span class="k">as</span> <span class="nn">Cinematics</span>
+<span class="kn">import</span> <span class="nn">tracklib.algo.Dynamics</span> <span class="k">as</span> <span class="nn">Dynamics</span>
+<span class="kn">import</span> <span class="nn">tracklib.algo.Interpolation</span> <span class="k">as</span> <span class="nn">Interpolation</span>
+
+<span class="kn">from</span> <span class="nn">tracklib.util.Geometry</span> <span class="kn">import</span> <span class="n">dist_point_to_segment</span>
+
+<span class="n">MODE_COMPARAISON_NEAREST_NEIGHBOUR</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">MODE_COMPARAISON_DTW</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">MODE_COMPARAISON_FDTW</span> <span class="o">=</span> <span class="mi">3</span>
+
+
+<div class="viewcode-block" id="plotDifferenceProfile"><a class="viewcode-back" href="../../../api/algo/algo-comparison.html#tracklib.algo.Comparison.plotDifferenceProfile">[docs]</a><span class="k">def</span> <span class="nf">plotDifferenceProfile</span><span class="p">(</span>
+    <span class="n">profile</span><span class="p">,</span> <span class="n">track2</span><span class="p">,</span> <span class="n">af_name</span><span class="o">=</span><span class="s2">&quot;pair&quot;</span><span class="p">,</span> <span class="n">sym</span><span class="o">=</span><span class="s2">&quot;g--&quot;</span><span class="p">,</span> <span class="n">NO_DATA_VALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Difference profile plot</span>
+
+<span class="sd">    :param profile: TODO</span>
+<span class="sd">    :param track2: TODO</span>
+<span class="sd">    :param af_name: TODO</span>
+<span class="sd">    :param sym: TODO</span>
+<span class="sd">    :param NO_DATA_VALUE: TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">profile</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="n">profile</span><span class="o">.</span><span class="n">getObsAnalyticalFeature</span><span class="p">(</span><span class="n">af_name</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">NO_DATA_VALUE</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="n">track2</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">profile</span><span class="o">.</span><span class="n">getObsAnalyticalFeature</span><span class="p">(</span><span class="n">af_name</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+        <span class="n">y2</span> <span class="o">=</span> <span class="n">track2</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">profile</span><span class="o">.</span><span class="n">getObsAnalyticalFeature</span><span class="p">(</span><span class="n">af_name</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">],</span> <span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">],</span> <span class="n">sym</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="differenceProfile"><a class="viewcode-back" href="../../../api/algo/algo-comparison.html#tracklib.algo.Comparison.differenceProfile">[docs]</a><span class="k">def</span> <span class="nf">differenceProfile</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;NN&quot;</span><span class="p">,</span> <span class="s2">&quot;DTW&quot;</span><span class="p">,</span> <span class="s2">&quot;FDTW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;NN&quot;</span><span class="p">,</span> 
+                      <span class="n">ends</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>   
+    <span class="sd">&quot;&quot;&quot;Profile of difference between two traces</span>
+
+<span class="sd">    Three possible modes:</span>
+
+<span class="sd">    - **NN** (Nearest Neighbour): :math:`O(n^2)` time and :math:`O(n)` space</span>
+<span class="sd">    - **DTW** (Dynamic Time Warping): :math:`O(n^3)` time and :math:`O(n^2)` space</span>
+<span class="sd">    - **FDTW** (Fast Dynamic Time Warping): same as DTW with reduced search space. In this</span>
+<span class="sd">      particular case, &#39;ends&#39; parameter is an integer giving the number of points to</span>
+<span class="sd">      search for a match ahead and behind the current point. E.g. for ends=0, there is a</span>
+<span class="sd">      strict matching track1[i] &lt;-&gt; track2[i] for each epoch i. For ends=10 for example,</span>
+<span class="sd">      each point track[i] can be matched with any point chronologically between the</span>
+<span class="sd">      bounds track2[i-10] and track2[i+10]. Default is equal to 3, meaning that track1</span>
+<span class="sd">      may be at most 3 times faster or slower than track2 on ant given sub-interval.</span>
+<span class="sd">      Note that this method is designed for pairs of tracks having about same number of</span>
+<span class="sd">      points. Otherwise, it is strongly advised to perform a spatial resampling before</span>
+<span class="sd">      applying FDTW</span>
+
+<span class="sd">    :param track1: TODO</span>
+<span class="sd">    :param track2: TODO</span>
+<span class="sd">    :param mode: Mode for the interpolation. Three modes are possible : NN, DTW and FDTW</span>
+<span class="sd">    :param ends: TODO</span>
+<span class="sd">    :param p: TODO</span>
+<span class="sd">    :param verbose: Verbose mode</span>
+<span class="sd">    </span>
+<span class="sd">    :return: A track objet, with an analytical feature diff containing shortest distance</span>
+<span class="sd">             of each point of track t1, to the points of track t2. We may get profile as</span>
+<span class="sd">             a list with :func:`output.getAbsCurv()` and</span>
+<span class="sd">             :func:`output.getAnalyticalFeature(&quot;diff&quot;)` </span>
+<span class="sd">             The selected candidate in registerd in AF &quot;pair&quot; </span>
+<span class="sd">             Set &quot;ends&quot; parameter to True to force end points to</span>
+<span class="sd">             meet p is Minkowski&#39;s exponent for distance computation. Default value is</span>
+<span class="sd">             - 1 for summation of distances, </span>
+<span class="sd">             - 2 for least squares solution </span>
+<span class="sd">             - and 10 for an approximation of Frechet solution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="n">track1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;diff&quot;</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;pair&quot;</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;ex&quot;</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;ey&quot;</span><span class="p">)</span>
+
+    <span class="c1"># --------------------------------------------------------</span>
+    <span class="c1"># Nearest Neighbor (NN) algorithm</span>
+    <span class="c1"># --------------------------------------------------------</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;NN&quot;</span><span class="p">:</span>
+        <span class="n">to_run</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">to_run</span> <span class="o">=</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">to_run</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">to_run</span><span class="p">:</span>
+            <span class="n">val_min</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">max</span>
+            <span class="n">id_min</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track2</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+                <span class="n">distance</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">track2</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="n">val_min</span><span class="p">:</span>
+                    <span class="n">val_min</span> <span class="o">=</span> <span class="n">distance</span>
+                    <span class="n">id_min</span> <span class="o">=</span> <span class="n">j</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;diff&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">val_min</span><span class="p">)</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;pair&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">id_min</span><span class="p">)</span>
+            <span class="n">ex</span> <span class="o">=</span> <span class="n">track1</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">-</span> <span class="n">track2</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">id_min</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+            <span class="n">ey</span> <span class="o">=</span> <span class="n">track1</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">-</span> <span class="n">track2</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">id_min</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;ex&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;ey&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">ey</span><span class="p">)</span>
+
+    <span class="c1"># --------------------------------------------------------</span>
+    <span class="c1"># Dynamic time warping (DTW) algorithm</span>
+    <span class="c1"># --------------------------------------------------------</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;DTW&quot;</span><span class="p">:</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="mf">1e-2</span><span class="p">)</span>
+
+        <span class="n">track1</span> <span class="o">=</span> <span class="n">track1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">track2</span> <span class="o">=</span> <span class="n">track2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># Forming distance matrix</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">track1</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">track2</span><span class="o">.</span><span class="n">size</span><span class="p">()))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track1</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track2</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+                <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">track1</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">track2</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">j</span><span class="p">))</span> <span class="o">**</span> <span class="n">p</span>
+
+        <span class="c1"># Optimal path with dynamic programming</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">track1</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">track2</span><span class="o">.</span><span class="n">size</span><span class="p">()))</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">track1</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">track2</span><span class="o">.</span><span class="n">size</span><span class="p">()))</span>
+        <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">D</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="c1"># Forward step</span>
+        <span class="n">step_to_run</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">step_to_run</span> <span class="o">=</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">step_to_run</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">step_to_run</span><span class="p">:</span>
+            <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">K</span> <span class="o">=</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span> <span class="p">:</span> <span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">K</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">K</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">V</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span> <span class="p">:</span> <span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">+</span> <span class="n">K</span>
+                <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
+                <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])]</span>
+
+        <span class="c1"># Backward step</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">track1</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">ends</span><span class="p">:</span>
+            <span class="n">S</span><span class="p">[</span><span class="n">track1</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">track1</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">track2</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">S</span><span class="p">[</span><span class="n">track1</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="n">track1</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track1</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]])</span>
+
+        <span class="c1"># print((T[track1.size()-1, S[track1.size()-1]] / track1.size())**(1.0/p))</span>
+
+        <span class="c1"># plt.plot(S, &#39;r-&#39;)</span>
+        <span class="c1"># plt.imshow(M)</span>
+
+        <span class="n">__fillAFProfile</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
+
+    <span class="c1"># --------------------------------------------------------</span>
+    <span class="c1"># Fast Dynamic time warping (FDTW) algorithm</span>
+    <span class="c1"># --------------------------------------------------------</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;FDTW&quot;</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ends</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ends</span><span class="p">:</span>
+                <span class="n">ends</span> <span class="o">=</span> <span class="mi">12</span>
+
+        <span class="n">S</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">track</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="p">[</span>
+            <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span> <span class="o">-</span> <span class="n">ends</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">track2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="n">ends</span><span class="p">))</span>
+        <span class="p">]</span>
+        <span class="n">Q</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">30</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;=</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">track2</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+
+        <span class="n">Dynamics</span><span class="o">.</span><span class="n">HMM</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span>
+            <span class="n">output</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">],</span>
+            <span class="n">mode</span><span class="o">=</span><span class="n">Dynamics</span><span class="o">.</span><span class="n">MODE_OBS_AS_2D_POSITIONS</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">verbose</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">__fillAFProfile</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="s2">&quot;hmm_inference&quot;</span><span class="p">])</span>
+
+    <span class="n">Cinematics</span><span class="o">.</span><span class="n">computeAbsCurv</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="__fillAFProfile"><a class="viewcode-back" href="../../../api/algo/algo-comparison.html#tracklib.algo.Comparison.__fillAFProfile">[docs]</a><span class="k">def</span> <span class="nf">__fillAFProfile</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">    :param track1: TODO</span>
+<span class="sd">    :param track2: TODO</span>
+<span class="sd">    :param output: TODO</span>
+<span class="sd">    :param S: TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track1</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">track1</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">track2</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="n">ex</span> <span class="o">=</span> <span class="n">track1</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">-</span> <span class="n">track2</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+        <span class="n">ey</span> <span class="o">=</span> <span class="n">track1</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">-</span> <span class="n">track2</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;diff&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;pair&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;ex&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;ey&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">ey</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="synchronize"><a class="viewcode-back" href="../../../api/algo/algo-comparison.html#tracklib.algo.Comparison.synchronize">[docs]</a><span class="k">def</span> <span class="nf">synchronize</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Resampling of 2 tracks with linear interpolation on a common base of</span>
+<span class="sd">    timestamps</span>
+
+<span class="sd">    :param track: track to synchronize with</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">Interpolation</span><span class="o">.</span><span class="n">synchronize</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="compare"><a class="viewcode-back" href="../../../api/algo/algo-comparison.html#tracklib.algo.Comparison.compare">[docs]</a><span class="k">def</span> <span class="nf">compare</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>   
+    <span class="sd">&quot;&quot;&quot;Comparison of 2 tracks.</span>
+
+<span class="sd">    Tracks are interpolated linearly on a common base of timestamps</span>
+
+<span class="sd">    :param track1: track to compare with</span>
+<span class="sd">    :param track2: track to compare with</span>
+
+<span class="sd">    :return: TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">trackA</span> <span class="o">=</span> <span class="n">track1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">trackB</span> <span class="o">=</span> <span class="n">track2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">Interpolation</span><span class="o">.</span><span class="n">synchronize</span><span class="p">(</span><span class="n">trackA</span><span class="p">,</span> <span class="n">trackB</span><span class="p">)</span>
+
+    <span class="n">rmse</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">trackA</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+        <span class="n">rmse</span> <span class="o">+=</span> <span class="n">trackA</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">distanceTo</span><span class="p">(</span><span class="n">trackB</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rmse</span> <span class="o">/</span> <span class="n">trackA</span><span class="o">.</span><span class="n">size</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="centralTrack"><a class="viewcode-back" href="../../../api/algo/algo-comparison.html#tracklib.algo.Comparison.centralTrack">[docs]</a><span class="k">def</span> <span class="nf">centralTrack</span><span class="p">(</span><span class="n">tracks</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">TrackCollection</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Track</span><span class="p">]],</span> 
+                 <span class="n">mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;NN&quot;</span><span class="p">,</span> <span class="s2">&quot;DTW&quot;</span><span class="p">,</span> <span class="s2">&quot;FDTW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;NN&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Track</span><span class="p">:</span>   
+    <span class="sd">&quot;&quot;&quot;Computes central track of a track collection</span>
+
+<span class="sd">    :param tracks: TrackCollection or list of tracks</span>
+<span class="sd">    :param mode: &quot;NN&quot;, &quot;DTW&quot; or &quot;FDTW&quot; for track pair matching (see the documentation</span>
+<span class="sd">                  of :func:`differenceProfile` function for more infos on modes)</span>
+<span class="sd">    :return: The central track</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">tracks</span> <span class="o">=</span> <span class="n">tracks</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tracks</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="n">TrackCollection</span><span class="p">(</span><span class="n">tracks</span><span class="p">)</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="n">tracks</span><span class="o">.</span><span class="n">toENUCoordsIfNeeded</span><span class="p">()</span>
+    <span class="n">central</span> <span class="o">=</span> <span class="n">tracks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tracks</span><span class="p">)):</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">differenceProfile</span><span class="p">(</span><span class="n">tracks</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tracks</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">central</span><span class="p">)):</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="n">tracks</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">diff</span><span class="p">[</span><span class="s2">&quot;pair&quot;</span><span class="p">,</span> <span class="n">j</span><span class="p">]]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+            <span class="n">dy</span> <span class="o">=</span> <span class="n">tracks</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">diff</span><span class="p">[</span><span class="s2">&quot;pair&quot;</span><span class="p">,</span> <span class="n">j</span><span class="p">]]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+            <span class="n">dz</span> <span class="o">=</span> <span class="n">tracks</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">diff</span><span class="p">[</span><span class="s2">&quot;pair&quot;</span><span class="p">,</span> <span class="n">j</span><span class="p">]]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getZ</span><span class="p">()</span>
+            <span class="n">central</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">central</span><span class="p">)):</span>
+        <span class="n">central</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">tracks</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">base</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">central</span><span class="o">.</span><span class="n">toGeoCoords</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">central</span></div>
+
+
+<div class="viewcode-block" id="premiereComposanteHausdorff"><a class="viewcode-back" href="../../../api/algo/algo-comparison.html#tracklib.algo.Comparison.premiereComposanteHausdorff">[docs]</a><span class="k">def</span> <span class="nf">premiereComposanteHausdorff</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Première composante de Hausdorff.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    track1 : Track</span>
+<span class="sd">        the first track</span>
+<span class="sd">    track2 : Track</span>
+<span class="sd">        the second track</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    double</span>
+<span class="sd">        directed Hausdorff distance</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track1</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="n">track1</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">distmin</span> <span class="o">=</span> <span class="n">track2</span><span class="o">.</span><span class="n">getFirstObs</span><span class="p">()</span><span class="o">.</span><span class="n">distanceTo</span><span class="p">(</span><span class="n">point</span><span class="p">);</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">track2</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span> 
+            <span class="n">obs2i</span> <span class="o">=</span> <span class="n">track2</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">obs2ip1</span> <span class="o">=</span> <span class="n">track2</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">dist_point_to_segment</span><span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> 
+                        <span class="p">[</span><span class="n">obs2i</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">obs2i</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">(),</span> 
+                        <span class="n">obs2ip1</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">obs2ip1</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()])</span>
+            <span class="n">distmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">distmin</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">distmin</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+  
+
+<div class="viewcode-block" id="hausdorff"><a class="viewcode-back" href="../../../api/algo/algo-comparison.html#tracklib.algo.Comparison.hausdorff">[docs]</a><span class="k">def</span> <span class="nf">hausdorff</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    General Hausdorff distance between two tracks.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    track1 : Track</span>
+<span class="sd">        the first track</span>
+<span class="sd">    track2 : Track</span>
+<span class="sd">        the second track</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    double</span>
+<span class="sd">        Hausdorff distance</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">premiereComposanteHausdorff</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">),</span>
+        <span class="n">premiereComposanteHausdorff</span><span class="p">(</span><span class="n">track2</span><span class="p">,</span> <span class="n">track1</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="discreteFrechet"><a class="viewcode-back" href="../../../api/algo/algo-comparison.html#tracklib.algo.Comparison.discreteFrechet">[docs]</a><span class="k">def</span> <span class="nf">discreteFrechet</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">):</span>
+    
+    <span class="n">sizeP</span> <span class="o">=</span> <span class="n">track1</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+    <span class="n">sizeQ</span> <span class="o">=</span> <span class="n">track2</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+    
+    <span class="n">ca</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sizeP</span><span class="p">):</span>
+        <span class="n">ca</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sizeQ</span><span class="p">):</span>
+            <span class="n">ca</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">d</span> <span class="o">=</span> <span class="n">discreteFrechetCouplingMeasure</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">,</span> <span class="n">sizeP</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sizeQ</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ca</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">d</span><span class="p">;</span></div>
+
+
+<div class="viewcode-block" id="discreteFrechetCouplingMeasure"><a class="viewcode-back" href="../../../api/algo/algo-comparison.html#tracklib.algo.Comparison.discreteFrechetCouplingMeasure">[docs]</a><span class="k">def</span> <span class="nf">discreteFrechetCouplingMeasure</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">ca</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ca</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ca</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="n">track1</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">distanceTo</span><span class="p">(</span><span class="n">track2</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ca</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
+        <span class="k">return</span> <span class="n">d</span>
+
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+       <span class="n">ca</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+           <span class="n">discreteFrechetCouplingMeasure</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">ca</span><span class="p">),</span> <span class="n">d</span><span class="p">)</span>
+       <span class="k">return</span> <span class="n">ca</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+   
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ca</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">discreteFrechetCouplingMeasure</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ca</span><span class="p">),</span> <span class="n">d</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ca</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+         <span class="n">ca</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+           <span class="nb">min</span><span class="p">(</span><span class="n">discreteFrechetCouplingMeasure</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">ca</span><span class="p">),</span> 
+               <span class="nb">min</span><span class="p">(</span><span class="n">discreteFrechetCouplingMeasure</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ca</span><span class="p">),</span>
+                   <span class="n">discreteFrechetCouplingMeasure</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ca</span><span class="p">))),</span> <span class="n">d</span><span class="p">)</span>
+         <span class="k">return</span> <span class="n">ca</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+
+    <span class="n">ca</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">max</span>
+    <span class="k">return</span> <span class="n">ca</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="medoid"><a class="viewcode-back" href="../../../api/algo/algo-comparison.html#tracklib.algo.Comparison.medoid">[docs]</a><span class="k">def</span> <span class="nf">medoid</span> <span class="p">(</span><span class="n">tracks</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">TrackCollection</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Track</span><span class="p">]],</span> 
+                 <span class="n">mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Hausdorff&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Hausdorff&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Track</span><span class="p">:</span> 
+    
+    <span class="n">tracks</span> <span class="o">=</span> <span class="n">tracks</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tracks</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="n">TrackCollection</span><span class="p">(</span><span class="n">tracks</span><span class="p">)</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="n">tracks</span><span class="o">.</span><span class="n">toENUCoordsIfNeeded</span><span class="p">()</span>
+    <span class="n">medoid</span> <span class="o">=</span> <span class="n">tracks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> 
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tracks</span><span class="p">)):</span>
+        
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">medoid</span><span class="p">)):</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+            
+        <span class="c1">#diff = differenceProfile(tracks[0], tracks[i], mode=mode, verbose=verbose)</span>
+
+        <span class="c1">#for j in range(len(medoid)):</span>
+            <span class="c1">#dx = tracks[i][diff[&quot;pair&quot;, j]].position.getX()</span>
+            <span class="c1">#dy = tracks[i][diff[&quot;pair&quot;, j]].position.getY()</span>
+            <span class="c1">#dz = tracks[i][diff[&quot;pair&quot;, j]].position.getZ()</span>
+            <span class="c1">#medoid[j].position.translate(dx, dy, dz)</span>
+
+    <span class="c1">#for j in range(len(medoid)):</span>
+    <span class="c1">#    medoid[j].position.scale(1.0 / len(tracks))</span>
+        
+    
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">base</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">medoid</span><span class="o">.</span><span class="n">toGeoCoords</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">medoid</span></div>
+    
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LASTIG lab, French National Institute of Geographic and Forest Information.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

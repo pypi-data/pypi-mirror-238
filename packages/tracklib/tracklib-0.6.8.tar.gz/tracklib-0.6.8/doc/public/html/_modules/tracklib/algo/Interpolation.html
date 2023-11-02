@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tracklib.algo.Interpolation &mdash; TrackLib 1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> TrackLib
+            <img src="../../../_static/TracklibLogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebook/index.html">Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TrackLib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tracklib.algo.Interpolation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tracklib.algo.Interpolation</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Class to manage interpolation and smoothing functions&quot;&quot;&quot;</span>
+
+<span class="c1"># For type annotation</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>   
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>   
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">tracklib.core.Utils</span> <span class="k">as</span> <span class="nn">utils</span>
+
+<span class="kn">from</span> <span class="nn">tracklib.core.Obs</span> <span class="kn">import</span> <span class="n">Obs</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.ObsCoords</span> <span class="kn">import</span> <span class="n">ENUCoords</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.ObsTime</span> <span class="kn">import</span> <span class="n">ObsTime</span>
+
+<span class="n">MODE_SPATIAL</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">MODE_TEMPORAL</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">ALGO_LINEAR</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">ALGO_THIN_SPLINES</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">ALGO_B_SPLINES</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">ALGO_GAUSSIAN_PROCESS</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">SPLINE_PENALIZATION</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">B_SPLINE_DEGREE</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">B_SPLINE_RESOL</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">GP_KERNEL</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">GP_SMOOTHING</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="c1"># Circular import (not satisfying solution)</span>
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.Track</span> <span class="kn">import</span> <span class="n">Track</span>
+
+
+<div class="viewcode-block" id="resample"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.resample">[docs]</a><span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">algo</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>   
+    <span class="sd">&quot;&quot;&quot;Resampling of a track with linear interpolation delta</span>
+
+<span class="sd">    Interpolation interval (time in sec if temporal mode is selected,</span>
+<span class="sd">    space in meters if spatial).</span>
+
+<span class="sd">      Available modes are:</span>
+
+<span class="sd">        - MODE_SPATIAL (*mode=1*)</span>
+<span class="sd">        - MODE_TEMPORAL (*mode=2*)</span>
+
+<span class="sd">      algorithm:</span>
+
+<span class="sd">        - ALGO_LINEAR (*algo=1*)</span>
+<span class="sd">        - ALGO_THIN_SPLINES (*algo=2*)</span>
+<span class="sd">        - ALGO_B_SPLINES (*algo=3*)</span>
+<span class="sd">        - ALGO_GAUSSIAN_PROCESS (*algo=4*)</span>
+
+<span class="sd">      In temporal mode, argument may be:</span>
+
+<span class="sd">        - an integer or float: interval in seconds</span>
+<span class="sd">        - a list of timestamps where interpolation should be computed</span>
+<span class="sd">        - a reference track</span>
+
+<span class="sd">    :param algo: TODO</span>
+<span class="sd">    :param mode: TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_SPATIAL</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">algo</span> <span class="o">==</span> <span class="n">ALGO_LINEAR</span><span class="p">:</span>
+            <span class="n">__resampleSpatial</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">algo</span> <span class="o">==</span> <span class="n">ALGO_THIN_SPLINES</span><span class="p">:</span>
+            <span class="n">__smooth_resample_spatial</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">algo</span> <span class="o">==</span> <span class="n">ALGO_B_SPLINES</span><span class="p">:</span>
+            <span class="n">__bsplines_spatial</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">B_SPLINE_DEGREE</span><span class="p">,</span> <span class="n">B_SPLINE_RESOL</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">algo</span> <span class="o">==</span> <span class="n">ALGO_GAUSSIAN_PROCESS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">GP_KERNEL</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span>
+                    <span class="s2">&quot;Kernel must be defined with &#39;GP_KERNEL&#39; before using gaussian process interpolation&quot;</span>
+                <span class="p">)</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">gaussian_process</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">GP_KERNEL</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">GP_SMOOTHING</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">MODE_SPATIAL</span><span class="p">)</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">setObsList</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">getObsList</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_TEMPORAL</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">algo</span> <span class="o">==</span> <span class="n">ALGO_LINEAR</span><span class="p">:</span>
+            <span class="n">__resampleTemporal</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">algo</span> <span class="o">==</span> <span class="n">ALGO_THIN_SPLINES</span><span class="p">:</span>
+            <span class="n">__smooth_resample_temporal</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">algo</span> <span class="o">==</span> <span class="n">ALGO_B_SPLINES</span><span class="p">:</span>
+            <span class="n">__bsplines_temporal</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">B_SPLINE_DEGREE</span><span class="p">,</span> <span class="n">B_SPLINE_RESOL</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">algo</span> <span class="o">==</span> <span class="n">ALGO_GAUSSIAN_PROCESS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">GP_KERNEL</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span>
+                    <span class="s2">&quot;Kernel must be defined with &#39;GP_KERNEL&#39; before using gaussian process interpolation&quot;</span>
+                <span class="p">)</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">gaussian_process</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">GP_KERNEL</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">GP_SMOOTHING</span><span class="p">)</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">setObsList</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">getObsList</span><span class="p">())</span>
+
+    <span class="n">track</span><span class="o">.</span><span class="n">__analyticalFeaturesDico</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+
+<div class="viewcode-block" id="__resampleSpatial"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.__resampleSpatial">[docs]</a><span class="k">def</span> <span class="nf">__resampleSpatial</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">ds</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">    Resampling of a track with linear interpolation</span>
+<span class="sd">    ds: curv abs interval (in m) between two samples&quot;&quot;&quot;</span>
+
+    <span class="n">S</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+        <span class="n">dl</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">S</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dl</span><span class="p">)</span>
+
+    <span class="n">sini</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sfin</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)((</span><span class="n">sfin</span> <span class="o">-</span> <span class="n">sini</span><span class="p">)</span> <span class="o">/</span> <span class="n">ds</span><span class="p">)</span>
+
+    <span class="n">interp_points</span> <span class="o">=</span> <span class="p">[</span><span class="n">track</span><span class="o">.</span><span class="n">getFirstObs</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()]</span>
+    <span class="n">interp_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">running_id</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+
+        <span class="n">s</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">ds</span> <span class="o">+</span> <span class="n">sini</span>
+
+        <span class="k">while</span> <span class="n">S</span><span class="p">[</span><span class="n">running_id</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">:</span>
+            <span class="n">running_id</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">pt_bwd</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">running_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">pt_fwd</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">running_id</span><span class="p">)</span>
+        <span class="n">sbwd</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">running_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">sfwd</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">running_id</span><span class="p">]</span>
+
+        <span class="n">wbwd</span> <span class="o">=</span> <span class="p">(</span><span class="n">sfwd</span> <span class="o">-</span> <span class="n">s</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sfwd</span> <span class="o">-</span> <span class="n">sbwd</span><span class="p">)</span>
+        <span class="n">wfwd</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="n">sbwd</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sfwd</span> <span class="o">-</span> <span class="n">sbwd</span><span class="p">)</span>
+
+        <span class="n">X</span> <span class="o">=</span> <span class="n">wbwd</span> <span class="o">*</span> <span class="n">pt_bwd</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">+</span> <span class="n">wfwd</span> <span class="o">*</span> <span class="n">pt_fwd</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">wbwd</span> <span class="o">*</span> <span class="n">pt_bwd</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">+</span> <span class="n">wfwd</span> <span class="o">*</span> <span class="n">pt_fwd</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="n">wbwd</span> <span class="o">*</span> <span class="n">pt_bwd</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getZ</span><span class="p">()</span> <span class="o">+</span> <span class="n">wfwd</span> <span class="o">*</span> <span class="n">pt_fwd</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getZ</span><span class="p">()</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">wbwd</span> <span class="o">*</span> <span class="n">pt_bwd</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span> <span class="o">+</span> <span class="n">wfwd</span> <span class="o">*</span> <span class="n">pt_fwd</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span>
+
+        <span class="n">pi</span> <span class="o">=</span> <span class="n">Obs</span><span class="p">(</span><span class="n">ENUCoords</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">),</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readUnixTime</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
+
+        <span class="n">interp_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
+
+    <span class="n">track</span><span class="o">.</span><span class="n">setObsList</span><span class="p">(</span><span class="n">interp_points</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="__resampleTemporal"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.__resampleTemporal">[docs]</a><span class="k">def</span> <span class="nf">__resampleTemporal</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">reference</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">    Resampling of a track with linear interpolation</span>
+<span class="sd">    reference: list of timestamps, track or sec interval&quot;&quot;&quot;</span>
+
+    <span class="n">T</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+        <span class="n">T</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">())</span>
+
+    <span class="n">tini</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">tfin</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Preparing reference list</span>
+    <span class="n">REF</span> <span class="o">=</span> <span class="n">prepareTimeSampling</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">tini</span><span class="p">,</span> <span class="n">tfin</span><span class="p">)</span>
+
+    <span class="n">interp_points</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">running_id</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">REF</span><span class="p">)):</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="n">REF</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="n">tini</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="n">tfin</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="k">while</span> <span class="n">T</span><span class="p">[</span><span class="n">running_id</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">:</span>
+            <span class="n">running_id</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">pt_bwd</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">running_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">pt_fwd</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">running_id</span><span class="p">)</span>
+        <span class="n">tbwd</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">running_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">tfwd</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">running_id</span><span class="p">]</span>
+
+        <span class="n">wbwd</span> <span class="o">=</span> <span class="p">(</span><span class="n">tfwd</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">tfwd</span> <span class="o">-</span> <span class="n">tbwd</span><span class="p">)</span>
+        <span class="n">wfwd</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">tbwd</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">tfwd</span> <span class="o">-</span> <span class="n">tbwd</span><span class="p">)</span>
+
+        <span class="n">X</span> <span class="o">=</span> <span class="n">wbwd</span> <span class="o">*</span> <span class="n">pt_bwd</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">+</span> <span class="n">wfwd</span> <span class="o">*</span> <span class="n">pt_fwd</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">wbwd</span> <span class="o">*</span> <span class="n">pt_bwd</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">+</span> <span class="n">wfwd</span> <span class="o">*</span> <span class="n">pt_fwd</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="n">wbwd</span> <span class="o">*</span> <span class="n">pt_bwd</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getZ</span><span class="p">()</span> <span class="o">+</span> <span class="n">wfwd</span> <span class="o">*</span> <span class="n">pt_fwd</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getZ</span><span class="p">()</span>
+
+        <span class="n">pi</span> <span class="o">=</span> <span class="n">Obs</span><span class="p">(</span><span class="n">ENUCoords</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">),</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readUnixTime</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+
+        <span class="n">interp_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
+
+    <span class="n">track</span><span class="o">.</span><span class="n">setObsList</span><span class="p">(</span><span class="n">interp_points</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gaussian_process"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.gaussian_process">[docs]</a><span class="k">def</span> <span class="nf">gaussian_process</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">timestamps</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cp_var</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">MODE_TEMPORAL</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Track interpolation and smoothing with Gaussian Process (GP)</span>
+
+<span class="sd">    :param timestamps: points where interpolation must be computed.</span>
+<span class="sd">        May be a list of timestamps, a track or a number of seconds</span>
+<span class="sd">    :param kernel: a symetric function k(xi-xj) describing the statistical similarity</span>
+<span class="sd">        between the coordinates X,Y,Z taken in two points :</span>
+
+<span class="sd">        :math:`k(t2-t1) = Cov(X(t1), X(t2))`</span>
+
+<span class="sd">        :math:`k(t2-t1) = Cov(Y(t1), Y(t2))`</span>
+
+<span class="sd">        :math:`k(t2-t1) = Cov(Z(t1), Z(t2))`</span>
+
+<span class="sd">    :param factor: unit factor of variance if the kernel must be scaled</span>
+<span class="sd">    :param sigma: observation noise standard deviation (in coords units)</span>
+<span class="sd">    :param cp_var: compute covariance matrix and store pointwise sigmas</span>
+<span class="sd">    :param mode: MODE_TEMPORAL or MODE_SPATIAL</span>
+<span class="sd">    :return: interpolated/smoothed track (without AF)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">mode</span><span class="o">==</span><span class="n">MODE_TEMPORAL</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">gaussian_process_temporal</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">timestamps</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cp_var</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">gaussian_process_spatial</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">timestamps</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cp_var</span><span class="p">)</span></div>
+    
+	
+<div class="viewcode-block" id="gaussian_process_spatial"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.gaussian_process_spatial">[docs]</a><span class="k">def</span> <span class="nf">gaussian_process_spatial</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cp_var</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+	
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Vector of observed and unknown points</span>
+    <span class="n">TO</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">getT</span><span class="p">()</span>
+    <span class="n">temp</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">MODE_SPATIAL</span><span class="p">)</span>
+    <span class="n">TU</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">getT</span><span class="p">()</span>
+	
+    <span class="k">return</span> <span class="n">__gaussian_process</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">TO</span><span class="p">,</span> <span class="n">TU</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cp_var</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="gaussian_process_temporal"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.gaussian_process_temporal">[docs]</a><span class="k">def</span> <span class="nf">gaussian_process_temporal</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">timestamps</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cp_var</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+    <span class="n">tini</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getFirstObs</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span>
+    <span class="n">tfin</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getLastObs</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span>
+
+    <span class="c1"># Vector of observed and unknown points</span>
+    <span class="n">TO</span> <span class="o">=</span> <span class="n">prepareTimeSampling</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">tini</span><span class="p">,</span> <span class="n">tfin</span><span class="p">)</span>
+    <span class="n">TU</span> <span class="o">=</span> <span class="n">prepareTimeSampling</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">tini</span><span class="p">,</span> <span class="n">tfin</span><span class="p">)</span>
+	
+    <span class="k">return</span> <span class="n">__gaussian_process</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">TO</span><span class="p">,</span> <span class="n">TU</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cp_var</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="__gaussian_process"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.__gaussian_process">[docs]</a><span class="k">def</span> <span class="nf">__gaussian_process</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">TO</span><span class="p">,</span> <span class="n">TU</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cp_var</span><span class="p">):</span>
+
+    <span class="n">new_track</span> <span class="o">=</span> <span class="n">Track</span><span class="p">()</span>
+
+    <span class="c1"># Observations</span>
+    <span class="n">yx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getX</span><span class="p">())</span>
+    <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getY</span><span class="p">())</span>
+    <span class="n">yz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getZ</span><span class="p">())</span>
+
+    <span class="c1"># Debiasing</span>
+    <span class="n">bx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">yx</span><span class="p">)</span>
+    <span class="n">by</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">yy</span><span class="p">)</span>
+    <span class="n">bz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">yz</span><span class="p">)</span>
+    <span class="n">yx</span> <span class="o">=</span> <span class="n">yx</span> <span class="o">-</span> <span class="n">bx</span>
+    <span class="n">yy</span> <span class="o">=</span> <span class="n">yy</span> <span class="o">-</span> <span class="n">by</span>
+    <span class="n">yz</span> <span class="o">=</span> <span class="n">yz</span> <span class="o">-</span> <span class="n">bz</span>
+
+    <span class="c1"># Computing obs covariance matrix</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">makeCovarianceMatrixFromKernelOld</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">TO</span><span class="p">,</span> <span class="n">TO</span><span class="p">,</span> <span class="n">factor</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">TO</span><span class="p">)))</span>
+
+    <span class="c1"># Computing unknown sites covariance matrix</span>
+    <span class="n">KSS</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">makeCovarianceMatrixFromKernelOld</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">TU</span><span class="p">,</span> <span class="n">TU</span><span class="p">,</span> <span class="n">factor</span><span class="p">)</span>
+
+    <span class="c1"># Computing obs - unknown sites covariance matrix</span>
+    <span class="n">KS</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">makeCovarianceMatrixFromKernelOld</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">TO</span><span class="p">,</span> <span class="n">TU</span><span class="p">,</span> <span class="n">factor</span><span class="p">)</span>
+
+    <span class="c1"># Computing posterior distribution means</span>
+    <span class="n">MUX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">KS</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">yx</span><span class="p">))</span>
+    <span class="n">MUY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">KS</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">yy</span><span class="p">))</span>
+    <span class="n">MUZ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">KS</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">yz</span><span class="p">))</span>
+
+    <span class="c1"># Computing posterior distribution covariances</span>
+    <span class="k">if</span> <span class="n">cp_var</span><span class="p">:</span>
+        <span class="n">SIGMA_XYZ</span> <span class="o">=</span> <span class="n">KSS</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">KS</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">K</span><span class="p">),</span> <span class="n">KS</span><span class="p">))</span>
+
+    <span class="c1"># Filling track</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MUX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">ENUCoords</span><span class="p">(</span><span class="n">MUX</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">bx</span><span class="p">,</span> <span class="n">MUY</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">by</span><span class="p">,</span> <span class="n">MUZ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">bz</span><span class="p">)</span>
+        <span class="n">obs</span> <span class="o">=</span> <span class="n">Obs</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readUnixTime</span><span class="p">(</span><span class="n">TU</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="n">new_track</span><span class="o">.</span><span class="n">addObs</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cp_var</span><span class="p">:</span>
+        <span class="n">new_track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;@sigma_gp&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SIGMA_XYZ</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">sigma</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">SIGMA_XYZ</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]))</span> <span class="o">*</span> <span class="n">factor</span>
+            <span class="n">new_track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;@sigma_gp&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new_track</span></div>
+
+
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="c1"># Function to prepare a list of timestamps for interpolation functions</span>
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="c1"># Input :</span>
+<span class="c1">#   - input ::     a list of timestamps (list), an interval in sec (float),</span>
+<span class="c1"># 				   or a track</span>
+<span class="c1">#   - tini  ::     Initial timestamp (only if input is an interval in sec)</span>
+<span class="c1">#   - tfin  ::     Final timestamp (only if input is an interval in sec)</span>
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="c1"># Output : a list of timestamps</span>
+<span class="c1"># --------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="prepareTimeSampling"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.prepareTimeSampling">[docs]</a><span class="k">def</span> <span class="nf">prepareTimeSampling</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">tini</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tfin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">input</span><span class="p">)):</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">())</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">Track</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">())</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">tini</span>
+        <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+            <span class="n">time</span> <span class="o">+=</span> <span class="nb">input</span>
+            <span class="k">if</span> <span class="n">time</span> <span class="o">&gt;</span> <span class="n">tfin</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="k">return</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="synchronize"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.synchronize">[docs]</a><span class="k">def</span> <span class="nf">synchronize</span><span class="p">(</span><span class="n">track1</span><span class="p">,</span> <span class="n">track2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to synchronize two tracks.</span>
+<span class="sd">    Note: method is symetric on track1 and track2</span>
+<span class="sd">    </span>
+<span class="sd">    Input :</span>
+<span class="sd">    - track1 ::   track to synchronize</span>
+<span class="sd">    - track2 ::   track to synchronize</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Merge timestamps of tracks</span>
+    <span class="n">timestamps</span> <span class="o">=</span> <span class="n">track1</span><span class="o">.</span><span class="n">getTimestamps</span><span class="p">()</span> <span class="o">+</span> <span class="p">[]</span> <span class="o">+</span> <span class="n">track2</span><span class="o">.</span><span class="n">getTimestamps</span><span class="p">()</span>
+
+    <span class="c1"># Common time range</span>
+    <span class="n">tini</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">track1</span><span class="o">.</span><span class="n">getFirstObs</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">track2</span><span class="o">.</span><span class="n">getFirstObs</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span>
+    <span class="n">tfin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">track1</span><span class="o">.</span><span class="n">getLastObs</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">track2</span><span class="o">.</span><span class="n">getLastObs</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span>
+
+    <span class="c1"># Sort list of timestamps</span>
+    <span class="n">sort_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">timestamps</span><span class="p">))</span>
+    <span class="nb">sorted</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sort_index</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">sort_index</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">&lt;=</span> <span class="n">tini</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">sort_index</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">&gt;=</span> <span class="n">tfin</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="nb">sorted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timestamps</span><span class="p">[</span><span class="n">sort_index</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+
+    <span class="c1"># Test unique timestamps</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">sorted</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">sorted</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="k">del</span> <span class="nb">sorted</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Interpolation</span>
+    <span class="n">track1</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="nb">sorted</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="n">MODE_TEMPORAL</span><span class="p">)</span> 
+    <span class="n">track2</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="nb">sorted</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="n">MODE_TEMPORAL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="__smooth_resample_spatial"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.__smooth_resample_spatial">[docs]</a><span class="k">def</span> <span class="nf">__smooth_resample_spatial</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">ds</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">    Resampling of a track with spline interpolation</span>
+<span class="sd">    ds: curv abs interval (in m) between two samples&quot;&quot;&quot;</span>
+
+    <span class="n">S</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+        <span class="n">dl</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">S</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dl</span><span class="p">)</span>
+
+    <span class="n">sini</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sfin</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)((</span><span class="n">sfin</span> <span class="o">-</span> <span class="n">sini</span><span class="p">)</span> <span class="o">/</span> <span class="n">ds</span><span class="p">)</span>
+
+    <span class="n">Si</span> <span class="o">=</span> <span class="n">sini</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sfin</span><span class="p">,</span> <span class="n">ds</span><span class="p">)</span>
+
+    <span class="n">M</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)):</span>
+        <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">M</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Si</span><span class="p">)):</span>
+        <span class="n">Si</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Si</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">M</span>
+
+    <span class="n">D</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">makeDistanceMatrixOld</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">D</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">D</span> <span class="o">+</span> <span class="mf">1e-100</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">SPLINE_PENALIZATION</span>
+
+    <span class="n">ONES</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">ONES</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">ZEROS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="c1"># Design matrix</span>
+    <span class="n">UP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">ONES</span><span class="p">,</span> <span class="n">D</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">BOTTOM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">ZEROS</span><span class="p">,</span> <span class="n">ONES</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">UP</span><span class="p">,</span> <span class="n">BOTTOM</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Observations</span>
+    <span class="n">Yx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getX</span><span class="p">())</span>
+    <span class="n">Yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getY</span><span class="p">())</span>
+    <span class="n">Yz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getZ</span><span class="p">())</span>
+    <span class="n">Yt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getT</span><span class="p">())</span>
+
+    <span class="c1"># Right-hand side</span>
+    <span class="n">Bx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">Yx</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+    <span class="n">By</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">Yy</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+    <span class="n">Bz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">Yz</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+    <span class="n">Bt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">Yt</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+
+    <span class="c1"># X coordinate</span>
+    <span class="n">CX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">Bx</span><span class="p">)</span>
+    <span class="n">bx</span> <span class="o">=</span> <span class="n">CX</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax0</span> <span class="o">=</span> <span class="n">CX</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">CX</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Y coordinate</span>
+    <span class="n">CY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">By</span><span class="p">)</span>
+    <span class="n">by</span> <span class="o">=</span> <span class="n">CY</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="n">CY</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">ay0</span> <span class="o">=</span> <span class="n">CY</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ay1</span> <span class="o">=</span> <span class="n">CY</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Z coordinate</span>
+    <span class="n">CZ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">Bz</span><span class="p">)</span>
+    <span class="n">bz</span> <span class="o">=</span> <span class="n">CZ</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="n">CZ</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">az0</span> <span class="o">=</span> <span class="n">CZ</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">az1</span> <span class="o">=</span> <span class="n">CZ</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Timestamps</span>
+    <span class="n">CT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">Bt</span><span class="p">)</span>
+    <span class="n">bt</span> <span class="o">=</span> <span class="n">CT</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="n">CT</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">at0</span> <span class="o">=</span> <span class="n">CT</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">at1</span> <span class="o">=</span> <span class="n">CT</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">PTS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+    <span class="n">Di</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">makeDistanceMatrixOld</span><span class="p">(</span><span class="n">Si</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
+
+    <span class="n">Xi</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">Si</span><span class="p">)</span>
+    <span class="n">Yi</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">Si</span><span class="p">)</span>
+    <span class="n">Zi</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">Si</span><span class="p">)</span>
+    <span class="n">Ti</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">Si</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Si</span><span class="p">)):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">Di</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Di</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="mf">1e-100</span><span class="p">)</span>
+        <span class="n">Xi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ax0</span> <span class="o">+</span> <span class="n">ax1</span> <span class="o">*</span> <span class="n">Si</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">bx</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+        <span class="n">Yi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ay0</span> <span class="o">+</span> <span class="n">ay1</span> <span class="o">*</span> <span class="n">Si</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">by</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+        <span class="n">Zi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">az0</span> <span class="o">+</span> <span class="n">az1</span> <span class="o">*</span> <span class="n">Si</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">bz</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+        <span class="n">Ti</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">at0</span> <span class="o">+</span> <span class="n">at1</span> <span class="o">*</span> <span class="n">Si</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">bt</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+
+    <span class="n">OBS</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Si</span><span class="p">)):</span>
+        <span class="n">OBS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Obs</span><span class="p">(</span><span class="n">ENUCoords</span><span class="p">(</span><span class="n">Xi</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">Yi</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">Zi</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readUnixTime</span><span class="p">(</span><span class="n">Ti</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span>
+
+    <span class="n">track</span><span class="o">.</span><span class="n">setObsList</span><span class="p">(</span><span class="n">OBS</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="__smooth_resample_temporal"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.__smooth_resample_temporal">[docs]</a><span class="k">def</span> <span class="nf">__smooth_resample_temporal</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">reference</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">    Resampling of a track with spline interpolation</span>
+<span class="sd">    reference: list of timestamps, track or sec interval&quot;&quot;&quot;</span>
+
+    <span class="n">T</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+        <span class="n">T</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">())</span>
+
+    <span class="n">tini</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">tfin</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Preparing reference list</span>
+    <span class="n">REF</span> <span class="o">=</span> <span class="n">prepareTimeSampling</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">tini</span><span class="p">,</span> <span class="n">tfin</span><span class="p">)</span>
+
+    <span class="n">M</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)):</span>
+        <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">M</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">REF</span><span class="p">)):</span>
+        <span class="n">REF</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">REF</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">M</span>
+
+    <span class="n">D</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">makeDistanceMatrixOld</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">D</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">D</span> <span class="o">+</span> <span class="mf">1e-100</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">SPLINE_PENALIZATION</span>
+
+    <span class="n">ONES</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">ONES</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">ZEROS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="c1"># Design matrix</span>
+    <span class="n">UP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">ONES</span><span class="p">,</span> <span class="n">D</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">BOTTOM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">ZEROS</span><span class="p">,</span> <span class="n">ONES</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">UP</span><span class="p">,</span> <span class="n">BOTTOM</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Observations</span>
+    <span class="n">Yx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getX</span><span class="p">())</span>
+    <span class="n">Yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getY</span><span class="p">())</span>
+    <span class="n">Yz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getZ</span><span class="p">())</span>
+
+    <span class="c1"># Right-hand side</span>
+    <span class="n">Bx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">Yx</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+    <span class="n">By</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">Yy</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+    <span class="n">Bz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">Yz</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+
+    <span class="c1"># X coefficients</span>
+    <span class="n">CX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">Bx</span><span class="p">)</span>
+    <span class="n">bx</span> <span class="o">=</span> <span class="n">CX</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax0</span> <span class="o">=</span> <span class="n">CX</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">CX</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Y coefficients</span>
+    <span class="n">CY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">By</span><span class="p">)</span>
+    <span class="n">by</span> <span class="o">=</span> <span class="n">CY</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="n">CY</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">ay0</span> <span class="o">=</span> <span class="n">CY</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ay1</span> <span class="o">=</span> <span class="n">CY</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Z coefficients</span>
+    <span class="n">CZ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">Bz</span><span class="p">)</span>
+    <span class="n">bz</span> <span class="o">=</span> <span class="n">CZ</span><span class="p">[</span><span class="mi">2</span> <span class="p">:</span> <span class="n">CZ</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">az0</span> <span class="o">=</span> <span class="n">CZ</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">az1</span> <span class="o">=</span> <span class="n">CZ</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">PTS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">Di</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">makeDistanceMatrixOld</span><span class="p">(</span><span class="n">REF</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+
+    <span class="n">Xi</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">REF</span><span class="p">)</span>
+    <span class="n">Yi</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">REF</span><span class="p">)</span>
+    <span class="n">Zi</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">REF</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">REF</span><span class="p">)):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">Di</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Di</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="mf">1e-100</span><span class="p">)</span>
+        <span class="n">Xi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ax0</span> <span class="o">+</span> <span class="n">ax1</span> <span class="o">*</span> <span class="n">REF</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">bx</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+        <span class="n">Yi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ay0</span> <span class="o">+</span> <span class="n">ay1</span> <span class="o">*</span> <span class="n">REF</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">by</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+        <span class="n">Zi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">az0</span> <span class="o">+</span> <span class="n">az1</span> <span class="o">*</span> <span class="n">REF</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">bz</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+
+    <span class="n">OBS</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">REF</span><span class="p">)):</span>
+        <span class="n">OBS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">Obs</span><span class="p">(</span><span class="n">ENUCoords</span><span class="p">(</span><span class="n">Xi</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">Yi</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">Zi</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readUnixTime</span><span class="p">(</span><span class="n">REF</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">M</span><span class="p">))</span>
+        <span class="p">)</span>
+
+    <span class="n">track</span><span class="o">.</span><span class="n">setObsList</span><span class="p">(</span><span class="n">OBS</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="__phi"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.__phi">[docs]</a><span class="k">def</span> <span class="nf">__phi</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tab</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="nb">len</span><span class="p">(</span><span class="n">tab</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">n</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">400</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">id</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="nb">id</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tab</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">tab</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="__bsplines_temporal"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.__bsplines_temporal">[docs]</a><span class="k">def</span> <span class="nf">__bsplines_temporal</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">reference</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">knots_nb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">    Resampling of a track with B-spline interpolation</span>
+<span class="sd">    reference: list of timestamps, track or sec interval&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">degree</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Error: B-spline of order &gt; 3 is not supported&quot;</span><span class="p">)</span>
+
+    <span class="n">T</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getT</span><span class="p">()</span>
+
+    <span class="n">tini</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">tfin</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Preparing reference list</span>
+    <span class="n">REF</span> <span class="o">=</span> <span class="n">prepareTimeSampling</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">tini</span><span class="p">,</span> <span class="n">tfin</span><span class="p">)</span>
+
+    <span class="c1"># Data reduction for numerical stability</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getX</span><span class="p">())</span>
+    <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getY</span><span class="p">())</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getZ</span><span class="p">())</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="n">Mt</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">Mx</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">My</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+    <span class="n">Mz</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+        <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">Mx</span>
+        <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">My</span>
+        <span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">Mz</span>
+        <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">Mt</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">REF</span><span class="p">)):</span>
+        <span class="n">REF</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">REF</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">Mt</span>
+
+    <span class="c1"># Base resolution computation</span>
+    <span class="k">if</span> <span class="n">knots_nb</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">knots_nb</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">knots_nb</span> <span class="o">&gt;</span> <span class="n">T</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Error: spline basis resolution (&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">)(</span><span class="n">knots_nb</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;) &quot;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;is greater than track time duration (&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">)(</span><span class="n">T</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;). &quot;</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="n">BP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">knots_nb</span><span class="p">)</span>
+
+    <span class="c1"># Kernel computation</span>
+    <span class="n">phi0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">400</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">800</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">400</span><span class="p">)</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">400</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">800</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">400</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">degree</span><span class="p">):</span>
+        <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">phi0</span><span class="p">)</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+
+    <span class="n">kfunc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">__phi</span><span class="p">(</span><span class="n">t</span> <span class="o">/</span> <span class="n">knots_nb</span><span class="p">,</span> <span class="n">phi</span><span class="p">))</span>
+
+    <span class="c1"># Spline coefficients</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">kfunc</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">makeDistanceMatrixOld</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">BP</span><span class="p">))</span>
+    <span class="n">DI</span> <span class="o">=</span> <span class="n">kfunc</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">makeDistanceMatrixOld</span><span class="p">(</span><span class="n">BP</span><span class="p">,</span> <span class="n">REF</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">)))</span>
+
+    <span class="c1"># Interpolation</span>
+    <span class="n">XYZi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">DI</span><span class="p">)</span>
+
+    <span class="n">OBS</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">REF</span><span class="p">)):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">XYZi</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">Mx</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">XYZi</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">My</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">XYZi</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">Mz</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">REF</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">Mt</span>
+        <span class="n">OBS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Obs</span><span class="p">(</span><span class="n">ENUCoords</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readUnixTime</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+
+    <span class="n">track</span><span class="o">.</span><span class="n">setObsList</span><span class="p">(</span><span class="n">OBS</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">BP</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Warning: number of basis functions (&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">)(</span><span class="n">BP</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;) &quot;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;is greater than number of constraints (&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">)(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;). &quot;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="p">(</span>
+            <span class="s2">&quot;Least squares problem is not tighly constrained: solution may be unstable.&quot;</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="__bsplines_spatial"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.__bsplines_spatial">[docs]</a><span class="k">def</span> <span class="nf">__bsplines_spatial</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">knots_nb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">    Resampling of a track with spline interpolation</span>
+<span class="sd">    ds: curv abs interval (in m) between two samples&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">degree</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Error: B-spline of order &gt; 3 is not supported&quot;</span><span class="p">)</span>
+
+    <span class="n">S</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+        <span class="n">dl</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">S</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dl</span><span class="p">)</span>
+
+    <span class="n">sini</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sfin</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">Si</span> <span class="o">=</span> <span class="n">sini</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sfin</span><span class="p">,</span> <span class="n">ds</span><span class="p">)</span>
+
+    <span class="n">M</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)):</span>
+        <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">M</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Si</span><span class="p">)):</span>
+        <span class="n">Si</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Si</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">M</span>
+
+    <span class="c1"># Data reduction for numerical stability</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getX</span><span class="p">())</span>
+    <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getY</span><span class="p">())</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getZ</span><span class="p">())</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getT</span><span class="p">())</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+
+    <span class="n">Mx</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">My</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+    <span class="n">Mz</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+    <span class="n">Mt</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+        <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">Mx</span>
+        <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">My</span>
+        <span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">Mz</span>
+        <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">Mt</span>
+
+    <span class="c1"># Base resolution computation</span>
+    <span class="k">if</span> <span class="n">knots_nb</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">knots_nb</span> <span class="o">=</span> <span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">knots_nb</span> <span class="o">=</span> <span class="n">knots_nb</span> <span class="o">/</span> <span class="n">M</span>
+
+    <span class="k">if</span> <span class="n">knots_nb</span> <span class="o">&gt;</span> <span class="n">S</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Error: spline basis resolution (&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">)(</span><span class="n">knots_nb</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;) &quot;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;is greater than track length (&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">)(</span><span class="n">S</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;). &quot;</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="n">BP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">S</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">knots_nb</span><span class="p">)</span>
+
+    <span class="c1"># Kernel computation</span>
+    <span class="n">phi0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">400</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">800</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">400</span><span class="p">)</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">400</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">800</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">400</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">degree</span><span class="p">):</span>
+        <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">phi0</span><span class="p">)</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+
+    <span class="n">kfunc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">__phi</span><span class="p">(</span><span class="n">t</span> <span class="o">/</span> <span class="n">knots_nb</span><span class="p">,</span> <span class="n">phi</span><span class="p">))</span>
+
+    <span class="c1"># Spline coefficients</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">kfunc</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">makeDistanceMatrixOld</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">BP</span><span class="p">))</span>
+    <span class="n">DI</span> <span class="o">=</span> <span class="n">kfunc</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">makeDistanceMatrixOld</span><span class="p">(</span><span class="n">BP</span><span class="p">,</span> <span class="n">Si</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">T</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">T</span><span class="p">)))</span>
+
+    <span class="c1"># Interpolation</span>
+    <span class="n">XYZi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">DI</span><span class="p">)</span>
+
+    <span class="n">OBS</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Si</span><span class="p">)):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">XYZi</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">Mx</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">XYZi</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">My</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">XYZi</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">Mz</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">XYZi</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">Mt</span>
+        <span class="n">OBS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Obs</span><span class="p">(</span><span class="n">ENUCoords</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="n">ObsTime</span><span class="o">.</span><span class="n">readUnixTime</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+
+    <span class="n">track</span><span class="o">.</span><span class="n">setObsList</span><span class="p">(</span><span class="n">OBS</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">BP</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Warning: number of basis functions (&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">)(</span><span class="n">BP</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;) &quot;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;is greater than number of constraints (&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">)(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;). &quot;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="p">(</span>
+            <span class="s2">&quot;Least squares problem is not tighly constrained: solution may be unstable.&quot;</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="smooth_cv"><a class="viewcode-back" href="../../../api/algo/algo-interpolation.html#tracklib.algo.Interpolation.smooth_cv">[docs]</a><span class="k">def</span> <span class="nf">smooth_cv</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">smooth_function</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">[],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cross validation for determining optimal parameters of</span>
+<span class="sd">     smoothing/interpolating/simplifying functions</span>
+
+<span class="sd">    Note that if params contains a single element, smooth_cv function is a simple</span>
+<span class="sd">    statistical control. If no parameters are provided in input, a default set of 1000</span>
+<span class="sd">    positive parameters sampled according to a logarithmic scale between 1e-9 and 1e9</span>
+<span class="sd">    is considered.</span>
+
+<span class="sd">    :param track: a (timestamped) track on which cross validation is performed</span>
+<span class="sd">    :param smooth_function: any function with track as input and output</span>
+<span class="sd">    :param params: a list of parameters to test in smooth_function</span>
+<span class="sd">    :return: TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------------------------&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;CROSS VALIDATION OF SMOOTHING FUNCTION &quot;</span> <span class="o">+</span> <span class="n">smooth_function</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------------------------&quot;</span><span class="p">)</span>
+
+    <span class="n">track_train</span> <span class="o">=</span> <span class="n">track</span> <span class="o">%</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
+    <span class="n">track_valid</span> <span class="o">=</span> <span class="n">track</span> <span class="o">%</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">params</span><span class="p">))</span> <span class="o">==</span> <span class="s2">&quot;&lt;class &#39;list&#39;&gt;&quot;</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">params</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1e9</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.5</span><span class="p">))</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.5</span> <span class="o">**</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="p">)]</span>
+
+    <span class="n">opt_rmse</span> <span class="o">=</span> <span class="mf">1e300</span>
+    <span class="n">opt_param</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+
+        <span class="n">track_test</span> <span class="o">=</span> <span class="n">smooth_function</span><span class="p">(</span><span class="n">track_train</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+        <span class="n">track_test</span> <span class="o">//=</span> <span class="n">track_valid</span>
+
+        <span class="n">RMSE</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track_test</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">RMSE</span> <span class="o">+=</span> <span class="n">track_test</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">track_valid</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+
+        <span class="n">RMSE</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">RMSE</span> <span class="o">/</span> <span class="n">track_test</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">RMSE</span> <span class="o">&lt;</span> <span class="n">opt_rmse</span><span class="p">:</span>
+            <span class="n">opt_rmse</span> <span class="o">=</span> <span class="n">RMSE</span>
+            <span class="n">opt_param</span> <span class="o">=</span> <span class="n">param</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">smooth_function</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; PARAMETER &quot;</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="p">(</span>
+                <span class="s2">&quot;</span><span class="si">{:18.7f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">param</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -  RMSE = &quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{:7.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">RMSE</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; m&quot;</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------------------------&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;BEST PARAMETER &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{:7.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">opt_param</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot; -  RMSE = &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{:6.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">opt_rmse</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot; m&quot;</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------------------------&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">opt_param</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LASTIG lab, French National Institute of Geographic and Forest Information.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

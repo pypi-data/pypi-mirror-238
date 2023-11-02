@@ -1,0 +1,576 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tracklib.io.RasterReader &#8212; TrackLib 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/tracklib/io/RasterReader';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../../_static/TracklibLogo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../../_static/TracklibLogo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <h1>Source code for tracklib.io.RasterReader</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This class offer static methods to load raster data:</span>
+<span class="sd">    - read raster from ascii files, </span>
+<span class="sd">    - get DTM data from IGN web services.    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+<span class="c1"># For type annotation</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>   
+<span class="c1">#from typing import Union</span>
+
+<span class="kn">from</span> <span class="nn">tracklib.core</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Bbox</span><span class="p">,</span> <span class="n">RasterBand</span><span class="p">,</span> <span class="n">Raster</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.ObsCoords</span> <span class="kn">import</span> <span class="p">(</span><span class="n">ENUCoords</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="RasterReader"><a class="viewcode-back" href="../../../api/io/io-rasterreader.html#tracklib.io.RasterReader.RasterReader">[docs]</a><span class="k">class</span> <span class="nc">RasterReader</span><span class="p">:</span>
+    
+    
+<div class="viewcode-block" id="RasterReader.readMetadataFromAscFile"><a class="viewcode-back" href="../../../api/io/io-rasterreader.html#tracklib.io.RasterReader.RasterReader.readMetadataFromAscFile">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">readMetadataFromAscFile</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">Raster</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        
+        <span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fichier</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">fichier</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+            <span class="n">fichier</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            
+        <span class="c1"># Build an empty grid</span>
+        <span class="n">xllcorner</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">yllcorner</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">cellsize</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">nrows</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ncols</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="n">cptrowheader</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">novalue</span> <span class="o">=</span> <span class="n">RasterBand</span><span class="o">.</span><span class="n">NO_DATA_VALUE</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="n">cle</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">cle</span> <span class="ow">in</span>  <span class="p">[</span><span class="s1">&#39;ncols&#39;</span><span class="p">,</span> <span class="s1">&#39;nrows&#39;</span><span class="p">,</span> <span class="s1">&#39;xllcorner&#39;</span><span class="p">,</span> <span class="s1">&#39;yllcorner&#39;</span><span class="p">,</span> <span class="s1">&#39;cellsize&#39;</span><span class="p">,</span> <span class="s1">&#39;NODATA_value&#39;</span><span class="p">]:</span>
+                <span class="n">cptrowheader</span> <span class="o">+=</span> <span class="mi">1</span>
+                    
+                <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">while</span> <span class="n">val</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    
+                <span class="k">if</span> <span class="n">cle</span> <span class="o">==</span> <span class="s1">&#39;ncols&#39;</span><span class="p">:</span>
+                    <span class="n">ncols</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">cle</span> <span class="o">==</span> <span class="s1">&#39;nrows&#39;</span><span class="p">:</span>
+                    <span class="n">nrows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">cle</span> <span class="o">==</span> <span class="s1">&#39;xllcorner&#39;</span><span class="p">:</span>
+                    <span class="n">xllcorner</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">cle</span> <span class="o">==</span> <span class="s1">&#39;yllcorner&#39;</span><span class="p">:</span>
+                    <span class="n">yllcorner</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">cle</span> <span class="o">==</span> <span class="s1">&#39;cellsize&#39;</span><span class="p">:</span>
+                    
+                    <span class="n">cellsize</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">cle</span> <span class="o">==</span> <span class="s1">&#39;NODATA_value&#39;</span><span class="p">:</span>
+                    <span class="n">novalue</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+                    
+        <span class="n">ll</span> <span class="o">=</span> <span class="n">ENUCoords</span><span class="p">(</span><span class="n">xllcorner</span><span class="p">,</span> <span class="n">yllcorner</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">ur</span> <span class="o">=</span> <span class="n">ENUCoords</span><span class="p">(</span><span class="n">xllcorner</span> <span class="o">+</span> <span class="n">cellsize</span> <span class="o">*</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">yllcorner</span> <span class="o">+</span> <span class="n">cellsize</span> <span class="o">*</span> <span class="n">nrows</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">Bbox</span><span class="o">.</span><span class="n">Bbox</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span> <span class="n">ur</span><span class="p">)</span>
+            
+        <span class="n">resolution</span> <span class="o">=</span> <span class="p">(</span><span class="n">cellsize</span><span class="p">,</span> <span class="n">cellsize</span><span class="p">)</span>
+        <span class="n">marge</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">RasterBand</span><span class="o">.</span><span class="n">DEFAULT_NAME</span>
+            
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">RasterBand</span><span class="o">.</span><span class="n">RasterBand</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="n">marge</span><span class="p">,</span> 
+                         <span class="n">novalue</span><span class="o">=</span><span class="n">novalue</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+           
+        <span class="k">return</span> <span class="n">grid</span></div>
+    
+    
+<div class="viewcode-block" id="RasterReader.readFromAscFile"><a class="viewcode-back" href="../../../api/io/io-rasterreader.html#tracklib.io.RasterReader.RasterReader.readFromAscFile">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">readFromAscFile</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">Raster</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Read grid data from an ASCII file. The first six lines of the file indicate the reference of the grid, </span>
+<span class="sd">        followed by the values listed in the order they would appear (left to right and top to bottom).</span>
+<span class="sd">        Where:</span>
+<span class="sd">            - ncols is the numbers of rows (represented as integers)</span>
+<span class="sd">            - nrows is the numbers of rows (represented as integers)</span>
+<span class="sd">            - Lower-left corner refers to a cell corner, and not to a data point</span>
+<span class="sd">            - xllcorner and yllcorner are the western (left) X coordinate and southern (bottom) Y coordinates, such as easting and northing (represented as real numbers with an optional decimal point)</span>
+<span class="sd">            - xllcorner and yllcorner are the X and Y coordinates for the lower left corner of the lower left grid cell. Some ESRI raster files use xllcenter and yllcenter instead for the XY reference point, which indicate the X and Y coordinates for the center of the lower left grid cell. These values are represented as real numbers with an optional decimal point</span>
+<span class="sd">            - cellsize is the length of one side of a square cell (a real number)</span>
+<span class="sd">            - nodata_value is the value that is regarded as &quot;missing&quot; or &quot;not applicable&quot;; this line is optional, but highly recommended as some programs expect this line to be declared (a real number)</span>
+
+<span class="sd">        </span>
+<span class="sd">        Example</span>
+<span class="sd">        *********</span>
+<span class="sd">        </span>
+<span class="sd">        .. code-block:: python</span>
+<span class="sd">        </span>
+<span class="sd">           raster = RasterReader.readFromAscFile(&#39;data/asc/RGEALTI_0930_6415_LAMB93_IGN69.asc&#39;)</span>
+<span class="sd">           grid = raster.getRasterBand(1)</span>
+<span class="sd">           self.assertEqual(1000, grid.nrow)</span>
+
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+<span class="sd">        path : str</span>
+<span class="sd">            chemin du fichier.</span>
+<span class="sd">        name: str</span>
+<span class="sd">            nom de la band du raster, par exemple &#39;speed#avg&#39;</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        --------</span>
+<span class="sd">        Raster</span>
+<span class="sd">            DESCRIPTION.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        
+        <span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fichier</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">fichier</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+            <span class="n">fichier</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            
+        <span class="c1"># Build an empty grid</span>
+        <span class="n">xllcorner</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">yllcorner</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">cellsize</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">nrows</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ncols</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="n">cptrowheader</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">novalue</span> <span class="o">=</span> <span class="n">RasterBand</span><span class="o">.</span><span class="n">NO_DATA_VALUE</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="n">cle</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">cle</span> <span class="ow">in</span>  <span class="p">[</span><span class="s1">&#39;ncols&#39;</span><span class="p">,</span> <span class="s1">&#39;nrows&#39;</span><span class="p">,</span> <span class="s1">&#39;xllcorner&#39;</span><span class="p">,</span> <span class="s1">&#39;yllcorner&#39;</span><span class="p">,</span> <span class="s1">&#39;cellsize&#39;</span><span class="p">,</span> <span class="s1">&#39;NODATA_value&#39;</span><span class="p">]:</span>
+                <span class="n">cptrowheader</span> <span class="o">+=</span> <span class="mi">1</span>
+                    
+                <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">while</span> <span class="n">val</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    
+                <span class="k">if</span> <span class="n">cle</span> <span class="o">==</span> <span class="s1">&#39;ncols&#39;</span><span class="p">:</span>
+                    <span class="n">ncols</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">cle</span> <span class="o">==</span> <span class="s1">&#39;nrows&#39;</span><span class="p">:</span>
+                    <span class="n">nrows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">cle</span> <span class="o">==</span> <span class="s1">&#39;xllcorner&#39;</span><span class="p">:</span>
+                    <span class="n">xllcorner</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">cle</span> <span class="o">==</span> <span class="s1">&#39;yllcorner&#39;</span><span class="p">:</span>
+                    <span class="n">yllcorner</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">cle</span> <span class="o">==</span> <span class="s1">&#39;cellsize&#39;</span><span class="p">:</span>
+                    
+                    <span class="n">cellsize</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">cle</span> <span class="o">==</span> <span class="s1">&#39;NODATA_value&#39;</span><span class="p">:</span>
+                    <span class="n">novalue</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+                    
+        <span class="n">ll</span> <span class="o">=</span> <span class="n">ENUCoords</span><span class="p">(</span><span class="n">xllcorner</span><span class="p">,</span> <span class="n">yllcorner</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">ur</span> <span class="o">=</span> <span class="n">ENUCoords</span><span class="p">(</span><span class="n">xllcorner</span> <span class="o">+</span> <span class="n">cellsize</span> <span class="o">*</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">yllcorner</span> <span class="o">+</span> <span class="n">cellsize</span> <span class="o">*</span> <span class="n">nrows</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">Bbox</span><span class="o">.</span><span class="n">Bbox</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span> <span class="n">ur</span><span class="p">)</span>
+            
+        <span class="n">resolution</span> <span class="o">=</span> <span class="p">(</span><span class="n">cellsize</span><span class="p">,</span> <span class="n">cellsize</span><span class="p">)</span>
+        <span class="n">marge</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">RasterBand</span><span class="o">.</span><span class="n">DEFAULT_NAME</span>
+            
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">RasterBand</span><span class="o">.</span><span class="n">RasterBand</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="n">marge</span><span class="p">,</span> 
+                         <span class="n">novalue</span><span class="o">=</span><span class="n">novalue</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+           
+        <span class="c1"># Read the values</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="n">cptrowheader</span><span class="p">:]:</span>
+            <span class="n">lineValues</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">lineValues</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">val</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                
+                <span class="n">grid</span><span class="o">.</span><span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+                
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Return raster with one grid            </span>
+        <span class="k">return</span> <span class="n">Raster</span><span class="o">.</span><span class="n">Raster</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span></div></div>
+
+
+<span class="c1">#    @staticmethod</span>
+<span class="c1">#    def getAltitude(bbox, proj=None, nomproxy=None):</span>
+<span class="c1">#        URL_ELEVATION = &#39;&#39;</span>
+<span class="c1">#        # https://wxs.ign.fr/altimetrie/geoportail/r/wms?LAYERS=ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES&amp;EXCEPTIONS=text/xml&amp;FORMAT=image%2Fgeotiff&amp;SERVICE=WMS&amp;VERSION=1.3.0&amp;REQUEST=GetMap&amp;STYLES=&amp;CRS=EPSG:2154&amp;BBOX=660034.3692562445,6859000.245020923,660169.3953205446,6859140.163403969&amp;WIDTH=2048&amp;HEIGHT=2048</span>
+
+        
+        
+        
+</pre></div>
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2022, LASTIG lab, French National Institute of Geographic and Forest Information.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="theme-version">
+    Built with the
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">
+        PyData Sphinx Theme
+    </a>
+    0.12.0.
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

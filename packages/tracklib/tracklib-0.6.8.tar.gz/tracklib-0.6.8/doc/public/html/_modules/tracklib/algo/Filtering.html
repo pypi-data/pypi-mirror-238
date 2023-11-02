@@ -1,0 +1,688 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tracklib.algo.Filtering &#8212; TrackLib 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/tracklib/algo/Filtering';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../../_static/TracklibLogo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../../_static/TracklibLogo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <h1>Source code for tracklib.algo.Filtering</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Class to manage filtering of GPS tracks&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">tracklib.core.Operator</span> <span class="kn">import</span> <span class="n">Operator</span>
+
+<span class="kn">from</span> <span class="nn">tracklib.algo.Dynamics</span> <span class="kn">import</span> <span class="n">MODE_OBS_AND_STATES_AS_3D_POSITIONS</span>
+<span class="kn">from</span> <span class="nn">tracklib.algo.Dynamics</span> <span class="kn">import</span> <span class="n">DYN_MAT_2D_CST_SPEED</span>
+<span class="kn">from</span> <span class="nn">tracklib.algo.Dynamics</span> <span class="kn">import</span> <span class="n">HMM</span> <span class="k">as</span> <span class="n">dynamics_hmm</span>
+
+<span class="n">FILTER_LOW_PASS</span> <span class="o">=</span> <span class="mi">0</span>     <span class="c1"># Low-pass brick-wall filter</span>
+<span class="n">FILTER_HIGH_PASS</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># High-pass brick-wall filter</span>
+
+<span class="n">FILTER_TEMPORAL</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">FILTER_SPATIAL</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">FILTER_X</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
+<span class="n">FILTER_Y</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span>
+<span class="n">FILTER_Z</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;z&quot;</span><span class="p">]</span>
+<span class="n">FILTER_XY</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">]</span>
+<span class="n">FILTER_XZ</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">]</span>
+<span class="n">FILTER_YZ</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">]</span>
+<span class="n">FILTER_XYZ</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">]</span>
+
+<span class="n">KALMAN_FORWARD</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">KALMAN_BACKWARD</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">KALMAN_COMBINED</span> <span class="o">=</span> <span class="mi">2</span>
+
+
+
+<span class="c1"># Parameter of generic </span>
+
+<span class="c1"># -----------------------------------------</span>
+<span class="c1"># Global variables for Markov filtering</span>
+<span class="c1"># -----------------------------------------</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: TODO</span>
+<span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: TODO</span>
+<span class="c1"># -----------------------------------------</span>
+
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="c1"># TODO: Gaussian process filtering</span>
+<span class="c1"># --------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="gaussianProcess"><a class="viewcode-back" href="../../../api/algo/algo-filtering.html#tracklib.algo.Filtering.gaussianProcess">[docs]</a><span class="k">def</span> <span class="nf">gaussianProcess</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="c1"># TODO: Wavelet filtering (Donoho and Johnstone)</span>
+<span class="c1"># --------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="waveletTransform"><a class="viewcode-back" href="../../../api/algo/algo-filtering.html#tracklib.algo.Filtering.waveletTransform">[docs]</a><span class="k">def</span> <span class="nf">waveletTransform</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="waveletFiltering"><a class="viewcode-back" href="../../../api/algo/algo-filtering.html#tracklib.algo.Filtering.waveletFiltering">[docs]</a><span class="k">def</span> <span class="nf">waveletFiltering</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="c1"># TODO: Karhunen-Loeve filtering</span>
+<span class="c1"># --------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="KLBasis"><a class="viewcode-back" href="../../../api/algo/algo-filtering.html#tracklib.algo.Filtering.KLBasis">[docs]</a><span class="k">def</span> <span class="nf">KLBasis</span><span class="p">(</span><span class="n">TrackCollection</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="KLTransform"><a class="viewcode-back" href="../../../api/algo/algo-filtering.html#tracklib.algo.Filtering.KLTransform">[docs]</a><span class="k">def</span> <span class="nf">KLTransform</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="KLFiltering"><a class="viewcode-back" href="../../../api/algo/algo-filtering.html#tracklib.algo.Filtering.KLFiltering">[docs]</a><span class="k">def</span> <span class="nf">KLFiltering</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="c1"># Filtering with Unscented Kalman filter based on speed regularization</span>
+<span class="c1"># Inputs:</span>
+<span class="c1">#    - track: a track to filter</span>
+<span class="c1">#    - sigma: Positional standard deviation (in ground units)</span>
+<span class="c1">#    - speed: standard deviation of speed</span>
+<span class="c1">#    - speed_af: AF field containing speeds (optional)</span>
+<span class="c1">#    - mode : forward, backward or combined</span>
+<span class="c1"># Important: tracks are assumed to be sampled at constant time frequency</span>
+<span class="c1"># --------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="__kalman"><a class="viewcode-back" href="../../../api/algo/algo-filtering.html#tracklib.algo.Filtering.__kalman">[docs]</a><span class="k">def</span> <span class="nf">__kalman</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">speed_std</span><span class="p">,</span> <span class="n">speed_af</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+
+    <span class="n">track</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">frequency</span><span class="p">())</span>
+    
+    <span class="kn">from</span> <span class="nn">tracklib.algo.Dynamics</span> <span class="kn">import</span> <span class="n">Kalman</span> <span class="k">as</span> <span class="n">dynamics_kalman</span>
+
+    <span class="c1"># -----------------------------------------------------</span>
+    <span class="c1"># Mode speed recorded in AF field</span>
+    <span class="c1"># -----------------------------------------------------</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">speed_af</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+
+        <span class="n">F</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">DYN_MAT_2D_CST_SPEED</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="o">@</span> <span class="n">x</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="p">[(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">]]</span>
+        <span class="p">)</span>
+
+        <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">Q</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">Q</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">R</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">speed_std</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">X0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="n">track</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()],</span> <span class="p">[</span><span class="n">track</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="p">)</span>
+        <span class="n">P0</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+        <span class="n">UKF</span> <span class="o">=</span> <span class="n">dynamics_kalman</span><span class="p">(</span><span class="n">spreading</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">UKF</span><span class="o">.</span><span class="n">setTransition</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+        <span class="n">UKF</span><span class="o">.</span><span class="n">setObservation</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+        <span class="n">UKF</span><span class="o">.</span><span class="n">setInitState</span><span class="p">(</span><span class="n">X0</span><span class="p">,</span> <span class="n">P0</span><span class="p">)</span>
+
+        <span class="n">UKF</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">speed_af</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+    <span class="c1"># -----------------------------------------------------</span>
+    <span class="c1"># Mode prior information on speed based on std value</span>
+    <span class="c1"># -----------------------------------------------------</span>
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">F</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span>  <span class="c1"># Transition model</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]])</span>  <span class="c1"># Observation model</span>
+
+        <span class="n">Q</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span> <span class="o">*</span> <span class="n">speed_std</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Transition covariance</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Observation covariance</span>
+
+        <span class="n">p0</span> <span class="o">=</span> <span class="n">track</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">position</span>  <span class="c1"># First position</span>
+        <span class="n">X0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">p0</span><span class="o">.</span><span class="n">getX</span><span class="p">()],</span> <span class="p">[</span><span class="n">p0</span><span class="o">.</span><span class="n">getY</span><span class="p">()]])</span>  <span class="c1"># Initial state</span>
+        <span class="n">P0</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Initial covariance</span>
+
+        <span class="n">UKF</span> <span class="o">=</span> <span class="n">dynamics_kalman</span><span class="p">(</span><span class="n">spreading</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">UKF</span><span class="o">.</span><span class="n">setTransition</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>   <span class="c1"># Dynamic model</span>
+        <span class="n">UKF</span><span class="o">.</span><span class="n">setObservation</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>  <span class="c1"># Observation model</span>
+        <span class="n">UKF</span><span class="o">.</span><span class="n">setInitState</span><span class="p">(</span><span class="n">X0</span><span class="p">,</span> <span class="n">P0</span><span class="p">)</span>  <span class="c1"># Initialization</span>
+
+        <span class="n">UKF</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)):</span>
+        <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;kf_0&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+        <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;kf_1&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">track</span></div>
+
+
+<div class="viewcode-block" id="Kalman"><a class="viewcode-back" href="../../../api/algo/algo-filtering.html#tracklib.algo.Filtering.Kalman">[docs]</a><span class="k">def</span> <span class="nf">Kalman</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">speed_std</span><span class="p">,</span> <span class="n">speed_af</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">KALMAN_FORWARD</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">KALMAN_FORWARD</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">__kalman</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">speed_std</span><span class="p">,</span> <span class="n">speed_af</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">KALMAN_BACKWARD</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">__kalman</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">reverse</span><span class="p">(),</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">speed_std</span><span class="p">,</span> <span class="n">speed_af</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">KALMAN_COMBINED</span><span class="p">:</span>
+        <span class="n">track_fwd</span> <span class="o">=</span> <span class="n">Kalman</span><span class="p">(</span>
+            <span class="n">track</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">speed_std</span><span class="p">,</span> <span class="n">speed_af</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">KALMAN_FORWARD</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
+        <span class="p">)</span>
+        <span class="n">track_bwd</span> <span class="o">=</span> <span class="n">Kalman</span><span class="p">(</span>
+            <span class="n">track</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">speed_std</span><span class="p">,</span> <span class="n">speed_af</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">KALMAN_BACKWARD</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">track_fwd</span><span class="p">)):</span>
+            <span class="n">x_fusion</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="mf">0.5</span> <span class="o">*</span> <span class="n">track_fwd</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">track_bwd</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="n">y_fusion</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="mf">0.5</span> <span class="o">*</span> <span class="n">track_fwd</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">track_bwd</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="n">track_fwd</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="n">x_fusion</span><span class="p">)</span>
+            <span class="n">track_fwd</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="n">y_fusion</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">track_fwd</span></div>
+
+
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="c1"># Filtering with Markov process based on speed regularization</span>
+<span class="c1"># Inputs:</span>
+<span class="c1">#    - track: a track to filter</span>
+<span class="c1">#    - sigma: Positional standard deviation (in ground units)</span>
+<span class="c1">#    - speed: a function describing the speed distribution. It is a 3-valued</span>
+<span class="c1">#      function, where f(v,k,t) describes the (possibly non-normalized)</span>
+<span class="c1">#      probability value that track t is moving with speed v at epoch k. It</span>
+<span class="c1">#      may be (if necessary) computed with track analytical features or</span>
+<span class="c1">#      global external data such as DTM slope.</span>
+<span class="c1">#    - resolution: search grid resolution (in ground units). Note that the</span>
+<span class="c1">#      number N of states varies as the inverse of O(r^2), with r being the</span>
+<span class="c1">#      search grid resolution, while the time complexity of the overall</span>
+<span class="c1">#      algorithm is O(n^2). Therefore, the time required to compute a</span>
+<span class="c1">#      solution is proportional to the 4th power of (1/r). A resolution</span>
+<span class="c1">#      twice thinner implies 16 times longer computation. As thumb rule, the</span>
+<span class="c1">#      resoluton should be chosen around sigma/3, where sigma is the</span>
+<span class="c1">#      positional standrad deviation (in ground units). So, for a typical</span>
+<span class="c1">#      (standard positioning) GPS receiver with 3 m error, a search grid</span>
+<span class="c1">#      resolution of 1 m provides a thin modelization.</span>
+<span class="c1"># --------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="__Markov_S"><a class="viewcode-back" href="../../../api/algo/algo-filtering.html#tracklib.algo.Filtering.__Markov_S">[docs]</a><span class="k">def</span> <span class="nf">__Markov_S</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="n">etats</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sig</span> <span class="o">/</span> <span class="n">res</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">kx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ky</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">res</span> <span class="o">*</span> <span class="n">kx</span><span class="p">,</span> <span class="n">res</span> <span class="o">*</span> <span class="n">ky</span><span class="p">)</span>
+            <span class="n">etats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">etats</span></div>
+
+
+<div class="viewcode-block" id="__Markov_Plog"><a class="viewcode-back" href="../../../api/algo/algo-filtering.html#tracklib.algo.Filtering.__Markov_Plog">[docs]</a><span class="k">def</span> <span class="nf">__Markov_Plog</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="o">-</span><span class="p">((</span><span class="n">pi</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MarkovRegularization"><a class="viewcode-back" href="../../../api/algo/algo-filtering.html#tracklib.algo.Filtering.MarkovRegularization">[docs]</a><span class="k">def</span> <span class="nf">MarkovRegularization</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">resolution</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">res</span><span class="p">,</span> <span class="n">sig</span>
+    <span class="n">sig</span> <span class="o">=</span> <span class="n">sigma</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">resolution</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">dynamics_hmm</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">setStates</span><span class="p">(</span><span class="n">__Markov_S</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">setTransitionModel</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">setObservationModel</span><span class="p">(</span><span class="n">__Markov_Plog</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">setLog</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">obs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="n">MODE_OBS_AND_STATES_AS_3D_POSITIONS</span><span class="p">)</span></div>
+
+
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="c1"># Generic method to filter a track in the frequency domain</span>
+<span class="c1"># Mode :</span>
+<span class="c1">#     - FILTER_TEMPORAL (0)</span>
+<span class="c1">#     - FILTER_SPATIAL (1)</span>
+<span class="c1"># Type :</span>
+<span class="c1">#     - FILTER_LOW_PASS (0) or &quot;low&quot; for low-pass filter</span>
+<span class="c1">#     - FILTER_HIGH_PASS (1) or &quot;high&quot; for high pass filter</span>
+<span class="c1"># Cut-off frequency fc :</span>
+<span class="c1">#     - All frequencies above (resp. below) fc are filtered for low-pass</span>
+<span class="c1"># Dimension dim : FILTER_X, FILTER_Y, FILTER_Z, FILTER_XY, FILTER_YZ,</span>
+<span class="c1"># FILTER_XY or FILTER XYZ depending in the number of dimensions to filter</span>
+<span class="c1"># (resp.) high-pass filter. May also be a list of analytical features names</span>
+<span class="c1"># Spectral filtering is applied to a regularly sampled track. If track</span>
+<span class="c1"># is temporally (resp. spatially) sampled, cut off frequencies are</span>
+<span class="c1"># given in Hz or points/sec (resp. points/m or points/ground units).</span>
+<span class="c1"># Note that pass-band and cut-band filters may be obtained by calling filter</span>
+<span class="c1"># function twice sequentially with FILTER_LOW_PASS and FILTER_HIGH_PASS.</span>
+<span class="c1"># --------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="filter_freq"><a class="viewcode-back" href="../../../api/algo/algo-filtering.html#tracklib.algo.Filtering.filter_freq">[docs]</a><span class="k">def</span> <span class="nf">filter_freq</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">fc</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">FILTER_TEMPORAL</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">FILTER_LOW_PASS</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">FILTER_XYZ</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">fs</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">frequency</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">af</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">:</span>
+
+        <span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getAnalyticalFeature</span><span class="p">(</span><span class="n">af</span><span class="p">))</span>
+
+        <span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">Nc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">fc</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="n">FILTER_LOW_PASS</span><span class="p">:</span>
+            <span class="n">F</span><span class="p">[</span><span class="n">Nc</span> <span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">Nc</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">F</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">Nc</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">F</span><span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">Nc</span> <span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">F</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">)):</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="n">af</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">output</span></div>
+
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="c1"># Generic method to filter a track in the sequence domain (time or spatial </span>
+<span class="c1"># domain if the track is regularly sampled in time and/or space).</span>
+<span class="c1"># Kernel, may be one of the following</span>
+<span class="c1">#     - a float number giving the half_width of  rectangular window</span>
+<span class="c1">#     - an odd-sized float array giving the digital realization of a kernel</span>
+<span class="c1">#     - a Kernel object (GaussianKernel, ExponentialKernel...)</span>
+<span class="c1"># Dimension dim : FILTER_X, FILTER_Y, FILTER_Z, FILTER_XY, FILTER_YZ,</span>
+<span class="c1"># FILTER_XY or FILTER XYZ depending in the number of dimensions to filter. </span>
+<span class="c1"># May also be a list of analytical features names</span>
+<span class="c1"># Filtering is applied to a regularly sampled track. If track is temporally </span>
+<span class="c1"># (resp. spatially) sampled, kernel dimensions are given as relative values </span>
+<span class="c1"># to the temporal (resp. spatial) frequency.</span>
+<span class="c1"># --------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="filter_seq"><a class="viewcode-back" href="../../../api/algo/algo-filtering.html#tracklib.algo.Filtering.filter_seq">[docs]</a><span class="k">def</span> <span class="nf">filter_seq</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">FILTER_XYZ</span><span class="p">):</span>
+    <span class="c1">#output = track.copy()</span>
+    
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">kernel</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">kernel</span>
+    
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">track</span>
+    
+    <span class="k">for</span> <span class="n">af</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">af</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">]:</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">FILTER</span><span class="p">,</span> <span class="n">af</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="s2">&quot;temp&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">af</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">setXFromAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;temp&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">af</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">setYFromAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;temp&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">af</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">setZFromAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;temp&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">FILTER</span><span class="p">,</span> <span class="n">af</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">af</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">track</span></div>
+</pre></div>
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2023, LASTIG lab, French National Institute of Geographic and Forest Information.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="theme-version">
+    Built with the
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">
+        PyData Sphinx Theme
+    </a>
+    0.12.0.
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>
