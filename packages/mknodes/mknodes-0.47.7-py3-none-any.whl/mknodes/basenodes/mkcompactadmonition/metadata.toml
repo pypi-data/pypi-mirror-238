@@ -1,0 +1,24 @@
+[metadata]
+icon = "octicon:info-16"
+status = "new"
+name = "MkCompactAdmonition"
+
+[[resources.css]]
+filename = "compactadmonition.css"
+
+
+[examples.types]
+title = "Types"
+jinja = """
+{% for typ in ["info", "warning", "bug"] %}
+{{ "Different types." | MkCompactAdmonition(typ=typ) }}
+{% endfor %}
+"""
+
+[output.html]
+template = """
+<div class="mdx-grid-wrapper{{ node.typ | add(prefix=" mdx-admo--") }}">
+  <div class="mdx-grid-child mdx-grid-child--icon"></div>
+  <div class="mdx-grid-child">{{ node.text }}</div>
+</div>
+"""
