@@ -1,0 +1,61 @@
+Metadata-Version: 2.1
+Name: polars-splitters
+Version: 0.1.2
+Summary: Polars-based splitter functionalities for polars LazyFrames and DataFrames similar to `sklearn.model_selection.train_test_split` and `sklearn.model_selection.StratifiedKFold`.
+Author: Jonas M. Miguel
+Author-email: charter-shushes0n@icloud.com
+Requires-Python: >=3.10.9,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: loguru (>=0.6.0,<0.7.0)
+Requires-Dist: polars (>=0.19.3,<0.20.0)
+Description-Content-Type: text/markdown
+
+# polars-splitters
+
+Polars-based splitter functionalities for polars LazyFrames and DataFrames similar to `sklearn.model_selection.train_test_split` and `sklearn.model_selection.StratifiedKFold`.
+
+## features
+
+- split_into_train_eval
+- split_into_k_folds
+
+## installation
+
+```bash
+pip install polars-splitters
+```
+
+## usage
+
+```python
+import polars as pl
+from polars_splitters import split_into_train_eval, split_into_k_folds
+
+df = pl.DataFrame(
+    {
+        "feature_1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        "treatment": [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1],
+        "outcome": [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+    }
+)
+
+df_train, df_test = split_into_train_eval(
+    df,
+    eval_rel_size=0.3,
+    stratify_by=["treatment", "outcome"],
+    shuffle=True,
+    validate=True,
+    as_lazy=False,
+    rel_size_deviation_tolerance=0.1,
+)
+
+folds = split_into_k_folds(
+    df,
+    k=3,
+    stratify_by=["treatment", "outcome"],
+    shuffle=False,
+    as_lazy=False
+)
+```
+
