@@ -1,0 +1,24 @@
+# Doc plugin definition
+refs:
+    - path.yml  # Python path contrib
+    - doc.yml   # Doc generation handling
+    - badges.yml  # Badges generation logic
+
+# Extra config
+config:
+
+    # Plugin version
+    nmkDocPluginVersion:
+        __resolver__: nmk_doc.NmkDocVersionResolver
+
+    # Plugin versions dict
+    nmkPluginsVersions:
+        nmk-doc: ${nmkDocPluginVersion}
+
+    # Plugin help links dict
+    nmkPluginsDocs:
+        nmk-doc: https://nmk-doc.readthedocs.io/en/stable
+
+    # Extra VSCode words for CSpell extension
+    vscodeSettingsItems:
+        cSpell.words: [rtype]
