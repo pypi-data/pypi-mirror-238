@@ -1,0 +1,28 @@
+site_name: Python Preserves
+site_dir: ../../python/dev
+site_url: https://preserves.dev/python/latest/
+repo_url: https://gitlab.com/preserves/preserves
+theme:
+  name: material
+extra:
+  version:
+    provider: mike
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            merge_init_into_class: true
+  - macros:
+      include_dir: ../../_includes
+  - git-revision-date-localized:
+      enable_creation_date: true
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+watch:
+  - preserves
