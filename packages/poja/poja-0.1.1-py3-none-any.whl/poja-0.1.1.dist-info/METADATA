@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: poja
+Version: 0.1.1
+Summary: Serverless Postgres+Java hosted on Github+AWS
+Home-page: https://github.com/hei-school/poja-cli
+Author: HEI
+Author-email: contact@hei.school
+License: MIT
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: fire
+Requires-Dist: gitpython
+Requires-Dist: rich
+
+POJA CLI
+========
+
+A Python CLI to the [POJA stack](https://github.com/hei-school/poja).
+
+# Usage
+
+```
+pip install poja
+python -m poja \
+  --app-name=poja-annotator \
+  --region=eu-west-3 \
+  --ssm-sg-id=/poja/sg/id \
+  --ssm-subnet1-id=/poja/subnet/public1/id \
+  --ssm-subnet2-id=/poja/subnet/public2/id \
+  --output-dir=anywhere
+```
+
