@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: psiaudio
+Version: 0.2.6
+Summary: Audio tools supporting psiexperiment
+Author-email: Brad Buran <bburan@alum.mit.edu>, "Buran Consulting, LLC" <info@bradburan.com>
+Maintainer-email: Brad Buran <bburan@alum.mit.edu>, "Buran Consulting, LLC" <info@bradburan.com>
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: pandas
+Requires-Dist: matplotlib
+Provides-Extra: examples
+Requires-Dist: sounddevice; extra == "examples"
+Provides-Extra: docs
+Requires-Dist: sphinx; extra == "docs"
+Requires-Dist: sphinx_gallery; extra == "docs"
+Requires-Dist: sphinx_rtd_theme; extra == "docs"
+Requires-Dist: pygments-enaml; extra == "docs"
+Requires-Dist: sounddevice; extra == "docs"
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-benchmark; extra == "test"
+Requires-Dist: pytest-xdist; extra == "test"
+
+# psiaudio
+
+Tools for auditory signal generation and processing. Provides:
+
+* Finite and infinite signal generation support
+* Calibration
+* Data processing pipelines using coroutines
+* Basic utility functions common to auditory processing
+
+# Contributors and Acknowledgements
+
+* Brad Buran (New York University, Oregon Health & Science University)
+* Decibel Therapeutics, Inc.
+
+Work on psiaudio was supported by grants R01-DC009237 and R21-DC016969 from the National Institute on Deafness and Other Communication Disorders and an Emerging Research Grant from the Hearing Health Foundation.
