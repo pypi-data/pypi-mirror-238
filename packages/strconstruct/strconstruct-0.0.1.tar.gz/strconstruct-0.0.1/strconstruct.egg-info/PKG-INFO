@@ -1,0 +1,94 @@
+Metadata-Version: 2.1
+Name: strconstruct
+Version: 0.0.1
+Summary: A declarative parser and builder for string-based protocols
+License: BSD 3-Clause License
+        
+        Copyright (c) 2008-2011, AQR Capital Management, LLC, Lambda Foundry, Inc. and PyData Development Team
+        All rights reserved.
+        
+        Copyright (c) 2011-2023, Open source contributors.
+        
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are met:
+        
+        * Redistributions of source code must retain the above copyright notice, this
+          list of conditions and the following disclaimer.
+        
+        * Redistributions in binary form must reproduce the above copyright notice,
+          this list of conditions and the following disclaimer in the documentation
+          and/or other materials provided with the distribution.
+        
+        * Neither the name of the copyright holder nor the names of its
+          contributors may be used to endorse or promote products derived from
+          this software without specific prior written permission.
+        
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+        AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+        DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+        FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+        DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+        SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+        CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+        OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+        OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        
+Project-URL: Homepage, https://github.com/ValaJeyhani/strContruct
+Project-URL: Documentation, https://strconstruct.readthedocs.io/en/latest/
+Project-URL: Repository, https://github.com/ValaJeyhani/strContruct
+Keywords: protocol,declarative,parse,build,string
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+[![Documentation Status](https://readthedocs.org/projects/strconstruct/badge/?version=latest)](https://strconstruct.readthedocs.io/en/latest/?badge=latest)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![PyPi Version](https://img.shields.io/pypi/v/0.0.1.svg)](https://pypi.org/project/strconstruct/)
+
+# Overview
+StrConstruct is declarative parser and builder for string-based data/protocols with a syntax
+similar to the [Construct](
+    https://construct.readthedocs.io/en/latest/index.html
+) python package. It provides a powerful syntax for defining protocols and it takes care
+of parsing and building strings based on the defined protocols. This makes code more
+readable, concise and maintainable.
+
+Here is an example.
+```
+>>> from strconstruct import StrInt, StrFloat, StrConst, StrStruct, StrDefault, StrSwitch
+>>> protocol = StrStruct(
+...     StrConst(">"),
+...     "register" / StrDefault(StrInt("d"), 17),
+...     StrConst(","),
+...     "value1" / StrSwitch(
+...         lambda this: this["register"],
+...         {
+...             1: StrFloat("0.1f"),
+...             2: StrInt("d"),
+...             3: StrInt("02X"),
+...         },
+...         default=StrInt("03X"),
+...     ),
+...     StrConst("\r"),
+... )
+>>> protocol.build(
+...     {
+...         "register": 3,
+...         "value1": 16,
+...     }
+... )
+'>3,10\r'
+>>> protocol.build({"register": 1, "value1": 16})
+'>1,16.0\r'
+>>> protocol.parse(">4,020\r")
+{'register': 4, 'value1': 32}
+```
+
+# Documentation
+Documentation can be found [here](https://strconstruct.readthedocs.io/en/latest/)
+
+# Running Unit Tests
+Unit tests can be run using `pytest`. Simply, navigate to the `./test/unit` folder and
+run `python -m pytest -vvvs`. Note that the package needs to be installed before running
+the tests (`cd StrConstruct && python -m pip install -e .`).
