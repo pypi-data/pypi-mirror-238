@@ -1,0 +1,279 @@
+.min-100 {
+    min-height: 100vh;
+}
+
+.flex-fill {
+    flex: 1 1 auto;
+}
+
+html, body {
+    height: 100%;
+}
+
+.logo-coventry {
+    background: url(../images/logo_white.png) no-repeat;
+    height: 54px;
+    width: 192px;
+}
+
+h1 {
+    font-weight: normal;
+}
+
+h2 {
+    font-weight: lighter;
+}
+
+/** Tables **/
+table {
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+    table-layout: fixed;
+    width: 100%;
+}
+
+table thead {
+    border-bottom-width: 0.1em;
+    border-bottom-color: var(--bs-border-color-translucent);
+}
+
+table thead th {
+    background-color: rgba(var(--bs-body-color-rgb), 0.08);
+    color: var(--bs-body-color);
+    font-weight: bold;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding-left: 0.3em;
+}
+
+table tbody td {
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    padding-left: 0.25em;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: rgba(var(--bs-body-color-rgb), 0.015);
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: rgba(var(--bs-body-color-rgb), 0.035);
+}
+
+/** Figures and Captions **/
+
+figure p {
+    text-align: center;
+}
+
+figure figcaption {
+    text-align: center;
+}
+
+/** Blockquotes **/
+blockquote {
+    background: rgba(var(--bs-body-color-rgb), 0.03);
+    border: var(--bs-border-width) solid var(--bs-border-color-translucent);
+}
+
+blockquote p {
+    margin: 1em;
+}
+
+/** Admonition Styles **/
+.admonition {
+    border-radius: 0.5em;
+    border-style: solid;
+    border-width: 0.1em;
+    display: block;
+    font-size: smaller;
+    margin: 0 auto 0.5em auto;
+    width: 50%;
+}
+
+.admonition-title {
+    align-items: center;
+    border-bottom-width: var(--bs-border-width);/*0.075em;*/
+    border-bottom-style: solid;
+    color: var(--bs-body-color);
+    display: flex;
+    font-weight: 500;
+    padding: 0.5em !important;
+}
+
+.admonition p {
+    margin: 0 0 0 0;
+    padding: 1em 0.5em;
+}
+
+.note, .warning {
+    border-color: rgba(var(--bs-warning-rgb), 0.5);
+}
+
+.note .admonition-title:before, .warning .admonition-title:before {
+    display: flex;
+    content: "\F4CA";
+    margin: 0 0.5em 0 0;
+    font-family: "bootstrap-icons", serif;
+}
+
+.note .admonition-title, .warning .admonition-title {
+    background-color: rgba(var(--bs-warning-rgb), 0.3);
+    border-bottom-color: rgba(var(--bs-warning-rgb), 0.35);
+}
+
+.important {
+    border-color: rgba(var(--bs-primary-rgb), 0.5);
+}
+
+.important .admonition-title:before {
+    content: "\F339";
+    margin: 0 0.5em 0 0;
+    font-family: "bootstrap-icons", serif;
+}
+
+.important .admonition-title {
+    background-color: rgba(var(--bs-primary-rgb), 0.3);
+    border-bottom-color: rgba(var(--bs-primary-rgb), 0.35);
+}
+
+.error {
+    border-color: rgba(var(--bs-danger-rgb), 0.5);
+}
+
+.error .admonition-title:before {
+    content: "\F33B";
+    margin: 0 0.5em 0 0;
+    font-family: "bootstrap-icons", serif;
+}
+
+.error .admonition-title {
+    background-color: rgba(var(--bs-danger-rgb), 0.3);
+    border-bottom-color: rgba(var(--bs-danger-rgb), 0.35);
+}
+
+.tip {
+    border-color: rgba(var(--bs-info-rgb), 0.5);
+}
+
+.tip .admonition-title:before {
+    content: "\F4CB";
+    margin: 0 0.5em 0 0;
+    font-family: "bootstrap-icons", serif;
+}
+
+.tip .admonition-title {
+    background-color: rgba(var(--bs-info-rgb), 0.3);
+    border-bottom-color: rgba(var(--bs-info-rgb), 0.35);
+}
+
+.success {
+    border-color: rgba(var(--bs-success-rgb), 0.5);
+}
+
+.success .admonition-title:before {
+    content: "\F272";
+    margin: 0 0.5em 0 0;
+    font-family: "bootstrap-icons", serif;
+}
+
+.success .admonition-title {
+    background-color: rgba(var(--bs-success-rgb), 0.3);
+    border-bottom-color: rgba(var(--bs-success-rgb), 0.35);
+}
+
+.quote {
+    border-color: rgba(var(--bs-secondary-rgb), 0.5);
+}
+
+.quote .admonition-title:before {
+    content: "\F262";
+    margin: 0 0.5em 0 0;
+    font-family: "bootstrap-icons", serif;
+}
+
+.quote .admonition-title {
+    background-color: rgba(var(--bs-secondary-rgb), 0.3);
+    border-bottom-color: rgba(var(--bs-secondary-rgb), 0.35);
+}
+
+/** Hints **/
+details.tip {
+    border-radius: 0.5em;
+    border-style: solid;
+    border-width: 0.1em;
+    display: block;
+    font-size: smaller;
+    margin: 0 auto 0.5em auto;
+    width: 50%;
+}
+
+details.tip summary {
+    align-items: center;
+    border-bottom-width: var(--bs-border-width);/*0.075em;*/
+    border-bottom-style: solid;
+    color: var(--bs-body-color);
+    display: flex;
+    font-weight: 500;
+    padding: 0.5em !important;
+}
+
+details.tip p {
+    margin: 0 0 0 0;
+    padding: 1em 0.5em;
+}
+
+
+details.tip {
+    border-color: rgba(var(--bs-info-rgb), 0.5);
+}
+
+details.tip summary:before {
+    content: "\F4CB";
+    margin: 0 0.5em 0 0;
+    font-family: "bootstrap-icons", serif;
+}
+
+details.tip summary:after {
+    color: rgba(var(--bs-emphasis-color-rgb), .85) !important;
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+    line-height: 0;
+    margin: 0 0 0 auto;
+    text-align: right;
+    transition: transform .35s ease;
+    transform-origin: .5em 50%;
+}
+
+[data-bs-theme="dark"] details.tip summary:after {
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%28255,255,255,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+}
+
+details.tip[open] summary:after {
+    color: rgba(var(--bs-emphasis-color-rgb), .85);
+}
+details.tip[open] summary:after {
+    transform: rotate(90deg);
+}
+
+details.tip summary {
+    background-color: rgba(var(--bs-info-rgb), 0.3);
+    border-bottom-color: rgba(var(--bs-info-rgb), 0.35);
+}
+
+/** Light Mode Styling **/
+[data-bs-theme="light"] .bg-header {
+    background-color: #256cba;
+}
+
+[data-bs-theme="light"] .text-header {
+    color: #ffffff;
+}
+
+/** Dark Mode Styling **/
+[data-bs-theme="dark"] .bg-header  {
+    background-color: #402565;
+}
+
+[data-bs-theme="dark"] .text-header {
+    color: #ffffff;
+}
