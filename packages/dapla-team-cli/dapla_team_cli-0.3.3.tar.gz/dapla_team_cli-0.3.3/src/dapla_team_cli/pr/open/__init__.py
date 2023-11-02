@@ -1,0 +1,1 @@
+"""Generate PRs command group."""

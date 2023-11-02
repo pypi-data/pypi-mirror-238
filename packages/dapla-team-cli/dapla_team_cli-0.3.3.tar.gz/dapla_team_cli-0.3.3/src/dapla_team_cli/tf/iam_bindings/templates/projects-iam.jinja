@@ -1,0 +1,26 @@
+module "projects-iam-{{auth_group.shortname}}-{{env.name}}" {
+  source   = "terraform-google-modules/iam/google//modules/projects_iam"
+  projects = [module.terraform-dapla-team-base.environment_conf["{{env.name}}"].project_id]
+  mode     = "additive"
+
+  conditional_bindings = [
+    {% for rc in env.roles -%}
+    {
+      role        = "{{rc.role.name}}"
+      title       = "{{rc.role.title if rc.role.title else rc.role.name}}"
+      description = "Expiring after {{rc.expiry.timestamp}}"
+      expression  = "request.time < timestamp(\"{{rc.expiry.timestamp}}\")"
+      members     = ["group:{{auth_group.name}}@groups.ssb.no"]
+    },
+    {% endfor -%}
+    {% for binding in old_bindings -%}
+    {
+      role        = "{{binding['role']}}"
+      title       = "{{binding['title']}}"
+      description = "{{binding['description']}}"
+      expression  = "{{binding['expression']}}"
+      members     = {{ binding['members'] | list | tojson() }}
+    },
+    {% endfor -%}
+  ]
+}
