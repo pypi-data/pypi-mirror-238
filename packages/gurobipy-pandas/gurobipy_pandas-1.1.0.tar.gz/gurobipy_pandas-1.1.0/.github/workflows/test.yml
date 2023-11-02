@@ -1,0 +1,19 @@
+# Regular QA workflow (pull requests, main branch)
+
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request_target:
+    branches:
+      - main
+
+jobs:
+  code-quality:
+    uses: ./.github/workflows/code-quality.yml
+  unit-tests:
+    uses: ./.github/workflows/unit-tests.yml
+  notebook-examples:
+    uses: ./.github/workflows/notebook-examples.yml
