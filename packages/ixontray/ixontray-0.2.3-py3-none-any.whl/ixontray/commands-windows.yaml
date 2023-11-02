@@ -1,0 +1,40 @@
+commands:
+  - name: Open in browser
+    cmd: start https://connect.ixon.cloud/agents/{ixon_id}/info
+    icon: web-browser-symbolic
+    shortcut: Ctrl+Shift+b
+    show_in:
+    - connected
+    - item
+    force_connection: false
+  - name: Open in VNC viewer
+    cmd: start vnc://192.168.6.10
+    icon: preferences-desktop-remote-desktop-symbolic
+    shortcut: Ctrl+Shift+b
+    show_in:
+    - connected
+    - item
+    force_connection: true
+  - name: Open grafana
+    cmd: start https://192.168.6.10:3000
+    icon: utilities-terminal-symbolic
+    shortcut: Ctrl+Shift+b
+    show_in:
+    - connected
+    - item
+    force_connection: true
+  - name: Open SR studio
+    cmd: start https://192.168.6.10:1234
+    icon: utilities-terminal-symbolic
+    shortcut: Ctrl+Shift+b
+    show_in:
+    - connected
+    - item
+    force_connection: true
+  - name: Open Hall Cam
+    cmd: vlc rtsp://admin:Password@192.168.50.203
+    icon: utilities-terminal-symbolic
+    shortcut: Ctrl+Shift+b
+    show_in:
+    - global
+    force_connection: false
