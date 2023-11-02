@@ -1,0 +1,424 @@
+Metadata-Version: 2.1
+Name: jupyter-fs
+Version: 0.4.0
+Summary: A Filesystem-like mult-contents manager backend for Jupyter
+Project-URL: repository, https://github.com/jpmorganchase/jupyter-fs
+Project-URL: homepage, https://github.com/jpmorganchase/jupyter-fs
+Author-email: Tim Paine <t.paine154@gmail.com>
+License:                                  Apache License
+                                   Version 2.0, January 2004
+                                http://www.apache.org/licenses/
+        
+           TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+        
+           1. Definitions.
+        
+              "License" shall mean the terms and conditions for use, reproduction,
+              and distribution as defined by Sections 1 through 9 of this document.
+        
+              "Licensor" shall mean the copyright owner or entity authorized by
+              the copyright owner that is granting the License.
+        
+              "Legal Entity" shall mean the union of the acting entity and all
+              other entities that control, are controlled by, or are under common
+              control with that entity. For the purposes of this definition,
+              "control" means (i) the power, direct or indirect, to cause the
+              direction or management of such entity, whether by contract or
+              otherwise, or (ii) ownership of fifty percent (50%) or more of the
+              outstanding shares, or (iii) beneficial ownership of such entity.
+        
+              "You" (or "Your") shall mean an individual or Legal Entity
+              exercising permissions granted by this License.
+        
+              "Source" form shall mean the preferred form for making modifications,
+              including but not limited to software source code, documentation
+              source, and configuration files.
+        
+              "Object" form shall mean any form resulting from mechanical
+              transformation or translation of a Source form, including but
+              not limited to compiled object code, generated documentation,
+              and conversions to other media types.
+        
+              "Work" shall mean the work of authorship, whether in Source or
+              Object form, made available under the License, as indicated by a
+              copyright notice that is included in or attached to the work
+              (an example is provided in the Appendix below).
+        
+              "Derivative Works" shall mean any work, whether in Source or Object
+              form, that is based on (or derived from) the Work and for which the
+              editorial revisions, annotations, elaborations, or other modifications
+              represent, as a whole, an original work of authorship. For the purposes
+              of this License, Derivative Works shall not include works that remain
+              separable from, or merely link (or bind by name) to the interfaces of,
+              the Work and Derivative Works thereof.
+        
+              "Contribution" shall mean any work of authorship, including
+              the original version of the Work and any modifications or additions
+              to that Work or Derivative Works thereof, that is intentionally
+              submitted to Licensor for inclusion in the Work by the copyright owner
+              or by an individual or Legal Entity authorized to submit on behalf of
+              the copyright owner. For the purposes of this definition, "submitted"
+              means any form of electronic, verbal, or written communication sent
+              to the Licensor or its representatives, including but not limited to
+              communication on electronic mailing lists, source code control systems,
+              and issue tracking systems that are managed by, or on behalf of, the
+              Licensor for the purpose of discussing and improving the Work, but
+              excluding communication that is conspicuously marked or otherwise
+              designated in writing by the copyright owner as "Not a Contribution."
+        
+              "Contributor" shall mean Licensor and any individual or Legal Entity
+              on behalf of whom a Contribution has been received by Licensor and
+              subsequently incorporated within the Work.
+        
+           2. Grant of Copyright License. Subject to the terms and conditions of
+              this License, each Contributor hereby grants to You a perpetual,
+              worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+              copyright license to reproduce, prepare Derivative Works of,
+              publicly display, publicly perform, sublicense, and distribute the
+              Work and such Derivative Works in Source or Object form.
+        
+           3. Grant of Patent License. Subject to the terms and conditions of
+              this License, each Contributor hereby grants to You a perpetual,
+              worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+              (except as stated in this section) patent license to make, have made,
+              use, offer to sell, sell, import, and otherwise transfer the Work,
+              where such license applies only to those patent claims licensable
+              by such Contributor that are necessarily infringed by their
+              Contribution(s) alone or by combination of their Contribution(s)
+              with the Work to which such Contribution(s) was submitted. If You
+              institute patent litigation against any entity (including a
+              cross-claim or counterclaim in a lawsuit) alleging that the Work
+              or a Contribution incorporated within the Work constitutes direct
+              or contributory patent infringement, then any patent licenses
+              granted to You under this License for that Work shall terminate
+              as of the date such litigation is filed.
+        
+           4. Redistribution. You may reproduce and distribute copies of the
+              Work or Derivative Works thereof in any medium, with or without
+              modifications, and in Source or Object form, provided that You
+              meet the following conditions:
+        
+              (a) You must give any other recipients of the Work or
+                  Derivative Works a copy of this License; and
+        
+              (b) You must cause any modified files to carry prominent notices
+                  stating that You changed the files; and
+        
+              (c) You must retain, in the Source form of any Derivative Works
+                  that You distribute, all copyright, patent, trademark, and
+                  attribution notices from the Source form of the Work,
+                  excluding those notices that do not pertain to any part of
+                  the Derivative Works; and
+        
+              (d) If the Work includes a "NOTICE" text file as part of its
+                  distribution, then any Derivative Works that You distribute must
+                  include a readable copy of the attribution notices contained
+                  within such NOTICE file, excluding those notices that do not
+                  pertain to any part of the Derivative Works, in at least one
+                  of the following places: within a NOTICE text file distributed
+                  as part of the Derivative Works; within the Source form or
+                  documentation, if provided along with the Derivative Works; or,
+                  within a display generated by the Derivative Works, if and
+                  wherever such third-party notices normally appear. The contents
+                  of the NOTICE file are for informational purposes only and
+                  do not modify the License. You may add Your own attribution
+                  notices within Derivative Works that You distribute, alongside
+                  or as an addendum to the NOTICE text from the Work, provided
+                  that such additional attribution notices cannot be construed
+                  as modifying the License.
+        
+              You may add Your own copyright statement to Your modifications and
+              may provide additional or different license terms and conditions
+              for use, reproduction, or distribution of Your modifications, or
+              for any such Derivative Works as a whole, provided Your use,
+              reproduction, and distribution of the Work otherwise complies with
+              the conditions stated in this License.
+        
+           5. Submission of Contributions. Unless You explicitly state otherwise,
+              any Contribution intentionally submitted for inclusion in the Work
+              by You to the Licensor shall be under the terms and conditions of
+              this License, without any additional terms or conditions.
+              Notwithstanding the above, nothing herein shall supersede or modify
+              the terms of any separate license agreement you may have executed
+              with Licensor regarding such Contributions.
+        
+           6. Trademarks. This License does not grant permission to use the trade
+              names, trademarks, service marks, or product names of the Licensor,
+              except as required for reasonable and customary use in describing the
+              origin of the Work and reproducing the content of the NOTICE file.
+        
+           7. Disclaimer of Warranty. Unless required by applicable law or
+              agreed to in writing, Licensor provides the Work (and each
+              Contributor provides its Contributions) on an "AS IS" BASIS,
+              WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+              implied, including, without limitation, any warranties or conditions
+              of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+              PARTICULAR PURPOSE. You are solely responsible for determining the
+              appropriateness of using or redistributing the Work and assume any
+              risks associated with Your exercise of permissions under this License.
+        
+           8. Limitation of Liability. In no event and under no legal theory,
+              whether in tort (including negligence), contract, or otherwise,
+              unless required by applicable law (such as deliberate and grossly
+              negligent acts) or agreed to in writing, shall any Contributor be
+              liable to You for damages, including any direct, indirect, special,
+              incidental, or consequential damages of any character arising as a
+              result of this License or out of the use or inability to use the
+              Work (including but not limited to damages for loss of goodwill,
+              work stoppage, computer failure or malfunction, or any and all
+              other commercial damages or losses), even if such Contributor
+              has been advised of the possibility of such damages.
+        
+           9. Accepting Warranty or Additional Liability. While redistributing
+              the Work or Derivative Works thereof, You may choose to offer,
+              and charge a fee for, acceptance of support, warranty, indemnity,
+              or other liability obligations and/or rights consistent with this
+              License. However, in accepting such obligations, You may act only
+              on Your own behalf and on Your sole responsibility, not on behalf
+              of any other Contributor, and only if You agree to indemnify,
+              defend, and hold each Contributor harmless for any liability
+              incurred by, or claims asserted against, such Contributor by reason
+              of your accepting any such warranty or additional liability.
+        
+           END OF TERMS AND CONDITIONS
+        
+           APPENDIX: How to apply the Apache License to your work.
+        
+              To apply the Apache License to your work, attach the following
+              boilerplate notice, with the fields enclosed by brackets "[]"
+              replaced with your own identifying information. (Don't include
+              the brackets!)  The text should be enclosed in the appropriate
+              comment syntax for the file format. We also recommend that a
+              file or class name and description of purpose be included on the
+              same "printed page" as the copyright notice for easier
+              identification within third-party archives.
+        
+           Copyright 2019 jupyter-fs authors
+        
+           Licensed under the Apache License, Version 2.0 (the "License");
+           you may not use this file except in compliance with the License.
+           You may obtain a copy of the License at
+        
+               http://www.apache.org/licenses/LICENSE-2.0
+        
+           Unless required by applicable law or agreed to in writing, software
+           distributed under the License is distributed on an "AS IS" BASIS,
+           WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+           See the License for the specific language governing permissions and
+           limitations under the License.
+License-File: AUTHORS
+License-File: LICENSE
+Keywords: Extensions,Filesystem,Filetree,IPython,Jupyter,JupyterLab,Tree
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: Jupyter
+Classifier: Framework :: Jupyter :: JupyterLab
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.7
+Requires-Dist: fs-s3fs>=1.1.1
+Requires-Dist: fs-smbfs>=0.6.3
+Requires-Dist: fs>=2.4.11
+Requires-Dist: jupyter-server<3,>=2
+Requires-Dist: jupyterlab<5,>=4
+Provides-Extra: develop
+Requires-Dist: black>=23; extra == 'develop'
+Requires-Dist: boto3; extra == 'develop'
+Requires-Dist: bump2version>=1.0.0; extra == 'develop'
+Requires-Dist: check-manifest; extra == 'develop'
+Requires-Dist: fs-miniofs; extra == 'develop'
+Requires-Dist: pysmb; extra == 'develop'
+Requires-Dist: pytest; extra == 'develop'
+Requires-Dist: pytest-asyncio; extra == 'develop'
+Requires-Dist: pytest-cov; extra == 'develop'
+Requires-Dist: pytest-jupyter[server]; extra == 'develop'
+Requires-Dist: pytest-sugar; extra == 'develop'
+Requires-Dist: pytest-xdist; extra == 'develop'
+Requires-Dist: ruff; extra == 'develop'
+Provides-Extra: test
+Requires-Dist: boto3; extra == 'test'
+Requires-Dist: docker; extra == 'test'
+Requires-Dist: fs-miniofs; extra == 'test'
+Requires-Dist: mock; extra == 'test'
+Requires-Dist: pysmb; extra == 'test'
+Requires-Dist: pytest; extra == 'test'
+Requires-Dist: pytest-asyncio; extra == 'test'
+Requires-Dist: pytest-cov; extra == 'test'
+Requires-Dist: pytest-jupyter[server]; extra == 'test'
+Requires-Dist: pytest-sugar; extra == 'test'
+Requires-Dist: pytest-xdist; extra == 'test'
+Description-Content-Type: text/markdown
+
+<p align="center">
+<img alt="jupyter-fs" src="https://raw.githubusercontent.com/jpmorganchase/jupyter-fs/main/docs/brand-icon.svg" width="400">
+</p>
+
+#
+
+<p>
+<a href="https://github.com/jpmorganchase/jupyter-fs/actions?query=workflow%3A%22Build+Status%22"><img alt="build status" src="https://github.com/jpmorganchase/jupyter-fs/workflows/Build%20Status/badge.svg?branch=main"></a>
+<a href="https://pypi.python.org/pypi/jupyter-fs"><img alt="pypi package" src="https://img.shields.io/pypi/v/jupyter-fs.svg"></a>
+<a href="https://www.npmjs.com/package/jupyter-fs"><img alt="npm package" src="https://img.shields.io/npm/v/jupyter-fs.svg"></a>
+</p>
+
+A plugin for JupyterLab that lets you set up and use as many filebrowsers as you like, connected to whatever local and/or remote filesystem-like resources you want.
+
+The backend is built on top of [PyFilesystem](https://github.com/PyFilesystem/pyfilesystem2), while the frontend is built on top of [JupyterLab Filetree](https://github.com/youngthejames/jupyterlab_filetree).
+
+
+## Install
+
+```bash
+pip install jupyter-fs
+```
+
+
+## Configure
+
+Add the following to your `jupyter_server_config.json`:
+
+```json
+{
+  "ServerApp": {
+    "contents_manager_class": "jupyterfs.metamanager.MetaManager",
+    "jpserver_extensions": {
+      "jupyterfs.extension": true
+    }
+  }
+}
+```
+
+
+## Simple use (no auth/credentials)
+
+Add specifications for additional contents managers in your user settings (in the **Settings** menu under **Advanced Settings Editor** -> **jupyter-fs**). Here's an example config that sets up several new filebrowsers side-by-side:
+
+```json
+{
+  "resources": [
+    {
+      "name": "root at test dir",
+      "url": "osfs:///Users/foo/test"
+    },
+    {
+      "name": "s3 test bucket",
+      "url": "s3://test"
+    },
+    {
+      "name": "s3 test key",
+      "url": "s3://test-2/prefix/",
+      "defaultWritable": false
+    },
+    {
+      "name": "samba guest share",
+      "url": "smb://guest@127.0.0.1/test?name-port=3669"
+    }
+  ]
+}
+```
+
+You should see your new filebrowsers pop up in the left-hand sidebar instantly when you save your settings:
+
+![](https://raw.githubusercontent.com/jpmorganchase/jupyter-fs/main/docs/osfs_example.png)
+
+
+## Use with auth/credentials
+
+Any stretch of a `"url"` that is enclosed in double-brackets `{{VAR}}` will be treated as a template, and will be handled by jupyter-fs's auth system. For example, you can pass a username/password to the `"samba guest share"` resource in the `Simple use` example above by modifying its `"url"` like so:
+
+```json
+{
+  "resources": [
+    ...
+
+    {
+      "name": "samba share",
+      "url": "smb://{{user}}:{{passwd}}@127.0.0.1/test?name-port=3669"
+    }
+  ]
+}
+```
+
+When you save the above `"resouces"` config, a dialog box will pop asking for the `username` and `passwd` values:
+
+![](https://raw.githubusercontent.com/jpmorganchase/jupyter-fs/main/docs/remote_example.png)
+
+Once you enter those values and hit ok, the new filebrowsers will then immediately appear in the sidebar:
+
+
+## The auth dialog will only appear when needed
+
+The jupyter-fs auth dialog will only appear when:
+- JupyterLab first loads, if any fs resources reqiure auth
+- a new fs resouce is added that requires auth, or its `"url"` field is modified
+
+
+## Supported filesystems
+
+The type of resource each filebrowser will point to is determined by the protocol at the start of its url:
+
+- **osfs**: **os** **f**ile**s**ystem. The will open a new view of your local filesystem, with the specified root
+- **s3**: opens a filesystem pointing to an Amazon S3 bucket
+- **smb**: opens a filesystem pointing to a Samba share
+
+jupyter-fs can open a filebrowser pointing to any of the diverse [resources supported by PyFilesystem](). Currently, we test only test the S3 and smb/samba backends as part of our CI, so your milleage may vary with the other PyFilesystem backends.
+
+
+## The filesystem url
+
+The `"url"` field jupyter-fs config is based on the PyFilesystem [opener url](https://docs.pyfilesystem.org/en/latest/openers.html) standard. For more info on how to write these urls, see the documentation of the relevant PyFilesystem plugin:
+- S3: [S3FS docs](https://fs-s3fs.readthedocs.io/en/latest/)
+- smb: [fs.smbfs docs](https://github.com/althonos/fs.smbfs#usage)
+
+
+## Server-side settings
+
+If you prefer to set up your filesystem resources in the server-side config, you can do so. For example, you can set up a local filesystem by adding the following to your `jupyter_server_config.py` file:
+
+```python
+c.Jupyterfs.resources = [
+    {
+        "name": "local_test",
+        "url": "osfs:///Users/foo/test"
+    },
+]
+```
+
+ALternatively, you can add resource specifications alongside the basic jupyter-fs config in your `jupyter_server_config.json` file:
+
+```json
+{
+  "ServerApp": {
+    "contents_manager_class": "jupyterfs.metamanager.MetaManager",
+    "jpserver_extensions": {
+      "jupyterfs.extension": true
+    }
+  },
+  "Jupyterfs": {
+    "resources": [
+      {
+        "name": "local_test",
+        "url": "osfs:///Users/foo/test"
+      }
+    ]
+  }
+}
+```
+
+Any filesystem resources specified in any server-side config file will be merged with the resources given in a user's settings.
+
+
+## Development
+
+See [CONTRIBUTING.md](https://github.com/jpmorganchase/jupyter-fs/blob/main/CONTRIBUTING.md) for guidelines.
+
+
+## License
+
+This software is licensed under the Apache 2.0 license. See the
+[LICENSE](https://github.com/jpmorganchase/jupyter-fs/blob/main/LICENSE) and [AUTHORS](https://github.com/jpmorganchase/jupyter-fs/blob/main/AUTHORS) files for details.
