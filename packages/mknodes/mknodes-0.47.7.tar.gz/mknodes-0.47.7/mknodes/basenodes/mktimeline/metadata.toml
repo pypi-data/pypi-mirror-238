@@ -1,0 +1,27 @@
+[metadata]
+icon = "mdi:timeline"
+name = "MkTimeline"
+
+[[resources.css]]
+filename = "timeline.css"
+
+[[resources.js]]
+filename = "timeline.js"
+
+[examples.toml]
+title = "From TOML format"
+jinja = """
+{{
+"
+['Step 1']
+title = 'test'
+content = 'Some **markdown**'
+image = 'https://picsum.photos/400'
+['Step 2']
+title = 'test'
+content = 'Some **markdown**'
+image = 'https://picsum.photos/401'
+
+" | load_toml | MkTimeline
+}}
+"""
