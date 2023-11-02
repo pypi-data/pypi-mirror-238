@@ -1,0 +1,42 @@
+Metadata-Version: 2.1
+Name: prodiapy
+Version: 4.3.2
+Summary: Package for using Prodia API
+Author: zenafey
+Author-email: zenafey@eugw.ru
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Dist: aiohttp (>=3.8.1,<4.0.0)
+Requires-Dist: colorama (>=0.4.6,<0.5.0)
+Requires-Dist: requests (>=2.27.1,<3.0.0)
+Description-Content-Type: text/markdown
+
+# Description
+prodiapy is an unofficial lightweight Python package for Prodia Stable Diffusion API
+
+# Installation 
+```commandline
+pip install -U prodiapy
+```
+
+# text2img example
+
+```python
+from prodiapy import StableDiffusionXL
+
+pipe = StableDiffusionXL(
+    api_key="YOUR_PRODIA_KEY"
+)
+
+job = pipe.generate(prompt="cat")
+result = pipe.wait_for(job)
+
+print(result['imageUrl'])
+```
+# Contact
+Join our discord to get help with package - https://discord.gg/GyBCkGnbUN
