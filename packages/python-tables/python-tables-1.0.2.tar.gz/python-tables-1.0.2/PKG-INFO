@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: python-tables
+Version: 1.0.2
+Summary: Tables from lua, in python
+Author-email: Cootshk <author@example.com>
+Project-URL: Homepage, https://github.com/Cootshk/luatable
+Project-URL: Bug Tracker, https://github.com/Cootshk/luatable/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 4 - Beta
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+
+# Python-Tables
+Implementing tables from Lua into Python 3.12
+
+## Usage
+
+```bash
+pip install python-tables
+```
+
+```py
+from python-tables import Table
+
+tbl = Table()
+print(tbl) # <>
+tbl.append(1)
+tbl["foo"] = "bar"
+print(tbl) # <1, foo: 'bar'>
+
+print(repr(tbl)) # Table([1]; {"foo": "bar"})
+tbl += [2,3,4]
+print(tbl) # <1, 2, 3, 4, foo: 'bar'>
+print(tbl == Table(1,2,3,4,foo="bar"))
+```
