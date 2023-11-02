@@ -1,0 +1,56 @@
+0.5.4
+ - enh: cache presigned URLs with 10% tolerance
+0.5.3
+ - enh: allow to disable override when uploading an object to S3
+0.5.2
+ - enh: allow specifying filename when creating presigned S3 URL
+0.5.1
+ - enh: allow to silently fail when making objects public
+0.5.0
+ - feat: migrate s3 submodule from ckanext.dcor_depot to dcor_shared
+0.4.4
+ - maintenance release
+0.4.3
+ - enh: import get_ckan_config_option to top module
+0.4.2
+ - enh: add sha256sum method
+0.4.1
+ - ref: further migration changes for CKAN 2.10.1
+0.4.0
+ - ref: migration to CKAN 2.10.1
+0.3.1
+ - cleanup
+0.3.0
+ - feat: add "paths" submodule with common DCOR paths
+0.2.12
+ - ref: use f-strings
+0.2.11
+ - enh: decrease timeout value for `wait_for_resource` back to 10s,
+   because background jobs are now ran sequentially and after
+   the symlink job
+0.2.10
+ - enh: increase timeout value for `wait_for_resource` to 500s
+0.2.9
+ - fix: wait_for_resource did not work for very small files
+0.2.8
+ - enh: introduce get_resource_path and check for availability of
+   ckanext-dcor_depot on-the-fly, which makes it possible to run
+   pytest-ckan with a custom configuration
+0.2.7
+ - ci: migrate to GH Actions
+0.2.6
+ - fix: wait_for_resource now checks whether resource is symlinked
+0.2.5
+ - enh: get_resource_path now returns a pathlib.Path
+0.2.4
+ - enh: allow to get the resource path from outside CKAN
+0.2.3
+ - maintenance release
+0.2.2
+ - allow import when ckan is not installed
+0.2.1
+ - automated releases
+0.2.0
+ - added get_resource_path
+0.1.0
+ - initial version
