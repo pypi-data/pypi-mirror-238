@@ -1,0 +1,19 @@
+#"""
+#Base type for SurfaceContact.Model
+#"""
+Model:
+    .doc: """
+    The ContactDefinition defines the interaction properties between two contacting surfaces.
+    This definition is mapped through the materials, material_1 and material_2, of the contacting objects.
+    This definition must be uniquely defined for a specific pair of mateirals.
+    """
+    material_1 is Physics.Charges.Material
+    material_2 is Physics.Charges.Material
+
+    friction is Physics.Interactions.Friction.FrictionType
+    adhesion is AdhesionType
+    # plasticity is PlasticityType # To be designed and implmemented
+    elasticity is ElasticityType
+
+    tangential_restitution is Real
+    normal_restitution is Real

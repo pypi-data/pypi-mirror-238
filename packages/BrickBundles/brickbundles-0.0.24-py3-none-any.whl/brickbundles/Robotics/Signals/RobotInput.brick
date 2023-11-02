@@ -1,0 +1,6 @@
+RobotInput is Physics.Signals.Input:
+    angle_targets is Physics3D.Signals.TorsionSpringAngleInput[]
+    angular_velocity_targets is Physics1D.Signals.RotationalVelocityMotor1DVelocityInput[]
+    torque_targets is DriveTrain.TorqueMotorInput[]
+    fn process(signal: Physics.Signals.InputSignal) -> Physics.Signals.InputSignal[]
+
