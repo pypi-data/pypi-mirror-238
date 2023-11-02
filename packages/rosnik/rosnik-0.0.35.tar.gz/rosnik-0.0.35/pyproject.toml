@@ -1,0 +1,50 @@
+[tool.poetry]
+name = "rosnik"
+version = "0.0.35"
+description = "ROSNIK Python SDK"
+authors = ["Nick DiRienzo <nick@rosnik.ai>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4"
+openai = {version = "^0.27.6", optional = true}
+flask = {version = "^3", optional = true}
+django = {version = "^4", optional = true}
+ulid-py = "^1.1.0"
+dataclasses-json = "^0.6.1"
+wrapt = "^1.15.0"
+urllib3 = "^2.0.6"
+requests = "^2.31.0"
+
+[tool.poetry.group.static.dependencies]
+bandit = "^1.7"
+safety = "^2.3"
+black = "^23.3.0"
+mypy = "^1.5.1"
+ruff = "^0.0.267"
+poetry-dotenv-plugin = "^0.1.0"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.11.1"
+pytest-recording = "^0.13.0"
+responses = "^0.23.3"
+pytest-freezegun = "^0.4.2"
+pytest-django = "^4.5.2"
+
+[tool.poetry.extras]
+openai = ["openai"]
+flask = ["flask"]
+django = ["django"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
