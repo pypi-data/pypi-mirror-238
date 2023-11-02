@@ -1,0 +1,13 @@
+# user.jtd.yaml
+#
+# Depends on:
+#   - book (at ../book/book.jtd.yaml)
+user:
+  properties:
+    id:
+      type: string
+    name:
+      type: string
+    books:
+      elements:
+        ref: book
