@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "linlei04-pkgdemo"
+# version = "1.0.6"
+dependencies = [
+    "requests",
+    # requests <= 0.4
+    # requests >= 0.4
+    # requests > 0.4
+    # requests < 0.4
+    # requests == 0.4
+    # requests != 0.4
+    "selenium==4.14.0",
+]
+# readme = "README.md"
+authors = [
+    {name = "xmlclone", email = "xmlclone@gmail.com"},
+]
+
+# 动态生成版本号，与version配置项冲突
+dynamic = ["version"]
+
+# 下面的大部分信息设置后才会在pypi进行友好的展示
+description = "My package description"
+requires-python = ">=3.7"
+license = { text = "MIT"}
+[project.urls]
+Homepage = "https://github.com/xmlclone/docode"
+Documentation = "https://github.com/xmlclone/docode"
+Code = "https://github.com/xmlclone/docode"
+"Help/Questions" = "https://github.com/xmlclone/docode"
+"Issue tracker" = "https://github.com/xmlclone/docode"
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+
+
+[tool.setuptools]
+# 需要配合MANIFEST.in文件使用
+include-package-data = true
+# This is already the default behaviour if you are using
+# pyproject.toml to configure your build.
+# You can deactivate that with `include-package-data = false`
+
+# 这是查找引擎的默认配置
+# [tool.setuptools.packages]
+# find = {}  # Scan the project directory with the default parameters
+
+# 如果需要自定义，参考如下
+[tool.setuptools.packages.find]
+# All the following settings are optional:
+# 使用mypkg1是不对的，这样会去查找这个目录下的包，也就是只会打包testcases层的内容
+# where = ["mypkg1"]  # ["."] by default
+# include = ["mypkg1*"]  # ["*"] by default
+exclude = ["mypkg1.testcases*"]  # empty by default
+# namespaces = true  # true by default
+
+[project.scripts]
+# 通过pip 或 pip -e安装后，就可以使用mypkg1命令了
+mypkg1 = "mypkg1.__main__:run"
