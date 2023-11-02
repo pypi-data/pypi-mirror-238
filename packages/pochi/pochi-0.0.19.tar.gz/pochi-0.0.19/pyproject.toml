@@ -1,0 +1,19 @@
+[project]
+name = "pochi"
+version = "0.0.19"
+dependencies = [
+    "snowflake_connector_python==3.2.1",
+    "toml==0.10.2",
+    "Jinja2==3.1.2",
+    "PyYAML==6.0.1"
+]
+description = "A tool that allows a user to create, build, deploy, and test Snowflake native applications"
+readme = "README.md"
+license = {"file" = "LICENSE"}
+
+[project.scripts]
+pochi = "pochi_commands:main"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
