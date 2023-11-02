@@ -1,0 +1,36 @@
+{% include "regen-header.tmpl" %}
+#include "pch.h"
+
+#include "{{app.basename}}.h"
+{% if page %}
+#include "{{page.basename}}.h"
+{% endif %}
+
+using namespace winrt;
+using namespace Windows::Foundation;
+using namespace Microsoft::UI::Xaml;
+using namespace Microsoft::UI::Xaml::Controls;
+using namespace Microsoft::UI::Xaml::Navigation;
+using namespace {{namespace}};
+using namespace {{namespace}}::implementation;
+namespace py = pybind11;
+
+void {{app.name}}::OnLaunched(LaunchActivatedEventArgs const&)
+{
+    py::module_::import("_winui_Windows_Foundation");
+    py::module_::import("_winui_Windows_Foundation_Collections");
+{% for n in winui_modules %}
+    py::module_::import("{{n}}");
+{% endfor %}
+{% if page %}
+
+    window = make<{{page.name}}>();
+    window.Activate();
+{% else %}
+
+    #error "No page set as default!"
+{% endif %}
+}
+
+PYBIND11_EMBEDDED_MODULE({{namespace}}_winui, m) {
+};
