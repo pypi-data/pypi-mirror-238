@@ -1,0 +1,1 @@
+import{S as o,i as s,s as a}from"./routes-78f0c2d1.js";import"./index-abe31643.js";import"./index-80724495.js";class n extends o{constructor(e){super(),s(this,e,null,null,a,{})}}var c=n;const l=["static"],m=t=>({type:"Any",description:"stored state value",example_data:""});export{c as Component,m as document,l as modes};
