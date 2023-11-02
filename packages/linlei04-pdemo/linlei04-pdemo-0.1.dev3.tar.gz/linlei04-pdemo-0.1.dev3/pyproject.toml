@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools", "wheel", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "linlei04-pdemo"
+# version = "0.0.3"
+dependencies = [
+    "requests",
+    # requests <= 0.4
+    # requests >= 0.4
+    # requests > 0.4
+    # requests < 0.4
+    # requests == 0.4
+    # requests != 0.4
+    "selenium==4.14.0",
+]
+# readme = "README.md"
+
+# 动态生成版本号，与version配置项冲突
+# 需要结合下面的[tool.setuptools_scm]配置项进行
+dynamic = ["version"]
+
+# 下面的大部分信息设置后才会在pypi进行友好的展示
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+description = "My package description"
+requires-python = ">=3.7"
+license = { text = "MIT"}
+authors = [
+    {name = "xmlclone", email = "xmlclone@gmail.com"},
+]
+[project.urls]
+Homepage = "https://github.com/xmlclone/pdemo"
+Documentation = "https://github.com/xmlclone/pdemo"
+Code = "https://github.com/xmlclone/pdemo"
+"Help/Questions" = "https://github.com/xmlclone/pdemo"
+"Issue tracker" = "https://github.com/xmlclone/pdemo"
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+
+
+[tool.setuptools]
+# 需要配合MANIFEST.in文件使用
+include-package-data = true
+# This is already the default behaviour if you are using
+# pyproject.toml to configure your build.
+# You can deactivate that with `include-package-data = false`
+
+# 这是查找引擎的默认配置
+# [tool.setuptools.packages]
+# find = {}  # Scan the project directory with the default parameters
+
+# 如果需要自定义，参考如下
+[tool.setuptools.packages.find]
+# All the following settings are optional:
+# 使用mypkg1是不对的，这样会去查找这个目录下的包，也就是只会打包testcases层的内容
+# where = ["mypkg1"]  # ["."] by default
+# include = ["mypkg1*"]  # ["*"] by default
+# exclude = ["mypkg1.tests*"]  # empty by default
+# namespaces = true  # true by default
+
+[project.scripts]
+# 通过pip 或 pip -e安装后，就可以使用mypkg1命令了
+mypkg1 = "pdemo.__main__:run"
+
+
+# pip install setuptools_scm
+# 需要结合版本控制工具来自动生成版本号，比如git，需要能访问.git目录，更多规则参考README文档
+[tool.setuptools_scm]
+write_to = "pdemo/_version.py"
+local_scheme = "no-local-version"
