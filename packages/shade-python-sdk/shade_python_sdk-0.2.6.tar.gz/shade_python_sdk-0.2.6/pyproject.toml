@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "shade-python-sdk"
+version = "0.2.6"
+description = "Shade SDK"
+authors = ["Shade <shade@shade.inc>"]
+license = "MIT"
+packages = [{ include = "shade" }, { include = "tests" }]
+
+[tool.poetry.scripts]
+shade-python-sdk-tests = "tests.main:main"
+
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pillow = "^10.0.0"
+dataclass-wizard = "^0.22.2"
+pytest = "^7.4.3"
+pydantic = "^2.4.2"
+requests = "^2.31.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
