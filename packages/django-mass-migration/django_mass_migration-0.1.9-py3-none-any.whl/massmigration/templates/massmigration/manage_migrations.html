@@ -1,0 +1,31 @@
+{% extends "massmigration/base.html" %}
+
+{% block content %}
+
+<h1>Migrations</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th>App</th>
+			<th>Migration</th>
+			<th>Status</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for migration in migrations %}
+		<tr>
+			<td>{{migration.app_label}}</td>
+			<td><a href="{% url 'massmigration_detail' key=migration.key %}">{{migration.name}}</a></td>
+			<td>{% if migration.record %}{{migration.record.status}}{% else %}NOT RUN{% endif %}</td>
+			<td>
+				{% if not migration.record %}<a href="{% url 'massmigration_run' key=migration.key %}">Run...</a>
+				{% else %}<a href="{% url 'massmigration_delete' key=migration.key %}">Delete...</a>
+				{% endif %}
+			</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}
