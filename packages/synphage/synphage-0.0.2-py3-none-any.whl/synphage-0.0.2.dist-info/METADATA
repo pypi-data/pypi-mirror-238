@@ -1,0 +1,30 @@
+Metadata-Version: 2.1
+Name: synphage
+Version: 0.0.2
+Summary: Python library for plotting synteny diagram for phage and bacterial sequences.
+Author-email: Virginie Grosboillot <vestalisvirginis@gmail.com>
+Project-URL: Homepage, https://github.com/vestalisvirginis/synphage
+Project-URL: Bug Tracker, https://github.com/vestalisvirginis/synphage
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: dagster >=1.5.2
+Requires-Dist: dagster-webserver >=1.5.2
+Requires-Dist: biopython >=1.81
+Requires-Dist: reportlab >=3.6.12
+Requires-Dist: rlPyCairo >=0.3.0
+Requires-Dist: pyspark >=2.15.1
+Requires-Dist: cuallee >=0.6.0
+Requires-Dist: duckdb >=0.9.1
+Requires-Dist: polars >=0.19.11
+Requires-Dist: pyarrow >=13.0.0
+Requires-Dist: requests >=2.31.0
+Provides-Extra: test
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+
+# synphage
+Pipeline to create phage genome synteny graphics from genbank files.
