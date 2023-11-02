@@ -1,0 +1,296 @@
+#!python
+"""Command line tool for interacting with the Snoo Bassinet API"""
+import asyncio
+import argparse
+import getpass
+import json
+import logging
+from pprint import pprint
+
+from datetime import datetime, timedelta
+from pysnoo2 import SnooAuthSession, Snoo, SnooPubNub, SessionLevel
+from pysnoo2.models import dt_str_to_dt
+
+# pylint: disable=unused-argument
+
+
+async def _setup_pubnub(snoo: Snoo):
+    """Utility Function to setup SnooPubNub"""
+    # Also checks for valid token
+    devices = await snoo.get_devices()
+    if not devices:
+        # No devices
+        print('There is no Snoo connected to that account!')
+        return
+
+    pubnubToken = await snoo.pubnub_auth()
+    return SnooPubNub(pubnubToken, 
+                      snoo.pubnub_auth,
+                      devices[0].serial_number,
+                      f'pn-pysnoo-{devices[0].serial_number}')
+
+
+async def user(snoo: Snoo, args):
+    """user command"""
+    resonse = await snoo.get_me()
+    pprint(resonse.to_dict())
+
+
+async def device(snoo: Snoo, args):
+    """device command"""
+    resonse = await snoo.get_devices()
+    if len(resonse) > 0:
+        pprint(resonse[0].to_dict())
+
+
+async def baby(snoo: Snoo, args):
+    """baby command"""
+    resonse = await snoo.get_baby()
+    pprint(resonse.to_dict())
+
+
+async def last_session(snoo: Snoo, args):
+    """last_session command"""
+    babyResponse = await snoo.get_baby()
+    resonse = await snoo.get_last_session(babyResponse.baby)
+    pprint(resonse.to_dict())
+
+async def status(snoo: Snoo, args):
+    """status command"""
+    babyResponse = await snoo.get_baby()
+    resonse = await snoo.get_last_session(babyResponse.baby)
+    print(f'{resonse.current_status.value} (since: {resonse.current_status_duration})')
+
+async def session_avg(snoo: Snoo, args):
+    """session_avg command"""
+    baby_resonse = await snoo.get_baby()
+    resonse = await snoo.get_aggregated_session_avg(baby_resonse.baby, args.datetime)
+    pprint(resonse.to_dict())
+
+
+async def total(snoo: Snoo, args):
+    """total command"""
+    baby_resonse = await snoo.get_baby()
+    resonse = await snoo.get_session_total_time(baby_resonse.baby)
+    print(resonse)
+
+
+async def monitor(snoo: Snoo, args):
+    """monitor command"""
+    def as_callback(activity_state):
+        pprint(activity_state.to_dict())
+
+    pubnub = await _setup_pubnub(snoo)
+    pubnub.add_listener(as_callback)
+
+    for activity_state in await pubnub.history():
+        as_callback(activity_state)
+
+    await pubnub.subscribe_and_await_connect()
+
+    try:
+        while True:
+            await asyncio.sleep(1)
+    except asyncio.CancelledError:
+        pass
+    finally:
+        await pubnub.unsubscribe_and_await_disconnect()
+        await pubnub.stop()
+
+
+async def history(snoo: Snoo, args):
+    """history command"""
+    pubnub = await _setup_pubnub(snoo)
+
+    for activity_state in await pubnub.history(100):
+        pprint(activity_state.to_dict())
+
+    await pubnub.stop()
+
+
+async def toggle(snoo: Snoo, args):
+    """toggle command"""
+    pubnub = await _setup_pubnub(snoo)
+
+    last_activity_state = (await pubnub.history())[0]
+    if last_activity_state.state_machine.state == SessionLevel.ONLINE:
+        # Start
+        await pubnub.publish_start()
+    else:
+        # Stop
+        await pubnub.publish_goto_state(SessionLevel.ONLINE)
+
+    await pubnub.stop()
+
+
+async def toggle_hold(snoo: Snoo, args):
+    """toggleHold command"""
+    pubnub = await _setup_pubnub(snoo)
+
+    last_activity_state = (await pubnub.history())[0]
+    current_state = last_activity_state.state_machine.state
+    current_hold = last_activity_state.state_machine.hold
+    if current_state.is_active_level():
+        # Toggle
+        await pubnub.publish_goto_state(current_state, not current_hold)
+    else:
+        print('Cannot toggle hold when Snoo is not running!')
+
+    await pubnub.stop()
+
+
+async def level_up(snoo: Snoo, args):
+    """up command"""
+    pubnub = await _setup_pubnub(snoo)
+
+    last_activity_state = (await pubnub.history())[0]
+    up_transition = last_activity_state.state_machine.up_transition
+    if up_transition.is_active_level():
+        # Toggle
+        await pubnub.publish_goto_state(up_transition)
+    else:
+        print('No valid up-transition available!')
+
+    await pubnub.stop()
+
+
+async def level_down(snoo: Snoo, args):
+    """down command"""
+    pubnub = await _setup_pubnub(snoo)
+
+    last_activity_state = (await pubnub.history())[0]
+    down_transition = last_activity_state.state_machine.down_transition
+    if down_transition.is_active_level():
+        # Toggle
+        await pubnub.publish_goto_state(down_transition)
+    else:
+        print('No valid down-transition available!')
+
+    await pubnub.stop()
+
+
+# Commands dictionary
+commands = {
+    'user': user,
+    'device': device,
+    'baby': baby,
+    'last_session': last_session,
+    'status': status,
+    'session_avg': session_avg,
+    'total': total,
+    'monitor': monitor,
+    'history': history,
+    'toggle': toggle,
+    'toggle_hold': toggle_hold,
+    'up': level_up,
+    'down': level_down,
+}
+
+
+async def async_main(username, password, token, token_updater, args: any):
+    """Async Main"""
+
+    async with SnooAuthSession(username, password, token, token_updater) as auth:
+
+        if not auth.authorized:
+            # Init Auth
+            new_token = await auth.fetch_token()
+            token_updater(new_token)
+
+        snoo = Snoo(auth)
+        await commands[args.command](snoo, args)
+
+
+def get_token_updater(token_file):
+    """Return an token_updater function writing tokens to token_file"""
+    def token_updater(token):
+        with open(token_file, 'w') as outfile:
+            json.dump(token, outfile)
+    return token_updater
+
+
+def get_token(token_file):
+    """Read a token from a token_file (fails silently)"""
+    try:
+        with open(token_file) as infile:
+            token = json.load(infile)
+            return token
+    except FileNotFoundError:
+        pass
+    except ValueError:
+        pass
+
+
+def get_username():
+    """read username from STDIN"""
+    username = input("Username: ")
+    return username
+
+
+def main():
+    """Sync Main"""
+    parser = argparse.ArgumentParser(
+        description='Snoo Smart Bassinett',
+        epilog='https://github.com/rado0x54/pysnoo',
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+
+    parser.add_argument(
+        'command', default='user', choices=['user', 'device', 'baby',
+                                            'last_session', 'status',
+                                            'session_avg', 'total', 'monitor',
+                                            'history', 'toggle', 'toggle_hold', 'up', 'down']
+    )
+
+    parser.add_argument('-u',
+                        '--username',
+                        type=str,
+                        help='username for Snoo account')
+
+    parser.add_argument('-p',
+                        '--password',
+                        type=str,
+                        help='username for Snoo account')
+
+    parser.add_argument('-t',
+                        '--token_file',
+                        metavar='file',
+                        default='.snoo_token.txt',
+                        help='Cached token file to read and write an existing OAuth Token to.')
+
+    parser.add_argument('-d',
+                        '--datetime',
+                        default=datetime.now() - timedelta(1),  # 24h prior
+                        type=dt_str_to_dt,
+                        help='Datetime in ISO8601 fromat. Used for some commands.'
+                        )
+
+    parser.add_argument('-v',
+                        '--verbose',
+                        help='Show verbose logging.',
+                        action='store_const',
+                        const=logging.DEBUG,
+                        default=logging.WARN,
+    )
+
+    args = parser.parse_args()
+    token = get_token(args.token_file)
+    token_updater = get_token_updater(args.token_file)
+
+    if not token and not args.username:
+        args.username = get_username()
+
+    if not token and not args.password:
+        args.password = getpass.getpass("Password: ")
+
+    # Python 3.7+
+    try:
+        logging.basicConfig(level=args.verbose)
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy()) #for windows
+        logging.debug("username: %s", args.username)
+        asyncio.run(async_main(args.username, args.password, token, token_updater, args))
+    except KeyboardInterrupt:
+        pass
+
+
+if __name__ == "__main__":
+    main()
