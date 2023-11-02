@@ -1,0 +1,199 @@
+[project]
+name = "PyInventory"
+dynamic = ["version"]
+description = "Web based management to catalog things including state and location etc. using Python/Django."
+license = {text = "GPL-3.0-or-later"}
+readme = "README.md"
+authors = [
+    {name = 'Jens Diemer', email = 'PyInventory@jensdiemer.de'}
+]
+keywords=['inventory','django']
+requires-python = ">=3.9,<4" # Keep Python 3.9 until Yunohost contains a newer Python Version ;)
+dependencies = [
+    "colorlog",  # https://github.com/borntyping/python-colorlog
+    "gunicorn",  # https://github.com/benoimyproject.wsgitc/gunicorn
+
+    "django",
+
+    "django-import-export",  # https://github.com/django-import-export/django-import-export
+    "django-dbbackup",  # https://github.com/django-dbbackup/django-dbbackup
+    "django-tools",  # https://github.com/jedie/django-tools/
+    "django-reversion-compare",  # https://github.com/jedie/django-reversion-compare/
+    "django-ckeditor",  # https://github.com/django-ckeditor/django-ckeditor
+    "django-tagulous",  # https://github.com/radiac/django-tagulous
+    "django-admin-sortable2",  # https://github.com/jrief/django-admin-sortable2
+    "pillow",  # https://github.com/jrief/django-admin-sortable2
+
+    "requests",  # https://github.com/psf/requests
+
+    "django-debug-toolbar",  # http://django-debug-toolbar.readthedocs.io/en/stable/changes.html
+    "bx_py_utils",  # https://github.com/boxine/bx_py_utils
+    "bx_django_utils",  # https://github.com/boxine/bx_django_utils
+]
+[project.optional-dependencies]
+dev = [
+    "manage_django_project>=0.6.4",  # https://github.com/jedie/manage_django_project
+
+    "cmd2_ext_test",  # https://github.com/python-cmd2/cmd2/tree/master/plugins/ext_test
+    "playwright",  # https://playwright.dev/python/docs/intro
+    "beautifulsoup4",
+
+    "tblib",   # https://github.com/ionelmc/python-tblib
+    "pip-tools",  # https://github.com/jazzband/pip-tools/
+    "tox",  # https://github.com/tox-dev/tox
+    "coverage",  # https://github.com/nedbat/coveragepy
+    "autopep8",  # https://github.com/hhatto/autopep8
+    "pyupgrade",  # https://github.com/asottile/pyupgrade
+    "flake8",  # https://github.com/pycqa/flake8
+    "pyflakes",  # https://github.com/PyCQA/pyflakes
+    "codespell",  # https://github.com/codespell-project/codespell
+    "EditorConfig",  # https://github.com/editorconfig/editorconfig-core-py
+    "safety",  # https://github.com/pyupio/safety
+    "mypy",  # https://github.com/python/mypy
+    "twine",  # https://github.com/pypa/twine
+
+    # https://github.com/akaihola/darker
+    # https://github.com/ikamensh/flynt
+    # https://github.com/pycqa/isort
+    # https://github.com/pygments/pygments
+    "darker[flynt, isort, color]",
+
+    "tomli",  # https://github.com/hukkin/tomli
+    # tomli only needed for Python <3.11, but see bug:
+    # https://github.com/pypa/pip/issues/9644#issuecomment-1456583402
+    #"tomli;python_version<\"3.11\"",  # https://github.com/hukkin/tomli
+
+    # Work-a-round for:
+    # https://github.com/jazzband/pip-tools/issues/994#issuecomment-1321226661
+    "typing-extensions>=3.10",
+
+    "model_bakery",  # https://github.com/model-bakers/model_bakery
+    "requests-mock",  # https://github.com/jamielennox/requests-mock
+    "django-override-storage",  # https://github.com/danifus/django-override-storage
+]
+
+[project.urls]
+Documentation = "https://github.com/jedie/PyInventory"
+Source = "https://github.com/jedie/PyInventory"
+
+
+[project.scripts]
+inventory_project = "inventory_project.__main__:main"
+
+[manage_django_project]
+module_name="inventory_project"
+
+# Django settings used for all commands except test/coverage/tox:
+local_settings='inventory_project.settings.local'
+
+# Django settings used for test/coverage/tox commands:
+test_settings='inventory_project.settings.tests'
+
+
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm>=7.1"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["inventory*", "inventory_project*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "inventory.__version__"}
+
+
+[tool.darker]
+src = ['.']
+revision = "origin/main..."
+line_length = 119
+verbose = true
+color = true
+skip_string_normalization = true
+diff = false
+check = false
+stdout = false
+isort = true
+flynt = true
+lint = [
+    "flake8",
+]
+log_level = "INFO"
+
+
+[tool.isort]
+# https://pycqa.github.io/isort/docs/configuration/config_files/#pyprojecttoml-preferred-format
+atomic=true
+profile='black'
+skip_glob=['.*', '*/htmlcov/*','*/migrations/*']
+known_first_party=['inventory']
+line_length=119
+lines_after_imports=2
+
+
+[tool.coverage.run]
+branch = true
+parallel = true
+concurrency = ["multiprocessing"]
+source = ['.']
+command_line = '-m inventory_project test --shuffle --parallel --buffer'
+
+[tool.coverage.report]
+omit = ['.*', '*/tests/*', '*/migrations/*']
+skip_empty = true
+fail_under = 30
+show_missing = true
+exclude_lines = [
+    'if self.debug:',
+    'pragma: no cover',
+    'raise NotImplementedError',
+    'if __name__ == .__main__.:',
+]
+
+
+[tool.tox]  # https://tox.wiki/en/latest/config.html#pyproject-toml
+legacy_tox_ini = """
+[tox]
+isolated_build = True
+envlist = py{311,310,39}
+skip_missing_interpreters = True
+
+[testenv]
+passenv = *
+skip_install = true
+commands_pre =
+    pip install -U pip-tools
+    pip-sync requirements.dev.txt
+commands =
+    {envpython} -m coverage run --context='{envname}' -m inventory_project test --buffer --shuffle
+"""
+
+
+[tool.mypy]
+warn_unused_configs = true
+ignore_missing_imports = true
+allow_redefinition = true  # https://github.com/python/mypy/issues/7165
+show_error_codes = true
+plugins = []
+exclude = ['.venv', 'tests', 'migrations']
+
+
+[manageprojects] # https://github.com/jedie/manageprojects
+initial_revision = "7cece02"
+initial_date = 2023-07-15T16:37:28+02:00
+cookiecutter_template = "https://github.com/jedie/cookiecutter_templates/"
+cookiecutter_directory = "managed-django-project"
+
+[manageprojects.cookiecutter_context.cookiecutter]
+full_name = "Jens Diemer"
+github_username = "jedie"
+author_email = "PyInventory@jensdiemer.de"
+package_name = "inventory"
+package_version = "0.18.0"
+package_description = "Web based management to catalog things including state and location etc. using Python/Django."
+package_url = "https://github.com/jedie/PyInventory"
+issues_url = "https://github.com/jedie/PyInventory/issues"
+license = "GPL-3.0-or-later"
+_template = "https://github.com/jedie/cookiecutter_templates/"
+applied_migrations = [
+    "8d0ebe1", # 2023-08-17T18:15:10+02:00
+]
