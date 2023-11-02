@@ -1,0 +1,1 @@
+hiddenimports = ["vtkmodules", "vtkmodules.all"]

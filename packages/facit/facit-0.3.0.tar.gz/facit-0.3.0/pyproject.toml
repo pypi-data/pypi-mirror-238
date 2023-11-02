@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "facit"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Olle Vidner", email = "olle@vidner.se" },
+  { name = "Camilla Wehlin" },
+  { name = "Anton Wiberg" },
+]
+maintainers = [{ name = "Olle Vidner", email = "olle@vidner.se" }]
+dependencies = [
+  "jsonpickle",
+  "openmdao",
+  "numpy",
+  "pandas",
+  "pydantic",
+  "pydoe2",
+  "xarray",
+  "zarr",
+]
+
+[project.optional-dependencies]
+test = ["deepdiff", "hypothesis", "pytest"]
+
+[project.urls]
+Homepage = "https://github.com/ovidner/facit"
+
+[project.entry-points.pyinstaller40]
+hook-dirs = "facit._pyinstaller_hooks:get_hook_dirs"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build]
+exclude = [".github", "conda-recipe"]
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules"
+testpaths = ["tests", "src"]
+
+[tool.ruff.isort]
+known-first-party = ["facit"]
