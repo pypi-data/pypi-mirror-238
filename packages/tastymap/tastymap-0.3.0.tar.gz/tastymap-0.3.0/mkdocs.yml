@@ -1,0 +1,61 @@
+site_name: TastyMap
+site_description: Color palettes for your palate
+
+repo_url: https://github.com/ahuang11/tastymap
+repo_name: ahuang11/tastymap
+
+theme:
+    name: material
+    icon:
+        logo: material/library
+    palette:
+        # Palette toggle for light mode
+        - media: "(prefers-color-scheme: light)"
+          scheme: default
+          primary: black
+          accent: black
+          toggle:
+            icon: material/brightness-7
+            name: Switch to dark mode
+
+        # Palette toggle for dark mode
+        - media: "(prefers-color-scheme: dark)"
+          scheme: slate
+          primary: black
+          accent: black
+          toggle:
+            icon: material/brightness-4
+            name: Switch to light mode
+
+markdown_extensions:
+    - toc:
+        permalink: true
+    - pymdownx.highlight:
+        anchor_linenums: true
+    - pymdownx.tasklist:
+        custom_checkbox: true
+    - pymdownx.inlinehilite
+    - pymdownx.snippets
+    - pymdownx.superfences
+
+plugins:
+    - search
+    - mkdocstrings:
+        handlers:
+            python:
+                import:
+                    - https://docs.python.org/3.9/objects.inv
+                options:
+                    docstring_style: google
+
+watch:
+    - docs
+    - tastymap
+
+nav:
+    - About: index.md
+    - Usage: usage.md
+    - Reference:
+        - Core: reference/core.md
+        - Models: reference/models.md
+        - Utils: reference/utils.md
