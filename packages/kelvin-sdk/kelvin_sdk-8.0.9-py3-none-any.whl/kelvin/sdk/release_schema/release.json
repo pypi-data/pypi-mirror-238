@@ -1,0 +1,619 @@
+{
+    "$id": "https://apps.kelvininc.com/schemas/kelvin/4.11.0/app/app.json#",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+        "Environment": {
+            "additionalProperties": false,
+            "description": "Running environment related parameters",
+            "properties": {
+                "node_name": {
+                    "$ref": "/schemas/kelvin/4.11.0/utils/utils.json#/definitions/NameDNS",
+                    "description": "The name of the Node",
+                    "title": "Node Name"
+                },
+                "workload_name": {
+                    "$ref": "/schemas/kelvin/4.11.0/utils/utils.json#/definitions/NameDNS",
+                    "description": "The name of the Workload, unique to the Node",
+                    "title": "Workload Name"
+                }
+            },
+            "title": "Environment",
+            "type": "object"
+        },
+        "Info": {
+            "additionalProperties": false,
+            "description": "Application information.",
+            "properties": {
+                "description": {
+                    "title": "Description",
+                    "type": "string"
+                },
+                "name": {
+                    "$ref": "/schemas/kelvin/4.11.0/utils/utils.json#/definitions/NameDNS",
+                    "title": "Name"
+                },
+                "title": {
+                    "title": "Title",
+                    "type": "string"
+                },
+                "version": {
+                    "$ref": "/schemas/kelvin/4.11.0/utils/utils.json#/definitions/Version",
+                    "description": "Application version.",
+                    "title": "Application Version"
+                }
+            },
+            "required": [
+                "name",
+                "title",
+                "description",
+                "version"
+            ],
+            "title": "App Info",
+            "type": "object"
+        },
+        "System": {
+            "additionalProperties": false,
+            "components": {
+                "PortMapping": {
+                    "additionalProperties": false,
+                    "allOf": [
+                        {
+                            "if": {
+                                "properties": {
+                                    "type": {
+                                        "const": "host"
+                                    }
+                                }
+                            },
+                            "then": {
+                                "not": {
+                                    "required": [
+                                        "service"
+                                    ]
+                                },
+                                "required": [
+                                    "host"
+                                ]
+                            }
+                        },
+                        {
+                            "if": {
+                                "properties": {
+                                    "type": {
+                                        "const": "service"
+                                    }
+                                }
+                            },
+                            "then": {
+                                "not": {
+                                    "required": [
+                                        "host"
+                                    ]
+                                },
+                                "required": [
+                                    "service"
+                                ]
+                            }
+                        }
+                    ],
+                    "description": "Mapping between a source and target port.",
+                    "properties": {
+                        "host": {
+                            "$ref": "#/definitions/System/components/PortMappingHostPort",
+                            "description": "Host Port.",
+                            "title": "Host Port"
+                        },
+                        "name": {
+                            "$ref": "/schemas/kelvin/4.11.0/utils/utils.json#/definitions/PortName",
+                            "description": "Port name.",
+                            "title": "Port Name"
+                        },
+                        "service": {
+                            "$ref": "#/definitions/System/components/PortMappingService",
+                            "description": "Service Port.",
+                            "title": "Service Port"
+                        },
+                        "type": {
+                            "$ref": "#/definitions/System/components/PortMappingType",
+                            "description": "Port Type.",
+                            "title": "Port Type"
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "type"
+                    ],
+                    "title": "Port Mapping",
+                    "type": "object"
+                },
+                "PortMappingHostPort": {
+                    "additionalProperties": false,
+                    "properties": {
+                        "port": {
+                            "$ref": "/schemas/kelvin/4.11.0/utils/utils.json#/definitions/Port",
+                            "description": "Port",
+                            "title": "Port"
+                        }
+                    },
+                    "required": [
+                        "port"
+                    ],
+                    "type": "object"
+                },
+                "PortMappingService": {
+                    "additionalProperties": false,
+                    "properties": {
+                        "container_port": {
+                            "$ref": "/schemas/kelvin/4.11.0/utils/utils.json#/definitions/Port",
+                            "description": "Container Port",
+                            "title": "Container Port"
+                        },
+                        "exposed": {
+                            "default": false,
+                            "description": "Exposed",
+                            "title": "Exposed",
+                            "type": "boolean"
+                        },
+                        "exposed_port": {
+                            "description": "Exposed port.",
+                            "exclusiveMinimum": 30000,
+                            "maximum": 32767,
+                            "title": "Exposed Port",
+                            "type": "integer"
+                        },
+                        "port": {
+                            "$ref": "/schemas/kelvin/4.11.0/utils/utils.json#/definitions/Port",
+                            "description": "Port",
+                            "title": "Port"
+                        }
+                    },
+                    "required": [
+                        "port"
+                    ],
+                    "type": "object"
+                },
+                "PortMappingType": {
+                    "default": "service",
+                    "enum": [
+                        "host",
+                        "service"
+                    ],
+                    "type": "string"
+                },
+                "SystemResources": {
+                    "additionalProperties": false,
+                    "properties": {
+                        "cpu": {
+                            "default": "0.4",
+                            "description": "CPU requirements defined as units. One CPU is equivalent of 1 vCPU/Core.",
+                            "pattern": "^[0-9]+(\\.[0-9]+)?(m|)$",
+                            "title": "CPU Requirements",
+                            "type": "string"
+                        },
+                        "memory": {
+                            "default": "256Mi",
+                            "description": "Memory requirements.",
+                            "pattern": "^[0-9]+(\\.[0-9]+)?(K|M|G|Ki|Mi|Gi)$",
+                            "title": "Memory Requirements",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "description": "Requirements for the system, e.g. ports, volumes, etc.",
+            "properties": {
+                "environment_vars": {
+                    "description": "Environment variables. Non-strings will be json-encoded as strings.",
+                    "items": {
+                        "$ref": "/schemas/kelvin/4.11.0/utils/utils.json#/definitions/EnvironmentVar"
+                    },
+                    "title": "Environment Variables",
+                    "type": "array",
+                    "uniquenessKeys": [
+                        "#/name"
+                    ]
+                },
+                "ports": {
+                    "description": "Network port mappings.",
+                    "items": {
+                        "$ref": "#/definitions/System/components/PortMapping"
+                    },
+                    "title": "Port Mappings",
+                    "type": "array",
+                    "uniquenessKeys": [
+                        "#/name"
+                    ]
+                },
+                "privileged": {
+                    "default": false,
+                    "description": "Give extended privileges to this application. Allows the application to access any devices on the host (ex: Serial).",
+                    "title": "Privileged Flag",
+                    "type": "boolean"
+                },
+                "resources": {
+                    "additionalProperties": false,
+                    "description": "It guarantees resources for the requests but, prevents the container from using more than the limits.",
+                    "properties": {
+                        "limits": {
+                            "$ref": "#/definitions/System/components/SystemResources",
+                            "description": "Limits ensure that a container never goes above a certain value.",
+                            "title": "Container CPU and Memory limits"
+                        },
+                        "requests": {
+                            "$ref": "#/definitions/System/components/SystemResources",
+                            "description": "Requests are what the container is guaranteed to get.",
+                            "title": "Container CPU and Memory requests"
+                        }
+                    },
+                    "title": "Resource Requirements",
+                    "type": "object"
+                },
+                "volumes": {
+                    "description": "Volume definitions.",
+                    "items": {
+                        "$ref": "#/definitions/Volume"
+                    },
+                    "title": "Volumes",
+                    "type": "array",
+                    "uniquenessKeys": [
+                        "#/name"
+                    ]
+                }
+            },
+            "title": "System Requirements",
+            "type": "object"
+        },
+        "Volume": {
+            "additionalProperties": false,
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "type": {
+                                "const": "text"
+                            }
+                        }
+                    },
+                    "then": {
+                        "not": {
+                            "required": [
+                                "host",
+                                "persistent"
+                            ]
+                        },
+                        "required": [
+                            "text"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "type": {
+                                "const": "host"
+                            }
+                        }
+                    },
+                    "then": {
+                        "not": {
+                            "required": [
+                                "text",
+                                "persistent"
+                            ]
+                        },
+                        "required": [
+                            "host"
+                        ]
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "type": {
+                                "const": "persistent"
+                            }
+                        }
+                    },
+                    "then": {
+                        "not": {
+                            "required": [
+                                "host",
+                                "text"
+                            ]
+                        }
+                    }
+                }
+            ],
+            "components": {
+                "VolumeHost": {
+                    "additionalProperties": false,
+                    "properties": {
+                        "source": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "source"
+                    ],
+                    "type": "object"
+                },
+                "VolumeText": {
+                    "additionalProperties": false,
+                    "properties": {
+                        "base64": {
+                            "default": false,
+                            "type": "boolean"
+                        },
+                        "data": {
+                            "type": "string"
+                        },
+                        "encoding": {
+                            "default": "utf-8",
+                            "description": "File encoding.",
+                            "enum": [
+                                "utf-8",
+                                "ascii",
+                                "latin_1"
+                            ],
+                            "title": "File Encoding",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "data"
+                    ],
+                    "type": "object"
+                },
+                "VolumeType": {
+                    "enum": [
+                        "text",
+                        "host",
+                        "persistent"
+                    ],
+                    "type": "string"
+                }
+            },
+            "description": "Volume configuration.",
+            "properties": {
+                "host": {
+                    "$ref": "#/definitions/Volume/components/VolumeHost",
+                    "description": "Host directory or file.",
+                    "title": "Host Volume"
+                },
+                "name": {
+                    "$ref": "/schemas/kelvin/4.11.0/utils/utils.json#/definitions/NameDNS",
+                    "description": "Volume name.",
+                    "title": "Volume Name"
+                },
+                "persistent": {
+                    "description": "Persistent volume.",
+                    "title": "Persistent Volume"
+                },
+                "target": {
+                    "description": "Volume target directory.",
+                    "title": "Volume Target",
+                    "type": "string"
+                },
+                "text": {
+                    "$ref": "#/definitions/Volume/components/VolumeText",
+                    "description": "Text volume.",
+                    "title": "Text Volume"
+                },
+                "type": {
+                    "$ref": "#/definitions/Volume/components/VolumeType",
+                    "description": "Volume type.",
+                    "title": "Volume Type"
+                }
+            },
+            "required": [
+                "target",
+                "type"
+            ],
+            "title": "Volume",
+            "type": "object"
+        },
+        "app": {
+            "App": {
+                "additionalProperties": false,
+                "allOf": [
+                    {
+                        "if": {
+                            "properties": {
+                                "type": {
+                                    "const": "kelvin"
+                                }
+                            }
+                        },
+                        "then": {
+                            "not": {
+                                "required": [
+                                    "bridge",
+                                    "docker",
+                                    "flow"
+                                ]
+                            },
+                            "required": [
+                                "kelvin"
+                            ]
+                        }
+                    },
+                    {
+                        "if": {
+                            "properties": {
+                                "type": {
+                                    "const": "bridge"
+                                }
+                            }
+                        },
+                        "then": {
+                            "not": {
+                                "required": [
+                                    "kelvin",
+                                    "docker",
+                                    "flow"
+                                ]
+                            },
+                            "required": [
+                                "bridge"
+                            ]
+                        }
+                    },
+                    {
+                        "if": {
+                            "properties": {
+                                "type": {
+                                    "const": "docker"
+                                }
+                            }
+                        },
+                        "then": {
+                            "not": {
+                                "required": [
+                                    "kelvin",
+                                    "bridge",
+                                    "flow"
+                                ]
+                            },
+                            "required": [
+                                "docker"
+                            ]
+                        }
+                    },
+                    {
+                        "if": {
+                            "properties": {
+                                "type": {
+                                    "const": "flow"
+                                }
+                            }
+                        },
+                        "then": {
+                            "not": {
+                                "required": [
+                                    "kelvin",
+                                    "bridge",
+                                    "docker"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "components": {
+                    "AppType": {
+                        "default": "kelvin",
+                        "enum": [
+                            "kelvin",
+                            "bridge",
+                            "docker",
+                            "flow"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "description": "Configuration for application.",
+                "properties": {
+                    "bridge": {
+                        "$ref": "/schemas/kelvin/4.11.0/core/bridge.json#",
+                        "description": "Kelvin Bridge application.",
+                        "title": "Kelvin Bridge Application"
+                    },
+                    "docker": {
+                        "$ref": "#/definitions/app/DockerAppType"
+                    },
+                    "flow": {
+                        "$ref": "#/definitions/app/FlowAppType"
+                    },
+                    "kelvin": {
+                        "$ref": "/schemas/kelvin/4.11.0/core/kelvin.json#",
+                        "description": "Kelvin application.",
+                        "title": "Kelvin Application"
+                    },
+                    "type": {
+                        "$ref": "#/definitions/app/App/components/AppType",
+                        "description": "Application type.",
+                        "title": "Application Type"
+                    }
+                },
+                "required": [
+                    "type"
+                ],
+                "title": "Application Configuration",
+                "type": "object"
+            },
+            "BridgeAppType": {
+                "additionalProperties": true,
+                "description": "Kelvin Bridge application.",
+                "title": "Bridge Application",
+                "type": "object"
+            },
+            "DockerAppType": {
+                "additionalProperties": false,
+                "description": "General docker-container application.",
+                "properties": {
+                    "args": {
+                        "items": {
+                            "description": "Build argument.",
+                            "title": "Build Argument",
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "context": {
+                        "default": ".",
+                        "description": "Build context directory.",
+                        "title": "Build context.",
+                        "type": "string"
+                    },
+                    "dockerfile": {
+                        "default": "Dockerfile",
+                        "description": "Docker file.",
+                        "title": "Docker File",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "dockerfile",
+                    "context"
+                ],
+                "title": "Docker Application",
+                "type": "object"
+            },
+            "FlowAppType": {
+                "additionalProperties": true,
+                "description": "General node-red application.",
+                "title": "Flow Application",
+                "type": "object"
+            }
+        }
+    },
+    "description": "Schema for Kelvin App definitions.",
+    "display_tabs": true,
+    "properties": {
+        "app": {
+            "$ref": "#/definitions/app/App"
+        },
+        "environment": {
+            "$ref": "#/definitions/Environment"
+        },
+        "info": {
+            "$ref": "#/definitions/Info"
+        },
+        "spec_version": {
+            "$ref": "/schemas/kelvin/4.11.0/utils/utils.json#/definitions/Version",
+            "description": "Specification version.",
+            "title": "Specification Version"
+        },
+        "system": {
+            "$ref": "#/definitions/System"
+        }
+    },
+    "required": [
+        "spec_version",
+        "info",
+        "app"
+    ],
+    "title": "Kelvin App Configuration Schema",
+    "type": "object"
+}
