@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "squeeze-jrpc"
+version = "0.1.1"
+description = "Wrapper for Logitech Media Server (aka SqueezeBox) JSON-RPC API"
+authors = ["Simon Redding <s1m0n.r3dd1ng@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.31.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+pytest-watch = "^4.2.0"
+pytest-cov = "^4.1.0"
+flake8 = "^6.1.0"
+bandit = "^1.7.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
