@@ -1,0 +1,139 @@
+Metadata-Version: 2.1
+Name: fcs-simple-endpoint
+Version: 1.0.4
+Summary: "FCS SRU Simple Endpoint"
+Home-page: https://github.com/Querela/fcs-simple-endpoint-python/
+Author: Erik Körner
+Author-email: "Erik Körner" <koerner@saw-leipzig.de>
+License: MIT
+Project-URL: Source, https://github.com/Querela/fcs-simple-endpoint-python/
+Project-URL: Documentation, https://fcs-simple-endpoint-python.readthedocs.io/
+Project-URL: Issue Tracker, https://github.com/Querela/fcs-simple-endpoint-python/issues
+Keywords: SRU,FCS,CLARIN
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: fcs-sru-server>=1.1.3
+Requires-Dist: fcs-ql-parser>=1.0.1
+Requires-Dist: lxml>=4.9.2
+Requires-Dist: PyJWT[crypto]>=2.6.0
+Requires-Dist: cryptography>=39.0.0
+Provides-Extra: test
+Requires-Dist: pytest>=7.2.1; extra == "test"
+Requires-Dist: pytest-cov>=4.0.0; extra == "test"
+Requires-Dist: pytest-clarity>=1.0.1; extra == "test"
+Requires-Dist: pytest-randomly>=3.12.0; extra == "test"
+Provides-Extra: style
+Requires-Dist: black>=23.1.0; extra == "style"
+Requires-Dist: flake8>=6.0.0; extra == "style"
+Requires-Dist: isort>=5.11.4; extra == "style"
+Requires-Dist: mypy>=0.991; extra == "style"
+Requires-Dist: darglint>=1.8.1; extra == "style"
+Provides-Extra: docs
+Requires-Dist: sphinx>=5.3.0; extra == "docs"
+Requires-Dist: sphinx-rtd-theme>=0.5.1; extra == "docs"
+Requires-Dist: myst-parser>=0.18.1; extra == "docs"
+Provides-Extra: build
+Requires-Dist: build>=0.10.0; extra == "build"
+Requires-Dist: twine>=4.0.2; extra == "build"
+
+FCS Simple Endpoint
+===================
+
+<!-- START: BADGES -->
+[![](https://img.shields.io/badge/%20code%20style-black-000000)](https://github.com/psf/black)
+[![](https://img.shields.io/badge/%20imports-isort-%231674b1)](https://pycqa.github.io/isort/)
+[![](https://img.shields.io/badge/linting-flake8-yellowgreen)](https://github.com/PyCQA/flake8)  
+[![](https://img.shields.io/badge/%20doc%20style-sphinx-0a507a.svg)](https://www.sphinx-doc.org/en/master/usage/index.html)
+[![](https://img.shields.io/badge/%20doc%20style-google-3666d6.svg)](https://google.github.io/styleguide/pyguide.html#s3.8-comments-and-docstrings)  
+[![fcs-simple-endpoint @ PyPI](https://img.shields.io/pypi/v/fcs-simple-endpoint)](https://pypi.python.org/pypi/fcs-simple-endpoint)
+[![](https://img.shields.io/github/last-commit/Querela/fcs-simple-endpoint-python)](https://github.com/Querela/fcs-simple-endpoint-python/commits/main)
+[![Documentation Status](https://readthedocs.org/projects/fcs-simple-endpoint-python/badge/?version=latest)](https://fcs-simple-endpoint-python.readthedocs.io/en/latest/?badge=latest)
+<!-- END: BADGES -->
+
+- Based on [Java](https://github.com/clarin-eric/fcs-simple-endpoint/) implementation  
+  _git commit: `47d1335288d27e860564fb878463f6b467ef7216`_
+- Differences:
+   - a bit more pythonic (naming, interfaces, enums etc.)
+
+
+## Installation
+
+```bash
+# from github/source
+python3 -m pip install 'fcs-simple-endpoint @ git+https://github.com/Querela/fcs-simple-endpoint-python.git'
+
+# (locally) built package
+python3 -m pip install dist/fcs_simple_endpoint-<version>-py2.py3-none-any.whl
+# or
+python3 -m pip install dist/fcs-simple-endpoint-<version>.tar.gz
+
+# for local development
+python3 -m pip install -e .
+```
+
+In `setup.cfg`:
+```ini
+[options]
+install_requires =
+    fcs-simple-endpoint @ git+https://github.com/Querela/fcs-simple-endpoint-python.git
+```
+
+
+## Build source/binary distribution
+
+```bash
+python3 -m pip install build
+python3 -m build
+```
+
+
+## Development
+
+* Uses `pytest` (with coverage, clarity and randomly plugins).
+
+```bash
+python3 -m pip install -e .[test]
+
+pytest
+```
+
+Run style checks:
+```bash
+# general style checks
+python3 -m pip install -e .[style]
+
+black --check .
+flake8 . --show-source --statistics
+isort --check --diff .
+mypy .
+
+# building the package and check metadata
+python3 -m pip install -e .[build]
+
+python3 -m build
+twine check --strict dist/*
+
+# build documentation and check links ...
+python3 -m pip install -e .[docs]
+
+sphinx-build -b html docs dist/docs
+sphinx-build -b linkcheck docs dist/docs
+```
+
+
+## Build documentation
+
+```bash
+python3 -m pip install -r ./docs/requirements.txt
+# or 
+python3 -m pip install -e .[docs]
+
+sphinx-build -b html docs dist/docs
+sphinx-build -b linkcheck docs dist/docs
+```
+
+
+## See also
+
+- [clarin-eric/fcs-sru-server](https://github.com/clarin-eric/fcs-sru-server/)
+- [clarin-eric/fcs-simple-endpoint](https://github.com/clarin-eric/fcs-simple-endpoint/)
