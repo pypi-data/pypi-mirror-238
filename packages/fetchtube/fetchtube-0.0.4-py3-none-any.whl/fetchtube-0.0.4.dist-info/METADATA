@@ -1,0 +1,85 @@
+Metadata-Version: 2.1
+Name: fetchtube
+Version: 0.0.4
+Summary: A simple package to download YouTube audio/video
+Project-URL: Homepage, https://github.com/fyresmith/fetchtube
+Project-URL: Bug Tracker, https://github.com/fyresmith/fetchtube/issues
+Author-email: Caleb Smith <me@calebmsmith.com>
+Maintainer-email: Caleb Smith <me@calebmsmith.com>
+License: MIT License
+        
+        Copyright (c) 2023 Caleb Michael Smith
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE.txt
+Keywords: audio,downloader,video,youtube
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Requires-Dist: pytube
+Description-Content-Type: text/markdown
+
+# FetchTube - Simple YouTube Video and Audio Downloader
+
+FetchTube is a lightweight Python package that allows you to easily download YouTube videos and audio using simple command-line commands.
+
+## Installation
+
+You can install FetchTube using pip:
+
+```bash
+pip install fetchtube
+```
+## Usage
+FetchTube provides two straightforward command-line commands:
+
+
+## Download Video
+To download a video from YouTube, use the -v command followed by the video's URL:
+
+``` bash
+fetchtube -v "https://www.youtube.com/watch?v=VIDEO_ID"
+```
+
+This command will download the best available video up to 1080p resolution to your current working directory.
+
+## Download Audio
+To download audio from a YouTube video, use the -a command followed by the video's URL:
+
+``` bash
+fetchtube -a "https://www.youtube.com/watch?v=VIDEO_ID" 
+```
+
+This command will download the best quality audio stream to your current working directory.
+
+## License
+This package is open-source and released under the MIT License. Feel free to use and modify it according to your needs.
+
+## Acknowledgments
+FetchTube is built on the Pytube library.
+
+## Author
+Caleb Smith
+
+## Contribute
+If you'd like to contribute to this project or report issues, please visit the GitHub repository.
+
+Happy downloading!
