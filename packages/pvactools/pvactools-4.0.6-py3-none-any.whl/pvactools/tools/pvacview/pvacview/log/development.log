@@ -1,0 +1,440 @@
+  [1m[35m (203.2ms)[0m  [1m[35mCREATE DATABASE "pvacview_development" ENCODING = 'unicode'[0m
+  [1m[35m (96.5ms)[0m  [1m[35mCREATE DATABASE "pvacview_test" ENCODING = 'unicode'[0m
+  [1m[35m (6.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5481992735881241685)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-08-02 12:08:05.626172"], ["updated_at", "2023-08-02 12:08:05.626172"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5481992735881241685)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2023-08-02 14:09:43 +0200
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/ssiebert/.rbenv/versions/3.0.0/lib/ruby/gems/3.0.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/ssiebert/.rbenv/versions/3.0.0/lib/ruby/gems/3.0.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb (Duration: 3.2ms | Allocations: 839)
+Completed 200 OK in 34ms (Views: 9.3ms | ActiveRecord: 0.0ms | Allocations: 10019)
+
+
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5481992735881241685)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddSampleTable (20230801165353)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (9.4ms)[0m  [1m[35mCREATE TABLE "samples" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "name" character varying)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_samples_on_name" ON "samples" ("name")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230801165353"]]
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddGeneTable (20230801182330)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "genes" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "name" character varying, "ensembl_id" character varying)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_genes_on_ensembl_id" ON "genes" ("ensembl_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230801182330"]]
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddTranscriptTable (20230801182933)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE TABLE "transcripts" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "ensembl_id" character varying, "tsl" integer, "length" integer, "biotype" character varying)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "transcripts" ADD "gene_id" bigint[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_transcripts_on_gene_id" ON "transcripts" ("gene_id")[0m
+  [1m[35m (6.8ms)[0m  [1m[35mALTER TABLE "transcripts" ADD CONSTRAINT "fk_rails_165513e2db"
+FOREIGN KEY ("gene_id")
+  REFERENCES "genes" ("id")
+[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_transcripts_on_ensembl_id" ON "transcripts" ("ensembl_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230801182933"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(5481992735881241685)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5481992735881241685)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddTranscriptTable (20230801182933)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.4ms)[0m  [1m[35mDROP INDEX  "index_transcripts_on_ensembl_id"[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "transcripts" DROP CONSTRAINT "fk_rails_165513e2db"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "transcripts" DROP COLUMN "gene_id"[0m
+  [1m[35m (1.7ms)[0m  [1m[35mDROP TABLE "transcripts"[0m
+  [1m[36mActiveRecord::SchemaMigration Delete All (0.4ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = $1[0m  [["version", "20230801182933"]]
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5481992735881241685)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5481992735881241685)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddGeneTable (20230801182330)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP INDEX  "index_genes_on_ensembl_id"[0m
+  [1m[35m (1.2ms)[0m  [1m[35mDROP TABLE "genes"[0m
+  [1m[36mActiveRecord::SchemaMigration Delete All (0.3ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = $1[0m  [["version", "20230801182330"]]
+  [1m[36mTRANSACTION (2.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(5481992735881241685)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5481992735881241685)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddSampleTable (20230801165353)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP INDEX  "index_samples_on_name"[0m
+  [1m[35m (1.1ms)[0m  [1m[35mDROP TABLE "samples"[0m
+  [1m[36mActiveRecord::SchemaMigration Delete All (0.3ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = $1[0m  [["version", "20230801165353"]]
+  [1m[36mTRANSACTION (1.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5481992735881241685)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5481992735881241685)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddSampleTable (20230801165353)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "samples" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "name" character varying NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_samples_on_name" ON "samples" ("name")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230801165353"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddGeneTable (20230801182330)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "genes" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "name" character varying, "ensembl_id" character varying NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_genes_on_ensembl_id" ON "genes" ("ensembl_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230801182330"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddTranscriptTable (20230801182933)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "transcripts" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "ensembl_id" character varying NOT NULL, "tsl" integer NOT NULL, "length" integer NOT NULL, "biotype" character varying NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "transcripts" ADD "gene_id" bigint NOT NULL[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_transcripts_on_gene_id" ON "transcripts" ("gene_id")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "transcripts" ADD CONSTRAINT "fk_rails_165513e2db"
+FOREIGN KEY ("gene_id")
+  REFERENCES "genes" ("id")
+[0m
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5481992735881241685)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5481992735881241685)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddTranscriptTable (20230801182933)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "transcripts" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, "ensembl_id" character varying NOT NULL, "tsl" integer NOT NULL, "length" integer NOT NULL, "biotype" character varying NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "transcripts" ADD "gene_id" bigint NOT NULL[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_transcripts_on_gene_id" ON "transcripts" ("gene_id")[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "transcripts" ADD CONSTRAINT "fk_rails_165513e2db"
+FOREIGN KEY ("gene_id")
+  REFERENCES "genes" ("id")
+[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_transcripts_on_ensembl_id" ON "transcripts" ("ensembl_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230801182933"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5481992735881241685)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/samples" for 127.0.0.1 at 2023-08-02 15:43:40 +0200
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SamplesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering samples/index.html.erb within layouts/application
+  Rendered shared/_browse_table.html.erb (Duration: 11.9ms | Allocations: 5768)
+  Rendered samples/index.html.erb within layouts/application (Duration: 13.8ms | Allocations: 6321)
+  Rendered layout layouts/application.html.erb (Duration: 13.9ms | Allocations: 6404)
+Completed 500 Internal Server Error in 36ms (ActiveRecord: 0.0ms | Allocations: 13601)
+
+
+  
+ActionView::Template::Error (undefined method `search_form_for' for #<ActionView::Base:0x0000000000b680>
+Did you mean?  search_field):
+    1: <%# locals: (filter_partial:, header_partial:, body_partial:, selected_item_id:, collection:  ) -%>
+    2: 
+    3: 
+    4: <%= search_form_for @q, html: { data: { controller: 'debounce', turbo_frame: 'table' } } do |f| %>
+    5:   <div class="field is-grouped is-grouped-centered">
+    6:     <%= render partial: filter_partial, locals: { form: f }  %>
+    7:     <%= f.hidden_field :project_id, value: @project&.id %>
+  
+app/views/shared/_browse_table.html.erb:4
+app/views/samples/index.html.erb:1
+Started GET "/" for 127.0.0.1 at 2023-08-02 15:46:41 +0200
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/ssiebert/.rbenv/versions/3.0.0/lib/ruby/gems/3.0.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/ssiebert/.rbenv/versions/3.0.0/lib/ruby/gems/3.0.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.7ms | Allocations: 732)
+Completed 200 OK in 53ms (Views: 5.0ms | ActiveRecord: 0.0ms | Allocations: 23581)
+
+
+Started GET "/samples" for 127.0.0.1 at 2023-08-02 15:46:50 +0200
+Processing by SamplesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering samples/index.html.erb within layouts/application
+  Rendered shared/_browse_table.html.erb (Duration: 3.5ms | Allocations: 2316)
+  Rendered samples/index.html.erb within layouts/application (Duration: 4.4ms | Allocations: 2612)
+  Rendered layout layouts/application.html.erb (Duration: 4.6ms | Allocations: 2687)
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 0.0ms | Allocations: 4629)
+
+
+  
+ActionView::Template::Error (No Ransack::Search object was provided to search_form_for!):
+    1: <%# locals: (filter_partial:, header_partial:, body_partial:, selected_item_id:, collection:  ) -%>
+    2: 
+    3: 
+    4: <%= search_form_for @q, html: { data: { controller: 'debounce', turbo_frame: 'table' } } do |f| %>
+    5:   <div class="field is-grouped is-grouped-centered">
+    6:     <%= render partial: filter_partial, locals: { form: f }  %>
+    7:     <%= f.hidden_field :project_id, value: @project&.id %>
+  
+app/views/shared/_browse_table.html.erb:4
+app/views/samples/index.html.erb:1
+Started GET "/samples" for 127.0.0.1 at 2023-08-02 15:49:59 +0200
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SamplesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering samples/index.html.erb within layouts/application
+  Rendered shared/_loader.html.erb (Duration: 0.3ms | Allocations: 125)
+  Rendered shared/_browse_table.html.erb (Duration: 7.9ms | Allocations: 6131)
+  Rendered samples/index.html.erb within layouts/application (Duration: 9.3ms | Allocations: 6682)
+  Rendered layout layouts/application.html.erb (Duration: 9.5ms | Allocations: 6765)
+Completed 500 Internal Server Error in 38ms (ActiveRecord: 0.0ms | Allocations: 18286)
+
+
+  
+ActionView::Template::Error (undefined method `octicon' for #<ActionView::Base:0x0000000000b6d0>):
+    4:   <%= render 'shared/loader' %>
+    5:   <div class="field is-grouped is-grouped-right">
+    6:     <%= link_to @tsv_path, class: 'button is-small', data: { turbo: false } do %>
+    7:       <span class="icon is-small"><%= octicon "download", :height => 24 %></span>
+    8:       <span>Export Table</span>
+    9:     <% end %>
+   10:   </div>
+  
+app/views/shared/_browse_table.html.erb:7
+app/views/shared/_browse_table.html.erb:6
+app/views/shared/_browse_table.html.erb:3
+app/views/samples/index.html.erb:1
+Started GET "/samples" for 127.0.0.1 at 2023-08-02 15:51:05 +0200
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SamplesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering samples/index.html.erb within layouts/application
+  Rendered shared/_loader.html.erb (Duration: 0.2ms | Allocations: 125)
+  Rendered shared/_browse_table.html.erb (Duration: 6.3ms | Allocations: 4233)
+  Rendered samples/index.html.erb within layouts/application (Duration: 7.8ms | Allocations: 4784)
+  Rendered layout layouts/application.html.erb (Duration: 7.9ms | Allocations: 4867)
+Completed 500 Internal Server Error in 36ms (ActiveRecord: 0.0ms | Allocations: 16385)
+
+
+  
+ActionView::Template::Error (Missing partial samples/_table_headers with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder]}.
+
+Searched in:
+  * "/Users/ssiebert/Documents/Work/pVACtools/pvactools/tools/pvacview/pvacview/app/views"
+  * "/Users/ssiebert/.rbenv/versions/3.0.0/lib/ruby/gems/3.0.0/gems/turbo-rails-1.4.0/app/views"
+  * "/Users/ssiebert/.rbenv/versions/3.0.0/lib/ruby/gems/3.0.0/gems/actiontext-7.0.6/app/views"
+  * "/Users/ssiebert/.rbenv/versions/3.0.0/lib/ruby/gems/3.0.0/gems/actionmailbox-7.0.6/app/views"
+
+Did you mean?  shared/loader
+               shared/browse_table
+               action_text/attachment_galleries/attachment_gallery
+               action_text/attachables/remote_image
+               active_storage/blobs/blob
+               layouts/action_text/contents/content):
+    11:   <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+    12:     <thead>
+    13:       <tr>
+    14:         <%= render partial: header_partial, locals: { query: @q }  %>
+    15:       </tr>
+    16:     </thead>
+    17:     <tbody>
+  
+app/views/shared/_browse_table.html.erb:14
+app/views/shared/_browse_table.html.erb:3
+app/views/samples/index.html.erb:1
+Started GET "/samples" for 127.0.0.1 at 2023-08-02 15:53:11 +0200
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SamplesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering samples/index.html.erb within layouts/application
+  Rendered shared/_loader.html.erb (Duration: 0.2ms | Allocations: 125)
+  Rendered samples/_table_headers.html (Duration: 0.2ms | Allocations: 101)
+  Rendered shared/_browse_table.html.erb (Duration: 5.6ms | Allocations: 4491)
+  Rendered samples/index.html.erb within layouts/application (Duration: 6.7ms | Allocations: 5042)
+  Rendered layout layouts/application.html.erb (Duration: 6.8ms | Allocations: 5125)
+Completed 500 Internal Server Error in 24ms (ActiveRecord: 0.0ms | Allocations: 16643)
+
+
+  
+ActionView::Template::Error (Missing partial samples/_table_rows with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder]}.
+
+Searched in:
+  * "/Users/ssiebert/Documents/Work/pVACtools/pvactools/tools/pvacview/pvacview/app/views"
+  * "/Users/ssiebert/.rbenv/versions/3.0.0/lib/ruby/gems/3.0.0/gems/turbo-rails-1.4.0/app/views"
+  * "/Users/ssiebert/.rbenv/versions/3.0.0/lib/ruby/gems/3.0.0/gems/actiontext-7.0.6/app/views"
+  * "/Users/ssiebert/.rbenv/versions/3.0.0/lib/ruby/gems/3.0.0/gems/actionmailbox-7.0.6/app/views"
+
+Did you mean?  samples/table_headers
+               shared/loader
+               shared/browse_table
+               active_storage/blobs/blob
+               layouts/action_text/contents/content
+               action_text/contents/content):
+    15:       </tr>
+    16:     </thead>
+    17:     <tbody>
+    18:       <%= render partial: body_partial, locals: { collection: collection } %>
+    19:     </tbody>
+    20:   </table>
+    21:   <%== pagy_bulma_nav(@pagy) %>
+  
+app/views/shared/_browse_table.html.erb:18
+app/views/shared/_browse_table.html.erb:3
+app/views/samples/index.html.erb:1
+Started GET "/samples" for 127.0.0.1 at 2023-08-02 15:54:18 +0200
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SamplesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering samples/index.html.erb within layouts/application
+  Rendered shared/_loader.html.erb (Duration: 0.2ms | Allocations: 125)
+  Rendered samples/_table_headers.html (Duration: 0.2ms | Allocations: 101)
+  [1m[36mSample Load (2.2ms)[0m  [1m[34mSELECT "samples".* FROM "samples"[0m
+  ↳ app/views/samples/_table_rows.html.erb:3
+  Rendered samples/_table_rows.html.erb (Duration: 3.5ms | Allocations: 929)
+  Rendered shared/_browse_table.html.erb (Duration: 14.5ms | Allocations: 7558)
+  Rendered samples/index.html.erb within layouts/application (Duration: 15.5ms | Allocations: 8109)
+  Rendered layout layouts/application.html.erb (Duration: 15.7ms | Allocations: 8192)
+Completed 500 Internal Server Error in 31ms (ActiveRecord: 2.2ms | Allocations: 19710)
+
+
+  
+ActionView::Template::Error (undefined method `pagy_bulma_nav' for #<ActionView::Base:0x0000000000b770>):
+    18:       <%= render partial: body_partial, locals: { collection: collection } %>
+    19:     </tbody>
+    20:   </table>
+    21:   <%== pagy_bulma_nav(@pagy) %>
+    22: <% end %>
+    23: 
+    24: <%# <%= render partial: 'shared/sidebar_highlight', locals: { selected_item_id: selected_item_id } %>
+  
+app/views/shared/_browse_table.html.erb:21
+app/views/shared/_browse_table.html.erb:3
+app/views/samples/index.html.erb:1
+Started GET "/samples" for 127.0.0.1 at 2023-08-02 15:55:21 +0200
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SamplesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering samples/index.html.erb within layouts/application
+  Rendered shared/_loader.html.erb (Duration: 0.2ms | Allocations: 125)
+  Rendered samples/_table_headers.html (Duration: 0.2ms | Allocations: 101)
+  [1m[36mSample Load (0.6ms)[0m  [1m[34mSELECT "samples".* FROM "samples"[0m
+  ↳ app/views/samples/_table_rows.html.erb:3
+  Rendered samples/_table_rows.html.erb (Duration: 1.9ms | Allocations: 929)
+  Rendered shared/_browse_table.html.erb (Duration: 14.0ms | Allocations: 7557)
+  Rendered samples/index.html.erb within layouts/application (Duration: 15.4ms | Allocations: 8108)
+  Rendered layout layouts/application.html.erb (Duration: 15.6ms | Allocations: 8191)
+Completed 500 Internal Server Error in 45ms (ActiveRecord: 0.6ms | Allocations: 19700)
+
+
+  
+ActionView::Template::Error (undefined method `pagy_bulma_nav' for #<ActionView::Base:0x0000000000b7c0>):
+    18:       <%= render partial: body_partial, locals: { collection: collection } %>
+    19:     </tbody>
+    20:   </table>
+    21:   <%== pagy_bulma_nav(@pagy) %>
+    22: <% end %>
+    23: 
+    24: <%# <%= render partial: 'shared/sidebar_highlight', locals: { selected_item_id: selected_item_id } %>
+  
+app/views/shared/_browse_table.html.erb:21
+app/views/shared/_browse_table.html.erb:3
+app/views/samples/index.html.erb:1
+Started GET "/samples" for 127.0.0.1 at 2023-08-02 15:58:32 +0200
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SamplesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering samples/index.html.erb within layouts/application
+  Rendered shared/_loader.html.erb (Duration: 0.2ms | Allocations: 125)
+  Rendered samples/_table_headers.html (Duration: 0.2ms | Allocations: 101)
+  [1m[36mSample Load (0.6ms)[0m  [1m[34mSELECT "samples".* FROM "samples"[0m
+  ↳ app/views/samples/_table_rows.html.erb:3
+  Rendered samples/_table_rows.html.erb (Duration: 1.7ms | Allocations: 929)
+  Rendered shared/_browse_table.html.erb (Duration: 6.4ms | Allocations: 5074)
+  Rendered samples/index.html.erb within layouts/application (Duration: 7.8ms | Allocations: 5625)
+  Rendered layout layouts/application.html.erb (Duration: 8.0ms | Allocations: 5708)
+Completed 500 Internal Server Error in 35ms (ActiveRecord: 0.6ms | Allocations: 17229)
+
+
+  
+ActionView::Template::Error (undefined method `prev' for nil:NilClass):
+    18:       <%= render partial: body_partial, locals: { collection: collection } %>
+    19:     </tbody>
+    20:   </table>
+    21:   <%== pagy_bulma_nav(@pagy) %>
+    22: <% end %>
+    23: 
+    24: <%# <%= render partial: 'shared/sidebar_highlight', locals: { selected_item_id: selected_item_id } %>
+  
+app/views/shared/_browse_table.html.erb:21
+app/views/shared/_browse_table.html.erb:3
+app/views/samples/index.html.erb:1
+Started GET "/samples" for 127.0.0.1 at 2023-08-02 15:59:51 +0200
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SamplesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering samples/index.html.erb within layouts/application
+  Rendered shared/_loader.html.erb (Duration: 0.2ms | Allocations: 125)
+  Rendered samples/_table_headers.html (Duration: 0.2ms | Allocations: 101)
+  [1m[36mSample Load (0.5ms)[0m  [1m[34mSELECT "samples".* FROM "samples"[0m
+  ↳ app/views/samples/_table_rows.html.erb:3
+  Rendered samples/_table_rows.html.erb (Duration: 1.7ms | Allocations: 929)
+  Rendered shared/_browse_table.html.erb (Duration: 4.3ms | Allocations: 2752)
+  Rendered samples/index.html.erb within layouts/application (Duration: 5.6ms | Allocations: 3299)
+  Rendered layout layouts/application.html.erb (Duration: 339.4ms | Allocations: 154263)
+Completed 200 OK in 357ms (Views: 342.1ms | ActiveRecord: 0.5ms | Allocations: 165831)
+
+
+Started GET "/samples" for 127.0.0.1 at 2023-08-02 16:00:29 +0200
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SamplesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering samples/index.html.erb within layouts/application
+  Rendered shared/_loader.html.erb (Duration: 0.3ms | Allocations: 125)
+  Rendered samples/_table_headers.html (Duration: 0.2ms | Allocations: 101)
+  [1m[36mSample Load (0.6ms)[0m  [1m[34mSELECT "samples".* FROM "samples"[0m
+  ↳ app/views/samples/_table_rows.html.erb:3
+  Rendered samples/_table_rows.html.erb (Duration: 1.8ms | Allocations: 929)
+  Rendered shared/_browse_table.html.erb (Duration: 4.3ms | Allocations: 2717)
+  Rendered samples/index.html.erb within layouts/application (Duration: 5.2ms | Allocations: 3264)
+  Rendered layout layouts/application.html.erb (Duration: 75.9ms | Allocations: 56807)
+Completed 200 OK in 91ms (Views: 77.8ms | ActiveRecord: 0.6ms | Allocations: 68375)
+
+
+Started GET "/samples" for 127.0.0.1 at 2023-08-02 16:06:31 +0200
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SamplesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering samples/index.html.erb within layouts/application
+  Rendered shared/_loader.html.erb (Duration: 0.5ms | Allocations: 125)
+  Rendered samples/_table_headers.html (Duration: 0.5ms | Allocations: 101)
+  [1m[36mSample Load (0.5ms)[0m  [1m[34mSELECT "samples".* FROM "samples"[0m
+  ↳ app/views/samples/_table_rows.html.erb:3
+  Rendered samples/_table_rows.html.erb (Duration: 2.0ms | Allocations: 929)
+  Rendered shared/_browse_table.html.erb (Duration: 6.3ms | Allocations: 2711)
+  Rendered samples/index.html.erb within layouts/application (Duration: 8.1ms | Allocations: 3258)
+  Rendered layout layouts/application.html.erb (Duration: 101.7ms | Allocations: 57055)
+Completed 200 OK in 135ms (Views: 105.7ms | ActiveRecord: 0.5ms | Allocations: 68624)
+
+
+Started GET "/samples" for 127.0.0.1 at 2023-08-02 16:08:14 +0200
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SamplesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering samples/index.html.erb within layouts/application
+  Rendered shared/_loader.html.erb (Duration: 0.3ms | Allocations: 125)
+  Rendered samples/_table_headers.html (Duration: 0.3ms | Allocations: 101)
+  [1m[36mSample Load (0.6ms)[0m  [1m[34mSELECT "samples".* FROM "samples"[0m
+  ↳ app/views/samples/_table_rows.html.erb:3
+  Rendered samples/_table_rows.html.erb (Duration: 1.8ms | Allocations: 929)
+  Rendered shared/_browse_table.html.erb (Duration: 4.6ms | Allocations: 2711)
+  Rendered samples/index.html.erb within layouts/application (Duration: 5.9ms | Allocations: 3258)
+  Rendered layout layouts/application.html.erb (Duration: 91.5ms | Allocations: 56936)
+Completed 200 OK in 117ms (Views: 95.0ms | ActiveRecord: 0.6ms | Allocations: 68504)
+
+

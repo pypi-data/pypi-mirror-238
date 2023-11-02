@@ -1,0 +1,12 @@
+<%# locals: (collection:) -%>
+
+<% collection.each do |sample| %>
+  <%= tag.tr id: dom_id(sample) do %>
+    <td>
+      <%= sample.name %>
+    </td>
+    <td>
+      <%= sample.timepoint %>
+    </td>
+  <% end %>
+<% end %>

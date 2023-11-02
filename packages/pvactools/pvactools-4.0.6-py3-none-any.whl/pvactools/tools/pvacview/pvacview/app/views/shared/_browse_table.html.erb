@@ -1,0 +1,19 @@
+<%# locals: (filter_partial:, header_partial:, body_partial:, selected_item_id:, collection:  ) -%>
+
+<%= turbo_frame_tag 'table' do %>
+  <%= render 'shared/loader' %>
+  <div class="field is-grouped is-grouped-right">
+    <%= link_to @tsv_path, class: 'button is-small', data: { turbo: false } do %>
+      <span class="icon is-small"><%= octicon "download", :height => 24 %></span>
+      <span>Export Table</span>
+    <% end %>
+  </div>
+  <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+    <thead>
+      <%= render partial: header_partial, locals: { query: @q }  %>
+    </thead>
+    <tbody>
+      <%= render partial: body_partial, locals: { collection: collection } %>
+    </tbody>
+  </table>
+<% end %>
