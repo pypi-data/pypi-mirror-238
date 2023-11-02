@@ -1,0 +1,91 @@
+---
+aws:
+  base:
+    couchformation.aws.driver.base:
+      module: CloudBase
+      test: test_session
+  network:
+    couchformation.aws.network:
+      module: AWSNetwork
+      deploy: create_vpc
+      destroy: destroy_vpc
+      info: info
+  node:
+    couchformation.aws.node:
+      module: AWSDeployment
+      deploy: deploy
+      destroy: destroy
+      info: info
+  parameters:
+    - region
+    - auth_mode
+    - profile
+    - ssh_key
+    - cidr
+    - os_id
+    - os_version
+    - machine_type
+    - quantity
+    - services
+    - volume_iops
+    - volume_size
+gcp:
+  base:
+    couchformation.gcp.driver.base:
+      module: CloudBase
+      test: test_session
+  network:
+    couchformation.gcp.network:
+      module: GCPNetwork
+      deploy: create_vpc
+      destroy: destroy_vpc
+      info: info
+  node:
+    couchformation.gcp.node:
+      module: GCPDeployment
+      deploy: deploy
+      destroy: destroy
+      info: info
+  parameters:
+    - region
+    - auth_mode
+    - profile
+    - ssh_key
+    - cidr
+    - os_id
+    - os_version
+    - machine_type
+    - quantity
+    - services
+    - volume_size
+azure:
+  base:
+    couchformation.azure.driver.base:
+      module: CloudBase
+      test: test_session
+  network:
+    couchformation.azure.network:
+      module: AzureNetwork
+      deploy: create_vpc
+      destroy: destroy_vpc
+      info: info
+  node:
+    couchformation.azure.node:
+      module: AzureDeployment
+      deploy: deploy
+      destroy: destroy
+      info: info
+  parameters:
+    - region
+    - auth_mode
+    - profile
+    - ssh_key
+    - cidr
+    - os_id
+    - os_version
+    - machine_type
+    - quantity
+    - services
+    - volume_iops
+    - volume_size
+    - volume_tier
