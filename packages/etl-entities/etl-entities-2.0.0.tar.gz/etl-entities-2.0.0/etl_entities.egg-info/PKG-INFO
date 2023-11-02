@@ -1,0 +1,96 @@
+Metadata-Version: 2.1
+Name: etl-entities
+Version: 2.0.0
+Summary: ETL Entities lib for onETL
+Home-page: https://github.com/MobileTeleSystems/etl-entities
+Author: DataOps.ETL
+Author-email: onetools@mts.ru
+License: Apache License 2.0
+Project-URL: Documentation, https://etl-entities.readthedocs.io/
+Project-URL: Source, https://github.com/MobileTeleSystems/etl-entities
+Project-URL: CI/CD, https://github.com/MobileTeleSystems/etl-entities/actions
+Project-URL: Tracker, https://github.com/MobileTeleSystems/etl-entities/issues
+Classifier: Development Status :: 3 - Alpha
+Classifier: Framework :: Pydantic
+Classifier: Framework :: Pydantic :: 1
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Typing :: Typed
+Requires-Python: >=3.7
+Description-Content-Type: text/x-rst
+License-File: LICENSE.txt
+Requires-Dist: bidict
+Requires-Dist: importlib_metadata>=3.6.0
+Requires-Dist: psutil
+Requires-Dist: pydantic<2
+
+.. title
+
+ETL Entities lib
+================
+|Repo Status| |PyPI| |PyPI License| |PyPI Python Version|
+|Documentation| |Build Status| |Coverage|
+
+.. |Repo Status| image:: https://www.repostatus.org/badges/latest/active.svg
+    :target: https://github.com/MobileTeleSystems/etl-entities
+.. |PyPI| image:: https://img.shields.io/pypi/v/etl-entities
+    :target: https://pypi.org/project/etl-entities/
+.. |PyPI License| image:: https://img.shields.io/pypi/l/etl-entities.svg
+    :target: https://github.com/MobileTeleSystems/etl-entities/blob/develop/LICENSE.txt
+.. |PyPI Python Version| image:: https://img.shields.io/pypi/pyversions/etl-entities.svg
+    :target: https://badge.fury.io/py/etl-entities
+.. |Build Status| image:: https://github.com/MobileTeleSystems/etl-entities/workflows/Tests/badge.svg
+    :target: https://github.com/MobileTeleSystems/etl-entities/actions
+.. |Documentation| image:: https://readthedocs.org/projects/etl-entities/badge/?version=stable
+    :target: https://etl-entities.readthedocs.io/
+.. |Coverage| image:: https://codecov.io/gh/MobileTeleSystems/etl-entities/branch/develop/graph/badge.svg?token=RIO8URKNZJ
+    :target: https://codecov.io/gh/MobileTeleSystems/etl-entities
+
+What is ETL Entities?
+-----------------------
+
+Collection of classes used for handling High Water Mark (HWM) and gathering Lineage graph.
+
+Currently implemented:
+    * ``ColumnIntHWM``
+    * ``ColumnDateHWM``
+    * ``ColumnDateTimeHWM``
+    * ``FileListHWM``
+    * ``ColumnHWM``
+
+.. installation
+
+How to install
+---------------
+
+.. code:: bash
+
+    pip install etl-entities
+
+.. documentation
+
+Documentation
+-------------
+
+See https://etl-entities.readthedocs.io/
+
+.. contribution
+
+Contribution guide
+-------------------
+
+See `<CONTRIBUTING.rst>`__
+
+.. security
+
+Security
+-------------------
+
+See `<SECURITY.rst>`__
