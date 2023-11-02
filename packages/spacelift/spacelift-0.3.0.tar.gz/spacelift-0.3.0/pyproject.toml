@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "spacelift"
+version = "0.3.0"
+description = "simple python client for the spacelift.io GraphQL API"
+authors = ["Will George <wrgeorge1983@gmail.com>"]
+readme = "README.md"
+license = "Apache-2.0"
+homepage = "https://github.com/wrgeorge1983/spacelift"
+repository = "https://github.com/wrgeorge1983/spacelift"
+keywords = ["spacelift", "spacelift.io", "api", "graphql"]
+packages = [{include = "spacelift", from = "src"}]
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+gql = {extras = ["requests"], version = "^3.4.1"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
