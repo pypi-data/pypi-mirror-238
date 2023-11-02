@@ -1,0 +1,9 @@
+# rules in this file are applied by default
+
+# Add the IP filter AppConfig policy to every service
+appconfig-ipfilter:
+  type: appconfig-ipfilter
+  services: __all__
+
+vpc:
+  type: vpc
