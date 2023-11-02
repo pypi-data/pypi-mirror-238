@@ -1,0 +1,46 @@
+{
+    "services": {
+        "answer_callback_query": {
+            "description": "Atsako \u012f atgalinio ry\u0161io u\u017eklaus\u0105, kilusi\u0105 spustel\u0117jus internetin\u0117s klaviat\u016bros mygtuk\u0105. Atsakymas vartotojui bus rodomas kaip prane\u0161imas pokalbio ekrano vir\u0161uje arba kaip \u012fsp\u0117jimas.",
+            "fields": {
+                "callback_query_id": {
+                    "description": "Unikalus atgalinio atsakymo ID.",
+                    "name": "Atgalinio skambinimo u\u017eklausos ID"
+                },
+                "message": {
+                    "description": "Neformatuotas prane\u0161imo tekstinis prane\u0161imo tekstas.",
+                    "name": "Prane\u0161imas"
+                },
+                "show_alert": {
+                    "description": "Rodyti nuolatin\u012f prane\u0161im\u0105.",
+                    "name": "Rodyti \u012fsp\u0117jim\u0105"
+                },
+                "timeout": {
+                    "description": "Atsakymo siuntimo laikas baig\u0117si. Pad\u0117s esant skirtojo laiko klaidoms (prastas interneto ry\u0161ys ir pan.).",
+                    "name": "Laikas baig\u0117si"
+                }
+            },
+            "name": "Atsakykite \u012f atgalinio skambu\u010dio u\u017eklaus\u0105"
+        },
+        "delete_message": {
+            "description": "I\u0161trina anks\u010diau i\u0161si\u0173st\u0105 \u017einut\u0119.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id, kur i\u0161trinti prane\u0161im\u0105."
+                },
+                "message_id": {
+                    "description": "I\u0161trintino prane\u0161imo ID."
+                }
+            },
+            "name": "I\u0161trinti prane\u0161im\u0105"
+        },
+        "edit_caption": {
+            "description": "Redaguoja anks\u010diau i\u0161si\u0173sto prane\u0161imo antra\u0161t\u0119.",
+            "fields": {
+                "caption": {
+                    "description": "Prane\u0161imo tekstas."
+                }
+            }
+        }
+    }
+}

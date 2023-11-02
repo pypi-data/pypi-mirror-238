@@ -1,0 +1,115 @@
+{
+    "config": {
+        "step": {
+            "reauth_confirm": {
+                "description": "{host} kredencialai nebegalioja.",
+                "title": "I\u0161 naujo autentifikuokite savo ISY"
+            },
+            "user": {
+                "data": {
+                    "password": "Slapta\u017eodis"
+                }
+            }
+        }
+    },
+    "services": {
+        "delete_zwave_lock_user_code": {
+            "name": "I\u0161trinkite Z-Wave Lock vartotojo kod\u0105"
+        },
+        "get_zwave_parameter": {
+            "fields": {
+                "parameter": {
+                    "description": "Parametro numeris, kur\u012f reikia gauti i\u0161 \u012frenginio.",
+                    "name": "Parametras"
+                }
+            },
+            "name": "Gaukite \u201eZ-Wave\u201c parametr\u0105"
+        },
+        "rename_node": {
+            "fields": {
+                "name": {
+                    "description": "Naujas pavadinimas, naudojamas ISY.",
+                    "name": "Naujas Vardas"
+                }
+            },
+            "name": "Pervardykite mazg\u0105 ISY"
+        },
+        "send_node_command": {
+            "fields": {
+                "command": {
+                    "description": "Komanda, kuri\u0105 reikia si\u0173sti \u012f \u012frengin\u012f.",
+                    "name": "Komanda"
+                }
+            },
+            "name": "Si\u0173sti mazgo komand\u0105"
+        },
+        "send_program_command": {
+            "fields": {
+                "address": {
+                    "description": "Valdomos programos adresas (naudokite adres\u0105 arba pavadinim\u0105).",
+                    "name": "Adresas"
+                },
+                "command": {
+                    "description": "Turi b\u016bti i\u0161si\u0173sta ISY programos komanda.",
+                    "name": "Komanda"
+                },
+                "isy": {
+                    "name": "ISY"
+                },
+                "name": {
+                    "description": "Valdomos programos pavadinimas (naudokite adres\u0105 arba pavadinim\u0105)."
+                }
+            }
+        },
+        "send_raw_node_command": {
+            "fields": {
+                "command": {
+                    "name": "Komanda"
+                },
+                "parameters": {
+                    "description": "U\u017eklausos eilut\u0117je siun\u010diam\u0173 parametr\u0173 s\u0105ra\u0161as (pvz., spalvotoms lemput\u0117ms valdyti).",
+                    "name": "Parametrai"
+                },
+                "unit_of_measurement": {
+                    "description": "ISY matavimo vienetas (UOM), kur\u012f reikia si\u0173sti su komanda, jei reikia.",
+                    "name": "Matavimo vienetas"
+                },
+                "value": {
+                    "description": "Sveikasis skai\u010dius, kur\u012f reikia si\u0173sti su komanda.",
+                    "name": "Vert\u0117"
+                }
+            },
+            "name": "Si\u0173sti neapdoroto mazgo komand\u0105"
+        },
+        "set_zwave_lock_user_code": {
+            "description": "Per ISY nustato Z-Wave Lock vartotojo kod\u0105.",
+            "fields": {
+                "code": {
+                    "description": "Kodas, kur\u012f reikia nustatyti vartotojui.",
+                    "name": "Kodas"
+                },
+                "user_num": {
+                    "description": "Vartotojo lizdo numeris ant u\u017erakto.",
+                    "name": "Vartotojo numeris"
+                }
+            },
+            "name": "Nustatykite Z-Wave Lock vartotojo kod\u0105"
+        },
+        "set_zwave_parameter": {
+            "fields": {
+                "parameter": {
+                    "description": "Parametro numeris, kur\u012f reikia nustatyti galutiniame \u012frenginyje."
+                },
+                "size": {
+                    "description": "Parametro dydis \u2013 1, 2 arba 4 baitai.",
+                    "name": "Dydis"
+                },
+                "value": {
+                    "description": "Reik\u0161m\u0117, kuri\u0105 reikia nustatyti parametrui. Gali b\u016bti sveikasis skai\u010dius arba bait\u0173 eilut\u0117 (pvz., \"0xFFFF\").",
+                    "name": "Vert\u0117"
+                }
+            },
+            "name": "Nustatykite Z-Wave parametr\u0105"
+        }
+    }
+}

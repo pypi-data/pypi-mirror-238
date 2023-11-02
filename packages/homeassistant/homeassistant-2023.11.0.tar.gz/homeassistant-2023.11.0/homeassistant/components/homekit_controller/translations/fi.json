@@ -1,0 +1,66 @@
+{
+    "config": {
+        "abort": {
+            "already_in_progress": "M\u00e4\u00e4ritysprosessi on jo k\u00e4ynniss\u00e4",
+            "invalid_config_entry": "T\u00e4m\u00e4 laite on valmis pariliitoksen muodostamiseen, mutta Home Assistantissa on jo olemassa ristiriitainen konfigurointimerkint\u00e4, joka on ensin poistettava."
+        },
+        "error": {
+            "pairing_failed": "T\u00e4m\u00e4n laitteen pariliitoksen muodostamisessa tapahtui k\u00e4sittelem\u00e4t\u00f6n virhe. Kyseess\u00e4 voi olla tilap\u00e4inen vika, tai laitettasi ei ehk\u00e4 tueta t\u00e4ll\u00e4 hetkell\u00e4: {error}"
+        },
+        "flow_title": "{name} ({category})",
+        "step": {
+            "pair": {
+                "data": {
+                    "pairing_code": "Yhdist\u00e4miskoodi"
+                },
+                "description": "HomeKit-laite kommunikoi {name} ({category}) kanssa l\u00e4hiverkon kautta suojatun salatun yhteyden avulla ilman erillist\u00e4 HomeKit-ohjainta tai iCloudia. Sy\u00f6t\u00e4 HomeKit-pariliitoskoodi (muodossa XXX-XX-XXX) k\u00e4ytt\u00e4\u00e4ksesi t\u00e4t\u00e4 lis\u00e4varustetta. T\u00e4m\u00e4 koodi l\u00f6ytyy yleens\u00e4 itse laitteesta tai sen pakkauksesta.",
+                "title": "Pariliitos laitteen kanssa HomeKit Accessory -protokollan kautta"
+            },
+            "user": {
+                "data": {
+                    "device": "Laite"
+                },
+                "description": "HomeKit-laite kommunikoi l\u00e4hiverkon kautta suojatun salatun yhteyden avulla ilman erillist\u00e4 HomeKit-ohjainta tai iCloudia. Valitse laite, jonka kanssa haluat muodostaa pariliitoksen:",
+                "title": "Laitteen valinta"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button1": "Painike 1",
+            "button10": "Painike 10",
+            "button2": "Painike 2",
+            "button3": "Painike 3",
+            "button4": "Painike 4",
+            "button5": "Painike 5",
+            "button6": "Painike 6",
+            "button7": "Painike 7",
+            "button8": "Painike 8",
+            "button9": "Painike 9",
+            "doorbell": "Ovikello"
+        },
+        "trigger_type": {
+            "double_press": "\"{subtype}\" painettu kahdesti",
+            "long_press": "\"{subtype}\" painettu ja pidetty painettuna",
+            "single_press": "\"{subtype}\" painettu"
+        }
+    },
+    "entity": {
+        "select": {
+            "ecobee_mode": {
+                "state": {
+                    "away": "Poissa",
+                    "home": "Kotona"
+                }
+            }
+        },
+        "sensor": {
+            "thread_status": {
+                "state": {
+                    "disabled": "Ei k\u00e4yt\u00f6ss\u00e4"
+                }
+            }
+        }
+    },
+    "title": "HomeKit-laite"
+}

@@ -1,0 +1,54 @@
+{
+    "entity_component": {
+        "_": {
+            "state": {
+                "active": "Aktiivinen",
+                "idle": "Lepotilassa",
+                "paused": "Pys\u00e4ytetty"
+            },
+            "state_attributes": {
+                "duration": {
+                    "name": "Kesto"
+                },
+                "editable": {
+                    "name": "Hallinnoitu k\u00e4ytt\u00f6liittym\u00e4n kautta",
+                    "state": {
+                        "false": "Ei",
+                        "true": "Kyll\u00e4"
+                    }
+                },
+                "finishes_at": {
+                    "name": "P\u00e4\u00e4ttyy"
+                },
+                "remaining": {
+                    "name": "J\u00e4ljell\u00e4"
+                },
+                "restore": {
+                    "name": "Palauta"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_duration_in_start": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ajastinpalvelun `timer.start` valinnainen kestoparametri poistetaan ja sen k\u00e4ytt\u00f6 on havaittu. Jos haluat muuttaa kestoa, luo uusi ajastin.\n\nPoistakaa `timer.start`-palvelun `duration`-parametrin k\u00e4ytt\u00f6 automaatioissanne ja skripteiss\u00e4nne ja valitkaa **submit** sulkeaksenne t\u00e4m\u00e4n ongelman."
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "pause": {
+            "name": "Keskeyt\u00e4"
+        },
+        "reload": {
+            "name": "Uudelleenlataa"
+        },
+        "start": {
+            "name": "K\u00e4ynnist\u00e4"
+        }
+    }
+}
