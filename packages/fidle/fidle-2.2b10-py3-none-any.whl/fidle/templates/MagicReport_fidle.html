@@ -1,0 +1,53 @@
+<html>
+    <head><title>FIDLE - CI Report</title></head>
+    <body>
+    <style>
+        body{
+            font-family: sans-serif;
+            font-size: 0.9em;
+        }
+        div.title{ 
+            font-size: 1.4em;
+            font-weight: bold;
+            padding: 40px 0px 10px 0px; }
+        a{
+            color: SteelBlue;
+            text-decoration:none;
+        }
+        table{
+            border-collapse : collapse;
+            font-size : 0.9em;
+        }
+        td{
+            border-style: solid;
+            border-width:  thin;
+            border-color:  lightgrey;
+            padding: 5px 20px 5px 20px;
+        }
+        .metadata{ padding: 10px 0px 10px 30px; font-size: 0.9em; }
+        .result{ padding: 10px 0px 10px 30px; }
+        .footer{ margin: 0px 0px 0px 0px; font-size:0.8em;color:lightgray;text-align:right;}
+        hr{
+            border: 1px solid #eeeeee
+         }
+
+    </style>
+
+        ${logo_header}
+
+        <div class='title'>Notebooks performed :</div>
+        <div class="result">
+            <p>Here are all or part of the Fidle notebook set, fully executed.<br>
+            These notebooks have been run automatically and the results are proposed here in HTML format.</p>    
+            ${html_report}
+        </div>
+        <div class='title'>About the last run :</div>
+        <div class="metadata">
+            ${html_metadata}
+        </div>
+        <div class='footer'>Powered by Fidle/Magic Cooker - Version : ${fidle_version}</div>
+        <hr>
+        ${logo_ender}
+
+        </body>
+</html>
