@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "pytest-my-cool-lib"
+version = "0.1.3"
+description = ""
+authors = ["maksym.biriukov <maksym.biriukov@eleks.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pytest = "^7.1.3"
+
+[tool.poetry.plugins.pytest11]
+export_plugin = "pytest_my_cool_lib.export_result_plugin"
+logger_plugin = "pytest_my_cool_lib.logger_plugin"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
