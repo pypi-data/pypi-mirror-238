@@ -1,0 +1,14 @@
+include template.zip
+include template/__init__.py
+include template/cookiecutter.json
+
+include template/{{cookiecutter.integration_name}}/__init__.py
+include template/{{cookiecutter.integration_name}}/main.py
+include template/{{cookiecutter.integration_name}}/Makefile
+include template/{{cookiecutter.integration_name}}/requirements.txt
+include template/{{cookiecutter.integration_name}}/setup.py
+include template/{{cookiecutter.integration_name}}/{{cookiecutter.integration_name}}.py
+include template/{{cookiecutter.integration_name}}/app/__init__.py
+include template/{{cookiecutter.integration_name}}/docs/AUTHORS.rst
+include template/{{cookiecutter.integration_name}}/tests/test_{{cookiecutter.integration_name}}.py
+
