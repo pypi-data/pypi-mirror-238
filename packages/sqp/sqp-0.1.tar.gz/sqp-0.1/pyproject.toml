@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "sqp"
+version = "0.1"
+description = ""
+authors = ["Sven Keimpema"]
+readme = "README.md"
+packages = [{include = "sqp/**/*.*", format = "sdist"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numba = "^1.24.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
