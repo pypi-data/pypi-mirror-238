@@ -1,0 +1,30 @@
+Metadata-Version: 2.1
+Name: htpy
+Version: 23.11.2
+Summary: HTML in Python
+Author-email: Andreas Pelme <andreas@pelme.se>
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Dist: black==23.10.1 ; extra == "dev"
+Requires-Dist: flit==3.9.0 ; extra == "dev"
+Requires-Dist: mypy==1.5.1 ; extra == "dev"
+Requires-Dist: pytest==7.4.3 ; extra == "dev"
+Requires-Dist: ruff==0.1.3 ; extra == "dev"
+Requires-Dist: twine==4.0.2 ; extra == "dev"
+Requires-Dist: wheel==0.41.2 ; extra == "dev"
+Project-URL: Bug Tracker, https://github.com/pelme/htpy/issues
+Project-URL: Homepage, https://github.com/pelme/htpy
+Provides-Extra: dev
+
+
+# htpy - HTML in Python
+This project makes it possible to express HTML directly as Python code.
+
+## Development environment
+1) Create a virtualenv: ```python -m venv .venv```
+2) Install dependencies: ```pip install .[dev]```
+3) Run tests/checks: ```./test```
+
