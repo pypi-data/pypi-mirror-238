@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[metadata]
+author = "Fixess Github"
+author_email = "fixess.github@gmail.com"
+url = "https://github.com/fixess-github/fixess-python"
+description = "Fixess cloud AI database client for Python"
+long_description = "file: README.md"
+long_description_content_type = "text/markdown"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11"
+]
+[project]
+name = "fixess"
+version = "0.0.1"
+keywords = [
+    "cloud AI",
+    "cloud database",
+    "database client",
+    "AI",
+    "model training",
+    "big data", 
+    "deep learning",
+    "machine learning",
+]
+[project.urls]
+"Bug Tracker" = "https://github.com/fixess-github/fixess-python"
+"Source" = "https://github.com/fixess-github/fixess-python"
+
+[options]
+package_dir = "src"
+python_requires = ">=3.6"
+install_requires = "requests >= 2.22.0"
+
+[options.packages.find]
+where = "src"
