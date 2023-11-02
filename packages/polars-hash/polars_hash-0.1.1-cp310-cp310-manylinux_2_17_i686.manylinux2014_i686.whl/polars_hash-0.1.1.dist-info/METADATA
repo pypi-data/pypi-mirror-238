@@ -1,0 +1,72 @@
+Metadata-Version: 2.1
+Name: polars-hash
+Version: 0.1.1
+Classifier: Programming Language :: Rust
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Summary: Stable non-cryptographic and cryptographic hashing functions for Polars
+Author-email: Ion Koutsours <15728914+ion-elgreco@users.noreply.github.com>
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
+Project-URL: Homepage, https://github.com/ion-elgreco/polars-hash
+Project-URL: Bug Tracker, https://github.com/ion-elgreco/polars-hash/issues
+
+Hellooo :)
+
+This plugin is a work in progress. The main goal of this plugin is to provide a stable hashing functionality across different polars versions.
+
+Main drive behind this plugin is, to generate surrogate table keys that can be determinstic across multiple polars versions.
+
+
+## Examples
+### Cryptographic Hashers
+
+```python
+import polars
+import polars_hash as plh
+
+df = pl.DataFrame({
+    "foo":["hello_world"]
+})
+
+result = df.select(plh.col('foo').chash.sha256())
+
+print(result)
+
+┌──────────────────────────────────────────────────────────────────┐
+│ foo                                                              │
+│ ---                                                              │
+│ str                                                              │
+╞══════════════════════════════════════════════════════════════════╡
+│ 35072c1ae546350e0bfa7ab11d49dc6f129e72ccd57ec7eb671225bbd197c8f1 │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### Non-cryptographic Hashers
+```python
+df = pl.DataFrame({
+    "foo":["hello_world"]
+})
+
+result = df.select(plh.col('foo').nchash.wyhash())
+print(result)
+┌──────────────────────┐
+│ foo                  │
+│ ---                  │
+│ str                  │
+╞══════════════════════╡
+│ 16737367591072095403 │
+└──────────────────────┘
+
+```
+
+## Create hash from multiple columns
+```python
+df = pl.DataFrame({
+    "foo":["hello_world"],
+    "bar": ["today"]
+})
+
+result = df.select(plh.concat_str('foo','bar').chash.sha256())
+```
+
