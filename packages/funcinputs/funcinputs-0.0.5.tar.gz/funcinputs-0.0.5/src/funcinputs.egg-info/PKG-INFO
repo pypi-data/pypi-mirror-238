@@ -1,0 +1,82 @@
+Metadata-Version: 2.1
+Name: funcinputs
+Version: 0.0.5
+Summary: funcinputs
+Author-email: Aaron Alphabet <aaron.alphabet@posteo.org>
+License: The MIT License (MIT)
+        
+        Copyright (c) 2023 Aaron Alphabet
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE. 
+        
+Project-URL: source, https://github.com/aaron-alphabet/funcinputs
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.11
+Description-Content-Type: text/x-rst
+License-File: LICENSE.txt
+
+==========
+funcinputs
+==========
+
+Overview
+--------
+
+The funcinputs project holds the class FuncInput. The objects of this class represent the entire input that can be passed to a function when the function is called. Each FuncInput object has a list of positional arguments (the property is called `args`) and a dict of keyword arguments (the property is called `kwargs`). One can do everything with a FuncInput object that can be done with a list or a dict e.g. indexers, appending, or updating.
+
+Installation
+------------
+
+To install funcinputs, you can use `pip`. Open your terminal and run:
+
+.. code-block:: bash
+
+    pip install funcinputs
+
+Usage
+-----
+
+Once funcinputs is installed, you can use it as follows:
+
+.. code-block:: python
+
+    from funcinputs import FuncInput
+
+    x = FuncInput(args=[9, "foo"], kwargs={"bar":12.75})
+    print(x) # FuncInput(args=[9, 'foo'], kwargs={'bar': 12.75})
+    x += FuncInput(args=[2], kwargs={"baz":"spam"})
+    print(x) # FuncInput(args=[9, 'foo', 2], kwargs={'bar': 12.75, 'baz': 'spam'})
+    x.append(19)
+    print(x) # FuncInput(args=[9, 'foo', 2, 19], kwargs={'bar': 12.75, 'baz': 'spam'})
+
+License
+-------
+
+This project is licensed under the MIT License.
+
+Credits
+-------
+
+- Author: Aaron Alphabet
+- Email: aaron.alphabet@posteo.org
+
+Thank you for using funcinputs!
+
