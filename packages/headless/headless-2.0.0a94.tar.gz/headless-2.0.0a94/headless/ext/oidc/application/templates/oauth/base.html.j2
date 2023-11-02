@@ -1,0 +1,345 @@
+<html dir="ltr">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --background-color: #fff;
+      }
+
+      body {
+        background: #fff;
+        direction: ltr;
+        font-size: 14px;
+        line-height: 1.4286;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 32px;
+        margin: 0;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      a, a:hover, a:visited {
+        color: #1a73e8;
+        cursor: pointer;
+        font-weight: 500;
+        text-decoration: none;
+        outline: none;
+      }
+
+      a {
+        text-decoration: none;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        color: rgb(26,115,232);
+        display: inline-block;
+        font-weight: 500;
+        letter-spacing: .25px;
+        margin: 0 -3px;
+        outline: 0;
+        padding: 0 3px;
+        position: relative;
+      }
+
+      #view h1 {
+        color: rgb(32,33,36);
+        padding-bottom: 0;
+        padding-top: 16px;
+        font-family: Google Sans,Noto Sans Myanmar UI,arial,sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1.3333;
+        margin-bottom: 0;
+        margin-top: 0;
+        word-break: break-word;
+      }
+
+      #view .title {
+        text-align: center;
+      }
+
+      .section-wrapper {
+        margin: auto -24px;
+      }
+
+      section {
+        display: inline-block;
+        font-size: 14px;
+        padding: 24px 0 0;
+        vertical-align: top;
+        white-space: normal;
+        width: 100%;
+      }
+
+      section.action {
+        border: 0 solid transparent;
+        border-width: 0 24px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      .text {
+        margin: auto -24px;
+        padding-left: 24px;
+        padding-right: 24px;
+        margin-bottom: 16px;
+        margin-top: 10px;
+      }
+
+      .text p {
+        padding-bottom: 3px;
+        padding-top: 9px;
+      }
+
+      body, input, textarea, select, button {
+        color: rgb(32,33,36);
+        font-family: Roboto,"Noto Sans Myanmar UI",arial,sans-serif;
+      }
+
+      .main *, .main *:before, .main *:after {
+        -webkit-box-sizing: inherit;
+        box-sizing: inherit;
+      }
+
+      .container {
+        min-height: 100vh;
+        background: #fff;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        max-width: 100%;
+        position: relative;
+        z-index: 2;
+      }
+
+      .inner {
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -webkit-box-flex: 1;
+        box-flex: 1;
+        -webkit-flex-grow: 1;
+        flex-grow: 1;
+        overflow: hidden;
+        padding: 24px 24px 36px;
+      }
+
+      footer {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        font-size: 12px;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        line-height: 1.3333333;
+        padding: 0 24px;
+      }
+
+      .toolbar {
+        background: #fff;
+        bottom: 0;
+        direction: ltr;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 1;
+      }
+
+      .logo-container {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        height: 24px;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+
+      .logo {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        height: 36px;
+        left: 0;
+        padding: 0 16px;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+      .logo .heading {
+        color: rgb(95,99,104);
+        font-size: 14px;
+        height: 14px;
+        margin-top: -2px;
+      }
+
+      @media (min-width: 450px) {
+        .inner {
+          padding: 48px 40px 36px;
+        }
+
+        footer {
+          padding-left: 40px;
+          padding-right: 40px;
+        }
+
+        .section-wrapper {
+          margin: auto -40px;
+        }
+
+        section.action {
+          border-left-width: 40px;
+          border-right-width: 40px;
+        }
+
+        .text {
+          margin: auto -40px;
+          padding-left: 40px;
+          padding-right: 40px;
+          margin-bottom: 16px;
+          margin-top: 10px;
+        }
+      }
+
+      @media (min-width: 601px) {
+        .main {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -webkit-flex-direction: column;
+          -webkit-flex-direction: column;
+          flex-direction: column;
+          min-height: 100vh;
+          position: relative;
+        }
+
+        .main::before, .main::after {
+          min-height: 30px;
+          content: "";
+          display: block;
+          -webkit-box-flex: 1;
+          -webkit-flex-grow: 1;
+          -webkit-box-flex: 1;
+          box-flex: 1;
+          -webkit-flex-grow: 1;
+          flex-grow: 1;
+          height: 24px;
+        }
+
+        .main::after {
+          content: "";
+          display: block;
+          -webkit-box-flex: 1;
+          -webkit-flex-grow: 1;
+          -webkit-box-flex: 1;
+          box-flex: 1;
+          -webkit-flex-grow: 1;
+          flex-grow: 1;
+          height: 24px;
+        }
+
+        .container {
+          -webkit-border-radius: 8px;
+          border-radius: 8px;
+          border: 1px solid #dadce0;
+          display: block;
+          -webkit-flex-shrink: 0;
+          -webkit-flex-shrink: 0;
+          flex-shrink: 0;
+          margin: 0 auto;
+          min-height: 0;
+          -webkit-transition: .2s;
+          -webkit-transition: .2s;
+          transition: .2s;
+          width: 450px;
+          min-height: 0;
+          width: 450px;
+        }
+
+        .inner {
+          height: auto;
+          min-height: 500px;
+          overflow-y: auto;
+          -webkit-transition: .2s;
+          -webkit-transition: .2s;
+          transition: .2s;
+        }
+
+        footer {
+          padding: 8px 0 0;
+          position: absolute;
+          width: 100%;
+        }
+
+        .toolbar {
+          background: #fff;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="container">
+        <div class="inner" role="presentation">
+          <div class="content">
+            <div class="logo-container">
+              <div class="logo">
+                <div class="image"></div>
+                <div class="heading">Aanmelden met WebIAM</div>
+              </div>
+            </div>
+            <div id="view">
+              {% block heading %}
+              <div class="title">
+                <h1>{{ page_title }}</h1>
+              </div>
+              {% endblock %}
+              <div class="section-wrapper">
+                {% block content %}
+                <section class="action">
+                  <div class="text">
+                    <p>{{ error.error_description }}<br/><a>Meer informatie over deze fout</a></p>
+                    <p>Fout 400: <tt>{{ error.error }}</tt></p>
+                  </div>
+                </section>
+                {% endblock %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer>
+          <div class="language-selector"></div>
+        </footer>
+      </div>
+      <div class="toolbar" aria-hidden="true"></div>
+    </div>
+  </body>
+</html>
