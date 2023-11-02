@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: nitrokeyapp
+Version: 2.1.3
+Summary: Graphical application to manage Nitrokey devices
+Author-email: Nitrokey <pypi@nitrokey.com>
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: pyqt5
+Requires-Dist: pyqt5-stubs
+Requires-Dist: pyudev
+Requires-Dist: pynitrokey ==0.4.40
+Requires-Dist: pywin32 ==305; sys_platform =='win32'
+Requires-Dist: qt_material
+Requires-Dist: black >=22.1.0,<23 ; extra == "dev"
+Requires-Dist: flake8 ; extra == "dev"
+Requires-Dist: flit >= 3.2,<4 ; extra == "dev"
+Requires-Dist: isort ; extra == "dev"
+Requires-Dist: mypy >=1.4,<1.5 ; extra == "dev"
+Requires-Dist: pyinstaller ==5.9.0 ; extra == "dev"
+Requires-Dist: pyinstaller-versionfile ==2.1.1 ; extra == "dev" and ( sys_platform=='win32')
+Project-URL: Source, https://github.com/Nitrokey/nitrokey-app2
+Provides-Extra: dev
+
+# Nitrokey App 2
+
+This application allows to manage Nitrokey 3 devices. To manage Nitrokey Pro and Nitrokey Storage devices, use the older [Nitrokey App](https://github.com/Nitrokey/nitrokey-app).
+
+## Features
+
+The following features are currently implemented.
+
+- Firmware update
+- Passwords
+    - TOTP
+    - HOTP
+
+## Download
+
+Executable binaries for Linux and Windows as well as a MSI installer for Windows can be downloaded from the [releases](https://github.com/Nitrokey/nitrokey-app2/releases).
+
+### Compiling for Linux and macOS
+
+The application can be compiled by executing:
+
+```
+git clone https://github.com/Nitrokey/nitrokey-app2.git
+cd nitrokey-app2
+make update-venv
+source venv/bin/activate
+make build
+nitrokeyapp
+```
+
+## Dependencies
+
+* [pynitrokey ](https://github.com/Nitrokey/pynitrokey)
+* Python >3.9
+
+
