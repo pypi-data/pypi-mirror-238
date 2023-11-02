@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -euo pipefail
+
+echo ---- pytest ----
+pytest
+echo
+echo ---- stubtest ----
+stubtest htpy
+echo
+echo ---- mypy ----
+mypy
+echo
+echo ---- black ----
+black --check .
+echo
+echo ---- ruff ----
+ruff .
+echo
+
+echo ==== SUCCESS ====
