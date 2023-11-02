@@ -1,0 +1,115 @@
+Metadata-Version: 2.1
+Name: magentropy
+Version: 0.1.5
+Summary: Perform magnetoentropic mapping of magnetic materials based on DC magnetization data.
+Author-email: Soren Bear <sorenbear@berkeley.edu>
+License: MIT License
+        
+        Copyright (c) 2022-2023 Soren Bear
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Download, https://pypi.org/project/magentropy/
+Project-URL: Bug Tracker, https://github.com/sorenbear/magentropy/issues
+Project-URL: Documentation, https://magentropy.readthedocs.io/en/stable/
+Project-URL: Source Code, https://github.com/sorenbear/magentropy
+Keywords: magentropy,magnetoentropy,magnetoentropic,magnetocaloric,magnetization,materials
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: cycler>=0.11.0
+Requires-Dist: matplotlib<3.6,>=3.5.1
+Requires-Dist: numba>=0.55.1
+Requires-Dist: numpy>=1.21.5
+Requires-Dist: pandas<2.0,>=1.4.3
+Requires-Dist: pint>=0.19.2
+Requires-Dist: pint-pandas>=0.2
+Requires-Dist: scipy>=1.7.3
+Provides-Extra: dev
+Requires-Dist: build>=0.8.0; extra == "dev"
+Requires-Dist: furo>=2022.6.21; extra == "dev"
+Requires-Dist: ipykernel>=6.9.1; extra == "dev"
+Requires-Dist: myst-nb>=0.16.0; extra == "dev"
+Requires-Dist: myst-parser>=0.18.0; extra == "dev"
+Requires-Dist: numpydoc>=1.4.0; extra == "dev"
+Requires-Dist: pandoc>=2.2; extra == "dev"
+Requires-Dist: pylint>=2.12.2; extra == "dev"
+Requires-Dist: pytest>=7.1.2; extra == "dev"
+Requires-Dist: sphinx>=5.0.2; extra == "dev"
+Requires-Dist: sphinx-autobuild>=2021.3.14; extra == "dev"
+Requires-Dist: sphinx-copybutton>=0.5.0; extra == "dev"
+Requires-Dist: sphinxext-opengraph>=0.6.3; extra == "dev"
+Requires-Dist: twine>=4.0.1; extra == "dev"
+
+# MagentroPy
+
+## References
+
+Please cite the following in any published work that makes use of this package:
+
+> [1] J. D. Bocarsly et al.,
+> [Phys. Rev. B 97, 100404(R) (2018)](https://doi.org/10.1103/PhysRevB.97.100404)
+>
+> [2] J. J. Stickel,
+> [Comput. Chem. Eng. 34, 467 (2010)](https://dx.doi.org/10.1016/j.compchemeng.2009.10.007)
+
+The first version of the `magentropy` code was included as supplementary
+material in [1]. The Tikhonov regularization procedure was described
+in [2] and was originally implemented by Stickel in the package
+[scikit.datasmooth](https://github.com/jjstickel/scikit-datasmooth).
+
+## Overview
+
+MagentroPy provides a class, `MagentroData`,
+that can be used to calculate magnetocaloric quantities from DC magnetization
+data supplied as magnetic moment vs. temperature sweeps (monotonic) taken under
+several different magnetic fields. The class is set up to work out-of-the-box
+with `.dat` data files produced by a Quantum Design Vibrating Sample
+Magnetometer or a
+[Quantum Design MPMS3 SQUID Magnetometer](https://www.qdusa.com/products/mpms3.html).
+However, `pandas.DataFrame`s or delimited files such as `.csv`
+are also acceptable inputs.
+
+View the documentation [here](https://magentropy.readthedocs.io/en/stable/).
+
+## Installation
+
+Install MagentroPy with ``pip``:
+
+```{code-block} console
+pip install magentropy
+```
+
+Or, with ``conda``:
+
+```{code-block} console
+conda install -c conda-forge magentropy
+```
+
+## License
+
+This project is licensed under the MIT License.
