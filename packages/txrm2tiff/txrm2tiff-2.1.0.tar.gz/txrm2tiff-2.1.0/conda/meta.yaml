@@ -1,0 +1,63 @@
+{% set name = "txrm2tiff" %}
+{% set version = "2.1.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  path: ../
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . -vv"
+  entry_points:
+    - {{ name }} = {{ name }}.__main__:main
+  skip: True  # [py<37]
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - numpy >=1.20.0
+    - scipy >=1.3.3
+    - tifffile >=2020.9.30
+    - omexml-dls >=1.1.0
+    - olefile >=0.46
+    - pillow >=5.3, <10.0.0
+    - pywin32  # [win]
+
+test:
+  imports:
+    - {{ name }}
+    - win32com.client  # [win]
+  source_files:
+    - tests
+  requires:
+    - pytest
+    - parameterized
+  commands:
+    - python -m pytest .
+
+about:
+  home: https://github.com/DiamondLightSource/{{ name }}
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: 'Converts txrm/xrm files to OME tif/tiff files'
+
+  description: |
+    Converts txrm/xrm files to OME tif/tiff files.
+    txrm2tiff was created for users of beamline B24 of Diamond Light
+    Source by Thomas Fish. This has been adapted from B24's the automatic
+    processing pipeline. Parts of this code were originally written by
+    Kevin Savage, with further additions and amendments by Peter Chang,
+    Victoria Beilsten-Edmands, and Thomas Fish.
+  doc_url: https://github.com/DiamondLightSource/{{ name }}/blob/master/README.md
+  dev_url: https://github.com/DiamondLightSource/{{ name }}
+
+extra:
+  recipe-maintainers:
+    - thomasmfish
