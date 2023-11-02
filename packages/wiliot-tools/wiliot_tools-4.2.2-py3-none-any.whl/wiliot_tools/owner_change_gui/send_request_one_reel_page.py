@@ -1,0 +1,103 @@
+import configparser
+from datetime import datetime
+from wiliot_tools.owner_change_gui.owner_change_utils import *
+
+
+class OneReelRequestPage(ctk.CTkFrame):
+
+    def __init__(self, parent, show_page_callback):
+        super().__init__(parent)
+        self.parent = parent
+        self.show_page_callback = lambda: show_page_callback(self)
+        self.tree = None
+        self.parent.attached_df = None
+        show_img(self)
+
+        start_y = 200
+        label_width = 120
+        entry_width = 200
+        y_spacing = 70
+        x_spacing = 50
+
+        label = ctk.CTkLabel(self, text="Create Request (One Reel)", font=("Arial", 28, "bold"))
+        label.pack(pady=50)
+
+        label = ctk.CTkLabel(self, text="API Key:", font=("Arial", 15))
+        label.place(x=self.parent.W / 2 - label_width - 10 - x_spacing, y=start_y)
+
+        self.api_key_entry = ctk.CTkEntry(self, width=entry_width, show="*")
+        self.api_key_entry.place(x=self.parent.W / 2 + 10 - x_spacing, y=start_y)
+        self.api_key_entry.insert(0, self.parent.api_key)
+
+        label = ctk.CTkLabel(self, text="From Owner:", font=("Arial", 15))
+        label.place(x=self.parent.W / 2 - label_width - 10 - x_spacing, y=start_y + y_spacing)
+
+        self.from_owner_entry = ctk.CTkEntry(self, width=entry_width)
+        self.from_owner_entry.place(x=self.parent.W / 2 + 10 - x_spacing, y=start_y + y_spacing)
+
+        label = ctk.CTkLabel(self, text="To Owner:", font=("Arial", 15))
+        label.place(x=self.parent.W / 2 - label_width - 10 - x_spacing, y=start_y + 2 * y_spacing)
+
+        self.to_owner_entry = ctk.CTkEntry(self, width=entry_width)
+        self.to_owner_entry.place(x=self.parent.W / 2 + 10 - x_spacing, y=start_y + 2 * y_spacing)
+
+        label = ctk.CTkLabel(self, text="Ex. ID Prefix:", font=("Arial", 15))
+        label.place(x=self.parent.W / 2 - label_width - 10 - x_spacing, y=start_y + 3 * y_spacing)
+
+        self.ex_id_prefix_entry = ctk.CTkEntry(self, width=entry_width)
+        self.ex_id_prefix_entry.place(x=self.parent.W / 2 + 10 - x_spacing, y=start_y + 3 * y_spacing)
+
+        label = ctk.CTkLabel(self, text="First Tag:", font=("Arial", 15))
+        label.place(x=self.parent.W / 2 - label_width - 10 - x_spacing, y=start_y + 4 * y_spacing)
+
+        self.first_tag_entry = ctk.CTkEntry(self, width=entry_width)
+        self.first_tag_entry.place(x=self.parent.W / 2 + 10 - x_spacing, y=start_y + 4 * y_spacing)
+
+        label = ctk.CTkLabel(self, text="Last Tag:", font=("Arial", 15))
+        label.place(x=self.parent.W / 2 - label_width - 10 - x_spacing, y=start_y + 5 * y_spacing)
+
+        self.last_tag_entry = ctk.CTkEntry(self, width=entry_width)
+        self.last_tag_entry.place(x=self.parent.W / 2 + 10 - x_spacing, y=start_y + 5 * y_spacing)
+
+        btn = ctk.CTkButton(self, text="Back", command=self.show_page_callback, width=120)
+        btn.place(x=50, y=self.parent.H - 50)
+
+        btn = ctk.CTkButton(self, text="Send Request", command=self.send_request, width=200)
+        btn.place(x=self.parent.W / 2 - btn.winfo_reqwidth() / 2, y=start_y + 7 * y_spacing)
+
+    def verify_request(self):
+        if len(self.ex_id_prefix_entry.get()) < 4:
+            raise ValueError(f"Ex. ID Prefix valuue must be at least 4 letters")
+
+        if not can_be_int(self.first_tag_entry.get()):
+            raise ValueError(f"First Tag must be a number and under 10000")
+
+        if not can_be_int(self.last_tag_entry.get()):
+            raise ValueError(f"Last Tag must be a number and under 10000")
+
+        if str(self.first_tag_entry.get()).zfill(4) > str(self.last_tag_entry.get()).zfill(4):
+            raise ValueError(f"First Tag is bigger than Last Tag")
+
+    def send_request(self):
+        try:
+            self.verify_request()
+            config = configparser.ConfigParser()
+            self.parent.api_key = self.api_key_entry.get()
+            config['API'] = {'key': self.parent.api_key}
+            with open('resources/config.ini', 'w') as configfile:
+                config.write(configfile)
+            df = pd.DataFrame([[self.ex_id_prefix_entry.get(), self.first_tag_entry.get(), self.last_tag_entry.get()]],
+                              columns=self.parent.cols[:-1])
+            tags_df = create_tags_df(df)
+            from_owner = self.from_owner_entry.get()
+            to_owner = self.to_owner_entry.get()
+            if from_owner == "" or to_owner == "" or self.parent.api_key == "":
+                raise Exception("Some Fields are Empty!")
+            request_id = self.parent.send_request_file(from_owner, to_owner, tags_df)
+            df.to_csv('data/' + request_id + '.csv')
+            request_df = pd.DataFrame([[request_id, '-', '-', '-', '-', '-', '-', str(datetime.now())[:16]]],
+                                      columns=self.parent.requests_cols)
+            self.parent.requests_df = pd.concat([request_df, self.parent.requests_df])
+            self.show_page_callback()
+        except Exception as ex:
+            self.parent.show_error_popup(str(ex))
