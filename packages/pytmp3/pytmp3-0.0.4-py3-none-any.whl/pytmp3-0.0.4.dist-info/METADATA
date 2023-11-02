@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: pytmp3
+Version: 0.0.4
+Summary: Easily download albums, playlists and songs off YouTube to MP3 format
+Author: Spacerulerwill (William Redding)
+Author-email: <williamdredding@gmail.com>
+Keywords: python,youtube,mp3,music,utility,tool
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Description-Content-Type: text/markdown
+License-File: LICENCE.md
+Requires-Dist: youtube-search-python
+Requires-Dist: pytube
+Requires-Dist: alive-progress
+Requires-Dist: mutagen
+Requires-Dist: requests
+
+
+# Install
+
+    pip install pytmp3
+
+# PYTMP3
+
+Easily download albums, playlists and songs off YouTube to MP3 format
+
+    python3 -m pytmp3 [-p PLAYLIST] | [-V VIDEO]
+
+    options:
+    -h, --help            show this help message and exit
+    -p PLAYLIST [PLAYLIST ...], --playlist PLAYLIST [PLAYLIST ...]
+                            Playlist or album search query or url
+    -v VIDEO [VIDEO ...], --video VIDEO [VIDEO ...]
+                            Song search query or url
+    -o OUTPUT, --output OUTPUT
+                            Output location for playlist, album or song. Defaults to downloads folder.
+
+    ⭐ Please star! ⭐
