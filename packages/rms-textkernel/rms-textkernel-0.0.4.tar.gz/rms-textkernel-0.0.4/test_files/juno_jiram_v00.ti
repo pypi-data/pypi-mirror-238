@@ -1,0 +1,364 @@
+KPL/IK
+
+Juno JIRAM Instrument Kernel
+===============================================================================
+
+   This Instrument Kernel (IK) file contains optics and detector parameters
+   and FOV definitions for the JUNO Jupiter InfraRed Auroral Mapper (JIRAM)
+   instrument.
+
+
+Version and Date
+-------------------------------------------------------------------------------
+
+   Version 0.0 -- June 9, 2009 -- Boris Semenov, NAIF
+
+      Initial Release.
+
+
+References
+-------------------------------------------------------------------------------
+
+   1. Kernel Pool Required Reading
+
+   2. GETFOV, getfoc_c, cspice_getfov headers
+
+   3. JUNO FK file, latest version
+
+   4. JIRAM CDR Presentations
+
+
+Contact Information
+-------------------------------------------------------------------------------
+
+   Boris V. Semenov, NAIF/JPL, (818)-354-8136, Boris.Semenov@jpl.nasa.gov
+
+
+Implementation Notes
+-------------------------------------------------------------------------------
+
+   This file is used by the SPICE system as follows: programs that make
+   use of this kernel must ``load'' the kernel, normally during
+   program initialization. The SPICE routine FURNSH loads a kernel file
+   into the pool as shown below.
+
+      CALL FURNSH ( 'frame_kernel_name; )    -- FORTRAN
+      furnsh_c ( "frame_kernel_name" );      -- C
+      cspice_furnsh, frame_kernel_name       -- IDL
+      cspice_furnsh( 'frame_kernel_name' )   -- MATLAB
+
+   Once the file has been loaded, the SPICE routine GETFOV (getfov_c in
+   C, cspice_getfov in IDL and MATLAB) can be used to retrieve FOV
+   parameters for a given instrument or structure.
+
+   This file was created and may be updated with a text editor or word
+   processor.
+
+
+Naming Conventions
+----------------------------------------------------------
+
+   All names referencing values in this IK file start with the
+   characters `INS' followed by the NAIF JUNO spacecraft ID number
+   (-61) followed by a NAIF three digit ID code for one of the
+   JIRAM detectors. This is the full list of names and IDs for the
+   JIRAM sensors described by this IK file:
+
+      JUNO_JIRAM_I                   -61410
+      JUNO_JIRAM_I_LBAND             -61411
+      JUNO_JIRAM_I_MBAND             -61412
+      JUNO_JIRAM_S                   -61420
+
+   The remainder of the keyword name is an underscore character
+   followed by the unique name of the data item. For example, the JIRAM
+   spectrometer boresight direction in the JUNO_JIRAM_S frame is
+   specified by:
+
+           INS-61420_BORESIGHT
+
+   The upper bound on the length of the name of any data item is 32
+   characters.
+
+   If the same item is included in more than one file, or if the same
+   item appears more than once within a single file, the latest value
+   supersedes any earlier values.
+
+
+Instrument Description
+---------------------------------------------------------
+
+   TBD
+
+
+Mounting Alignment
+--------------------------------------------------------
+
+   Refer to the latest version of the Juno Frames Definition Kernel
+   (FK) [3] for the JIRAM reference frame definitions and mounting
+   alignment information.
+
+
+Apparent FOV Layout
+--------------------------------------------------------
+
+   This diagram illustrates the JIRAM spectrometer apparent FOV layout
+   in the JUNO_JIRAM_S reference frame. This FOV is associated with
+   spectrometer instrument ID -61420.
+
+                                  ^
+                                  | Spin direction
+
+
+                                  ^ +Xs
+                                  |
+        |                         |
+        | 0.01375 degrees         |
+        |                         |
+        v         Pixel 1         |      Pixel 256
+       ---              +---------|---------+
+        |       1 line  |         x-------------> +Ys (cross track)
+       ---              +-------------------+
+        ^                   256 pixels/line
+        |
+                        |    3.52 degrees   |
+                        |<----------------->|
+                        |                   |      Boresight (+Zs axis)
+                                                    is into the page
+
+
+   This diagram illustrates the JIRAM imager apparent FOV layout
+   in the JUNO_JIRAM_I reference frame. This FOV is associated with
+   imager instrument ID -61410.
+
+                                  ^
+                                  | Spin direction
+
+                                  ^ +Xi
+                                  |
+        |     Pixel 1,1           |   Pixel 432,1
+       ---           *------------|------------+
+        ^            |            |            |
+        |  3.52      |            |            |
+        | degrees    |            |            |
+        |            |            |            |
+        |       256  |            x-------------> +Yi (cross track)
+        |      lines |                         |
+        |            |                         |
+        |            |                         |
+        V            |     432 pixels/line     |
+       ---           +-------------------------+
+        |     Pixel 1,256             Pixel 432,256
+
+
+                     |       5.94 degrees      |
+                     |<----------------------->|
+                     |                         |      Boresight (+Zi axis)
+                                                       is into the page
+
+   This diagram illustrates the JIRAM imager L-band and M-band apparent
+   FOV layouts in the corresponding reference frames
+   (JUNO_JIRAM_I_LBAND and JUNO_JIRAM_I_MBAND). These FOVs are
+   associated with the imager L-band and M-band instrument IDs -61411
+   and -61412.
+
+                                  ^
+                                  | Spin direction
+
+                                  ^ +Xil
+                                  | +Xim
+                                  |
+        |     Pixel 1,1           |   Pixel 432,1
+       ---           *------------|------------+
+        ^  1.76      |            |            |
+        | degrees    |            |            |
+        |       128  |            x-------------> +Yil (cross track)
+        |      lines |                         |  +Yim
+        V            |     432 pixels/line     |
+       ---           +-------------------------+
+        |     Pixel 1,128             Pixel 432,128
+
+
+                     |       5.94 degrees      |
+                     |<----------------------->|
+                     |                         |     Boresights (+Zil and +Zim
+                                                      axes) are into the page
+
+
+Optical Parameters
+--------------------------------------------------------
+
+   The following JIRAM spectrometer and imager nominal first order
+   optical parameters are included in the data section below, from [4]:
+
+      -----------------------------------------------------------------
+             parameter         JIRAM/S   JIRAM/I  JIRAM/I-L  JIRAM/I-M
+      -----------------------------------------------------------------
+      Focal Length, mm         158.3     158.3     158.3     158.3  (*)
+      f/ratio                  f/3.7     f/3.7     f/3.7     f/3.7
+      IFOV, rad/pixel
+          Along-track          0.00024   0.00024   0.00024   0.00024
+          Cross-track          0.00024   0.00024   0.00024   0.00024
+      Field of view (deg)
+          Along-track          0.01375   3.52      1.76      1.76
+          Cross-track          3.52      5.94      5.94      5.94
+      -----------------------------------------------------------------
+
+   (*) focal length was estimated from IFOV and pixel size.
+
+   The keywords below provide nominal values from the table above.
+   Angular size values in the keywords are given radians, with the
+   cross-track size being the first value and the along-track size
+   being the second value in each pair.
+
+      \begindata
+
+         INS-61420_FOCAL_LENGTH        = ( 158.3                )
+         INS-61420_F/RATIO             = (   3.7                )
+         INS-61420_FOV_ANGULAR_SIZE    = (   0.061440, 0.000240 )
+         INS-61420_IFOV                = (   0.000240, 0.000240 )
+
+         INS-61410_FOCAL_LENGTH        = ( 158.3                )
+         INS-61410_F/RATIO             = (   3.7                )
+         INS-61410_FOV_ANGULAR_SIZE    = (   0.103680, 0.061440 )
+         INS-61410_IFOV                = (   0.000240, 0.000240 )
+
+         INS-61411_FOCAL_LENGTH        = ( 158.3                )
+         INS-61411_F/RATIO             = (   3.7                )
+         INS-61411_FOV_ANGULAR_SIZE    = (   0.103680, 0.030720 )
+         INS-61411_IFOV                = (   0.000240, 0.000240 )
+
+         INS-61412_FOCAL_LENGTH        = ( 158.3                )
+         INS-61412_F/RATIO             = (   3.7                )
+         INS-61412_FOV_ANGULAR_SIZE    = (   0.103680, 0.030720 )
+         INS-61412_IFOV                = (   0.000240, 0.000240 )
+
+      \begintext
+
+
+Detector Parameters
+--------------------------------------------------------
+
+   The nominal JIRAM detector parameters from [4] are:
+
+      -----------------------------------------------------------------
+             parameter         JIRAM/S   JIRAM/I  JIRAM/I-L  JIRAM/I-M
+      -----------------------------------------------------------------
+      Array Size/Physical
+          Along-track            336       256      128        128
+          Cross-track            256       432      432        432
+      Array Size/Spatial
+          Cross-track              1       256      128        128
+          Along-track            256       432      432        432
+      Array Center/Spatial
+          Cross-track              0.5     128.5     64.5       64.5
+          Along-track            128.5     216.5    216.5      216.5
+      Pixel Size, microns
+          Cross-track             38        38       38         38
+          Along-track             38        38       38         38
+      -----------------------------------------------------------------
+
+   The values are given in microns for PIXEL_SIZE keywords and in counts
+   for PIXEL_SAMPLES, PIXEL_LINES, and CENTER keywords.
+
+      \begindata
+
+         INS-61420_PIXEL_SIZE          = ( 38, 38 )
+         INS-61420_PIXEL_SAMPLES       = ( 256 )
+         INS-61420_PIXEL_LINES         = (   1 )
+         INS-61420_CCD_CENTER          = ( 128.5, 0.5 )
+
+         INS-61410_PIXEL_SIZE          = ( 38, 38 )
+         INS-61410_PIXEL_SAMPLES       = ( 432 )
+         INS-61410_PIXEL_LINES         = ( 256 )
+         INS-61410_CCD_CENTER          = ( 216.5, 128.5 )
+
+         INS-61411_PIXEL_SIZE          = ( 38, 38 )
+         INS-61411_PIXEL_SAMPLES       = ( 432 )
+         INS-61411_PIXEL_LINES         = ( 128 )
+         INS-61411_CCD_CENTER          = ( 216.5, 64.5 )
+
+         INS-61412_PIXEL_SIZE          = ( 38, 38 )
+         INS-61412_PIXEL_SAMPLES       = ( 432 )
+         INS-61412_PIXEL_LINES         = ( 128 )
+         INS-61412_CCD_CENTER          = ( 216.5, 64.5 )
+
+      \begintext
+
+
+Detector FOVs
+----------------------------------------------------------
+
+   The JIRAM spectrometer FOV is defined as a rectangular pyramid with
+   angular extents of 0.01375 degrees in the JUNO_JIRAM_S XZ plane and
+   3.52 degrees in JUNO_JIRAM_S YZ plane. The boresight is along +Z of
+   the JUNO_JIRAM_S frame.
+
+      \begindata
+
+         INS-61420_FOV_FRAME                 = 'JUNO_JIRAM_S'
+         INS-61420_FOV_SHAPE                 = 'RECTANGLE'
+         INS-61420_BORESIGHT                 = ( 0.0, 0.0, 1.0 )
+         INS-61420_FOV_CLASS_SPEC            = 'ANGLES'
+         INS-61420_FOV_REF_VECTOR            = ( 1.0, 0.0, 0.0 )
+         INS-61420_FOV_REF_ANGLE             = ( 0.006875 )
+         INS-61420_FOV_CROSS_ANGLE           = ( 1.76     )
+         INS-61420_FOV_ANGLE_UNITS           = ( 'DEGREES' )
+
+      \begintext
+
+   The JIRAM imager FOV is defined as a rectangular pyramid with
+   angular extents of 3.52 degrees in the JUNO_JIRAM_I XZ plane and
+   5.94 degrees in JUNO_JIRAM_I YZ plane. The boresight is along +Z of
+   the JUNO_JIRAM_I frame.
+
+      \begindata
+
+         INS-61410_FOV_FRAME                 = 'JUNO_JIRAM_I'
+         INS-61410_FOV_SHAPE                 = 'RECTANGLE'
+         INS-61410_BORESIGHT                 = ( 0.0, 0.0, 1.0 )
+         INS-61410_FOV_CLASS_SPEC            = 'ANGLES'
+         INS-61410_FOV_REF_VECTOR            = ( 1.0, 0.0, 0.0 )
+         INS-61410_FOV_REF_ANGLE             = ( 1.76 )
+         INS-61410_FOV_CROSS_ANGLE           = ( 2.97 )
+         INS-61410_FOV_ANGLE_UNITS           = ( 'DEGREES' )
+
+      \begintext
+
+   The JIRAM imager L-band FOV is defined as a rectangular pyramid with
+   angular extents of 1.76 degrees in the JUNO_JIRAM_I_LBAND XZ plane
+   and 5.94 degrees in JUNO_JIRAM_I_LBAND YZ plane. The boresight is
+   along +Z of the JUNO_JIRAM_I_LBAND frame.
+
+      \begindata
+
+         INS-61411_FOV_FRAME                 = 'JUNO_JIRAM_I_LBAND'
+         INS-61411_FOV_SHAPE                 = 'RECTANGLE'
+         INS-61411_BORESIGHT                 = ( 0.0, 0.0, 1.0 )
+         INS-61411_FOV_CLASS_SPEC            = 'ANGLES'
+         INS-61411_FOV_REF_VECTOR            = ( 1.0, 0.0, 0.0 )
+         INS-61411_FOV_REF_ANGLE             = ( 0.88 )
+         INS-61411_FOV_CROSS_ANGLE           = ( 2.97 )
+         INS-61411_FOV_ANGLE_UNITS           = ( 'DEGREES' )
+
+      \begintext
+
+   The JIRAM imager M-band FOV is defined as a rectangular pyramid with
+   angular extents of 1.76 degrees in the JUNO_JIRAM_I_MBAND XZ plane
+   and 5.94 degrees in JUNO_JIRAM_I_MBAND YZ plane. The boresight is
+   along +Z of the JUNO_JIRAM_I_MBAND frame.
+
+      \begindata
+
+         INS-61412_FOV_FRAME                 = 'JUNO_JIRAM_I_MBAND'
+         INS-61412_FOV_SHAPE                 = 'RECTANGLE'
+         INS-61412_BORESIGHT                 = ( 0.0, 0.0, 1.0 )
+         INS-61412_FOV_CLASS_SPEC            = 'ANGLES'
+         INS-61412_FOV_REF_VECTOR            = ( 1.0, 0.0, 0.0 )
+         INS-61412_FOV_REF_ANGLE             = ( 0.88 )
+         INS-61412_FOV_CROSS_ANGLE           = ( 2.97 )
+         INS-61412_FOV_ANGLE_UNITS           = ( 'DEGREES' )
+
+      \begintext
+
+
+End of the IK file.

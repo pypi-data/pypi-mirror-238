@@ -1,0 +1,595 @@
+KPL/IK
+
+\beginlabel
+PDS_VERSION_ID               = PDS3
+RECORD_TYPE                  = STREAM
+RECORD_BYTES                 = "N/A"
+^SPICE_KERNEL                = "nh_lorri_v100.ti"
+MISSION_NAME                 = "NEW HORIZONS"
+SPACECRAFT_NAME              = "NEW HORIZONS"
+DATA_SET_ID                  = "NH-J/P/SS-SPICE-6-V1.0"
+KERNEL_TYPE_ID               = IK
+PRODUCT_ID                   = "nh_lorri_v100.ti"
+PRODUCT_CREATION_TIME        = 2007-10-19T16:31:26
+PRODUCER_ID                  = APL
+MISSION_PHASE_NAME           = {
+                               LAUNCH,
+                               JUPITER
+                               }
+PRODUCT_VERSION_TYPE         = ACTUAL
+PLATFORM_OR_MOUNTING_NAME    = "NEW HORIZONS"
+START_TIME                   = "N/A"
+STOP_TIME                    = "N/A"
+SPACECRAFT_CLOCK_START_COUNT = "N/A"
+SPACECRAFT_CLOCK_STOP_COUNT  = "N/A"
+TARGET_NAME                  = JUPITER
+INSTRUMENT_NAME              = "LONG RANGE RECONNAISSANCE IMAGER"
+NAIF_INSTRUMENT_ID           = {
+                               -98302,
+                               -98301,
+                               -98300
+                               }
+SOURCE_PRODUCT_ID            = "N/A"
+NOTE                         = "See comments in the file for details"
+OBJECT                       = SPICE_KERNEL
+  INTERCHANGE_FORMAT         = ASCII
+  KERNEL_TYPE                = INSTRUMENT
+  DESCRIPTION                = "NH LORRI instrument kernel "
+END_OBJECT                   = SPICE_KERNEL
+\endlabel
+
+
+LORRI Instrument Kernel
+==============================================================================
+
+   This instrument kernel (I-kernel) contains references to the mounting
+   alignment, internal and FOV geometry for the New Horizons LOng Range
+   Reconnaissance Imager (LORRI).
+
+
+Version and Date
+----------------------------------------------------------
+
+   The TEXT_KERNEL_ID stores version information of loaded project text
+   kernels. Each entry associated with the keyword is a string that consists
+   of four parts: the kernel name, version, entry date, and type. For example,
+   the LORRI I-kernel might have an entry as follows:
+
+         TEXT_KERNEL_ID += 'NEWHORIZONS_LORRI V1.0.0 21-FEBRUARY-2007 IK'
+                                    |           |         |           |
+                                    |           |         |           |
+                KERNEL NAME <-------+           |         |           |
+                                                |         |           V
+                                VERSION <-------+         |      KERNEL TYPE
+                                                          |
+                                                          V
+                                                     ENTRY DATE
+
+   LORRI I-Kernel Version:
+
+           \begindata
+
+           TEXT_KERNEL_ID += 'NEWHORIZONS_LORRI V1.0.0 21-FEBRUARY-2007 IK'
+
+           NAIF_BODY_NAME += ( 'NH_LORRI' )
+           NAIF_BODY_CODE += ( -98300 )
+
+           NAIF_BODY_NAME += ( 'NH_LORRI_1X1' )
+           NAIF_BODY_CODE += ( -98301 )
+
+           NAIF_BODY_NAME += ( 'NH_LORRI_4X4' )
+           NAIF_BODY_CODE += ( -98302 )
+
+           \begintext
+
+
+   Version 1.0.0 -- February 21, 2007 -- Lillian Nguyen, JHU/APL
+
+            --   Updated the diagrams to match those in the frames kernel,
+                 nh.tf.
+            --   Promoting to version 1.0.0 denoting approval of kernel set
+                 by instrument teams.
+
+   Version 0.0.3 -- January 4, 2007 -- Lillian Nguyen, JHU/APL
+
+            --   Added field of view information for the 1x1 and 4x4 binning
+                 modes.
+            --   Added optical and CCD geometry parameters, and reference
+                 vector.
+
+   Version 0.0.2 -- October 4, 2006 -- Lillian Nguyen, JHU/APL
+
+            --   Removed the 3-letter frame NH_LOR.
+
+   Version 0.0.1 -- January 25, 2006 -- Lillian Nguyen
+
+            --   Frame definition and frame diagram modified after
+                 review by instrument team.
+
+   Version 0.0.0 -- January 5, 2006 -- Lillian Nguyen
+
+            --   Draft Version. NOT YET APPROVED BY INSTRUMENT TEAM.
+
+
+References
+----------------------------------------------------------
+
+            1.   LOng-Range Reconnaissance Imager (LORRI) Specification
+                 Document, 7400-9000 Rev A.
+
+            2. ``Kernel Pool Required Reading''
+
+            3.   Spacecraft to LORRI Interface Control Document (ICD),
+                 7399-9048, Rev B.
+
+            4.   APL New Horizons web site,
+                 http://pluto.jhuapl.edu/spacecraft/overview.html.
+
+            5.   New Horizons Spacecraft Frames Kernel.
+
+            6.   New Horizons Mission Science Definitions (MSD),
+                 NH7399-9000v1.6.
+
+            7.   LOng-Range Reconnaissance Imager (LORRI) User's Manual,
+                 7400-9601, dated Jan. 10, 2006.
+
+            8.   LORRI_orientation_1-9-06, received on 1/23/2006 by e-mail
+                 from Hal Weaver along with a description of the LORRI frame
+                 relative to the spacecraft frame. Also a phone conversation
+                 with Hal clarifying the diagrams in the document.
+
+            9.   Discussions with Howard Taylor regarding LORRI instrument
+                 frame definition and LORRI keywords, 12/21/2006.
+
+           10.   Response to LORRI OpNav action items, forwarded in an e-mail
+                 from Howard Taylor on 12/21/2006.
+
+Contact Information
+----------------------------------------------------------
+
+   Lillian Nguyen, JHU/APL, (443)-778-5477, Lillian.Nguyen@jhuapl.edu
+
+
+Implementation Notes
+----------------------------------------------------------
+
+   This file is used by the SPICE system as follows: programs that make use of
+   this instrument kernel must ``load'' the kernel, normally during program
+   initialization. Loading the kernel associates data items with their names
+   in a data structure called the ``kernel pool''. The SPICELIB routine FURNSH,
+   CSPICE routine furnsh_c, and IDL routine cspice_furnsh load SPICE kernels
+   as shown below:
+
+   FORTRAN (SPICELIB)
+
+           CALL FURNSH ( 'kernel_name' )
+
+   C (CSPICE)
+
+           furnsh_c ( "kernel_name" )
+
+   ICY (IDL)
+
+           cspice_furnsh, 'kernel_name'
+
+   In order for a program or subroutine to extract data from the pool, the
+   SPICELIB routines GDPOOL, GCPOOL, and GIPOOL are used. See [2] for details.
+
+   This file was created and may be updated with a text editor or word
+   processor.
+
+
+Naming Conventions
+----------------------------------------------------------
+
+   All names referencing values in this I-kernel start with the characters
+   `INS' followed by the NAIF New Horizons spacecraft ID number (-98)
+   followed by a NAIF three digit ID code for the LORRI instrument.
+
+   The remainder of the name is an underscore character followed by the unique
+   name of the data item. For example, the LORRI boresight direction in the
+   LORRI frame (``NH_LORRI'' -- see [5] ) is specified by:
+
+           INS-98300_BORESIGHT
+
+   The upper bound on the length of the name of any data item is 32
+   characters.
+
+   If the same item is included in more than one file, or if the same item
+   appears more than once within a single file, the latest value supersedes
+   any earlier values.
+
+
+LORRI description
+----------------------------------------------------------
+
+   From [4]:
+
+   ``The instrument that provides the highest spatial resolution on New
+   Horizons is LORRI - short for Long Range Reconnaissance Imager - which
+   consists of a telescope with a 8.2-inch (20.8-centimeter) aperture that
+   focuses visible light onto a charge coupled device (CCD). LORRI has a
+   very simple design; there are no filters or moving parts. Near the time
+   of closest approach, LORRI will take images of Pluto's surface at
+   football-field sized resolution, resolving features approximately 100
+   yards or 100 meters across.''
+
+   From [1]:
+
+   ``The Long Range Reconnaissance Imager, LORRI, is a modest aperture
+   (200 mm), narrow-angle camera capable of producing high-resolution
+   imagery.  The LORRI will provide imagery of Pluto-Charon, beginning 90
+   days prior to encounter. From 75 days regarding before closest approach,
+   LORRI will provide resolution of Pluto beyond that achievable using HST.
+     .
+     .
+     .
+   LORRI imager consists of a 208 mm aperture Ritchie-Chrétien telescope
+   made of silicon carbide.  The telescope is f/12.75, and feeds an
+   unfiltered, 1024 x 1024 frame transfer CCD.  The effective band-pass is
+   primarily limited by the CCD response to 350 to 850 nm.  There is a long
+   composite baffle running the length of the instrument, and smaller
+   baffles at the outside of the secondary and inside of the primary.  The
+   assembly is mounted to the spacecraft via 3 titanium legs.
+     .
+     .
+     .
+   LORRI operations consist of imaging at Jupiter, Pluto/Charon, and one to
+   three Kuiper Belt Objects.  Additionally, various calibration images and
+   functional tests will be performed.''
+
+   From [3]:
+
+   ``The LOng Range Reconnaissance Imager (LORRI) is intended to complement
+   the PERSI/MVIC wide angle, medium resolution imagers.  LORRI is
+   controlled independently of PERSI/MVIC. It will provide higher resolution
+   imagery with a much narrower field-of-view and contributes a measure of
+   redundancy to the mission.  Its boresight is aligned to within 0.1 deg of
+   PERSI/MVIC to support coordinated operations when operated in their
+   "framing mode".  The long-range capability of LORRI will permit the
+   receipt of high-resolution observations of Pluto-Charon at least 75 days
+   before their encounter and of the Kuiper-Belt Objects (KBOs).
+     .
+     .
+     .
+   LORRI is a panchromatic visible imager with an angular resolution of 5
+   rad/pixel and a field-of-view (FOV) of 0.29 deg x 0.29 deg.  It consists
+   of a 20-cm aperture, f/13 telescope imaging onto a CCD focal plane. The
+   combined mass of the telescope structure, mirrors, supporting
+   electronics, and aperture door is 8.593 Kg.  To reduce unwanted stray
+   light, the telescope is heavily baffled.  LORRI is fixed mounted inside
+   the spacecraft structure within a baffle tube protruding through the
+   spacecraft structure.  An aperture door provides contamination protection
+   during ground operation, launch, and early cruise.''
+
+
+LORRI Frame
+----------------------------------------------------------
+
+   The following diagrams are reproduced from [8] and [9].
+
+   When viewed by an observer looking out LORRI's boresight, the spacecraft
+   axes on the sky will look like:
+
+   Diagram 1
+   ---------
+                  Sky View Looking out from LORRI
+                 _________________________________
+                |                                 |
+                |                                 |
+                |                ^ +Y             |
+                |                |   sc           |
+                |                |                |
+                |                |                |
+                |                |                |
+                |       <--------o                |
+                |     +Z           +X  (out)      |
+                |       sc           sc           |
+                |                                 |
+                |                                 |
+                |                                 |
+                |                                 |
+                |_________________________________|
+
+
+   The LORRI optics inverts images in both the Y and Z directions, so that the
+   projection of these spacecraft axes onto the LORRI CCD will look like the
+   following: (Note that we are looking INTO the LORRI telescope in the
+   diagram below, whereas above we were looking outwards, hence the position
+   of the +Z axis does not appear to have changed when in fact it has flipped).
+
+   Diagram 2
+   ---------
+                   Looking in at the LORRI CCD
+                 _________________________________
+                |                                 |       Spacecraft Axes
+                |                                 |
+                |                                 |              ^ +Y
+                |                                 |              |   sc
+  increasing  ^ |                                 |              |
+   columns    | |                   p             |              x-----> +Z
+              | |    p            +X  (in)        |        +X (in)         sc
+              | |  +Z  <---------x  sc            |          sc
+              | |    sc          |                |
+              | |                |                |
+              | |                |                |
+              | |                |    p           |
+              | |                V  +Y            |
+              | |                     sc          |
+                O_________________________________|
+                 ------------------------>
+          [0,0]=[column, row]            increasing rows
+
+                                                 p       p
+   Note that in Diagram 2, the axes are labeled Z   and Y   to clarify
+                                                 sc      sc
+   that although these are still spacecraft coordinates, they are the
+   projections of the spacecraft axes from Diagram 1 onto the LORRI CCD, not
+   the actual spacecraft axes. The actual spacecraft axes are depicted to the
+   right of Diagram 2. The origin in the CCD view is at the bottom left, and
+   the CCD storage area and serial register are to the left.
+
+   The LORRI IDL display further inverts the image in Diagram 2 about the
+   diagonal originating at [0,0]:
+
+   Diagram 3
+   ---------
+                        LORRI IDL Display
+                 _________________________________
+                |                                 |       Spacecraft Axes
+                |                                 |
+                |                                 |              ^ +Z
+                |                                 |              |   sc
+  increasing  ^ |                                 |              |
+        rows  | |                    p            |              o-----> +Y
+              | |    p             +X  (out)      |        +X (out)        sc
+              | |  +Y  <---------x   sc           |          sc
+              | |    sc          |                |
+              | |                |                |
+              | |                |                |
+              | |                |    p           |
+              | |                V  +Z            |
+              | |                     sc          |
+                O_________________________________|
+                 ------------------------>
+          [0,0]=[column, row]            increasing columns
+
+
+
+   Also provided here are the same set of three diagrams using the LORRI
+   instrument axes, X , Y , Z , rather than the spacecraft axes.
+                     L   L   L
+
+   Diagram 1a
+   ----------
+                  Sky View Looking out from LORRI
+                 _________________________________
+                |                                 |
+                |                                 |      Spacecraft Axes
+                |                                 |
+                |                                 |             ^ +Y
+                |                                 |             |   sc
+                |                                 |             |
+                |                                 |       <-----o
+                |                o--------->      |      +Z      +X  (out)
+                |                |          Y     |        sc      sc
+                |                |           L    |
+                |                |                |
+                |                |                |
+                |                V X              |
+                |                   L             |
+                |_________________________________|
+
+
+   Diagram 2a
+   ----------
+                   Looking in at the LORRI CCD
+                 _________________________________
+                |                                 |
+                |                   p             |
+                |                ^ X              |
+                |                |  L             |
+  increasing  ^ |                |                |
+   columns    | |                |                |
+              | |                |                |
+              | |                x---------> p    |
+              | |                           Y     |
+              | |                            L    |
+              | |                                 |
+              | |                                 |
+              | |                                 |
+              | |                                 |
+                O_________________________________|
+                 ------------------------>
+          [0,0]=[column, row]            increasing rows
+
+   As in Diagram 2, the axes in Diagram 2a are the projections of the LORRI
+   instrument axes through the optics onto the LORRI CCD.
+
+   Diagram 3a
+   ---------
+                        LORRI IDL Display
+                 _________________________________
+                |                                 |
+                |                   p             |
+                |                ^ Y              |
+                |                |  L             |
+  increasing  ^ |                |                |
+        rows  | |                |                |
+              | |                |                |
+              | |            p   o---------> p    |
+              | |           Z (out)         X     |
+              | |            L               L    |
+              | |                                 |
+              | |                                 |
+              | |                                 |
+              | |                                 |
+                O_________________________________|
+                 ------------------------>
+          [0,0]=[column, row]            increasing columns
+
+
+   Taken from [9], we have the following coordinate system definition for the
+   LORRI frame:
+
+   The -Z axis in instrument coordinates is defined to be the boresight and
+   is approximately aligned with the spacecraft -X axis. The Y axis in
+   instrument coordinates is approximately aligned with the spacecraft -Z axis
+   and is in the direction of increasing rows. The X axis in instrument
+   coordinates is approximately aligned with the spacecraft -Y axis and is in
+   the direction of increasing columns.
+
+
+LORRI Field of View Parameters
+----------------------------------------------------------
+
+   From [10], the LORRI FOV is 0.2907 deg square.
+
+   Since LORRI's angular separation in Y is 0.2907 deg, looking up the +Y
+   axis in the instrument frame we have: (Note we are arbitrarily choosing
+   vectors that terminate in the Z=-1 plane.)
+
+                             X    ^
+                              inst|
+                                  |
+                                  |
+                                  |        _.-|
+                                  |    _.-'   | o
+                                  |_.-'  0.14535
+                                  x-------------->
+                            Y (in) `~._       |   -Z
+                             inst      `~._   |     inst
+                                           `~.|
+
+                                  |--- 1.0 ---|
+                                                    Plane X = 0
+
+   Since LORRI's field of view is square, a similar computation yields the
+   Y component.
+
+   These FOV values for LORRI are given in the keywords below:
+
+           \begindata
+
+           INS-98300_FOV_FRAME                 = 'NH_LORRI'
+           INS-98300_FOV_SHAPE                 = 'RECTANGLE'
+           INS-98300_BORESIGHT                 = ( 0.0, 0.0, -1.0 )
+           INS-98300_FOV_CLASS_SPEC            = 'ANGLES'
+           INS-98300_FOV_REF_VECTOR            = ( 1.0, 0.0, 0.0 )
+           INS-98300_FOV_REF_ANGLE             = ( 0.14535 )
+           INS-98300_FOV_CROSS_ANGLE           = ( 0.14535 )
+           INS-98300_FOV_ANGLE_UNITS           = 'DEGREES'
+
+           \begintext
+
+   And are duplicated for the 1x1 and 4x4 binning mode frames:
+
+           \begindata
+
+           INS-98301_FOV_FRAME                 = 'NH_LORRI_1X1'
+           INS-98301_FOV_SHAPE                 = 'RECTANGLE'
+           INS-98301_BORESIGHT                 = ( 0.0, 0.0, -1.0 )
+           INS-98301_FOV_CLASS_SPEC            = 'ANGLES'
+           INS-98301_FOV_REF_VECTOR            = ( 1.0, 0.0, 0.0 )
+           INS-98301_FOV_REF_ANGLE             = ( 0.14535 )
+           INS-98301_FOV_CROSS_ANGLE           = ( 0.14535 )
+           INS-98301_FOV_ANGLE_UNITS           = 'DEGREES'
+
+           INS-98302_FOV_FRAME                 = 'NH_LORRI_4X4'
+           INS-98302_FOV_SHAPE                 = 'RECTANGLE'
+           INS-98302_BORESIGHT                 = ( 0.0, 0.0, -1.0 )
+           INS-98302_FOV_CLASS_SPEC            = 'ANGLES'
+           INS-98302_FOV_REF_VECTOR            = ( 1.0, 0.0, 0.0 )
+           INS-98302_FOV_REF_ANGLE             = ( 0.14535 )
+           INS-98302_FOV_CROSS_ANGLE           = ( 0.14535 )
+           INS-98302_FOV_ANGLE_UNITS           = 'DEGREES'
+
+           \begintext
+
+
+LORRI Optics Parameters
+----------------------------------------------------------
+
+   From [10], LORRI has the following optics parameters:
+
+      -----------------------------------------------------------------
+      parameter                 1x1 binning mode      4x4 binning mode
+      -----------------------------------------------------------------
+      Focal length (meters)           2.624                 2.624
+      f-number                        12.62                 12.62
+      IFOV (microrad/pixel)           4.955                 19.82
+      Aperture diameter (cm)          20.8                  20.8
+      -----------------------------------------------------------------
+
+   These parameters are captured in the following keywords in the same units
+   as in the table:
+
+           \begindata
+
+           INS-98301_FOCAL_LENGTH      = ( 2.624 )
+           INS-98301_F/NUMBER          = ( 12.62 )
+           INS-98301_IFOV              = ( 4.955 )
+           INS-98301_APERTURE_DIAMETER = ( 20.8  )
+
+           INS-98302_FOCAL_LENGTH      = ( 2.624 )
+           INS-98302_F/NUMBER          = ( 12.62 )
+           INS-98302_IFOV              = ( 19.82 )
+           INS-98302_APERTURE_DIAMETER = ( 20.8  )
+
+           \begintext
+
+
+LORRI CCD Detector Parameters
+----------------------------------------------------------
+
+   From [9] and [10], LORRI has the following CCD parameters:
+
+      -----------------------------------------------------------------
+      parameter                 1x1 binning mode      4x4 binning mode
+      -----------------------------------------------------------------
+      Detector array size         1024 x 1024            256 x 256
+      Pixel size (microns)          13 x 13               52 x 52
+      CCD center                ( 511.5, 511.5)       ( 127.5, 127.5 )
+      -----------------------------------------------------------------
+
+   These parameters are captured in the following keywords in the same units
+   as in the table:
+
+           \begindata
+
+           INS-98301_PIXEL_SAMPLES     = ( 1024 )
+           INS-98301_PIXEL_LINES       = ( 1024 )
+           INS-98301_PIXEL_SIZE        = (  13  )
+           INS-98301_CCD_CENTER        = ( 511.5, 511.5 )
+
+           INS-98302_PIXEL_SAMPLES     = ( 256 )
+           INS-98302_PIXEL_LINES       = ( 256 )
+           INS-98302_PIXEL_SIZE        = ( 52 )
+           INS-98302_CCD_CENTER        = ( 127.5, 127.5 )
+
+           \begintext
+
+   Also defined here is the celestial position angle reference vector. This
+   vector defines the position angle, or angle from celestial north (and
+   passing through celestial east) to the reference vector.
+
+           \begindata
+
+           INS-98300_REFERENCE_VECTOR  = ( 1.0, 0.0, 0.0 )
+           INS-98301_REFERENCE_VECTOR  = ( 1.0, 0.0, 0.0 )
+           INS-98302_REFERENCE_VECTOR  = ( 1.0, 0.0, 0.0 )
+
+           \begintext
+
+
+Platform ID
+--------------------------------------------------------
+
+   This number is the NAIF instrument ID of the platform on which the
+   instrument is mounted.
+
+      INS-98300_PLATFORM_ID  = ( -98000 )
+      INS-98301_PLATFORM_ID  = ( -98000 )
+      INS-98302_PLATFORM_ID  = ( -98000 )
+
+

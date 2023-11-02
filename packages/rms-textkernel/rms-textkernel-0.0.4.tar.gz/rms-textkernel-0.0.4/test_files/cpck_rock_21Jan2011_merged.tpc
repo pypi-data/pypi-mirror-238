@@ -1,0 +1,2212 @@
+KPL/PCK
+ 
+           \begindata
+ 
+           TEXT_KERNEL_ID += 'CASSINI_ROCKS 21 JAN 2011 PCK'
+ 
+           \begintext
+
+
+Cassini Spacecraft Planetary Constants Kernel for small satellites
+==============================================================================
+ The TEXT_KERNEL_ID stores version information of loaded project text
+   kernels. Each entry associated with the keyword is a string that consists
+   of four parts: the kernel name, version, entry date, and type. For example,
+   the ISS I-kernel might have an entry as follows:
+ 
+           TEXT_KERNEL_ID += 'CASSINI_ISS V0.0.0 29-SEPTEMBER-1999 IK'
+                                  |          |         |            |
+                                  |          |         |            |
+              KERNEL NAME <-------+          |         |            |
+                                             |         |            V
+                             VERSION <-------+         |       KERNEL TYPE
+                                                       |
+                                                       V
+                                                  ENTRY DATE
+ 
+
+   This kernel contains the constants for small satellites (rocks) of
+   Saturn.
+
+  Refer to the notes at the bottom of the file for help, contacts, version
+  history,references, and Cassini-specific parameter descriptions. 
+
+Disclaimer - 
+   Some of the values described in this file are not known at the present time.
+   For these cases 'placeholder' values for Pan and Amalthea are used for 
+   bodies that do not reference the IAU [8] as the source. It is anticipated 
+   that updates to these quantities will occur as knowledge increases. Note 
+   that this file may be readily modified by you or anyone else. NAIF suggests 
+   that you inspect this file visually before proceeding with any critical 
+   or extended data processing.
+
+
+-------- JANUS
+
+
+         BODY610_GM is from [14].
+         BODY610_PM and BODY610_RADII are from [10].
+         All other values from [8].
+
+         \begindata
+         BODY610_GM          =  (              0.12671  )
+         BODY610_RADII     = (       96.6      86.6      68.6  )
+         BODY610_POLE_RA       = (   40.58     -0.036      0.  )
+         BODY610_POLE_DEC      = (   83.52     -0.004      0.  )
+         BODY610_PM            = (   184.03   +518.238639   0. )
+         BODY610_LONG_AXIS     = (    0.                       )
+         BODY610_NUT_PREC_RA   = ( 0. -1.623  0. 0. 0. 0. 0. 0. +0.023 )
+         BODY610_NUT_PREC_DEC  = ( 0. -0.183  0. 0. 0. 0. 0. 0. +0.001 )
+         BODY610_NUT_PREC_PM   = ( 0. +1.613  0. 0. 0. 0. 0. 0. -0.023 )
+         \begintext
+
+
+-------- EPIMETHEUS
+
+
+         BODY611_GM is from [14].
+         BODY611_PM [10].
+         BODY611_RADII are from [13].
+         All other values from [8].
+
+
+         \begindata
+         BODY611_GM          =  (              .03516  )
+         BODY611_RADII     = (       67.4      54.2       52.3 )
+         BODY611_POLE_RA       = (   40.58     -0.036      0.  )
+         BODY611_POLE_DEC      = (   83.52     -0.004      0.  )
+         BODY611_PM            = (  360.35   +518.483719  0.  )
+         BODY611_LONG_AXIS     = (    0.                       )
+         BODY611_NUT_PREC_RA   = ( -3.153  0. 0. 0. 0. 0. 0. +0.086  0. )
+         BODY611_NUT_PREC_DEC  = ( -0.356  0. 0. 0. 0. 0. 0. +0.005  0. )
+         BODY611_NUT_PREC_PM   = ( +3.133  0. 0. 0. 0. 0. 0. -0.086  0. )
+         \begintext
+
+
+-------- HELENE
+
+
+         BODY612_GM is from [7].
+         BODY612_PM is from [10].
+         All other values from [8].
+
+         Mean Radius was used since the 2000 IAU report contained no value
+         for the Subplanetary equatorial radius.
+
+
+         \begindata
+         BODY612_GM          =  (              .0017  )
+         BODY612_RADII     = (       16          16           16      )
+         BODY612_POLE_RA       = (   40.85     -0.036      0.  )
+         BODY612_POLE_DEC      = (   83.34     -0.004      0.  )
+         BODY612_PM            = (   63.7574   +131.5334056  0.  )
+         BODY612_LONG_AXIS     = (    0.                       )
+         \begintext
+
+
+-------- TELESTO
+
+
+         BODY613_GM is from [7].
+         BODY613_PM is from [10].
+         BODY613_RADII is from [13].
+         All other values from [8].
+
+
+         \begindata
+         BODY613_GM          =   (    .00048 )
+         BODY613_RADII     =     (    14.6     11.1       10.2 )
+         BODY613_POLE_RA       = (    50.51    -0.036      0.  )
+         BODY613_POLE_DEC      = (    84.06    -0.004      0.  )
+         BODY613_PM            = (    57.88  +190.6979332  0.  )
+         BODY613_LONG_AXIS     = (     0.                      )
+         \begintext
+         
+-------- CALYPSO
+
+
+         BODY614_GM is from [7].
+         BODY614_PM is from [10].
+         All other values from [8].
+
+
+         \begindata
+         BODY614_GM            = (               0.00024 )
+         BODY614_RADII         = (   15.1      11.4         7.0 )
+         BODY614_POLE_RA       = (   36.41     -0.036       0.  )
+         BODY614_POLE_DEC      = (   85.04     -0.004       0.  )
+         BODY614_PM            = (  313.8318   +190.6972373   0.  )
+         BODY614_LONG_AXIS     = (    0.                        )
+         \begintext
+
+
+-------- ATLAS
+
+
+         BODY615_GM is from [14].
+         BODY615_PM and BODY615_RADII are from [11].
+         All other values from [8].
+
+
+         \begindata
+         BODY615_GM            = (              0.00040  )
+         BODY615_RADII         = (    22.8     19.0        9.6 )
+         BODY615_POLE_RA       = (    40.58    -0.036      0.  )
+         BODY615_POLE_DEC      = (    83.53    -0.004      0.  )
+         BODY615_PM            = (   192.90  +598.313997   0   )
+         BODY615_LONG_AXIS     = (     0.                      )
+         \begintext
+
+
+-------- PROMETHEUS
+
+
+         BODY616_GM is from [14].
+         BODY616_PM [10].
+         BODY616_RADII are from [13].
+         All other values from [8].
+
+
+         \begindata
+         BODY616_GM            = (               0.01058 )
+         BODY616_RADII         = (    59.5     43.7       30.4     )
+         BODY616_POLE_RA       = (    40.58    -0.036      0.  )
+         BODY616_POLE_DEC      = (    83.53    -0.004      0.  )
+         BODY616_PM            = (   276.260  +587.284953  0.  )
+         BODY616_LONG_AXIS     = (     0.                      )
+         \begintext
+
+
+-------- PANDORA
+
+
+         BODY617_GM is from [14].
+         BODY617_PM and BODY617_RADII are from [10].
+         All other values from [8].
+
+
+         \begindata
+         BODY617_GM            =  (              0.00933  )
+         BODY617_RADII         = (    51.5     39.8       32.0   )
+         BODY617_POLE_RA       = (    40.58    -0.036      0.  )
+         BODY617_POLE_DEC      = (    83.53    -0.004      0.  )
+         BODY617_PM            = (   154.20  +572.789100  0.  )
+         BODY617_LONG_AXIS     = (     0.                      )
+         \begintext
+
+
+-------- PAN
+
+
+         BODY618_GM is from [13]. 
+         BODY618_PM and BODY618_RADII are from [11].
+         For Pan, only a mean radius is given in the 2000 IAU report.
+
+
+         \begindata
+         BODY618_GM          =  (              0.00033  )
+         BODY618_RADII     = (       17.6        17.3        11.5    )
+         BODY618_POLE_RA       = (   40.6     -0.036       0.  )
+         BODY618_POLE_DEC      = (   83.5     -0.004       0.  )
+         BODY618_PM            = (   326.59915   +626.03172242   0.  )
+         BODY618_LONG_AXIS     = (    0.                       )
+         \begintext
+
+
+
+YMIR
+----------------------------------------------------------
+ 
+
+          BODY619_RADII is from [12].
+ 
+           \begindata
+            NAIF_BODY_CODE       += ( 619 )
+            NAIF_BODY_NAME       += ( 'YMIR' )
+            BODY619_RADII         = (    9       9        9    )
+            BODY619_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY619_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY619_PM            = (   48.8   +626.0440000   0.  )
+            BODY619_LONG_AXIS     = (     0.                      )
+ 
+           \begintext
+ 
+ 
+PAALIAQ
+----------------------------------------------------------
+ 
+ 
+          BODY620_RADII is from [12].
+
+           \begindata
+            NAIF_BODY_CODE       += ( 620 )
+            NAIF_BODY_NAME       += ( 'PAALIAQ' )
+            BODY620_RADII         = (    11       11        11    )
+            BODY620_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY620_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY620_PM            = (   48.8   +626.0440000   0.  )
+            BODY620_LONG_AXIS     = (     0.                      )
+ 
+           \begintext
+ 
+ 
+TARVOS
+----------------------------------------------------------
+ 
+ 
+          BODY621_RADII is from [12].
+
+           \begindata
+            NAIF_BODY_CODE       += ( 621 )
+            NAIF_BODY_NAME       += ( 'TARVOS' )
+            BODY621_RADII         = (    7.5       7.5      7.5   )
+            BODY621_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY621_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY621_PM            = (   48.8   +626.0440000   0.  )
+            BODY621_LONG_AXIS     = (     0.                      )
+ 
+           \begintext
+ 
+ 
+IJIRAQ
+----------------------------------------------------------
+ 
+  
+          BODY622_RADII is from [12]. 
+
+           \begindata
+            NAIF_BODY_CODE       += ( 622 )
+            NAIF_BODY_NAME       += ( 'IJIRAQ' )
+            BODY622_RADII         = (    6         6          6   )
+            BODY622_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY622_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY622_PM            = (   48.8   +626.0440000   0.  )
+            BODY622_LONG_AXIS     = (     0.                      )
+ 
+           \begintext
+ 
+ 
+SUTTUNGR
+----------------------------------------------------------
+ 
+ 
+          BODY623_RADII is from [12].
+
+           \begindata
+            NAIF_BODY_CODE       += ( 623 )
+            NAIF_BODY_NAME       += ( 'SUTTUNGR' )
+            BODY623_RADII         = (    3.5       3.5        3.5 )
+            BODY623_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY623_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY623_PM            = (   48.8   +626.0440000   0.  )
+            BODY623_LONG_AXIS     = (     0.                      )
+ 
+           \begintext
+ 
+ 
+KIVIUQ
+----------------------------------------------------------
+ 
+
+          BODY624_RADII is from [12]. 
+
+           \begindata
+            NAIF_BODY_CODE       += ( 624 )
+            NAIF_BODY_NAME       += ( 'KIVIUQ' )
+            BODY624_RADII         = (    8        8          8    )
+            BODY624_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY624_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY624_PM            = (   48.8   +626.0440000   0.  )
+            BODY624_LONG_AXIS     = (     0.                      )
+ 
+           \begintext
+ 
+ 
+MUNDILFARI
+----------------------------------------------------------
+ 
+ 
+          BODY625_RADII is from [12].
+
+           \begindata
+            NAIF_BODY_CODE       += ( 625 )
+            NAIF_BODY_NAME       += ( 'MUNDILFARI' )
+            BODY625_RADII         = (    3.5      3.5       3.5   )
+            BODY625_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY625_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY625_PM            = (   48.8   +626.0440000   0.  )
+            BODY625_LONG_AXIS     = (     0.                      )
+ 
+           \begintext
+ 
+ 
+ALBIORIX
+----------------------------------------------------------
+ 
+ 
+          BODY626_RADII is from [12].
+
+           \begindata
+            NAIF_BODY_CODE       += ( 626 )
+            NAIF_BODY_NAME       += ( 'ALBIORIX' )
+            BODY626_RADII         = (    16       16        16    )
+            BODY626_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY626_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY626_PM            = (   48.8   +626.0440000   0.  )
+            BODY626_LONG_AXIS     = (     0.                      )
+           \begintext
+ 
+ 
+SKATHI
+----------------------------------------------------------
+ 
+ 
+          BODY627_RADII is from [12].
+
+           \begindata
+            NAIF_BODY_CODE       += ( 627 )
+            NAIF_BODY_NAME       += ( 'SKATHI' )
+            BODY627_RADII         = (    4         4         4    )
+            BODY627_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY627_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY627_PM            = (   48.8   +626.0440000   0.  )
+            BODY627_LONG_AXIS     = (     0.                      )
+           \begintext
+ 
+ 
+ERRIAPUS
+----------------------------------------------------------
+ 
+ 
+          BODY628_RADII is from [12].
+
+           \begindata
+            NAIF_BODY_CODE       += ( 628 )
+            NAIF_BODY_NAME       += ( 'ERRIAPUS' )
+            BODY628_RADII         = (     5         5         5   )
+            BODY628_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY628_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY628_PM            = (   48.8   +626.0440000   0.  )
+            BODY628_LONG_AXIS     = (     0.                      )
+           \begintext
+ 
+ 
+SIARNAQ
+----------------------------------------------------------
+ 
+ 
+           BODY629_RADII is from [12].
+
+           \begindata
+            NAIF_BODY_CODE       += ( 629 )
+            NAIF_BODY_NAME       += ( 'SIARNAQ' )
+            BODY629_RADII         = (    20       20        20    )
+            BODY629_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY629_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY629_PM            = (   48.8   +626.0440000   0.  )
+            BODY629_LONG_AXIS     = (     0.                      )
+           \begintext
+ 
+ 
+THRYMR
+----------------------------------------------------------
+ 
+
+          BODY630_RADII is from [12].
+ 
+           \begindata
+            NAIF_BODY_CODE       += ( 630 )
+            NAIF_BODY_NAME       += ( 'THRYMR' )
+            BODY630_RADII         = (    3.5       3.5       3.5  )
+            BODY630_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY630_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY630_PM            = (   48.8   +626.0440000   0.  )
+            BODY630_LONG_AXIS     = (     0.                      )
+           \begintext
+
+
+NARVI
+---------------------------------------------------------- 
+ 
+
+          BODY631_RADII is from [12].
+ 
+           \begindata
+            NAIF_BODY_CODE       += ( 631 )
+            NAIF_BODY_NAME       += ( 'NARVI' )
+            BODY631_RADII         = (    3.5       3.5       3.5  )
+            BODY631_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY631_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY631_PM            = (   48.8   +626.0440000   0.  )
+            BODY631_LONG_AXIS     = (     0.                      )
+           \begintext
+
+
+
+METHONE (S1_2004)
+----------------------------------------------------------
+          BODY632_PM is from [10].
+ 
+           \begindata
+            NAIF_BODY_CODE       += ( 632 )
+            NAIF_BODY_NAME       += ( 'METHONE' )
+            BODY632_RADII         = (    10       10        10    )
+            BODY632_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY632_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY632_PM            = (   7.0   +356.5850000   0.  )
+            BODY632_LONG_AXIS     = (     0.                      )
+           \begintext
+ 
+PALLENE (S2_2004)
+----------------------------------------------------------
+           BODY633_PM is from [10].
+ 
+           \begindata
+            NAIF_BODY_CODE       += ( 633 )
+            NAIF_BODY_NAME       += ( 'PALLENE' )
+            BODY633_RADII         = (    10       10        10    )
+            BODY633_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY633_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY633_PM            = (   321.19   +312.027133   0.  )
+            BODY633_LONG_AXIS     = (     0.                      )
+           \begintext
+
+POLYDEUCES (S5_2004)
+----------------------------------------------------------
+          BODY634_PM is from [10].
+ 
+           \begindata
+            NAIF_BODY_CODE       += ( 634 )
+            NAIF_BODY_NAME       += ( 'POLYDEUCES' )
+            BODY634_RADII         = (    10       10        10    )
+            BODY634_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY634_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY634_PM            = (   293.8   +131.5340000   0.  )
+            BODY634_LONG_AXIS     = (     0.                      )
+           \begintext
+
+DAPHNIS (S1_2005)
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 635 )
+           NAIF_BODY_NAME       += ( 'DAPHNIS' )
+           BODY635_RADII         = (    10       10        10    )
+           BODY635_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY635_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY635_PM            = (    48.8   +626.0440000   0.  )
+           BODY635_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+AEGIR 
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 636 )
+           NAIF_BODY_NAME       += ( 'AEGIR' )
+           BODY636_RADII         = (    10       10        10    )
+           BODY636_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY636_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY636_PM            = (    48.8   +626.0440000   0.  )
+           BODY636_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+BEBHIONN
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 637 )
+           NAIF_BODY_NAME       += ( 'BEBHIONN' )
+           BODY637_RADII         = (    10       10        10    )
+           BODY637_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY637_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY637_PM            = (    48.8   +626.0440000   0.  )
+           BODY637_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+BERGELMIR
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 638 )
+           NAIF_BODY_NAME       += ( 'BERGELMIR' )
+           BODY638_RADII         = (    10       10        10    )
+           BODY638_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY638_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY638_PM            = (    48.8   +626.0440000   0.  )
+           BODY638_LONG_AXIS     = (     0.                      )
+          \begintext
+
+BESTLA
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 639 )
+           NAIF_BODY_NAME       += ( 'BESTLA' )
+           BODY639_RADII         = (    10       10        10    )
+           BODY639_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY639_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY639_PM            = (    48.8   +626.0440000   0.  )
+           BODY639_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+FARBAUTI 
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 640 )
+           NAIF_BODY_NAME       += ( 'FARBAUTI' )
+           BODY640_RADII         = (    10       10        10    )
+           BODY640_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY640_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY640_PM            = (    48.8   +626.0440000   0.  )
+           BODY640_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+FENRIR
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 641 )
+           NAIF_BODY_NAME       += ( 'FENRIR' )
+           BODY641_RADII         = (    10       10        10    )
+           BODY641_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY641_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY641_PM            = (    48.8   +626.0440000   0.  )
+           BODY641_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+FORNJOT
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 642 )
+           NAIF_BODY_NAME       += ( 'FORNJOT' )
+           BODY642_RADII         = (    10       10        10    )
+           BODY642_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY642_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY642_PM            = (    48.8   +626.0440000   0.  )
+           BODY642_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+HATI 
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 643 )
+           NAIF_BODY_NAME       += ( 'HATI' )
+           BODY643_RADII         = (    10       10        10    )
+           BODY643_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY643_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY643_PM            = (    48.8   +626.0440000   0.  )
+           BODY643_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+HYROKKIN
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 644 )
+           NAIF_BODY_NAME       += ( 'HYROKKIN' )
+           BODY644_RADII         = (    10       10        10    )
+           BODY644_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY644_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY644_PM            = (    48.8   +626.0440000   0.  )
+           BODY644_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+KARI 
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 645 )
+           NAIF_BODY_NAME       += ( 'KARI' )
+           BODY645_RADII         = (    10       10        10    )
+           BODY645_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY645_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY645_PM            = (    48.8   +626.0440000   0.  )
+           BODY645_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+LOGE
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 646 )
+           NAIF_BODY_NAME       += ( 'LOGE' )
+           BODY646_RADII         = (    10       10        10    )
+           BODY646_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY646_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY646_PM            = (    48.8   +626.0440000   0.  )
+           BODY646_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+SKOLL 
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 647 )
+           NAIF_BODY_NAME       += ( 'SKOLL' )
+           BODY647_RADII         = (    10       10        10    )
+           BODY647_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY647_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY647_PM            = (    48.8   +626.0440000   0.  )
+           BODY647_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+SURTUR
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 648 )
+           NAIF_BODY_NAME       += ( 'SURTUR' )
+           BODY648_RADII         = (    10       10        10    )
+           BODY648_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY648_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY648_PM            = (    48.8   +626.0440000   0.  )
+           BODY648_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+
+ANTHE
+----------------------------------------------------------
+
+
+          \begindata
+           NAIF_BODY_CODE       += ( 649 )
+           NAIF_BODY_NAME       += ( 'ANTHE' )
+           BODY649_RADII         = (     1.0       1.0       1.0    )
+           BODY649_POLE_RA       = (    40.66    -0.036      0.  )
+           BODY649_POLE_DEC      = (    83.52    -0.004      0.  )
+           BODY649_PM            = (   337.46  +381.9945550  0.  )
+           BODY649_LONG_AXIS     = (     0.                      )  
+          \begintext
+
+
+
+JARNSAXA 
+----------------------------------------------------------
+
+          BODY650_RADII is from [12].
+
+           \begindata
+            NAIF_BODY_CODE       += ( 650 )
+            NAIF_BODY_NAME       += (  'JARNSAXA' ) 
+            BODY650_RADII         = (    3.5       3.5        3.5 )
+            BODY650_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY650_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY650_PM            = (   48.8   +626.0440000   0.  )
+            BODY650_LONG_AXIS     = (     0.                      )
+           \begintext
+
+
+
+GREIP 
+----------------------------------------------------------
+
+          BODY651_RADII is from [12].
+
+           \begindata
+            NAIF_BODY_CODE       += ( 651 )
+            NAIF_BODY_NAME       += ( 'GREIP' )
+            BODY651_RADII         = (    3.5       3.5        3.5 )
+            BODY651_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY651_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY651_PM            = (   48.8   +626.0440000   0.  )
+            BODY651_LONG_AXIS     = (     0.                      )
+           \begintext
+
+
+
+TARQEQ 
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE       += ( 652 )
+           NAIF_BODY_NAME       += (  'TARQEQ'  ) 
+           BODY652_RADII         = (    10       10        10    )
+           BODY652_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY652_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY652_PM            = (    48.8   +626.0440000   0.  )
+           BODY652_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+
+AEGAEON
+----------------------------------------------------------
+ 
+           \begindata
+            NAIF_BODY_CODE       += ( 653 )
+            NAIF_BODY_NAME       += ( 'AEGAEON' )
+            BODY653_RADII         = (    10       10        10    )
+            BODY653_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY653_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY653_PM            = (   321.19   +312.027133   0.  )
+            BODY653_LONG_AXIS     = (     0.                      )
+           \begintext
+
+
+
+
+S7_2004
+---------------------------------------------------------- 
+ 
+
+          BODY65035_RADII is from [12].
+ 
+           \begindata
+            NAIF_BODY_CODE       += ( 65035 )
+            NAIF_BODY_NAME       += ( 'S7_2004' )
+            BODY65035_RADII         = (    3         3          3   )
+            BODY65035_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY65035_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY65035_PM            = (   48.8   +626.0440000   0.  )
+            BODY65035_LONG_AXIS     = (     0.                      )
+           \begintext
+
+
+S12_2004
+---------------------------------------------------------- 
+ 
+
+          BODY65040_RADII is from [12].
+ 
+           \begindata
+            NAIF_BODY_CODE       += ( 65040 )
+            NAIF_BODY_NAME       += ( 'S12_2004' )
+            BODY65040_RADII         = (    2.5       2.5        2.5 )
+            BODY65040_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY65040_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY65040_PM            = (   48.8   +626.0440000   0.  )
+            BODY65040_LONG_AXIS     = (     0.                      )
+           \begintext
+
+S13_2004
+---------------------------------------------------------- 
+ 
+
+          BODY65041_RADII is from [12].
+ 
+           \begindata
+            NAIF_BODY_CODE       += ( 65041 )
+            NAIF_BODY_NAME       += ( 'S13_2004' )
+            BODY65041_RADII         = (    3         3          3   )
+            BODY65041_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY65041_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY65041_PM            = (   48.8   +626.0440000   0.  )
+            BODY65041_LONG_AXIS     = (     0.                      )
+           \begintext
+
+
+S17_2004
+---------------------------------------------------------- 
+ 
+
+          BODY65045_RADII is from [12].
+ 
+           \begindata
+            NAIF_BODY_CODE       += ( 65045 )
+            NAIF_BODY_NAME       += ( 'S17_2004' )
+            BODY65045_RADII         = (    2         2          2   )
+            BODY65045_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY65045_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY65045_PM            = (   48.8   +626.0440000   0.  )
+            BODY65045_LONG_AXIS     = (     0.                      )
+           \begintext
+
+
+
+S01_2006
+----------------------------------------------------------
+
+
+          BODY65048_RADII is from [12].
+
+           \begindata
+            NAIF_BODY_CODE       += ( 65048 )
+            NAIF_BODY_NAME       += ( 'S01_2006' )
+            BODY65048_RADII         = (    3.5       3.5        3.5 )
+            BODY65048_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY65048_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY65048_PM            = (   48.8   +626.0440000   0.  )
+            BODY65048_LONG_AXIS     = (     0.                      )
+           \begintext
+
+
+S03_2006
+----------------------------------------------------------
+
+
+          BODY65050_RADII is from [12].
+
+           \begindata
+            NAIF_BODY_CODE       += ( 65050 )
+            NAIF_BODY_NAME       += ( 'S03_2006' )
+            BODY65050_RADII         = (    3.5       3.5        3.5 )
+            BODY65050_POLE_RA       = (    40.58    -0.036      0.  )
+            BODY65050_POLE_DEC      = (    83.53    -0.004      0.  )
+            BODY65050_PM            = (   48.8   +626.0440000   0.  )
+            BODY65050_LONG_AXIS     = (     0.                      )
+           \begintext
+
+
+S02_2007 
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE         += ( 65055 )
+           NAIF_BODY_NAME         += (  'S02_2007'  ) 
+           BODY65055_RADII         = (    10       10        10    )
+           BODY65055_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY65055_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY65055_PM            = (    48.8   +626.0440000   0.  )
+           BODY65055_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+S03_2007 
+----------------------------------------------------------
+
+          \begindata
+           NAIF_BODY_CODE         += ( 65056 )
+           NAIF_BODY_NAME         += (  'S03_2007'  ) 
+           BODY65056_RADII         = (    10       10        10    )
+           BODY65056_POLE_RA       = (    40.58    -0.036      0.  )
+           BODY65056_POLE_DEC      = (    83.53    -0.004      0.  )
+           BODY65056_PM            = (    48.8   +626.0440000   0.  )
+           BODY65056_LONG_AXIS     = (     0.                      )
+          \begintext
+
+
+
+-------- URLS and CONTACTS
+
+
+Description of PCK format and contents can be found in NAIF's PCK "required
+reading" document, at:
+
+ftp://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/ascii/individual_docs/pck.req
+
+NAIF tutorial on PCK formatting:
+ftp://naif.jpl.nasa.gov/pub/naif/toolkit_docs/Tutorials/office/individual_docs/16_
+pck.ppt
+
+The Cassini PCK & ephemeris files can be found on the DOM, and at:
+ftp://naif.jpl.nasa.gov/pub/naif/CASSINI/kernels/pck
+
+Adrian Tinio, Cassini/JPL, (818)354-7511 Adrian.Tinio@jpl.nasa.gov
+Diane Conner, Cassini/JPL, (818)354-8586 Diane.Conner@jpl.nasa.gov
+
+
+-------- VERSION HISTORY
+2011 Jan 21 (published)
+Added body AEGAEON which was already added in the May 11 2009 version
+of this rocks PCK.  When that version of the rock pck was created, the
+baseline rocks PCK used was the Feb 02 2009 version instead of the
+Mar 11 2009 version.  Therefore, all the additions/edits made in the
+Mar 11 2009 version were lost.  This version (Jan 21 2011) merges the
+changes in Mar 11 2009 and May 11 2009.
+
+Below is the VERSION HISTORY entry from the 2009 May 11 rocks PCK:
+
+   2009 May 11 (published)
+   Added definition for new body Aegaeon.  The radii, pole_ra, pole_dec,
+   pm, and long axis values are placeholder values at this time.  These
+   values are expected to be updated when the info becomes available.
+     
+By: A. Tinio
+
+2009 Mar 11 (published)
+Renamed the following bodies to match the spelling of the built-in
+body names in the N062 version of the SPICE toolkit.
+   ERRIAPO  -> ERRIAPUS
+   SKADI    -> SKATHI
+   SUTTUNG  -> SUTTUNGR
+   THRYM    -> THRYMR
+
+By: A. Tinio
+
+2009 Mar 10 (published)
+Same content as the 02 Feb 2009 version.  Only incremented version
+to avoid confusion with the merged version of this file that merges this pck
+with a corrected frame kernel.
+
+The merged version of this file is merged with cas_rocks_v16.tf
+
+By: A. Tinio
+
+2009 Feb 02 (published)
+Redefined S06_2006 and S04_2006 to Jarnsaxa and Greip respectively.
+Added definitions for new bodies: Tarqeq, S02_2007,
+S03_2007.  The radii, pole_ra,pole_dec,pm, and long axis values are 
+placeholder values at this time unless stated otherwise.  
+These values are expected to be updated when the info becomes
+known/available.
+
+By: A. Tinio
+ 
+2008 Aug 25 (published)
+Removed definitions for body 65060.  This was replaced
+by ANTHE.
+
+By: A. Tinio
+
+2008 Aug 21 (published)
+Added a new section for the new body, ANTHE.  The radii,
+pole_ra,pole_dec,pm, and long axis values are preliminary 
+values at this time.  These values are expected to be updated
+when the info becomes known/available.
+
+By: A. Tinio
+
+
+2007 Oct 1 (published) 
+Removed duplicate 'S' entries
+(official names already in this file):
+
+            Official Name
+  S8_2004     Fornjot 
+  S9_2004     Farbauti 
+  S10_2004    Aegir 
+  S11_2004    Bebhionn 
+  S14_2004    Hati 
+  S15_2004    Bergelmir 
+  S16_2004    Fenrir 
+  S18_2004    Bestla 
+  S19_2004    Hyrokkin 
+  S2_2006     Kari 
+  S5_2006     Loge 
+  S7_2006     Surtur 
+  S8_2006     Skoll 
+By: E. Martinez
+
+
+
+2007 Aug 16 (published)
+Added section to describe new body:
+           K07S4
+By: Elmain Martinez
+
+
+2007 Apr 19 (published)
+Added sections to describe new bodies:
+            Aegir
+            Bebhionn
+            Bergelmir 
+            Bestla  
+            Farbauti
+            Fenrir  
+            Fornjot
+            Hati 
+            Hyrokkin
+            Kari 
+            Loge 
+            Skoll
+            Surtur
+By: Elmain Martinez
+
+
+
+2006 Dec 05 (published)
+
+Added sections to describe the new bodies S19_2004 and S01-S08_2006
+
+By: Elmain Martinez
+
+
+
+2006 Aug 23 (published)
+
+Made updates to radii values as referenced in [13].
+Made updates to GM values as referenced in [14].
+
+By: Adrian Tinio
+
+2006 Feb 27 (published)
+
+Made file usable with 060222AP_IRRE_00256_14363.bsp which contains
+information about outer irregular rocks.  Also updated
+radii values as referenced in [12].
+
+By: Adrian Tinio
+
+2005 Dec 13 (published)
+Added a new section for the new body, DAPHNIS.  The radii,
+pole_ra,pole_dec,pm, and long axis values are only place-holder
+values at this time.  These values are expected to be updated
+when the info becomes known/available.
+
+By: Adrian Tinio
+
+2005 Dec 09 (published)
+The radii values for Pan and Atlas in the previous version of
+this file are actually diameter values.  The correct radii
+values are as follows  (values supplied by Peter Thomas):
+  1.  ATLAS  (22.8,  19.0,  9.6)
+  2.  PAN    (17.6,  17.3,  11.5)
+
+By: Adrian Tinio
+
+
+2005 Dec 07 (published)
+This file was made to be used with SPK files 050923AP_RE_04002_09011
+and sat138.
+
+  1.  PM values for JANUS, EPIMETHEUS, HELENE, TELESTO, CALYPSO,
+      ATLAS, PROMETHEUS, PANDORA, PAN, METHONE, PALLENE, and
+      POLYDEUCES were modified to lock +X of these rocks
+      to Saturn.  Implements ECR 105009.
+  2.  Update RADII values for JANUS, EPIMETHEUS, ATLAS, PAN,
+      PROMETHEUS, and PANDORA.  Implements ECR 105045.
+  
+By: Adrian Tinio
+
+
+2005 Apr 08 (published)
+
+The file was made to be used with SPK files 050407AP_RE_04002_09011
+and sat138.
+
+  1. Changed the ID of POLYDEUCES (S5_2004) to 634 from 635.  
+  2. Added IAU approved names for S1, S2 and S5 2004.
+     
+
+2004 Nov 30 (published)
+
+This file was made to be used with SPK files 041201BP_RE_04092_09011 
+and sat138.
+
+  1.  Added new discoveries S1_2004, S2_2004 and S5_2004.
+  2.  Added other small satellites.   
+  3.  Updated GMs for Janus, Epimetheus, Prometheus, and Pandora.  
+      Added reference 9.
+
+
+2003 Oct 29 (published)
+
+  1. Updated NAIF ids to body name mapping per reference 6 below.
+  2. Updated NAIF tutorial link
+  3. Added a reference to the new SPK file that goes with named rocks 
+     previously identified as s1-s12.
+
+By: Diane Conner
+
+
+2003 May 29 (published)
+
+  1. Changed the body names to be Upper Case.
+  2. Changed LDPOOL to FURNISH, in the file loading instructions. 
+
+   
+By: Diane Conner
+
+
+2003 Mar 21 (Not published)
+Initial
+
+  1. Rearranged data in the file to follow model developed by Mission Planning
+     for the PCK file. 
+  2. Added reference to corresponding SPK file.
+   
+By: Diane Conner
+
+ 
+References
+----------------------------------------------------------
+ 
+            1.   ``PCK-kernel Required Reading''
+ 
+            2.   ``Kernel Pool Required Reading''
+ 
+            3.   ``Frames Required Reading''
+ 
+            4.   Email from Diane Conner regarding targeting small satellites,
+                 or rocks, of Saturn.
+
+            5.  Jacobson, R.A., SPK file sat125.bsp.
+            
+            6.  Sky & Telescope Magazine,(25th General Assembly of the
+                International Astronomical Union, held from 
+                July 13-26 in Sydney, Australia)
+                 http://skyandtelescope.com/news/article_1012_1.asp
+
+            7.  Jacobson, R. A., 1996, "Orbits of the Saturnian Satellites 
+                from Earthbased and Voyager Observations", Bulletin of the 
+                American Astronmical Society 28(3), 1185.
+
+            8.  Seidelmann, P.K., Abalakin, V.K., Bursa, M., Davies, M.E.,
+                Bergh, C. de, Lieske, J.H., Oberst, J., Simon, J.L.,
+                Standish, E.M., Stooke, P., and Thomas, P.C. (2002).
+                "Report of the IAU/IAG Working Group on Cartographic
+                Coordinates and Rotational Elements of the Planets and
+                Satellites: 2000," Celestial Mechanics and Dynamical
+                Astronomy, v.82, Issue 1, pp. 83-111. 
+            
+            9.  Jacobson, R.A., SPK file sat186
+
+           10.  ECR 105009 and ECR 105045
+
+           11.  Email from Peter Thomas regarding corrected radii values 
+                for Atlas and Pan.
+
+           12.  Jacobson, R.A., SPK file 060222AP_IRRE_00256_14363.bsp
+
+           13.  LPSC 2006 Abstract: PHYSICAL CHARACTERISTICS AND POSSIBLE 
+                ACCRETIONARY ORIGINS FOR SATURN'S SMALL SATELLITES
+                 C.C. Porco,  J. W. Weiss, P. C. Thomas, D.C. Richardson, 
+                 R.A. Jacobson, J. Spitale1.
+                 CICLOPS, Space Science Institute, 4750 Walnut St., Boulder, CO  80301. 
+                 Center for Radiophysics and Space Research, Cornell University, Ithaca NY 14853.
+                 Department of Astronomy, University of Maryland, College Park, MD 20742.
+                 Jet Propulsion Laboratory, Caltech, 4800 Oak Grove Drive, Pasadena, CA  91109.
+                
+
+           14.  Jacobson, R.A., SPK file sat249
+
+           15.  Robert A. Jacobson, SPK Filename: sat280.bsp
+
+Implementation Notes
+----------------------------------------------------------
+ 
+   This file is used by the SPICE system as follows: programs that make use of
+   this frame kernel must `load' the kernel, normally during program
+   initialization. Loading the kernel associates data items with their names
+   in a data structure called the `kernel pool'. The SPICELIB routine FURNISH
+   loads a kernel file into the pool as shown below:
+
+             CALL FURNSH ( <pck file name>)        FORTRAN version
+             furnish_c   (<pck file name>);        C version
+
+   In order for a program or subroutine to extract data from the pool, the
+   SPICELIB routines GDPOOL and GIPOOL are used. See [2] for more details.
+ 
+   This file was created and may be updated with a text editor or word
+   processor.
+ 
+ 
+Assumptions
+----------------------------------------------------------
+ 
+   This file contains constants used to model the orientation and shape of
+   satellites. The orientation models express the direction of the pole and
+   location of the prime meridian of a body as a function of time. The shape
+   models represent all bodies as ellipsoids, using two equatorial radii and a
+   polar radius. Spheroids and spheres are obtained when two or all three
+   radii are equal.
+ 
+ 
+Orientation models
+----------------------------------------------------------
+ 
+   All of the orientation models use three Euler angles to describe body
+   orientation. To be precise, the Euler angles describe the orientation of
+   the coordinate axes of the `Body Equator and Prime Meridian' system with
+   respect to an inertial system. By default, the inertial system is J2000
+   (also called `EME2000'), but other frames can be specified in the file. See
+   the PCK Required Reading for details.
+ 
+   The first two angles, in order, are the right ascension and declination
+   (henceforth RA and DEC) of the north pole of a body as a function of time.
+   The third angle is the prime meridian location (represented by `W'), which
+   is expressed as a rotation about the north pole, and is also a function of
+   time.
+ 
+   In this file, the time arguments in expressions always refer to Barycentric
+   Dynamical Time (TDB), measured in centuries or days past the a reference
+   epoch. By default, the reference epoch is the J2000 epoch, which is Julian
+   ephemeris date 2451545.0, but other epochs can be specified in the file.
+   See the PCK Required Reading for details.
+ 
+   Example: 1991 IAU Model for orientation of the Earth. Note that these
+   values are used as an example only; see the data area below for current
+   values.
+ 
+ 
+              alpha   =   0.00 - 0.641 T             ( RA )
+                   0
+ 
+              delta   =  90.0  - 0.557 T             ( DEC )
+                   0
+              W       =  190.16 + 360.9856235 d      ( Prime meridian )
+ 
+ 
+              T represents centuries past J2000 ( TDB ),
+ 
+              d represents days past J2000 ( TDB ).
+ 
+   In this file, the polynomials' coefficients above are assigned to the
+   symbols
+ 
+ 
+              BODY399_POLE_RA
+              BODY399_POLE_DEC
+              BODY399_POLE_PM
+ 
+ 
+   as follows:
+ 
+              BODY399_POLE_RA        = (    0.      -0.641         0. )
+              BODY399_POLE_DEC       = (  +90.      -0.557         0. )
+              BODY399_PM             = (  190.16  +360.9856235     0. )
+ 
+   You'll see an additional symbol grouped with the ones listed here; it is
+ 
+ 
+              BODY399_LONG_AXIS
+ 
+ 
+   This term is zero for all bodies except Mars. It represents the offset
+   between the longest axis of the triaxial ellipsoid used to model a body and
+   the prime meridian of the body.
+ 
+   In addition to polynomial terms, there are trigonometric terms. The
+   arguments of the trigonometric terms are linear polynomials. In this file,
+   we call the arguments of these trigonometric terms `nutation precession
+   angles'.
+ 
+   In this file, the polynomial expressions for the nutation precession angles
+   are listed along with the planet's RA, DEC, and prime meridian terms.
+ 
+   Example: 1991 IAU nutation precession angles for Earth. Note that these
+   values are used as an example only; see the data area below for current
+   values.
+ 
+              E1 = 125.045 -  0.052992 d
+              E2 = 250.090 -  0.105984 d
+              E3 = 260.008 + 13.012001 d
+              E4 = 176.625 + 13.340716 d
+              E5 = 357.529 +  0.985600 d
+ 
+              d represents days past J2000 ( TDB )
+ 
+ 
+   Because the NAIF Toolkit software expects the time units for the angles to
+   be CENTURIES (as in the IAU models for most bodies--the Earth is an
+   exception), the linear coefficients are scaled by 36525.0 in the
+   assignments:
+ 
+              BODY3_NUT_PREC_ANGLES  = (  125.045    -1935.5328
+                                          250.090    -3871.0656
+                                          260.008 475263.336525
+                                          176.625   487269.6519
+                                          357.529    35999.04     )
+ 
+ 
+   As stated above, the satellite orientation models use polynomial and
+   trigonometric terms, where the arguments of the trigonometric terms are the
+   `nutation precession angles'.
+ 
+   Example: 1988 IAU values for the Moon. Again, these values are used as an
+   example only; see the data area below for current values.
+ 
+ 
+           alpha = 270.000 + 0.003 T  -  3.878 sin(E1) - 0.120 sin(E2)
+                0
+                                      +  0.070 sin(E3) - 0.017 sin(E4) (RA)
+ 
+ 
+           delta = 66.541  + 0.013 T  +  1.543 cos(E1) + 0.024 cos(E2)
+                0
+                                      -  0.028 cos(E3) + 0.007 cos(E4) (DEC)
+ 
+ 
+           W     =  38.317   + 13.1763582 d    +  3.558 sin(E1)
+ 
+                                               +  0.121 sin(E2)
+ 
+                                               -  0.064 sin(E3)
+ 
+                                               +  0.016 sin(E4)
+ 
+                                               +  0.025 sin(E5)  ( Prime
+                                                                  meridian )
+ 
+           d represents days past J2000.
+ 
+           E1--E5 are the nutation precession angles.
+ 
+   The polynomial terms are assigned to symbols by the statements
+ 
+ 
+           BODY301_POLE_RA        = (  270.000    0.003        0. )
+           BODY301_POLE_DEC       = (  +66.541    0.013        0. )
+           BODY301_PM             = (   38.317  +13.1763582    0. )
+ 
+ 
+   The coefficients of the trigonometric terms are assigned to symbols by the
+   statements
+ 
+           BODY301_NUT_PREC_RA  = (  -3.878  -0.120  +0.070  -0.017   0.    )
+           BODY301_NUT_PREC_DEC = (  +1.543  +0.024  -0.028  +0.007   0.    )
+           BODY301_NUT_PREC_PM  = (  +3.558  +0.121  -0.064  +0.016  +0.025 )
+ 
+ 
+   Note that for the RA and PM (prime meridian) assignments, the ith term is
+   the coefficient of sin(Ei) in the expression used in the IAU model, while
+   for the DEC assignment, the ith term is the coefficient of cos(Ei) in the
+   expression used in the IAU model.
+ 
+   NAIF software expects the models for satellite orientation to follow the
+   form of the model shown here: the polynomial portions of the RA, DEC, and W
+   expressions are expected to be quadratic, the trigonometric terms for RA
+   and W (satellite prime meridian) are expected to be linear combinations of
+   sines of nutation precession angles, the trigonometric terms for DEC are
+   expected to be linear combinations of cosines of nutation precession
+   angles, and the polynomials for the nutation precession angles themselves
+   are expected to be linear.
+ 
+ 
+Shape models
+----------------------------------------------------------
+ 
+   There is only one kind of shape model supported by the NAIF Toolkit
+   software at present: the triaxial ellipsoid. The 2000 IAU report does not
+   use any other models.
+ 
+   For each body, three radii are listed: The first number is the largest
+   equatorial radius (the length of the semi-axis containing the prime
+   meridian), the second number is the smaller equatorial radius, and the
+   third is the polar radius.
+ 
+   Example: Radii of the Earth.
+ 
+ 
+              BODY399_RADII     = (     6378.14    6378.14      6356.75   )
+ 
+ 
+ 
+KPL/FK
+ 
+ 
+Cassini Spacecraft Frame Kernel for small satellites
+===============================================================
+ 
+   This frame kernel contains the constants defining the frames for small
+   satellites (rocks) of Saturn.
+ 
+ 
+Version and Date
+----------------------------------------------------------
+ 
+   The TEXT_KERNEL_ID stores version information of loaded project text
+   kernels. Each entry associated with the keyword is a string that consists
+   of four parts: the kernel name, version, entry date, and type. For example,
+   the ISS I-kernel might have an entry as follows:
+ 
+           TEXT_KERNEL_ID += 'IAU_ISS V0.0 29-SEPTEMBER-1999 IK'
+                                  |          |         |            |
+                                  |          |         |            |
+              KERNEL NAME <-------+          |         |            |
+                                             |         |            V
+                             VERSION <-------+         |       KERNEL TYPE
+                                                       |
+                                                       V
+                                                  ENTRY DATE
+ 
+   Cassini Small Satellites Frame Kernel Version:
+ 
+           \begindata
+ 
+           TEXT_KERNEL_ID += 'ROCKS V18.0 11-MAY-2009 FK'
+ 
+           \begintext
+ 
+Version 1.0 -- May 21, 2003 -- Lee Elson
+ 
+            --   Initial Release.
+
+Version 2.0 - November 5, 2003 - Diane Conner
+
+            -- Included IAU approved names.
+
+Version 3.0 - April 27, 2004 - Diane Conner
+               
+            -- Changed keyword "FRAME_IAU_ ERRIAPO"
+                            to "FRAME_IAU_ERRIAPO"
+ 
+Version 4.0 - November 30, 2004 - Diane Conner
+               
+            -- Added new body names S1_2004, S2_2004 & S5_2004.
+                
+Version 5.0 - December 22, 2004 - Diane Conner
+
+            -- Corrected typos in definitions for S1, S2, & S5 2004. 
+
+Version 6.0 - April 8, 2005 - Added names for S1, S2, & S5 2004. 
+                              Also changed the mapping of ids to
+                              match spk 050407AP_RE_04002_09011.
+
+Version 7.0 - December 13, 2005 - Adrian Tinio
+
+            -- Added new body name DAPHNIS (S1_2005).
+
+Version 8.0 - February 27, 2006 - Adrian Tinio
+            -- Added new bodies:
+                NARVI
+                S07-S18 2004.
+
+Version 9.0 - December 5, 2006 - Elmain Martinez 
+            -- Added new bodies:
+                S19 2004
+                S01-S08_2006
+
+Version 10.0 - April 19, 2007 - Elmain Martinez
+	    -- Added new bodies:
+                 Aegir
+                 Bebhionn
+                 Bergelmir 
+                 Bestla  
+                 Farbauti
+                 Fenrir  
+                 Fornjot
+                 Hati 
+                 Hyrokkin
+                 Kari 
+                 Loge 
+                 Skoll
+                 Surtur
+
+Version 11.0 - August 16, 2007 - Elmain Martinez 
+            -- Added new body:
+                 K07S4
+
+Version 12.0 - October 1, 2007 - Elmain Martinez
+            -- Removed duplicate 'S' entries (official names already specified)
+
+Version 13.0 - August 21, 2008 - Adrian Tinio
+            -- Added new body:
+                ANTHE
+
+Version 14.0 - August 25, 2008 - Adrian Tinio
+            -- Removed definition for body 65060
+            -- Replaced by Anthe
+
+Version 15.0 - February 02, 2009 - Adrian Tinio
+            -- Redefined S06_2006 and S04_2006 with their new name
+               Jarnsaxa and Greip respectively.   
+            -- Added new bodies:
+                  Tarqeq
+                  S02_2007
+                  S03_2007   
+
+Version 16.0 - March 10, 2009 - Adrian Tinio
+	    -- Fixed an error with the S03_2007 definition where
+ 	       OBJECT_65056_FRAME was set to 'IAU_S02_2007'.  The correct
+               value should be 'IAU_S03_2007'.
+
+Version 17.0 - March 11, 2009 - Adrian Tinio
+            -- Changed the spellings of the following bodies to match that
+               of the built-in body names in the N0062 version of the 
+               SPICE toolkit.
+		      ERRIAPO  -> ERRIAPUS
+  		      SKADI    -> SKATHI
+                      SUTTUNG  -> SUTTUNGR
+		      THRYM    -> THRYMR
+
+Version 18.0 - May 11, 2009 - Adrian Tinio
+            -- Added new body: Aegaeon   
+
+References
+----------------------------------------------------------
+ 
+            1.   ``Kernel Pool Required Reading''
+ 
+            2.   ``Frames Required Reading''
+ 
+            3.   Email from Diane Conner regarding targeting small satellites,
+                 or rocks, of Saturn.
+
+            4.  Sky & Telescope Magazine,(25th General Assembly of the
+                International Astronomical Union, held from 
+                July 13-26 in Sydney, Australia)
+                 http://skyandtelescope.com/news/article_1012_1.asp
+ 
+
+Contact Information
+----------------------------------------------------------
+ 
+   Direct questions, comments, or concerns about the contents of this kernel
+   to:
+ 
+           Lee Elson, NAIF/JPL, (818)354-4223, Lee.Elson@jpl.nasa.gov
+           Diane Conner, Cassini Science Data Engineering Lead (818)354-8586,
+                Diane.L.Conner@jpl.nasa.gov
+ 
+ 
+Introduction
+----------------------------------------------------------
+ 
+   This file defines body fixed frames for the small satellites of Saturn.
+   Body fixed frames are reference frames that do not move with respect to
+   ``surface'' features of an object. Note that body fixed frames do move with
+   respect to inertial frames. Information about how these frames are changing
+   with respect to inertial frames is stored in the corresponding SPICE PCK
+   file.
+ 
+ 
+Implementation Notes
+----------------------------------------------------------
+ 
+   This file is used by the SPICE system as follows: programs that make use of
+   this frame kernel must `load' the kernel, normally during program
+   initialization. Loading the kernel associates data items with their names
+   in a data structure called the `kernel pool'. The SPICELIB routine LDPOOL
+   loads a kernel file into the pool as shown below:
+ 
+           CALL LDPOOL ( frame_kernel_name )
+ 
+   In order for a program or subroutine to extract data from the pool, the
+   SPICELIB routines GDPOOL and GIPOOL are used. See [2] for more details.
+ 
+   This file was created and may be updated with a text editor or word
+   processor.
+ 
+ 
+Assumptions
+----------------------------------------------------------
+ 
+   This file assigns frame names to the satellites that are defined by the
+   corresponding PCK file. Any changes to this file must be consistent with
+   the PCK file.
+ 
+ 
+Use
+----------------------------------------------------------
+
+   Several user-level SPICE routines require that the user supply the name of
+   a reference frame as one of the inputs to the routine. The most important
+   of these are the routines SPKEZ and SPKEZR. These routines return the state
+   (position and velocity) of one object relative to another in a user
+   specified reference frame. The choice of reference frame often makes a big
+   difference in the usefulness of a returned state. If the state is relative
+   to a suitable reference frame, computations involving that state can be
+   much simpler than if the state were returned relative to some other
+   reference frame.
+ 
+   The SPICE frame subsystem allows you to easily transform states from one
+   reference frame to another. Usually this can be done without needing to
+   know all of the details of how the transformation is carried out. This
+   allows you to concentrate on questions more closely related to the problem
+   you are trying to solve instead of the details of how to get information in
+   the frame of interest.
+ 
+   NAIF requests that you update the `by line' and date if you modify this
+   file.
+         
+
+YMIR
+----------------------------------------------------------
+ 
+ 
+           \begindata
+            FRAME_IAU_YMIR       = 619
+            FRAME_619_NAME         = 'IAU_YMIR'
+            FRAME_619_CLASS        =  2
+            FRAME_619_CLASS_ID     = 619
+            FRAME_619_CENTER       = 619
+            OBJECT_619_FRAME       = 'IAU_YMIR'
+ 
+           \begintext
+ 
+ 
+PAALIAQ
+----------------------------------------------------------
+ 
+ 
+           \begindata
+            FRAME_IAU_PAALIAQ       = 620
+            FRAME_620_NAME         = 'IAU_PAALIAQ'
+            FRAME_620_CLASS        =  2
+            FRAME_620_CLASS_ID     = 620
+            FRAME_620_CENTER       = 620
+            OBJECT_620_FRAME       = 'IAU_PAALIAQ'
+           \begintext
+ 
+ 
+TARVOS
+----------------------------------------------------------
+ 
+ 
+           \begindata
+            FRAME_IAU_TARVOS       = 621
+            FRAME_621_NAME         = 'IAU_TARVOS'
+            FRAME_621_CLASS        =  2
+            FRAME_621_CLASS_ID     = 621
+            FRAME_621_CENTER       = 621
+            OBJECT_621_FRAME       = 'IAU_TARVOS'
+           \begintext
+ 
+ 
+IJIRAQ
+----------------------------------------------------------
+ 
+ 
+           \begindata
+            FRAME_IAU_IJIRAQ       = 622
+            FRAME_622_NAME         = 'IAU_IJIRAQ'
+            FRAME_622_CLASS        =  2
+            FRAME_622_CLASS_ID     = 622
+            FRAME_622_CENTER       = 622
+            OBJECT_622_FRAME       = 'IAU_IJIRAQ'
+           \begintext
+ 
+ 
+SUTTUNGR
+----------------------------------------------------------
+ 
+ 
+           \begindata
+            FRAME_IAU_SUTTUNGR      = 623
+            FRAME_623_NAME         = 'IAU_SUTTUNGR'
+            FRAME_623_CLASS        =  2
+            FRAME_623_CLASS_ID     = 623
+            FRAME_623_CENTER       = 623
+            OBJECT_623_FRAME       = 'IAU_SUTTUNGR'
+           \begintext
+ 
+ 
+KIVIUQ
+----------------------------------------------------------
+ 
+ 
+           \begindata
+            FRAME_IAU_KIVIUQ       = 624
+            FRAME_624_NAME         = 'IAU_KIVIUQ'
+            FRAME_624_CLASS        =  2
+            FRAME_624_CLASS_ID     = 624
+            FRAME_624_CENTER       = 624
+            OBJECT_624_FRAME       = 'IAU_KIVIUQ'
+           \begintext
+ 
+ 
+MUNDILFARI
+----------------------------------------------------------
+ 
+ 
+           \begindata
+            FRAME_IAU_MUNDILFARI   = 625
+            FRAME_625_NAME         = 'IAU_MUNDILFARI'
+            FRAME_625_CLASS        =  2
+            FRAME_625_CLASS_ID     = 625
+            FRAME_625_CENTER       = 625
+            OBJECT_625_FRAME       = 'IAU_MUNDILFARI'
+           \begintext
+ 
+ 
+ALBIORIX
+----------------------------------------------------------
+ 
+ 
+           \begindata
+            FRAME_IAU_ALBIORIX     = 626
+            FRAME_626_NAME         = 'IAU_ALBIORIX'
+            FRAME_626_CLASS        =  2
+            FRAME_626_CLASS_ID     = 626
+            FRAME_626_CENTER       = 626
+            OBJECT_626_FRAME       = 'IAU_ALBIORIX'
+           \begintext
+ 
+ 
+SKATHI
+----------------------------------------------------------
+ 
+ 
+           \begindata
+            FRAME_IAU_SKATHI        = 627
+            FRAME_627_NAME         = 'IAU_SKATHI'
+            FRAME_627_CLASS        =  2
+            FRAME_627_CLASS_ID     = 627
+            FRAME_627_CENTER       = 627
+            OBJECT_627_FRAME       = 'IAU_SKATHI'
+           \begintext
+ 
+ 
+ERRIAPUS
+----------------------------------------------------------
+ 
+ 
+           \begindata
+            FRAME_IAU_ERRIAPUS     = 628
+            FRAME_628_NAME         = 'IAU_ERRIAPUS'
+            FRAME_628_CLASS        =  2
+            FRAME_628_CLASS_ID     = 628
+            FRAME_628_CENTER       = 628
+            OBJECT_628_FRAME       = 'IAU_ERRIAPUS'
+           \begintext
+ 
+ 
+SIARNAQ
+----------------------------------------------------------
+ 
+ 
+           \begindata
+            FRAME_IAU_SIARNAQ     = 629
+            FRAME_629_NAME         = 'IAU_SIARNAQ'
+            FRAME_629_CLASS        =  2
+            FRAME_629_CLASS_ID     = 629
+            FRAME_629_CENTER       = 629
+            OBJECT_629_FRAME       = 'IAU_SIARNAQ'
+           \begintext
+ 
+ 
+THRYMR
+----------------------------------------------------------
+ 
+ 
+     \begindata
+      FRAME_IAU_THRYMR       = 630
+      FRAME_630_NAME         = 'IAU_THRYMR'
+      FRAME_630_CLASS        =  2
+      FRAME_630_CLASS_ID     = 630
+      FRAME_630_CENTER       = 630
+      OBJECT_630_FRAME       = 'IAU_THRYMR'
+     \begintext
+
+
+NARVI
+----------------------------------------------------------
+ 
+ 
+     \begindata
+      FRAME_IAU_NARVI        = 631
+      FRAME_631_NAME         = 'IAU_NARVI'
+      FRAME_631_CLASS        =  2
+      FRAME_631_CLASS_ID     = 631
+      FRAME_631_CENTER       = 631
+      OBJECT_631_FRAME       = 'IAU_NARVI'
+     \begintext
+
+
+METHONE (S1_2004)
+----------------------------------------------------------
+ 
+ 
+     \begindata
+      FRAME_IAU_METHONE       = 632
+      FRAME_632_NAME          ='IAU_METHONE' 
+      FRAME_632_CLASS         =  2
+      FRAME_632_CLASS_ID      = 632
+      FRAME_632_CENTER        = 632
+      OBJECT_632_FRAME        = 'IAU_METHONE'
+     \begintext
+
+
+PALLENE (S2_2004)
+----------------------------------------------------------
+
+ 
+     \begindata
+      FRAME_IAU_PALLENE   = 633
+      FRAME_633_NAME      = 'IAU_PALLENE'
+      FRAME_633_CLASS     =  2
+      FRAME_633_CLASS_ID  = 633
+      FRAME_633_CENTER    = 633
+      OBJECT_633_FRAME    = 'IAU_PALLENE'
+     \begintext
+
+
+POLYDEUCES (S5_2004)
+----------------------------------------------------------
+
+ 
+     \begindata
+      FRAME_IAU_POLYDEUCES   = 634
+      FRAME_634_NAME         = 'IAU_POLYDEUCES'
+      FRAME_634_CLASS        =  2
+      FRAME_634_CLASS_ID     = 634
+      FRAME_634_CENTER       = 634
+      OBJECT_634_FRAME       = 'IAU_POLYDEUCES'
+     \begintext
+
+
+DAPHNIS (S1_2005)
+----------------------------------------------------------
+
+ 
+     \begindata
+      FRAME_IAU_DAPHNIS      = 635
+      FRAME_635_NAME         = 'IAU_DAPHNIS'
+      FRAME_635_CLASS        =  2
+      FRAME_635_CLASS_ID     = 635
+      FRAME_635_CENTER       = 635
+      OBJECT_635_FRAME       = 'IAU_DAPHNIS'
+     \begintext
+
+
+AEGIR
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_AEGIR        = 636
+      FRAME_636_NAME         = 'IAU_AEGIR'
+      FRAME_636_CLASS        =  2
+      FRAME_636_CLASS_ID     = 636
+      FRAME_636_CENTER       = 636
+      OBJECT_636_FRAME       = 'IAU_AEGIR'
+     \begintext
+
+
+BEBHIONN
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_BEBHIONN     = 637
+      FRAME_637_NAME         = 'IAU_BEBHIONN'
+      FRAME_637_CLASS        =  2
+      FRAME_637_CLASS_ID     = 637
+      FRAME_637_CENTER       = 637
+      OBJECT_637_FRAME       = 'IAU_BEBHIONN'
+     \begintext
+
+
+BERGELMIR
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_BERGELMIR    = 638
+      FRAME_638_NAME         = 'IAU_BERGELMIR'
+      FRAME_638_CLASS        =  2
+      FRAME_638_CLASS_ID     = 638
+      FRAME_638_CENTER       = 638
+      OBJECT_638_FRAME       = 'IAU_BERGELMIR'
+     \begintext
+
+
+BESTLA
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_BESTLA       = 639
+      FRAME_639_NAME         = 'IAU_BESTLA'
+      FRAME_639_CLASS        =  2
+      FRAME_639_CLASS_ID     = 639
+      FRAME_639_CENTER       = 639
+      OBJECT_639_FRAME       = 'IAU_BESTLA'
+     \begintext
+
+
+FARBAUTI
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_FARBAUTI     = 640
+      FRAME_640_NAME         = 'IAU_FARBAUTI'
+      FRAME_640_CLASS        =  2
+      FRAME_640_CLASS_ID     = 640
+      FRAME_640_CENTER       = 640
+      OBJECT_640_FRAME       = 'IAU_FARBAUTI'
+     \begintext
+
+
+FENRIR
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_FENRIR       = 641
+      FRAME_641_NAME         = 'IAU_FENRIR'
+      FRAME_641_CLASS        =  2
+      FRAME_641_CLASS_ID     = 641
+      FRAME_641_CENTER       = 641
+      OBJECT_641_FRAME       = 'IAU_FENRIR'
+     \begintext
+
+
+FORNJOT
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_FORNJOT   = 642
+      FRAME_642_NAME         = 'IAU_FORNJOT'
+      FRAME_642_CLASS        =  2
+      FRAME_642_CLASS_ID     = 642
+      FRAME_642_CENTER       = 642
+      OBJECT_642_FRAME       = 'IAU_FORNJOT'
+     \begintext
+
+
+HATI
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_HATI         = 643
+      FRAME_643_NAME         = 'IAU_HATI'
+      FRAME_643_CLASS        =  2
+      FRAME_643_CLASS_ID     = 643
+      FRAME_643_CENTER       = 643
+      OBJECT_643_FRAME       = 'IAU_HATI'
+     \begintext
+
+
+HYROKKIN
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_HYROKKIN     = 644
+      FRAME_644_NAME         = 'IAU_HYROKKIN'
+      FRAME_644_CLASS        =  2
+      FRAME_644_CLASS_ID     = 644
+      FRAME_644_CENTER       = 644
+      OBJECT_644_FRAME       = 'IAU_HYROKKIN'
+     \begintext
+
+
+KARI
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_KARI         = 645
+      FRAME_645_NAME         = 'IAU_KARI'
+      FRAME_645_CLASS        =  2
+      FRAME_645_CLASS_ID     = 645
+      FRAME_645_CENTER       = 645
+      OBJECT_645_FRAME       = 'IAU_KARI'
+     \begintext
+
+
+LOGE
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_LOGE         = 646
+      FRAME_646_NAME         = 'IAU_LOGE'
+      FRAME_646_CLASS        =  2
+      FRAME_646_CLASS_ID     = 646
+      FRAME_646_CENTER       = 646
+      OBJECT_646_FRAME       = 'IAU_LOGE'
+     \begintext
+
+
+SKOLL
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_SKOLL        = 647
+      FRAME_647_NAME         = 'IAU_SKOLL'
+      FRAME_647_CLASS        =  2
+      FRAME_647_CLASS_ID     = 647
+      FRAME_647_CENTER       = 647
+      OBJECT_647_FRAME       = 'IAU_SKOLL'
+     \begintext
+
+
+SURTUR
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_SURTUR       = 648
+      FRAME_648_NAME         = 'IAU_SURTUR'
+      FRAME_648_CLASS        =  2
+      FRAME_648_CLASS_ID     = 648
+      FRAME_648_CENTER       = 648
+      OBJECT_648_FRAME       = 'IAU_SURTUR'
+     \begintext
+
+
+ANTHE
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_ANTHE        = 649
+      FRAME_649_NAME         = 'IAU_ANTHE'
+      FRAME_649_CLASS        =  2
+      FRAME_649_CLASS_ID     = 649
+      FRAME_649_CENTER       = 649
+      OBJECT_649_FRAME       = 'IAU_ANTHE'
+     \begintext
+
+
+JARNSAXA
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_JARNSAXA     = 650
+      FRAME_650_NAME         = 'IAU_JARNSAXA'
+      FRAME_650_CLASS        =  2
+      FRAME_650_CLASS_ID     = 650
+      FRAME_650_CENTER       = 650
+      OBJECT_650_FRAME       = 'IAU_JARNSAXA'
+     \begintext
+
+
+GREIP
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_GREIP        = 651
+      FRAME_651_NAME         = 'IAU_GREIP'
+      FRAME_651_CLASS        =  2
+      FRAME_651_CLASS_ID     = 651
+      FRAME_651_CENTER       = 651
+      OBJECT_651_FRAME       = 'IAU_GREIP'
+     \begintext
+
+
+TARQEQ
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_TARQEQ       = 652
+      FRAME_652_NAME         = 'IAU_TARQEQ'
+      FRAME_652_CLASS        =  2
+      FRAME_652_CLASS_ID     = 652
+      FRAME_652_CENTER       = 652
+      OBJECT_652_FRAME       = 'IAU_TARQEQ'
+     \begintext
+
+
+AEGAEON
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_AEGAEON      = 653 
+      FRAME_653_NAME         = 'IAU_AEGAEON'
+      FRAME_653_CLASS        =  2
+      FRAME_653_CLASS_ID     = 653
+      FRAME_653_CENTER       = 653
+      OBJECT_653_FRAME       = 'IAU_AEGAEON'
+     \begintext
+
+
+S7_2004
+----------------------------------------------------------
+ 
+ 
+     \begindata
+      FRAME_IAU_S7_2004        = 65035
+      FRAME_65035_NAME         = 'IAU_S7_2004'
+      FRAME_65035_CLASS        =  2
+      FRAME_65035_CLASS_ID     = 65035
+      FRAME_65035_CENTER       = 65035
+      OBJECT_65035_FRAME       = 'IAU_S7_2004'
+     \begintext
+
+
+S12_2004
+----------------------------------------------------------
+ 
+ 
+     \begindata
+      FRAME_IAU_S12_2004       = 65040
+      FRAME_65040_NAME         = 'IAU_S12_2004'
+      FRAME_65040_CLASS        =  2
+      FRAME_65040_CLASS_ID     = 65040
+      FRAME_65040_CENTER       = 65040
+      OBJECT_65040_FRAME       = 'IAU_S12_2004'
+     \begintext
+
+
+S13_2004
+----------------------------------------------------------
+ 
+ 
+     \begindata
+      FRAME_IAU_S13_2004        = 65041
+      FRAME_65041_NAME         = 'IAU_S13_2004'
+      FRAME_65041_CLASS        =  2
+      FRAME_65041_CLASS_ID     = 65041
+      FRAME_65041_CENTER       = 65041
+      OBJECT_65041_FRAME       = 'IAU_S13_2004'
+     \begintext
+
+
+S17_2004
+----------------------------------------------------------
+ 
+ 
+     \begindata
+      FRAME_IAU_S17_2004       = 65045
+      FRAME_65045_NAME         = 'IAU_S17_2004'
+      FRAME_65045_CLASS        =  2
+      FRAME_65045_CLASS_ID     = 65045
+      FRAME_65045_CENTER       = 65045
+      OBJECT_65045_FRAME       = 'IAU_S17_2004'
+     \begintext
+
+
+S01_2006
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_S01_2006       = 65048
+      FRAME_65048_NAME         = 'IAU_S01_2006'
+      FRAME_65048_CLASS        =  2
+      FRAME_65048_CLASS_ID     = 65048
+      FRAME_65048_CENTER       = 65048
+      OBJECT_65048_FRAME       = 'IAU_S01_2006'
+     \begintext
+
+
+S03_2006
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_S03_2006       = 65050
+      FRAME_65050_NAME         = 'IAU_S03_2006'
+      FRAME_65050_CLASS        =  2
+      FRAME_65050_CLASS_ID     = 65050
+      FRAME_65050_CENTER       = 65050
+      OBJECT_65050_FRAME       = 'IAU_S03_2006'
+     \begintext
+
+
+S02_2007
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_S02_2007       = 65055
+      FRAME_65055_NAME         = 'IAU_S02_2007'
+      FRAME_65055_CLASS        =  2
+      FRAME_65055_CLASS_ID     = 65055
+      FRAME_65055_CENTER       = 65055
+      OBJECT_65055_FRAME       = 'IAU_S02_2007'
+     \begintext
+
+
+S03_2007
+----------------------------------------------------------
+
+
+     \begindata
+      FRAME_IAU_S03_2007       = 65056
+      FRAME_65056_NAME         = 'IAU_S03_2007'
+      FRAME_65056_CLASS        =  2
+      FRAME_65056_CLASS_ID     = 65056
+      FRAME_65056_CENTER       = 65056
+      OBJECT_65056_FRAME       = 'IAU_S03_2007'
+     \begintext
+
