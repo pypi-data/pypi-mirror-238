@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "rotationset"
+version = "0.1.0"
+description = "Extension of the scipy Rotation class to sets of rotations."
+authors = ["Gereon Tombrink <tombrink@igg.uni-bonn.de>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.8.2,<3.12"
+numpy = ">=1.24.4"
+scipy = ">=1.10.1"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.6.1"
+black = "^23.10.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
