@@ -1,0 +1,50 @@
+[tool.poetry]
+name = "tm-sl"
+version = "0.2.5"
+description = "A Library for interacting with the snaplogic API"
+authors = ["Gene Myslinsky <Gene.Myslinsky@insightsoftware.com>"]
+license = "proprietary - private"
+# readme = "README.md"
+packages = [{include = "tm_sl"}]
+
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.31.0"
+click = "^8.1.7"
+tenacity = "^8.2.3"
+python-dotenv = "^1.0.0"
+rich = "^13.6.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+mkdocs = "^1.5.3"
+mkdocstrings = "^0.23.0"
+mkdocstrings-python = "^1.7.3"
+mkdocs-material = "^9.4.6"
+mkdocs-gen-files = "^0.5.0"
+mkdocs-literate-nav = "^0.6.1"
+mkdocs-section-index = "^0.3.8"
+mkdocs-click = "^0.8.1"
+gpt4docstrings = "^0.1.2"
+mkdocs-encryptcontent-plugin = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+tm-sl = "tm_sl.cli:_entry_point"
+
+[tool.poe.tasks]
+publish = { shell = """$(pwd)/pypublish.sh""", interpreter = "bash" }
+# publish = { shell = """bash -c 'poetry publish --username=__token__ --password="$(cat /home/gene/.private/pypi.env)" --build && mkdocs build --clean && AWS_PROFILE=tm-dev aws s3 cp site/ s3://tidemark-docs/tm-sl --recursive'""" }
+publish-docs = { shell = "AWS_PROFILE=tm-dev aws s3 cp site/ s3://tidemark-docs/tm-sl --recursive",  interpreter = "bash" }
+publish-app = "poetry publish --username=__token__ --password='$(cat /home/gene/.private/pypi.env)' --build"
+dev = "tm_sl.cli:_entry_point"
+test = "pytest -vvv -s -k"
+tests = "pytest"
+docs = { shell = "mkdocs build --clean && mkdocs serve" }
+docstrings = { shell = "OPENAI_API_KEY=$(cat /home/gene/.private/openai) gpt4docstrings" }
+pds = "OPENAI_API_KEY=$(cat /home/gene/.private/openai) gpt4docstrings"
