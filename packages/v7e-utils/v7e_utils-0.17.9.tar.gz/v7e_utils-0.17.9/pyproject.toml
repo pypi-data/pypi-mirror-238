@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "v7e-utils"
+packages = [{include = "v7e_utils"}]
+version = "0.17.9"
+description = "A collection of utility functions for V6E projects"
+authors = ["Luis Valverde <lvalverde@istmocenter.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+django = "*"
+pandas = "*"
+numpy = "*"
+requests = "*"
+coverage = "*"
+nc_py_api = "*"
+geopy = ">=2.2.0"
+tqdm = ">=4.62.2"
+openpyxl = ">=3.0.9"
+pysftp = ">=0.2.9"
+drf_spectacular = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
