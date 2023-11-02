@@ -1,0 +1,80 @@
+Metadata-Version: 2.1
+Name: oterm
+Version: 0.1.7
+Summary: A text-based terminal client for Ollama.
+Home-page: https://github.com/ggozad/oterm
+License: MIT
+Author: Yiorgis Gozadinos
+Author-email: ggozadinos@gmail.com
+Requires-Python: >=3.10,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows :: Windows 10
+Classifier: Operating System :: Microsoft :: Windows :: Windows 11
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Typing :: Typed
+Requires-Dist: aiosql (>=9.0,<10.0)
+Requires-Dist: aiosqlite (>=0.19.0,<0.20.0)
+Requires-Dist: httpx (>=0.25.0,<0.26.0)
+Requires-Dist: pyperclip (>=1.8.2,<2.0.0)
+Requires-Dist: python-dotenv (>=1.0.0,<2.0.0)
+Requires-Dist: textual (>=0.41.0,<0.42.0)
+Requires-Dist: typer (>=0.9.0,<0.10.0)
+Project-URL: Bug Tracker, https://github.com/ggozad/oterm/issues
+Project-URL: Repository, https://github.com/ggozad/oterm
+Description-Content-Type: text/markdown
+
+# oterm
+the text-based terminal client for [Ollama](https://github.com/jmorganca/ollama).
+
+## Features
+
+* intuitive and simple terminal UI, no need to run servers, frontends, just type `oterm` in your terminal.
+* multiple persistent chat sessions, stored together with the context embeddings and template/system prompt customizations in sqlite.
+* can use any of the models you have pulled in Ollama, or your own custom models.
+* allows for easy customization of the model's template, system prompt and parameters.
+
+## Installation
+
+Using `brew` for MacOS:
+
+```bash
+brew tap ggozad/formulas
+brew install ggozad/formulas/oterm
+```
+
+Using `pip`:
+
+```bash
+pip install oterm
+```
+
+## Using
+
+In order to use `oterm` you will need to have the Ollama server running. By default it expects to find the Ollama API running on `http://localhost:11434/api`. If you are running Ollama inside docker or on a different host/port, use the `OLLAMA_URL` environment variable to customize the API url. 
+
+```bash
+OLLAMA_URL=http://host:port/api
+```
+
+`oterm` will not (yet) pull models for you, please use `ollama` to do that. All the models you have pulled or created will be available to `oterm`.
+
+### Customizing models
+
+When creating a new chat, you may not only select the model, but also customize the `template` as well as the `system` instruction to pass to the model. 
+
+### Screenshots
+![Chat](screenshots/chat.png)
+![Model selection](./screenshots/model_selection.png)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+

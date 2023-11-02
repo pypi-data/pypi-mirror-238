@@ -1,0 +1,126 @@
+ChatContainer {
+    height: auto;
+}
+#messageContainer {
+    overflow-y: auto;
+    padding-bottom: 1;
+    padding-right: 1;
+    height: 100%;
+}
+
+ChatItem {
+    padding: 1;
+    padding-bottom: 0;
+    height: auto;
+}
+
+ChatItem .chatItem {
+    height: auto;
+}
+
+ChatItem .author {
+    width: 8%;
+    padding: 1;
+    color: $secondary;
+
+}
+
+ChatItem .USER {
+    background: $panel;
+}
+
+ChatItem .OLLAMA {
+    background: $panel-lighten-1;
+}
+
+ChatItem .text{
+    margin: 1;
+    width: 90%;
+}
+
+PromptWidget {
+    background: $panel;
+    height: 5;
+    margin: 1;
+    padding: 1;
+    margin-bottom: 0;
+    dock: bottom;
+}
+
+PromptWidget Input {
+    margin-right: 1;
+    padding-right: 1;
+    overflow-y: auto;
+}
+
+#info {
+    color: $primary-lighten-1;
+    text-align: right;
+    padding-right: 5;
+    text-style: italic;
+}
+
+LoadingIndicator {
+    height: 3;
+}
+
+#model-select-container {
+    background: $panel;
+    border: $panel-lighten-2;
+    margin: 2;
+    padding: 1;
+}
+
+#model-select-container .title {
+    color: $secondary;
+}
+
+#model-select-container .button-container {    
+    height: 3;
+}
+#model-select-container .button-container Button {    
+    margin-right: 1;
+}
+
+#model-select {
+    margin-top: 1;
+}
+
+#model-details {
+    margin: 1;
+}
+
+#model-select-container .button-container  {
+    margin: 1;
+}
+
+#chat-rename-container {
+    width: 80%;
+    height: 10;
+    background: $panel;
+    border: $panel-lighten-2;
+    margin-top: 2;
+    margin-left: 2;
+    padding: 1;
+}
+
+#chat-rename-container .title {
+    color: $secondary;
+}
+
+#chat-rename-input {
+    margin: 2;
+}
+
+#splash-container {
+    height: 100%;
+    width: 100%;
+    background: $panel;
+}
+
+#splash {
+    color: $secondary;
+    height: 100%;
+    width: 100%;
+    content-align: center middle;
+}
