@@ -1,0 +1,40 @@
+[project]
+name = "kreate-kube"
+version = "1.1.0"
+authors = [
+    { name = "Mark Hooijkaas", email = "mark@hooijkaas.net" },
+]
+description = "kreate kubernetes application from templates"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "ruamel.yaml",
+    "jinja2",
+    "cryptography",
+    "requests>=2.31.0",
+    "packaging>=23.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/MarkHooijkaas/kreate-kube"
+"Bug Tracker" = "https://github.com/MarkHooijkaas/kreate-kube/issues"
+
+[project.scripts]
+kreate-kube = "kreate.kube.__main__:main"
+kreate = "kreate.kube.__main__:main"
+
+[tool.pdm.build]
+includes = [
+    "kreate/",
+]
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
