@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "readligo"
+authors = [
+    {name = "Jonah Kanner", email = "jonah.kanner@ligo.org"},
+    {name = "Roy Williams"},
+    {name = "Agata Trovato"},
+    {name = "Alan Weinstein"}
+]
+description = "Tools for reading LIGO data files"
+maintainers = [{name = "Jonah Kanner", email = "jonah.kanner@ligo.org"}]
+readme = "README.md"
+dynamic = ["version"]
+requires-python = ">=3.7"
+dependencies = ["numpy>=1.17"]
+license = { file = "LICENSE.txt" }
+keywords = [
+    "ligo",
+    "gravitational waves",
+    "file format",
+    "astronomy",
+]
+
+[project.urls]
+homepage = "https://git.ligo.org/gwosc/readligo"
+repository = "https://git.ligo.org/gwosc/readligo"
+
+[tool.setuptools]
+py-modules = ["readligo"]
+
+[tool.setuptools.dynamic]
+version = {attr = "readligo.__version__"}
