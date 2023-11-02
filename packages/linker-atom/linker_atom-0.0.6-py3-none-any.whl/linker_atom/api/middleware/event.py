@@ -1,0 +1,195 @@
+import os
+import socket
+import time
+
+import requests
+from apscheduler.executors.pool import ThreadPoolExecutor
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.interval import IntervalTrigger
+from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import ORJSONResponse
+from skywalking import config
+from skywalking.agent import SkyWalkingAgent
+from starlette.exceptions import HTTPException
+from starlette.requests import Request
+from starlette.routing import Route
+
+from linker_atom.api.schema.response import FailureResponse, RequestValidErrorResponse
+from linker_atom.config import ServingConfig, Settings, SkyWalkingConfig
+from linker_atom.lib.log import logger
+from linker_atom.lib.requests import get, post
+
+
+def heartbeat(app):
+    serving_config: ServingConfig = app.state.settings.serving_config
+    hostname = socket.gethostname()
+    url = serving_config.serving_domain + "/atom/health"
+    json_body = {
+        "atomInstanceName": hostname,
+    }
+    try:
+        response = requests.post(url, json=json_body, timeout=15)
+        response = response.json()
+        if response.get("code") == "0":
+            if response.get("data", "") == "register":
+                register_service_info(app)
+            return
+    except Exception as e:
+        logger.error(e)
+        logger.error("register heartbeat info failed")
+
+
+def startup_skywalking(app: FastAPI):
+    sw_config: SkyWalkingConfig = app.state.settings.sw_config
+    if sw_config.sw_switch:
+        sw_agent = SkyWalkingAgent()
+        config.init(
+            agent_collector_backend_services=sw_config.sw_agent_backend,
+            agent_name=sw_config.sw_agent_name,
+            agent_instance_name=sw_config.sw_agent_instance_name,
+            agent_log_reporter_active=sw_config.sw_agent_log_reporter_active,
+            agent_log_reporter_level=sw_config.sw_agent_log_reporter_level,
+        )
+        sw_agent.start()
+        logger.info("skywalking running...")
+        return sw_agent
+
+
+def background_register_info_heartbeat(app: FastAPI):
+    settings: Settings = app.state.settings
+    background: BackgroundScheduler = app.state.schedulers
+    while 1:
+        serve_ping_uri = f"http://localhost:{settings.atom_port}/v1/health/ping"
+        response = get(serve_ping_uri, timeout=15)
+        if response.status_code == 200:
+            register_service_info(app)
+            background.add_job(
+                func=heartbeat,
+                args=(app,),
+                trigger=IntervalTrigger(seconds=2),
+                coalesce=True,
+                misfire_grace_time=60 * 1,
+                max_instances=5,
+                id="register_heartbeat",
+            )
+            background.remove_job("register_info_heartbeat")
+            return
+        time.sleep(2)
+
+
+def register_service_info(app: FastAPI):
+    settings: Settings = app.state.settings
+    serving_config: ServingConfig = settings.serving_config
+    hostname = socket.gethostname()
+    url = serving_config.serving_domain + "/atom/register"
+    atom_uri = f"{serving_config.svc_address}{settings.atom_process_url}"
+    json_body = {
+        "abilityCode": serving_config.ability_code,
+        "abilityCodeInstance": serving_config.ability_code_instance,
+        "abilityDependAtomCodes": serving_config.ability_depend_atom_codes,
+        "atomCode": serving_config.atom_code,
+        "atomInstanceName": hostname,
+        "requestUrl": atom_uri,
+    }
+    while 1:
+        try:
+            response = post(url, json=json_body, timeout=15)
+            response = response.json()
+            if response.get("code") == "0":
+                logger.info("register service info successful")
+                return
+            else:
+                logger.error("register service info failed, will retry after 2s")
+                time.sleep(2)
+        except Exception as e:
+            logger.error(e)
+            logger.error("register service info failed, will retry after 2s")
+            time.sleep(2)
+
+
+def startup_schedulers(app: FastAPI):
+    schedulers = BackgroundScheduler(
+        executors={"default": ThreadPoolExecutor(max_workers=os.cpu_count())},
+        job_defaults={
+            "coalesce": False,
+            "misfire_grace_time": 60 * 60 * 2,
+            "max_instances": 5,
+        },
+    )
+    schedulers.start()
+    logger.info("schedulers running...")
+    return schedulers
+
+
+def shutdown_deregister_service_info(app: FastAPI):
+    serving_config: ServingConfig = app.state.settings.serving_config
+    hostname = socket.gethostname()
+    url = serving_config.serving_domain + "/atom/unRegister"
+    json_body = {
+        "atomInstanceName": hostname,
+    }
+    try:
+        response = post(url, json=json_body, timeout=15)
+        response = response.json()
+        if response.get("code") == "0":
+            logger.info("deregister service info successful")
+            return
+    except Exception as e:
+        logger.error(e)
+        logger.error("deregister service info failed")
+
+
+def register_app_middleware(app, settings):
+    @app.on_event("startup")
+    async def startup_event():
+        logger.info(f"running config: {settings.json()}\n")
+        app.state.settings = settings
+        app.state.sw_agent = startup_skywalking(app)
+        app.state.schedulers = startup_schedulers(app)
+        
+        if settings.debug is False:
+            app.state.schedulers.add_job(
+                func=background_register_info_heartbeat,
+                args=(app,),
+                trigger=IntervalTrigger(seconds=2),
+                coalesce=True,
+                misfire_grace_time=60 * 1,
+                max_instances=1,
+                id="register_info_heartbeat",
+            )
+        
+        route: Route
+        for route in app.routes:
+            logger.debug(f"{route.methods} {route.path}")
+    
+    @app.on_event("shutdown")
+    async def shutdown_event():
+        sw_config: SkyWalkingConfig = app.state.settings.sw_config
+        if sw_config.sw_switch:
+            app.state.sw_agent.stop()
+        
+        if app.state.settings.debug is False:
+            shutdown_deregister_service_info(app)
+    
+    @app.exception_handler(RequestValidationError)
+    async def validation_exception_handler(
+            request: Request, exc: RequestValidationError
+    ):
+        model = RequestValidErrorResponse(data=exc.errors())
+        response = ORJSONResponse(content=model.dict(), status_code=model.code)
+        logger.warning(
+            f"<<<{request.client.host}|{request.method}|{request.url.path}|{response.status_code}\n"
+        )
+        return response
+    
+    @app.exception_handler(HTTPException)
+    async def http_exception_handler(request: Request, exc: HTTPException):
+        model = FailureResponse(code=exc.status_code, message=exc.detail)
+        response = ORJSONResponse(content=model.dict(), status_code=model.code)
+        logger.warning(
+            f"<<<{request.client.host}|{request.method}|{request.url.path}|{exc.status_code}\n"
+        )
+        return response
+    
+    return app
