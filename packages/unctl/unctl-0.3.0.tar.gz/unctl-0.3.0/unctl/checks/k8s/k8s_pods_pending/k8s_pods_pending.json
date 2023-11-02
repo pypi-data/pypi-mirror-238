@@ -1,0 +1,45 @@
+{
+  "Provider": "k8s",
+  "CheckID": "k8s_pods_pending",
+  "CheckTitle": "Find Pending Pods",
+  "CheckType": [
+    "Infrastructure"
+  ],
+  "ServiceName": "k8s",
+  "SubServiceName": "pod",
+  "ResourceIdTemplate": "TBD",
+  "Severity": "High",
+  "ResourceType": "Other",
+  "Description": "Find Pending Pods",
+  "Risk": "high",
+  "RelatedUrl": "",
+  "Remediation": {
+    "Code": {
+      "NativeIaC": "",
+      "Terraform": "",
+      "CLI": "",
+      "Other": ""
+    },
+    "Recommendation": {
+      "Text": "",
+      "Url": ""
+    }
+  },
+  "Categories": [
+    "Health"
+  ],
+  "DependsOn": [],
+  "RelatedTo": [],
+  "Notes": "",
+  "Cli": "kubectl get pod {{resource_pod}} -n {{resource_namespace}}",
+  "PositiveMatch": "",
+  "NegativeMatch": "Pending",
+  "DiagnosticClis": [
+    "kubectl describe pod {{resource_pod}} -n {{resource_namespace}}",
+    "kubectl get events --namespace={{resource_namespace}} --field-selector=involvedObject.name={{resource_pod}}",
+    "kubectl get nodes",
+    "kubectl get pods -o wide -n {{resource_namespace}} ",
+    "kubectl get pv,pvc",
+    "kubectl logs {{resource_pod}} -n {{resource_namespace}}"
+  ]
+}

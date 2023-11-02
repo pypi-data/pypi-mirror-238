@@ -1,0 +1,41 @@
+{
+  "Provider": "k8s",
+  "CheckID": "k8s_horizontal_pod_autoscaling",
+  "CheckTitle": "Analyzing HPAs, checking if scale targets exist and have resources",
+  "CheckType": [
+    "Infrastructure"
+  ],
+  "ServiceName": "k8s",
+  "SubServiceName": "pod",
+  "ResourceIdTemplate": "TBD",
+  "Severity": "High",
+  "ResourceType": "Other",
+  "Description": "Analyzing HPAs, checking if scale targets exist and have resources",
+  "Risk": "Improper usage of HPA may lead to inefficient resource utilization, which may result in underutilization or overutilization of resources and increased infrastructure costs",
+  "RelatedUrl": "",
+  "Remediation": {
+    "Code": {
+      "CLI": "",
+      "NativeIaC": "",
+      "Other": "",
+      "Terraform": ""
+    },
+    "Recommendation": {
+      "Text": "Ask ChatGPT!",
+      "Url": ""
+    }
+  },
+  "Categories": [
+    "HPA"
+  ],
+  "DependsOn": [],
+  "RelatedTo": [],
+  "Notes": "",
+  "Cli": "kubectl get hpa {{resource_name}} -n {{resource_namespace}} -o yaml",
+  "PositiveMatch": "TBD",
+  "NegativeMatch": "TBD",
+  "DiagnosticClis": [
+    "kubectl get {{resource_dep_type}} {{resource_dep_name}} -n {{resource_namespace}} -o yaml",
+    "kubectl describe quota -n {{resource_namespace}}"
+  ]
+}
