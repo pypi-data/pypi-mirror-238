@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block contentwrapper %}
+    <div
+        class="window {% if cfg.css_framework == 'MUNI' %}framework_muni{% else %}framework_bootstrap5 bg-light{% endif %}">
+        <div class="my-flex-column">
+            <div class="my-flex-row">
+                <h1 class="nowrap margin-top-1em">
+                    <img src="{{ url_for("static", filename="images/circle-check-regular.svg") }}">
+                    {{ _("Logout successful") }}
+                </h1>
+            </div>
+        </div>
+        {% if init_logged_out_service.logback_url is not none %}
+            <div class="my-flex-column margin-bot-1em">
+                    <h2 class="h4">{{ _("Would you like to log back to") }} {{ init_logged_out_service.labels.get(lang) }}?</h2>
+                    <p class="{% if cfg.css_framework == 'MUNI' %}btn-wrap{% else %}d-flex flex-row gap-3{% endif %}">
+                        <a href="{{ init_logged_out_service.logback_url }}"
+                          class="btn btn-primary btn-s">
+                            <span class="no-uppercase">{{ _('Log back') }}</span>
+                        </a>
+                    </p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

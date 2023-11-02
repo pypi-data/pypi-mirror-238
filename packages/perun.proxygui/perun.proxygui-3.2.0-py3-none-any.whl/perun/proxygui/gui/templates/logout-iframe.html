@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logout result</title>
+</head>
+<body>
+<script src="{{ url_for("static", filename="proxygui.js") }}"></script>
+<script>
+  onload = () => {
+    {% if result == "success" %}
+      window.parent.logoutSuccess(window.frameElement.id, "{{ url_for("static", filename="images/check.svg") }}");
+    {% else %}
+      window.parent.logoutFailure(window.frameElement.id, "{{ url_for("static", filename="images/circle-exclamation-solid.svg") }}");
+    {% endif %}
+  };
+</script>
+</body>
+</html>

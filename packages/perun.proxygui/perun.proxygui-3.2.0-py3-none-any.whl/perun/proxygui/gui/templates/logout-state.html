@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block contentwrapper %}
+    <div
+        class="window {% if cfg.css_framework == 'MUNI' %}framework_muni{% else %}framework_bootstrap5 bg-light{% endif %}">
+        <div
+            class="wrap{% if not cfg.css_framework == 'MUNI' %} d-flex flex-column gap-2{% endif %}">
+            <h1 class="margin-top-1em">{{ _("Performing log out") }}</h1>
+            <p class="{% if cfg.css_framework == 'MUNI' %}btn-wrap{% else %}d-flex flex-row justify-content-center{% endif %}">
+                <a href="{{ url_for('gui.post_logout') }}"
+                   class="btn btn-primary btn-s">
+                    <span class="no-uppercase">{{ _('Continue') }}</span>
+                </a>
+            </p>
+            <hr>
+            <div class="my-flex-column">
+                <div class="services-box">
+                    {% if session_services|length != 0 %}
+                        <h2 class="h4 margin-top-1em">{{ _("Performing logout from following services: ") }}</h2>
+                        {% for service in session_services %}
+                            <div id="{{ service.id }}"
+                                 class="process my-flex-row">
+                                {% if not service.iframe_src %}
+                                    <img src="{{ url_for("static", filename="images/circle-exclamation-solid.svg") }}">
+                                {% elif service.front_channel %}
+                                    <img src="{{ url_for("static", filename="images/questionmark.svg") }}">
+                                    <iframe src="{{ service.iframe_src }}" hidden></iframe>
+                                {% else %}
+                                    <img src="{{ url_for("static", filename="images/spinner.svg") }}"
+                                        class="spinner">
+                                    <iframe id="iframe_{{ service.id }}" src="{{ service.iframe_src }}" hidden></iframe>
+                                {% endif %}
+                                <div
+                                    class="margin-left-12">{{ service.rp_names.get(lang) }}</div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% if device_services|length != 0 %}
+                        <h2 class="h4 margin-top-1em">{{ _("Performing logout from following services on your other devices:") }}</h2>
+                        {% for service in device_services %}
+                            <div id="{{ service.id }}"
+                                 class="process my-flex-row">
+                                {% if not service.iframe_src %}
+                                    <img src="{{ url_for("static", filename="images/circle-exclamation-solid.svg") }}">
+                                {% elif service.logout_type == "FRONTCHANNEL_LOGOUT" %}
+                                    <img src="{{ url_for("static", filename="images/questionmark.svg") }}">
+                                    <iframe src="{{ service.iframe_src }}" hidden></iframe>
+                                {% else %}
+                                    <img src="{{ url_for("static", filename="images/spinner.svg") }}"
+                                        class="spinner">
+                                    <iframe id="iframe_{{ service.id }}" src="{{ service.iframe_src }}" hidden></iframe>
+                                {% endif %}
+                                <div
+                                    class="margin-left-12">{{ service.rp_names.get(lang) }}</div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
