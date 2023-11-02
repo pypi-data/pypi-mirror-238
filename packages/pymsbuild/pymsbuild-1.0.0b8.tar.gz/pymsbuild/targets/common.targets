@@ -1,0 +1,135 @@
+<Project>
+  <Target Name="_GetPackageFilesFromProjects" Condition="@(Project) != ''">
+    <ItemGroup>
+      <_PackageFiles Remove="@(_PackageFiles)" />
+      <_LayoutFiles Remove="@(_LayoutFiles)" />
+    </ItemGroup>
+    <Message Text="Getting package files from %(Project.Name)" />
+    <MSBuild Projects="%(Project.Identity)" Properties="%(Project.Properties)" Targets="GetPackageFiles"
+             RebaseOutputs="True">
+      <Output TaskParameter="TargetOutputs" ItemName="_PackageFiles" />
+    </MSBuild>
+    <MSBuild Projects="%(Project.Identity)" Properties="%(Project.Properties)" Targets="GetLayoutFiles"
+             RebaseOutputs="True">
+      <Output TaskParameter="TargetOutputs" ItemName="_LayoutFiles" />
+    </MSBuild>
+    <ItemGroup>
+      <PyMSBuild_PackageFiles Include="@(_PackageFiles)">
+        <TargetDir>$([msbuild]::EnsureTrailingSlash($(TargetName)))%(_PackageFiles.TargetDir)</TargetDir>
+      </PyMSBuild_PackageFiles>
+      <_PackageFiles Remove="@(_PackageFiles)" />
+      <PyMSBuild_LayoutFiles Include="@(_LayoutFiles)">
+        <TargetDir>$([msbuild]::EnsureTrailingSlash($(TargetName)))%(_LayoutFiles.TargetDir)</TargetDir>
+      </PyMSBuild_LayoutFiles>
+      <_LayoutFiles Remove="@(_LayoutFiles)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="_GetSdistFilesFromProjects" Condition="@(Project) != ''">
+    <ItemGroup>
+      <_PackageFiles Remove="@(_PackageFiles)" />
+    </ItemGroup>
+    <Message Text="Getting sdist files from %(Project.FullName)" />
+    <MSBuild Projects="%(Project.Identity)" Properties="%(Project.Properties)" Targets="GetSdistFiles"
+             RebaseOutputs="True">
+      <Output TaskParameter="TargetOutputs" ItemName="_PackageFiles" />
+    </MSBuild>
+    <ItemGroup>
+      <PyMSBuild_SdistFiles Include="@(Project)" Condition="%(Project.IncludeInSdist) == true">
+        <RelativeSource Condition="%(Project.RelativeSource) == ''">$([msbuild]::MakeRelative($(SourceRootDir.TrimEnd($(_Sep))), %(FullPath)))</RelativeSource>
+      </PyMSBuild_SdistFiles>
+      <PyMSBuild_SdistFiles Include="@(_PackageFiles)">
+      </PyMSBuild_SdistFiles>
+      <_PackageFiles Remove="@(_PackageFiles)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="GetPackageFiles" DependsOnTargets="$(GetPackageFilesTargets)" Returns="@(PyMSBuild_PackageFiles)">
+    <ItemGroup>
+      <_WithMetadata Remove="@(_WithMetadata)" />
+
+      <AllSourceFiles Include="@(Content);@(None)" />
+
+      <AllSourceFiles Remove="@(_ExcludeFile)" />
+      <_WithMetadata Include="@(AllSourceFiles)" Condition="%(AllSourceFiles.IncludeInWheel) == 'true'">
+        <Name Condition="%(AllSourceFiles.Name) == ''">%(Filename)%(Extension)</Name>
+      </_WithMetadata>
+      <_WithMetadata>
+        <TargetDir Condition="%(_WithMetadata.TargetDir) == ''">$([msbuild]::EnsureTrailingSlash($([System.IO.Path]::GetDirectoryName(`%(_WithMetadata.Name)`))))</TargetDir>
+        <TargetName Condition="%(_WithMetadata.TargetName) == ''">$([System.IO.Path]::GetFileNameWithoutExtension(`%(_WithMetadata.Name)`))</TargetName>
+        <TargetExt Condition="%(_WithMetadata.TargetExt) == ''">$([System.IO.Path]::GetExtension(%(_WithMetadata.Name)))</TargetExt>
+      </_WithMetadata>
+      <PyMSBuild_PackageFiles Include="@(_WithMetadata)" Condition="'%(IncludeInWheel)' == true" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="GetLayoutFiles" DependsOnTargets="GetPackageFiles;$(GetLayoutFilesTargets)" Returns="@(PyMSBuild_LayoutFiles)">
+    <ItemGroup>
+      <_WithMetadata Remove="@(_WithMetadata)" />
+
+      <AllSourceFiles Include="@(Layout)">
+        <IncludeInLayout>true</IncludeInLayout>
+      </AllSourceFiles>
+
+      <AllSourceFiles Include="@(PyMSBuild_PackageFiles);@(Content);@(None)" />
+      <AllSourceFiles Include="@(ClCompile)">
+        <IncludeInLayout Condition="%(ClCompile.IncludeInLayout) == ''">false</IncludeInLayout>
+      </AllSourceFiles>
+      <AllSourceFiles Include="@(ClInclude)">
+        <IncludeInLayout Condition="%(ClInclude.IncludeInLayout) == ''">false</IncludeInLayout>
+      </AllSourceFiles>
+
+      <AllSourceFiles Remove="@(_ExcludeFile)" />
+      <_WithMetadata Include="@(AllSourceFiles)">
+        <Name Condition="%(AllSourceFiles.Name) == ''">%(Filename)%(Extension)</Name>
+        <IncludeInLayout Condition="%(AllSourceFiles.IncludeInLayout) == ''">true</IncludeInLayout>
+      </_WithMetadata>
+      <_WithMetadata>
+        <TargetDir Condition="%(_WithMetadata.TargetDir) == ''">$([msbuild]::EnsureTrailingSlash($([System.IO.Path]::GetDirectoryName(`%(_WithMetadata.Name)`))))</TargetDir>
+        <TargetName Condition="%(_WithMetadata.TargetName) == ''">$([System.IO.Path]::GetFileNameWithoutExtension(`%(_WithMetadata.Name)`))</TargetName>
+        <TargetExt Condition="%(_WithMetadata.TargetExt) == ''">$([System.IO.Path]::GetExtension(%(_WithMetadata.Name)))</TargetExt>
+      </_WithMetadata>
+      <PyMSBuild_LayoutFiles Include="@(_WithMetadata)" Condition="'%(IncludeInLayout)' == true" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="GetSdistFiles" DependsOnTargets="$(GetSdistFilesTargets)" Returns="@(PyMSBuild_SdistFiles)">
+    <ItemGroup>
+      <_WithMetadata Remove="@(_WithMetadata)" />
+
+      <AllSourceFiles Include="@(Sdist);@(ClCompile);@(ClInclude);@(Content);@(None)" />
+
+      <AllSourceFiles Remove="@(_ExcludeFile)" />
+      <_WithMetadata Include="@(AllSourceFiles)">
+        <IncludeInSdist Condition="%(AllSourceFiles.IncludeInSdist) == ''">true</IncludeInSdist>
+      </_WithMetadata>
+      <_WithMetadata Condition="'%(IncludeInSdist)' == true">
+        <RelativeSource Condition="%(_WithMetadata.RelativeSource) == ''">$([msbuild]::MakeRelative($(SourceRootDir.TrimEnd($(_Sep))), %(FullPath)))</RelativeSource>
+      </_WithMetadata>
+      <PyMSBuild_SdistFiles Include="@(_WithMetadata)" Condition="'%(IncludeInSdist)' == true" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Clean support -->
+  <Target Name="_SaveFileWrites">
+    <ItemGroup>
+      <FileWrites Include="$(IntDir)/$(TargetName).writes.txt" />
+    </ItemGroup>
+    <WriteLinesToFile File="$(IntDir)/$(TargetName).writes.txt"
+                      Lines="@(FileWrites)"
+                      Overwrite="true" />
+    <Message Text="Files written:%0A -@(FileWrites, '%0A -')"
+             Importance="$(_Low)"
+             Condition="@(FileWrites) != ''" />
+  </Target>
+
+  <Target Name="_CleanFileWrites">
+    <ReadLinesFromFile File="$(IntDir)/$(TargetName).writes.txt">
+      <Output TaskParameter="Lines" ItemName="FileWrites" />
+    </ReadLinesFromFile>
+    <Delete Files="@(FileWrites)" />
+    <ItemGroup>
+      <FileWrites Remove="@(FileWrites)" />
+    </ItemGroup>
+  </Target>
+</Project>
