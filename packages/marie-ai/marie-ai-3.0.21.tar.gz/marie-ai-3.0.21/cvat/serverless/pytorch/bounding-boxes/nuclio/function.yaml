@@ -1,0 +1,64 @@
+metadata:
+  name: pth.marieai.bboxes
+  namespace: cvat
+  annotations:
+    name: Bounding box detection MARIE-AI 001
+    type: detector
+    framework: pytorch
+    spec: |
+      [
+        { "id": 1, "name": "bbox" }
+      ]
+
+spec:
+  description: Bounding box detection optimized for GPU
+
+  runtime: 'python:3.9'
+  handler: main:handler
+  eventTimeout: 120s
+  env:
+    - name: MARIEAI_DIR
+      value: /marieai
+    - name: MARIE_DEFAULT_MOUNT
+      value: /etc/marie
+
+  volumes:
+    - volume:
+        name: marie-config
+        hostPath:
+#          path: /home/gbugaj/dev/marieai/marie-ai
+          path: /mnt/data/marie-ai
+      volumeMount:
+        name: marie-config
+        mountPath: /etc/marie
+
+  build:
+    image: cvat.pth.marieai.bboxes
+    baseImage: marieai/marie:3.0.12-cuda
+    directives:
+      postCopy:
+        - kind: WORKDIR
+          value: /etc/marie
+        - kind: RUN
+          value: apt update && apt install --no-install-recommends -y git curl
+        - kind: ENTRYPOINT
+          value: '["/bin/bash", "-c"]'
+
+  triggers:
+    myHttpTrigger:
+      maxWorkers: 1
+      kind: 'http'
+      workerAvailabilityTimeoutMilliseconds: 10000
+      attributes:
+        maxRequestBodySize: 33554432 # 32MB
+
+  resources:
+    limits:
+      nvidia.com/gpu: 1
+
+  platform:
+    attributes:
+      restartPolicy:
+        name: on-failure
+        maximumRetryCount: 3
+      mountMode: volume

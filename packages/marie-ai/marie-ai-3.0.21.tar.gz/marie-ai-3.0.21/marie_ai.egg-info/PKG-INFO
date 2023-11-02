@@ -1,0 +1,272 @@
+Metadata-Version: 2.1
+Name: marie-ai
+Version: 3.0.21
+Summary: Python library to Integrate AI-powered features into your applications
+Home-page: https://github.com/marieai/marie-ai/
+Download-URL: https://github.com/marieai/marie-ai/tags
+Author: Marie AI
+Author-email: hello@marieai.co
+License: Apache 2.0
+Project-URL: Documentation, https://docs.marieai.co
+Project-URL: Source, https://github.com/marieai/marie-ai.git
+Project-URL: Tracker, https://github.com/marieai/marie-ai/issues
+Keywords: marie-ai ocr icr index elastic neural-network encoding embedding serving docker container image video audio deep-learning mlops
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Unix Shell
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Database :: Database Engines/Servers
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Internet :: WWW/HTTP :: Indexing/Search
+Classifier: Topic :: Scientific/Engineering :: Image Recognition
+Classifier: Topic :: Multimedia :: Video
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Description-Content-Type: text/markdown
+Provides-Extra: core
+Provides-Extra: standard
+Provides-Extra: pybind11
+Provides-Extra: numpy
+Provides-Extra: protobuf
+Provides-Extra: grpcio
+Provides-Extra: grpcio-reflection
+Provides-Extra: grpcio-health-checking
+Provides-Extra: pyyaml
+Provides-Extra: packaging
+Provides-Extra: docarray
+Provides-Extra: perf
+Provides-Extra: prometheus_client
+Provides-Extra: devel
+Provides-Extra: psutil
+Provides-Extra: uvloop
+Provides-Extra: opentelemetry-instrumentation-grpc
+Provides-Extra: opentelemetry-sdk
+Provides-Extra: opentelemetry-exporter-otlp
+Provides-Extra: opentelemetry-exporter-prometheus
+Provides-Extra: opentelemetry-semantic-conventions
+Provides-Extra: opentelemetry-instrumentation-aiohttp-client
+Provides-Extra: opentelemetry-instrumentation-fastapi
+Provides-Extra: opentelemetry-exporter-otlp-proto-grpc
+Provides-Extra: fastapi
+Provides-Extra: uvicorn[standard]
+Provides-Extra: docker
+Provides-Extra: pathspec
+Provides-Extra: filelock
+Provides-Extra: requests
+Provides-Extra: websockets
+Provides-Extra: pydantic
+Provides-Extra: python-multipart
+Provides-Extra: aiofiles
+Provides-Extra: aiohttp
+Provides-Extra: aiostream
+Provides-Extra: pytest
+Provides-Extra: test
+Provides-Extra: pytest-timeout
+Provides-Extra: pytest-mock
+Provides-Extra: pytest-cov
+Provides-Extra: coverage
+Provides-Extra: pytest-repeat
+Provides-Extra: pytest-asyncio
+Provides-Extra: pytest-reraise
+Provides-Extra: mock
+Provides-Extra: requests-mock
+Provides-Extra: pytest-custom_exit_code
+Provides-Extra: black
+Provides-Extra: kubernetes
+Provides-Extra: pytest-kind
+Provides-Extra: pytest-lazy-fixture
+Provides-Extra: cicd
+Provides-Extra: torch
+Provides-Extra: strawberry-graphql
+Provides-Extra: watchfiles
+Provides-Extra: urllib3
+Provides-Extra: transformers
+Provides-Extra: anyconfig
+Provides-Extra: python-consul2
+Provides-Extra: fastwer
+Provides-Extra: matplotlib
+Provides-Extra: albumentations
+Provides-Extra: dominate
+Provides-Extra: lmdb
+Provides-Extra: natsort
+Provides-Extra: celery
+Provides-Extra: opencv-python
+Provides-Extra: imagecodecs
+Provides-Extra: imutils
+Provides-Extra: PyPDF4
+Provides-Extra: reportlab
+Provides-Extra: pycocotools
+Provides-Extra: nltk
+Provides-Extra: timm
+Provides-Extra: Wand
+Provides-Extra: Cython
+Provides-Extra: jsons
+Provides-Extra: shapely
+Provides-Extra: gradio
+Provides-Extra: psycopg2-binary
+Provides-Extra: nlpaug
+Provides-Extra: munch
+Provides-Extra: onnx
+Provides-Extra: onnxruntime
+Provides-Extra: onnxruntime-gpu
+Provides-Extra: onnxconverter_common
+Provides-Extra: onnxmltools
+Provides-Extra: pika
+Provides-Extra: sentencepiece
+Provides-Extra: Levenshtein
+Provides-Extra: boto3
+Provides-Extra: sqlalchemy
+Provides-Extra: pendulum
+Provides-Extra: uuid7
+Provides-Extra: orjson
+Provides-Extra: omegaconf
+Provides-Extra: hydra-core
+Provides-Extra: Pillow-SIMD
+Provides-Extra: pillow~
+Provides-Extra: pytesseract
+Provides-Extra: all
+License-File: LICENSE
+License-File: NOTICE
+
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+# Marie-AI
+
+Integrate AI-powered document pipeline into your applications
+
+## Documentation
+
+See the [MarieAI docs](https://docs.marieai.co).
+
+## Installation
+
+You don't need this source code unless you want to modify the package. If you just
+want to use the package, just run:
+
+```sh
+pip install --upgrade marieai
+```
+
+Install from source with:
+
+```sh
+pip install -e .
+```
+
+Build docker container:
+
+```sh
+DOCKER_BUILDKIT=1 docker build . --build-arg PIP_TAG="standard" -f ./Dockerfiles/gpu.Dockerfile  -t marieai/marie:3.0-cuda 
+```
+
+## Command-line interface
+
+This library additionally provides an `marie` command-line utility which makes it easy to interact with the API 
+from your terminal. Run `marie -h` for usage.
+
+## Example code
+
+Examples of how to use this library to accomplish various tasks can be found in the MarieAI documentation. 
+It contains code examples for:
+
+* Document cleanup
+* Optical character recognition (OCR)
+* Document Classification
+* Document Splitter
+* Named Entity Recognition
+* Form detection
+* And more
+
+
+## Run with default entrypoint
+
+```shell
+docker run --rm  -it marieai/marie:3.0.19-cuda
+```
+
+## Run the server with custom entrypoint
+
+```shell
+docker run --rm  -it --entrypoint /bin/bash  marieai/marie:3.0.19-cuda  
+```
+
+## Telemetry
+https://telemetry.marieai.co/
+
+TODO :MOVE TO DOCS
+
+# S3 Cloud Storage
+```shell
+docker compose -f  docker-compose.s3.yml --project-directory . up  --build --remove-orphans
+```
+
+CrossFTP
+
+
+## Configure AWS CLI Credentials.
+
+```shell
+vi ~/.aws/credentials
+[marie] # this should be in the file
+aws_access_key_id=your_access_key_id
+aws_secret_access_key=your_secret_access_key
+```
+
+ 
+
+## Pull the Docker image.
+
+```shell
+docker pull zenko/cloudserver
+```
+
+## Create and start the container.
+
+
+```sh
+docker run --rm -it --name marie-s3-server -p 8000:8000 \
+-e SCALITY_ACCESS_KEY_ID=MARIEACCESSKEY \
+-e SCALITY_SECRET_ACCESS_KEY=MARIESECRETACCESSKEY \
+-e S3DATA=multiple \
+-e S3BACKEND=mem zenko/cloudserver
+```
+
+```
+SCALITY_ACCESS_KEY_ID : Your AWS ACCESS KEY 
+SCALITY_SECRET_ACCESS_KEY: Your AWS SECRET ACCESS KEY 
+S3BACKEND: Currently using memory storage
+```
+
+## Verify Installation.
+
+```shell
+aws s3 mb s3://mybucket  --profile marie --endpoint-url http://localhost:8000 --region us-west-2
+```
+
+```shell
+aws s3 ls --profile marie --endpoint-url http://localhost:8000
+```
+
+```shell
+aws s3 cp some_file.txt s3://mybucket  --profile marie --endpoint-url http://localhost:8000
+```
+
+
+```shell
+aws s3 --profile marie --endpoint-url=http://127.0.0.1:8000 ls --recursive s3://
+```
+
+# Production setup
+
+
+Configuration for the S3 server will be stored in the following files:
+https://towardsdatascience.com/10-lessons-i-learned-training-generative-adversarial-networks-gans-for-a-year-c9071159628
+

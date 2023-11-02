@@ -1,0 +1,494 @@
+---
+sidebar_position: 1
+---
+
+# Installation
+
+## Prerequisites
+* Linux
+* Python 3.10
+* [Pytorch torch-2.0.0.XXXXXXXXXX+cu118](https://pytorch.org/get-started/locally/) 
+* [CUDA 11.8](https://developer.nvidia.com/cuda-11-8-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_local)
+* [cuDNN 8.7.0](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html)
+
+
+## Environment Setup
+Setup development environment for Marie-AI. We recommend using Python 3.10. 
+There are known issues with upstream packages as they are not yet compatible with Python 3.11.
+
+### Setup Python 3.10 
+
+```shell
+sudo apt-get install python3.10
+```
+From inside this directory, create a virtual environment using the Python venv module:
+
+Here we will add third-party repository for Python 3.10 on Ubuntu 20.04
+```shell
+sudo apt install software-properties-common -y
+sudo add-apt-repository ppa:deadsnakes/ppa
+```
+
+On Ubuntu 22.04 you can use the following command to install Python 3.10
+
+```shell
+sudo apt-get update
+sudo apt install python3.10
+sudo apt install python3.10-dev
+sudo apt install python3-virtualenv
+sudo apt install python3.10-venv
+python3.10 -m venv .env
+```
+
+:::note
+
+If you are experienced with PyTorch and have already installed it, just skip this part and jump to the next section. Otherwise, you can follow [these steps](#installation-steps) for the preparation.
+
+:::
+
+###  Install Pytorch 2.0
+The following command will install PyTorch 2.0 with CUDA 11.8 support. 
+If you want to install PyTorch without CUDA support, you can remove the `cu118` part from the command.
+
+Install development version of PyTorch 2.0 with CUDA 11.8 support:
+```shell
+pip3 install --pre torch[dynamo] torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/nightly/cu118 --force
+```
+
+Install stable version of PyTorch 2.0 with CUDA 11.8 support:
+```shell
+pip install --upgrade torch torchvision
+```
+
+If you have properly configuru CUDA, you can verify the installation by running the following command:
+
+```shell
+python3 -c "import torch; print(torch.__version__)"
+```
+
+##  Using a Python virtual environment
+
+```bash
+mkdir ~/marie-ai
+cd ~/marie-ai
+```
+
+
+Alternatively you can have shared virtual environment
+
+```bash
+python3 -m venv ~/environment/marie
+```
+This will require you to create a link a sympolic link `.env ` that point to the real environment `~/environment/marie`
+
+
+You can jump in and out of your virtual environment with the `activate` and `deactivate` scripts:
+
+```shell
+# Activate the virtual environment
+source .env/bin/activate
+
+# Deactivate the virtual environment
+source .env/bin/deactivate
+```
+
+## Using Conda
+
+TODO : conda have not been tested but in should work.
+
+```shell
+conda create -n pytorch python=3.10
+```
+
+```shell
+conda activate pytorch
+```
+
+### Verify Pytorch Install
+
+
+```shell
+python -c "import torch; print(torch.__version__)"
+```
+
+##  Installation Steps
+
+There are number of different ways that this project can be setup.
+
+### From source
+
+If you wish to run and develop `Marie-AI` directly, install it from source:
+
+First install required build dependencies, if they are not present.
+
+```shell
+sudo apt-get install libpq-dev python-dev-is-python3
+```
+
+Install ONNX Runtime from source [https://onnxruntime.ai/docs/build/inferencing.html] :
+
+Create the wheel file and install it :
+```shell
+ ./build.sh --config Release --build_shared_lib --parallel --build_wheel
+
+ ./build.sh --config Release --build_wheel --enable_pybind --parallel --skip_tests --build_shared_lib
+```
+
+Next install from source :
+
+```shell
+git clone https://github.com/marieai/marie-ai.git
+cd marie-ai
+git checkout develop
+
+# "-v" increases pip's verbosity.
+# "-e" means installing the project in editable mode,
+# That is, any local modifications on the code will take effect immediately
+
+pip install  Cython
+pip install pybind11
+
+pip install -r requirements.txt
+pip install -v -e .
+```
+
+### Additional dependencies
+
+FVCore install
+```shell
+python3 -m pip install -U 'git+https://github.com/facebookresearch/fvcore'
+```
+
+Fairseq install
+
+```shell
+git clone https://github.com/pytorch/fairseq.git
+cd fairseq 
+python setup.py build install
+```
+
+Detectron2 install 
+```shell
+python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+# Or, to install it from a local clone:
+git clone https://github.com/facebookresearch/detectron2.git
+python -m pip install -e detectron2
+
+```
+
+
+Common Installation Issues
+
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+fairseq 0.12.2 requires hydra-core<1.1,>=1.0.7, but you have hydra-core 1.2.0 which is incompatible.
+fairseq 0.12.2 requires omegaconf<2.1, but you have omegaconf 2.2.3 which is incompatible.
+
+```shell
+ pip uninstall hydra-core
+ pip uninstall omegacon
+ pip uninstall fairseq
+```
+
+Install `Detectron2` and then `fairseq`
+
+TODO: This needs better setup
+```shell
+sudo chown greg:greg /var/log/marie/
+sudo mkdir -p /var/log/marie
+```
+### Marie-AI as a dependency  
+If you use Marie-AI as a dependency or third-party package, install it with pip:
+
+```shell
+pip install 'marie-ai>=2.4.0'
+```
+
+### Verify the installation
+
+We provide a method to verify the installation via inference demo, depending on your installation method.
+
+```
+TODO GRADIO LINK 
+```
+
+Also, you can run the following codes in your Python interpreter:
+
+```python
+from marie.executor import NerExtractionExecutor
+from marie.utils.image_utils import hash_file
+
+# setup executor
+models_dir = "/mnt/data/models/"
+executor = NerExtractionExecutor(models_dir)
+
+img_path = "/tmp/sample.png"
+checksum = hash_file(img_path)
+
+# invoke executor
+docs = None
+kwa = {"checksum": checksum, "img_path": img_path}
+results = executor.extract(docs, **kwa)
+
+print(results)
+```
+
+
+## Docker image
+
+Our universal Docker image is ready-to-use on linux/amd64 [Image listing](https://hub.docker.com/u/marieai). 
+The Docker image name always starts with `marieai/marie` followed by a tag composed of three parts:
+
+```text
+marieai/marie:{version}{python_version}{extra}
+```
+nvidia/cuda:11.3.1-runtime-ubuntu20.04 
+
+- `{version}`: The version of MarieAI. Possible values:
+    - `latest`: the last release;
+    - `master`: the master branch of `gregbugaj/marie-ai` repository;
+    - `x.y.z`: the release of a particular version; 
+- `{python_version}`: The Python version of the image. Possible values:
+    - `-py38` for Python 3.8;
+    - `-py39` for Python 3.9;
+    - `-py310` for Python 3.10;
+- `{extra}`: the extra dependency installed along with MarieAI. Possible values:
+    - `-perf`: MarieAI is installed inside the image via `pip install marieai`. It includes all performance dependencies; 
+    - `-standard`: MarieAI is installed inside the image via `pip install marieai`. It includes all recommended dependencies;  
+    - `-devel`: MarieAI is installed inside the image via `pip install "marieai[devel]"`. It includes `standard` plus some extra dependencies;
+- `{env}`: GPU/CPU/XLA support:
+    - ` `: CPU only; 
+    - `-cuda`: MarieAI is build with GPU/CUDA support;  
+
+## Docker on CPU-only platforms
+
+MarieAI can be built for CPU-only environment. In CPU mode you can train, test or inference a model.
+However, there might be limitations of what operations can be used.
+
+### Building container
+
+```shell
+DOCKER_BUILDKIT=1 docker build . -f Dockerfiles/cpu.Dockerfile -t marieai/marie:2.5 --no-cache
+```
+
+## Docker with GPU Support
+
+### Inference on the GPU
+Install following dependencies to ensure docker is setup for GPU processing.
+
+* [Installing Docker and The Docker Utility Engine for NVIDIA GPUs](https://docs.nvidia.com/ai-enterprise/deployment-guide/dg-docker.html)
+* [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+
+After the installation we can validate the setup with :
+
+[CUDA and cuDNN images from gitlab.com/nvidia/cuda](https://hub.docker.com/r/nvidia/cuda/tags?page=2&ordering=last_updated&name=11.3)
+
+
+```shell
+#### Test nvidia-smi with the official CUDA image
+docker run --gpus all nvidia/cuda:11.3.1-runtime-ubuntu20.04 nvidia-smi
+docker run --gpus all --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 nvidia/cuda:11.3.1-runtime-ubuntu20.04 nvidia-smi
+```
+
+
+### Building container
+If we have properly configured our environment you should be able to build the container locally.
+
+```shell
+DOCKER_BUILDKIT=1 docker build . --cpuset-cpus="0-32"  --build-arg PIP_TAG="[standard]" -f ./Dockerfiles/gpu-310.Dockerfile -t marieai/marie:3.0.18-cuda --no-cache
+```
+
+After container have been build we can test it with following. 
+
+```
+docker run --rm -it marieai/marie:3.0.18-cuda -vf
+```
+
+
+## Container maintenance
+
+Marie comes with number of utilities for managing the containers. 
+
+:::note
+
+When deployed with [Kubernetes Control Plane](/docs/getting-started/deployment/control-plane#kubernetes), 
+some of  will be redundant.
+
+:::
+
+
+```text
+(marie) greg@xpredator:~/dev/marie-ai$ tree docker-util/
+docker-util/
+├── container.sh
+├── destroy.sh
+├── exec.sh
+├── id
+├── id.github
+├── monitor.sh
+├── README.md
+├── restart.sh
+├── run-all.sh
+├── run-interactive-cpu.sh
+├── run-interactive-gpu.sh
+├── run.sh
+├── service.env
+├── stop.sh
+├── tail-log.sh
+├── update.sh
+└── version.sh
+
+```
+
+|Feature|Interactive|Description|
+|---|--|-----------------------------------------------------|
+|container.sh|No| Display container information from `id` file          |
+|destroy.sh|Yes|Destroy currently installed container and remove image  |
+|exec.sh|No| Login into current container          |
+|id|No| **ID** file describing  the container          |
+|monitor.sh|No| Docker container monitoring via cAdvisor, DCGM-Exporter, Grafana Loki and Promtail  (convert to docker-compose)  |
+|restart.sh|No| Restart all containers         |
+|run-all.sh|No| Run all containers         |
+|run-interactive-cpu.sh|Yes| Run CPU container in interactive mode         |
+|run-interactive-gpu.sh|Yes| Run GPU container in interactive mode. Start container with GPU-ID 0 `./run-interactive-gpu.sh 0`        |
+|stop.sh|No| Stop all containers         |
+|tail-log.sh|No| Tail logs from console         |
+|update.sh|No| Update container to version specified in `id` file         |
+|version.sh|No| Display `marie-ai`  version       |
+
+:::note Security/Audit
+
+* This script must not be run as root, run under 'docker user' account.
+
+* Scripts will redirect the output of the current script to the system logger. 
+```shell
+exec 1> >(exec logger -s -t "${CONTAINER_NAME} [${0##*/}]") 2>&1
+echo " container : ${CONTAINER_NAME}"
+```
+
+:::
+
+### Useful docker commands
+
+Stop running `marie-ai` containers and remove volumes
+
+```shell
+docker container stop $(docker container ls -q --filter name='marie*') && docker system prune -af --volumes
+```
+
+Tail logs
+```shell
+docker logs  marie-icr-0  -f --since 0m
+```
+
+
+
+
+## Common issues
+
+### Segmentation fault
+
+There is a segmentation fault happening with `opencv-python==4.5.4.62` switching to `opencv-python==4.5.4.60` fixes the issue. 
+[connectedComponentsWithStats produces a segfault ](https://github.com/opencv/opencv-python/issues/604)
+
+```
+pip install opencv-python==4.5.4.60
+```
+
+
+### Missing convert_namespace_to_omegaconf
+
+Install `fairseq` from source, the release version is  missing `convert_namespace_to_omegaconf`
+
+```bash
+git clone https://github.com/pytorch/fairseq.git
+cd fairseq
+pip install -r requirements.txt
+python setup.py build develop
+```
+
+
+### `distutils` has no attribute version
+
+If you receive following error :
+
+```
+AttributeError: module 'distutils' has no attribute 'version'
+```
+
+Using following version of `setuptools` will work.
+
+```
+python3 -m pip install setuptools==59.5.0
+```
+
+
+### CUDA capability sm_86 is not compatible with the current PyTorch installation
+
+Building GPU version of the framework requires `1.10.2+cu113`. 
+
+If you encounter following error that indicates that we have a wrong version of PyTorch / Cuda
+
+```
+1.11.0+cu102
+Using device: cuda
+
+/opt/venv/lib/python3.8/site-packages/torch/cuda/__init__.py:145: UserWarning: 
+NVIDIA GeForce RTX 3060 Laptop GPU with CUDA capability sm_86 is not compatible with the current PyTorch installation.
+The current PyTorch install supports CUDA capabilities sm_37 sm_50 sm_60 sm_70.
+If you want to use the NVIDIA GeForce RTX 3060 Laptop GPU GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+
+  warnings.warn(incompatible_device_warn.format(device_name, capability, " ".join(arch_list), device_name))
+
+```
+
+###  PIL.Image.LINEAR no longer exists #5010 
+Manually update `detectron2`  to fix the issue.
+https://github.com/facebookresearch/detectron2/issues/5010
+
+
+### Cannot import name 'DEFAULT_CIPHERS' from 'urllib3.util.ssl_' 
+
+```shell
+cannot import name 'DEFAULT_CIPHERS' from 'urllib3.util.ssl_' (/home/greg/dev/marieai/marie-ai/venv/lib/python3.10/site-packages/urllib3/util/ssl_.py)
+```
+
+We need to downgrade `urllib3` to `<2.0.0` to fix the issue. For our case we need to downgrade to `1.26.7`
+
+```shell  
+pip install urllib3==1.26.7
+``` 
+You can verify the version with following command
+
+```shell
+pip show urllib3
+```
+
+### ModuleNotFoundError: No module named 'torch._six'
+[[BUG] No module named 'torch._six' #2845](https://github.com/microsoft/DeepSpeed/issues/2845]https://github.com/microsoft/DeepSpeed/issues/2845)
+
+```shell
+    from .. import utils as ds_utils
+  File "/home/greg/dev/marieai/marie-ai/venv/lib/python3.10/site-packages/deepspeed/runtime/utils.py", line 19, in <module>
+    from torch._six import inf
+ModuleNotFoundError: No module named 'torch._six'
+```
+
+```shell
+pip show deepspeed
+
+Name: deepspeed
+Version: 0.8.0
+```
+To resolve this upgrade `deepspeed` to `0.9.0` or higher.
+```shell
+pip install deepspeed --upgrade
+pip show deepspeed
+
+Name: deepspeed
+Version: 0.10.0
+```
+
+### References
+[Docker overview](https://docs.docker.com/get-started/overview/)
+
+1216
