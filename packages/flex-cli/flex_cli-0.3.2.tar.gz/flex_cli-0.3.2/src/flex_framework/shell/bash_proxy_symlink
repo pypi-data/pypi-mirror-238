@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+BASEDIR=$(dirname "$0")
+
+if [ -z ${FLEX_SHELL_PROXY_ENV_NAME+x} ]; then
+  echo "PATH=\"${PATH}\"" > "$BASEDIR/PATH-original.env"
+  if [ -f "$BASEDIR/PATH-flex.env" ]; then
+    set -a
+    source "$BASEDIR/PATH-flex.env"
+    set +a
+  fi
+  if [ -f "$BASEDIR/.env" ]; then
+    set -a
+    source "$BASEDIR/.env"
+    set +a
+  fi
+fi
+
+CURRENT_SCRIPT_NAME=$(basename "$0" | sed -r 's/[-]+/_/g')
+CURRENT_CONTAINER_NAME_NAME="FLEX_CONTAINER_${CURRENT_SCRIPT_NAME^^}"
+COMMAND_EXECUTABLE_NAME="FLEX_CONTAINER_EXECUTABLE_${CURRENT_SCRIPT_NAME^^}"
+CURRENT_CONTAINER_NAME=${!CURRENT_CONTAINER_NAME_NAME}
+COMMAND_EXECUTABLE=${!COMMAND_EXECUTABLE_NAME}
+FLEX_DOCKER_COMPOSE_EXE=$(which docker-compose)
+
+if [ -f "$BASEDIR/PATH-original.env" ]; then
+  set -a
+  source "$BASEDIR/PATH-original.env"
+  set +a
+fi
+
+set -o pipefail
+flex-cli -handler flex/bash/proxy \
+  -cwd "${FLEX_CWD}"\
+  -cex "$FLEX_DOCKER_COMPOSE_EXE" -- \
+  exec \
+  --workdir "$FLEX_WORK_DIR" \
+  "${CURRENT_CONTAINER_NAME}" \
+  "${COMMAND_EXECUTABLE}" "$@" 2>&1 | tee "$BASEDIR/error.log"
+STATUS_CODE=$?
+set +o pipefail
+
+MESSAGE=$(cat "$BASEDIR/error.log")
+if [ "$STATUS_CODE" != 0 ]; then
+  echo "$MESSAGE" | grep "no such file or directory" -q
+  MISSING_DIRECTORY=$?
+  if [ $MISSING_DIRECTORY == 0 ]; then
+    flex-cli -handler flex/bash/proxy \
+      -cwd "${FLEX_CWD}"\
+      -cex "$FLEX_DOCKER_COMPOSE_EXE" -- \
+      exec \
+      "${CURRENT_CONTAINER_NAME}" \
+      "${COMMAND_EXECUTABLE}" "$@"
+  fi
+fi
