@@ -1,0 +1,42 @@
+Metadata-Version: 2.1
+Name: pytest-my-cool-lib
+Version: 0.1.3
+Summary: 
+Author: maksym.biriukov
+Author-email: maksym.biriukov@eleks.com
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: pytest (>=7.1.3,<8.0.0)
+Description-Content-Type: text/markdown
+
+# Install package from GitHub
+
+```shell
+pip install git+https://github.com/Slamnlc/pytest_plugin_demo.git#subdirectory=pytest_my_cool_lib_demo
+```
+
+# Upload to Pypi
+
+```shell
+poetry publish --build --username __token__ --password pypi-AgEIcHlwaS5vcmcCJDJjYmEzMmYwLTEyM2QtNDU1Ni05ZWU4LWI1ZGY4NWUyYmZlNAACKlszLCJlNWQ3MmE4My1hNjlmLTRmMDQtOTc3Yi05YzI5MjgxNTc2MjMiXQAABiB2jldXiZpIKFFgI-rycwGAShDQ1ffciU278okUfK_7mQ
+```
+
+# Create release on GitHub (optional)
+
+```shell
+rm -rf dist
+poetry build
+gh release delete v$(poetry version -s) -y
+gh release create v$(poetry version -s) dist/*.tar.gz --generate-notes
+```
+
+# Update version
+
+```shell
+poetry version minor
+```
+
