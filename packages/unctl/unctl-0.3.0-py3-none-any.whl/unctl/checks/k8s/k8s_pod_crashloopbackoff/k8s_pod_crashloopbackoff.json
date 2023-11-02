@@ -1,0 +1,40 @@
+{
+  "Provider": "k8s",
+  "CheckID": "k8s_pod_crashloopbackoff",
+  "CheckTitle": "Pod is in CrashLoopBackOff state.",
+  "CheckType": [
+    "Infrastructure"
+  ],
+  "ServiceName": "k8s",
+  "SubServiceName": "pod",
+  "ResourceIdTemplate": "TBD",
+  "Severity": "critical",
+  "ResourceType": "Other",
+  "Description": "Check if a k8s pod is in CrashLoopBackOff state.",
+  "Risk": "TBD",
+  "RelatedUrl": "",
+  "Remediation": {
+    "Code": {
+      "CLI": "",
+      "NativeIaC": "",
+      "Other": "",
+      "Terraform": ""
+    },
+    "Recommendation": {
+      "Text": "Ask ChatGPT!",
+      "Url": ""
+    }
+  },
+  "Categories": [
+    "Health"
+  ],
+  "DependsOn": [],
+  "RelatedTo": [],
+  "Notes": "",
+  "Cli": "kubectl get pods {{resource_pod}} -n {{resource_namespace}}",
+  "PositiveMatch": "Running",
+  "NegativeMatch": "CrashLoopBackOff",
+  "DiagnosticClis": [
+    "kubectl logs {{resource_pod}} -n {{resource_namespace}} -c {{resource_container}} --tail=10"
+  ]
+}

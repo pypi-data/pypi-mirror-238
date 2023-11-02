@@ -1,0 +1,40 @@
+{
+  "Provider": "k8s",
+  "CheckID": "k8s_ingress",
+  "CheckTitle": "Check for the existence of Ingress class ,service and secrets for all the namespaces",
+  "CheckType": [
+    "Infrastructure"
+  ],
+  "ServiceName": "k8s",
+  "SubServiceName": "ingress",
+  "ResourceIdTemplate": "TBD",
+  "Severity": "High",
+  "ResourceType": "Other",
+  "Description": "Check for the existence of Ingress class ,service and secrets for all the namespaces",
+  "Risk": "The failures may lead to ingress not routing traffic to the intended services, SSL/TLS certificates not being valid, or Ingress controllers not functioning correctly, potentially impacting the availability and security of your applications",
+  "RelatedUrl": "",
+  "Remediation": {
+    "Code": {
+      "CLI": "",
+      "NativeIaC": "",
+      "Other": "",
+      "Terraform": ""
+    },
+    "Recommendation": {
+      "Text": "Ask ChatGPT!",
+      "Url": ""
+    }
+  },
+  "Categories": [
+    "Ingress"
+  ],
+  "DependsOn": [],
+  "RelatedTo": [],
+  "Notes": "",
+  "Cli": "kubectl get ingress {{resource_id}} -n {{resource_namespace}} -o json",
+  "PositiveMatch": "Ready",
+  "NegativeMatch": "NotReady",
+  "DiagnosticClis": [
+    "kubectl describe ingress {{resource_id}} -n {{resource_namespace}}"
+  ]
+}
