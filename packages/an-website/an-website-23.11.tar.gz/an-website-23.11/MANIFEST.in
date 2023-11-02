@@ -1,0 +1,10 @@
+graft an_website
+global-exclude *.ts
+global-exclude *.py[cod]
+include pip-requirements.txt
+graft example-configurations
+global-exclude tsconfig.json
+global-exclude .eslintrc.*
+include Containerfile
+include build-args.sh
+include REVISION.txt

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools==68.2.2", "wheel==0.41.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.bandit]
+skips = ["B101", "B311", "B413"]
+
+[tool.black]
+target-version = ["py312"]
+line-length = 80
+
+[tool.isort]
+atomic = true
+profile = "black"
+py_version = "311"
+line_length = 80
+skip_gitignore = true
+add_imports = ["from __future__ import annotations"]
+
+[tool.mypy]
+strict = true
+sqlite_cache = true
+python_version = "3.12"
+warn_unreachable = true
+disallow_any_unimported = true
+plugins = "numpy.typing.mypy_plugin"
+enable_error_code = [
+  # "explicit-override",
+  "ignore-without-code",
+  "possibly-undefined",
+  "redundant-expr",
+  "redundant-self",
+  "truthy-bool",
+  "truthy-iterable",
+  "unused-awaitable",
+]
+new_type_inference = true
+enable_incomplete_feature = ["TypeVarTuple", "Unpack"]
+packages = ["an_website", "tests", "scripts"]
+modules = "setup"
