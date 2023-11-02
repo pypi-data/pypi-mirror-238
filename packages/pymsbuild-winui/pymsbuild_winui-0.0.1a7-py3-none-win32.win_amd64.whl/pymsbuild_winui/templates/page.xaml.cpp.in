@@ -1,0 +1,206 @@
+{% include "regen-header.tmpl" %}
+#include "pch.h"
+#include <_winui.h>
+#include "{{page.basename}}.h"
+#include "{{page.name}}.g.cpp"
+
+{% for vm in page.viewmodels %}
+#include "{{vm.name}}.g.cpp"
+{% endfor %}
+
+using namespace winrt;
+using namespace Windows::UI;
+using namespace Microsoft::UI::Xaml;
+using namespace Microsoft::UI::Xaml::Controls;
+using namespace Microsoft::UI::Xaml::Data;
+namespace py = pybind11;
+
+PYBIND11_EMBEDDED_MODULE({{namespace}}_{{page.name}}_winui, m) {
+{% for vm in page.viewmodels %}
+{% set Cls = ('winrt::' + namespace + '::' + vm.name) %}
+{% set Impl = ('winrt::get_self<winrt::' + namespace + '::implementation::' + vm.name + '>') %}
+    py::class_<{{Cls}}, ::pywinui::holder<{{Cls}}>, ::winrt::Windows::Foundation::IInspectable>(m, "{{vm.name}}", py::module_local())
+        .def(py::init([]() { py::gil_scoped_release _g; return ::pywinui::hold({{Cls}}(::winrt::make<{{namespace}}::implementation::{{vm.name}}>())); }))
+        .def_property_readonly("_id", [](const {{Cls}} &_self) { return (intptr_t){{Impl}}(_self); })
+        .def_property_readonly("DispatcherQueue", [](const {{Cls}} &_self) { return ::pywinui::hold(_self.DispatcherQueue()); })
+{% for p in vm.properties %}
+{% if not p.elemtype %}
+        .def_property("{{p.name}}", [](const {{Cls}} &_self) { return cvt_out(_self.{{p.name}}()); }, [](typename {{Cls}} &_self, typename cvt<decltype(_self.{{p.name}}())>::arg_t v) { cvt<decltype(_self.{{p.name}}())>::param_t cvt_v{v}; py::gil_scoped_release _g; _self.{{p.name}}(cvt_v); })
+{% else %}
+        .def_property_readonly("{{p.name}}", [](const {{Cls}} &_self) { return cvt_out(_self.{{p.name}}()); })
+{% endif %}
+{% endfor %}
+    ;
+{% endfor %}
+
+
+{% set Cls = ('winrt::' + namespace + '::implementation::' + page.name) %}
+    py::class_<{{Cls}}>(m, "{{page.name}}_View")
+        .def(py::init([]() { auto h = ::winrt::make<{{Cls}}>(); return winrt::get_self<{{Cls}}>(h); }))
+        .def("Activate", [](const {{Cls}} &c) { c.Activate(); })
+        .def("Close", [](const {{Cls}} &c) { c.Close(); })
+        .def("SetTitleBar", [](const {{Cls}} &c, const ::winrt::Windows::Foundation::IInspectable &titleBar) { c.SetTitleBar(titleBar.as<UIElement>()); })
+        .def_property_readonly("Compositor", [](const {{Cls}} &c) { return ::pywinui::hold(c.Compositor()); })
+        .def_property_readonly("DispatcherQueue", [](const {{Cls}} &c) { return ::pywinui::hold(c.DispatcherQueue()); })
+        .def_property("ExtendsContentIntoTitleBar", [](const {{Cls}} &c) { return c.ExtendsContentIntoTitleBar(); }, []({{Cls}} &c, bool v) { c.ExtendsContentIntoTitleBar(v); })
+
+        .def_property_readonly("typename", [](const {{Cls}} &c) { return ::pywinui::hold(::winrt::xaml_typename<winrt::{{namespace}}::{{page.name}}>()); })
+        .def_property_readonly("models", &{{Cls}}::_get_viewmodels)
+        .def("wrap", &{{Cls}}::wrap)
+        .def("as_viewmodel", &{{Cls}}::as_viewmodel)
+        .def("unwrap", []({{Cls}} &c, const ::winrt::Windows::Foundation::IInspectable &o) { return c.unwrap(c.as_viewmodel(o)); })
+        .def("unwrap", &{{Cls}}::unwrap)
+        .def("lookup_type", [](const {{Cls}}&, const char *type) -> py::object {
+            std::string module_name{"_winui."};
+            module_name += type;
+            module_name.erase(module_name.find_last_of('.'));
+            std::replace(std::begin(module_name), std::end(module_name), '.', '_');
+            return py::module_::import(module_name.c_str()).attr(type);
+        })
+{% for p in page.properties %}
+        .def_property("{{p.name}}", [](const {{Cls}} &_self) { return cvt_out(_self.{{p.name}}()); }, [](typename {{Cls}} &_self, typename cvt<decltype(_self.{{p.name}}())>::arg_t v) { cvt<decltype(_self.{{p.name}}())>::param_t cvt_v{v}; py::gil_scoped_release _g; _self.{{p.name}}(cvt_v); })
+{% endfor %}
+{% for c in page.controls %}
+        .def_property_readonly("{{c.name}}", []({{Cls}} &_self) { return cvt_out(_self.{{c.name}}()); })
+{% endfor %}
+    ;
+};
+
+
+namespace winrt::{{namespace}}::implementation
+{
+{% for vm in page.viewmodels %}
+    {{vm.name}}::{{vm.name}}() {
+{% for p in vm.properties %}
+{% if p.elemtype %}
+        {{p.name}}(winrt::single_threaded_observable_vector<IInspectable>());
+{% endif %}
+{% endfor %}
+    }
+
+{% for p in vm.properties %}
+    DependencyProperty {{vm.name}}::_{{p.name}}Property = DependencyProperty::Register(
+        L"{{p.name}}", winrt::xaml_typename<{{p.type}}>(), winrt::xaml_typename<{{namespace}}::{{vm.name}}>(),
+        PropertyMetadata{ {{p.default}}, PropertyChangedCallback{ &{{vm.name}}::_on{{p.name}}Changed } }
+    );
+
+    {{p.type}} {{vm.name}}::{{p.name}}() const { return winrt::unbox_value<{{p.type}}>(GetValue(_{{p.name}}Property)); }
+    void {{vm.name}}::{{p.name}}(const {{p.type}} &value) { SetValue(_{{p.name}}Property, winrt::box_value(value)); }
+
+    void {{vm.name}}::_on{{p.name}}Changed(const DependencyObject &d, const DependencyPropertyChangedEventArgs&)
+    {
+        ::winrt::{{namespace}}::{{vm.name}} self = d.try_as<::winrt::{{namespace}}::{{vm.name}}>();
+        if (self) {
+            auto self_ = winrt::get_self<{{vm.name}}>(self);
+            // TODO: Call something
+        }
+    }
+
+{% endfor %}
+{% endfor %}
+
+    py::object {{page.name}}::wrap(const py::handle &o) {
+        py::object vm{};
+        try {
+            vm = __viewmodels[py::type::of(o)]();
+        } catch (py::error_already_set) {
+            PyErr_Clear();
+        }
+        if (!vm) {
+            throw py::type_error("no viewmodel for specified type");
+        }
+        o.attr("_init_viewmodel")(this, vm);
+        __wrapped[vm.attr("_id")] = o;
+        return vm;
+    }
+
+    py::object {{page.name}}::as_viewmodel(const ::winrt::Windows::Foundation::IInspectable &o) {
+        if (!o) return py::none();
+{% for vm in page.viewmodels %}
+        std::optional<winrt::{{namespace}}::{{vm.name}}> {{vm.name}}_opt = o.try_as<winrt::{{namespace}}::{{vm.name}}>();
+        if ({{vm.name}}_opt) return py::cast(::pywinui::hold(*{{vm.name}}_opt));
+{% endfor %}
+        throw py::type_error("unrecognized object");
+    }
+
+    py::object {{page.name}}::unwrap(const py::object &o) {
+        try {
+            return __wrapped[o.attr("_id")];
+        } catch (py::error_already_set) {
+            PyErr_Clear();
+        }
+
+        return py::none();
+    }
+
+    {{page.name}}::{{page.name}}()
+    {
+{% for p in page.properties %}
+{% if p.elemtype %}
+        {{p.name}}(winrt::single_threaded_observable_vector<IInspectable>());
+{% endif %}
+{% endfor %}
+        InitializeComponent();
+        auto own_module = py::module_::import("{{namespace}}_{{page.name}}_winui");
+        auto module_ = py::module_::import("{{namespace}}");
+        auto cls = module_.attr("{{page.name}}");
+        auto weakref = py::module_::import("weakref");
+        __viewmodels = py::dict();
+        __pyobj = cls(this, own_module);
+        __wrapped = weakref.attr("WeakValueDictionary")();
+        Closed([this](IInspectable const&, WindowEventArgs const& e) {
+            try {
+                __pyobj.attr("Closed")(__pyobj, ::pywinui::hold(e));
+                if (e.Handled()) {
+                    return;
+                }
+            } catch (py::error_already_set) {
+                PyErr_Clear();
+            }
+            __wrapped.release();
+            __viewmodels.release();
+            __pyobj.release();
+        });
+    }
+
+    winrt::event_token {{page.name}}::PropertyChanged(PropertyChangedEventHandler const& handler) { return __propertyChanged.add(handler); }
+    void {{page.name}}::PropertyChanged(winrt::event_token const& token) { __propertyChanged.remove(token); }
+
+{% if page.properties +%}
+    // Bindable property getter/setters
+{% for p in page.properties %}
+
+    {{p.type}} {{page.name}}::{{p.name}}() const
+    {
+        return _{{p.name}};
+    }
+
+    void {{page.name}}::{{p.name}}({{p.type}} value)
+    {
+        // TODO: Detect whether type is comparable
+        //if (_{{p.name}} != value) {
+        _{{p.name}} = value;
+        if (__propertyChanged) { __propertyChanged(*this, PropertyChangedEventArgs{ L"{{p.name}}" }); }
+        //}
+    }
+{% endfor %}
+{% endif %}
+{% if page.handlers +%}
+    // Event handlers
+{% for h in page.handlers %}
+
+    void {{page.name}}::{{h.name}}(const IInspectable &sender, const {{h.eventarg}} &e)
+    {
+        if (!__pyobj) return; // we are closing
+        try {
+            __pyobj.attr("{{h.name}}")(::pywinui::hold(sender.as<{{h.sender}}>()), ::pywinui::hold(e));
+        } catch (py::error_already_set &ex) {
+            // TODO: Better error output
+            const char *msg = ex.what();
+            AllocConsole();
+            WriteConsoleA(GetStdHandle(STD_ERROR_HANDLE), msg, (DWORD)strlen(msg), NULL, NULL);
+        }
+    }
+{% endfor %}
+{% endif %}
+}
