@@ -1,0 +1,7 @@
+regex
+
+[:platform_system == "Windows" and python_version < "3.8"]
+pywin32<=305
+
+[:platform_system == "Windows" and python_version >= "3.8"]
+pywin32
