@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jupyter_helper"
+authors = [{ name = "Lilin Lao", email = "lll9p.china@gmail.com " }]
+description = "A helper for jupyter(lab/notebook/console)"
+readme = "README.rst"
+requires-python = ">=3.10"
+keywords = ["jupyter", "helper", "ipython"]
+license = { text = "MIT" }
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+dependencies = ['ipython', 'pandas']
+version = "0.0.1.post3"
+
+[project.urls]
+homepage = "https://github.com/lll9p/jupyter-helper"
+repository = "https://github.com/lll9p/jupyter-helper"
+
+[tool.setuptools_scm]
