@@ -1,0 +1,17 @@
+[build-system]
+requires      = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name          = "fmrib-unpack-fmrib-config"
+version       = "1.7.1"
+description   = "The FUNPACK FMRIB configuration profile"
+readme        = {file = "README.md", content-type="text/markdown"}
+license       = {text = "Apache License Version 2.0"}
+authors       = [{name = "Paul McCarthy",  email = "paul.mccarthy@ndcn.ox.ac.uk"},
+                 {name = "Thomas Nichols", email = "tom.nichols@bdi.ox.ac.uk"},
+                 {name = "Jessie Liu",     email = "Zhangdaihong.Liu@warwick.ac.uk"},
+                 {name = "Steve Smith",    email = "steve@fmrib.ox.ac.uk"}]
+
+[tool.setuptools.packages.find]
+include = ["funpack*"]
