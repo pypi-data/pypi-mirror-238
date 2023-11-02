@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "fastlexrank"
+version = "0.1.2"
+description = "A streamlined and approximate implementation of the LexRank algorithm for rapid text summarization."
+authors = ["Mao Li <maolee@umich.edu>",
+           "Johann Gagnon-Bartsch <johanngb@umich.edu>"]
+license = "Apache-2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+sentence-transformers = "^2.2.2"
+numpy = "^1.20.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+ipykernel = "^6.26.0"
+
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
