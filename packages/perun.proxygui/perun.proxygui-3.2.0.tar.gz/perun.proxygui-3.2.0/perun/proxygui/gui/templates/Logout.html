@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block contentwrapper %}
+    <div
+        class="window {% if cfg.css_framework == 'MUNI' %}framework_muni{% else %}framework_bootstrap5 bg-light{% endif %}">
+        <div
+            class="wrap{% if not cfg.css_framework == 'MUNI' %} d-flex flex-column gap-2{% endif %}">
+            {% if logged_out_service %}
+                <h1 class="h1 margin-top-1em">{{ _("Logout Successful") }}</h1>
+                <h2 class="h3">{{ _("You have successfully logged out from ") }}
+                    {{ logged_out_service.get('labels', {}).get(lang) }}.
+                </h2>
+            {% else %}
+                <h1 class="margin-top-1em">{{ _("Logout Page") }}</h1>
+            {% endif %}
+            <hr>
+            <div class="my-flex-column">
+                <div class="services-box">
+                    <h2 class="h4">{{ _("Would you like to log out from the services below?") }}</h2>
+                    <p class="{% if cfg.css_framework == 'MUNI' %}btn-wrap{% else %}d-flex flex-row gap-3 ms-3{% endif %}">
+                        <a href="{{ url_for('gui.logout_state', from_devices=False) }}"
+                           class="btn btn-primary btn-s">
+                            <span class="no-uppercase">{{ _('Log out') }}</span>
+                        </a>
+                        <a href="{{ url_for('gui.logout_state', from_devices=True) }}"
+                           class="btn btn-primary btn-s">
+                        <span
+                            class="no-uppercase">{{ _('Log out from devices') }}</span>
+                        </a>
+                        {% if logged_out_service != {} %}
+                          <a href="{{ url_for('gui.post_logout') }}"
+                             class="btn {% if cfg.css_framework == 'MUNI' %}btn-primary{% else %}btn-secondary{% endif %} btn-s btn-border">
+                              <span class="no-uppercase">{{ _('No') }}</span>
+                          </a>
+                        {% else %}
+                          <a href="{{default_postlogout_uri}}"
+                             class="btn {% if cfg.css_framework == 'MUNI' %}btn-primary{% else %}btn-secondary{% endif %} btn-s btn-border">
+                              <span class="no-uppercase">{{ _('No') }}</span>
+                          </a>
+                        {% endif %}
+                    </p>
+                    <h2 class="h5">{{ _("You can log out from the following services:") }}</h2>
+                    <ul>
+                        {% for service in session_services %}
+                            <li>{{ service.get(lang) }} </li>
+                        {% endfor %}
+                    </ul>
+                    <h2 class="h5">{{ _("You can log out from these services on your other devices:") }}</h2>
+                    <ul>
+                        {% for service in device_services %}
+                            <li>{{ service.get(lang) }} </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
