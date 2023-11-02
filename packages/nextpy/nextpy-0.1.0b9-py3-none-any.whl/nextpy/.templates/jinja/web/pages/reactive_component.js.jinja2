@@ -1,0 +1,38 @@
+{# ==============================
+     UTILITIES IMPORT
+============================== #}
+{# 
+Purpose:
+- Import common utilities for component rendering.
+#}
+
+{% import 'web/pages/utils.js.jinja2' as utils %}
+
+{# ==============================
+     DYNAMIC FUNCTION DEFINITION
+============================== #}
+{# 
+Purpose:
+- Define a dynamic function based on the `tag_name` variable.
+- Use context to fetch various states and events.
+- Render the component using the utility function.
+
+Parameters:
+- `tag_name` (variable): Determines the function name.
+- `const.color_mode` and `const.toggle_color_mode` (context): Fetches the color mode and its toggle function.
+- `state_name` (optional context): Fetches a specific state if defined.
+- `events` (optional context): Fetches event handlers if defined.
+#}
+function {{tag_name}} () {
+  const [ {{const.color_mode}}, {{const.toggle_color_mode}} ] = useContext(ColorModeContext)
+  
+  {% if state_name %}
+  const {{state_name}} = useContext(StateContext);
+  {% endif %}
+  
+  {% if events %}
+  const [addEvents, connectError] = useContext(EventLoopContext);
+  {% endif %}
+  
+  return {{utils.render(component.render())}}
+}
