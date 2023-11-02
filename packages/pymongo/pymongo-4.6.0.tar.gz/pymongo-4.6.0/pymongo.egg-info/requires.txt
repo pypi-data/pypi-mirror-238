@@ -1,0 +1,41 @@
+dnspython<3.0.0,>=1.16.0
+
+[aws]
+pymongo-auth-aws<2.0.0
+
+[encryption]
+pymongo[aws]
+pymongocrypt<2.0.0,>=1.6.0
+
+[encryption:os_name == "nt" or sys_platform == "darwin"]
+certifi
+
+[gssapi]
+
+[gssapi:os_name != "nt"]
+pykerberos
+
+[gssapi:os_name == "nt"]
+winkerberos>=0.5.0
+
+[ocsp]
+pyopenssl>=17.2.0
+requests<3.0.0
+cryptography>=2.5
+service_identity>=18.1.0
+
+[ocsp:os_name == "nt" or sys_platform == "darwin"]
+certifi
+
+[snappy]
+python-snappy
+
+[srv]
+
+[test]
+pytest>=7
+
+[tls]
+
+[zstd]
+zstandard
