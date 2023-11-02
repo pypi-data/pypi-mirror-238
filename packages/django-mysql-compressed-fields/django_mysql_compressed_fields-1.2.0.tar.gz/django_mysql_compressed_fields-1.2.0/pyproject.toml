@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "django_mysql_compressed_fields"
+version = "1.2.0"  # publish: version
+description = "A large text field, stored compressed in the database, for Django and MySQL."
+authors = ["David Foster <david.foster@techsmart.codes>"]
+readme = "README.md"
+license = "MIT"
+repository = "https://github.com/techsmartkids/django-mysql-compressed-fields"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Django",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Database",
+    "Topic :: Internet",
+    "Topic :: Software Development :: Libraries",
+]
+packages = [
+    { include = "mysql_compressed_fields" },
+]
+
+[tool.poetry.urls]
+"Release notes" = "https://github.com/techsmartkids/django-mysql-compressed-fields/tree/main#release-notes"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<4.0"
+
+[tool.poetry.dev-dependencies]
+Django = ">=3.2,<4.3"
+mysqlclient = ">=2.1.0,<2.2.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
