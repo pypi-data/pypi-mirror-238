@@ -1,0 +1,33 @@
+version: 1
+project_id: 1bef1be2-7cb3-48ef-a68e-0866820daeb7
+default_environment: main
+environments:
+  - name: main
+plugins:
+  extractors:
+  - name: tap-gitlab
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-gitlab.git
+    config:
+      api_url: $GITLAB_API_URL
+      private_token: $GITLAB_PRIVATE_TOKEN
+      groups: $GITLAB_GROUPS
+      ultimate_license: true
+      start_date: '2000-01-01T00:00:00Z'
+    select:
+    - groups.*
+    - projects.*
+    - branches.*
+    - merge_requests.*
+    - pipelines.*
+    - project_members.*
+    - group_members.*
+    - users.*
+  loaders:
+  - name: target-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/target-csv.git
+    config:
+      output_path_prefix: $OUTPUT_DIR/
+      file_naming_scheme: '{stream_name}.csv'
+      overwrite_behavior: replace_file
