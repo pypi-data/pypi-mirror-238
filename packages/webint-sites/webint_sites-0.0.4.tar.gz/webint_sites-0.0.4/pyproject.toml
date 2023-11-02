@@ -1,0 +1,35 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "webint-sites"
+version = "0.0.4"
+description = "manage sites from your website"
+authors = ["Angelo Gladding <angelo@ragt.ag>"]
+license = "AGPL-3.0-or-later"
+packages = [{include="webint_sites"}]
+
+[tool.pyright]
+reportGeneralTypeIssues = false
+reportOptionalMemberAccess = false
+
+[tool.poetry.plugins."webapps"]
+sites = "webint_sites:app"
+
+[[tool.poetry.source]]
+name = "main"
+url = "https://ragt.ag/code/pypi"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+webint = ">=0.0"
+
+[tool.poetry.group.dev.dependencies]
+gmpg = {path="../gmpg", develop=true}
+bgq = {path="../bgq", develop=true}
+newmath = {path="../newmath", develop=true}
+sqlyte = {path="../sqlyte", develop=true}
+webagt = {path="../webagt", develop=true}
+webint = {path="../webint", develop=true}
+micropub = {path="../python-micropub", develop=true}
