@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "magic-run-cmd"
+version = "2.2.1"
+description = "Provides a clean way to express scripts such as shell or sql inside your python code.."
+authors = ["daniel davee <daniel.v.davee@gmail.com>"]
+license = "Apache 2.0"
+readme = "README.md"
+packages = [{include = "magic_cmd"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pysimplelog = "^4.0.0"
+paramiko = "^3.3.1"
+
+
+[tool.poetry.group.dev.dependencies]
+chat-companion = "^0.1.6"
+ipython = "^8.16.1"
+icecream = "^2.1.3"
+pytest = "^7.4.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
