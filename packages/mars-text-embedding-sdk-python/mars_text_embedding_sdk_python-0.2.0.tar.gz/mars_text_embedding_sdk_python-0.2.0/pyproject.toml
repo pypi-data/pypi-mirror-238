@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "mars-text-embedding-sdk-python"
+version = "0.2.0"
+description = ""
+authors = ["Rikard Olsson <rikard@thryselius.se>"]
+readme = "README.md"
+packages = [{include = "mars_text_embedding_sdk_python"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.31.0"
+aiohttp = "^3.8.4"
+more-itertools = "^9.1.0"
+numpy = "^1.25.1"
+maz = "^0.0.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
