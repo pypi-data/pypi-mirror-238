@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fetchtube"
+version = "0.0.4"
+description = "A simple package to download YouTube audio/video"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE.txt"}
+keywords = ["youtube", "downloader", "video", "audio"]
+authors = [
+  { name="Caleb Smith", email="me@calebmsmith.com" }
+]
+maintainers = [
+  { name="Caleb Smith", email="me@calebmsmith.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 4 - Beta",
+]
+
+dependencies = [
+  "pytube"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/fyresmith/fetchtube"
+"Bug Tracker" = "https://github.com/fyresmith/fetchtube/issues"
+
+[project.scripts]
+fetchtube = "fetchtube.fetchtube:main"
