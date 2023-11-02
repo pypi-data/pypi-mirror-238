@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: gapper
+Version: 0.4.0
+Summary: Gradescope Assignment Packer
+Home-page: https://github.com/FlickerSoul/gapper
+License: MIT
+Author: Heyuan Zeng
+Author-email: hi@universe.observer
+Requires-Python: >=3.12,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Requires-Dist: dacite (>=1.8.1,<2.0.0)
+Requires-Dist: dataclasses-json (>=0.6.1,<0.7.0)
+Requires-Dist: dill (>=0.3.7,<0.4.0)
+Requires-Dist: pytest (>=7.4.3,<8.0.0)
+Requires-Dist: rich (>=13.6.0,<14.0.0)
+Requires-Dist: typer (>=0.9.0,<0.10.0)
+Project-URL: Documentation, https://github.com/FlickerSoul/gapper/wiki
+Project-URL: Repository, https://github.com/FlickerSoul/gapper
+Description-Content-Type: text/markdown
+
+# Gradescope Autograder Packer (gapper)
+
+## What's gapper? 
+
+GAP is a tool that allows you to create a Gradescope autograder from a decorator. It's inspired by [aga](https://github.com/rileyshahar/aga) and reconstructed from the ground up to be easier to use and maintain. 
+
+## Usage and Demonstration
+
+### Installation
+
+Install from PyPI
+```bash
+pip install gapper
+```
+
+Install from source
+```bash
+git clone https://github.com/FlickerSoul/gapper.git
+pip install -e gapper
+```
+
+### Usage 
+
+Please refer to the [Wiki page](https://github.com/FlickerSoul/gapper/wiki) of this repository for detailed usage.
+
+## TODO: 
+
+- [ ] Add support debug support 
+- [ ] Dev Documentation/Wiki
