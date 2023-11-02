@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+
+  "type": "array",
+  "minItems": 1,
+  "description": "A list of checks (criteria / operator pairs) to run on this test.",
+  "items": {
+    "type": "object",
+    "properties": {
+      "operator": {
+        "type": "string",
+        "description": "e.g. includes, excludes, etc.",
+        "pattern": "^(includes|excludes|equals|includes_exactly|excludes_exactly|equals_exactly|answers|is_concise|is_legal|includes_any|is_true|valid_json|valid_yaml|regex|matches_json_schema)$"
+      },
+      "criteria": {
+        "type": "string",
+        "description": "For binary operators, the critiera to use. For example, for the 'includes' operator, this is the test that should be included."
+      }
+    },
+    "required": ["operator"]
+  }
+}
