@@ -1,0 +1,69 @@
+Metadata-Version: 2.1
+Name: harp-python
+Version: 0.1.0
+Summary: A low-level interface for loading binary Harp protocol data
+Author-email: Goncalo Lopes <g.lopes@neurogears.org>
+License: MIT License
+Project-URL: Bug Tracker, https://github.com/harp-tech/harp-python/issues
+Project-URL: Source Code, https://github.com/harp-tech/harp-python
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.9.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pydantic-yaml
+Requires-Dist: pandas
+Provides-Extra: dev
+Requires-Dist: datamodel-code-generator; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Provides-Extra: jupyter
+Requires-Dist: ipykernel; extra == "jupyter"
+Requires-Dist: matplotlib; extra == "jupyter"
+
+# harp-python
+
+A low-level interface to data collected with the [Harp](https://harp-tech.org/) binary protocol.
+
+## Data model 
+
+To regenerate Pydantic data models from device schema definitions, activate a virtual environment with `dev` dependencies, and run:
+
+```
+datamodel-codegen --input ./reflex-generator/schema/device.json --output harp/model.py --output-model-type pydantic_v2.BaseModel
+```
+
+> [!IMPORTANT]
+> Currently code generation adds an unwanted field at the very end of the data model definition `registers: Optional[Any] = None`. This declaration needs to be removed for serialization to work properly.
+
+## How to use
+
+### Read Harp device schema from YML file
+
+```python
+from harp.schema import read_schema
+schema = read_schema('device.yml')
+```
+
+### Create device reader object from schema
+
+```python
+from harp.reader import create_reader
+reader = create_reader(schema)
+```
+
+### Read data from named register
+
+```python
+reader.OperationControl.read("data/Behavior_10.bin")
+```
+
+### Access register metadata
+
+```python
+reader.OperationControl.register.address
+```
