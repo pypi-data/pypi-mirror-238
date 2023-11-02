@@ -1,0 +1,55 @@
+Metadata-Version: 2.1
+Name: rss-toasts
+Version: 0.1.0
+Summary: RSS toast notifications for Windows
+Home-page: https://github.com/lmaonator/rss-toasts
+License: MIT
+Author: lmaonator
+Author-email: lmaonator@gmail.com
+Requires-Python: >=3.11,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: Microsoft :: Windows :: Windows 10
+Classifier: Operating System :: Microsoft :: Windows :: Windows 11
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Internet :: WWW/HTTP
+Requires-Dist: feedparser (>=6.0.10,<7.0.0)
+Requires-Dist: platformdirs (>=3.10.0,<4.0.0)
+Requires-Dist: pystray (>=0.19.4,<0.20.0)
+Requires-Dist: requests (>=2.31.0,<3.0.0)
+Requires-Dist: windows-toasts (>=1.0.0,<2.0.0)
+Project-URL: Repository, https://github.com/lmaonator/rss-toasts
+Description-Content-Type: text/markdown
+
+# rss-toasts
+
+## RSS toast notifications for Windows
+
+A python script that sends toast notifications for new entries in RSS feeds.
+
+Created due to a lack of simple RSS feed notifiers for Windows.
+Most apps have not been updated in over 10 years and break for various reasons
+like outdated SSL libraries.
+
+## Usage
+
+Requires `Python 3.11+` with `tkinter`.
+
+Install using [pipx](https://pypa.github.io/pipx/):
+
+```console
+pipx install rss-toasts
+```
+
+Run it:
+
+```console
+rss-toasts
+```
+
+The script will start minimized to the system tray.
+Right-click the tray icon to manage feeds or close the script.
+
