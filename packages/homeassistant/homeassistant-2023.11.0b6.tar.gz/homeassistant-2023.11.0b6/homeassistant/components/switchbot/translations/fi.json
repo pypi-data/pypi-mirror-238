@@ -1,0 +1,89 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_device": "Laite on jo m\u00e4\u00e4ritetty",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "no_devices_found": "Jos laite on kantaman sis\u00e4ll\u00e4, varmista, ett\u00e4 skannerissa on aktiivinen skannaus k\u00e4yt\u00f6ss\u00e4, koska SwitchBot-laitteet ei l\u00f6ydy passiivisella skannauksella. Aktiivinen skannaus voidaan poistaa k\u00e4yt\u00f6st\u00e4, kun laite on m\u00e4\u00e4ritetty. Jos tarvitset selvennyst\u00e4 siihen, onko laite kantaman sis\u00e4ll\u00e4, lataa Bluetooth-sovittimen tai v\u00e4lityspalvelimen tarjoavan integraation diagnostiikka ja tarkista, onko SwitchBot-laitteen MAC-osoite n\u00e4kyviss\u00e4.",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "lock_auth": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                }
+            },
+            "password": {
+                "data": {
+                    "password": "Salasana"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "light": {
+                "name": "Valo"
+            }
+        },
+        "cover": {
+            "cover": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "false": "Ongelma",
+                            "true": "Ok"
+                        }
+                    }
+                }
+            }
+        },
+        "humidifier": {
+            "humidifier": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "false": "Ongelma",
+                            "true": "Ok"
+                        }
+                    }
+                }
+            }
+        },
+        "lock": {
+            "lock": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "false": "Ongelma",
+                            "true": "Ok"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "humidity": {
+                "name": "Kosteus"
+            },
+            "power": {
+                "name": "Teho"
+            },
+            "temperature": {
+                "name": "L\u00e4mp\u00f6tila"
+            }
+        },
+        "switch": {
+            "bot": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "false": "Ongelma",
+                            "true": "Ok"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

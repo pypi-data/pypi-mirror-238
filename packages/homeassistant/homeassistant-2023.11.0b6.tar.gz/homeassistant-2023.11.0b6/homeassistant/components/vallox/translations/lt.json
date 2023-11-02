@@ -1,0 +1,64 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "post_heater": {
+                "name": "Stulpo \u0161ildytuvas"
+            }
+        },
+        "number": {
+            "supply_air_target_away": {
+                "name": "Tiekiamo oro temperat\u016bra (Ne)"
+            },
+            "supply_air_target_boost": {
+                "name": "Tiekiamo oro temperat\u016bra (Boost)"
+            },
+            "supply_air_target_home": {
+                "name": "Tiekiamo oro temperat\u016bra (namai)"
+            }
+        },
+        "sensor": {
+            "current_profile": {
+                "name": "Dabartinis profilis"
+            },
+            "efficiency": {
+                "name": "Efektyvumas"
+            },
+            "exhaust_air": {
+                "name": "I\u0161traukiamas oras"
+            },
+            "extract_air": {
+                "name": "I\u0161traukite or\u0105"
+            }
+        }
+    },
+    "services": {
+        "set_profile_fan_speed_away": {
+            "description": "Nustatomas profilio \u201eAway\u201c ventiliatoriaus greitis.",
+            "fields": {
+                "fan_speed": {
+                    "name": "Ventiliatoriaus greitis"
+                }
+            },
+            "name": "Nustatykite profilio ventiliatoriaus greit\u012f"
+        },
+        "set_profile_fan_speed_boost": {
+            "description": "Nustatomas \u201eBoost\u201c profilio ventiliatoriaus greitis.",
+            "fields": {
+                "fan_speed": {
+                    "name": "Ventiliatoriaus greitis"
+                }
+            },
+            "name": "Nustatykite profilio ventiliatoriaus grei\u010dio padidinim\u0105"
+        },
+        "set_profile_fan_speed_home": {
+            "description": "Nustatomas nam\u0173 profilio ventiliatoriaus greitis.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Ventiliatoriaus greitis.",
+                    "name": "Ventiliatoriaus greitis"
+                }
+            },
+            "name": "Nustatykite profilio ventiliatoriaus greit\u012f"
+        }
+    }
+}

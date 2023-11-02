@@ -1,0 +1,92 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "U\u017eduo\u010di\u0173 s\u0105ra\u0161as"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "U\u017ebaigta",
+                "needs_action": "Reikia Veiksmo"
+            }
+        }
+    },
+    "services": {
+        "add_item": {
+            "description": "Prid\u0117ti nauj\u0105 darb\u0173 s\u0105ra\u0161o element\u0105.",
+            "fields": {
+                "item": {
+                    "description": "Pavadinimas, nurodantis u\u017eduoties element\u0105.",
+                    "name": "Elemento pavadinimas"
+                }
+            },
+            "name": "Prid\u0117ti darb\u0173 s\u0105ra\u0161o element\u0105"
+        },
+        "create_item": {
+            "description": "Prid\u0117ti nauj\u0105 u\u017eduo\u010di\u0173 s\u0105ra\u0161o element\u0105.",
+            "fields": {
+                "status": {
+                    "description": "U\u017eduo\u010di\u0173 elemento b\u016bsena arba patvirtinimas.",
+                    "name": "B\u016bsena"
+                },
+                "summary": {
+                    "description": "Trumpa santrauka, vaizduojanti u\u017eduo\u010di\u0173 element\u0105.",
+                    "name": "Santrauka"
+                }
+            },
+            "name": "Sukurkite u\u017eduo\u010di\u0173 s\u0105ra\u0161o element\u0105"
+        },
+        "delete_item": {
+            "description": "I\u0161trinkite esam\u0105 darb\u0173 s\u0105ra\u0161o element\u0105 pagal jo unikal\u0173 ID arba suvestin\u0119.",
+            "fields": {
+                "summary": {
+                    "description": "Trumpa santrauka, vaizduojanti u\u017eduo\u010di\u0173 element\u0105.",
+                    "name": "Santrauka"
+                },
+                "uid": {
+                    "description": "Unikal\u016bs darb\u0173 s\u0105ra\u0161o element\u0173 identifikatoriai.",
+                    "name": "U\u017eduo\u010di\u0173 elemento unikal\u016bs ID"
+                }
+            },
+            "name": "I\u0161trinkite darb\u0173 s\u0105ra\u0161o element\u0105"
+        },
+        "remove_item": {
+            "description": "Pa\u0161alinkite esam\u0105 darb\u0173 s\u0105ra\u0161o element\u0105 pagal pavadinim\u0105.",
+            "fields": {
+                "item": {
+                    "description": "U\u017eduo\u010di\u0173 s\u0105ra\u0161o element\u0173 pavadinimas.",
+                    "name": "Elemento pavadinimas"
+                }
+            },
+            "name": "Pa\u0161alinkite darb\u0173 s\u0105ra\u0161o element\u0105"
+        },
+        "update_item": {
+            "description": "Atnaujinkite esam\u0105 darb\u0173 s\u0105ra\u0161o element\u0105 pagal jo unikal\u0173 ID arba suvestin\u0119.",
+            "fields": {
+                "item": {
+                    "description": "U\u017eduo\u010di\u0173 s\u0105ra\u0161o elemento pavadinimas.",
+                    "name": "Elemento pavadinimas"
+                },
+                "rename": {
+                    "description": "Naujas u\u017eduoties elemento pavadinimas",
+                    "name": "Pervardyti element\u0105"
+                },
+                "status": {
+                    "description": "U\u017eduo\u010di\u0173 elemento b\u016bsena arba patvirtinimas.",
+                    "name": "B\u016bsena"
+                },
+                "summary": {
+                    "description": "Trumpa santrauka, vaizduojanti u\u017eduo\u010di\u0173 element\u0105.",
+                    "name": "Santrauka"
+                },
+                "uid": {
+                    "description": "Unikalus darb\u0173 s\u0105ra\u0161o elemento identifikatorius.",
+                    "name": "U\u017eduo\u010di\u0173 elemento unikalus ID"
+                }
+            },
+            "name": "Atnaujinkite u\u017eduo\u010di\u0173 s\u0105ra\u0161o element\u0105"
+        }
+    },
+    "title": "U\u017eduo\u010di\u0173 s\u0105ra\u0161as"
+}

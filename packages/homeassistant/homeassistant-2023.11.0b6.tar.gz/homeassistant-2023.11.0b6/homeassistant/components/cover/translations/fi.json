@@ -1,0 +1,77 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_position": "Nykyinen {entity_name} asema on",
+            "is_tilt_position": "T\u00e4m\u00e4nhetkinen {entity_name} kallistusasento on"
+        },
+        "trigger_type": {
+            "closed": "{entity_name} sulkeutui",
+            "closing": "{entity_name} sulkeutuu",
+            "opened": "{entity_name} avautui",
+            "opening": "{entity_name} avautuu",
+            "position": "{entity_name} sijainti muuttuu",
+            "tilt_position": "{entity_name} kallistusasento muuttuu"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Kaihtimet",
+            "state": {
+                "closed": "Suljettu",
+                "open": "Auki",
+                "opening": "Avataan"
+            }
+        },
+        "awning": {
+            "name": "Markiisi"
+        },
+        "blind": {
+            "name": "S\u00e4lekaihdin"
+        },
+        "curtain": {
+            "name": "Verho"
+        },
+        "damper": {
+            "name": "Vaimennin"
+        },
+        "door": {
+            "name": "Ovi"
+        },
+        "garage": {
+            "name": "Autotalli"
+        },
+        "gate": {
+            "name": "Portti"
+        },
+        "shade": {
+            "name": "Rullaverho"
+        },
+        "shutter": {
+            "name": "Suljin"
+        },
+        "window": {
+            "name": "Ikkuna"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "close_cover": {
+            "name": "Sulje"
+        },
+        "open_cover": {
+            "name": "Avaa"
+        },
+        "stop_cover": {
+            "name": "Pys\u00e4yt\u00e4"
+        },
+        "toggle": {
+            "name": "Vaihda"
+        }
+    },
+    "title": "Kaihtimet"
+}
