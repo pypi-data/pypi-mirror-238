@@ -1,0 +1,27 @@
+name: uxarray_build
+channels:
+  - conda-forge
+dependencies:
+  - cartopy
+  - dask
+  - datashader
+  - holoviews
+  - matplotlib-base
+  - netcdf4
+  - numba
+  - numpy
+  - pandas<2.1.0
+  - pathlib
+  - pre_commit
+  - pyarrow<13.0.0   # pin due to CI faliures on macOS & ubuntu
+  - pytest
+  - pytest-cov
+  - requests
+  - scikit-learn
+  - scipy
+  - shapely
+  - spatialpandas
+  - xarray
+  - pip:
+    - antimeridian
+    - pyfma
