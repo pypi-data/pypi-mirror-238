@@ -1,0 +1,52 @@
+<html>
+    
+    <head>
+        <title>Magic Report</title>
+    </head>
+
+    <body>
+        <style>
+            body{
+                font-family: sans-serif;
+            }
+            div.title{ 
+                font-size: 1.4em;
+                font-weight: bold;
+                padding: 40px 0px 10px 0px; }
+            a{
+                color: SteelBlue;
+                text-decoration:none;
+            }
+            table{
+                border-collapse : collapse;
+                font-size : 0.9em;
+            }
+            td{
+                border-style: solid;
+                border-width:  thin;
+                border-color:  lightgrey;
+                padding: 5px 20px 5px 20px;
+            }
+            .metadata{ padding: 10px 0px 10px 30px; font-size: 0.9em; }
+            .result{ padding: 10px 0px 10px 30px; }
+            .footer{ padding: 10px 0px 0px 0px; font-size:0.8em;color:gray;}
+            hr{border: 1px solid #eeeeee}
+        </style>
+
+        <div class='title'>The following notebooks have been run:</div>
+
+        <div class="result">
+            ${html_report}
+        </div>
+
+        <div class='title'>Metadata :</div>
+
+        <div class="metadata">
+            ${html_metadata}
+        </div>
+
+        <hr>
+        <div class='footer'>Powered by Fidle/Magic Cooker - Version : ${fidle_version}</div>
+
+    </body>
+</html>
