@@ -1,0 +1,27 @@
+module "buckets-{{auth_group.shortname}}-iam-{{env}}-{{bucket}}" {
+  source = "terraform-google-modules/iam/google//modules/storage_buckets_iam"
+
+  storage_buckets = ["ssb-{{env}}-{{team_name}}-{{bucket}}"]
+  mode            = "additive"
+
+  conditional_bindings = [
+    {% for binding in bucket_bindings -%}
+    {
+      role        = "organizations/573742569423/roles/ssb.bucket.{{binding.access}}"
+      title       = "Temporary bucket {{binding.access}} access"
+      description = "Expiring after {{binding.expiry.timestamp}}"
+      expression  = "request.time < timestamp(\"{{binding.expiry.timestamp}}\")"
+      members     = ["group:{{auth_group.name}}@groups.ssb.no"]
+    },
+    {% endfor -%}
+    {% for binding in old_bindings -%}
+    {
+      role        = "{{binding['role']}}"
+      title       = "{{binding['title']}}"
+      description = "{{binding['description']}}"
+      expression  = "{{binding['expression']}}"
+      members     = {{ binding['members'] | list | tojson() }}
+    },
+    {% endfor -%}
+  ]
+}
