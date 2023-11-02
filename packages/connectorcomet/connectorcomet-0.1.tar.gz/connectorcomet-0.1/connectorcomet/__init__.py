@@ -1,0 +1,1 @@
+from connectorcomet.connector import Connector

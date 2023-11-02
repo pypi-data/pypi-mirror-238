@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: connectorcomet
+Version: 0.1
+Summary: A Python package to connect to the Comet API
+Home-page: UNKNOWN
+Author: Lucas Bracamonte
+Author-email: ing.lucasbracamonte@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+
+
+# Comet Connector
+
+A Python package to connect and retrieve data from the Comet API.
+
+## Usage
+
+```python
+
+from connectorcomet.connector import Connector
+
+# Crear una instancia de la clase Connector
+connector_instance = Connector()
+
+# Lista de tokens
+list_token_api = ['your tokens']
+
+# Llamar al método getResults
+df_results = connector_instance.getResults(list_token_api)
+
+
+```
+
+
+
