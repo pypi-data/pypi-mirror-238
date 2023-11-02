@@ -1,0 +1,96 @@
+from pyconnectwise.endpoints.base.connectwise_endpoint import ConnectWiseEndpoint
+from pyconnectwise.endpoints.manage.FinanceTaxintegrationsCountEndpoint import (
+    FinanceTaxintegrationsCountEndpoint,
+)
+from pyconnectwise.endpoints.manage.FinanceTaxintegrationsIdEndpoint import (
+    FinanceTaxintegrationsIdEndpoint,
+)
+from pyconnectwise.interfaces import (
+    IGettable,
+    IPaginateable,
+)
+from pyconnectwise.models.manage import TaxIntegration
+from pyconnectwise.responses.paginated_response import PaginatedResponse
+from pyconnectwise.types import (
+    JSON,
+    ConnectWiseManageRequestParams,
+)
+
+
+class FinanceTaxintegrationsEndpoint(
+    ConnectWiseEndpoint,
+    IGettable[list[TaxIntegration], ConnectWiseManageRequestParams],
+    IPaginateable[TaxIntegration, ConnectWiseManageRequestParams],
+):
+    def __init__(self, client, parent_endpoint=None) -> None:  # noqa: ANN001
+        ConnectWiseEndpoint.__init__(
+            self, client, "taxIntegrations", parent_endpoint=parent_endpoint
+        )
+        IGettable.__init__(self, list[TaxIntegration])
+        IPaginateable.__init__(self, TaxIntegration)
+
+        self.count = self._register_child_endpoint(
+            FinanceTaxintegrationsCountEndpoint(client, parent_endpoint=self)
+        )
+
+    def id(self, id: int) -> FinanceTaxintegrationsIdEndpoint:  # noqa: A002
+        """
+        Sets the ID for this endpoint and returns an initialized FinanceTaxintegrationsIdEndpoint object to move down the chain.
+
+        Parameters:
+            id (int): The ID to set.
+        Returns:
+            FinanceTaxintegrationsIdEndpoint: The initialized FinanceTaxintegrationsIdEndpoint object.
+        """
+        child = FinanceTaxintegrationsIdEndpoint(self.client, parent_endpoint=self)
+        child._id = id
+        return child
+
+    def paginated(
+        self,
+        page: int,
+        page_size: int,
+        params: ConnectWiseManageRequestParams | None = None,
+    ) -> PaginatedResponse[TaxIntegration]:
+        """
+        Performs a GET request against the /finance/taxIntegrations endpoint and returns an initialized PaginatedResponse object.
+
+        Parameters:
+            page (int): The page number to request.
+            page_size (int): The number of results to return per page.
+            params (dict[str, int | str]): The parameters to send in the request query string.
+        Returns:
+            PaginatedResponse[TaxIntegration]: The initialized PaginatedResponse object.
+        """
+        if params:
+            params["page"] = page
+            params["pageSize"] = page_size
+        else:
+            params = {"page": page, "pageSize": page_size}
+        return PaginatedResponse(
+            super()._make_request("GET", params=params),
+            TaxIntegration,
+            self,
+            page,
+            page_size,
+            params,
+        )
+
+    def get(
+        self,
+        data: JSON | None = None,
+        params: ConnectWiseManageRequestParams | None = None,
+    ) -> list[TaxIntegration]:
+        """
+        Performs a GET request against the /finance/taxIntegrations endpoint.
+
+        Parameters:
+            data (dict[str, Any]): The data to send in the request body.
+            params (dict[str, int | str]): The parameters to send in the request query string.
+        Returns:
+            list[TaxIntegration]: The parsed response data.
+        """
+        return self._parse_many(
+            TaxIntegration,
+            super()._make_request("GET", data=data, params=params).json(),
+        )
