@@ -1,0 +1,57 @@
+Metadata-Version: 2.1
+Name: poetry-plugin-lockedbuild
+Version: 0.10.1
+Summary: Poetry plugin to add support for building wheel files with locked packages from the poetry.lock
+Home-page: https://github.com/thesnapdragon/poetry-plugin-lockedbuild
+License: MIT
+Keywords: python,poetry,poetry-plugin
+Author: Milan Unicsovics
+Author-email: u.milan@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: poetry (>=1.5,<2.0)
+Project-URL: Repository, https://github.com/thesnapdragon/poetry-plugin-lockedbuild
+Description-Content-Type: text/markdown
+
+# Poetry Plugin: Locked Build
+
+This package is a plugin that allows the building of wheel files with locked packages from `poetry.lock`.
+
+## Installation
+
+The easiest way to install the `lockedbuild` plugin is via the `self add` command of Poetry.
+
+```bash
+poetry self add poetry-plugin-lockedbuild
+```
+
+If you used `pipx` to install Poetry you can add the plugin via the `pipx inject` command.
+
+```bash
+pipx inject poetry poetry-plugin-lockedbuild
+```
+
+Otherwise, if you used `pip` to install Poetry you can add the plugin packages via the `pip install` command.
+
+```bash
+pip install poetry-plugin-lockedbuild
+```
+
+
+## Usage
+
+The plugin provides an `lockedbuild` command to build a wheel file with locked packages.
+
+```bash
+poetry lockedbuild
+```
+
+### Available options
+
+* `--with`: The optional dependency groups to include when exporting.
+
