@@ -1,0 +1,46 @@
+if __name__ == "__main__":
+    print("The Romanian database's atmospheric domain __init__ module is running.")
+else:
+    from .Alba import *
+    from .Arad import *
+    from .Arges import *
+    from .Bacau import *
+    from .Bihor import *
+    from .Bistrita_Nasaud import *
+    from .Botosani import *
+    from .Braila import *
+    from .Brasov import *
+    from .Bucuresti import *
+    from .Buzau import *
+    from .Calarasi import *
+    from .Caras_Severin import *
+    from .Cluj_Napoca import *
+    from .Constanta import *
+    from .Covasna import *
+    from .Dambovita import *
+    from .Dolj import *
+    from .Galati import *
+    from .Giurgiu import *
+    from .Gorj import *
+    from .Harghita import *
+    from .Hunedoara import *
+    from .Ialomita import *
+    from .Iasi import *
+    from .Ilfov import *
+    from .Maramures import *
+    from .Mehedinti import *
+    from .Mures import *
+    from .Neamt import *
+    from .Olt import *
+    from .Prahova import *
+    from .Salaj import *
+    from .Satu_Mare import *
+    from .Sibiu import *
+    from .Suceava import *
+    from .Teleorman import *
+    from .Timis import *
+    from .Tulcea import *
+    from .Valcea import *
+    from .Vaslui import *
+    from .Vrancea import *
+

@@ -1,0 +1,120 @@
+Lightmorphic signatures analysis toolkit (LSAT).
+================================================
+
+**Spatiotemporal lightmorphic computing**
+
+The Python implementation of the `Spatiotemporal lightmorphic computing for Carpathian roads (2021) <http://dx.doi.org/10.4108/eai.27-4-2021.169422>`_ and it's continuation `Lightmorphic Signatures Analysis Toolkit (2022) <https://doi.org/10.48550/arXiv.2301.00281>`_. 
+
+In addition to providing a core functionality, the software package enables specific optimizations with its modular and customizable design.
+
+Attribution
+-----------
+
+If you use this software for your research, please also cite `Damian (2021) <http://dx.doi.org/10.4108/eai.27-4-2021.169422>`_ ::
+
+	@ARTICLE{10.4108/eai.27-4-2021.169422,
+	    author={Dumitru Damian},
+	    title={Spatiotemporal lightmorphic computing for Carpathian roads},
+	    journal={EAI Endorsed Transactions on Context-aware Systems and Applications},
+	    volume={7},
+	    number={23},
+	    publisher={EAI},
+	    journal_a={CASA},
+	    year={2021},
+	    month={4},
+	    keywords={Carpathians, BH1750, framework, patterns, lightmorphic, Arduino, Spatiotemporal},
+	    doi={10.4108/eai.27-4-2021.169422}}
+
+and `Damian (2022) <https://doi.org/10.48550/arXiv.2301.00281>`_ ::
+
+	@misc{damian2022lightmorphic,
+	      title={Lightmorphic Signatures Analysis Toolkit}, 
+	      author={D. Damian},
+	      year={2022},
+	      eprint={2301.00281},
+	      archivePrefix={arXiv},
+	      primaryClass={cs.LG}}
+
+The lightmorphic signatures data is analyzed and processed using ARXDE&#8482;.
+
+The weather data can be retrieved after getting the OpenWeather One Call API 3.0.
+
+Installation
+------------
+
+In a command window, check your installed Python and pip versions.
+For Unix systems:: 
+
+	python3 --version
+	python3 -m pip --version
+
+For Windows systems:: 
+
+	py --version
+	py -m pip --version
+
+If everything checks, type::
+
+    pip install lightmorphic
+
+or, only for selected users, without writing access to the global ``site-packages`` directory::
+
+    pip install --user lightmorphic
+
+
+Python external imports
+-------------------------
+::
+
+    from sys import path, ver
+
+
+Running example
+----------------
+>>> from lightmorphic import *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The lightmorphic.database.atmospheric_domain.adlsa_RO module is initialized.
+The lightmorphic.database.distributions.dlsa module is initialized.
+The lightmorphic.database.earth_specific_domains.edlsa module is initialized.
+The lightmorphic.database.light.lilsa module is initialized.
+The lightmorphic.database.outer_space_domain.oslsa module is initialized.
+The lightmorphic.database.trajectories.tlsa module is initialized.
+The lightmorphic.constants.ct module is initialized.
+The lightmorphic.functions.shape_morphing module is initialized.
+The lightmorphic.functions.isochronous_trajectory_patterns module is initialized.
+The lightmorphic.functions.lightmorphic_functions module is initialized.
+The lightmorphic.functions.machine_learning module is initialized.
+The lightmorphic.functions.mean_error module is initialized.
+The lightmorphic.functions.neural_network module is initialized.
+The lightmorphic.spectrograms.spectrograms_plot module is initialized.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Do you wish to add data for the atmospheric domain (y/n): y
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The OpenWeather One Call API is used to retrive the city specific weather data.
+The value you enter is not recorded, saved or transmitted.
+So each time you call the OpenWeather One Call API you will have to enter it manually at the promt.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Enter the value of your private OpenWeather One Call API:*****
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Currently available countries: Romania.
+Enter the cities, in travelling order, separated by a comma and a space. (Example: city1, city2) 
+Also, you can enter the country code followed by the regional abbreviation. (Example: RO-B) 
+Or the country code to update data for all the cities in that country. (Example: RO)
+Your input: Bucuresti
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Bucuresti: successfully retrieved the atmospheric data.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Do you wish to add data from the ARXDE™ (y/n): y
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+Data from ARXDE™ not available. Using the already archived data instead.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
+Calling individual functions
+----------------------------
+::
+
+>>>from lightmorphic.functions.isochronous_trajectory_patterns import *
+>>>dir()
+>>>[..., 'tera', 'tetrahedral_mesh', 'theta', 'travel_time', 'triangle_mesh', ...]
+>>>tetrahedral_mesh()
+>>>Function not yet implemented.
