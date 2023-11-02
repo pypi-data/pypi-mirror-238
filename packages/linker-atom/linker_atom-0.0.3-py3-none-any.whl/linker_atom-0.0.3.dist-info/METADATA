@@ -1,0 +1,158 @@
+Metadata-Version: 2.1
+Name: linker-atom
+Version: 0.0.3
+Summary: 
+Author: hanyu
+Author-email: hanyupomelo@gmail.com
+Requires-Python: >=3.9.16,<3.12
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: apache-skywalking (>=1.0.0,<2.0.0)
+Requires-Dist: apscheduler (==3.10.4)
+Requires-Dist: cython (>=3.0.5,<4.0.0)
+Requires-Dist: fastapi (==0.103.1)
+Requires-Dist: numpy (==1.23.5)
+Requires-Dist: opencv-contrib-python (==4.7.0.72)
+Requires-Dist: orjson (==3.9.7)
+Requires-Dist: pillow (==10.0.1)
+Requires-Dist: pydantic (==1.10.9)
+Requires-Dist: pydantic-core (==2.10.0)
+Requires-Dist: python-dotenv (==1.0.0)
+Requires-Dist: requests (==2.31.0)
+Requires-Dist: uvloop (>=0.19.0,<0.20.0)
+Description-Content-Type: text/markdown
+
+## 项目开发文档
+
+### 项目目录结构
+
+```
+├── api
+│   ├── app.py                    FastApi实例(get_app)
+│   ├── base.py                   封装FastApi类(UdfAPIRoute)
+│   ├── dependencies.py           接口依赖注入
+│   ├── route.py                  路由汇总
+│   ├── interface                 接口路由目录
+│   │   ├── healthcheck.py
+│   ├── middleware                服务启动中间件
+│   │   ├── event.py              事件中间件
+│   │   ├── http.py               接口中间件
+│   └── schema                    接口请求及返回数据模型
+│       ├── payload.py
+│       └── response.py
+├── config                        
+│   ├── __init__.py               配置文件
+│   ├── logger.py                 日志配置
+│   ├── serving.py                serving所需信息配置
+│   └── skywalking.py             skywalking配置
+├── lib                           公共方法封装目录
+│   ├── common.py                 常用方法
+│   ├── exception.py              异常类型
+│   ├── load_image.py             加载图片
+│   ├── log.py                    日志封装
+│   ├── requests.py               requests请求参数/响应日志打印
+│   └── share_memory.py           共享内存
+├── README.md
+```
+
+### 项目介绍
+
+- 项目基于fastapi进行二次封装, 加入特定的事件、路由封装、参数打印、接口耗时统计、异常捕获等
+  - linker_atom.api.interface.healthcheck: 内置健康检查接口, 路由:/v1/health/ping
+  - linker_atom.api.middleware.event: 注册事件类型, 传递内部配置、按需启动skywalking、按需启动后台线程apscheduler、进行向Serving服务注册及定时发送心跳
+  - linker_atom.api.middleware.http: 注册接口中间件, 进行全局异常捕获,返回标准结构数据
+  - linker_atom.api.app: 获取fastapi app实例, get_app
+  - linker_atom.api.base: 获取fastapi APIRoute实例, UdfAPIRoute
+- 通用方法封装
+  - linker_atom.lib.common: 异常方法捕获装饰器、常字符截断
+  - linker_atom.lib.exception: 通用异常返回
+  - linker_atom.lib.load_image: 根据src_type类型加载数据成numpy格式
+  - linker_atom.lib.log: logging持久化封装、支持skywalking、日志格式化
+  - linker_atom.lib.requests: requests封装、参数、返回数据、耗时日志打印
+  - linker_atom.lib.share_memory: 共享内存类封装
+
+---
+
+### 使用介绍
+#### 环境安装
+pypi安装
+```shell
+pip install -U linker_atom -i https://pypi.org/simple
+```
+
+wheel安装
+```shell
+pip install linker_atom-0.1.0-py3-none-any.whl --force-reinstall
+```
+
+#### 使用示例
+```python
+import os
+
+import uvicorn
+from uvicorn.loops.auto import auto_loop_setup
+
+# 本地调试, 需在引用包之前, 设置环境变量DEBUG=true, 否则会一直向serving发送服务注册信息
+os.environ.setdefault('DEBUG', 'true')
+# Fastapi 实例
+from linker_atom.api.app import get_app
+# APIRoute 实例
+from linker_atom.api.base import UdfAPIRoute
+# 内置配置类实例
+from linker_atom.config import settings
+# 异常类
+from linker_atom.lib.exception import VqlError
+# 日志打印模块实例
+from linker_atom.lib.log import logger
+
+
+app = get_app()
+
+
+# 算法实现,在服务启动前加载解密模型
+@app.on_event("startup")
+async def startup_event():
+    pass
+
+
+# 实例化路由
+route = UdfAPIRoute()
+
+
+# 编写接口
+@route.get('/error', name='error')
+def error():
+    raise VqlError(500)
+
+
+@route.get('/normal', name='normal')
+def normal():
+    logger.info('ok!')
+    return {'code': 0}
+
+
+# 添加路由
+app.include_router(
+    router=route,
+)
+
+
+# 运行服务
+def run():
+    auto_loop_setup(True)
+    uvicorn.run(
+        app='server:app',
+        host='0.0.0.0',
+        port=settings.atom_port,
+        workers=settings.atom_workers,
+        access_log=False
+    )
+
+
+if __name__ == '__main__':
+    run()
+
+```
+
+
