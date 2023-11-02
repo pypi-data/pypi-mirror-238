@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: SFlock2
+Version: 0.3.56
+Summary: Sample staging and detonation utility
+Home-page: https://github.com/doomedraven/sflock/
+Author: Hatching B.V.
+Author-email: jbr@hatching.io
+License: GPLv3
+Keywords: sflock unarchive
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: Natural Language :: English
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Security
+Requires-Dist: click
+Requires-Dist: cryptography>=2.1
+Requires-Dist: olefile>=0.43
+Requires-Dist: python-magic>=0.4.13
+Requires-Dist: pefile
+Provides-Extra: dev
+Requires-Dist: mock; extra == "dev"
+Requires-Dist: pytest; extra == "dev"
+Provides-Extra: shellcode
+Requires-Dist: unicorn>=2.0.0; extra == "shellcode"
+Requires-Dist: yara-python>=4.1.0; extra == "shellcode"
