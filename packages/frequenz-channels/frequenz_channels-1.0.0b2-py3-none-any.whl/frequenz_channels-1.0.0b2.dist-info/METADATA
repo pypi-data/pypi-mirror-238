@@ -1,0 +1,122 @@
+Metadata-Version: 2.1
+Name: frequenz-channels
+Version: 1.0.0b2
+Summary: Channel implementations for Python
+Author-email: Frequenz Energy-as-a-Service GmbH <floss@frequenz.com>
+License: MIT
+Project-URL: Documentation, https://frequenz-floss.github.io/frequenz-channels-python/
+Project-URL: Changelog, https://github.com/frequenz-floss/frequenz-channels-python/releases
+Project-URL: Issues, https://github.com/frequenz-floss/frequenz-channels-python/issues
+Project-URL: Repository, https://github.com/frequenz-floss/frequenz-channels-python
+Project-URL: Support, https://github.com/frequenz-floss/frequenz-channels-python/discussions/categories/support
+Keywords: frequenz,python,lib,library,channels,channel
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Typing :: Typed
+Requires-Python: <4,>=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: typing-extensions <5,>=4.5.0
+Requires-Dist: watchfiles <0.22.0,>=0.15.0
+Provides-Extra: dev
+Requires-Dist: frequenz-channels[dev-flake8,dev-formatting,dev-mkdocs,dev-mypy,dev-noxfile,dev-pylint,dev-pytest] ; extra == 'dev'
+Provides-Extra: dev-flake8
+Requires-Dist: flake8 ==6.1.0 ; extra == 'dev-flake8'
+Requires-Dist: flake8-docstrings ==1.7.0 ; extra == 'dev-flake8'
+Requires-Dist: flake8-pyproject ==1.2.3 ; extra == 'dev-flake8'
+Requires-Dist: pydoclint ==0.3.2 ; extra == 'dev-flake8'
+Requires-Dist: pydocstyle ==6.3.0 ; extra == 'dev-flake8'
+Provides-Extra: dev-formatting
+Requires-Dist: black ==23.10.1 ; extra == 'dev-formatting'
+Requires-Dist: isort ==5.12.0 ; extra == 'dev-formatting'
+Provides-Extra: dev-mkdocs
+Requires-Dist: black ==23.10.1 ; extra == 'dev-mkdocs'
+Requires-Dist: Markdown ==3.4.4 ; extra == 'dev-mkdocs'
+Requires-Dist: mike ==1.1.2 ; extra == 'dev-mkdocs'
+Requires-Dist: mkdocs-gen-files ==0.5.0 ; extra == 'dev-mkdocs'
+Requires-Dist: mkdocs-literate-nav ==0.6.1 ; extra == 'dev-mkdocs'
+Requires-Dist: mkdocs-material ==9.3.2 ; extra == 'dev-mkdocs'
+Requires-Dist: mkdocs-macros-plugin ==1.0.4 ; extra == 'dev-mkdocs'
+Requires-Dist: mkdocstrings[python] ==0.23.0 ; extra == 'dev-mkdocs'
+Requires-Dist: frequenz-repo-config[lib] ==0.7.2 ; extra == 'dev-mkdocs'
+Provides-Extra: dev-mypy
+Requires-Dist: mypy ==1.6.1 ; extra == 'dev-mypy'
+Requires-Dist: types-Markdown ==3.4.2.10 ; extra == 'dev-mypy'
+Requires-Dist: frequenz-channels[dev-mkdocs,dev-noxfile,dev-pytest] ; extra == 'dev-mypy'
+Provides-Extra: dev-noxfile
+Requires-Dist: nox ==2023.4.22 ; extra == 'dev-noxfile'
+Requires-Dist: frequenz-repo-config[lib] ==0.7.2 ; extra == 'dev-noxfile'
+Provides-Extra: dev-pylint
+Requires-Dist: pylint ==2.17.7 ; extra == 'dev-pylint'
+Requires-Dist: frequenz-channels[dev-mkdocs,dev-noxfile,dev-pytest] ; extra == 'dev-pylint'
+Provides-Extra: dev-pytest
+Requires-Dist: pytest ==7.4.3 ; extra == 'dev-pytest'
+Requires-Dist: async-solipsism ==0.5 ; extra == 'dev-pytest'
+Requires-Dist: hypothesis ==6.88.1 ; extra == 'dev-pytest'
+Requires-Dist: frequenz-repo-config[extra-lint-examples] ==0.7.2 ; extra == 'dev-pytest'
+Requires-Dist: pytest-asyncio ==0.21.1 ; extra == 'dev-pytest'
+Requires-Dist: pytest-mock ==3.12.0 ; extra == 'dev-pytest'
+
+# Frequenz channels
+
+[![Build Status](https://github.com/frequenz-floss/frequenz-channels-python/actions/workflows/ci.yaml/badge.svg)](https://github.com/frequenz-floss/frequenz-channels-python/actions/workflows/ci.yaml)
+[![PyPI Package](https://img.shields.io/pypi/v/frequenz-channels)](https://pypi.org/project/frequenz-channels/)
+[![Docs](https://img.shields.io/badge/docs-latest-informational)](https://frequenz-floss.github.io/frequenz-channels-python/)
+
+## Introduction
+
+Frequenz Channels is a *channels* implementation for Python.
+
+According to [Wikipedia](https://en.wikipedia.org/wiki/Channel_(programming)):
+
+> A channel is a model for interprocess communication and synchronization via
+> message passing. A message may be sent over a channel, and another process or
+> thread is able to receive messages sent over a channel it has a reference to,
+> as a stream. Different implementations of channels may be buffered or not,
+> and either synchronous or asynchronous.
+
+Frequenz Channels are mostly designed after [Go
+channels](https://tour.golang.org/concurrency/2) but it also borrows ideas from
+[Rust channels](https://doc.rust-lang.org/book/ch16-02-message-passing.html).
+
+## Supported Platforms
+
+The following platforms are officially supported (tested):
+
+- **Python:** 3.11
+- **Operating System:** Ubuntu Linux 20.04
+- **Architectures:** amd64, arm64
+
+## Quick Start
+
+We assume you are on a system with Python available. If that is not the case,
+please [download and install Python](https://www.python.org/downloads/) first.
+
+To install Frequenz Channels, you probably want to create a new virtual
+environment first. For example, if you use a `sh` compatible shell, you can do
+this:
+
+```sh
+python3 -m venv .venv
+. .venv/bin/activate
+```
+
+Then, just install using `pip`:
+
+```sh
+python3 -m pip install frequenz-channels
+```
+
+## Documentation
+
+For more information, please visit the [documentation
+website](https://frequenz-floss.github.io/frequenz-channels-python/).
+
+## Contributing
+
+If you want to know how to build this project and contribute to it, please
+check out the [Contributing Guide](CONTRIBUTING.md).
