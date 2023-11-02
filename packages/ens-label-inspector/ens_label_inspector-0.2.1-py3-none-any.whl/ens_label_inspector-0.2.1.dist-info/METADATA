@@ -1,0 +1,80 @@
+Metadata-Version: 2.1
+Name: ens-label-inspector
+Version: 0.2.1
+Summary: 
+Home-page: https://github.com/namehash/ens-label-inspector
+License: MIT
+Author: NameHash Team
+Author-email: devops@namehash.io
+Maintainer: NameHash Team
+Maintainer-email: devops@namehash.io
+Requires-Python: >=3.9,<3.12
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Provides-Extra: lambda
+Requires-Dist: emoji (>=2.8.0,<3.0.0)
+Requires-Dist: ens-normalize (>=3.0.5,<4.0.0)
+Requires-Dist: fastapi (>=0.104.0,<0.105.0)
+Requires-Dist: hydra-core (>=1.3.2,<2.0.0)
+Requires-Dist: mangum (>=0.17.0,<0.18.0) ; extra == "lambda"
+Requires-Dist: more-itertools (>=10.1.0,<11.0.0)
+Requires-Dist: regex (>=2023.10.3,<2024.0.0)
+Project-URL: Repository, https://github.com/namehash/ens-label-inspector
+Description-Content-Type: text/markdown
+
+# NameHash Label Inspector
+
+The Label Inspector is a critical component of the NameHash software stack that is used to protect users from malicious domain names.
+
+* ENS-tailored domain name label inspection
+  * Character and grapheme information, scripts, codepoints, ...
+  * Confusable grapheme detection
+  * Rendering checks for different fonts
+  * ENSIP-15 verification with detailed explanations and auto-suggestions
+  * Punycode and DNS hostname compatibility checks
+* Supports many use cases
+  * Standalone Python library ([PyPI](https://pypi.org/project/ens-label-inspector/))
+  * ASGI web server
+  * [Amazon AWS Lambda](https://aws.amazon.com/lambda/) handler
+
+## Getting Started
+
+### Installing the library
+
+The Label Inspector is available as a Python library on [PyPI](https://pypi.org/project/ens-label-inspector/). You can install it with `pip`:
+
+```bash
+pip install ens-label-inspector
+```
+
+### Starting the web server
+
+A FastAPI application is included in the `label_inspector.web_api` module. The default installation from PyPI does not include an ASGI server, so you will need to install one separately. For example, to install [uvicorn](https://www.uvicorn.org):
+
+```bash
+pip install 'uvicorn[standard]'
+```
+
+You can start the web server with:
+
+```bash
+uvicorn label_inspector.web_api:app
+```
+
+Make an example request:
+
+```bash
+curl -d '{"label":"nick"}' -H "Content-Type: application/json" -X POST http://localhos
+t:8000
+# {"label":"nick","status":"normalized", ...
+```
+
+### Using the AWS Lambda handler
+
+The Label Inspector includes a handler for [Amazon AWS Lambda](https://aws.amazon.com/lambda/). It is available in the `label_inspector.lambda` module. You can use it to create a Lambda function that will respond to HTTP requests. It uses the [mangum](https://mangum.io) library.
+
+See the included [Dockerfile](/Dockerfile) for an example of how to build a Lambda deployment package.
+
