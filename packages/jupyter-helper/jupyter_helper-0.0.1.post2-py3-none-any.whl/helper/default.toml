@@ -1,0 +1,89 @@
+[globalvalues]
+random_state = 42
+
+[magics.matplotlib]
+# param: "osx", "qt4", "qt5", "gtk3", "gtk4",
+#        "notebook", "wx", "qt", "nbagg", "gtk",
+#        "tk", "inline"
+enabled = true
+value = "inline"
+# param: "retina", "png", "jpg"
+figure_format = "retina"
+[magics.autoreload]
+enabled = true
+# param: "off"(0), "explicit"(1), "all"(2), "complete"(3)
+value = "all"
+
+[modules.pyplot]
+enabled = true
+from = "matplotlib"
+import = "pyplot"
+as = "plt"
+# insert `import stament` to next cell
+insert = true
+dpi = 120
+fix_unicode_minus = true
+font_family = "font.sans-serif"
+font = "Noto Sans CJK JP"
+
+[modules.scienceplots]
+enabled = true
+import = "scienceplots"
+as = "scienceplots"
+style = ["science", "no-latex", "cjk-jp-font"]
+
+[modules.copydf]
+enabled = true
+from = "copydf"
+attr = true
+import = "copyDF"
+as = "copyDF"
+insert = true
+
+[modules.seaborn]
+enabled = false
+import = "seaborn"
+as = "sns"
+insert = true
+context = "notebook"
+style = "ticks"
+font = "Noto Sans CJK JP"
+font_scale = 1.2
+
+[modules.numpy]
+enabled = true
+import = "numpy"
+as = "np"
+insert = true
+set_random_state = true
+
+[modules.numexpr]
+enabled = false
+import = "numexpr"
+as = "ne"
+insert = true
+
+[modules.numba]
+enabled = false
+import = "numba"
+as = "nb"
+insert = true
+
+[modules.sympy]
+enabled = false
+import = "sympy"
+as = "sym"
+insert = true
+init_printing = true
+
+[modules.scipy]
+enabled = false
+import = "scipy"
+as = "sp"
+insert = true
+
+[modules.pandas]
+enabled = true
+import = "pandas"
+as = "pd"
+insert = true
