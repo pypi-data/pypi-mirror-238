@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ahi"
+version = "0.19.24"
+description = "Application Hacking Interface. An HTTP API client helper for \"unofficial\" APIs."
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)"
+]
+dependencies = [
+    "redis>=3.5.3",
+    "hiredis>=2.0.0",
+    "urllib3>=1.26.6",
+    "requests>=2.26.0",
+    "PySocks>=1.7.1",
+    "parsel>=1.6.0",
+]
+
+[tool.setuptools]
+packages = [
+    "ahi",
+    "ahi.cli",
+]
+
+[project.scripts]
+girl = "ahi:command_line_entrypoint"
+ahi = "ahi:command_line_entrypoint"
+
+[project.optional-dependencies]
+browser_emulation = ["selenium>=3.141.0"]
+
+[project.urls]
+Repository = "https://gitlab.com/unsanctioned/ahi"
