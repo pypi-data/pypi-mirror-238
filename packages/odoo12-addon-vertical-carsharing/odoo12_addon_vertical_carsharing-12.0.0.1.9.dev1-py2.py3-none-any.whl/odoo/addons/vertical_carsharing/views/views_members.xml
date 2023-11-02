@@ -1,0 +1,125 @@
+<odoo>
+  <data>
+
+    <record id="view_contacts_window" model="ir.actions.act_window">
+      <field name="name">Contacts</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">tree,form,pivot</field>
+      <field name="context">{'search_default_cooperative_member_yes': 1}</field>
+    </record>
+
+    <record id="view_contacts_list" model="ir.ui.view">
+      <field name="name">vertical_carsharing.contacts.tree</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_tree"/>
+      <field name="arch" type="xml">
+        <field name="display_name" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </field>
+        <field name="display_name" position="before">
+          <field name="name"/>
+          <field name="vat"/>
+        </field>
+        <field name="phone" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </field>
+        <field name="email" position="after">
+          <field name="company_type"/>
+          <field name="id"/>
+        </field>
+      </field>
+    </record>
+
+    <record id="view_contacts_pivot" model="ir.ui.view">
+      <field name="name">vertical_carsharing.contacts.pivot</field>
+      <field name="model">res.partner</field>
+      <field name="type">pivot</field>
+      <field name="arch" type="xml">
+
+        <pivot>
+          <field name="name" type="row"/>
+        </pivot>
+
+      </field>
+    </record>
+
+    <record id="view_vc_members_form" model="ir.ui.view">
+      <field name="name">vc.members.form</field>
+      <field name="model">res.partner</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//notebook" position="before">
+          <group>
+            <field name="related_representative_member_id" attrs="{'invisible': [('company_type','=', 'person')]}"/>
+          </group>
+          <group>
+            <field name="image_dni" attrs="{'invisible': [('company_type','=', 'company')]}"/>
+            <field name="image_driving_license" attrs="{'invisible': [('company_type','=', 'company')]}"/>
+            <field name="driving_license_expiration_date" attrs="{'invisible': [('company_type','=', 'company')]}"/>
+          </group>
+        </xpath>
+        <xpath expr="//field[@name='vat']" position="replace">
+          <field name="vat" placeholder="e.g. BE0477472701"/>
+          <field name="id_document_type" attrs="{'invisible': [('company_type','=', 'company')]}"/>
+        </xpath>
+        <xpath expr="//field[@name='website']" position="before">
+            <field name="invoicing_email"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="view_members_search" model="ir.ui.view">
+      <field name="name">vertical_carsharing.members.search</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_res_partner_filter"/>
+      <field name="arch" type="xml">
+        <field name="name" position="attributes">
+          <attribute name="filter_domain" />
+        </field>
+        <field name="name" position="after">
+          <field name="email"/>
+        </field>
+        <field name="parent_id" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </field>
+        <filter name="filter_my_partners" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </filter>
+        <filter name="type_person" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </filter>
+        <filter name="type_company" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </filter>
+        <filter name="customer" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </filter>
+        <filter name="supplier" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </filter>
+        <filter name="inactive" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </filter>
+        <field name="category_id" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </field>
+        <field name="user_id" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </field>
+        <field name="phone" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </field>
+        <filter name="group_company" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </filter>
+        <filter name="group_country" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </filter>
+      </field>
+    </record>
+
+    <menuitem name="Contacts" id="vertical_carsharing.menu_members" 
+      parent="vertical_carsharing.menu_root" action="view_contacts_window" sequence="1"/>
+  </data>
+</odoo>

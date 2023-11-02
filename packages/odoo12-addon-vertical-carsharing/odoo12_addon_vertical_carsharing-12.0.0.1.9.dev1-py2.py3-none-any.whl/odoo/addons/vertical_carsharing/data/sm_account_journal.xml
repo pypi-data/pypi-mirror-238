@@ -1,0 +1,38 @@
+<odoo>
+  <data noupdate="1">
+    <record id="account_journal_sm_ncr_sequence" model="ir.sequence">
+      <field name="name">SM Credit Notes Sequence</field>
+      <field name="implementation">standard</field>
+      <field name="prefix">NCR/%(range_year)s/</field>
+      <field name="padding">5</field>
+      <field name="number_increment">1</field>
+      <field name="use_date_range">True</field>
+      <field name="active">True</field>
+    </record>
+    <record id="account_journal_sm_vncr_sequence" model="ir.sequence">
+      <field name="name">SM Vendor Credit Notes Sequence</field>
+      <field name="implementation">standard</field>
+      <field name="prefix">PROV-NCR/%(range_year)s/</field>
+      <field name="padding">5</field>
+      <field name="number_increment">1</field>
+      <field name="use_date_range">True</field>
+      <field name="active">True</field>
+    </record>
+    <record id="account_journal_ncr" model="account.journal">
+      <field name="name">SM Credit Notes</field>
+      <field name="type">sale</field>
+      <field name="code">VCS-NCR</field>
+      <field name="invoice_sequence_id"
+        ref="vertical_carsharing.account_journal_sm_ncr_sequence"/>
+      <field name="update_posted">True</field>
+    </record>
+    <record id="account_journal_vncr" model="account.journal">
+      <field name="name">SM Vendor Credit Notes</field>
+      <field name="type">purchase</field>
+      <field name="code">VCS-PROV-NCR</field>
+      <field name="invoice_sequence_id"
+        ref="vertical_carsharing.account_journal_sm_vncr_sequence"/>
+      <field name="update_posted">True</field>
+    </record>
+  </data>
+</odoo>
