@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sqlalchemy_window"
+description = "A SQLAlchemy plugin to add support for PostgreSQL WINDOW clause"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.8"
+authors = [{ name = "Roman Necheporenko", email = "roman@waterfountain.one" }]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+dependencies = ["sqlalchemy>=2.0"]
+dynamic = ["version"]
+
+[project.urls]
+Repository = "https://github.com/waterfountain1996/sqlalchemy-window"
+
+[tool.hatch.version]
+path = "src/sqlalchemy_window/__init__.py"
+
+[tool.hatch.build]
+include = ["src/sqlalchemy_window"]
+exclude = ["tests"]
+packages = ["src/sqlalchemy_window"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["error"]
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+command_line = "-m pytest"
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+skip_covered = true
+
+[tool.ruff]
+line-length = 99
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I", "RSE"]
+ignore = ["E501"]
+unfixable = ["B"]
+
+[tool.ruff.isort]
+known-first-party = ["sqlalchemy_window", "tests"]
+force-single-line = true
