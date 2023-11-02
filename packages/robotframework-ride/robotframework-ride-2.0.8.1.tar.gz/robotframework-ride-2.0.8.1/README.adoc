@@ -1,0 +1,73 @@
+= RIDE
+ifdef::env-github[:outfilesuffix: .adoc]
+
+RIDE is a development environment for Robot Framework test cases.
+
+=== Instant Communication ===
+
+Join our **#ride** channel in Robot Framework Slack: https://robotframework.slack.com
+(signup page, with insecure connection warning: https://slack.robotframework.org/)
+
+=== "Support" sites ===
+
+We have a RIDE section topic in https://forum.robotframework.org/c/tools/ride/21[Tools>RIDE].
+
+You can use the tag *robotframework-ide* to search and ask on https://stackoverflow.com/questions/tagged/robotframework-ide[StackOverflow].
+
+== **Welcome to the development version of RIDE - next major release will be version 2.1**
+
+If you are looking for the latest released version, you can get the source code from **https://github.com/robotframework/RIDE/releases[releases]** or from branch **https://github.com/robotframework/RIDE/tree/release/2.0.8.1[release/2.0.8.1]**
+
+See the https://github.com/robotframework/RIDE/blob/master/doc/releasenotes/ride-2.0.8.1.rst[release notes] for latest release version 2.0.8.1
+
+**Version https://github.com/robotframework/RIDE/tree/release/1.7.4.2[1.7.4.2] was the last release supporting Python 2.7**
+
+
+**The current development version is based on 2.0.8.1, supports Python from 3.6 up to 3.11 (1st November 2023).**
+
+Currently the unit tests are tested on Python 3.10, and 3.11 (which is the recommended version).
+Likewise, the current version of wxPython, is 4.2.1, but RIDE is known to work with 4.0.7 and 4.1.1 versions.
+
+(3.6 < python <= 3.11) Install current released version (*2.0.8.1*) with:
+
+`pip install -U robotframework-ride`
+
+Install current development version (**2.0.9dev#**) with:
+
+`pip install -U https://github.com/robotframework/RIDE/archive/master.zip`
+
+// (3.6 < python < 3.11) Install current Beta version (2.1a1) with:
+// [source, shell]
+// pip install -U --pre robotframework-ride
+
+
+
+**See the https://github.com/robotframework/RIDE/wiki/F%2eA%2eQ%2e[FAQ] at https://github.com/robotframework/RIDE/wiki[Wiki]**
+
+
+
+== Unit testing statuses:
+
+// Linux (py36, py37, py38, py39): image:https://app.travis-ci.com/HelioGuilherme66/RIDE.svg?branch=master[Unit Tests, link=https://app.travis-ci.com/github/HelioGuilherme66/RIDE] 
+Linux (Fedora 38: py3.11, Ubuntu 22.04: py3.10): image:https://img.shields.io/github/actions/workflow/status/HelioGuilherme66/RIDE/linux.yml[Unit Tests, link=https://github.com/HelioGuilherme66/RIDE/actions/workflows/linux.yml]
+
+Windows (Python 3.11): image:https://ci.appveyor.com/api/projects/status/github/HelioGuilherme66/RIDE?branch=master&svg=true[Unit Tests, link=https://ci.appveyor.com/project/HelioGuilherme66/ride]
+
+Quality Gate Status: image:https://sonarcloud.io/api/project_badges/measure?project=HelioGuilherme66_RIDE&metric=alert_status[SonarCloud, link=https://sonarcloud.io/summary/new_code?id=HelioGuilherme66_RIDE]
+
+'''
+=== Links ===
+
+* https://pypi.python.org/pypi/robotframework-ride[Downloads at PyPi]
+* Statistics at https://pypistats.org/packages/robotframework-ride[PyPi Stats] and https://libraries.io/pypi/robotframework-ride[Libraries.io]
+* Usage instructions and some tips and tricks can be found from the https://github.com/robotframework/RIDE/wiki[Wiki]
+* Bug report/enhancement request? Use the https://github.com/robotframework/RIDE/issues[issue tracker]
+* Any questions? Do not hesitate to use the https://groups.google.com/group/robotframework-users/[mailing list], or https://forum.robotframework.org/c/tools/ride/21[Robot Framework Forum->Tools>RIDE], or https://stackoverflow.com/questions/tagged/robotframework-ide[StackOverflow].
+* Development information is in https://github.com/robotframework/RIDE/blob/master/BUILD.rest[BUILD] file
+
+'''
+
+== Stargazers over time ==
+
+image:https://starchart.cc/robotframework/RIDE.svg[Stargazers over time, link=https://starchart.cc/robotframework/RIDE]
+
