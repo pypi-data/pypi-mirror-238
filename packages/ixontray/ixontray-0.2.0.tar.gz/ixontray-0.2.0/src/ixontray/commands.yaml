@@ -1,0 +1,56 @@
+commands:
+  - name: Open in browser
+    cmd: xdg-open https://connect.ixon.cloud/agents/{ixon_id}/info
+    icon: web-browser-symbolic
+    shortcut: Ctrl+Shift+b
+    show_in:
+    - connected
+    - item
+    force_connection: false
+  - name: Open in VNC viewer
+    cmd: xdg-open vnc://192.168.6.10
+    icon: preferences-desktop-remote-desktop-symbolic
+    shortcut: Ctrl+Shift+b
+    show_in:
+    - connected
+    - item
+    force_connection: true
+  - name: Open grafana
+    cmd: xdg-open https://192.168.6.10:3000
+    icon: utilities-terminal-symbolic
+    shortcut: Ctrl+Shift+b
+    show_in:
+    - connected
+    - item
+    force_connection: true
+  - name: Open SR studio
+    cmd: xdg-open https://192.168.6.10:1234
+    icon: utilities-terminal-symbolic
+    shortcut: Ctrl+Shift+b
+    show_in:
+    - connected
+    - item
+    force_connection: true
+  - name: Open Hall Cam
+    cmd: vlc rtsp://admin:Password@192.168.50.203
+    icon: utilities-terminal-symbolic
+    shortcut: Ctrl+Shift+b
+    show_in:
+    - global
+    force_connection: false
+  - name: Connect to SR vpn
+    cmd: nmcli con up id SR
+    icon: network-vpn-symbolic
+    shortcut: Ctrl+Shift+b
+    show_in:
+    - global
+    force_connection: false
+  - name: Open in terminal
+    cmd: x-terminal-emulator -e "/usr/bin/bash -i -c \"ssh-keygen -f "$HOME/.ssh/known_hosts"
+      -R "192.168.6.10";ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -A smartrobotics@192.168.6.10\""
+    icon: utilities-terminal-symbolic
+    shortcut: Ctrl+Shift+b
+    show_in:
+    - connected
+    - item
+    force_connection: true
