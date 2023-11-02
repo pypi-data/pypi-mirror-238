@@ -1,0 +1,132 @@
+{
+    "config": {
+        "error": {
+            "keyfile_invalid_signature": "Slapta\u017eodis i\u0161\u0161ifruoti fail\u0105 \u201e.knxkeys\u201c yra neteisingas.",
+            "keyfile_not_found": "Nurodytas `.knxkeys` failas nerastas kelyje config/.storage/knx/"
+        },
+        "step": {
+            "connection_type": {
+                "title": "KNX jungtis"
+            },
+            "manual_tunnel": {
+                "title": "Tunelio nustatymai"
+            },
+            "routing": {
+                "title": "Mar\u0161rutas"
+            },
+            "secure_key_source": {
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "Pasirinkite, kaip norite konfig\u016bruoti KNX/IP Secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Naudokite .knxkeys fail\u0105 su saugiais IP raktais",
+                    "secure_routing_manual": "Sukonfig\u016bruokite IP saugaus pagrindinio tinklo rakt\u0105 rankiniu b\u016bdu"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "Pasirinkite, kaip norite konfig\u016bruoti KNX/IP Secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Naudokite .knxkeys fail\u0105 su saugiais IP raktais",
+                    "secure_tunnel_manual": "Rankiniu b\u016bdu sukonfig\u016bruokite saugius IP kredencialus"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_knxkeys": {
+                "title": "Importuoti KNX rakt\u0105"
+            },
+            "secure_routing_manual": {
+                "title": "Saugus mar\u0161ruto parinkimas"
+            },
+            "secure_tunnel_manual": {
+                "title": "Saugus tunelis"
+            },
+            "tunnel": {
+                "title": "Tunelis"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "connected_since": {
+                "name": "Ry\u0161ys u\u017emegztas"
+            },
+            "connection_type": {
+                "name": "Ry\u0161io tipas"
+            },
+            "telegram_count": {
+                "name": "Telegramos"
+            },
+            "telegrams_incoming": {
+                "name": "Gaunamos telegramos"
+            },
+            "telegrams_incoming_error": {
+                "name": "Gaunamos telegramos klaidos"
+            },
+            "telegrams_outgoing": {
+                "name": "Siun\u010diamos telegramos"
+            },
+            "telegrams_outgoing_error": {
+                "name": "Siun\u010diamos telegramos klaidos"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "communication_settings": {
+                "data": {
+                    "telegram_log_size": "\"Telegram\" istorijos riba"
+                },
+                "data_description": {
+                    "telegram_log_size": "KNX skyd\u0173 grup\u0117s monitoriaus atmintyje saugomos telegramos. Maksimalus: {telegram_log_size_max}"
+                }
+            },
+            "init": {
+                "menu_options": {
+                    "communication_settings": "Ry\u0161io nustatymai",
+                    "connection_type": "Konfig\u016bruokite KNX s\u0105saj\u0105",
+                    "secure_knxkeys": "Importuokite `.knxkeys` fail\u0105"
+                },
+                "title": "KNX nustatymai"
+            },
+            "options_init": {
+                "title": "KNX nustatymai"
+            }
+        }
+    },
+    "services": {
+        "event_register": {
+            "fields": {
+                "remove": {
+                    "name": "Pa\u0161alinti renginio registracij\u0105"
+                }
+            }
+        },
+        "exposure_register": {
+            "fields": {
+                "attribute": {
+                    "name": "Subjekto atributas"
+                },
+                "type": {
+                    "name": "Vert\u0117s tipas"
+                }
+            }
+        },
+        "read": {
+            "name": "Skaito i\u0161 KNX magistral\u0117s"
+        },
+        "reload": {
+            "description": "I\u0161 naujo \u012fkelia KNX integracij\u0105."
+        },
+        "send": {
+            "description": "Siun\u010dia savavali\u0161kus duomenis tiesiai \u012f KNX magistral\u0119.",
+            "fields": {
+                "address": {
+                    "description": "Grup\u0117s adresas (-ai), kuriuo (-iais) ra\u0161yti. S\u0105ra\u0161ai bus siun\u010diami i\u0161 eil\u0117s \u012f kelis grupi\u0173 adresus."
+                }
+            },
+            "name": "Si\u0173sti \u012f KNX magistral\u0119"
+        }
+    }
+}

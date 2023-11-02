@@ -1,0 +1,183 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "Veikia"
+            }
+        },
+        "sensor": {
+            "agent_version": {
+                "name": "OS agento versija"
+            },
+            "apparmor_version": {
+                "name": "Apparmor versija"
+            },
+            "cpu_percent": {
+                "name": "Procesoriaus procentas"
+            },
+            "disk_free": {
+                "name": "Laisvas diskas"
+            },
+            "disk_total": {
+                "name": "Bendras disko kiekis"
+            },
+            "disk_used": {
+                "name": "Naudojamas diskas"
+            },
+            "memory_percent": {
+                "name": "Atminties procentas"
+            },
+            "version": {
+                "name": "Versija"
+            },
+            "version_latest": {
+                "name": "Naujausia versija"
+            }
+        }
+    },
+    "issues": {
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Nepavyko pritaikyti pataisos. Nor\u0117dami gauti daugiau informacijos, patikrinkite vadovo \u017eurnalus."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "Nepavyko prisijungti prie \u201e {reference} \u201c. Nor\u0117dami gauti daugiau informacijos, patikrinkite pagrindinio kompiuterio \u017eurnalus, ar n\u0117ra klaid\u0173 i\u0161 montavimo paslaugos. \n\n Nor\u0117dami v\u0117l pabandyti prisijungti, naudokite \u012fk\u0117lim\u0105 i\u0161 naujo. Jei reikia atnaujinti ` {reference} `, eikite \u012f [storage]( {storage_url} ).",
+                        "menu_options": {
+                            "mount_execute_remove": "Pa\u0161alinti"
+                        }
+                    }
+                }
+            },
+            "title": "Sugedo tinklo saugojimo \u012frenginys"
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Vienas ar daugiau pakartotini\u0173 paleidim\u0173 nepavyko. Nor\u0117dami gauti daugiau informacijos, patikrinkite vadovo \u017eurnalus."
+                },
+                "step": {
+                    "system_execute_rebuild": {
+                        "description": "Pasikeit\u0117 numatytoji pried\u0173 ir  Home Assistant konfig\u016bracija. Norint atnaujinti konfig\u016bracij\u0105 naujais numatytaisiais parametrais, reikia i\u0161 naujo paleisti \u0161iuos veiksmus: \n\n - {components}"
+                    }
+                }
+            },
+            "title": "Reikia paleisti i\u0161 naujo"
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Nepavyko pervardyti fail\u0173 sistemos. Nor\u0117dami gauti daugiau informacijos, patikrinkite vadovo \u017eurnalus."
+                },
+                "step": {
+                    "system_rename_data_disk": {
+                        "description": "` {reference} ` yra fail\u0173 sistema pavadinimu hassos-data ir n\u0117ra aktyvus duomen\u0173 diskas. D\u0117l to \u201eHome Assistant\u201c gali pasirinkti netinkam\u0105 duomen\u0173 disk\u0105 paleid\u017eiant sistem\u0105 i\u0161 naujo. \n\n Nor\u0117dami to i\u0161vengti, naudokite taisymo parinkt\u012f, kad pervardytum\u0117te fail\u0173 sistem\u0105. Arba galite perkelti duomen\u0173 disk\u0105 \u012f disk\u0105 (perra\u0161yti jo turin\u012f) arba i\u0161imti disk\u0105 i\u0161 sistemos."
+                    }
+                }
+            },
+            "title": "Aptikti keli duomen\u0173 diskai"
+        },
+        "issue_system_reboot_required": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Nepavyko i\u0161 naujo paleisti sistemos. Nor\u0117dami gauti daugiau informacijos, patikrinkite vadovo \u017eurnalus."
+                },
+                "step": {
+                    "system_execute_reboot": {
+                        "description": "Buvo pakeisti nustatymai, tod\u0117l, kad \u012fsigaliot\u0173, reikia i\u0161 naujo paleisti sistem\u0105. \n\n \u0160is pataisymas inicijuos sistemos paleidim\u0105 i\u0161 naujo, tod\u0117l \u201eHome Assistant\u201c ir visi priedai bus trumpam nepasiekiami."
+                    }
+                }
+            },
+            "title": "Reikia paleisti i\u0161 naujo"
+        }
+    },
+    "services": {
+        "addon_restart": {
+            "description": "I\u0161 naujo paleid\u017eia pried\u0105.",
+            "name": "I\u0161 naujo paleiskite pried\u0105."
+        },
+        "addon_start": {
+            "description": "Paleid\u017eia pried\u0105.",
+            "fields": {
+                "addon": {
+                    "description": "Papildomas priedas.",
+                    "name": "Priedas"
+                }
+            },
+            "name": "Prad\u0117ti pried\u0105"
+        },
+        "addon_stdin": {
+            "description": "Ra\u0161o duomenis \u012f papildin\u012f stdin.",
+            "name": "\u012era\u0161ykite duomenis \u012f pried\u0105 stdin."
+        },
+        "addon_stop": {
+            "description": "Sustabdo pried\u0105.",
+            "name": "Sustabdyti pried\u0105."
+        },
+        "addon_update": {
+            "description": "Atnaujina pried\u0105. \u0160ia paslauga reikia naudotis atsargiai, nes pried\u0173 naujinimuose gali b\u016bti pakeitim\u0173. Labai rekomenduojama prie\u0161 atnaujinant pried\u0105 per\u017ei\u016br\u0117ti leidimo pastabas / pakeitim\u0173 \u017eurnalus."
+        },
+        "backup_full": {
+            "fields": {
+                "homeassistant_exclude_database": {
+                    "description": "Ne\u012ftraukti \"Home Assistant\" duomen\u0173 baz\u0117s failo \u012f atsargin\u0119 kopij\u0105",
+                    "name": "\"Home Assistant\" ne\u012ftraukti duomen\u0173 baz\u0117s"
+                }
+            },
+            "name": "Sukurkite vis\u0105 atsargin\u0119 kopij\u0105."
+        },
+        "backup_partial": {
+            "description": "Sukuria dalin\u0119 atsargin\u0119 kopij\u0105.",
+            "fields": {
+                "addons": {
+                    "description": "\u012e atsargin\u0119 kopij\u0105 \u012ftrauktin\u0173 pried\u0173 s\u0105ra\u0161as. Naudokite priedo pavadinim\u0105.",
+                    "name": "Priedai"
+                },
+                "folders": {
+                    "description": "Katalog\u0173, kuriuos reikia \u012ftraukti \u012f atsargin\u0119 kopij\u0105, s\u0105ra\u0161as.",
+                    "name": "Aplankai"
+                },
+                "homeassistant": {
+                    "description": "\u012e atsargin\u0119 kopij\u0105 \u012ftraukiami \"Home Assistant\" nustatymai.",
+                    "name": "\"Home Assistant\" nustatymai"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Ne\u012ftraukti \"Home Assistant\" duomen\u0173 baz\u0117s failo \u012f atsargin\u0119 kopij\u0105",
+                    "name": "\"Home Assistant\" ne\u012ftraukti duomen\u0173 baz\u0117s"
+                }
+            },
+            "name": "Sukurkite dalin\u0119 atsargin\u0119 kopij\u0105."
+        },
+        "host_reboot": {
+            "description": "Perkrauna pagrindin\u0119 sistem\u0105.",
+            "name": "I\u0161 naujo paleiskite pagrindin\u0119 sistem\u0105."
+        },
+        "host_shutdown": {
+            "description": "I\u0161jungia pagrindin\u0119 sistem\u0105.",
+            "name": "I\u0161junkite pagrindin\u0119 sistem\u0105."
+        },
+        "restore_full": {
+            "description": "Atkuriama i\u0161 visos atsargin\u0117s kopijos.",
+            "fields": {
+                "password": {
+                    "description": "Neprivalomas slapta\u017eodis."
+                },
+                "slug": {
+                    "description": "Atsargin\u0117s kopijos, i\u0161 kurios reikia atkurti.",
+                    "name": "\u0160liu\u017eas"
+                }
+            },
+            "name": "Atkurti i\u0161 pilnos atsargin\u0117s kopijos."
+        },
+        "restore_partial": {
+            "description": "Atkuriama i\u0161 dalin\u0117s atsargin\u0117s kopijos.",
+            "fields": {
+                "homeassistant": {
+                    "description": "Atkuria \"Home Assistant\"."
+                }
+            },
+            "name": "Atkurti i\u0161 dalin\u0117s atsargin\u0117s kopijos."
+        }
+    }
+}

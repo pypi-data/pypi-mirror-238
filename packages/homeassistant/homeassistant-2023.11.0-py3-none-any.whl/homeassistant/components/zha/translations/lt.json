@@ -1,0 +1,586 @@
+{
+    "config": {
+        "abort": {
+            "wrong_firmware_installed": "J\u016bs\u0173 \u012frenginyje veikia netinkama programin\u0117 \u012franga ir jo negalima naudoti su ZHA, kol ne\u012fdiegta tinkama programin\u0117 \u012franga. [Sukurtas remontas]( {repair_url} ) su daugiau informacijos ir instrukcijomis, kaip tai i\u0161spr\u0119sti."
+        }
+    },
+    "config_panel": {
+        "zha_alarm_options": {
+            "alarm_arm_requires_code": "U\u017erakinimui reikalingas kodas",
+            "alarm_master_code": "Signalizacijos valdymo pulto (-\u0173) pagrindinis kodas",
+            "title": "Signalizacijos valdymo pulto parinktys"
+        },
+        "zha_options": {
+            "group_members_assume_state": "Grup\u0117s nariai perima grup\u0117s b\u016bsen\u0105"
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button": "Mygtukas"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "accelerometer": {
+                "name": "Akselerometras"
+            },
+            "binary_input": {
+                "name": "Dvejetain\u0117 \u012fvestis"
+            },
+            "calibrated": {
+                "name": "Kalibruotas"
+            },
+            "consumer_connected": {
+                "name": "Prisijung\u0117 vartotojas"
+            },
+            "external_sensor": {
+                "name": "I\u0161orinis jutiklis"
+            },
+            "frost_lock": {
+                "name": "U\u017eraktas nuo \u0161al\u010dio"
+            },
+            "ias_zone": {
+                "name": "IAS zona"
+            },
+            "linkage_alarm_state": {
+                "name": "Ry\u0161io aliarmo b\u016bsena"
+            },
+            "replace_filter": {
+                "name": "Pakeiskite filtr\u0105"
+            },
+            "valve_alarm": {
+                "name": "Vo\u017etuvo signalizacija"
+            }
+        },
+        "button": {
+            "feed": {
+                "name": "Maitinti"
+            },
+            "reset_frost_lock": {
+                "name": "\u0160al\u010dio u\u017erakto atstatymas"
+            },
+            "reset_no_presence_status": {
+                "name": "Buvimo b\u016bsenos atstatymas"
+            },
+            "self_test": {
+                "name": "Sav\u0119s i\u0161bandymas"
+            }
+        },
+        "cover": {
+            "keen_vent": {
+                "name": "Puiki ventiliacija"
+            }
+        },
+        "fan": {
+            "fan_group": {
+                "name": "Ventiliatori\u0173 grup\u0117"
+            }
+        },
+        "light": {
+            "light_group": {
+                "name": "\u0160viesos grup\u0117"
+            }
+        },
+        "lock": {
+            "door_lock": {
+                "name": "Dur\u0173 u\u017eraktas"
+            }
+        },
+        "number": {
+            "auto_off_timer": {
+                "name": "Automatinis i\u0161jungimo laikmatis"
+            },
+            "away_preset_temperature": {
+                "name": "I\u0161 anksto nustatyta temperat\u016bra"
+            },
+            "button_delay": {
+                "name": "Mygtuko delsimas"
+            },
+            "default_move_rate": {
+                "name": "Numatytasis jud\u0117jimo greitis"
+            },
+            "detection_interval": {
+                "name": "Aptikimo intervalas"
+            },
+            "dimming_speed_down_local": {
+                "name": "Vietinis pritemdymo greitis"
+            },
+            "dimming_speed_down_remote": {
+                "name": "Nuotolinio pritemdymo grei\u010dio ma\u017einimas"
+            },
+            "dimming_speed_up_local": {
+                "name": "Vietinis pritemdymo greitis"
+            },
+            "dimming_speed_up_remote": {
+                "name": "Nuotolinis pritemdymo greitis"
+            },
+            "double_tap_down_level": {
+                "name": "Dukart palieskite \u017eemyn lyg\u012f"
+            },
+            "double_tap_up_level": {
+                "name": "Dukart bakstel\u0117kite auk\u0161tyn lyg\u012f"
+            },
+            "filter_life_time": {
+                "name": "Filtro tarnavimo laikas"
+            },
+            "led_color_when_off": {
+                "name": "Numatytoji vis\u0173 LED i\u0161jungimo spalva"
+            },
+            "led_color_when_on": {
+                "name": "Numatytoji vis\u0173 LED \u012fjungimo spalva"
+            },
+            "led_intensity_when_off": {
+                "name": "Numatytasis vis\u0173 LED i\u0161jungimo intensyvumas"
+            },
+            "led_intensity_when_on": {
+                "name": "Numatytasis vis\u0173 LED \u012fjungimo intensyvumas"
+            },
+            "load_level_indicator_timeout": {
+                "name": "Apkrovos lygio indikatoriaus skirtasis laikas"
+            },
+            "maximum_level": {
+                "name": "Maksimalus apkrovos pritemdymo lygis"
+            },
+            "minimum_level": {
+                "name": "Minimalus apkrovos pritemdymo lygis"
+            },
+            "off_transition_time": {
+                "name": "Per\u0117jimo laikas i\u0161jungtas"
+            },
+            "on_level": {
+                "name": "Ant lygmens"
+            },
+            "on_off_transition_time": {
+                "name": "\u012ejungimo / i\u0161jungimo per\u0117jimo laikas"
+            },
+            "on_transition_time": {
+                "name": "Per\u0117jimo metu"
+            },
+            "portion_weight": {
+                "name": "Porcijos svoris"
+            },
+            "ramp_rate_off_to_on_local": {
+                "name": "Vietinis rampos greitis i\u0161jungtas ir \u012fjungtas"
+            },
+            "ramp_rate_off_to_on_remote": {
+                "name": "Nuotolinis rampos greitis i\u0161jungtas ir \u012fjungtas"
+            },
+            "ramp_rate_on_to_off_local": {
+                "name": "Vietinis rampos greitis \u012fjungti ir i\u0161jungti"
+            },
+            "ramp_rate_on_to_off_remote": {
+                "name": "Nuotolinio rampos da\u017enio \u012fjungimas ir i\u0161jungimas"
+            },
+            "serving_size": {
+                "name": "Patiekiama dozuoti"
+            },
+            "start_up_color_temperature": {
+                "name": "Paleidimo spalvos temperat\u016bra"
+            },
+            "start_up_current_level": {
+                "name": "Paleidimo srov\u0117s lygis"
+            },
+            "timer_duration": {
+                "name": "Laikma\u010dio trukm\u0117"
+            },
+            "transmit_power": {
+                "name": "Perduoti gali\u0105"
+            }
+        },
+        "select": {
+            "approach_distance": {
+                "name": "Pri\u0117jimo atstumas"
+            },
+            "backlight_mode": {
+                "name": "Foninio ap\u0161vietimo re\u017eimas"
+            },
+            "default_siren_level": {
+                "name": "Numatytasis sirenos lygis"
+            },
+            "default_siren_tone": {
+                "name": "Numatytasis sirenos tonas"
+            },
+            "default_strobe": {
+                "name": "Numatyta blykst\u0117"
+            },
+            "default_strobe_level": {
+                "name": "Numatytasis blykst\u0117s lygis"
+            },
+            "feeding_mode": {
+                "name": "Re\u017eimas"
+            },
+            "increased_non_neutral_output": {
+                "name": "Ne neutrali i\u0161vestis"
+            },
+            "led_scaling_mode": {
+                "name": "Led mastelio keitimo re\u017eimas"
+            },
+            "monitoring_mode": {
+                "name": "Steb\u0117jimo re\u017eimas"
+            },
+            "motion_sensitivity": {
+                "name": "Judesio jautrumas"
+            },
+            "output_mode": {
+                "name": "I\u0161vesties re\u017eimas"
+            },
+            "power_on_state": {
+                "name": "Maitinimo b\u016bsena"
+            },
+            "preset": {
+                "name": "I\u0161 anksto nustatytas"
+            },
+            "start_up_on_off": {
+                "name": "Pradinis elgesys"
+            },
+            "switch_type": {
+                "name": "Jungiklio tipas"
+            },
+            "window_covering_mode": {
+                "name": "U\u017euolaid\u0173 re\u017eimas"
+            }
+        },
+        "sensor": {
+            "ac_frequency": {
+                "name": "Kintamosios srov\u0117s da\u017enis"
+            },
+            "analog_input": {
+                "name": "Analoginis \u012f\u0117jimas"
+            },
+            "device_run_time": {
+                "name": "\u012erenginio veikimo laikas"
+            },
+            "device_temperature": {
+                "name": "\u012erenginio temperat\u016bra"
+            },
+            "filter_run_time": {
+                "name": "Filtro veikimo laikas"
+            },
+            "formaldehyde": {
+                "name": "Formaldehido koncentracija"
+            },
+            "hvac_action": {
+                "name": "HVAC veiksmai"
+            },
+            "instantaneous_demand": {
+                "name": "Momentin\u0117 paklausa"
+            },
+            "last_feeding_size": {
+                "name": "Paskutinio maitinimo dydis"
+            },
+            "last_feeding_source": {
+                "name": "Paskutinis maitinimo \u0161altinis"
+            },
+            "leaf_wetness": {
+                "name": "Lap\u0173 dr\u0117gnumas"
+            },
+            "lqi": {
+                "name": "LQI"
+            },
+            "portions_dispensed_today": {
+                "name": "\u0160iandien i\u0161dalintos porcijos"
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "smoke_density": {
+                "name": "D\u016bm\u0173 tankis"
+            },
+            "soil_moisture": {
+                "name": "Dirvo\u017eemio dr\u0117gm\u0117"
+            },
+            "summation_delivered": {
+                "name": "Sumavimas pristatytas"
+            },
+            "tier1_summation_delivered": {
+                "name": "Pateiktas 1 pakopos sumavimas"
+            },
+            "tier2_summation_delivered": {
+                "name": "Pateiktas 2 pakopos sumavimas"
+            },
+            "tier3_summation_delivered": {
+                "name": "Pateiktas 3 pakopos sumavimas"
+            },
+            "tier4_summation_delivered": {
+                "name": "Pateiktas 4 pakopos sumavimas"
+            },
+            "tier5_summation_delivered": {
+                "name": "Pateiktas 5 pakopos sumavimas"
+            },
+            "tier6_summation_delivered": {
+                "name": "Pateiktas 6 pakopos sumavimas"
+            },
+            "timer_time_left": {
+                "name": "Lik\u0119s laikas"
+            },
+            "weight_dispensed_today": {
+                "name": "\u0160iandien i\u0161leistas svoris"
+            }
+        },
+        "switch": {
+            "aux_switch_scenes": {
+                "name": "Aux jungiklio scenos"
+            },
+            "binding_off_to_on_sync_level": {
+                "name": "Susiejama su sinchronizavimo lygiu"
+            },
+            "buzzer_manual_alarm": {
+                "name": "Signalizacija rankiniu b\u016bdu"
+            },
+            "buzzer_manual_mute": {
+                "name": "Garso signalo nutildymas rankiniu b\u016bdu"
+            },
+            "child_lock": {
+                "name": "Apsauga nuo vaik\u0173"
+            },
+            "disable_clear_notifications_double_tap": {
+                "name": "I\u0161junkite konfig\u016bracij\u0105 2x bakstel\u0117kite, kad i\u0161valytum\u0117te prane\u0161imus"
+            },
+            "disable_led": {
+                "name": "I\u0161jungti LED"
+            },
+            "double_tap_down_enabled": {
+                "name": "\u012ejungtas dvigubas bakstel\u0117jimas \u017eemyn"
+            },
+            "double_tap_up_enabled": {
+                "name": "Dukart bakstel\u0117jimas \u012fgalintas"
+            },
+            "firmware_progress_led": {
+                "name": "Programin\u0117s \u012frangos pa\u017eangos \u0161viesos diodas"
+            },
+            "heartbeat_indicator": {
+                "name": "\u0160irdies ritmo indikatorius"
+            },
+            "invert_switch": {
+                "name": "Apverstas jungiklis"
+            },
+            "led_indicator": {
+                "name": "LED indikatorius"
+            },
+            "linkage_alarm": {
+                "name": "Sujungimo signalizacija"
+            },
+            "local_protection": {
+                "name": "Vietin\u0117 apsauga"
+            },
+            "one_led_mode": {
+                "name": "Tik 1 LED re\u017eimas"
+            },
+            "power_outage_memory": {
+                "name": "Maitinimo nutraukimo atmintis"
+            },
+            "relay_click_in_on_off_mode": {
+                "name": "I\u0161jungti rel\u0117s paspaudim\u0105 \u012fjungus i\u0161jungimo re\u017eim\u0105"
+            },
+            "smart_bulb_mode": {
+                "name": "I\u0161maniosios lemput\u0117s re\u017eimas"
+            },
+            "trigger_indicator": {
+                "name": "LED paleidimo indikatorius"
+            },
+            "valve_detection": {
+                "name": "Vo\u017etuv\u0173 aptikimas"
+            },
+            "window_detection": {
+                "name": "Lang\u0173 aptikimas"
+            },
+            "window_detection_function": {
+                "name": "Apversti lango aptikim\u0105"
+            }
+        }
+    },
+    "issues": {
+        "inconsistent_network_settings": {
+            "fix_flow": {
+                "step": {
+                    "init": {
+                        "description": "J\u016bs\u0173 Zigbee radijo tinklo nustatymai nesuderinami su naujausia tinklo atsargine kopija. Paprastai taip nutinka, jei juos perra\u0161\u0117 kita Zigbee integracija (pvz., Zigbee2MQTT arba deCONZ). \n\n {diff}\n\n Jei ty\u010dia nepakeit\u0117te tinklo nustatym\u0173, atkurkite i\u0161 naujausios atsargin\u0117s kopijos: kitu atveju j\u016bs\u0173 \u012frenginiai neveiks.",
+                        "menu_options": {
+                            "restore_old_settings": "Atkurti atsargin\u0119 kopij\u0105 (rekomenduojama)",
+                            "use_new_settings": "I\u0161saugokite naujus nustatymus"
+                        },
+                        "title": "Zigbee tinklo nustatymai pasikeit\u0117"
+                    }
+                }
+            },
+            "title": "Zigbee tinklo nustatymai pasikeit\u0117"
+        },
+        "wrong_silabs_firmware_installed_nabucasa": {
+            "description": "J\u016bs\u0173 \"Zigbee\" radijas anks\u010diau buvo naudojamas su multiprotokolu (\"Zigbee\" ir \"Thread\") ir vis dar turi \u012fdiegt\u0105 daugiaprotokol\u0119 programin\u0119-aparatin\u0119 \u012frang\u0105: ({firmware_type}). \n 1 parinktis: nor\u0117dami paleisti radij\u0105 tik su ZHA, turite \u012fdiegti \"Zigbee\" programin\u0119-aparatin\u0119 \u012frang\u0105:\n - Atidarykite dokumentacij\u0105 pasirinkdami nuorod\u0105 skiltyje \"Su\u017einokite daugiau\".\n -. Vykdykite \u017eingsnyje apra\u0161ytas instrukcijas, kad mirks\u0117tum\u0117te \"Zigbee\" programin\u0119-aparatin\u0119 \u012frang\u0105.\n 2 parinktis: nor\u0117dami paleisti radij\u0105 naudodami multiprotokol\u0105, atlikite \u0161iuos veiksmus: \n - Eikite \u012f \"Settings\" > \"System > Hardware\", pasirinkite \u012frengin\u012f ir pasirinkite Konfig\u016bruoti. \n - Pasirinkite parinkt\u012f Konfig\u016bruoti IEEE 802.15.4 radijo daugiaprotokol\u012f palaikym\u0105. \n - Pa\u017eym\u0117kite \u017eymim\u0105j\u012f laukel\u012f ir pasirinkite Pateikti. \n - \u012edieg\u0119 sukonfig\u016bruokite naujai atrast\u0105 ZHA integracij\u0105.",
+            "title": "Aptiktas \u201eZigbee\u201c radijas su keli\u0173 protokol\u0173 programine \u012franga"
+        },
+        "wrong_silabs_firmware_installed_other": {
+            "description": "J\u016bs\u0173 \"Zigbee\" radijas anks\u010diau buvo naudojamas su multiprotokolu (\"Zigbee\" ir \"Thread\") ir vis dar turi \u012fdiegt\u0105 daugiaprotokol\u0119 programin\u0119-aparatin\u0119 \u012frang\u0105: ({firmware_type}). Nor\u0117dami paleisti radij\u0105 tik su ZHA, turite \u012fdiegti \"Zigbee\" programin\u0119-aparatin\u0119 \u012frang\u0105. Vykdykite \"Zigbee\" radijo gamintojo instrukcijas, kaip tai padaryti."
+        }
+    },
+    "services": {
+        "clear_lock_user_code": {
+            "fields": {
+                "code_slot": {
+                    "name": "Kodo lizdas"
+                }
+            },
+            "name": "I\u0161valyti u\u017erakto vartotoj\u0105"
+        },
+        "disable_lock_user_code": {
+            "description": "I\u0161jungia vartotojo kod\u0105 ant u\u017erakto.",
+            "fields": {
+                "code_slot": {
+                    "description": "Kodo lizdas, kur\u012f reikia i\u0161jungti."
+                }
+            },
+            "name": "I\u0161jungti u\u017erakinti vartotoj\u0105"
+        },
+        "enable_lock_user_code": {
+            "name": "\u012egalinti u\u017erakinti vartotoj\u0105"
+        },
+        "issue_zigbee_cluster_command": {
+            "description": "I\u0161duoda komand\u0105 nurodytam klasteriui nurodytame objekte.",
+            "fields": {
+                "args": {
+                    "description": "Argumentai perduoti komandai.",
+                    "name": "Args"
+                },
+                "command": {
+                    "description": "Vykdytinos komandos ID.",
+                    "name": "Komanda"
+                },
+                "command_type": {
+                    "description": "Vykdytinos komandos tipas.",
+                    "name": "Komandos tipas"
+                },
+                "params": {
+                    "description": "Parametrai, kuriuos reikia perduoti komandai."
+                }
+            },
+            "name": "I\u0161duokite zigbee klasterio komand\u0105"
+        },
+        "issue_zigbee_group_command": {
+            "description": "I\u0161duokite komand\u0105 nurodytame nurodytos grup\u0117s klasteryje.",
+            "fields": {
+                "args": {
+                    "name": "Args"
+                },
+                "cluster_id": {
+                    "description": "ZCL klasteris, \u012f kur\u012f reikia si\u0173sti komand\u0105."
+                },
+                "cluster_type": {
+                    "name": "Klasterio tipas"
+                },
+                "command": {
+                    "name": "Komanda"
+                },
+                "group": {
+                    "description": "\u0160e\u0161ioliktainis grup\u0117s adresas.",
+                    "name": "Grup\u0117"
+                }
+            },
+            "name": "I\u0161duokite zigbee grup\u0117s komand\u0105"
+        },
+        "permit": {
+            "fields": {
+                "ieee": {
+                    "description": "Mazgo, leid\u017eian\u010dio naujus prisijungimus, IEEE adresas.",
+                    "name": "IEEE"
+                },
+                "install_code": {
+                    "description": "\u012ediekite prisijungimo \u012frenginio kod\u0105 (turi b\u016bti naudojamas su source_ieee).",
+                    "name": "\u012ediegti kod\u0105"
+                },
+                "qr_code": {
+                    "description": "QR diegimo kodo vert\u0117 (skirting\u0173 tiek\u0117j\u0173).",
+                    "name": "QR kodas"
+                },
+                "source_ieee": {
+                    "description": "Jungiamojo \u012frenginio IEEE adresas (turi b\u016bti naudojamas su diegimo kodu).",
+                    "name": "\u0160altinis IEEE"
+                }
+            },
+            "name": "Leidimas"
+        },
+        "reconfigure_device": {
+            "fields": {
+                "ieee": {
+                    "description": "\u012erenginio, kur\u012f reikia konfig\u016bruoti, IEEE adresas."
+                }
+            },
+            "name": "I\u0161 naujo sukonfig\u016bruoti \u012frengin\u012f"
+        },
+        "remove": {
+            "description": "Pa\u0161alina mazg\u0105 i\u0161 Zigbee tinklo.",
+            "fields": {
+                "ieee": {
+                    "description": "Pa\u0161alintino mazgo IEEE adresas."
+                }
+            },
+            "name": "Pa\u0161alinti"
+        },
+        "set_lock_user_code": {
+            "description": "Nustato vartotojo kod\u0105 ant u\u017erakto.",
+            "fields": {
+                "code_slot": {
+                    "description": "Kodo lizdas kodui \u012fvesti."
+                },
+                "user_code": {
+                    "description": "Kodas, kur\u012f reikia nustatyti.",
+                    "name": "Kodas"
+                }
+            },
+            "name": "Nustatykite u\u017erakto vartotojo kod\u0105"
+        },
+        "set_zigbee_cluster_attribute": {
+            "description": "Nustato atributo reik\u0161m\u0119 nurodytam klasteriui nurodytame objekte.",
+            "fields": {
+                "attribute": {
+                    "description": "Norimo nustatyti atributo ID.",
+                    "name": "Atributas"
+                },
+                "cluster_id": {
+                    "description": "ZCL klasteris, skirtas atributams gauti.",
+                    "name": "Klasterio ID"
+                },
+                "cluster_type": {
+                    "description": "Klasterio tipas.",
+                    "name": "Klasterio tipas"
+                },
+                "endpoint_id": {
+                    "description": "Grup\u0117s pabaigos ta\u0161ko ID.",
+                    "name": "Galinio ta\u0161ko ID"
+                },
+                "ieee": {
+                    "description": "\u012erenginio IEEE adresas."
+                },
+                "manufacturer": {
+                    "description": "Gamintojo kodas.",
+                    "name": "Gamintojas"
+                },
+                "value": {
+                    "description": "Reik\u0161m\u0117, kuri\u0105 reikia \u012fra\u0161yti \u012f atribut\u0105.",
+                    "name": "Vert\u0117"
+                }
+            },
+            "name": "Nustatyti zigbee klasterio atribut\u0105"
+        },
+        "warning_device_squawk": {
+            "fields": {
+                "level": {
+                    "name": "Lygis"
+                }
+            }
+        },
+        "warning_device_warn": {
+            "fields": {
+                "duration": {
+                    "name": "Trukm\u0117"
+                },
+                "mode": {
+                    "description": "\u012esp\u0117jimo re\u017eimo laukas naudojamas kaip 4 bit\u0173 s\u0105ra\u0161as, gali tur\u0117ti vien\u0105 i\u0161 reik\u0161mi\u0173 nuo 0 iki 6, apibr\u0117\u017et\u0173 toliau, ZCL specifikacijos 8-20 lentel\u0117je. Tikslus \u012fsp\u0117jimo \u012ftaiso veikimas kiekviename re\u017eime atitinka atitinkamus saugumo standartus."
+                },
+                "strobe": {
+                    "description": "Strobe laukas naudojamas kaip 2 bit\u0173 i\u0161vardijimas ir nustato, ar be garsin\u0117s sirenos reikia ir vaizdin\u0117s indikacijos, kaip nurodyta ZCL specifikacij\u0173 8-21 lentel\u0117je. \u201e0\u201c rei\u0161kia, kad n\u0117ra blykst\u0117s, \u201e1\u201c rei\u0161kia blykst\u0119. Jei blykst\u0117s laukas yra \"1\", o \u012fsp\u0117jimo re\u017eimas yra \"0\" (\"Stop\"), tada suaktyvinamas tik blyksnis."
+                }
+            },
+            "name": "\u012esp\u0117jamasis \u012frenginys pradeda persp\u0117ti"
+        }
+    }
+}

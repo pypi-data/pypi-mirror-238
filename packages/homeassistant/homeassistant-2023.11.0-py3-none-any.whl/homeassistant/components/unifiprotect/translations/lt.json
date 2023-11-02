@@ -1,0 +1,64 @@
+{
+    "config": {
+        "error": {
+            "protect_version": "Minimali reikalinga versija yra v1.20.0. Atnaujinkite UniFi Protect ir bandykite dar kart\u0105."
+        }
+    },
+    "issues": {
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "set_doorbell_message yra nebenaudojamas"
+                    }
+                }
+            },
+            "title": "set_doorbell_message yra nebenaudojamas"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "Realaus laiko metrika (\u012eSP\u0116JIMAS: labai padidina procesoriaus naudojim\u0105)",
+                    "disable_rtsp": "I\u0161junkite RTSP sraut\u0105"
+                },
+                "description": "Realaus laiko metrikos parinktis tur\u0117t\u0173 b\u016bti \u012fjungta, tik jei \u012fjung\u0117te diagnostikos jutiklius ir norite, kad jie b\u016bt\u0173 atnaujinami realiuoju laiku. Jei ne\u012fjungta, jie bus atnaujinami tik kart\u0105 per 15 minu\u010di\u0173.",
+                "title": "\u201eUniFi Protect\u201c parinktys"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "fields": {
+                "device_id": {
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Naujas pasirinktinis prane\u0161imas, kur\u012f galima prid\u0117ti prie dur\u0173 skambu\u010di\u0173. Turi b\u016bti trumpesn\u0117 nei 30 simboli\u0173.",
+                    "name": "Pasirinktinis prane\u0161imas"
+                }
+            }
+        },
+        "remove_doorbell_text": {
+            "name": "Pa\u0161alinkite pasirinktin\u012f dur\u0173 skambu\u010dio tekst\u0105"
+        },
+        "set_chime_paired_doorbells": {
+            "fields": {
+                "doorbells": {
+                    "description": "Dur\u0173 skambu\u010diai, skirti susieti su varpeliu.",
+                    "name": "Dur\u0173 skambu\u010diai"
+                }
+            }
+        },
+        "set_default_doorbell_text": {
+            "fields": {
+                "message": {
+                    "description": "Numatytasis dur\u0173 skambu\u010dio prane\u0161imas. Turi b\u016bti ma\u017eiau nei 30 simboli\u0173.",
+                    "name": "Numatytasis prane\u0161imas"
+                }
+            },
+            "name": "Nustatyti numatyt\u0105j\u012f dur\u0173 skambu\u010dio tekst\u0105"
+        }
+    }
+}
