@@ -1,0 +1,128 @@
+# Magic Square Project
+
+This project contains Python modules for generating magic squares, solving the N-Queens problem, and generating the Bachet matrix.
+
+## Contents
+1. [Bachet Matrix Generator](#bachet-matrix-generator)
+2. [Magic Square Calculator](#magic-square-calculator)
+3. [N-Queens Solver](#n-queens-solver)
+4. [Installation & Usage](#installation--usage)
+
+## Bachet Matrix Generator
+The Bachet matrix is a unique square matrix with a distinct construction pattern. The matrix is named after Claude Gaspar Bachet de Méziriac. [Learn more](https://en.wikipedia.org/wiki/Claude_Gaspar_Bachet_de_M%C3%A9ziriac).
+
+### Functions
+- `bachet_matrix(n: int)`: Generate the Bachet matrix of order `n`.
+
+ # Magic Square Calculator
+
+Generate a 4x4 magic square matrix based on a given date or predefined values.
+
+```commandline
+>>> from magicsq.eulerbox import EulerMagicBox
+>>> magic_square = EulerMagicBox.magicsquare("22-12-1887")
+>>> magic_square
+array([[22, 12, 18, 87],
+       [20, 85, 20, 14],
+       [84, 19, 15, 21],
+       [13, 23, 86, 17]])
+>>>
+```
+# Functions
+
+- `magicsqaure(date: str, values_list: list, random: bool)`: Calculate the magic square matrix based on a given data.
+
+```commandline
+>>> from magicsq.bachet_odd import *
+>>> ordr = 5                
+>>> bachet = bachet_matrix(ordr)
+>>> bachet
+array([[ 0,  0,  0,  0,  1,  0,  0,  0,  0],
+       [ 0,  0,  0,  2,  0,  6,  0,  0,  0],
+       [ 0,  0,  3,  0,  7,  0, 11,  0,  0],
+       [ 0,  4,  0,  8,  0, 12,  0, 16,  0],
+       [ 5,  0,  9,  0, 13,  0, 17,  0, 21],
+       [ 0, 10,  0, 14,  0, 18,  0, 22,  0],
+       [ 0,  0, 15,  0, 19,  0, 23,  0,  0],
+       [ 0,  0,  0, 20,  0, 24,  0,  0,  0],
+       [ 0,  0,  0,  0, 25,  0,  0,  0,  0]])
+>>> bachet_ops = operations(bachet_ops, ordr)
+>>> bachet_ops
+array([[ 0,  0,  0,  0,  1,  0,  0,  0,  0],
+       [ 0,  0,  0,  2,  0,  6,  0,  0,  0],
+       [ 0,  0,  3, 40,  7, 48, 11,  0,  0],
+       [ 0,  4, 32,  8, 50, 12,  8, 16,  0],
+       [ 5,  0,  9, 42, 13, 10, 17,  0, 21],
+       [ 0, 10, 44, 14,  2, 18, 20, 22,  0],
+       [ 0,  0, 15,  4, 19, 12, 23,  0,  0],
+       [ 0,  0,  0, 20,  0, 24,  0,  0,  0],
+       [ 0,  0,  0,  0, 25,  0,  0,  0,  0]])
+>>> get_center_matrix(bachet_ops)
+array([[ 3, 40,  7, 48, 11],
+       [32,  8, 50, 12,  8],
+       [ 9, 42, 13, 10, 17],
+       [44, 14,  2, 18, 20],
+       [15,  4, 19, 12, 23]])
+```
+
+
+
+# N-Queens Solver
+
+Solve the classing N-Queens problem where the objective is to place `N` queens on an `NxN` chessboard such that no two queens threaten each other.
+
+
+# Functions
+- `solve()`: Solve the N-Queens problem and store the solutions.
+- `_queens(n: int, i: int, *args)`: A generator for all possible queen placements.
+- `_display_chessboard(queens_positions: list)`: Prints a visual representation of the chessboard.
+
+```commandline
+>>> from magicsq.nqueens import NQueensSolver    
+>>> my_queen = NQueensSolver(8)
+>>> my_queen_pos_obj = my_queen._queens(8) 
+>>> solution_list = list(my_queen_pos_obj)
+```
+
+
+
+- `display_solutions()`: Display all solutions for the N-Queens problem.
+```commandline
+>>> from magicsq.nqueens import NQueensSolver as qs
+>>> my_queen = qs(8)
+>>> my_queen.solve()
+>>> my_queen.display_solutions(1)
++--+--+--+--+--+--+--+--+
+| Q|  |  |  |  |  |  |  |
++--+--+--+--+--+--+--+--+
+|  |  |  |  |  |  | Q|  |
++--+--+--+--+--+--+--+--+
+|  |  |  |  | Q|  |  |  |
++--+--+--+--+--+--+--+--+
+|  |  |  |  |  |  |  | Q|
++--+--+--+--+--+--+--+--+
+|  | Q|  |  |  |  |  |  |
++--+--+--+--+--+--+--+--+
+|  |  |  | Q|  |  |  |  |
++--+--+--+--+--+--+--+--+
+|  |  |  |  |  | Q|  |  |
++--+--+--+--+--+--+--+--+
+|  |  | Q|  |  |  |  |  |
++--+--+--+--+--+--+--+--+
+[1, 5, 8, 6, 3, 7, 2, 4] 
+
+```
+
+
+# Installation & Usage
+    pip install magicsq
+
+# License
+
+This project is licensed under the GNU General Public License v3.0 (GPLv3) - see the [LICENSE](LICENSE) file for details.
+
+The GPLv3 is a free, copyleft license for software and other kinds of works. This means you can use, modify, and distribute this software freely as long as your derived works are also open source under the GPLv3.
+
+
+# Contributions
+- Contributions are welcome! Please feel free to submit a pull request or open an issue to discuss potential improvements.
