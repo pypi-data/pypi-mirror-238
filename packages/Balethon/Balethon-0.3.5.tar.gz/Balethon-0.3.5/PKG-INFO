@@ -1,0 +1,69 @@
+Metadata-Version: 2.1
+Name: Balethon
+Version: 0.3.5
+Summary: Asynchronous library for creating bots in the Bale messenger
+Author-email: Sajjad <sajjadalipour2006@gmail.com>, Abolfazl Amiri <soltshen@gmail.com>
+License: Copyright (c) 2018 The Python Packaging Authority
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+Project-URL: Homepage, https://github.com/SajjadAlipour2006/Balethon
+Project-URL: Download, https://github.com/SajjadAlipour2006/Balethon/releases/latest
+Project-URL: Documentation, https://sajjadalipour2006.github.io/Balethon/
+Project-URL: Tracker, https://github.com/SajjadAlipour2006/Balethon/issues
+Project-URL: Community, https://ble.ir/join/MTlhN2Q2Mz
+Keywords: bale,messenger,bot,api,client
+Classifier: License :: OSI Approved :: MIT License
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: httpx
+
+## Balethon
+
+Asynchronous library for creating bots in the [Bale](https://www.bale.ai/) messenger
+
+## Usage Example
+
+```python
+from balethon import Client
+
+bot = Client("TOKEN")
+
+
+@bot.on_message()
+async def greet(client, message):
+    await message.reply("Hello")
+
+
+bot.run_polling()
+```
+
+> You must replace "TOKEN" with the token which `@botfather` gives you in the [Bale](https://www.bale.ai/) messenger
+
+## Installing
+
+```bash
+pip install Balethon
+```
+
+## Links
+
+- Balethon's [documentation](https://sajjadalipour2006.github.io/Balethon/)
+- Balethon's [pypi page](https://pypi.org/project/Balethon/)
+- Our [news channel](https://ble.ir/balethon) in the [Bale](https://www.bale.ai/) messenger
+- Our [community chat group](https://ble.ir/join/MTlhN2Q2Mz) in the [Bale](https://www.bale.ai/) messenger
