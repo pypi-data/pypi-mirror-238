@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+"*" = ["*.schema.json"]
+
+[project]
+name = "plex_sub_downloader"
+version = "0.2.4"
+authors = [
+  { name="mjvotaw", email="mjvotaw@gmail.com" },
+]
+description = "A (hopefully) straightforward cli tool for downloading subtitles for newly added Plex media."
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "PlexAPI>=4.2.0",
+    "subliminal>=2.1.0",
+    "Flask>=2.0.0",
+    "jsonschema",
+]
+
+[project.scripts]
+plex_sub_downloader = "plex_sub_downloader:plex_sub_downloader.main"
+
+[project.urls]
+"Homepage" = "https://github.com/mjvotaw/plex-sub-downloader"
+"Bug Tracker" = "https://github.com/mjvotaw/plex-sub-downloader/issues"
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
