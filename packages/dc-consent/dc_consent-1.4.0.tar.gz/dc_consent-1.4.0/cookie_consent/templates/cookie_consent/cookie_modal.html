@@ -1,0 +1,67 @@
+{% load i18n cookies_tags %}
+
+{% translate cookie_modal_button_accept as accept_text %}
+{% translate cookie_modal_button_accept_all as accept_all_text %}
+{% translate cookie_modal_button_decline as decline_text %}
+{% translate cookie_modal_button_settings as settings_text %}
+
+<div id="cookie-consent-modal-wrapper" class="ga-cookie-modal-wrapper noselect">
+    <div class="ga-cookie-modal">
+
+        <div class="ga-cookie-modal-header">
+            <div class="ga-cookie-modal-title">
+                <h2>{{cookie_modal_title}}</h2>
+            </div>
+            <div class="ga-cookie-modal-description">
+                <p>{{cookie_modal_description}}</p>
+            </div>
+        </div>
+
+        <div class="ga-cookie-modal-tabs">
+            <div class="ga-cookie-modal-tab open ga-cookie-modal-form-tab" id="ga-cookie-modal-main-tab">
+                
+                <form class="ga-cookie-modal-form" method="post" action="{{cookie_modal_form_action}}">
+                    {% csrf_token %}
+                    <div class="ga-cookie-modal-actions p-2">
+                        <button type="submit" class="mr-1 ga-cookie-modal-accept btn btn-primary" name="{{cookie_modal_accept_all_value}}" value="{{cookie_modal_accept_all_value}}">
+                            {{accept_all_text}}
+                        </button>
+                        <button type="button" class="mr-1 ga-cookie-modal-settings btn btn-primary btn-outline" id="ga-cookie-modal-settings">
+                            {{settings_text}}
+                        </button>
+                        <button type="submit" class="mr-1 ga-cookie-modal-decline btn btn-danger btn-outline">
+                            {{decline_text}}
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="ga-cookie-modal-tab ga-cookie-modal-tab-settings" id="ga-cookie-modal-tab-settings">
+
+                <form class="ga-cookie-modal-form" method="post" action="{{cookie_modal_form_action}}">
+                    {% csrf_token %}
+                    <input type="hidden" name="cookie_modal_form_type" value="cookie_modal_accept_all_cookies" />
+                    <div class="ga-cookie-modal-content">
+                        {% for field in cookie_modal_form %}
+                            {% include "forms/field_group.html" with form_field=field %}
+                        {% endfor %}
+                        {% for item in cookie_modal_extras %}
+                            {% render_with_context item %}
+                        {% endfor %}
+                    </div>
+                    <div class="ga-cookie-modal-actions p-2">
+                        <button type="submit" class="mr-1 ga-cookie-modal-accept btn btn-primary">
+                            {{accept_text}}
+                        </button>
+                        <button type="button" class="mr-1 ga-cookie-modal-back btn btn-primary btn-outline" id="ga-cookie-modal-back">
+                            {% translate "Back" %}
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
