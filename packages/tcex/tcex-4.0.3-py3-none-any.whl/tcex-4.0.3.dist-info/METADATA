@@ -1,0 +1,118 @@
+Metadata-Version: 2.1
+Name: tcex
+Version: 4.0.3
+Summary: ThreatConnect Exchange App Framework
+Author-email: ThreatConnect <support@threatconnect.com>
+License: Apache-2.0
+Project-URL: Documentation, https://threatconnect.readme.io/docs/overview
+Project-URL: Release Notes, https://threatconnect.readme.io/docs/release-notes
+Project-URL: Source, https://github.com/ThreatConnect-Inc/tcex
+Keywords: exchange,tcex,threatconnect
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Security
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: arrow
+Requires-Dist: black
+Requires-Dist: inflect
+Requires-Dist: isort
+Requires-Dist: jmespath
+Requires-Dist: paho-mqtt
+Requires-Dist: pyaes
+Requires-Dist: pydantic <2.0.0
+Requires-Dist: python-dateutil
+Requires-Dist: PyYAML
+Requires-Dist: redis <5.0.0
+Requires-Dist: requests
+Requires-Dist: rich
+Requires-Dist: semantic-version
+Requires-Dist: wrapt
+Provides-Extra: dev
+Requires-Dist: bandit ; extra == 'dev'
+Requires-Dist: deepdiff ; extra == 'dev'
+Requires-Dist: fakeredis ; extra == 'dev'
+Requires-Dist: pre-commit ; extra == 'dev'
+Requires-Dist: pydocstyle ; extra == 'dev'
+Requires-Dist: pylint ; extra == 'dev'
+Requires-Dist: pyright ; extra == 'dev'
+Requires-Dist: pyupgrade ; extra == 'dev'
+Requires-Dist: typer[all] ; extra == 'dev'
+Provides-Extra: test
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+Requires-Dist: pytest-html ; extra == 'test'
+Requires-Dist: pytest-ordering ; extra == 'test'
+Requires-Dist: pytest-xdist ; extra == 'test'
+
+# tcex - ThreatConnect Exchange App Framework
+
+The ThreatConnect&trade; TcEx App Framework provides functionality for writing ThreatConnect Exchange Apps.
+
+## Requirements
+
+ * arrow (https://pypi.python.org/pypi/arrow)
+ * black (https://pypi.org/project/black/)
+ * inflect (https://pypi.python.org/pypi/inflect)
+ * isort (https://pypi.org/project/isort/)
+ * jmespath (https://pypi.org/project/jmespath/)
+ * paho-mqtt (https://pypi.org/project/paho-mqtt/)
+ * pyaes (https://pypi.org/project/pyaes/)
+ * pydantic (https://pypi.org/project/pydantic/)
+ * python-dateutil (https://pypi.python.org/pypi/python-dateutil)
+ * pyyaml (https://pypi.python.org/pypi/pyyaml)
+ * redis (https://pypi.python.org/pypi/redis)
+ * requests (https://pypi.python.org/pypi/requests)
+ * rich (https://pypi.python.org/pypi/rich)
+ * semantic_version (https://pypi.org/project/semantic-version/)
+ * wrapt (https://pypi.org/project/wrapt/)
+
+### Development Requirements
+
+ * bandit (https://pypi.org/project/bandit/)
+ * deepdiff (https://pypi.org/project/deepdiff/)
+ * fakeredis (https://pypi.org/project/fakeredis/)
+ * pre-commit (https://pypi.org/project/pre-commit/)
+ * pydocstyle (https://pypi.org/project/pydocstyle/)
+ * pylint (https://pypi.org/project/pylint/)
+ * pyright (https://pypi.org/project/pyright/)
+ * pyupgrade (https://pypi.org/project/pyupgrade/)
+ * typer (https://pypi.python.org/pypi/typer)
+
+### Test Requirements
+
+ * pytest (https://pypi.org/project/pytest/)
+ * pytest-cov (https://pypi.org/project/pytest-cov/)
+ * pytest-html (https://pypi.org/project/pytest-html/)
+ * pytest-ordering (https://pypi.org/project/pytest-ordering/)
+ * pytest-xdist (https://pypi.org/project/pytest-xdist/)
+
+## Installation
+
+```
+pip install tcex
+```
+
+### Development / Testing
+
+pip install tcex[dev,test]
+
+## Documentation
+
+https://threatconnect.readme.io/docs/overview
+
+## Release Notes
+
+https://threatconnect.readme.io/docs/release-notes
+
+## Contact
+
+If you have any questions, bugs, or requests please contact support@threatconnect.com
