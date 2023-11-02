@@ -1,0 +1,66 @@
+name: deploy-book
+
+# Only run this when the master branch changes
+on: [workflow_dispatch]
+#on:
+#  push:
+#    branches:
+#    - master
+
+# This job installs dependencies, build the book, and pushes it to `gh-pages`
+jobs:
+  deploy-book:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    # Install dependencies
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    # Install conda dependencies
+    - name: Install dependencies
+      run: |
+        # $CONDA is an environment variable pointing to the root of the miniconda directory
+        # $CONDA/bin/conda env update --file environment.yml --name base
+    
+    # upgrade pip
+    - name: Upgrade pip
+      run: |
+        $CONDA/bin/pip install --upgrade pip
+
+    # Install only morphodynamics package
+    - name: Install package
+      run: |
+        $CONDA/bin/pip install .[book]
+
+    # Show packages
+    - name: Show packages
+      run: |
+        $CONDA/bin/conda list
+
+    # Compile the docs
+    - name: Compile sphinx
+      run: |
+        $CONDA/bin/sphinx-apidoc -o docs/source morphodynamics/
+
+    # Copy the dataset where necessary
+    - name: Copy files
+      run: |
+        mkdir -p synthetic/data/Results_cellpose
+        mkdir -p synthetic/data/Results_step
+        cp notebooks/Postprocessing.ipynb mydocs/
+
+    # Build the book
+    - name: Build the book
+      run: |
+        $CONDA/bin/jupyter-book build .
+    
+    # Push the book's HTML to github-pages
+    - name: GitHub Pages action
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./_build/html
