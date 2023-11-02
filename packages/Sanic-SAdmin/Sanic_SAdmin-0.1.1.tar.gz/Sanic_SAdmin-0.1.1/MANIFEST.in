@@ -1,0 +1,15 @@
+include pyproject.toml
+
+# Include the README
+include *.md
+
+# Include the license file
+include LICENSE.txt
+
+
+# Include the data files
+recursive-inculde src/Sanic-Admin/test *.*
+recursive-include src/Sanic-Admin/admin *.*
+recursive-include src/Sanic-Admin/ *.txt
+recursive-include src/Sanic-Admin/ *.png
+
