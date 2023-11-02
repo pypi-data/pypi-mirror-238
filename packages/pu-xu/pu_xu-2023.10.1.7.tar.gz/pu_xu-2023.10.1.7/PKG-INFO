@@ -1,0 +1,82 @@
+Metadata-Version: 2.1
+Name: pu_xu
+Version: 2023.10.1.7
+Summary: camera IQ setting and  xu command package
+Home-page: UNKNOWN
+Author: lorry_rui
+Author-email: lrui@logitech.com
+License: UNKNOWN
+Description: # Project Name
+        
+        **Copyright (c) 2021 lorry_rui**
+        
+        ## IQ Set Usage
+        
+        ```python
+        from pu_xu.IQ_set import iqset
+        test = iqset()
+        test.set_exposure("-2")
+        
+        iq1 = {
+            "zoom": "120",
+            "brightness": "120",
+            "contrast": "119",
+            "saturation": "120",
+            "whitebalance": "4000",
+            "gain": "0",
+            "exposure": "-1",
+            "focus": "2",
+            "sharpness": "120",
+            "pan": "-1",
+            "tilt": "-2"
+        }
+        test.set_whitebalance("3000")
+        test.set_pan("-3")
+        test.set_brightness("120")
+        test.set_exposure("-1")
+        test.set_iq(None, True) ## this one is to set iq to be dfaut
+        test.set_iq(iq1) # this one for load all dictionary setting
+        print(test.reading_iq())
+        
+        
+        
+        ####xu_tde Library  #  this is for logitech camera XU use only lock VID 046D
+        ```python
+        # Import the 'lv' module from the 'pu_xu.xu_tde' package
+        import pu_xu.xu_tde as lv
+        
+        # Check if the device with PID is found (flag: 0 means found, -1 means not found)
+        flag, index, value = lv.checkdevice(vid,PID)
+        index = lv.checkindex(vid,PID) # lv.checkindex("046d","0919")
+        
+        # Read information from the device
+        length, value1 = lv.inforXURead(PID, address)
+        
+        # Read data from the device
+        length, data = lv.PCXuRead(PID, address)
+        length, data = lv.deviceXURead(PID, address)
+        
+        # Read data from the device for testing
+        flag2, value2 = lv.TestXuRead(PID, address)
+        
+        # Read video data from the device
+        length, value4 = lv.VideoXuRead(PID, address)
+        
+        # Write data to the device (1 byte)
+        flag3, value3 = lv.TestXuWrite(PID, address, data)
+        
+        # Write video data to the device (1 byte)
+        flag5, value5 = lv.VideoXuWrite(PID, zoomaddress, zoom_data)
+        
+        # Write data to the EEPROM of the device
+        flag6, value6 = lv.EepromWrite(PID, address, val_to_write)
+        
+        # Read data from the EEPROM of the device
+        flag7, value7 = lv.EepromRead(PID, address)
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.6
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
