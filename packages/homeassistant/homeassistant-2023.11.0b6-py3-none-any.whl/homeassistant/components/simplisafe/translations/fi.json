@@ -1,0 +1,28 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "Uudelleentodennus onnistui"
+        },
+        "error": {
+            "invalid_auth": "Virheellinen todennus",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "user": {
+                "description": "SimpliSafe todentaa k\u00e4ytt\u00e4j\u00e4t verkkosovelluksensa kautta. Teknisten rajoitusten vuoksi t\u00e4m\u00e4n prosessin lopussa on manuaalinen vaihe; varmista, ett\u00e4 luet [dokumentaation](http://home-assistant.io/integrations/simplisafe#getting-an-authorization-code) ennen aloittamista.\n\nKun olet valmis, klikkaa [t\u00e4st\u00e4]({url}) avataksesi SimpliSafe-verkkosovelluksen ja sy\u00f6tt\u00e4\u00e4ksesi tunnistetietosi. Jos olet jo kirjautunut SimpliSafeen selaimessasi, voit avata uuden v\u00e4lilehden ja kopioida/liitt\u00e4\u00e4 yll\u00e4 olevan URL-osoitteen kyseiseen v\u00e4lilehteen.\n\nKun prosessi on valmis, palaa t\u00e4nne ja sy\u00f6t\u00e4 valtuutuskoodi `com.simplisafe.mobile` URL-osoitteesta."
+            }
+        }
+    },
+    "services": {
+        "set_system_properties": {
+            "fields": {
+                "alarm_duration": {
+                    "description": "Lauenneen h\u00e4lytyksen kesto."
+                },
+                "alarm_volume": {
+                    "description": "Lauenneen h\u00e4lytyksen \u00e4\u00e4nenvoimakkuus."
+                }
+            }
+        }
+    }
+}

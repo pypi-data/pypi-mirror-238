@@ -1,0 +1,69 @@
+{
+    "device_automation": {
+        "trigger_type": {
+            "current_humidity_changed": "{entity_name} mitattu kosteus muuttui",
+            "current_temperature_changed": "{entity_name} l\u00e4mp\u00f6tila muuttui",
+            "hvac_mode_changed": "{entity_name} HVAC-tila muuttui"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Termostaatti",
+            "state": {
+                "off": "Pois"
+            },
+            "state_attributes": {
+                "current_temperature": {
+                    "name": "Nykyinen l\u00e4mp\u00f6tila"
+                },
+                "fan_mode": {
+                    "state": {
+                        "off": "Pois",
+                        "on": "P\u00e4\u00e4ll\u00e4"
+                    }
+                },
+                "hvac_action": {
+                    "state": {
+                        "heating": "L\u00e4mmitys",
+                        "idle": "Lepotilassa",
+                        "off": "Pois",
+                        "preheating": "Esil\u00e4mmitys"
+                    }
+                },
+                "preset_mode": {
+                    "state": {
+                        "home": "Kotona"
+                    }
+                },
+                "swing_mode": {
+                    "state": {
+                        "off": "Pois",
+                        "on": "P\u00e4\u00e4ll\u00e4"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "fields": {
+                "aux_heat": {
+                    "name": "Lis\u00e4l\u00e4mmitys"
+                }
+            }
+        },
+        "turn_off": {
+            "name": "Sammuta"
+        },
+        "turn_on": {
+            "name": "Laita p\u00e4\u00e4lle"
+        }
+    },
+    "title": "Ilmasto"
+}

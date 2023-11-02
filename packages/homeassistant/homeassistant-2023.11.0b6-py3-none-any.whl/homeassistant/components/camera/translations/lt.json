@@ -1,0 +1,45 @@
+{
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform} platforma, skirta {domain} integravimui, nepalaiko platformos s\u0105rankos. \n\n Pa\u0161alinkite j\u012f i\u0161 konfig\u016bracijos ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Platformos palaikymas nepalaikomas"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "I\u0161jungia judesio aptikim\u0105.",
+            "name": "I\u0161jungti judesio aptikim\u0105"
+        },
+        "enable_motion_detection": {
+            "description": "\u012ejungia judesio aptikim\u0105.",
+            "name": "\u012ejungti judesio aptikim\u0105"
+        },
+        "play_stream": {
+            "description": "Leid\u017eia kameros sraut\u0105 palaikomame medijos leistuve.",
+            "fields": {
+                "format": {
+                    "description": "Medijos grotuvo palaikomas srauto formatas.",
+                    "name": "Formatas"
+                },
+                "media_player": {
+                    "description": "Medijos grotuvai, \u012f kuriuos galima transliuoti.",
+                    "name": "Medijos leistuvas"
+                }
+            },
+            "name": "Paleisti sraut\u0105"
+        },
+        "record": {
+            "description": "Sukuria tiesioginio kameros tiekimo \u012fra\u0161\u0105.",
+            "fields": {
+                "duration": {
+                    "description": "Planuojama \u012fra\u0161o trukm\u0117. Tikroji trukm\u0117 gali skirtis.",
+                    "name": "Trukm\u0117"
+                },
+                "filename": {
+                    "description": "Failo pavadinimo \u0161ablonas. Galimas kintamasis yra \u201eentity_id\u201c. Turi b\u016bti mp4."
+                }
+            }
+        }
+    },
+    "title": "Kamera"
+}
