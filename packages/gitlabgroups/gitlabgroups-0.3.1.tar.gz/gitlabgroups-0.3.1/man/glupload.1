@@ -1,0 +1,45 @@
+.TH glupload 1 "2020-05-13" glupload
+.SH NAME
+.B glupload
+\- command-line tool to upload a local git repository to a remote git repository
+
+.SH SYNOPSIS
+.B  glupload
+.I [-h] [-g GITURL] [-u URL] [-l LOCALDIR] [group]
+
+
+.SH OPTIONS
+.IP "group"
+gitlab group, e.g. "DeviceClasses/CounterTimer/DGG2"
+
+optional arguments:
+.IP "-h, --help"
+show this help message and exit
+.IP "-g GRPURL, --groupurl GRPURL"
+root git url, default: "https://gitlab.desy.de/tango-ds/"
+.IP "-u URL, --url URL"
+full git url with git subgroups and a project name, e.g.: "https://gitlab.desy.de/tango-ds/deviceclasses/countertimer/gdd2"
+.IP "-u USER, --user USER"
+gitlab user
+.IP "-l LOCALDIR, --local-dir LOCALDIR"
+local git directory, e.g.: "DGG2"
+
+.SH EXAMPLES:
+  glupload DeviceClasses/CounterTimer/DGG2 
+
+    - upload a local git repository in the "." directory to https://gitlab.desy.de/tango-ds/DeviceClasses/CounterTimer/DGG2.git
+
+
+.SH SEE ALSO
+https://github.com/jkotan/nexdatas/
+
+.SH COPYRIGHT
+Copyrights (c) 2020, GNU GPL v2, DESY, Jan Kotanski
+
+.SH BUGS
+Please report bugs on the project's mailing list:
+mailto://jankotan@gmail.com
+
+.SH AUTHORS
+Jan Kotanski <jankotan@gmail.com>
+

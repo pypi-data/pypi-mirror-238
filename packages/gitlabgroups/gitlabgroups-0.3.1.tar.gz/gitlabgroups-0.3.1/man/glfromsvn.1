@@ -1,0 +1,64 @@
+usage: glfromsvn [-h] [-T TRUNK] [-b BRANCHES] [-t TAGS] [-s SVNURL] [-u URL]
+                 [-l LOCALDIR] [-a AUTHORS] [-m TAGMESSAGE]
+		                  [svndir]
+
+Command-line tool 
+
+positional arguments:
+  svndir                
+
+optional arguments:
+  -h, --help            show this help message and exit
+.TH gifromsvn 1 "2020-05-13" gifromsvn
+.SH NAME
+.B gifromsvn
+\- command-line tool to create a local git repository from a given svn repository
+
+.SH SYNOPSIS
+.B  gifromsvn
+.I [-h] [-T TRUNK] [-b BRANCHES] [-t TAGS] [-s SVNURL] [-u URL] [-l LOCALDIR] [-a AUTHORS] [-m TAGMESSAGE] [svndir]
+
+.SH OPTIONS
+.IP "svndir"
+svn group directory, e.g. "DeviceClasses/CounterTimer/DGG2"
+
+optional arguments:
+.IP "-h, --help"
+show this help message and exit
+.IP "-T TRUNK, --trunk TRUNK"
+trunk svn directory, default: trunk
+.IP "-b BRANCHES, --branches BRANCHES"
+branch svn directory, default: branches
+.IP "-t TAGS, --tags TAGS"
+tag svn directory, default: tags
+.IP "-s SVNURL, --svn-url SVNURL"
+root svn url, default: "https://svn.code.sf.net/p/tango-ds/code/"
+.IP "-u URL, --url URL"
+full svn url with svn project directory, e.g.: "https://svn.code.sf.net/p/tango-ds/code/DeviceClasses/CounterTimer/DGG2"
+.IP "-l LOCALDIR, --local-dir LOCALDIR"
+local git directory, e.g.: "DGG2"
+.IP "-a AUTHORS, --authors AUTHORS"
+file with authors, default: "./authors.txt"
+.IP "-m TAGMESSAGE, --tag-message TAGMESSAGE"
+tag message, default: "migrate svn to git"
+
+.SH EXAMPLES:
+  glfromsvn DeviceClasses/CounterTimer/DGG2
+
+    - create a local git repository in "DGG2" directory and fetch authors email
+
+
+
+.SH SEE ALSO
+https://github.com/jkotan/nexdatas/
+
+.SH COPYRIGHT
+Copyrights (c) 2020, GNU GPL v2, DESY, Jan Kotanski
+
+.SH BUGS
+Please report bugs on the project's mailing list:
+mailto://jankotan@gmail.com
+
+.SH AUTHORS
+Jan Kotanski <jankotan@gmail.com>
+

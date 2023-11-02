@@ -1,0 +1,53 @@
+.TH glclone 1 "2020-05-13" glclone
+.SH NAME
+.B glclone
+\- command-line tool for cloning all repositories of gitlab (sub-)group
+
+.SH SYNOPSIS
+.B  glclone
+.I [-h] [-u USER] [-g GRPURL] [-l] [-a] [filter]
+
+
+.SH OPTIONS
+.IP "filter"
+group filter, e.g. "tango-ds"
+
+optional arguments:
+.IP "-h, --help"
+show this help message and exit
+.IP "-u USER, --user USER"
+gitlab user
+.IP "-g GRPURL, --groupurl GRPURL"
+group url, default: "https://gitlab.desy.de/api/v4/groups"
+.IP "-l, --local-user"
+get local user
+.IP "-a, --all"
+set filter to 'tango-ds'
+
+.SH EXAMPLES:
+  glclone  -a
+
+    - clone all repositories of "tango-ds" group
+
+  glclone  -a -l
+
+    - clone all repositories of tango-ds group with gitlab user defined by local user
+
+  glclone tango-ds/DeviceClasses
+
+    - clone all repositories of "tango-ds/DeviceClasses" subgroup
+
+
+.SH SEE ALSO
+https://github.com/jkotan/nexdatas/
+
+.SH COPYRIGHT
+Copyrights (c) 2020, GNU GPL v2, DESY, Jan Kotanski
+
+.SH BUGS
+Please report bugs on the project's mailing list:
+mailto://jankotan@gmail.com
+
+.SH AUTHORS
+Jan Kotanski <jankotan@gmail.com>
+
