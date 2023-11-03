@@ -1,0 +1,83 @@
+Metadata-Version: 2.1
+Name: muffin-kafka
+Version: 0.0.7
+Summary: Kafka Integration for Muffin framework
+Home-page: https://github.com/klen/muffin-kafka
+License: MIT
+Keywords: kafka,asyncio,asgi,muffin
+Author: Kirill Klenov
+Author-email: horneds@gmail.com
+Requires-Python: >=3.9,<4.0
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Framework :: AsyncIO
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Internet :: WWW/HTTP
+Requires-Dist: aiokafka
+Requires-Dist: muffin (>=0.100.1,<0.101.0)
+Project-URL: Repository, https://github.com/klen/muffin-kafka
+Description-Content-Type: text/markdown
+
+# Muffin-Kafka
+
+**Muffin-Kafka** – [Apache Kafka](https://kafka.apache.org) integration for [Muffin](https://klen.github.io/muffin) framework
+
+[![Tests Status](https://github.com/klen/muffin-kafka/workflows/tests/badge.svg)](https://github.com/klen/muffin-kafka/actions)
+[![PYPI Version](https://img.shields.io/pypi/v/muffin-kafka)](https://pypi.org/project/muffin-kafka/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/muffin-kafka)](https://pypi.org/project/muffin-kafka/)
+
+## Requirements
+
+* python >= 3.9
+
+## Installation
+
+**muffin-kafka** should be installed using pip:
+
+```shell
+$ pip install muffin-kafka
+```
+
+## Usage
+
+```python
+    from muffin import Application
+    import muffin_kafka
+
+    # Create Muffin Application
+    app = Application('example')
+
+    # Initialize the plugin
+    kafka = muffin_kafka.Plugin(app, **options)
+
+    # As alternative:
+    # kafka = muffin_kafka.Plugin()
+    # ...
+    # kafka.setup(app, dsn="DSN_URL")
+
+```
+
+### Setup the plugin
+
+TODO
+
+## Bug tracker
+
+If you have any suggestions, bug reports or annoyances please report them to
+the issue tracker at https://github.com/klen/muffin-kafka/issues
+
+
+## Contributing
+
+Development of the project happens at: https://github.com/klen/muffin-kafka
+
+
+## License
+
+Licensed under a [MIT License](http://opensource.org/licenses/MIT)
+
