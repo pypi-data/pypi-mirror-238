@@ -1,0 +1,40 @@
+[project]
+name = "psyserver"
+authors = [
+    {name = "Gabriel Kressin Palacios", email = "gabriel.kressin@homtail.de"},
+]
+description = "A server to host your online studies on."
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+license = {"file" = "LICENSE"}
+keywords = ["experiments", "studies", "behavioral", "online", "server"]
+dependencies = [
+    "fastapi[all]>=0.104.0,<0.105.0",
+    "uvicorn[standard]>=0.23.0,<0.24.0",
+]
+dynamic = ["version"]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
+
+[project.urls]
+Home = "https://github.com/GabrielKP/psyserver"
+
+[project.scripts]
+psyserver = "psyserver:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "httpx",
+    "coverage",
+    "flit",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["psyserver"]
