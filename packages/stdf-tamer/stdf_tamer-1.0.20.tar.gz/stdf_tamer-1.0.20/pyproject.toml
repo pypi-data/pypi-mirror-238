@@ -1,0 +1,72 @@
+[project]
+name = "stdf-tamer"
+description = "a stdf reader/writer/analyser/converter and robotframework library"
+dynamic = []
+authors = [
+    { name = "Labor DC jona", email = "" },
+    { name = "Franz Haas", email = "franz.haas@ams-osram.com" },
+    { name = "Roman Steiner", email = "roman.steiner@ams-osram.com" },
+]
+dependencies = [
+    "construct",
+    "docopt",
+    "rich",
+    "dataclasses>=0.8; python_version < \"3.7\"",
+    "importlib_metadata<=1.4; python_version < \"3.8\"",
+    "toml>=0.10.2",
+]
+requires-python = ">=3.6.0"
+readme = "README.md"
+keywords = [
+    "STDF",
+    "ATE",
+]
+version = "1.0.20"
+
+[project.license]
+text = "apache 2.0"
+
+[project.optional-dependencies]
+robotframework = [
+    "robotframework>=6.1.1",
+    "polars>=0.18.15; python_version >= \"3.8\"",
+    "xlsx2csv",
+    "XlsxWriter",
+]
+file_formats = [
+    "polars>=0.18.15; python_version >= \"3.8\"",
+    "XlsxWriter>=3.1.2; python_version >= \"3.8\"",
+    "xlsx2csv>=0.8.1; python_version >= \"3.8\"",
+]
+
+[project.urls]
+Homepage = "https://gittf.ams-osram.info/labor-rapperswil-jona/ams-tamer"
+Repository = "https://gittf.ams-osram.info/labor-rapperswil-jona/ams-tamer"
+documentation = "https://labor-rapperswil-jona.git-pages.ams-osram.info/ams-tamer/index.html"
+
+[project.scripts]
+stdfconvert = "ams_rw_stdf.convert:main"
+stdfrerunwithnewlimits = "ams_rw_stdf.simulator:main"
+stdfanalyse = "ams_rw_stdf.stdfanalyser:main"
+stdfrenamer = "ams_rw_stdf.stdfrenamer:main"
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+source = [
+    { url = "https://pypi.org/simple", verify_ssl = true, name = "pypi" },
+]
+
+[tool.pdm.version]
+source = "scm"
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "pdoc>=0.4.1; python_version >= \"3.8\"",
+    "ipython>=7.16.3; python_version >= \"3.8\"",
+    "radon>=6.0.1; python_version >= \"3.8\"",
+]
