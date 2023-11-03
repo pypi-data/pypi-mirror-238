@@ -1,0 +1,27 @@
+storage:
+  cls: remote
+  url: http://moma.internal.softwareheritage.org:5002
+
+search:
+  cls: remote
+  url: http://moma.internal.softwareheritage.org:5010
+
+debug: yes
+
+introspection: yes
+
+max_query_cost:
+  anonymous: 50
+  user: 500
+
+max_raw_content_size: 10000
+
+## Uncomment the block below to enable auth support
+
+# auth:
+#   server: https://auth.softwareheritage.org/auth/
+#   public_server: https://auth.softwareheritage.org/auth/
+#   realm: SoftwareHeritageStaging
+#   client: swh-web
+#   cache:
+#     url: memory://

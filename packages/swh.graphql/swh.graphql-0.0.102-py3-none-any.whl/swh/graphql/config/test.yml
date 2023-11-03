@@ -1,0 +1,24 @@
+# Config to be used with unit/functional tests
+
+storage:
+  cls: memory
+
+search:
+  cls: memory
+
+debug: yes
+
+introspection: yes
+
+max_query_cost:
+  anonymous: 10
+  user: 100
+
+max_raw_content_size: 10000
+
+auth:
+  server: dummy
+  realm: dummy
+  client: dummy
+  cache:
+    url: memory://
