@@ -1,0 +1,30 @@
+[tool.black] 
+line-length = 120
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "csvade"
+description = "Generate Calandar file (ICS) from CSV and ADE API."
+readme = "README.md"
+version = "0.0.4"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [
+  {name = "alexandrerbb" } 
+]
+keywords = ["csv", "ade", "ics"]
+dynamic = ["dependencies"]
+
+[project.urls]
+"Homepage" = "https://github.com/alexandrerbb/CSV-ADE-2-ICS"
+"Source" = "https://github.com/alexandrerbb/CSV-ADE-2-ICS"
+
+[project.scripts]
+csvade = "csv_ade2ics:process_csv"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
