@@ -1,0 +1,61 @@
+enc:
+  required: True
+  type: dict
+  schema:
+    size:
+      required: True
+      type: list
+      maxlength: 2
+      schema:
+        type: float
+        min: 1.0
+    origin:
+      required: True
+      excludes: center
+      type: list
+      maxlength: 2
+      schema:
+        type: float
+    center:
+      required: True
+      excludes: origin
+      type: list
+      maxlength: 2
+      schema:
+        type: float
+    depths:
+      required: False
+      type: list
+      minlength: 1
+      schema:
+        type: integer
+        min: 0
+    resources:
+      required: False
+      type: list
+      minlength: 1
+      schema:
+        type: string
+
+display:
+  required: False
+  type: dict
+  schema:
+    colorbar:
+      required: False
+      type: boolean
+    dark_mode:
+      required: False
+      type: boolean
+    fullscreen:
+      required: False
+      type: boolean
+    resolution:
+      required: False
+      type: integer
+    anchor:
+      required: False
+      type: string
+    dpi:
+      required: False
+      type: integer
