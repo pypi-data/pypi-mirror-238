@@ -1,0 +1,30 @@
+[project]
+name = "blindschleiche"
+description = "Miscelanelous python-based bioinformatics utils"
+authors = [
+    { name = "Dr. K. D. Murray", email = "info@gekkonid.com" }
+]
+requires-python = ">=3.8"
+dependencies = [
+    "tqdm",
+    "biopython",
+    "cyvcf2",
+    "pandas",
+]
+dynamic = [
+    "version",
+]
+[project.readme]
+file = "README.md" 
+content-type = "text/markdown"
+
+[project.scripts]
+blsl = "blsl:main"
+
+
+[tool.flit.module]
+name = "blsl"
+
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
