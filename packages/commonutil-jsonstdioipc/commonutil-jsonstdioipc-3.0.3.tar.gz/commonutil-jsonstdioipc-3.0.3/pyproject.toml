@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "commonutil-jsonstdioipc"
+version = "3.0.3"	# REV-CONSTANT:rev 5d022db7d38f580a850cd995e26a6c2f
+description = "JSON IPC with Standard Input and Output"
+readme = "README.md"
+requires-python = ">= 3.7"
+classifiers = [
+	"Development Status :: 5 - Production/Stable",
+	"Intended Audience :: Developers",
+	"License :: OSI Approved :: MIT License",
+	"Operating System :: POSIX",
+]
+
+[tool.setuptools.packages.find]
+include = ["commonutil_jsonstdioipc*"]
+namespaces = false
+
+[tool.setuptools.package-data]
+"*" = ["py.typed", "*.pyi"]
