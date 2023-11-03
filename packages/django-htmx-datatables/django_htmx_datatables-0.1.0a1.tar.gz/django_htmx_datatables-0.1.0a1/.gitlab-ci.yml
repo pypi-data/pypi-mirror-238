@@ -1,0 +1,51 @@
+stages:
+- checks
+- test
+- deploy
+
+pre-commit:
+  stage: checks
+  image: python:3.11-bullseye
+  variables:
+    PRE_COMMIT_HOME: ${CI_PROJECT_DIR}/.cache/pre-commit
+  cache:
+    paths:
+      - ${PRE_COMMIT_HOME}
+  script:
+    - pip install pre-commit
+    - pre-commit run --all-files
+
+pylint:
+  stage: checks
+  image: python:3.11-bullseye
+  before_script:
+    - pip install tox
+  script:
+    - tox -e pylint
+
+.test:
+  stage: test
+  before_script:
+    - python -V
+    - pip install tox
+
+test-py311-dj41:
+  extends: .test
+  image: python:3.11-bullseye
+  script:
+  - tox -e py311-django42
+  - bash <(curl -s https://codecov.io/bash)
+
+deploy-pypi:
+  stage: deploy
+  image: python:3.11-bullseye
+
+  before_script:
+    - pip install build wheel twine
+
+  script:
+    - python -m build
+    - twine upload dist/*
+
+  only:
+    - tags

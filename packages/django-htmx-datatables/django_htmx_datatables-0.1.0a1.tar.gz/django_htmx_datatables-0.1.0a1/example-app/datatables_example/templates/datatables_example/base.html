@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>htmx datatables examples</title>
+        {% block extra_css %}{% endblock extra_css %}
+    </head>
+    <body>
+        <div class="container">
+            {% block content %}{% endblock %}
+            <hr>
+            <footer>
+                <p>
+                    Example app v{{ example_version }} build with
+                    <a href="https://gitlab.com/ErikKalkoken/django-htmx-datatables">django-htmx-datatables</a>
+                    v{{ htmx_datatables_version}} |
+                    <a href="{% url 'datatables_example_index' %}">Start page</a>
+                </p>
+
+            </footer>
+        </div>
+
+        {% block extra_javascript %}{% endblock %}
+    </body>
+</html>

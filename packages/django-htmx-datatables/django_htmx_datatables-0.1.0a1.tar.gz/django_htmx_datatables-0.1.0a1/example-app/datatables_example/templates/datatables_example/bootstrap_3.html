@@ -1,0 +1,23 @@
+{% extends 'datatables_example/base.html' %}
+{% load htmx_datatables %}
+{% load static %}
+
+{% block content %}
+    <h1>Bootstrap 3 example</h1>
+    <hr>
+    <h2>Books</h2>
+    {% render_htmx_datatable url="example_books_datatable" %}
+{% endblock %}
+
+{% block extra_css %}
+    <!-- Bootstrap 3 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'datatables_example/global.css' %}">
+{% endblock %}
+
+{% block extra_javascript %}
+    <!-- Bootstrap 3 & JQuery JS libraries -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    {% enable_htmx_js %}
+{% endblock %}

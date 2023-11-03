@@ -1,0 +1,65 @@
+{% load humanize %}
+
+<nav aria-label="Page navigation" class="pull-right">
+    <ul class="pagination" style="margin-top: 0px; margin-bottom: 0px;">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a
+                    class="page-link"
+                    href="#"
+                    hx-get="{{ request.path }}?{{ QueryParam.PAGE }}={{ page_obj.previous_page_number }}"
+                    hx-include="#{{ root_id }} .data-query"
+                    aria-label="Previous">
+                        Previous
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Previous">
+                    Previous
+                </a>
+            </li>
+        {% endif %}
+
+        {% for page in page_range %}
+            {% if page == page_obj.number %}
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">{{ page|intcomma }}</span>
+                </li>
+            {% elif page == page_obj.paginator.ELLIPSIS %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">{{ page|intcomma }}</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a
+                        class="page-link"
+                        href="#"
+                        hx-get="{{ request.path }}?{{ QueryParam.PAGE }}={{ page }}"
+                        hx-include="#{{ root_id }} .data-query">
+                            {{ page|intcomma }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a
+                    class="page-link"
+                    href="#"
+                    hx-get="{{ request.path }}?{{ QueryParam.PAGE }}={{ page_obj.next_page_number }}"
+                    hx-include="#{{ root_id }} .data-query"
+                    aria-label="Next">
+                        Next
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">Next</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+<div style="clear: right;"></div>

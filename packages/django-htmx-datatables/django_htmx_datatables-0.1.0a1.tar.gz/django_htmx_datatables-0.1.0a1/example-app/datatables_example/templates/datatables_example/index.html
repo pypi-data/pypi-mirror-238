@@ -1,0 +1,15 @@
+{% extends 'datatables_example/base.html' %}
+{% load htmx_datatables %}
+
+{% block content %}
+    <h1>django-htmx-datatables examples</h1>
+
+    <p>Welcome to the examples app for django-htmx-datatables.</p>
+
+    <h2>Examples</h3>
+    <ul>
+        <li><a href="{% url 'datatables_example_bs_3' %}">Bootstrap 3</a></li>
+        <li><a href="{% url 'datatables_example_bs_4' %}">Bootstrap 4</a></li>
+        <li><a href="{% url 'datatables_example_bs_5' %}">Bootstrap 5</a></li>
+    </ul>
+{% endblock %}
