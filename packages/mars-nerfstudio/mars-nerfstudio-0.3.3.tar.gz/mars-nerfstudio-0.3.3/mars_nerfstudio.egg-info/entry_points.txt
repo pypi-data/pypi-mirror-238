@@ -1,0 +1,22 @@
+[nerfstudio.dataparser_configs]
+KittiData = mars.data.mars_kitti_dataparser:KittiParserSpec
+VKittiData = mars.data.mars_vkitti_dataparser:VKittiParserSpec
+
+[nerfstudio.method_configs]
+ablation-background-mip-nerf = mars.cicai_configs:Ablation_BG_MipNeRF
+ablation-background-nerf = mars.cicai_configs:Ablation_BG_NeRF
+ablation-class-wise-mip-nerf = mars.cicai_configs:Ablation_class_wise_MipNeRF
+ablation-class-wise-nerf = mars.cicai_configs:Ablation_class_wise_NeRF
+ablation-class-wise-nerfacto = mars.cicai_configs:Ablation_class_wise_NeRFacto
+ablation-no-depth = mars.cicai_configs:Ablation_no_depth
+ablation-no-depth-kitti = mars.cicai_configs:Ablation_no_depth_kitti
+ablation-none-ray-sample = mars.cicai_configs:Ablation_none_ray_sample
+ablation-object-wise-mip-nerf = mars.cicai_configs:Ablation_object_wise_MipNeRF
+ablation-object-wise-nerf = mars.cicai_configs:Ablation_object_wise_NeRF
+ablation-object-wise-nerfacto = mars.cicai_configs:Ablation_object_wise_NeRFacto
+ablation-warmup = mars.cicai_configs:Ablation_warmup
+mars-kitti-car-depth-nvs = mars.cicai_configs:KITTI_NVS_Mars_Car_Depth
+mars-kitti-car-depth-recon = mars.cicai_configs:KITTI_Recon_Mars_Car_Depth
+mars-vkitti-car-depth-nvs = mars.cicai_configs:VKITTI_NVS_Mars_Car_Depth
+mars-vkitti-car-depth-recon = mars.cicai_configs:VKITTI_Recon_Mars_Car_Depth
+mars-vkitti-car-depth-recon-semantic = mars.cicai_configs:VKITTI_Recon_Mars_Car_Depth_Semantic
