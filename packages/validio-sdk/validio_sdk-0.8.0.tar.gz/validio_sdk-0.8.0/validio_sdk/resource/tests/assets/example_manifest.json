@@ -1,0 +1,585 @@
+{
+    "metadata": {
+        "dbt_schema_version": "https://schemas.getdbt.com/dbt/manifest/v10.json",
+        "dbt_version": "1.6.2",
+        "generated_at": "2023-09-15T12:16:11.658464Z",
+        "invocation_id": "5ef87eee-eb0a-418e-85ae-837926437eb5",
+        "env": {},
+        "project_name": "acme",
+        "project_id": "53bce4f1dfa0fe8e7ca126f91b35d3a6",
+        "user_id": "37b47bb9-ab47-4ac1-853c-94b101d2f76d",
+        "send_anonymous_usage_stats": true,
+        "adapter_type": "postgres"
+    },
+    "nodes": {
+        "seed.acme.base": {
+            "database": "validio",
+            "schema": "dbt",
+            "name": "base",
+            "resource_type": "seed",
+            "package_name": "acme",
+            "path": "base.csv",
+            "original_file_path": "seeds/base.csv",
+            "unique_id": "seed.acme.base",
+            "fqn": [
+                "acme",
+                "base"
+            ],
+            "alias": "base",
+            "checksum": {
+                "name": "sha256",
+                "checksum": "e4cb7c452428b55ab030643e5d339168a9fe94ae7bd2e45b5f151d59752bc36b"
+            },
+            "config": {
+                "enabled": true,
+                "alias": null,
+                "schema": null,
+                "database": null,
+                "tags": [],
+                "meta": {},
+                "group": null,
+                "materialized": "seed",
+                "incremental_strategy": null,
+                "persist_docs": {},
+                "quoting": {},
+                "column_types": {},
+                "full_refresh": null,
+                "unique_key": null,
+                "on_schema_change": "ignore",
+                "on_configuration_change": "apply",
+                "grants": {},
+                "packages": [],
+                "docs": {
+                    "show": true,
+                    "node_color": null
+                },
+                "contract": {
+                    "enforced": false
+                },
+                "quote_columns": null,
+                "post-hook": [],
+                "pre-hook": []
+            },
+            "tags": [],
+            "description": "",
+            "columns": {},
+            "meta": {},
+            "group": null,
+            "docs": {
+                "show": true,
+                "node_color": null
+            },
+            "patch_path": null,
+            "build_path": null,
+            "deferred": false,
+            "unrendered_config": {},
+            "created_at": 1694776211.111336,
+            "relation_name": "\"validio\".\"dbt\".\"base\"",
+            "raw_code": "",
+            "root_path": "/home/Documents/dbt/acme",
+            "depends_on": {
+                "macros": []
+            }
+        },
+        "model.acme.dbt_model_1": {
+            "database": "validio",
+            "schema": "dbt",
+            "name": "dbt_model_1",
+            "resource_type": "model",
+            "package_name": "acme",
+            "path": "example/dbt_model_1.sql",
+            "original_file_path": "models/example/dbt_model_1.sql",
+            "unique_id": "model.acme.dbt_model_1",
+            "fqn": [
+                "acme",
+                "example",
+                "dbt_model_1"
+            ],
+            "alias": "dbt_model_1",
+            "checksum": {
+                "name": "sha256",
+                "checksum": "69dc34754cee14f96cfddbde854a4966a4dbde20668f483bb74aba4aafea8c71"
+            },
+            "config": {
+                "enabled": true,
+                "alias": null,
+                "schema": null,
+                "database": null,
+                "tags": [],
+                "meta": {},
+                "group": null,
+                "materialized": "table",
+                "incremental_strategy": null,
+                "persist_docs": {},
+                "quoting": {},
+                "column_types": {},
+                "full_refresh": null,
+                "unique_key": null,
+                "on_schema_change": "ignore",
+                "on_configuration_change": "apply",
+                "grants": {},
+                "packages": [],
+                "docs": {
+                    "show": true,
+                    "node_color": null
+                },
+                "contract": {
+                    "enforced": false
+                },
+                "post-hook": [],
+                "pre-hook": []
+            },
+            "tags": [],
+            "description": "A starter dbt model",
+            "columns": {
+                "platform": {
+                    "name": "platform",
+                    "description": "The primary key for this table",
+                    "meta": {},
+                    "data_type": null,
+                    "constraints": [],
+                    "quote": null,
+                    "tags": []
+                }
+            },
+            "meta": {},
+            "group": null,
+            "docs": {
+                "show": true,
+                "node_color": null
+            },
+            "patch_path": "acme://models/example/schema.yml",
+            "build_path": "target/run/acme/models/example/dbt_model_1.sql",
+            "deferred": false,
+            "unrendered_config": {
+                "materialized": "table"
+            },
+            "created_at": 1694776775.1702046,
+            "relation_name": "\"validio\".\"dbt\".\"dbt_model_1\"",
+            "raw_code": "{{ config(materialized='table') }}\n\nwith source_data as (\n    select * from {{ ref('base') }}\n)\n\nselect *\nfrom source_data",
+            "language": "sql",
+            "refs": [
+                {
+                    "name": "base",
+                    "package": null,
+                    "version": null
+                }
+            ],
+            "sources": [],
+            "metrics": [],
+            "depends_on": {
+                "macros": [],
+                "nodes": [
+                    "seed.acme.base"
+                ]
+            },
+            "compiled_path": "target/compiled/acme/models/example/dbt_model_1.sql",
+            "compiled": true,
+            "compiled_code": "\n\nwith source_data as (\n    select * from \"validio\".\"dbt\".\"base\"\n)\n\nselect *\nfrom source_data",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
+            "contract": {
+                "enforced": false,
+                "checksum": null
+            },
+            "access": "protected",
+            "constraints": [],
+            "version": null,
+            "latest_version": null,
+            "deprecation_date": null
+        },
+        "test.acme.not_null_dbt_model_1_platform.059f9afa77": {
+            "test_metadata": {
+                "name": "not_null",
+                "kwargs": {
+                    "column_name": "platform",
+                    "model": "{{ get_where_subquery(ref('dbt_model_1')) }}"
+                },
+                "namespace": null
+            },
+            "database": "validio",
+            "schema": "dbt_dbt_test__audit",
+            "name": "not_null_dbt_model_1_platform",
+            "resource_type": "test",
+            "package_name": "acme",
+            "path": "not_null_dbt_model_1_platform.sql",
+            "original_file_path": "models/example/schema.yml",
+            "unique_id": "test.acme.not_null_dbt_model_1_platform.059f9afa77",
+            "fqn": [
+                "acme",
+                "example",
+                "not_null_dbt_model_1_platform"
+            ],
+            "alias": "not_null_dbt_model_1_platform",
+            "checksum": {
+                "name": "none",
+                "checksum": ""
+            },
+            "config": {
+                "enabled": true,
+                "alias": null,
+                "schema": "dbt_test__audit",
+                "database": null,
+                "tags": [],
+                "meta": {},
+                "group": null,
+                "materialized": "test",
+                "severity": "ERROR",
+                "store_failures": null,
+                "where": null,
+                "limit": null,
+                "fail_calc": "count(*)",
+                "warn_if": "!= 0",
+                "error_if": "!= 0"
+            },
+            "tags": [],
+            "description": "",
+            "columns": {},
+            "meta": {},
+            "group": null,
+            "docs": {
+                "show": true,
+                "node_color": null
+            },
+            "patch_path": null,
+            "build_path": null,
+            "deferred": false,
+            "unrendered_config": {},
+            "created_at": 1694776775.1773076,
+            "relation_name": null,
+            "raw_code": "{{ test_not_null(**_dbt_generic_test_kwargs) }}",
+            "language": "sql",
+            "refs": [
+                {
+                    "name": "dbt_model_1",
+                    "package": null,
+                    "version": null
+                }
+            ],
+            "sources": [],
+            "metrics": [],
+            "depends_on": {
+                "macros": [
+                    "macro.dbt.test_not_null"
+                ],
+                "nodes": [
+                    "model.acme.dbt_model_1"
+                ]
+            },
+            "compiled_path": null,
+            "contract": {
+                "enforced": false,
+                "checksum": null
+            },
+            "column_name": "platform",
+            "file_key_name": "models.dbt_model_1",
+            "attached_node": "model.acme.dbt_model_1"
+        },
+        "model.acme.dbt_model_2": {
+            "database": "validio",
+            "schema": "dbt",
+            "name": "dbt_model_2",
+            "resource_type": "model",
+            "package_name": "acme",
+            "path": "example/dbt_model_2.sql",
+            "original_file_path": "models/example/dbt_model_2.sql",
+            "unique_id": "model.acme.dbt_model_2",
+            "fqn": [
+                "acme",
+                "example",
+                "dbt_model_2"
+            ],
+            "alias": "dbt_model_2",
+            "checksum": {
+                "name": "sha256",
+                "checksum": "99897c28caf78d9712ce3996f7cacf7ed54f34b63f72d02fb7816c4b5f4833e1"
+            },
+            "config": {
+                "enabled": true,
+                "alias": null,
+                "schema": null,
+                "database": null,
+                "tags": [],
+                "meta": {},
+                "group": null,
+                "materialized": "view",
+                "incremental_strategy": null,
+                "persist_docs": {},
+                "quoting": {},
+                "column_types": {},
+                "full_refresh": null,
+                "unique_key": null,
+                "on_schema_change": "ignore",
+                "on_configuration_change": "apply",
+                "grants": {},
+                "packages": [],
+                "docs": {
+                    "show": true,
+                    "node_color": null
+                },
+                "contract": {
+                    "enforced": false
+                },
+                "post-hook": [],
+                "pre-hook": []
+            },
+            "tags": [
+                "test_tag"
+            ],
+            "description": "A starter dbt model",
+            "columns": {
+                "countrycode": {
+                    "name": "countrycode",
+                    "description": "The primary key for this table",
+                    "meta": {},
+                    "data_type": null,
+                    "constraints": [],
+                    "quote": null,
+                    "tags": []
+                }
+            },
+            "meta": {},
+            "group": null,
+            "docs": {
+                "show": true,
+                "node_color": null
+            },
+            "patch_path": "acme://models/example/schema.yml",
+            "build_path": "target/run/acme/models/example/dbt_model_2.sql",
+            "deferred": false,
+            "unrendered_config": {
+                "materialized": "view"
+            },
+            "created_at": 1694780171.7009032,
+            "relation_name": "\"validio\".\"dbt\".\"dbt_model_2\"",
+            "raw_code": "{{\n\tconfig(materialized='view')\n}}\n\nselect *, (SELECT max(created_at) FROM {{ source('divertables', 'virtual_pipelines') }}) AS dts\nfrom {{ ref('dbt_model_1') }}\nwhere platform <> 'iphone'",
+            "language": "sql",
+            "refs": [
+                {
+                    "name": "dbt_model_1",
+                    "package": null,
+                    "version": null
+                }
+            ],
+            "sources": [
+                [
+                    "divertables",
+                    "virtual_pipelines"
+                ]
+            ],
+            "metrics": [],
+            "depends_on": {
+                "macros": [],
+                "nodes": [
+                    "source.acme.divertables.virtual_pipelines",
+                    "model.acme.dbt_model_1"
+                ]
+            },
+            "compiled_path": "target/compiled/acme/models/example/dbt_model_2.sql",
+            "compiled": true,
+            "compiled_code": "\n\nselect *, (SELECT max(created_at) FROM \"validio\".\"diver\".\"virtual_pipelines\") AS dts\nfrom \"validio\".\"dbt\".\"dbt_model_1\"\nwhere platform <> 'iphone'",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
+            "contract": {
+                "enforced": false,
+                "checksum": null
+            },
+            "access": "protected",
+            "constraints": [],
+            "version": null,
+            "latest_version": null,
+            "deprecation_date": null
+        },
+        "test.acme.not_null_dbt_model_2_countrycode.07b05c2f45": {
+            "test_metadata": {
+                "name": "not_null",
+                "kwargs": {
+                    "column_name": "countrycode",
+                    "model": "{{ get_where_subquery(ref('dbt_model_2')) }}"
+                },
+                "namespace": null
+            },
+            "database": "validio",
+            "schema": "dbt_dbt_test__audit",
+            "name": "not_null_dbt_model_2_countrycode",
+            "resource_type": "test",
+            "package_name": "acme",
+            "path": "not_null_dbt_model_2_countrycode.sql",
+            "original_file_path": "models/example/schema.yml",
+            "unique_id": "test.acme.not_null_dbt_model_2_countrycode.07b05c2f45",
+            "fqn": [
+                "acme",
+                "example",
+                "not_null_dbt_model_2_countrycode"
+            ],
+            "alias": "not_null_dbt_model_2_countrycode",
+            "checksum": {
+                "name": "none",
+                "checksum": ""
+            },
+            "config": {
+                "enabled": true,
+                "alias": null,
+                "schema": "dbt_test__audit",
+                "database": null,
+                "tags": [],
+                "meta": {},
+                "group": null,
+                "materialized": "test",
+                "severity": "ERROR",
+                "store_failures": null,
+                "where": null,
+                "limit": null,
+                "fail_calc": "count(*)",
+                "warn_if": "!= 0",
+                "error_if": "!= 0"
+            },
+            "tags": [],
+            "description": "",
+            "columns": {},
+            "meta": {},
+            "group": null,
+            "docs": {
+                "show": true,
+                "node_color": null
+            },
+            "patch_path": null,
+            "build_path": null,
+            "deferred": false,
+            "unrendered_config": {},
+            "created_at": 1694780171.706898,
+            "relation_name": null,
+            "raw_code": "{{ test_not_null(**_dbt_generic_test_kwargs) }}",
+            "language": "sql",
+            "refs": [
+                {
+                    "name": "dbt_model_2",
+                    "package": null,
+                    "version": null
+                }
+            ],
+            "sources": [],
+            "metrics": [],
+            "depends_on": {
+                "macros": [
+                    "macro.dbt.test_not_null"
+                ],
+                "nodes": [
+                    "model.acme.dbt_model_2"
+                ]
+            },
+            "compiled_path": null,
+            "contract": {
+                "enforced": false,
+                "checksum": null
+            },
+            "column_name": "countrycode",
+            "file_key_name": "models.dbt_model_2",
+            "attached_node": "model.acme.dbt_model_2"
+        }
+    },
+    "sources": {
+        "source.acme.divertables.virtual_pipelines": {
+            "database": "validio",
+            "schema": "diver",
+            "name": "virtual_pipelines",
+            "resource_type": "source",
+            "package_name": "acme",
+            "path": "models/example/schema.yml",
+            "original_file_path": "models/example/schema.yml",
+            "unique_id": "source.acme.divertables.virtual_pipelines",
+            "fqn": [
+                "acme",
+                "example",
+                "divertables",
+                "virtual_pipelines"
+            ],
+            "source_name": "divertables",
+            "source_description": "",
+            "loader": "",
+            "identifier": "virtual_pipelines",
+            "quoting": {
+                "database": null,
+                "schema": null,
+                "identifier": null,
+                "column": null
+            },
+            "loaded_at_field": null,
+            "freshness": {
+                "warn_after": {
+                    "count": null,
+                    "period": null
+                },
+                "error_after": {
+                    "count": null,
+                    "period": null
+                },
+                "filter": null
+            },
+            "external": null,
+            "description": "",
+            "columns": {},
+            "meta": {},
+            "source_meta": {},
+            "tags": [],
+            "config": {
+                "enabled": true
+            },
+            "patch_path": null,
+            "unrendered_config": {},
+            "relation_name": "\"validio\".\"diver\".\"virtual_pipelines\"",
+            "created_at": 1694780079.1362543
+        },
+        "source.acme.divertables.validators": {
+            "database": "validio",
+            "schema": "diver",
+            "name": "validators",
+            "resource_type": "source",
+            "package_name": "acme",
+            "path": "models/example/schema.yml",
+            "original_file_path": "models/example/schema.yml",
+            "unique_id": "source.acme.divertables.validators",
+            "fqn": [
+                "acme",
+                "example",
+                "divertables",
+                "validators"
+            ],
+            "source_name": "divertables",
+            "source_description": "",
+            "loader": "",
+            "identifier": "validators",
+            "quoting": {
+                "database": null,
+                "schema": null,
+                "identifier": null,
+                "column": null
+            },
+            "loaded_at_field": null,
+            "freshness": {
+                "warn_after": {
+                    "count": null,
+                    "period": null
+                },
+                "error_after": {
+                    "count": null,
+                    "period": null
+                },
+                "filter": null
+            },
+            "external": null,
+            "description": "",
+            "columns": {},
+            "meta": {},
+            "source_meta": {},
+            "tags": [],
+            "config": {
+                "enabled": true
+            },
+            "patch_path": null,
+            "unrendered_config": {},
+            "relation_name": "\"validio\".\"diver\".\"validators\"",
+            "created_at": 1694780079.1364176
+        }
+    }
+}

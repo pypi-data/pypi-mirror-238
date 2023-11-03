@@ -1,0 +1,87 @@
+{
+    "metadata": {
+        "dbt_schema_version": "https://schemas.getdbt.com/dbt/manifest/v10.json",
+        "dbt_version": "1.6.2",
+        "generated_at": "2023-09-15T12:16:11.658464Z",
+        "invocation_id": "5ef87eee-eb0a-418e-85ae-837926437eb5",
+        "project_name": "acme",
+        "project_id": "53bce4f1dfa0fe8e7ca126f91b35d3a6",
+        "user_id": "37b47bb9-ab47-4ac1-853c-94b101d2f76d",
+        "adapter_type": "postgres"
+    },
+    "nodes": {
+        "model.acme.dbt_model_1": {
+            "package_name": "acme",
+            "database": "validio",
+            "schema": "dbt",
+            "name": "dbt_model_1",
+            "description": "A starter dbt model",
+            "created_at": 1694776775.1702046,
+            "relation_name": "\"validio\".\"dbt\".\"dbt_model_1\"",
+            "compiled_code": "\n\nwith source_data as (\n    select * from \"validio\".\"dbt\".\"base\"\n)\n\nselect *\nfrom source_data",
+            "resource_type": "model",
+            "depends_on": {
+                "nodes": [
+                    "seed.acme.base"
+                ]
+            },
+            "original_file_path": "models/example/dbt_model_1.sql",
+            "unique_id": "model.acme.dbt_model_1",
+            "config": {
+                "materialized": "table"
+            },
+            "tags": [],
+            "columns": {
+                "platform": {
+                    "name": "platform",
+                    "description": "The primary key for this table"
+                }
+            }
+        },
+        "model.acme.dbt_model_2": {
+            "package_name": "acme",
+            "database": "validio",
+            "schema": "dbt",
+            "name": "dbt_model_2",
+            "description": "A starter dbt model",
+            "created_at": 1694780171.7009032,
+            "relation_name": "\"validio\".\"dbt\".\"dbt_model_2\"",
+            "compiled_code": "\n\nselect *, (SELECT max(created_at) FROM \"validio\".\"diver\".\"virtual_pipelines\") AS dts\nfrom \"validio\".\"dbt\".\"dbt_model_1\"\nwhere platform <> 'iphone'",
+            "resource_type": "model",
+            "depends_on": {
+                "nodes": [
+                    "source.acme.divertables.virtual_pipelines",
+                    "model.acme.dbt_model_1"
+                ]
+            },
+            "original_file_path": "models/example/dbt_model_2.sql",
+            "unique_id": "model.acme.dbt_model_2",
+            "config": {
+                "materialized": "view"
+            },
+            "tags": [
+                "test_tag"
+            ],
+            "columns": {
+                "countrycode": {
+                    "name": "countrycode",
+                    "description": "The primary key for this table"
+                }
+            }
+        }
+    },
+    "sources": {
+        "source.acme.divertables.virtual_pipelines": {
+            "database": "validio",
+            "schema": "diver",
+            "name": "virtual_pipelines",
+            "created_at": 1694780079.1362543,
+            "relation_name": "\"validio\".\"diver\".\"virtual_pipelines\"",
+            "resource_type": "source",
+            "original_file_path": "models/example/schema.yml",
+            "package_name": "acme",
+            "unique_id": "source.acme.divertables.virtual_pipelines",
+            "tags": []
+        }
+    }
+}
