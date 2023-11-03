@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: reahl-mailutil
+Version: 7.0.1
+Summary: Simple utilities for sending email from Reahl.
+Author-email: Iwan Vosloo <iwan@reahl.org>, Craig Sparks <craig@reahl.org>
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Requires-Dist: reahl-component<7.1,>=7.0
+Requires-Dist: docutils<0.20.999,>=0.14
+Requires-Dist: Pygments<2.16.999,>=2.1.0
+Provides-Extra: test
+Requires-Dist: pytest>=3.0; extra == "test"
+Requires-Dist: reahl-tofu; extra == "test"
+Requires-Dist: reahl-stubble; extra == "test"
+Requires-Dist: reahl-dev; extra == "test"
+
+ Reahl is a web application framework that allows a Python programmer to work in 
+ terms of useful abstractions - using a single programming language.
+
+ Reahl-mailutil is a simple library for sending emails (optionally from ReST 
+ sources).
