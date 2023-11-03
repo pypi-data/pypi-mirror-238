@@ -1,0 +1,1 @@
+import{r as c}from"./p-8dda2fd8.js";const o=class{constructor(o){c(this,o)}connectedCallback(){}componentWillLoad(){}disconnectedCallback(){}componentWillUpdate(){}};export{o as lwc_getaccept_loader}

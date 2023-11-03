@@ -1,0 +1,1 @@
+import{r,h as e}from"./p-8dda2fd8.js";const n=class{constructor(e){r(this,e)}render(){return e("limel-flex-container",{justify:"center"},e("limel-spinner",null))}};n.style="limel-spinner{margin:1rem 0;color:#f49132}";export{n as ga_loader}

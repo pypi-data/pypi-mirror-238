@@ -1,0 +1,1 @@
+var e;!function(e){e.draft="draft",e.hardbounced="hardbounced",e.importing="importing",e.lost="lost",e.processing="processing",e.recalled="recalled",e.rejected="rejected",e.reviewed="reviewed",e.scheduled="scheduled",e.sealed="sealed",e.sent="sent",e.signed="signed",e.signedwithoutverification="signedwithoutverification",e.viewed="viewed"}(e||(e={}));export{e as E}
