@@ -1,0 +1,28 @@
+Metadata-Version: 2.1
+Name: pgcronner
+Version: 0.1.0
+Classifier: Programming Language :: Rust
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
+
+# pgcronner
+A Rust pgcron manager for python
+
+
+
+## Defining pgcron jobs
+
+
+```python
+PGCRONNER_JOBS = {
+  "job_name": {
+    "schedule": "<str>",
+    "stored_procedure": "<Optional[str]>"
+    "source": "<str>" #"dotted.path.to.sql.file",
+  }
+}
+
+
+
