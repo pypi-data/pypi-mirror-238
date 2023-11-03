@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: libprg
+Version: 1
+Summary: program library
+Author-email: libprg <libbotx@gmail.com>
+License: Public Domain
+Project-URL: home, https://pypi.org/project/libprg
+Project-URL: bugs, https://github.com/botlibx/libprg/issues
+Project-URL: source, https://github.com/botlibx/libprg
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: Public Domain
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python
+Classifier: Topic :: Utilities
+Description-Content-Type: text/x-rst
+
+NAME
+
+::
+
+   LIBPRG - program library
+
+
+DESCRIPTION
+
+::
+
+
+
+   LIBPRG is a python3 library providing all the tools to create a
+   unix command line program, such as disk perisistence for
+   configuration files, event handler to handle the client/server
+   connection, code to introspect modules for commands, a parser to
+   parse commandline options and values, etc.
+
+   LIBPRG is a contribution back to society and is Public Domain.
+
+
+SYNOPSIS
+
+::
+
+   >>> from prg.object import *
+   >>> o = Object()
+   >>> o.a = "b"
+   >>> write(o, "test")
+   >>> oo = Object()
+   >>> read(oo, "test")
+   >>> oo
+   {"a": "b"}  
+
+
+INSTALL
+
+::
+
+   $ pip install libprg
+
+
+AUTHOR
+
+::
+
+  libbot <libbotx@gmail.com>
+
+
+COPYRIGHT
+
+::
+
+   LIBPRG is placed in the Public Domain.
