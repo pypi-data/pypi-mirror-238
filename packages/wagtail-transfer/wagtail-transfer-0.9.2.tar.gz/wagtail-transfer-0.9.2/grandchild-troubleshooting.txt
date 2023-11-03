@@ -1,0 +1,180 @@
+    source = request.POST['source']
+    => transfer1
+    base_url = settings.WAGTAILTRANSFER_SOURCES[source]['BASE_URL']
+    => 'http://localhost:8000/wagtail-transfer/'
+
+    digest = digest_for_source(source, str(request.POST['source_page_id']))
+    response = requests.get(f"{base_url}api/pages/{request.POST['source_page_id']}/", params={'digest': digest})
+    => request 'http://localhost:8000/wagtail-transfer/api/pages/4/'
+
+    ids_for_import: 4, 5, 6
+    mappings: for 3 (home), 4 (level1), 5 (level2), 6 (level3)
+    objects: 4, 5, 6
+
+    dest_page_id = request.POST['dest_page_id'] or None
+    importer = ImportPlanner.for_page(source=request.POST['source_page_id'], destination=dest_page_id)
+    => ImportPlanner.for_page(source='4', destination='3')
+    return cls(root_page_source_pk=source, destination_parent_id=destination)
+    => ImportPlanner(root_page_source_pk='4', destination_parent_id='3')
+    self.import_type = 'page'
+    self.root_page_source_pk = 4
+    self.destination_parent_id = 3
+    self.context = {
+        self.destination_ids_by_source = {}
+        self.uids_by_source = {}
+        self.imported_files_by_source_url = {}
+    }
+    self.objectives = set()
+    self.unhandled_objectives = set()
+    self.object_data_by_source = {}
+    self.tasks = set()
+    self.postponed_tasks = set()
+    self.missing_object_data = set()
+    self.really_missing_object_data = set()
+    self.operations = set()
+    self.resolutions = {}
+    self.task_resolutions = {}
+    self.base_import_ids = set()
+    self.failed_creations = set()
+
+    importer.add_json(response.content)
+    =>
+    self.base_import_ids = {
+        (Page, 4), (Page, 5), (Page, 6),
+    }
+    self.context.uids_by_source = {
+        (Page, 5) => '8000',
+        (Page, 3) => '966b',
+        (Page, 4) => '8003',
+        (Page, 6) => '8002',
+        (Locale, 1) => ('en',),
+    }
+    add objectives:
+    Objective(Page, 5, self.context, must_update=true)
+    Objective(Page, 4, self.context, must_update=true)
+    Objective(Page, 6, self.context, must_update=true)
+    Objective(Locale, 1, self.context, must_update=false)
+    _add_object_data_to_lookup:
+    homepage 4, homepage 5, homepage 6
+
+    importer = import_missing_object_data(source, importer)
+
+
+Operations: {
+    <CreateTreeModel: create <class 'home.models.HomePage'> 5 as child of None>,
+    <CreateTreeModel: create <class 'home.models.HomePage'> 4 as child of 3>,
+    <CreateTreeModel: create <class 'home.models.HomePage'> 6 as child of None>
+}
+Satisfiable operations: [
+    <CreateTreeModel: create <class 'home.models.HomePage'> 5 as child of None>,
+    <CreateTreeModel: create <class 'home.models.HomePage'> 4 as child of 3>,
+    <CreateTreeModel: create <class 'home.models.HomePage'> 6 as child of None>
+]
+Operation order: [
+    <CreateTreeModel: create <class 'home.models.HomePage'> 6 as child of None>,
+    <CreateTreeModel: create <class 'home.models.HomePage'> 4 as child of 3>,
+    <CreateTreeModel: create <class 'home.models.HomePage'> 5 as child of None>
+]
+
+
+Operations: {
+    <CreateTreeModel: create <class 'home.models.HomePage'> 4 as child of 3>,
+    <CreateTreeModel: create <class 'home.models.HomePage'> 6 as child of None>,
+    <CreateTreeModel: create <class 'home.models.HomePage'> 5 as child of None>
+}
+
+Statuses:
+{
+    (<class 'wagtail.core.models.Locale'>, 1): True,
+    (<class 'wagtail.core.models.Page'>, 5): True,
+    (<class 'wagtail.core.models.Page'>, 4): True
+}
+
+Operation order:
+Operation <CreateTreeModel: create <class 'home.models.HomePage'> 6 as child of None>: deps {
+    (<class 'wagtail.core.models.Page'>, 5, True), (<class 'wagtail.core.models.Locale'>, 1, True)}
+Operation <CreateTreeModel: create <class 'home.models.HomePage'> 4 as child of 3>: deps {
+    (<class 'wagtail.core.models.Page'>, 6, False), (<class 'wagtail.core.models.Locale'>, 1, True)}
+Operation <CreateTreeModel: create <class 'home.models.HomePage'> 5 as child of None>: deps {
+    (<class 'wagtail.core.models.Page'>, 4, True), (<class 'wagtail.core.models.Locale'>, 1, True)}
+
+Why is it okay with putting create-page-6 first?
+
+
+
+
+Is <CreateTreeModel: create <class 'home.models.HomePage'> 4 as child of 3> satisfiable with statuses {}?
+    considering hard dep <class 'wagtail.core.models.Locale'> 1
+    No previous result - descending
+    Resolved by None
+    No action required - result is true
+All dependencies for <CreateTreeModel: create <class 'home.models.HomePage'> 4 as child of 3> accounted for.
+
+Is <CreateTreeModel: create <class 'home.models.HomePage'> 5 as child of None> satisfiable with statuses {(<class 'wagtail.core.models.Locale'>, 1): True}?
+    considering hard dep <class 'wagtail.core.models.Page'> 4
+    No previous result - descending
+    Resolved by <CreateTreeModel: create <class 'home.models.HomePage'> 4 as child of 3>
+    Checking operation recursively
+    Is <CreateTreeModel: create <class 'home.models.HomePage'> 4 as child of 3> satisfiable with statuses {(<class 'wagtail.core.models.Locale'>, 1): True, (<class 'wagtail.core.models.Page'>, 4): None}?
+        considering hard dep <class 'wagtail.core.models.Locale'> 1
+        result obtained: True
+    All dependencies for <CreateTreeModel: create <class 'home.models.HomePage'> 4 as child of 3> accounted for.
+    Returned from recursion with result True
+
+    considering hard dep <class 'wagtail.core.models.Locale'> 1
+    result obtained: True
+All dependencies for <CreateTreeModel: create <class 'home.models.HomePage'> 5 as child of None> accounted for.
+
+Is <CreateTreeModel: create <class 'home.models.HomePage'> 6 as child of None> satisfiable with statuses {(<class 'wagtail.core.models.Locale'>, 1): True, (<class 'wagtail.core.models.Page'>, 4): True}?
+    considering hard dep <class 'wagtail.core.models.Page'> 5
+    No previous result - descending
+    Resolved by <CreateTreeModel: create <class 'home.models.HomePage'> 5 as child of None>
+    Checking operation recursively
+    Is <CreateTreeModel: create <class 'home.models.HomePage'> 5 as child of None> satisfiable with statuses {(<class 'wagtail.core.models.Locale'>, 1): True, (<class 'wagtail.core.models.Page'>, 4): True, (<class 'wagtail.core.models.Page'>, 5): None}?
+        considering hard dep <class 'wagtail.core.models.Page'> 4
+        result obtained: True
+
+        considering hard dep <class 'wagtail.core.models.Locale'> 1
+        result obtained: True
+    All dependencies for <CreateTreeModel: create <class 'home.models.HomePage'> 5 as child of None> accounted for.
+    Returned from recursion with result True
+
+    considering hard dep <class 'wagtail.core.models.Locale'> 1
+    result obtained: True
+All dependencies for <CreateTreeModel: create <class 'home.models.HomePage'> 6 as child of None> accounted for.
+
+Operation orders:
+Operation <CreateTreeModel: create <class 'home.models.HomePage'> 5 as child of None>: deps {(<class 'wagtail.core.models.Page'>, 4, True), (<class 'wagtail.core.models.Locale'>, 1, True)}
+Operation <CreateTreeModel: create <class 'home.models.HomePage'> 6 as child of None>: deps {(<class 'wagtail.core.models.Page'>, 5, True), (<class 'wagtail.core.models.Locale'>, 1, True)}
+Operation <CreateTreeModel: create <class 'home.models.HomePage'> 4 as child of 3>: deps {(<class 'wagtail.core.models.Page'>, 6, False), (<class 'wagtail.core.models.Locale'>, 1, True)}
+
+
+Operation orders:
+Operation <CreateTreeModel: create <class 'home.models.HomePage'> 5 as child of None>: deps {(<class 'wagtail.core.models.Page'>, 4, True), (<class 'wagtail.core.models.Locale'>, 1, True)}
+Operation <CreateTreeModel: create <class 'home.models.HomePage'> 6 as child of None>: deps {(<class 'wagtail.core.models.Page'>, 5, True), (<class 'wagtail.core.models.Locale'>, 1, True)}
+Operation <CreateTreeModel: create <class 'home.models.HomePage'> 4 as child of 3>: deps {(<class 'wagtail.core.models.Page'>, 6, False), (<class 'wagtail.core.models.Locale'>, 1, True)}
+
+
+
+starting from create-page-5: has a hard dependency on page-4
+create-page-4: has a soft dependency on page-6
+create-page-6: has a hard dependency on page 5
+
+
+By the time we call ImportPlanner.run(), it's correctly determined that:
+* creating level1 has a soft dependency on level3
+* creating level2 has a hard dependency on level1
+* creating level3 has a hard dependency on level2
+
+_check_satisfiable confirms that all of these operations are satisfiable
+(because it only considers hard dependencies, and in those the dependency chain ends at level1).
+
+The problem is with _add_to_operation_order, which does try to respect soft dependencies where possible.
+If the first operation it considers is creating level2, then:
+* it sees the hard dependency on level1, so recursively calls _add_to_operation_order on the 'create level1' operation
+* it sees the soft dependency on level3, and at this point there's no indication that it can't be satisfied, so recursively calls _add_to_operation_order on the 'create level3' operation
+* it sees the hard dependency on level2, and observes that the 'create level2' operation was part of the path it took to get here, so it's detected a circular dependency
+
+The code wrongly assumes that the last dependency we encounter is the soft one, so it thinks it's OK to break the chain here. As a result, it chooses to create level2 before level1 exists.
+
+I think the 'except KeyError:' logic might also be (harmlessly) incorrect: it's based on the misconception that the previous _check_satisfiable step was populating the resolutions lookup table, and so any failed lookups must be soft dependencies (which _check_satisfiable ignores). In fact, the resolutions lookup table is populated during the earlier phase of doing API calls, so this lookup will always succeed even for soft dependencies. This is just as well, because if it does follow the 'except KeyError' code path, it'll end up leaving the variable 'resolution' unset (causing it to either fail with 'variable used before definition', or to hold on to the value from the previous iteration).
