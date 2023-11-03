@@ -1,0 +1,34 @@
+{
+    "name": "@wq/model",
+    "version": "2.0.0",
+    "description": "A simple model API for working with stored lists",
+    "type": "module",
+    "main": "src/index.js",
+    "scripts": {
+        "test": "cd ../../ && npm run jest packages/model",
+        "prettier": "cd ../../ && npm run prettier -- --write packages/model/",
+        "lint": "cd ../../ && npm run eslint packages/model/{,src/,src/*/}*.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wq/wq.app.git",
+        "directory": "packages/model"
+    },
+    "keywords": [
+        "wq",
+        "model",
+        "collection",
+        "query"
+    ],
+    "author": "S. Andrew Sheppard",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/wq/wq.app/issues"
+    },
+    "homepage": "https://wq.io/@wq/model",
+    "dependencies": {
+        "@wq/store": "^2.0.0",
+        "deepcopy": "^2.1.0",
+        "redux-orm": "^0.17.0-rc.0"
+    }
+}

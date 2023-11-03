@@ -1,0 +1,33 @@
+{
+    "name": "@wq/router",
+    "version": "2.0.0",
+    "description": "Respond to URL changes with locally generated pages and custom events",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "test": "cd ../../ && npm run jest packages/router",
+        "prettier": "cd ../../ && npm run prettier -- --write packages/router/",
+        "lint": "cd ../../ && npm run eslint packages/router/{,src/,src/*/,src/*/*/}*.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wq/wq.app.git",
+        "directory": "packages/router"
+    },
+    "keywords": [
+        "wq",
+        "router"
+    ],
+    "author": "S. Andrew Sheppard",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/wq/wq.app/issues"
+    },
+    "homepage": "https://wq.io/@wq/router",
+    "dependencies": {
+        "@wq/store": "^2.0.0",
+        "capital-case": "^1.0.4",
+        "query-string": "^8.1.0",
+        "redux-first-router": "^2.1.5"
+    }
+}

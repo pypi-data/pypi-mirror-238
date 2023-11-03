@@ -1,0 +1,38 @@
+{
+    "name": "@wq/outbox",
+    "version": "2.0.0",
+    "description": "A simple model API for working with stored lists",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "test": "cd ../../ && npm run jest packages/outbox",
+        "prettier": "cd ../../ && npm run prettier -- --write packages/outbox/",
+        "lint": "cd ../../ && npm run eslint packages/outbox/{,src/,src/*/}*.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wq/wq.app.git",
+        "directory": "packages/outbox"
+    },
+    "keywords": [
+        "wq",
+        "outbox",
+        "offline",
+        "form"
+    ],
+    "author": "S. Andrew Sheppard",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/wq/wq.app/issues"
+    },
+    "homepage": "https://wq.io/@wq/outbox",
+    "dependencies": {
+        "@redux-offline/redux-offline": "2.6.0-native.1",
+        "@wq/model": "^2.0.0",
+        "@wq/store": "^2.0.0",
+        "redux-persist": "^6.0.0"
+    },
+    "devDependencies": {
+        "@wq/router": "^2.0.0"
+    }
+}

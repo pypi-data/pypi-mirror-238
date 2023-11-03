@@ -1,0 +1,57 @@
+{
+    "name": "@wq/material-native",
+    "version": "2.0.0",
+    "description": "React Native and Expo bindings for @wq/material",
+    "type": "module",
+    "main": "src/index.js",
+    "scripts": {
+        "test": "cd ../../ && npm run jest packages/material-native -- --config packages/material-native/jest.config.js --moduleDirectories node_modules/ packages/material-native/node_modules/",
+        "build": "npm run prettier",
+        "prettier": "cd ../../ && npm run prettier -- --write packages/material-native/",
+        "lint": "cd ../../ && npm run eslint packages/material-native/{,src/,src/*/,src/*/*/}*.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wq/wq.app.git",
+        "directory": "packages/material-native"
+    },
+    "keywords": [
+        "wq",
+        "react",
+        "material",
+        "material-ui"
+    ],
+    "author": "S. Andrew Sheppard",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/wq/wq.app/issues"
+    },
+    "homepage": "https://wq.io/@wq/material",
+    "dependencies": {
+        "@wq/react": "^2.0.0",
+        "date-fns": "^2.30.0"
+    },
+    "peerDependencies": {
+        "@react-native-async-storage/async-storage": "*",
+        "@react-native-community/netinfo": "*",
+        "@react-navigation/stack": "*",
+        "expo-application": "*",
+        "expo-document-picker": "*",
+        "expo-image-picker": "*",
+        "react-native-modal-datetime-picker": "*",
+        "react-native-paper": "*",
+        "react-native-picker-select": "*"
+    },
+    "devDependencies": {
+        "@react-native-async-storage/async-storage": "^1.19.1",
+        "@react-native-community/netinfo": "^9.4.1",
+        "@react-navigation/stack": "^6.3.17",
+        "expo-application": "^5.3.0",
+        "expo-document-picker": "^11.5.4",
+        "expo-image-picker": "^14.3.2",
+        "jest-expo": "^49.0.0",
+        "react-native-modal-datetime-picker": "^17.0.0",
+        "react-native-paper": "^5.10.1",
+        "react-native-picker-select": "github:Expensify/react-native-picker-select#eae0585"
+    }
+}

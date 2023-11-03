@@ -1,0 +1,39 @@
+{
+    "name": "@wq/app",
+    "version": "2.0.0",
+    "description": "Utilizes @wq/store and @wq/router to dynamically load and render content from a wq.db-compatible REST service",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "test": "cd ../../ && npm run jest packages/app",
+        "prettier": "cd ../../ && npm run prettier -- --write packages/app/",
+        "lint": "cd ../../ && npm run eslint packages/app/{,src/,src/*/}*.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wq/wq.app.git",
+        "directory": "packages/app"
+    },
+    "keywords": [
+        "wq",
+        "app",
+        "api",
+        "mobile",
+        "offline",
+        "data-collection"
+    ],
+    "author": "S. Andrew Sheppard",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/wq/wq.app/issues"
+    },
+    "homepage": "https://wq.io/@wq/app",
+    "dependencies": {
+        "@wq/model": "^2.0.0",
+        "@wq/outbox": "^2.0.0",
+        "@wq/router": "^2.0.0",
+        "@wq/store": "^2.0.0",
+        "deepcopy": "^2.1.0",
+        "mustache": "^4.2.0"
+    }
+}
