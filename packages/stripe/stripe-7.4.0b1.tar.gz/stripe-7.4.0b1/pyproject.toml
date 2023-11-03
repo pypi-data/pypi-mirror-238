@@ -1,0 +1,36 @@
+[tool.black]
+line-length=79
+target-version = [
+  "py27",
+  "py34",
+  "py35",
+  "py36",
+  "py37",
+  "py38",
+  "py39",
+  "py310",
+]
+exclude = '''
+/(
+    \.eggs/
+  | \.git/
+  | \.tox/
+  | \.venv/
+  | _build/
+  | build/
+  | dist/
+  | venv/
+)
+'''
+[tool.pyright]
+executionEnvironments=[
+  {"root" = "stripe"},
+  {"root" = "tests"}
+]
+include=["stripe", "tests/test_generated_examples.py"]
+exclude=["build", "**/__pycache__"]
+reportMissingTypeArgument=true
+reportUnnecessaryCast=true
+reportUnnecessaryComparison=true
+reportUnnecessaryContains=true
+reportUnnecessaryIsInstance=true
