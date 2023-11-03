@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "s3app"
+version = "1.2.2"
+description = "S3App simplifies the access to a S3Buckets with a provider independent web based frontend which allows the visualizing and the management of the content of S3 buckets with an S3 provider independent web application."
+readme = "README.md"
+authors = [{ name = "Jörn Kleinbub", email = "joern.kleinbub@yotron.de" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["s3", "manager", "app", "web"]
+dependencies = [
+    "Flask >= 2.2.0",
+    "Flask-Login >= 0.1.1",
+    "Flask-AppBuilder >= 4.1.4",
+    "Flask-Session >= 0.4.0",
+    "boto3 >= 1.24.0",
+    "flask-restful >= 0.2.12",
+    "blinker >= 1.5.0",
+    "psycopg2-binary >= 2.9.3",
+    "waitress >= 2.1.2",
+    "python-dotenv >= 0.21.0",
+    "python-ldap >= 3.4.3"
+]
+requires-python = ">=3.9"
+
+[project.urls]
+A3App-Homepage = "https://www.yotron.de/s3app/"
+Provider-Homepage = "https://www.yotron.de/"
+Repository = "https://github.com/yotron/s3app/"
+HELM-Project = "https://artifacthub.io/packages/helm/yotron-helm-charts/s3app"
+
+[project.scripts]
+s3app-run = "s3app.__init__:run"
