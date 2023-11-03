@@ -1,0 +1,170 @@
+<!---
+Copyright (C) 2023 Siemens Digital Industries Software
+SPDX-License-Identifier: MIT
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- Apple iOS Safari settings -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="./assets/material_icons.css">
+    <link rel="stylesheet" href="./assets/keyboard.css">
+    <link rel="stylesheet" href="novnc/app/styles/base.css">
+    <script type="module" crossorigin="anonymous" src="./assets/vnc.js"></script>
+    <title>Multi-Tenant Device Access</title>
+    <link rel="stylesheet" href="./assets/xterm.css"/>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Muli", sans-serif;
+      }
+      .menu {
+        font-weight: 100;
+        background: #efefef;
+        width: 150px;
+        height: 100%;
+        padding-left: 50px;
+        position: fixed;
+        z-index: 90;
+        -webkit-box-shadow: -3px 0px 5px 0px rgba(0, 0, 0, 0.2);
+        box-shadow: -3px 0px 5px 0px rgba(0, 0, 0, 0.2);
+        right: -130px;
+        transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+        color: #222;
+      }
+      .menu:hover, .menu:focus {
+        transform: translate3d(-130px, 0, 0);
+        animation-timing-function: 1s ease-in;
+      }
+      .menu .title {
+        top: 50%;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        transform: rotate(270deg);
+        left: 10px;
+        font-weight: 800;
+        font-size: 15px;
+      }
+      .menu .nav {
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        font-weight: 100;
+      }
+      .menu .nav li {
+        padding-bottom: 30px;
+        list-style-type: none;
+      }
+      .menu .nav li a {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+      }
+      .menu .nav li a:hover {
+        color: #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu">
+      <div class="title" id="mtda_title">MTDA</div>
+        <ul class="nav">
+          <li><a href="#" id=power-toggle><i class="large material-icons">power</i></a></li>
+          <li><a href="#" id=keyboard-show><i class="large material-icons">keyboard</i></a></li>
+          <li id="mtda_status">Connecting...</li>
+          <li id="vnc_status">Loading Video</li>
+          <li id="mtda_version">&nbsp;</li>
+        </ul>
+    </div>
+    <table>
+      <tr>
+        <td><div style="width: 640px; height: 480px" id="console"></div></td>
+        <td><div style="width: 640px; height: 480px" id="video"></div></td>
+      </tr>
+    </table>
+    <script src="./assets/jquery.min.js"></script>
+    <script src="./assets/keyboard.js"></script>
+    <script type=text/javascript>
+      $(function() {
+        $('a#power-toggle').bind('click', function() {
+          $.getJSON('./power-toggle', function(data) {
+            // do nothing
+          });
+          return false;
+        });
+      });
+      $(function() {
+        $('a#keyboard-show').bind('click', function() {
+          Keyboard.open('', function(data) {
+            console.log("#### <KEY> " + data);
+            $.getJSON('./keyboard-input', {input: data}, function(data) {
+              // do nothing
+            });
+          }, '');
+          return false;
+        });
+      });
+    </script>
+    <script src="./assets/xterm.js"></script>
+    <script src="./assets/socket.io.min.js"></script>
+    <script type="module" crossorigin="anonymous">
+      import {vnc_load} from './assets/vnc.js'
+      const term = new Terminal({
+        cursorBlink: true,
+        macOptionIsMeta: true,
+        scrollback: true,
+      });
+      term.open(document.getElementById("console"));
+      term.resize(80, 25);
+      term.onData((data) => {
+        socket.emit("console-input", { input: data });
+      });
+
+      const socket = io.connect("/mtda", {path: window.location.pathname + "socket.io/"});
+      const status = document.getElementById("mtda_status");
+      const version = document.getElementById("mtda_version");
+      const video = document.getElementById("video");
+
+      socket.on("console-output", function (data) {
+        term.write(data.output);
+      });
+
+      socket.on("mtda-version", function (data) {
+        version.textContent = 'Version ' + data.version
+      });
+
+      socket.on("video-info", function (info) {
+	if (info.format == 'VNC') {
+          vnc_load()
+        }
+        else {
+          const selfpath = window.location.pathname
+          var url = info.url
+          // running behind a reverse proxy (assuming /device subpath)
+          if(selfpath.startsWith('/device')){
+            url = selfpath + url.match('(?:http|https)://.*?/(.*)')[1]
+          }
+          video.innerHTML = '<img src="' + url + '" />'
+          document.getElementById('vnc_status').innerHTML = '<span style="color: green;"><b>Video</b></span>';
+        }
+      });
+
+      socket.on("connect", () => {
+        status.innerHTML = '<span style="color: green;"><b>Connected</b></span>';
+      });
+
+      socket.on("disconnect", () => {
+        status.innerHTML = '<span style="color: #ff8383;"><b>Disconnected</b></span>';
+      });
+    </script>
+  </body>
+</html>
