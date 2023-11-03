@@ -1,0 +1,118 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "K\u00e4ynniss\u00e4"
+            }
+        },
+        "sensor": {
+            "agent_version": {
+                "name": "K\u00e4ytt\u00f6j\u00e4rjestelm\u00e4n agentin versio"
+            },
+            "apparmor_version": {
+                "name": "Apparmor-versio"
+            },
+            "cpu_percent": {
+                "name": "Suorittimen k\u00e4ytt\u00f6 prosentteina"
+            },
+            "disk_free": {
+                "name": "Tallennustilaa vapaana"
+            },
+            "disk_total": {
+                "name": "Tallennustilaa yhteens\u00e4"
+            },
+            "disk_used": {
+                "name": "Tallennustilaa k\u00e4yetty"
+            },
+            "memory_percent": {
+                "name": "Muistin k\u00e4ytt\u00f6 prosentteina"
+            },
+            "version": {
+                "name": "Versio"
+            },
+            "version_latest": {
+                "name": "Uusin versio"
+            }
+        }
+    },
+    "issues": {
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Korjausta ei voitu k\u00e4ytt\u00e4\u00e4. Tarkista tarkemmat tiedot Supervisor-lokeista."
+                },
+                "step": {
+                    "fix_menu": {
+                        "menu_options": {
+                            "mount_execute_reload": "Uudelleenlataa"
+                        }
+                    }
+                }
+            }
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Yksi tai useampi uudelleenk\u00e4ynnistys ep\u00e4onnistui. Tarkista tarkemmat tiedot Supervisorin lokitiedoista."
+                }
+            }
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Tiedostoj\u00e4rjestelm\u00e4\u00e4 ei voitu nimet\u00e4 uudelleen. Tarkista tarkemmat tiedot Supervisorin lokitiedoista."
+                }
+            }
+        },
+        "issue_system_reboot_required": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "J\u00e4rjestelm\u00e4\u00e4 ei voitu k\u00e4ynnist\u00e4\u00e4 uudelleen. Katso lis\u00e4tietoja Supervisorin lokeista."
+                }
+            },
+            "title": "Uudelleenk\u00e4ynnistys vaaditaan"
+        }
+    },
+    "services": {
+        "backup_full": {
+            "fields": {
+                "location": {
+                    "name": "Sijainti"
+                },
+                "name": {
+                    "name": "Nimi"
+                },
+                "password": {
+                    "name": "Salasana"
+                }
+            }
+        },
+        "backup_partial": {
+            "fields": {
+                "location": {
+                    "name": "Sijainti"
+                },
+                "name": {
+                    "name": "Nimi"
+                },
+                "password": {
+                    "name": "Salasana"
+                }
+            }
+        },
+        "restore_full": {
+            "fields": {
+                "password": {
+                    "name": "Salasana"
+                }
+            }
+        },
+        "restore_partial": {
+            "fields": {
+                "password": {
+                    "name": "Salasana"
+                }
+            }
+        }
+    }
+}

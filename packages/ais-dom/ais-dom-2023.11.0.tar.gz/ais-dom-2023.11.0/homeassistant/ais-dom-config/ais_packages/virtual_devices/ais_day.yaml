@@ -1,0 +1,10 @@
+sensor:
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+  - platform: template
+    sensors:
+      daytodisplay:
+        friendly_name: 'Data'
+        value_template: '{{ as_timestamp(now()) | timestamp_custom("%d/%m", True)  }}'

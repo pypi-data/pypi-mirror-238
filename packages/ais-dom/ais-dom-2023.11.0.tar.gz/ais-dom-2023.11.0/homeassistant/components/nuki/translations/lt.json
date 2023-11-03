@@ -1,0 +1,28 @@
+{
+    "issues": {
+        "https_webhook": {
+            "description": "Nuki tiltas negali perkelti \u012fvyki\u0173 \u012f HTTPS adres\u0105 (SSL), sukonfig\u016bruokite (vietin\u012f) HTTP adres\u0105 skiltyje \"Home Assistant URL\" [tinklo nustatymuose]({network_link}). Dabartinis (vietinis) adresas yra: \"{base_url}\", galiojantis adresas gali b\u016bti, pavyzd\u017eiui, \"http://192.168.1.10:8123\", kur \"192.168.1.10\" yra \"Home Assistant\" \u012frenginio IP",
+            "title": "\u201eNuki Webhook\u201c URL naudoja HTTPS (SSL)"
+        }
+    },
+    "services": {
+        "lock_n_go": {
+            "description": "Nuki Lock 'n' Go.",
+            "fields": {
+                "unlatch": {
+                    "name": "Atlaisvinkite"
+                }
+            },
+            "name": "U\u017erakink ir eik"
+        },
+        "set_continuous_mode": {
+            "description": "Nuki Opener \u012fjungia arba i\u0161jungia nuolatin\u012f re\u017eim\u0105.",
+            "fields": {
+                "enable": {
+                    "description": "\u012ejungti arba i\u0161jungti funkcij\u0105."
+                }
+            },
+            "name": "Nustatykite nuolatin\u012f re\u017eim\u0105"
+        }
+    }
+}

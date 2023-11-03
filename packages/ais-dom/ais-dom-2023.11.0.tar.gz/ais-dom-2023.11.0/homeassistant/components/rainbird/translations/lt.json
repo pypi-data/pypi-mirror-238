@@ -1,0 +1,44 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "rainsensor": {
+                "name": "Lietaus jutiklis"
+            }
+        },
+        "number": {
+            "rain_delay": {
+                "name": "Lietaus v\u0117lavimas"
+            }
+        },
+        "sensor": {
+            "raindelay": {
+                "name": "Lietaus delsimas"
+            }
+        }
+    },
+    "services": {
+        "set_rain_delay": {
+            "description": "Nustato, kiek laiko i\u0161jungiamas automatinis laistymas.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Nustatymas bus sureguliuotas nurodytame valdiklyje.",
+                    "name": "Rainbird valdiklio konfig\u016bracijos \u012fra\u0161as"
+                },
+                "duration": {
+                    "description": "\u0160ios sistemos i\u0161jungimo trukm\u0117.",
+                    "name": "Trukm\u0117"
+                }
+            },
+            "name": "Nustatykite lietaus dels\u0105"
+        },
+        "start_irrigation": {
+            "description": "Pradedamas laistymas.",
+            "fields": {
+                "duration": {
+                    "description": "\u0160io purk\u0161tuvo \u012fjungimo trukm\u0117.",
+                    "name": "Trukm\u0117"
+                }
+            }
+        }
+    }
+}
