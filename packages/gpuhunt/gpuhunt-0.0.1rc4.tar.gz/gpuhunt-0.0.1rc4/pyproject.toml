@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gpuhunt"
+authors = [
+    { name = "dstack GmbH" },
+]
+description = "A catalog of GPU pricing for different cloud providers"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "Operating System :: OS Independent",
+]
+keywords = ["gpu", "cloud", "pricing"]
+dynamic = ["version"]
+dependencies = [
+    "requests",
+    "typing-extensions"
+]
+
+[project.urls]
+"GitHub" = "https://github.com/dstackai/gpuhunt"
+"Issues" = "https://github.com/dstackai/gpuhunt/issues"
+
+[project.optional-dependencies]
+aws = [
+    "boto3"
+]
+azure = [
+    "azure-mgmt-compute",
+    "azure-identity"
+]
+gcp = [
+    "google-cloud-billing",
+    "google-cloud-compute"
+]
+all = ["gpuhunt[aws,azure,gcp]"]
+
+[tool.setuptools.dynamic]
+version = {attr = "gpuhunt.version.__version__"}
