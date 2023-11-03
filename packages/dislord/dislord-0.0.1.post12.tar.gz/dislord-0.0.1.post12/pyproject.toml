@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dislord"
+version = "0.0.1-12"
+authors = [
+  { name="Jack Draper", email="drapj002@gmail.com" },
+]
+description = "A serverless optimized discord API library using interactions."
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "flask[async]~=3.0.0",
+    "discord-interactions~=0.4.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/JayDwee/dislord"
+"Bug Tracker" = "https://github.com/JayDwee/dislord/issues"
+
+[tool.setuptools.packages]
+find = {}
