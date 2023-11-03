@@ -1,0 +1,60 @@
+# Sample ENV variable
+
+## Steps to create a new version
+
+- update version in setup.py
+
+```bash
+pip install twine
+```
+
+```bash
+python setup.py sdist
+```
+
+for `pypitest`
+
+
+```bash
+twine upload --repository testpypi dist/*
+```
+
+for `pypi`
+
+```bash
+twine upload dist/*
+```
+
+```json
+{
+  "TOKEN": "eyJob3N0TmFtZSI6Imh0dHBzOi8vc2Fua2V0MTk5My5hbHBoYS5sb2NhbDo5OTk4IiwicmVmcmVzaFRva2VuIjoiZXlKamRIa2lPaUpLVjFRaUxDSmxibU1pT2lKQk1qVTJSME5OSWl3aVlXeG5Jam9pVWxOQkxVOUJSVkFpZlEuZmN1Y09hNkVuTXNfM2VZLVMyaHRQUjZteUUwZVdRb2NvSjEzb2RkMERFemJ1QVlpdlYzN2dDd21BdDFZRXAyZUk5RUV4Vm9KSm9qMHRxeXctMTZnWVFQd3VXUHA2YWF5ZlFlaDRRRm51UmdGZkxwd2Y5UUljZzA1WG56RzR6Y1ZxdG5iTnNucnBGRzhVamlQZ1o4Zmk0ZHNDaUtRbThhX0lNZWtYRkRfVnRVaUZablJzZ0xvTTJ1QUxyUjNBUks5T21BOHR2V01xWTZsTUQzMWJRR1ZWeUl6UnFjeVUtWG1nNVZCd2hTZHZ2LUhlYThKSFd0cnhXTjlRTFQzbDdmQjRpNW9EdDZHMWpWc09Qd21lT0c1TzlFQ1gxUmF6Zmd2VGlMNXhVZkZBS3FPMW1QY1pMd0RSbjU2WElEdHRqbXdIMG05bV95c3J5c3Z3bl84dnNiVW53LjB0Q0M4eWxIaXRJTHNnRk4uV1ZqTGdCNDZTUjZ0QmI0VnNOTWZ3R3hLOVFmYWpGUW40TWJsbER0NE1fdmNEdUNHME9yUmVGYzM0WS1ueTUwc1dDMDI3YkxIWWFuWGhPbldkbE13OXF3bG5oNmFNcS14RWxqYnpHN3hwSGptY1h0OVhJTXllNzljT0JhbWpyemFBOGhxUU9qRVVURmhNejc2b1Jqay03aHdzRU9ENk9GdzQ0a21WS3lKWVJvcmQ4bVZrQnJqb2hJY0k4V0pOa2hkUFRDbDhnTDlJWUxPNFVReHVlYzdLZzBORVh4d2s1LVA4am5sYlEzVEZEdkJGMU5NLTlCVnpPNHNoQ2ptR2ZFVmJDV1lVcThtcXAzQnZHRkVpTGJycFp1Q1ZscEUwVGFzUHY1bWJZVnNyQm1XNEpNUTU0MWxTYkhCQXpuWmlUb1UyQmdla2tMYndUMUpNOENodnJsdXZKRXlEblZ5R3VQNW9lRkVodXdmMjk0aHVNSHNlTXl0M3VHdml3WVVwbkdfQU0yV1FNYTcwNE5sWUtyeEFVcGQ4VEFQOXRrbkVZMnhKTlZKQm9EWFVaTWhHU0JEU1VpZXNOOVJIRG95a1B5QTl6VTViMC1KaWtZVEIzcE5lam0tU2NWalItRFVoQXk3UEVWdS1IM3BIeEF0Uk9fd0lIcGZaUVI4eDlmRDIwNHZrdDdnX0VTT3NZQ19KRTVzQXFfTGZ1UjBFV05FbEttX2VCR2V1c1B6TU1obGRDMnlQQzVwVHp2bS16Q1BOT3dkM3ZaeVgzZnlYOTJfLWNJUDNUWk0zVTFuSndpT1ZLbkd3NGJfckZXLXJZMlVBTDBaQVN5WWdQZ2dvdFgySjdEX21kbldBY0d2a3M1b3pCdVhKeVJOTFByYllZZlhkYk54UnlNakxCU0FYZE0wNUE0dnZ5a3dJNkxjcWQybUEwMmNUVTZwaVgtQkVkZGhVdGRKMTZfcG95TVNyanpaS21nSDVJcGl5RENNZ1FpQkhycmR4UFdGRUZUeEJqY0Y1WFNlM18tcHdBWHBPM1JkbkM1cE5UVFc4Sl9ES1YyQkhUYUlLMFc0WnU5NlhWTWt3S0hnYnBmU21KOEpzZmRfQ29VZVBYS25BbWVXWW9rRWphc1FJNHprUWtiVWVGclVnZzZoY3NVUGpjeHdQTmpFVjd3LWxST2VNUFplUmZsRlFzcWNGTGVIalZPa1ZsZHZMbE44c3oxV1hmVzE1WUlVNmFCd0NLbFhQQklvZGhDd2VmMkFBb2pOQnVBOVN5dktqVXhhRzBqTThIRllYbUlRVW1GOEZpNUlZMnBpRU5pYmxaX2d2Tl9sYk83YXB1R3dZSWstWXN0enhRS29lVnpySTR1U3lIREg3MWhqSXZZZFY4d3g2Qk5BZ1FwN09naUFlLXR5QnEyOHJNbEttQ2FfSEZVdGl4dVFDWUNPRlJGMW1UaDY1RFVZUVM5ZE5aRTFxaUNqQThhU05ucVZMWW1BSGZ3U3lUVVJTeDY4OG56dzctQUJBWjd6SVhXa3VoN3U3alFYeEhpN0NNei1DLUMwVkJyODYyQ0YtWTdEZ2xGZUlZUG13X2ljOUdlSlhxSUtWVWdZSlNLNUpwZ3ZOS05lRmh0dFA5ZUkxNTBpeGhYbjE1cVdJNkNHX3IzTk5OV0lFTE1BNFZJLmIyV2N6Rmp6OFh1b05hOXFfM2FtQnciLCJ3c0hvc3ROYW1lIjoid3M6Ly9zYW5rZXQxOTkzLndzLmFscGhhLmxvY2FsOjk5OTkvd3MifQ==",
+  "sessionCode": "zpss_1_1_38",
+  "appInstanceId": 38,
+  "agiId": 23,
+  "currentlyExecutingJobId": 1,
+  "effectiveTimeLabel": "",
+  "biTemporalProps": {
+    "standard": {
+      "1": {
+        "default": {
+          "as_of_ts": "2023-06-05",
+          "valid_ts": "2023-06-05"
+        }
+      }
+    }
+  },
+  "cittaAgent": {
+    "launcher": {
+      "pipelineConf": {
+        "mlCode": "ml_algo1",
+        "group": {
+          "groupId": 1
+        },
+        "execution_profile": {
+          "extId": ""
+        }
+      }
+    }
+  }
+}
+```
