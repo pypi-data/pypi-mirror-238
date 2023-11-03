@@ -1,0 +1,36 @@
+name: Endor Labs AT-ST Self-Scan
+on: 
+  push:
+    branches: 
+      - workflow-**
+      - main
+  pull_request: null
+
+jobs:
+  endorlabs-scan:
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout ATST
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - name: Install ATST
+        run: |
+          python3 -m venv .venv
+          .venv/bin/python3 -m pip install .
+      - name: Dependency Scan 
+        uses: endorlabs/github-action@main
+        with:
+          namespace: ${{ vars.ENDORLABS_TENANT_NAME }}
+          enable_pr_comments: true
+      - name: Create Monitored Version
+        if: github.event_name == 'push' && (github.ref == 'ref/heads/main' || startsWith(github.ref, 'refs/tags/'))
+        uses: endorlabs/github-action@main
+        with:
+          namespace: ${{ vars.ENDORLABS_TENANT_NAME }}
+          pr: false

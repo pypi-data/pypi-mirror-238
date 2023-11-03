@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: endorlabs-atst
+Version: 0.3.1
+Summary: Endor Labs Automated Tool for Scanning Things (ATST) -- a tool to help deploy and manage Endor Labs in CI pipelines
+Author-email: Darren Meyer <darren@endor.ai>
+Project-URL: homepage, https://github.com/endorlabs/atst
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: click~=8.1
+Requires-Dist: requests~=2.31
+Requires-Dist: semantic-version~=2.10
+Provides-Extra: test
+Requires-Dist: pytest~=7.4; extra == "test"
+
+# Endor Labs Automated Tool for Scanning Things (ATST)
+
+*For use by Endor Labs customers and authorized users*
+
+Simplify deployment of Endor Labs into your CI.
+
+## Quick Start
+
+In your CI, set your namespace and auth variables per Endor Labs docs and:
+
+```zsh
+python3 -m venv ../.atst
+../.atst/bin/python3 -m pip install endorlabs-atst
+../.atst/bin/endorlabs-atst setup
+../.atst/bin/endorctl scan [OPTIIONS]
+```
+
+See [endorlabs/atst on GitHub](https://github.com/endorlabs/atst) for more details
