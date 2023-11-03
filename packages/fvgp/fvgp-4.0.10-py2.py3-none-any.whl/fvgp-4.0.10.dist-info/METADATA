@@ -1,0 +1,77 @@
+Metadata-Version: 2.1
+Name: fvgp
+Version: 4.0.10
+Summary: Python package for highly flexible function-valued Gaussian processes (fvGP)
+Home-page: https://github.com/MarcusMichaelNoack/fvgp
+Author: Marcus Michael Noack
+Author-email: MarcusNoack@lbl.gov
+License: GNU General Public License v3
+Keywords: fvgp
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: COPYING
+License-File: AUTHORS.rst
+Requires-Dist: wheel
+Requires-Dist: versioneer
+Requires-Dist: matplotlib
+Requires-Dist: plotly
+Requires-Dist: scipy ==1.11.2
+Requires-Dist: numpy ==1.23.5
+Requires-Dist: dask >=2021.6.2
+Requires-Dist: distributed >=2021.6.2
+Requires-Dist: hgdl ==2.1.3
+Requires-Dist: notebook
+Requires-Dist: loguru
+Requires-Dist: imate
+Provides-Extra: docs
+Requires-Dist: sphinx ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Requires-Dist: myst-parser ; extra == 'docs'
+Requires-Dist: myst-nb ; extra == 'docs'
+Requires-Dist: sphinx-panels ; extra == 'docs'
+Requires-Dist: autodocs ; extra == 'docs'
+Requires-Dist: jupytext ; extra == 'docs'
+Provides-Extra: tests
+Requires-Dist: pytest ; extra == 'tests'
+Requires-Dist: codecov ; extra == 'tests'
+Requires-Dist: pytest-cov ; extra == 'tests'
+
+# fvGP
+
+[![PyPI](https://img.shields.io/pypi/v/fvGP)](https://pypi.org/project/fvgp/)
+[![Documentation Status](https://readthedocs.org/projects/gpcam/badge/?version=latest)](https://gpcam.readthedocs.io/en/latest/?badge=latest)
+[![fvGP CI](https://github.com/lbl-camera/fvGP/actions/workflows/fvGP-CI.yml/badge.svg)](https://github.com/lbl-camera/fvGP/actions/workflows/fvGP-CI.yml)
+[![Codecov](https://img.shields.io/codecov/c/github/lbl-camera/fvGP)](https://app.codecov.io/gh/lbl-camera/fvGP)
+[![PyPI - License](https://img.shields.io/badge/license-GPL%20v3-lightgrey)](https://pypi.org/project/fvgp/)
+[<img src="https://img.shields.io/badge/slack-@gpCAM-purple.svg?logo=slack">](https://gpCAM.slack.com/)
+[![DOI](https://zenodo.org/badge/434769505.svg)](https://zenodo.org/badge/latestdoi/434769505)
+
+
+Python package for highly flexible function-valued Gaussian processes (fvGP)
+
+Specialties: Extreme-Scale GPs, GPs Tailored for HPC training, Advanced Kernel Designs, Domain-Aware Stochastic Function Approximation
+Coming soon: All those advancements for stochastic manifold learning
+
+fvGP holds the world record for exact large-scale Gaussian Processes!
+## Credits
+
+This package uses the HGDL package of David Perryman and Marcus Noack, which
+is based on the [HGDN](https://www.sciencedirect.com/science/article/pii/S037704271730225X) algorithm by Noack and Funke.
+
+
+=======
+History
+=======
+
+0.1.0 (2020-08-07)
+------------------
+
+* First release on PyPI.
