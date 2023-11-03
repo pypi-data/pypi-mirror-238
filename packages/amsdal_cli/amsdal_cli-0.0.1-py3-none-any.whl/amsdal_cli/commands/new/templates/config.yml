@@ -1,0 +1,19 @@
+application_name: {{ ctx.application_name_slugify }}
+connections:
+  - name: iceberg
+    backend: amsdal_data.connections.implementations.iceberg_history.IcebergHistoricalConnection
+    credentials:
+      - spark.sql.catalog.amsdal.warehouse: ./warehouse
+      - spark.sql.warehouse.dir: ./warehouse_sql
+      - spark.sql.catalog.amsdal.uri: jdbc:sqlite:./warehouse/amsdal.db
+  - name: sqlite
+    backend: amsdal_data.connections.implementations.sqlite_state.SqliteStateConnection
+    credentials:
+      - db_path: ./warehouse/amsdal_state.db
+  - name: lock
+    backend: amsdal_data.lock.implementations.thread_lock.ThreadLock
+resources_config:
+  lakehouse: iceberg
+  lock: lock
+  repository:
+    default: sqlite
