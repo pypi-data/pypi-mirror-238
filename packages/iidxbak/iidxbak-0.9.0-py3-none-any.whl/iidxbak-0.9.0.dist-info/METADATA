@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: iidxbak
+Version: 0.9.0
+Description-Content-Type: text/markdown
+Requires-Dist: click (==8.1.7)
+Requires-Dist: sh (==2.0.6)
+Requires-Dist: oss2 (==2.18.3)
+
+## 本项目目标
+1. 使用python实现一个私钥备份整体文件
+
+
+## 备份文件夹的流程
+1. 压缩文件夹为文件
+2. sha256(src.zip) --> src.zip.hash
+3. gen_key ==> tmp.key
+4. des(src.zip) --> src.zip.enc
+5. des(src.zip.hash) --> src.zip.hash.enc
+6. jm(tmp.key) --> tmp.key.
+
+
+## usage
+
+
+## 支持配置项
+1. 环境变量
+2. 配置文件
