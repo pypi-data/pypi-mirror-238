@@ -1,0 +1,69 @@
+Metadata-Version: 2.1
+Name: pyshoc
+Version: 1.2.0
+Summary: Tools for data analysis and reduction of data from the Sutherland High Speed Optical Cameras (SHOC). 📷🔭
+Author-email: Hannes Breytenbach <hannes@saao.ac.za>
+License: MIT
+Project-URL: Homepage, https://github.com/astromancer/pyshoc
+Project-URL: Bug Tracker, https://github.com/astromancer/pyshoc/issues
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Education
+Classifier: Programming Language :: Python :: 3.8
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: POSIX :: Linux
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: tests
+Requires-Dist: pytest; extra == "tests"
+
+
+pyshoc
+======
+
+**pyshoc** is a suite of object oriented tools for analysing data from the
+Sutherland High Speed Optical Cameras (SHOC). 📷🔭
+
+## Installation
+```shell
+pip install pyshoc
+```
+
+## Use
+To run the reduction pipeline on a set of fits files (observations of a single 
+source):
+```shell
+pyshoc /path/to/data/folder -o /path/to/output/products -tel 74 --target "CTCV J1928-5001"
+```
+<!-- or equivalently
+```shell
+> python shoc/pipeline /path/to/data
+``` -->
+
+## Documentation
+* We are working on official documentation. 
+* For the moment the best place to see how to use pyshoc is the 
+[example notebook](https://nbviewer.jupyter.org/github/astromancer/pyshoc/blob/master/pyshoc/example/pyshoc.demo.ipynb)
+
+
+## Contributing
+ Pull requests are welcome!
+1. Fork it (<https://github.com/astromancer/pyshoc/fork>)
+2. Create your feature branch (`git checkout -b feature/rad`)
+3. Commit your changes (`git commit -am 'Add some cool feature 😎'`)
+4. Push to the branch (`git push origin feature/rad`)
+5. Create a new Pull Request
+
+
+## Contact
+* e-mail: hannes@saao.ac.za
+
+<!-- ### Third party libraries
+* see [LIBRARIES](https://github.com/username/sw-name/blob/master/LIBRARIES.md) files -->
+
+## License 
+* see [LICENSE](https://github.com/astromancer/pyshoc/blob/master/LICENSE)
+
+## Version 
+* 1.2.0
