@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paramcheckup"
+version = "1.0.0"
+description = "Check whether the parameters received by a function are correct"
+authors = [
+    {name = "Anderson Marcos Dias Canteli", email = "andersonmdcanteli@gmail.com"},
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["type", "check", "warnings"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",    
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",    
+]
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.23.5,",
+    "pandas>=1.5.3",
+    "matplotlib>=3.7.1",
+]
+
+[project.urls]
+Source = "https://github.com/anderson-canteli/paramcheckup"
+Docs = "https://paramcheckup.readthedocs.io/en/latest/"
+
+[tool.setuptools.packages.find]
+# All the following settings are optional:
+include = ["paramcheckup*",]  # empty by default
