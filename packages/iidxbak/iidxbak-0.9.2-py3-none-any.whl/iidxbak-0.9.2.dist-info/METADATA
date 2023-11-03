@@ -1,0 +1,58 @@
+Metadata-Version: 2.1
+Name: iidxbak
+Version: 0.9.2
+Description-Content-Type: text/markdown
+Requires-Dist: click (==8.0.4)
+Requires-Dist: sh (>=1.14.3)
+Requires-Dist: oss2 (==2.18.3)
+
+## 本项目用于在centos上备份信息
+
+### 使用步骤
+1. mkdir -p ${HOME}/.iidxbak/work && pushd ${HOME}/.iidxbak/work 
+2. python3 -m pip install pipenv==2020.11.15
+3. pipenv install --index https://pypi.org/simple iidxbak==0.9.1 --skip-lock
+3. pipenv run iidxbak --dir_to_bak some_path_to_bak
+
+### config_demo
+* 默认软件家目录：${HOME}/.iidxbak/
+* 默认配置文件位置：${HOME}/.iidxbak/conf/iidxbak.json
+* 默认工作目录：${HOME}/.iidxbak/work/{20231111-1010}/
+```json
+{
+  "public_key": "conf/keys.public.pem",
+  "work_dir": "work/",
+  "oss_ak_id": "XXXX",
+  "oss_ak_secret": "XXXX",
+  "oss_ep": "https://oss-cn-hangzhou.aliyuncs.com",
+  "oss_bucket_name": "XXXX",
+  "i_node_info": true
+}
+```
+
+### 项目依赖
+
+> * click==8.1.7
+> * sh==2.0.6 
+> * oss2==2.18.3
+
+### 环境安装
+```shell
+# 0. uname -a 
+uname -a
+# Linux app-001-156 3.10.0-1160.76.1.el7.x86_64 #1 SMP Wed Aug 10 16:21:17 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+# 1. sudo yum install -y python3-devel
+
+# 2. ssh -V
+ssh -V
+# OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017
+
+# 3. openssl version
+openssl version
+# OpenSSL 1.0.2k-fips  26 Jan 2017
+
+# 4. python3 --version
+python3 --version
+# Python 3.6.8
+```
+
