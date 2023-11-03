@@ -1,0 +1,64 @@
+{% extends 'admin/change_form.html' %}
+{% load i18n admin_urls nobinobi_child_tags static %}
+{% block extrahead %}
+    <script src="{% static "vendor/jquery/jquery-3.7.1.min.js" %}"></script>
+    {{ block.super }}
+{% endblock %}
+
+{% block extrastyle %}
+    <style>
+        .select2 {
+            width: 50% !important;
+        }
+
+        .btn-info {
+            background-color: #5bc0de !important;
+        }
+    </style>
+    {{ block.super }}
+{% endblock %}
+
+
+{% block object-tools %}
+    {{ block.super }}
+    <ul class="object-tools">
+
+        {% if has_absolute_url %}
+            <li><a href="{{ absolute_url }}" class="viewsitelink">{% trans "View on site" %}</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+
+{% block submit_buttons_bottom %}
+    {# Currently only way extending submit_row.html is by custom template tag #}
+    {% submit_row_custom %}
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    {#    <script src="{% static "vendor/bootstrap/js/3.3.7/bootstrap.min.js" %}"></script>#}
+    <script type="text/javascript">
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Alternative to load event
+        document.onreadystatechange = async () => {
+            if (document.readyState === "complete") {
+                await sleep(500);
+                let new_link = $("#childtrackinglog_set-group .add-row").clone(true, true);
+                new_link.prependTo('#childtrackinglog_set-group table');
+                new_link.on("click", function () {
+                    $("#childtrackinglog_set-group .add-row a")[1].click();
+                    $("html, body").animate({scrollTop: $(document).height() - $(window).height()});
+                });
+                $('#childtrackinglog_set-group .add-row a').on("click", function () {
+                    $("html, body").animate({scrollTop: $(document).height() - $(window).height()});
+                });
+            }
+        }
+
+    </script>
+{% endblock %}
