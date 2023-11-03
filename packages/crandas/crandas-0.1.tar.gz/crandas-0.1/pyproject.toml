@@ -1,0 +1,49 @@
+[tool.black]
+line-length = 100
+
+[build-system]
+requires = ["setuptools>=66","setuptools_scm[toml]>=7.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crandas"
+version = "0.1"
+description = "Provides a Python interface to the Virtual Data Lake"
+authors = [
+    {name = "Roseman Labs", email = "info@rosemanlabs.com"},
+]
+requires-python = ">= 3.9"
+dependencies = [
+    "numpy~=1.24",
+    "graphviz~=0.20",
+    "pynacl~=1.5",
+    "pandas~=1.5",
+    "urllib3~=2.0.4",
+    "cryptography", #we do not pin the version of this module as we prefer the most recent because of security updates.
+    "requests~=2.27",
+    "pyformlang==1.0.2",
+    "tomli>=1.1.0 ; python_version < '3.11'",
+    "tqdm~=4.66",
+]
+license = {text = "Copyright Roseman Labs. All rights reserved."}
+
+[project.optional-dependencies]
+test = [
+    "pytest~=7.1",
+    "pytest-services~=2.2"
+]
+notebook = ["tqdm[notebook]~=4.66"]
+
+[project.scripts]
+"approve.py" = "crandas.tool.approve:entrypoint"
+"generate_key.py" = "crandas.tool.generate_key:main"
+"check_connection.py" = "crandas.tool.check_connection:entrypoint"
+"package_script.py" = "crandas.tool.package_script:entrypoint"
+
+[tool.setuptools]
+packages = ["crandas"]
+package-dir = {"" = "src"}
+py-modules = []
+
+[project.urls]
+homepage = "https://rosemanlabs.com"

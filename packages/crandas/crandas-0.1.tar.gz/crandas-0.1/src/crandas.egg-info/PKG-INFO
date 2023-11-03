@@ -1,0 +1,23 @@
+Metadata-Version: 2.1
+Name: crandas
+Version: 0.1
+Summary: Provides a Python interface to the Virtual Data Lake
+Author-email: Roseman Labs <info@rosemanlabs.com>
+License: Copyright Roseman Labs. All rights reserved.
+Project-URL: homepage, https://rosemanlabs.com
+Requires-Python: >=3.9
+Requires-Dist: numpy~=1.24
+Requires-Dist: graphviz~=0.20
+Requires-Dist: pynacl~=1.5
+Requires-Dist: pandas~=1.5
+Requires-Dist: urllib3~=2.0.4
+Requires-Dist: cryptography
+Requires-Dist: requests~=2.27
+Requires-Dist: pyformlang==1.0.2
+Requires-Dist: tomli>=1.1.0; python_version < "3.11"
+Requires-Dist: tqdm~=4.66
+Provides-Extra: test
+Requires-Dist: pytest~=7.1; extra == "test"
+Requires-Dist: pytest-services~=2.2; extra == "test"
+Provides-Extra: notebook
+Requires-Dist: tqdm[notebook]~=4.66; extra == "notebook"
