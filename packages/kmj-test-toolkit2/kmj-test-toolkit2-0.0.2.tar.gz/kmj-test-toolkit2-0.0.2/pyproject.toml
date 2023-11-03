@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=67.7"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kmj-test-toolkit2"
+version = "0.0.2"
+authors = [
+    { name = "daegunsoftKmj", email = "kmj@daegunsoft.com" }
+]
+description = "kmj develop toolkit"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.black]
+line-length = 120
+target-version = ["py39", "py310", "py311"]
+
+[project.urls]
+"Homepage" = "https://github.com/daegunsoft-kmj/dgs-toolkit"
