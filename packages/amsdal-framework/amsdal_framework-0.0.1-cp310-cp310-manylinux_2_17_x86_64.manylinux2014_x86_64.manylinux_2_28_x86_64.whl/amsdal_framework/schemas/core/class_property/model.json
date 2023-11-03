@@ -1,0 +1,48 @@
+{
+  "title": "ClassProperty",
+  "type": "object",
+  "properties": {
+    "title": {
+      "title": "Title",
+      "type": "string",
+      "order": 1
+    },
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "order": 2
+    },
+    "default": {
+      "title": "Default",
+      "type": "anything",
+      "order": 3
+    },
+    "options": {
+      "title": "Options",
+      "type": "array",
+      "items": {
+        "type": "Option"
+      },
+      "column_format": {
+        "headerTemplate": "StringTemplate",
+        "cellTemplate": "ObjectDisplayNameTemplate"
+      }
+    },
+    "items": {
+      "title": "Items",
+      "type": "dictionary",
+      "items": {
+        "key_type": "string",
+        "value_type": "anything"
+      }
+    },
+    "order": {
+      "title": "Order",
+      "type": "number"
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "meta_class": "TypeMeta"
+}
