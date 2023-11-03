@@ -1,0 +1,1 @@
+###### Perhaps we should mimick tensor.storage() design
