@@ -1,0 +1,30 @@
+Metadata-Version: 2.1
+Name: UpdateChromeDriver
+Version: 0.0.1
+Summary: 针对115以上版本的谷歌游览器自动升级selenium驱动。
+Author: 小小明
+Author-email: 604049322@qq.com
+License: GPLv3
+Platform: any
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Requires-Dist: tqdm
+Requires-Dist: selenium>4.0.0
+
+用法示例：
+
+```python
+from UpdateChromeDriver.UpdateChromeDriver import *
+
+options = webdriver.ChromeOptions()
+options.add_experimental_option(
+    'excludeSwitches', ['enable-logging', 'enable-automation'])
+browser = getChromeBrowser(options)
+browser.get("https://www.baidu.com/")
+time.sleep(2)
+```
+驱动会从下载到~\.cache\selenium
+下载来源：https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json
