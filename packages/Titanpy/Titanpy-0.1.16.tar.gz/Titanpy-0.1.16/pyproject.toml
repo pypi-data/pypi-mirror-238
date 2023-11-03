@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools",'requests', 'pandas', 'sqlalchemy','psycopg2','logging']
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Titanpy"
+version = "0.1.16"
+authors = [
+  { name="Dylan Rose", email="dylantrose@gmail.com" },
+]
+description = "Servicetitan API Package tool"
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "logging==0.4.9.6",
+    "numpy==1.26.1",
+    "openpyxl==3.1.2",
+    "pandas==2.1.2",
+    "pathlib==1.0.1",
+    "psycopg2==2.9.9",
+    "python-dateutil==2.8.2",
+    "pytz==2023.3.post1",
+    "requests==2.31.0",
+    "SQLAlchemy==2.0.22",
+    "typing_extensions==4.8.0",
+    "tzdata==2023.3",
+    "urllib3==2.0.4"
+]
+[tool.setuptools.package-data]
+"*" = [
+    "*.json",
+    "*.sql"
+]
+[project.urls]
+"Homepage" = "https://github.com/pabboat/Titanpy"
+"Bug Tracker" = "https://github.com/pabboat/Titanpy/issues"
