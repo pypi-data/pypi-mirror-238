@@ -1,0 +1,156 @@
+[
+    {
+        "postit_type" : "postit_title"
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " microbit模組 常用函式  ",
+        "off_label" : " microbit模組 常用函式 >",
+        "start_on" : false
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "匯入模組",
+                "code" : "from microbit import *",
+                "code_display" : "from microbit import *",
+                "note" : "匯入(一次即可)",
+                "long_note" : true
+            }            
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "等待",
+                "code" : "sleep(500)",
+                "code_display" : "sleep(500)",
+                "note" : "等待(毫秒)",
+                "long_note" : false
+            },
+            {
+                "menu_display" : "比率轉換 整數",
+                "code" : "scale(0, from_=(0,255), to=(0,1000))",
+                "code_display" : "scale(0, from_=(0,255),\n    to=(0,1000))",
+                "note" : "比率轉換 整數",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "比率轉換 浮點數",
+                "code" : "scale(30, from_=(0,100), to=(32.0,212.0))",
+                "code_display" : "scale(30, from_=(0,100),\n    to=(32.0,212.0))",
+                "note" : "比率轉換 浮點數",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "溫度",
+                "code" : "temperature()",
+                "code_display" : "temperature()",
+                "note" : "溫度",
+                "long_note" : false
+            },
+            {
+                "menu_display" : "調整音量 (限V2)",
+                "code" : "set_volume(128)",
+                "code_display" : "set_volume(128)",
+                "note" : "調整音量 0~255 (限V2)",
+                "long_note" : true
+            }
+        ]
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " 初始化  ",
+        "off_label" : " 初始化 >",
+        "start_on" : true
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "序列 初始化",
+                "code" : "uart.init(115200)",
+                "code_display" : "uart.init(115200)",
+                "note" : "初始化 傳輸率(每秒115200位元) ",
+                "long_note" : true
+            }            
+        ]
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " 寫入 讀取  ",
+        "off_label" : " 寫入 讀取 >",
+        "start_on" : false
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "寫入 傳送位元組",
+                "code" : "uart.write(b'abc')",
+                "code_display" : "uart.write(b'abc')",
+                "note" : "寫入 傳送位元組",
+                "long_note" : true
+            }, 
+            {
+                "menu_display" : "寫入 傳送文字",
+                "code" : "uart.write('你好')",
+                "code_display" : "uart.write('你好')",
+                "note" : "寫入 傳送文字(自動轉成位元組)",
+                "long_note" : true
+            }           
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "items" :[
+            {
+                "menu_display" : "有資料嗎",
+                "code" : "uart.any()",
+                "code_display" : "uart.any()",
+                "note" : "有傳入的資料嗎",
+                "long_note" : true
+            }            
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "items" :[
+            {
+                "menu_display" : "讀取 接收全部",
+                "code" : "uart.read()",
+                "code_display" : "uart.read()",
+                "note" : "讀取 接收全部",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "讀取 接收多少位元組",
+                "code" : "uart.read(5)",
+                "code_display" : "uart.read(5)",
+                "note" : "讀取 接收多少位元組",
+                "long_note" : true
+            }            
+        ]
+    }
+]

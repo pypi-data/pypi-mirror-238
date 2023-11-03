@@ -1,0 +1,380 @@
+[
+    {
+        "postit_type" : "postit_title"
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " 模組  ",
+        "off_label" : " 模組 >",
+        "start_on" : true
+    },
+    {
+        "postit_type" : "dropdown_postit",
+        "postfix_enter" : true, 
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "匯入pyautogui模組",
+                "code" : "import pyautogui",
+                "code_display" : "import pyautogui",
+                "note" : "需先匯入!!\nauto 自動\ngui 使用者圖形介面",
+                "long_note" : true
+            }
+        ]
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " 設定 資訊  ",
+        "off_label" : " 設定 資訊 >",
+        "start_on" : false
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : false,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "螢幕尺寸",
+                "code" : "pyautogui.size()",
+                "code_display" : "pyautogui.size()",
+                "note" : "螢幕尺寸\nsize 尺寸",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "螢幕寬度",
+                "code" : "pyautogui.size().width",
+                "code_display" : "pyautogui.size().width",
+                "note" : "螢幕寬度\nwidth 寬度",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "螢幕高度",
+                "code" : "pyautogui.size().height",
+                "code_display" : "pyautogui.size().height",
+                "note" : "螢幕高度\nheight 高度",
+                "long_note" : true
+            }
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : false,
+        "items" :[
+            {
+                "menu_display" : "滑鼠位置",
+                "code" : "pyautogui.position()",
+                "code_display" : "pyautogui.position()",
+                "note" : "滑鼠位置\nposition 位置",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "滑鼠位置x",
+                "code" : "pyautogui.position().x",
+                "code_display" : "pyautogui.position().x",
+                "note" : "滑鼠位置x",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "滑鼠位置y",
+                "code" : "pyautogui.position().y",
+                "code_display" : "pyautogui.position().y",
+                "note" : "滑鼠位置y",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "在螢幕內嗎",
+                "code" : "pyautogui.onScreen(100, 100)",
+                "code_display" : "pyautogui.onScreen(100, 100)",
+                "note" : "在螢幕內嗎\nscreen 螢幕",
+                "long_note" : true
+            }
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : false,
+        "items" :[
+            {
+                "menu_display" : "每次暫停(秒)",
+                "code" : "pyautogui.PAUSE = 0.1",
+                "code_display" : "pyautogui.PAUSE = 0.1",
+                "note" : "每次暫停(秒)\npause 暫停",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "失效安全",
+                "code" : "pyautogui.FAILSAFE = True",
+                "code_display" : "pyautogui.FAILSAFE = True",
+                "note" : "失效安全(移到螢幕左上角)\nfail 失敗\nsafe 安全",
+                "long_note" : true
+            }
+        ]
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " 滑鼠操作  ",
+        "off_label" : " 滑鼠操作 >",
+        "start_on" : true
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "滑鼠 移動到位置",
+                "code" : "pyautogui.moveTo(100, 100, 1)",
+                "code_display" : "pyautogui.moveTo(100, 100, 1)",
+                "note" : "移動滑鼠到(位置x, 位置y, 幾秒)\nmove 移動",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "滑鼠 移動距離",
+                "code" : "pyautogui.moveRel(100, 0, 1)",
+                "code_display" : "pyautogui.moveRel(100, 0, 1)",
+                "note" : "移動滑鼠距離(x距離, y距離, 幾秒)\nrelative 相對的",
+                "long_note" : true
+            }
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "items" :[
+            {
+                "menu_display" : "滑鼠 點擊左鍵",
+                "code" : "pyautogui.click()",
+                "code_display" : "pyautogui.click()",
+                "note" : "點擊滑鼠左鍵\nclick 卡嗒聲",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "滑鼠 點擊左鍵 位置",
+                "code" : "pyautogui.click(100, 100)",
+                "code_display" : "pyautogui.click(100, 100)",
+                "note" : "點擊滑鼠左鍵(位置x, 位置y)\nclick 卡嗒聲",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "滑鼠 點擊右鍵",
+                "code" : "pyautogui.click(button='right')",
+                "code_display" : "pyautogui.click(button='right')",
+                "note" : "點擊滑鼠右鍵\nbutton 按鈕\nright 右邊",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "滑鼠 連按2下左鍵",
+                "code" : "pyautogui.doubleClick()",
+                "code_display" : "pyautogui.doubleClick()",
+                "note" : "連按2下左鍵\ndouble 2次",
+                "long_note" : true
+            }
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "items" :[
+            {
+                "menu_display" : "滑鼠 拖曳到位置",
+                "code" : "pyautogui.dragTo(100, 100, 1)",
+                "code_display" : "pyautogui.dragTo(100, 100, 1)",
+                "note" : "拖曳滑鼠到(位置x, 位置y, 幾秒)\ndrag 拖、拉",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "滑鼠 拖曳距離",
+                "code" : "pyautogui.dragRel(100, 0, 1)",
+                "code_display" : "pyautogui.dragRel(100, 0, 1)",
+                "note" : "拖曳滑鼠距離(x距離, y距離, 幾秒)\nrelative 相對的",
+                "long_note" : true
+            }
+        ]
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " 鍵盤操作  ",
+        "off_label" : " 鍵盤操作 >",
+        "start_on" : false
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : false,
+        "items" :[
+            
+            {
+                "menu_display" : "按一下  輸入鍵",
+                "code" : "pyautogui.press('enter')",
+                "code_display" : "pyautogui.press('enter')",
+                "note" : "按一下 輸入鍵\npress 壓、按\nenter 輸入",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "按一下  空白鍵",
+                "code" : "pyautogui.press('space')",
+                "code_display" : "pyautogui.press('space')",
+                "note" : "按一下 空白鍵\nspace 空白",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    向上鍵",
+                "code" : "pyautogui.press('up')",
+                "code_display" : "pyautogui.press('up')",
+                "note" : "按一下 向上鍵\nup 向上",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    向下鍵",
+                "code" : "pyautogui.press('down')",
+                "code_display" : "pyautogui.press('down')",
+                "note" : "按一下 向下鍵\ndown 向下",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    向右鍵",
+                "code" : "pyautogui.press('right')",
+                "code_display" : "pyautogui.press('right')",
+                "note" : "按一下 向右鍵\nright 右邊",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    向左鍵",
+                "code" : "pyautogui.press('left')",
+                "code_display" : "pyautogui.press('left')",
+                "note" : "按一下 向左鍵\nleft 左邊",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "鍵盤清單",
+                "code" : "pyautogui.KEYBOARD_KEYS",
+                "code_display" : "pyautogui.KEYBOARD_KEYS",
+                "note" : "鍵盤清單\nkeyboard 鍵盤",
+                "long_note" : true
+            }
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "items" :[
+            {
+                "menu_display" : "按住  移位鍵",
+                "code" : "pyautogui.keyDown('shift')",
+                "code_display" : "pyautogui.keyDown('shift')",
+                "note" : "按住 移位鍵\nkey 鍵\ndown 向下",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    控制鍵",
+                "code" : "pyautogui.keyDown('ctrl')",
+                "code_display" : "pyautogui.keyDown('ctrl')",
+                "note" : "按住 控制鍵\ncontrol 控制",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    空白鍵",
+                "code" : "pyautogui.keyDown('space')",
+                "code_display" : "pyautogui.keyDown('space')",
+                "note" : "按住 空白鍵",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "放開  移位鍵",
+                "code" : "pyautogui.keyUp('shift')",
+                "code_display" : "pyautogui.keyUp('shift')",
+                "note" : "放開 移位鍵",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    控制鍵",
+                "code" : "pyautogui.keyUp('ctrl')",
+                "code_display" : "pyautogui.keyUp('ctrl')",
+                "note" : "放開 控制鍵",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    空白鍵",
+                "code" : "pyautogui.keyUp('space')",
+                "code_display" : "pyautogui.keyUp('space')",
+                "note" : "放開 空白鍵",
+                "long_note" : true
+            }
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "items" :[
+            {
+                "menu_display" : "組合鍵 ctrl + c",
+                "code" : "pyautogui.hotkey('ctrl','c')",
+                "code_display" : "pyautogui.hotkey('ctrl','c')",
+                "note" : "組合鍵 ctrl + c",
+                "long_note" : true
+            }
+        ]
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " 剪貼簿  ",
+        "off_label" : " 剪貼簿 >",
+        "start_on" : false
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "匯入pyperclip模組",
+                "code" : "import pyperclip",
+                "code_display" : "import pyperclip",
+                "note" : "需先匯入!!\npaper clip 迴紋針",
+                "long_note" : true
+            }
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "items" :[
+            {
+                "menu_display" : "文字 複製到剪貼簿",
+                "code" : "pyperclip.copy('你好')",
+                "code_display" : "pyperclip.copy('你好')",
+                "note" : "文字 複製到剪貼簿\ncopy 複製",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "從剪貼簿貼上 文字",
+                "code" : "文字 = pyperclip.paste()",
+                "code_display" : "文字 = pyperclip.paste()",
+                "note" : "傳回 剪貼簿文字\npaste 貼上",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "組合鍵 ctrl + v",
+                "code" : "pyautogui.hotkey('ctrl','v')",
+                "code_display" : "pyautogui.hotkey('ctrl','v')",
+                "note" : "貼上 組合鍵 ctrl + v",
+                "long_note" : true
+            }
+        ]
+    }
+]

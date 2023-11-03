@@ -1,0 +1,595 @@
+[
+    {
+        "postit_type" : "postit_title"
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " microbit模組 常用函式  ",
+        "off_label" : " microbit模組 常用函式 >",
+        "start_on" : true
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "匯入模組",
+                "code" : "from microbit import *",
+                "code_display" : "from microbit import *",
+                "note" : "匯入(一次即可)",
+                "long_note" : true
+            }            
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "等待",
+                "code" : "sleep(500)",
+                "code_display" : "sleep(500)",
+                "note" : "等待(毫秒)",
+                "long_note" : false
+            },
+            {
+                "menu_display" : "比率轉換 整數",
+                "code" : "scale(0, from_=(0,255), to=(0,1000))",
+                "code_display" : "scale(0, from_=(0,255),\n    to=(0,1000))",
+                "note" : "比率轉換 整數",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "比率轉換 浮點數",
+                "code" : "scale(30, from_=(0,100), to=(32.0,212.0))",
+                "code_display" : "scale(30, from_=(0,100),\n    to=(32.0,212.0))",
+                "note" : "比率轉換 浮點數",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "溫度",
+                "code" : "temperature()",
+                "code_display" : "temperature()",
+                "note" : "溫度",
+                "long_note" : false
+            },
+            {
+                "menu_display" : "調整音量 (限V2)",
+                "code" : "set_volume(128)",
+                "code_display" : "set_volume(128)",
+                "note" : "調整音量 0~255 (限V2)",
+                "long_note" : true
+            }
+        ]
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " 清除 顯示 捲動  ",
+        "off_label" : " 清除 顯示 捲動 >",
+        "start_on" : true
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "清除",
+                "code" : "display.clear()",
+                "code_display" : "display.clear()",
+                "note" : "顯示器 清除",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "關閉",
+                "code" : "display.off()",
+                "code_display" : "display.off()",
+                "note" : "顯示器 關閉",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "開啟",
+                "code" : "display.on()",
+                "code_display" : "display.on()",
+                "note" : "顯示器 開啟",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "有開啟嗎",
+                "code" : "display.is_on()",
+                "code_display" : "display.is_on()",
+                "note" : "顯示器 有開啟嗎",
+                "long_note" : true
+            }           
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        
+        "items" :[
+            {
+                "menu_display" : "顯示數字",
+                "code" : "display.show(123)",
+                "code_display" : "display.show(123)",
+                "note" : "顯示器 顯示數字",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "顯示文字",
+                "code" : "display.show('ABC')",
+                "code_display" : "display.show('ABC')",
+                "note" : "顯示器 顯示文字\n(限英文或符號)",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "顯示文字 更多引數",
+                "code" : "display.show('abc',\ndelay=400,\nclear=False,\nwait=True,\nloop=False)",
+                "code_display" : "display.show('abc',\n    delay=400,\n    clear=False,\n    wait=True,\n    loop=False)",
+                "note" : "顯示文字\ndelay 延遲(毫秒)\nclear 清除\nwait  等待\nloop  循環",
+                "long_note" : true
+            }         
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "items" :[
+            {
+                "menu_display" : "捲動數字",
+                "code" : "display.scroll(12345)",
+                "code_display" : "display.scroll(12345)",
+                "note" : "顯示器 捲動數字",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "捲動文字",
+                "code" : "display.scroll('Hello')",
+                "code_display" : "display.scroll('Hello')",
+                "note" : "顯示器 捲動文字\n(限英文或符號)",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "捲動文字 更多引數",
+                "code" : "display.scroll('Hello',\ndelay=150,\nwait=True,\nloop=False)",
+                "code_display" : "display.scroll('Hello',\n    delay=150,\n    wait=True,\n    loop=False)",
+                "note" : "捲動文字\ndelay 延遲(毫秒)\nwait  等待\nloop  循環",
+                "long_note" : true
+            }           
+        ]
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " 顯示圖像 多種  ",
+        "off_label" : " 顯示圖像 多種 >",
+        "start_on" : false
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "顯示圖像 愛心",
+                "code" : "display.show(Image.HEART)",
+                "code_display" : "display.show(Image.HEART)",
+                "note" : "顯示圖像 愛心",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "顯示圖像 小愛心",
+                "code" : "display.show(Image.HEART_SMALL)",
+                "code_display" : "display.show(Image.HEART_SMALL)",
+                "note" : "顯示圖像 小愛心",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "顯示圖像 高興",
+                "code" : "display.show(Image.HAPPY)",
+                "code_display" : "display.show(Image.HAPPY)",
+                "note" : "顯示圖像 高興",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "顯示圖像 悲傷",
+                "code" : "display.show(Image.SAD)",
+                "code_display" : "display.show(Image.SAD)",
+                "note" : "顯示圖像 悲傷",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "顯示圖像 是的",
+                "code" : "display.show(Image.YES)",
+                "code_display" : "display.show(Image.YES)",
+                "note" : "顯示圖像 是的",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "顯示圖像 不是",
+                "code" : "display.show(Image.NO)",
+                "code_display" : "display.show(Image.NO)",
+                "note" : "顯示圖像 不是",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "顯示圖像 三角形",
+                "code" : "display.show(Image.TRIANGLE)",
+                "code_display" : "display.show(Image.TRIANGLE)",
+                "note" : "顯示圖像 三角形",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "顯示圖像 鑽石",
+                "code" : "display.show(Image.DIAMOND)",
+                "code_display" : "display.show(Image.DIAMOND)",
+                "note" : "顯示圖像 鑽石",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "顯示圖像 方形",
+                "code" : "display.show(Image.SQUARE)",
+                "code_display" : "display.show(Image.SQUARE)",
+                "note" : "顯示圖像 方形",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "顯示圖像 小方形",
+                "code" : "display.show(Image.SQUARE_SMALL)",
+                "code_display" : "display.show(Image.SQUARE_SMALL)",
+                "note" : "顯示圖像 小方形",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "顯示圖像 音符",
+                "code" : "display.show(Image.MUSIC_QUAVER)",
+                "code_display" : "display.show(Image.MUSIC_QUAVER)",
+                "note" : "顯示圖像 音符",
+                "long_note" : true
+            }      
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : false,
+        "items" :[
+            {
+                "menu_display" : "圖像 愛心",
+                "code" : "Image.HEART",
+                "code_display" : "Image.HEART",
+                "note" : "圖像 愛心",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    小愛心",
+                "code" : "Image.HEART_SMALL",
+                "code_display" : "Image.HEART_SMALL",
+                "note" : "圖像 小愛心",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    高興",
+                "code" : "Image.HAPPY",
+                "code_display" : "Image.HAPPY",
+                "note" : "圖像 高興",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    悲傷",
+                "code" : "Image.SAD",
+                "code_display" : "Image.SAD",
+                "note" : "圖像 悲傷",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    是的",
+                "code" : "Image.YES",
+                "code_display" : "Image.YES",
+                "note" : "圖像 是的",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    不是",
+                "code" : "Image.NO",
+                "code_display" : "Image.NO",
+                "note" : "圖像 不是",
+                "long_note" : true
+            } ,
+            {
+                "menu_display" : "    三角形",
+                "code" : "Image.TRIANGLE",
+                "code_display" : "Image.TRIANGLE",
+                "note" : "圖像 三角形",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    鑽石",
+                "code" : "Image.DIAMOND",
+                "code_display" : "Image.DIAMOND",
+                "note" : "圖像 鑽石",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    方形",
+                "code" : "Image.SQUARE",
+                "code_display" :"Image.SQUARE",
+                "note" : "圖像 正方形",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    小方形",
+                "code" : "Image.SQUARE_SMALL",
+                "code_display" : "Image.SQUARE_SMALL",
+                "note" : "圖像 小方形",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    音符",
+                "code" : "Image.MUSIC_QUAVER",
+                "code_display" : "Image.MUSIC_QUAVER",
+                "note" : "圖像 音符",
+                "long_note" : true
+            }            
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : false,
+        "items" :[
+            
+            {
+                "menu_display" : "圖像 箭頭 北",
+                "code" : "Image.ARROW_N",
+                "code_display" : "Image.ARROW_N",
+                "note" : "圖像 箭頭 北",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    箭頭 東北",
+                "code" : "Image.ARROW_NE",
+                "code_display" : "Image.ARROW_NE",
+                "note" : "圖像 箭頭 東北",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    箭頭 東",
+                "code" : "Image.ARROW_E",
+                "code_display" : "Image.ARROW_E",
+                "note" : "圖像 箭頭 東",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    箭頭 東南",
+                "code" : "Image.ARROW_SE",
+                "code_display" : "Image.ARROW_SE",
+                "note" : "圖像 箭頭 東南",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    箭頭 南",
+                "code" : "Image.ARROW_S",
+                "code_display" : "Image.ARROW_S",
+                "note" : "圖像 箭頭 南",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    箭頭 西南",
+                "code" : "Image.ARROW_SW",
+                "code_display" : "Image.ARROW_SW",
+                "note" : "圖像 箭頭 西南",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    箭頭 西",
+                "code" : "Image.ARROW_W",
+                "code_display" : "Image.ARROW_W",
+                "note" : "圖像 箭頭 西",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "    箭頭 西北",
+                "code" : "Image.ARROW_NW",
+                "code_display" : "Image.ARROW_NW",
+                "note" : "圖像 箭頭 西北",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "點鐘清單 唯讀",
+                "code" : "Image.ALL_CLOCKS",
+                "code_display" : "Image.ALL_CLOCKS",
+                "note" : "點鐘清單 唯讀",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "方向清單 唯讀",
+                "code" : "Image.ALL_ARROWS",
+                "code_display" : "Image.ALL_ARROWS",
+                "note" : "方向清單 唯讀",
+                "long_note" : true
+            }     
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : false,
+        "items" :[
+            {
+                "menu_display" : "圖像 單一字元",
+                "code" : "Image('S')",
+                "code_display" : "Image('S')",
+                "note" : "單一字元",
+                "long_note" : true
+            }    
+        ]
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " 自訂圖像 運算  ",
+        "off_label" : " 自訂圖像 運算 >",
+        "start_on" : false
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "自訂圖像 全暗",
+                "code" : "img = Image(\n'00000:'\n'00000:'\n'00000:'\n'00000:'\n'00000:')",
+                "code_display" : "img = Image(\n    '00000:'\n    '00000:'\n    '00000:'\n    '00000:'\n    '00000:')",
+                "note" : "自訂圖像 亮度 0~9",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "        全亮",
+                "code" : "img = Image(\n'99999:'\n'99999:'\n'99999:'\n'99999:'\n'99999:')",
+                "code_display" : "img = Image(\n    '99999:'\n    '99999:'\n    '99999:'\n    '99999:'\n    '99999:')",
+                "note" : "自訂圖像 亮度 0~9",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "        漸層",
+                "code" : "img = Image(\n'13579:'\n'13579:'\n'13579:'\n'13579:'\n'13579:')",
+                "code_display" : "img = Image(\n    '13579:'\n    '13579:'\n    '13579:'\n    '13579:'\n    '13579:')",
+                "note" : "自訂圖像 亮度 0~9",
+                "long_note" : true
+            }     
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "items" :[
+            
+            {
+                "menu_display" : "顯示 自訂圖像",
+                "code" : "display.show(img)",
+                "code_display" : "display.show(img)",
+                "note" : "顯示 自訂圖像",
+                "long_note" : true
+            }        
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : false,
+        "items" :[
+            {
+                "menu_display" : "圖像 + 圖像",
+                "code" : "Image('X') + Image('O')",
+                "code_display" : "Image('X') + Image('O')",
+                "note" : "圖像 + 圖像",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "圖像 - 圖像",
+                "code" : "Image('X') - Image('O')",
+                "code_display" : "Image('X') - Image('O')",
+                "note" : "圖像 - 圖像",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "圖像 / 數字",
+                "code" : "Image('S') / 9",
+                "code_display" : "Image('S') / 9",
+                "note" : "圖像 / 數字",
+                "long_note" : true
+            },
+            {
+                "menu_display" : "圖像 * 數字",
+                "code" : "Image('S') / 9 * 3",
+                "code_display" : "Image('S') / 9 * 3",
+                "note" : "圖像 * 數字",
+                "long_note" : true
+            }           
+        ]
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " 設定 取得像素  ",
+        "off_label" : " 設定 取得像素 >",
+        "start_on" : false
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "設定像素",
+                "code" : "display.set_pixel(0, 0, 5)",
+                "code_display" : "display.set_pixel(0, 0, 5)",
+                "note" : "設定像素(x, y, 亮度)\nx座標 0~4\ny座標 0~4\n亮度  0~9",
+                "long_note" : true
+            }          
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : true,
+        "items" :[
+           
+            {
+                "menu_display" : "取得像素",
+                "code" : "display.get_pixel(0, 0)",
+                "code_display" : "display.get_pixel(0, 0)",
+                "note" : "取得像素(x, y)\nx座標 0~4\ny座標 0~4\n傳回亮度",
+                "long_note" : true
+            }           
+        ]
+    },
+    {
+        "postit_type" : "ttk_separator"
+    },
+    {
+        "postit_type" : "postit_para",
+        "on_label" : " 感光  ",
+        "off_label" : " 感光 >",
+        "start_on" : false
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : false,
+        "start_hide_note" : false,
+        "items" :[
+            {
+                "menu_display" : "讀取感光值",
+                "code" : "display.read_light_level()",
+                "code_display" : "display.read_light_level()",
+                "note" : "讀取感光值 0~255",
+                "long_note" : true
+            }            
+        ]
+    },
+    {
+        "postit_type" : "in_para_dropdown_postit",
+        "postfix_enter" : true,
+        "start_hide_note" : true,
+        "items" :[
+            {
+                "menu_display" : "感光值 設定變數",
+                "code" : "n = display.read_light_level()",
+                "code_display" : "n = display.read_light_level()",
+                "note" : "感光值  設定變數",
+                "long_note" : true
+            }            
+        ]
+    }
+]
