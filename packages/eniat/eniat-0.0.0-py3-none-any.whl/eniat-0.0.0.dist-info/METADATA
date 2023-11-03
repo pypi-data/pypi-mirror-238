@@ -1,0 +1,114 @@
+Metadata-Version: 2.1
+Name: eniat
+Version: 0.0.0
+Summary: ENIAT supports and boosts your machine learning experiments!
+Author-email: Cheol Woong Na <skcjfdnd1996@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2023 GimmeSpoon
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/GimmeSpoon/ENIAT
+Project-URL: Bug Tracker, https://github.com/GimmeSpoon/ENIAT/issues
+Project-URL: Repository, https://github.com/GimmeSpoon/ENIAT
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: omegaconf
+Requires-Dist: openpyxl
+Requires-Dist: numpy
+Requires-Dist: rich[jupyter]
+Requires-Dist: importlib-resources
+
+#  ENIAT
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-azure.svg)](https://opensource.org/licenses/MIT)
+
+Eniat is a Python template for various ML packages including PyTorch, Scikit-learn.
+
+Currently supports only PyTorch :moyai:
+
+It provides several convenient features
+
+* automated training: you don't have to re-write same epoch-wise loop everytime!
+* automated distributed learning for PyTorch.
+* Easy configurations for your experiments.
+* Various package support (in the future)
+
+## Quick Start
+
+### 1. Installation
+
+Install eniat with the below command.
+
+```bash
+pip install eniat
+```
+
+eniat installation doesn't convey ML packages such as [torch](https://pytorch.org/) or [sklearn](https://scikit-learn.org/stable/), so install one you need before using eniat. :moyai:
+
+### 2. CLI execution
+
+You can initiate any tasks with only console commands. :moyai:
+
+With below command, you can conduct ML experiemnts on console provided that you have proper resources for models and data. These configurations except basic arguments are based on [omegaconf](https://omegaconf.readthedocs.io/en/2.3_branch/), so refer to the documentation and provide valid arguments.
+
+```bash
+eniat -p PACKAGE -t TASK --OTHER_CONFIGS_YOU_NEED
+```
+
+Or you can simply write every configurations you need into one yaml and just type the path of it like below. I strongly recommend this, because ML experiments usually require quite large amount of parameters. Make a base configuration yaml file, and modify slightly by typing additional configurations into console command, and it will be much more convenient.
+
+```bash
+eniat -c=PATH_TO_CONFIG_FILE
+```
+
+### 3. Custom code execution
+
+eniat is designed for various environments from mere `.py` codes to jupyter notebooks.
+
+The most fundamental component of eniat is `Trainer`. It is in charge of training your models. In the other hand, `Grader` only evaluates your model. Below is an example code of torch training wih eniat.
+
+```python
+from eniat.utils.statelogger import DummyLogger
+from eniat.torch import TorchTrainer, TorchGrader
+
+logger = DummyLogger() # Default logger for Eniat
+grader = TorchGrader(grader_cfg, logger = logger) # If none, train without evaluation
+trainer = TorchTrainer(trainer_cfg, learner_cfg, data_cfg, logger, grader)
+
+trainer.fit(device = 0) # training on dev 0
+```
