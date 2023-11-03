@@ -1,0 +1,86 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static spags %}
+{% block base %}{% endblock %}
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+{% block extrahead %}
+{% endblock %}
+{% block header_ %}
+    {{ block.super }}
+    <script src="{% static 'naive-ui/js/Sortable.min.js' %}"></script>
+    <script src="{% static 'naive-ui/js/vuedraggable.umd.js' %}"></script>
+{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block less %}
+    {{ block.super }}
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/logo.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/index.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/layout_scoped.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/Header.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/ProjectSetting.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/layout_TabsView.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/TabsView.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/iframe.less' %}"/>
+{% endblock %}
+
+{% block sidebar %}
+    <div id="content-related">
+        <div class="module" id="recent-actions-module">
+            <h2>{% translate 'Recent actions' %}</h2>
+            <h3>{% translate 'My actions' %}</h3>
+            {% load log %}
+            {% get_admin_log 10 as admin_log for_user user %}
+            {% if not admin_log %}
+                <p>{% translate 'None available' %}</p>
+            {% else %}
+                <ul class="actionlist">
+                    {% for entry in admin_log %}
+                        <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                            {% if entry.is_deletion or not entry.get_admin_url %}
+                                {{ entry.object_repr }}
+                            {% else %}
+                                <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                            {% endif %}
+                            <br>
+                            {% if entry.content_type %}
+                                <span class="mini quiet">{% filter capfirst %}
+                                    {{ entry.content_type.name }}{% endfilter %}</span>
+                            {% else %}
+                                <span class="mini quiet">{% translate 'Unknown content' %}</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+{% block ui-app %}
+    <n-layout data-v-051739fd class="layout" :position="fixedMenu" has-sider>
+        {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+    </n-layout>
+{% endblock %}
+{% block main %}
+    {% menus as menus_js %}
+    {% first as first_js %}
+    {% menus_icon as children_icon %}
+    {% icon_list as icon_lists %}
+    <script type="module">globalThis.menus = {{ menus_js|safe }};</script>
+    <script type="module">globalThis.First = {{ first_js|safe }};</script>
+    <script type="module">globalThis.default_list={{ app_list|filter_app_list|safe }}</script>
+    <script type="module">globalThis.children_icon={{ children_icon|safe }};</script>
+    <script type="module">globalThis.icon_list={{ icon_lists|safe }} ;</script>
+    <script src="{% static 'naive-ui/js/spruce.js' %}" type="module"></script>
+{% endblock %}
+{% block components %}
+    <script src="{% static 'naive-ui/js/components/vuedraggable.js' %}" type="module"></script>
+    <script src="{% static 'naive-ui/js/components/components.js' %}" type="module"></script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "admin/base.html" %}
+{% load i18n static spags %}
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} |
+    {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% block less %}
+    <script src="{% static 'naive-ui/automatic/dicts.js' %}" type="module"></script>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/styles/index.less' %}"/>{% endblock %}
+{% block branding %}
+    {% block header_ %}
+        <script src="{% static 'naive-ui/js/vue.global.js' %}"></script>
+        <script src="{% static 'naive-ui/js/index.js' %}"></script>{% endblock %}
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+    {% if user.is_anonymous %}
+        {% include "admin/color_theme_toggle.html" %}
+    {% endif %}
+{% endblock %}
+{% block extrastyle %}
+    <script type="module" src="{% static 'naive-ui/js/setupNaiveDiscreteApi.js' %}"></script>
+    <script type="module" src="{% static 'naive-ui/fontawesome-free-6.4.2-web/js/all.js' %}"></script>
+    <script type="module">loadingBar.start()</script>
+{% endblock %}
+{% block app %}
+    {% website_config as websiteConfig %}
+    <ui-app>
+        {% block ui-app %}
+            {% block content %}
+            {% endblock %}
+        {% endblock %}
+    </ui-app>
+{% endblock %}
+{% block container_js %}
+    {% block main %}
+        <script src="{% static 'naive-ui/js/default.js' %}" type="module"></script>
+    {% endblock %}
+    <script src="{% static 'naive-ui/js/start.js' %}" type="module"></script>
+    {% block components %}
+        <script src="{% static 'naive-ui/js/components/components.js' %}" type="module"></script>
+    {% endblock %}
+    <script src="{% static 'naive-ui/js/end.js' %}" type="module"></script>
+    <script type="module">setTimeout(() => {loadingBar.finish()}, 1000)</script>
+{% endblock %}

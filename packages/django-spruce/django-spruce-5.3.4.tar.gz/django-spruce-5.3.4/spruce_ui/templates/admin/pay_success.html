@@ -1,0 +1,35 @@
+{% extends 'admin/index.html' %}
+{% load i18n static spags %}
+{% block less %}
+    {{ block.super }}
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/success.less' %}"/>
+{% endblock %}
+{% block ui-app %}
+<n-card :bordered="false" class="proCard">
+    <div class="result-box">
+      <n-result
+        status="success"
+        title="激活成功"
+        description="欢迎使用Django-spruce-ui，刷新页面开始旅程吧！"
+      >
+        <div class="result-box-extra">
+          <p>已激活</p>
+        </div>
+        <template #footer>
+          <div class="flex justify-center mb-4">
+            <n-space align="center">
+              <n-button type="info" @click="goHome">回到首页</n-button>
+              <n-button onclick="window.open('{% url 'admin:index' %}')">确定</n-button>
+            </n-space>
+          </div>
+        </template>
+      </n-result>
+    </div>
+  </n-card>
+{% endblock %}
+{% block main %}
+    <script src="{% static 'naive-ui/js/default.js' %}" type="module"></script>
+{% endblock %}
+{% block components %}
+    <script src="{% static 'naive-ui/js/components/components.js' %}" type="module"></script>
+{% endblock %}

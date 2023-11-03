@@ -1,0 +1,36 @@
+{% extends 'admin/index.html' %}
+{% load i18n static spags %}
+{% block less %}
+    {{ block.super }}
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/basic.less' %}"/>
+{% endblock %}
+{% block ui-app %}
+<div>
+    <div class="n-layout-page-header">
+      <n-card :bordered="false" title="基础表单"> 基础表单，用于向用户收集表单信息 </n-card>
+    </div>
+    <n-card :bordered="false" class="mt-4 proCard">
+      <div class="BasicForm">
+{#        <BasicForm#}
+{#          submitButtonText="提交预约"#}
+{#          layout="horizontal"#}
+{#          :gridProps="{ cols: 1 }"#}
+{#          :schemas="schemas"#}
+{#          @submit="handleSubmit"#}
+{#          @reset="handleReset"#}
+{#        >#}
+{#          <template #statusSlot="{ model, field }">#}
+{#            <n-input v-model:value="model[field]"></n-input>#}
+{#          </template>#}
+{#        </BasicForm>#}
+          {% include 'admin/components/Form/BasicForm.html' %}
+      </div>
+    </n-card>
+  </div>
+{% endblock %}
+{% block main %}
+    <script src="{% static 'naive-ui/js/basic.js' %}" type="module"></script>
+{% endblock %}
+{% block components %}
+    <script src="{% static 'naive-ui/js/components/components.js' %}" type="module"></script>
+{% endblock %}

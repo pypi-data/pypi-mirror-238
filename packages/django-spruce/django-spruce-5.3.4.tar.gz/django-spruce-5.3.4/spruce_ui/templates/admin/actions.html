@@ -1,0 +1,141 @@
+{% load i18n admin_urls static admin_list spags %}
+<div class="actions" style="display: contents;">
+    {% block actions %}
+        {% block actions-form %}
+            {% for field in action_form.fields.action.choices %}
+                {% if field.0 %}
+                    {% if field.0 == 'delete_selected' %}
+                        <n-button type="error" @click="delete_a('{{ field.0 }}')" style="margin-left: 5px">
+                            <template #icon>
+                                <n-icon>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </n-icon>
+                            </template>
+                            {% if field.1|length > 0 %}
+                                {{ field.1 }}
+                            {% else %}
+                                {{ field.0 }}
+                            {% endif %}
+                        </n-button>
+                    {% elif field.0 == 'export_admin_action' %}
+                        <n-modal v-model:show="showModal2">
+                            <n-card style="width: 600px"
+                                    display='flex'
+                                    title="{% trans "Export" %}"
+                                    :bordered="false"
+                                    size="huge"
+                                    role="dialog"
+                                    aria-modal="true">
+                                <div style="display: flex;">
+                                    <n-select style="width: 49%"
+                                              v-model:value="selectedValues2"
+                                              filterable
+                                              placeholder="请输入{% trans "Export" %}类型关键字"
+                                              :options="file_format"
+                                              clearable
+                                    ></n-select>
+                                    <br>
+                                    <br>
+                                    <n-button ghost color="#1296db"
+                                              style="margin-left: 2%;width: 49%"
+                                              @click="handleClick2"
+                                    >
+                                        {% trans "Export" %}
+                                    </n-button>
+                                </div>
+                            </n-card>
+                        </n-modal>
+                        <n-button ghost color="#ff69b4" @click="exports('{{ field.0 }}')" style="margin-left: 5px">
+                            <template #icon>
+                                <n-icon>
+                                    <img src="{% static '/naive-ui/svg/导出.svg' %}" alt="">
+                                </n-icon>
+                            </template>
+                            {% if field.1|length > 0 %}
+                                {{ field.1 }}
+                            {% else %}
+                                {{ field.0 }}
+                            {% endif %}
+                        </n-button>
+                    {% else %}
+                        <n-button {% if  field.0|filter_type:request == '' %}
+                        {% else %} type="{{ field.0|filter_type:request }}" {% endif %}  @click="bc('{{ field.0 }}')" style="margin-left: 5px">
+                        {% if field.0|filter_icon:request == '' %}
+                            {% else %}
+                        	<template #icon>
+                                <n-icon>
+                                    <i class="{{ field.0|filter_icon:request }}"></i>
+                                </n-icon>
+                            </template>
+                        {% endif %}
+
+                            {% if field.1|length > 0 %}
+                                {{ field.1 }}
+                            {% else %}
+                                {{ field.0 }}
+                            {% endif %}
+                        </n-button>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if has_import_permission %}
+                <n-modal v-model:show="showModal">
+                    <n-card
+                            style="width: 600px"
+                            title="{% trans "Import" %}"
+                            :bordered="false"
+                            size="huge"
+                            role="dialog"
+                            aria-modal="true">
+                        <n-select
+                                v-model:value="selectedValues"
+                                filterable
+                                placeholder="选择{% trans "Import" %}类型"
+                                :options="sl_options"
+                                clearable
+                        ></n-select>
+                        <br>
+                        <n-upload
+                                ref="upload"
+                                :default-upload="false"
+                                multiple
+                                directory-dnd
+                                action="{% url opts|admin_urlname:"import" %}"
+                                @change="handleChange"
+                                :max="1">
+                            <n-upload-dragger>
+                                <div style="margin-bottom: 12px">
+                                    <n-icon size="48" :depth="3">
+                                        <img src="{% static '/naive-ui/svg/archive-icon.svg' %}" alt="">
+                                    </n-icon>
+                                </div>
+                                <n-text style="font-size: 16px">
+                                    点击或者拖动文件到该区域来上传
+                                </n-text>
+                                <n-p depth="3" style="margin: 8px 0 0 0">
+                                    请上传敏感数据，比如你的银行卡号和密码，信用卡号有效期和安全码
+                                </n-p>
+                            </n-upload-dragger>
+                        </n-upload>
+                        <br>
+                        <n-button type="primary"
+                                  :disabled="!fileListLength"
+                                  style="margin-bottom: 12px;width: 100%"
+                                  @click="handleClick"
+                        >
+                            上传文件
+                        </n-button>
+                    </n-card>
+                </n-modal>
+                <n-button ghost color="#8a2be2" @click="imports('{% url opts|admin_urlname:"import" %}')"
+                          style="margin-left: 5px">
+                    <template #icon>
+                        <n-icon>
+                            <img src="{% static '/naive-ui/svg/导入.svg' %}" alt="">
+                        </n-icon>
+                    </template>
+                    {% trans "Import" %}</n-button>
+            {% endif %}
+        {% endblock %}
+    {% endblock %}
+</div>

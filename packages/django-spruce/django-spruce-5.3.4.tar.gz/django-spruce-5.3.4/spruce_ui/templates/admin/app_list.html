@@ -1,0 +1,61 @@
+{% load i18n %}
+
+{% if app_list %}
+    {#    菜单#}
+    <n-layout-sider data-v-051739fd
+            show-trigger="bar"
+            @collapse="collapsed = true"
+            :position="fixedMenu"
+            @expand="collapsed = false"
+            :collapsed="collapsed"
+            collapse-mode="width"
+            :collapsed-width="64"
+            :width="leftMenuWidth"
+            :native-scrollbar="false"
+            :inverted="inverted"
+            class="layout-sider"
+    >
+        {% include 'admin/logo.html' %}
+        {% include 'admin/NMenu.html' with mode='vertical' %}
+    </n-layout-sider>
+
+    {#        内容#}
+    <n-layout :inverted="inverted" data-v-051739fd>
+        <n-layout-header data-v-f112272d :inverted="getHeaderInverted" :position="fixedHeader" data-v-051739fd>
+            {% include 'admin/PageHeader.html' %}
+        </n-layout-header>
+
+        <n-layout-content data-v-051739fd
+        class="layout-content"
+      {% verbatim %}
+        :class="{ 'layout-default-background': getDarkTheme === false }"
+      {% endverbatim %}
+      >
+        <div data-v-051739fd style="height: 100%;width: 100%"
+          class="layout-content-main"
+          :class="{
+            'layout-content-main-fix': fixedMulti,
+            'fluid-header': fixedHeader === 'static',
+          }"
+        >
+                {% include 'admin/TabsView.html' %}
+                <div data-v-051739fd
+                class="main-view"
+                :class="{
+              'main-view-fix': fixedMulti,
+              noMultiTabs: !isMultiTabs,
+              'mt-3': !isMultiTabs,
+            }">
+            {% include 'admin/MainView.html' %}
+                </div>
+            </div>
+            <!--1.15废弃，没啥用，占用操作空间-->
+            <!--        <NLayoutFooter v-if="getShowFooter">-->
+            <!--          <PageFooter />-->
+            <!--        </NLayoutFooter>-->
+        </n-layout-content>
+        <n-back-top data-v-051739fd :right="100"></n-back-top>
+    </n-layout>
+{% else %}
+    <p>{% translate 'You don’t have permission to view or edit anything.' %}</p>
+{% endif %}

@@ -1,0 +1,233 @@
+{% extends "admin/index.html" %}
+{% load i18n static spags %}
+{% block header_ %}
+    {{ block.super }}
+    <script src="{% static 'naive-ui/js/vueuse/shared.min.js' %}"></script>
+    <script src="{% static 'naive-ui/js/vueuse/core.min.js' %}"></script>
+    <script src="{% static 'naive-ui/js/echarts/echarts.js' %}"></script>
+    <script src="{% static 'naive-ui/js/mock/mock.js' %}"></script>
+{% endblock %}
+{% block less %}
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/workplace.less' %}"/>
+{% endblock %}
+{% block ui-app %}
+    <div class="console">
+        <!--数据卡片-->
+        <n-grid cols="1 s:2 m:4 l:4 xl:4 2xl:4" responsive="screen" :x-gap="12" :y-gap="8">
+            <n-grid-item>
+                <NCard title="访问量"
+                       :segmented="{ content: true, footer: true }"
+                       size="small"
+                       :bordered="false">
+                    <template #header-extra>
+                        <n-tag type="success">日</n-tag>
+                    </template>
+                    <div class="flex justify-between px-1 py-1">
+                        <n-skeleton v-if="loading" :width="100" size="medium"></n-skeleton>
+                        <CountTo v-else :jla_start="1" :jla_end="visits.dayVisits" class="text-3xl"></CountTo>
+                    </div>
+                    <div class="flex justify-between px-1 py-1">
+                        <div class="text-sn">
+                            <n-skeleton v-if="loading" :width="100" size="medium"></n-skeleton>
+                            <template v-else>
+                                日同比
+                                <CountTo :jla_start="1" suffix="%" :jla_end="visits.rise"></CountTo>
+                                <n-icon size="12" color="#00ff6f">
+                                    <img src="{% static 'naive-ui/svg/CaretUpOutlined.svg' %}" alt="">
+                                </n-icon>
+                            </template>
+                        </div>
+                        <div class="text-sn">
+                            <n-skeleton v-if="loading" :width="100" size="medium"></n-skeleton>
+                            <template v-else>
+                                周同比
+                                <CountTo :jla_start="1" suffix="%" :jla_end="visits.decline"></CountTo>
+                                <n-icon size="12" color="#ffde66">
+                                    <img src="{% static 'naive-ui/svg/CaretDownOutlined.svg' %}" alt="">
+                                </n-icon>
+                            </template>
+                        </div>
+                    </div>
+                    <template #footer>
+                        <div class="flex justify-between">
+                            <n-skeleton v-if="loading" text :repeat="2"></n-skeleton>
+                            <template v-else>
+                                <div class="text-sn"> 总访问量：</div>
+                                <div class="text-sn">
+                                    <CountTo :jla_start="1" :jla_end="visits.amount"></CountTo>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </NCard>
+            </n-grid-item>
+            <n-grid-item>
+                <NCard title="销售额"
+                       :segmented="{ content: true, footer: true }"
+                       size="small"
+                       :bordered="false">
+                    <template #header-extra>
+                        <n-tag type="info">周</n-tag>
+                    </template>
+                    <div class="flex justify-between px-1 py-1">
+                        <n-skeleton v-if="loading" :width="100" size="medium"></n-skeleton>
+                        <CountTo v-else
+                                 prefix="￥"
+                                 :jla_start="1"
+                                 :jla_end="saleroom.weekSaleroom"
+                                 class="text-3xl"></CountTo>
+                    </div>
+                    <div class="flex justify-between px-2 py-2">
+                        <div class="flex-1 text-sn">
+                            <n-progress
+                                    type="line"
+                                    :percentage="saleroom.degree"
+                                    :indicator-placement="'inside'"
+                                    processing></n-progress>
+                        </div>
+                    </div>
+                    <template #footer>
+                        <div class="flex justify-between">
+                            <n-skeleton v-if="loading" :width="100" size="medium"></n-skeleton>
+                            <template v-else>
+                                <div class="text-sn"> 总销售额：</div>
+                                <div class="text-sn">
+                                    <CountTo prefix="￥" :jla_start="1" :jla_end="saleroom.amount"></CountTo>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </NCard>
+            </n-grid-item>
+            <n-grid-item>
+                <NCard title="订单量"
+                       :segmented="{ content: true, footer: true }"
+                       size="small"
+                       :bordered="false">
+                    <template #header-extra>
+                        <n-tag type="warning">周</n-tag>
+                    </template>
+                    <div class="flex justify-between px-1 py-1">
+                        <n-skeleton v-if="loading" :width="100" size="medium"></n-skeleton>
+                        <CountTo v-else :jla_start="1" :jla_end="orderLarge.weekLarge" class="text-3xl"></CountTo>
+                    </div>
+                    <div class="flex justify-between px-1 py-1">
+                        <div class="text-sn">
+                            <n-skeleton v-if="loading" :width="100" size="medium"></n-skeleton>
+                            <template v-else>
+                                日同比
+                                <CountTo :jla_start="1" suffix="%" :jla_end="orderLarge.rise"></CountTo>
+                                <n-icon size="12" color="#00ff6f">
+                                    <img src="{% static 'naive-ui/svg/CaretUpOutlined.svg' %}" alt="">
+                                </n-icon>
+                            </template>
+                        </div>
+                        <div class="text-sn">
+                            <n-skeleton v-if="loading" :width="100" size="medium"></n-skeleton>
+                            <template v-else>
+                                周同比
+                                <CountTo :jla_start="1" suffix="%" :jla_end="orderLarge.rise"></CountTo>
+                                <n-icon size="12" color="#ffde66">
+                                    <img src="{% static 'naive-ui/svg/CaretDownOutlined.svg' %}" alt="">
+                                </n-icon>
+                            </template>
+                        </div>
+                    </div>
+                    <template #footer>
+                        <div class="flex justify-between">
+                            <n-skeleton v-if="loading" :width="100" size="medium"></n-skeleton>
+                            <template v-else>
+                                <div class="text-sn"> 转化率：</div>
+                                <div class="text-sn">
+                                    <CountTo :jla_start="1" suffix="%" :jla_end="orderLarge.amount"></CountTo>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </NCard>
+            </n-grid-item>
+            <n-grid-item>
+                <NCard title="成交额"
+                       :segmented="{ content: true, footer: true }"
+                       size="small"
+                       :bordered="false">
+                    <template #header-extra>
+                        <n-tag type="error">月</n-tag>
+                    </template>
+                    <div class="flex justify-between px-1 py-1">
+                        <n-skeleton v-if="loading" :width="100" size="medium"></n-skeleton>
+                        <CountTo v-else prefix="￥" :jla_start="1" :jla_end="volume.weekLarge" class="text-3xl"></CountTo>
+                    </div>
+                    <div class="flex justify-between px-1 py-1">
+                        <div class="text-sn">
+                            <n-skeleton v-if="loading" :width="100" size="medium"></n-skeleton>
+                            <template v-else>
+                                月同比
+                                <CountTo :jla_start="1" suffix="%" :jla_end="volume.rise"></CountTo>
+                                <n-icon size="12" color="#00ff6f">
+                                    <img src="{% static 'naive-ui/svg/CaretUpOutlined.svg' %}" alt="">
+                                </n-icon>
+                            </template>
+                        </div>
+                        <div class="text-sn">
+                            <n-skeleton v-if="loading" :width="100" size="medium"></n-skeleton>
+                            <template v-else>
+                                月同比
+                                <CountTo :jla_start="1" suffix="%" :jla_end="volume.decline"></CountTo>
+                                <n-icon size="12" color="#ffde66">
+                                    <img src="{% static 'naive-ui/svg/CaretDownOutlined.svg' %}" alt="">
+                                </n-icon>
+                            </template>
+                        </div>
+                    </div>
+                    <template #footer>
+                        <div class="flex justify-between">
+                            <n-skeleton v-if="loading" :width="100" size="medium"></n-skeleton>
+                            <template v-else>
+                                <div class="text-sn"> 总成交额：</div>
+                                <div class="text-sn">
+                                    <CountTo prefix="￥" :jla_start="1" :jla_end="volume.amount"></CountTo>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </NCard>
+            </n-grid-item>
+        </n-grid>
+
+        <!--导航卡片-->
+        <div class="mt-4">
+            <n-grid cols="1 s:2 m:8 l:8 xl:8 2xl:8" responsive="screen" :x-gap="16" :y-gap="8">
+                <n-grid-item v-for="(item, index) in iconList" :key="index">
+                    <NCard content-style="padding-top: 0;" size="small" :bordered="false">
+                        <template #footer>
+                            <n-skeleton v-if="loading" size="medium"></n-skeleton>
+                            <div class="cursor-pointer" v-else>
+                                <p class="flex justify-center">
+                  <span>
+                    <n-icon :size="item.size" class="flex-1" :color="item.color">
+                      <component :is="item.icon" v-on="item.eventObject || {}"></component>
+                    </n-icon>
+                  </span></p>
+                    <p class="flex justify-center"><span>
+                        {% verbatim %}
+                  	{{ item.title }}
+                        {% endverbatim %}
+                  </span></p>
+                            </div>
+                        </template>
+                    </NCard>
+                </n-grid-item>
+            </n-grid>
+        </div>
+        <!--访问量 | 流量趋势-->
+        <VisiTab></VisiTab>
+    </div>
+{% endblock %}
+{% block main %}
+    <script src="{% static 'naive-ui/js/console.js' %}" type="module"></script>
+{% endblock %}
+{% block components %}
+    <script src="{% static 'naive-ui/js/components/console_components.js' %}" type="module"></script>
+    <script src="{% static 'naive-ui/js/components/components.js' %}" type="module"></script>
+{% endblock %}

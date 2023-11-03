@@ -1,0 +1,24 @@
+{% load i18n static %}
+{% if cl.search_fields %}
+    <n-gi>
+        <n-form-item label="搜索" path="{{ search_var }}">
+            {% if cl.search_help_text %}
+                <!--标签名右侧温馨提示-->
+                <n-tooltip trigger="hover">
+                    <template #trigger>
+                        <n-icon size="18" class="text-gray-400 cursor-pointer">
+                            <i class="fa-regular fa-circle-question"></i>
+                        </n-icon>
+                    </template>
+                    {{ cl.search_help_text }}
+                </n-tooltip>
+            {% endif %}
+            <n-input style="margin-left: 12px" clearable v-model:value="search"
+                     :placeholder="search_name"></n-input>
+            {% for pair in cl.params.items %}
+                {% if pair.0 != search_var %}<input type="hidden" name="{{ pair.0 }}" value="{{ pair.1 }}">
+                {% endif %}
+            {% endfor %}
+        </n-form-item>
+    </n-gi>
+{% endif %}

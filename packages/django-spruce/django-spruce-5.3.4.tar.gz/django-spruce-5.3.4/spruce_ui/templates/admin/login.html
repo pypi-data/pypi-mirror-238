@@ -1,0 +1,114 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static spags %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" href="{% static "admin/css/login.css" %}">
+    {{ form.media }}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block less %}
+    {{ block.super }}
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/login.less' %}"/>
+{% endblock %}
+
+{% block ui-app %}
+        <div class="view-account">
+            <div class="view-account-header"></div>
+            <div class="view-account-container">
+                <div class="view-account-top">
+                    <div class="view-account-top-logo">
+                        <img src="{{ websiteConfig.loginImage }}" alt=""/>
+                    </div>
+                    <div class="view-account-top-desc">{{ websiteConfig.loginDesc }}</div>
+                </div>
+                <div class="view-account-form">
+                    <n-form ref="formRef"
+                            label-placement="left"
+                            size="large"
+                            :model="formInline"
+                            :rules="rules">{% csrf_token %}
+                        <n-form-item path="username">
+                            <n-input v-model:value="formInline.username" placeholder="请输入用户名">
+                                <template #prefix>
+                                    <n-icon size="18" color="#808695">
+                                        <img src="{% static 'naive-ui/svg/person-outline.svg' %}" alt="">
+                                    </n-icon>
+                                </template>
+                            </n-input>
+                        </n-form-item>
+                        <n-form-item path="password">
+                            <n-input
+                                    v-model:value="formInline.password"
+                                    type="password"
+                                    showPasswordOn="click"
+                                    placeholder="请输入密码"
+                            >
+                                <template #prefix>
+                                    <n-icon size="18" color="#808695">
+                                        <img src="{% static 'naive-ui/svg/lock-closed-outline.svg' %}" alt="">
+                                    </n-icon>
+                                </template>
+                            </n-input>
+                        </n-form-item>
+                        <n-form-item class="default-color">
+                            <div class="flex justify-between">
+                                <div class="flex-initial">
+                                    <n-checkbox v-model:checked="autoLogin">自动登录</n-checkbox>
+                                </div>
+                                <div class="flex-initial order-last">
+                                    <a href="javascript:">忘记密码</a>
+                                </div>
+                            </div>
+                        </n-form-item>
+                        <n-form-item>
+                            <n-button type="primary" @click="handleSubmit" size="large" :loading="loading" block>
+                                登录
+                            </n-button>
+                        </n-form-item>
+                        <n-form-item class="default-color">
+                            <div class="flex view-account-other">
+                                <div class="flex-initial">
+                                    <span>其它登录方式</span>
+                                </div>
+                                <div class="flex-initial mx-2">
+                                    <a href="javascript:">
+                                        <n-icon size="24" color="#2d8cf0">
+                                            <img src="{% static 'naive-ui/svg/logo_github.svg' %}" alt="">
+                                        </n-icon>
+                                    </a>
+                                </div>
+                                <div class="flex-initial mx-2">
+                                    <a href="javascript:">
+                                        <n-icon size="24" color="#2d8cf0">
+                                            <img src="{% static 'naive-ui/svg/logo-facebook.svg' %}" alt="">
+                                        </n-icon>
+                                    </a>
+                                </div>
+                                <div class="flex-initial" style="margin-left: auto">
+                                    <a href="javascript:">注册账号</a>
+                                </div>
+                            </div>
+                        </n-form-item>
+                    </n-form>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+{% block main %}
+    <script src="{% static 'naive-ui/js/main.js' %}" type="module"></script>
+{% endblock %}
+{% block components %}
+    <script src="{% static 'naive-ui/js/components/components.js' %}" type="module"></script>
+{% endblock %}

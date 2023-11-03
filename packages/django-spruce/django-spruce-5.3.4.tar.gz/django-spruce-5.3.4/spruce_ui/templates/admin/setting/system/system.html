@@ -1,0 +1,205 @@
+{% extends 'admin/index.html' %}
+{% load i18n static spags %}
+{% block less %}
+    {{ block.super }}
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/system.less' %}"/>
+{% endblock %}
+{% block ui-app %}
+    <div>
+        <n-grid :x-gap="24">
+            <n-grid-item span="6">
+                <n-card :bordered="false" size="small" class="proCard">
+                    {% verbatim %}
+
+                    <n-thing
+                            class="thing-cell"
+                            v-for="item in typeTabList"
+                            :key="item.key"
+                            :class="{ 'thing-cell-on': type === item.key }"
+                            @click="switchType(item)"
+                    >
+                        <template #header>{{ item.name }}</template>
+                        <template #description>{{ item.desc }}</template>
+                    </n-thing>
+                    {% endverbatim %}
+                </n-card>
+            </n-grid-item>
+            <n-grid-item span="18">
+                <n-card :bordered="false" size="small" :title="typeTitle" class="proCard">
+                    <n-grid v-if="type === 1" cols="2 s:2 m:2 l:3 xl:3 2xl:3" responsive="screen">
+                        <n-grid-item>
+                            <n-form :label-width="80" :model="formValue" :rules="rules" ref="formRef">
+                                <n-form-item label="网站名称" path="name">
+                                    <n-input v-model:value="formValue.name" placeholder="请输入网站名称"></n-input>
+                                </n-form-item>
+
+                                <n-form-item label="备案编号" path="icpCode">
+                                    <n-input placeholder="请输入备案编号" v-model:value="formValue.icpCode"></n-input>
+                                </n-form-item>
+
+                                <n-form-item label="联系电话" path="mobile">
+                                    <n-input placeholder="请输入联系电话" v-model:value="formValue.mobile"></n-input>
+                                </n-form-item>
+
+                                <n-form-item label="联系地址" path="address">
+                                    <n-input v-model:value="formValue.address" type="textarea"
+                                             placeholder="请输入联系地址"></n-input>
+                                </n-form-item>
+
+                                <n-form-item label="登录验证码" path="loginCode">
+                                    <n-radio-group v-model:value="formValue.loginCode" name="loginCode">
+                                        <n-space>
+                                            <n-radio :value="1">开启</n-radio>
+                                            <n-radio :value="0">关闭</n-radio>
+                                        </n-space>
+                                    </n-radio-group>
+                                </n-form-item>
+
+                                <n-form-item label="网站开启访问" path="systemOpen">
+                                    <n-switch
+                                            size="large"
+                                            v-model:value="formValue.systemOpen"
+                                            @update:value="systemOpenChange"></n-switch>
+                                </n-form-item>
+
+                                <n-form-item label="网站关闭提示" path="closeText">
+                                    <n-input
+                                            v-model:value="formValue.closeText"
+                                            type="textarea"
+                                            placeholder="请输入网站关闭提示"></n-input>
+                                </n-form-item>
+
+                                <div>
+                                    <n-space>
+                                        <n-button type="primary" @click="formSubmit">更新基本信息</n-button>
+                                    </n-space>
+                                </div>
+                            </n-form>
+                        </n-grid-item>
+                    </n-grid>
+                    <n-grid v-if="type === 2" cols="2 s:2 m:2 l:3 xl:3 2xl:3" responsive="screen">
+                        <n-grid-item>
+                            <n-form :label-width="120" :model="formValue" :rules="rules" ref="formRef">
+                                <n-form-item label="商品图片(大)">
+                                    <n-space align="center">
+                                        <span>宽度：</span>
+                                        <n-input
+                                                v-model:value="formValue.bigWidth"
+                                                style="width: 80px"
+                                                placeholder="宽度像素"></n-input>
+                                        <span>高度：</span>
+                                        <n-input
+                                                v-model:value="formValue.bigHeight"
+                                                style="width: 80px"
+                                                placeholder="高度像素"></n-input>
+                                    </n-space>
+                                </n-form-item>
+
+                                <n-form-item label="商品图片(小)">
+                                    <n-space align="center">
+                                        <span>宽度：</span>
+                                        <n-input
+                                                v-model:value="formValue.smallWidth"
+                                                style="width: 80px"
+                                                placeholder="宽度像素"></n-input>
+                                        <span>高度：</span>
+                                        <n-input
+                                                v-model:value="formValue.smallHeight"
+                                                style="width: 80px"
+                                                placeholder="高度像素"></n-input>
+                                    </n-space>
+                                </n-form-item>
+
+                                <n-form-item label="水印透明度" path="watermarkClarity">
+                                    <n-input-number
+                                            v-model:value="formValue.watermarkClarity"
+                                            :show-button="false"
+                                            placeholder="请输入水印透明度"></n-input-number>
+                                </n-form-item>
+
+                                <n-form-item label="水印图片" path="watermarkClarity">
+                                    <n-upload action="http://www.mocky.io/v2/5e4bafc63100007100d8b70f">
+                                        <n-button>上传文件</n-button>
+                                    </n-upload>
+                                </n-form-item>
+
+                                <n-form-item label="水印位置" path="watermarkPlace">
+                                    <n-select
+                                            placeholder="请选择价格精确方式"
+                                            :options="watermarkPlaceList"
+                                            v-model:value="formValue.watermarkPlace"></n-select>
+                                </n-form-item>
+
+                                <n-form-item label="价格精确位数" path="pricePreciseNum">
+                                    <n-select
+                                            placeholder="请选择价格精确位数"
+                                            :options="pricePreciseNumList"
+                                            v-model:value="formValue.pricePreciseNum"></n-select>
+                                </n-form-item>
+
+                                <n-form-item label="价格精确方式" path="pricePrecise">
+                                    <n-select
+                                            placeholder="请选择价格精确方式"
+                                            :options="pricePreciseList"
+                                            v-model:value="formValue.pricePrecise"></n-select>
+                                </n-form-item>
+
+                                <n-form-item label="前台显示市场价" path="isMarketPrice">
+                                    <n-switch size="large" v-model:value="formValue.isMarketPrice"></n-switch>
+                                </n-form-item>
+
+                                <div>
+                                    <n-space>
+                                        <n-button type="primary" @click="formSubmit">更新显示信息</n-button>
+                                    </n-space>
+                                </div>
+                            </n-form>
+                        </n-grid-item>
+                    </n-grid>
+                    <n-grid v-if="type === 3" cols="2 s:2 m:2 l:3 xl:3 2xl:3" responsive="screen">
+                        <n-grid-item>
+                            <n-form :label-width="120" :model="formValue" :rules="rules" ref="formRef">
+                                <n-form-item label="发件人邮箱" path="originator">
+                                    <n-input v-model:value="formValue.originator"
+                                             placeholder="请输入发件人邮箱"></n-input>
+                                </n-form-item>
+
+                                <n-form-item label="SMTP服务器地址">
+                                    <n-input placeholder="请输入SMTP服务器地址"></n-input>
+                                </n-form-item>
+
+                                <n-form-item label="SMTP服务器端口">
+                                    <n-input placeholder="请输入SMTP服务器端口"></n-input>
+                                </n-form-item>
+
+                                <n-form-item label="SMTP用户名">
+                                    <n-input placeholder="请输入SMTP用户名"></n-input>
+                                </n-form-item>
+
+                                <n-form-item label="SMTP密码">
+                                    <n-input type="passwrd" placeholder="请输入SMTP密码"></n-input>
+                                </n-form-item>
+
+                                <n-form-item label="邮件测试">
+                                    <n-button>邮件测试</n-button>
+                                </n-form-item>
+
+                                <div>
+                                    <n-space>
+                                        <n-button type="primary" @click="formSubmit">更新邮件信息</n-button>
+                                    </n-space>
+                                </div>
+                            </n-form>
+                        </n-grid-item>
+                    </n-grid>
+                </n-card>
+            </n-grid-item>
+        </n-grid>
+    </div>
+{% endblock %}
+{% block main %}
+    <script src="{% static 'naive-ui/js/setting/system/system.js' %}" type="module"></script>
+{% endblock %}
+{% block components %}
+    <script src="{% static 'naive-ui/js/components/components.js' %}" type="module"></script>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% load i18n admin_urls static admin_list %}
+
+{% block object-tools-items %}
+    {% if has_add_permission %}
+        {% url cl.opts|admin_urlname:'add' as add_url %}
+        <a href="{% add_preserved_filters add_url is_popup to_field %}">
+            <n-button type="primary">
+                <template #icon>
+                    <n-icon>
+                        <i class="fa-solid fa-plus"></i>
+                    </n-icon>
+                </template>
+                {% blocktranslate with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktranslate %}
+            </n-button>
+        </a>
+    {% endif %}
+{% endblock %}

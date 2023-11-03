@@ -1,0 +1,41 @@
+{% extends "admin/index.html" %}
+{% load i18n admin_urls static admin_list spags %}
+{% block base %}{% endblock %}
+{% block less %}
+    {{ block.super }}
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/logo.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/index.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/layout_scoped.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/Header.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/ProjectSetting.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/layout_TabsView.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/TabsView.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/iframe.less' %}"/>
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/basicList.less' %}"/>
+{% endblock %}
+{% block ui-app %}
+    <n-card :bordered="false" class="proCard">
+        {% include 'admin/components/Form/BasicForm.html' %}
+        {% include 'admin/components/Form/BasicTable.html' %}
+    </n-card>
+{% endblock %}
+{% block main %}
+    {% if  action_form.fields.file_format.choices  %}
+        <script type="module">globalThis.file_format = {{ action_form.fields.file_format.choices|spruce_ui_file_format|safe }};</script>
+    {% endif %}
+    {% if cl.search_fields %}
+        <script type="module">globalThis.search = '{{ cl.query }}';globalThis.search_name = '{{ cl|spruce_ui_field_name|safe }}';</script>
+    {% endif %}
+    {% block filters %}
+        {% if cl.has_filters %}
+            <script type="module">globalThis.filters = {{ cl|spruce_ui_list_filter|safe }};</script>
+        {% endif %}
+    {% endblock %}
+    <script type="module">globalThis.results ={{ cl|filter_results|safe }};
+    globalThis.list_max_show_all = {{ cl.list_max_show_all|safe }};
+    </script>
+    <script src="{% static 'naive-ui/js/basicList.js' %}" type="module"></script>
+{% endblock %}
+{% block components %}
+    <script src="{% static 'naive-ui/js/components/components.js' %}" type="module"></script>
+{% endblock %}

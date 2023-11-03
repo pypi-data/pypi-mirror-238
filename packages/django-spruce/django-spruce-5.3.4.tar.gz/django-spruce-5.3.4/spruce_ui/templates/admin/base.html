@@ -1,0 +1,53 @@
+{% load i18n static %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}" id="htmlRoot"
+      data-theme="light">
+<head>
+    {% block base %}
+        <link rel="stylesheet" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
+        <link rel="stylesheet" href="{% static "admin/css/forms.css" %}">
+    {% endblock %}
+    {% block header_ %}
+    {% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+    {% block dark-mode-vars %}
+    {% endblock %}
+    {% block extrastyle %}{% endblock %}
+    {% block extrahead %}
+    {% endblock %}
+    {% block responsive %}
+        <meta charset="UTF-8">
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+        <meta content="webkit" name="renderer"/>
+        <meta
+                content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0"
+                name="viewport"
+        />
+        <link href="{% static 'assets/favicon.ico' %}" rel="icon"/>
+        <script src="{% static 'naive-ui/js/axios.min.js' %}"></script>
+        <script src="{% static 'naive-ui/js/3.3.3.js' %}"></script>
+        <link rel="stylesheet" href="{% static "naive-ui/css/style.css" %}">
+        {% block less %}{% endblock %}
+        <script src="{% static 'naive-ui/js/less.js' %}"></script>
+    {% endblock %}
+    {% block blockbots %}
+        <meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
+</head>
+{% block body %}
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
+  data-admin-utc-offset="{% now "Z" %}">
+<!-- Container -->
+<div id="app">
+    {% block app %}
+        <div class="first-loading-wrap">
+        <div class="loading-wrap">
+            <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
+        </div>
+    {% endblock %}
+    </div>
+</div>
+{% block container_js %}{% endblock %}
+</body>
+{% endblock %}
+<script>var globalThis = window;</script>
+</html>

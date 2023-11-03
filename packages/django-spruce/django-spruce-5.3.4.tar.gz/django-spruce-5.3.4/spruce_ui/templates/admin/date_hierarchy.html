@@ -1,0 +1,14 @@
+{% if show %}
+<nav class="toplinks">
+{% block date-hierarchy-toplinks %}
+{% block date-hierarchy-back %}
+{% if back %}<a style="color: #d03050" href="{{ back.link }}" class="date-back">&lsaquo; {{ back.title }}</a>{% endif %}
+{% endblock %}
+{% block date-hierarchy-choices %}
+{% for choice in choices %}
+{% if choice.link %}&nbsp;&nbsp;<a style="color: #d03050" href="{{ choice.link }}">{{ choice.title }}</a>&nbsp;&nbsp;{% else %}{{ choice.title }}{% endif %}
+{% endfor %}
+{% endblock %}
+{% endblock %}
+</nav>
+{% endif %}

@@ -1,0 +1,73 @@
+{% load i18n static spags %}
+<div data-v-051739fd
+        class="box-border tabs-view"
+        :class="{
+      'tabs-view-fix': multiTabsSetting.fixed,
+      'tabs-view-fixed-header': isMultiHeaderFixed,
+      'tabs-view-default-background': getDarkTheme === false,
+      'tabs-view-dark-background': getDarkTheme === true,
+    }"
+     :style="getChangeStyle">
+    <div class="tabs-view-main">
+        <div ref="navWrap" class="tabs-card" :class="{ 'tabs-card-scrollable': scrollable }">
+        <span
+        class="tabs-card-prev"
+        :class="{ 'tabs-card-prev-hide': !scrollable }"
+        @click="scrollPrev"
+        >
+          <n-icon size="16" color="#515a6e">
+            <img src="{% static 'naive-ui/svg/Chevron left-outlined.svg' %}" alt="">
+          </n-icon>
+        </span>
+            <span class="tabs-card-next"
+            :class="{ 'tabs-card-next-hide': !scrollable }"
+            @click="scrollNext">
+          <n-icon size="16" color="#515a6e">
+            <img src="{% static 'naive-ui/svg/Chevron right-outlined.svg' %}" alt="">
+          </n-icon>
+        </span>
+            {% verbatim %}
+                <div ref="navScroll" class="tabs-card-scroll">
+                  <Draggable :list="tabsList" animation="300" item-key="path" class="flex">
+                    <template #item="{ element }">
+                      <div style="background-color: #fff"
+                        :id="`tag${element.path.split('/').join('\/')}`"
+                        class="tabs-card-scroll-item"
+                        :class="{ 'active-item': getSelectedKeys === element.name }"
+                        @click.stop="goPage(element)"
+                        @contextmenu="handleContextMenu($event, element)"
+                      >
+                        <span>{{ element.label }}</span>
+                        <n-icon size="14" @click.stop="closeTabItem(element)" v-if="!element.affix">
+                          <i class="fa-solid fa-xmark"></i>
+                        </n-icon>
+                      </div>
+                    </template>
+                  </Draggable>
+                </div>
+            {% endverbatim %}
+        </div>
+        <div class="tabs-close">
+            <n-dropdown
+                    trigger="hover"
+                    @select="closeHandleSelect"
+                    placement="bottom-end"
+                    :options="TabsMenuOptions"
+            >
+                <div class="tabs-close-btn">
+                    <n-icon size="16" color="#515a6e">
+                        <img src="{% static 'naive-ui/svg/Down-Outlined.svg' %}" alt="">
+                    </n-icon>
+                </div>
+            </n-dropdown>
+        </div>
+        <n-dropdown
+        :show="showDropdown"
+        :x="dropdownX"
+        :y="dropdownY"
+        @clickoutside="onClickOutside"
+        placement="bottom-start"
+        @select="closeHandleSelect"
+        :options="TabsMenuOptions"></n-dropdown>
+    </div>
+</div>

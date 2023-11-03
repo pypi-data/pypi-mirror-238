@@ -1,0 +1,11 @@
+{% load i18n %}
+<n-list>
+<n-gradient-text type="warning" :size="24">
+    {% translate "Summary" %}
+  </n-gradient-text>&nbsp;&nbsp;
+    {% for model_name, object_count in model_count %}
+        <n-gradient-text type="success" :size="20">
+            {{ model_name|capfirst }}: {{ object_count }}
+        </n-gradient-text>
+    {% endfor %}
+</n-list>

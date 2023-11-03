@@ -1,0 +1,23 @@
+{% extends 'admin/index.html' %}
+{% load i18n static spags %}
+{% block less %}
+    {{ block.super }}
+    <link rel="stylesheet/less" type="text/css" href="{% static 'naive-ui/css/exception.less' %}"/>
+{% endblock %}
+{% block ui-app %}
+<div class="flex flex-col justify-center page-container">
+    <div class="text-center">
+      <img src="{% static '/assets/images/exception/403.svg' %}" alt="" />
+    </div>
+    <div class="text-center">
+      <h1 class="text-base text-gray-500">抱歉，你无权访问该页面</h1>
+      <n-button type="info" @click="goHome">回到首页</n-button>
+    </div>
+  </div>
+{% endblock %}
+{% block main %}
+    <script src="{% static 'naive-ui/js/default.js' %}" type="module"></script>
+{% endblock %}
+{% block components %}
+    <script src="{% static 'naive-ui/js/components/components.js' %}" type="module"></script>
+{% endblock %}
