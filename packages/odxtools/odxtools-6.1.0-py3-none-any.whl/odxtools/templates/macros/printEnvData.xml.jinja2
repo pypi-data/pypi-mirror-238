@@ -1,0 +1,27 @@
+{#- -*- mode: sgml; tab-width: 1; indent-tabs-mode: nil -*-
+ #
+ # SPDX-License-Identifier: MIT
+-#}
+
+{%- import('macros/printElementID.xml.jinja2') as peid %}
+{%- import('macros/printParam.xml.jinja2') as pparam %}
+
+{%- macro printEnvData(env_data) %}
+<ENV-DATA ID="{{env_data.odx_id.local_id}}">
+    {{ peid.printElementID(env_data)|indent(1) }}
+    <PARAMS>
+      {%- for param in env_data.parameters %}
+      {{pparam.printParam(param) | indent(6, first=True) }}
+      {%- endfor %}
+    </PARAMS>
+    {%- if not env_data.dtc_values %}
+    <ALL-VALUE/>
+    {%- else %}
+    <DTC-VALUES>
+      {%- for dtcv in env_data.dtc_values %}
+      <DTC-VALUE>{{dtcv}}</DTC-VALUE>
+      {%- endfor %}
+    </DTC-VALUES>
+    {%- endif %}
+</ENV-DATA>
+{%- endmacro -%}

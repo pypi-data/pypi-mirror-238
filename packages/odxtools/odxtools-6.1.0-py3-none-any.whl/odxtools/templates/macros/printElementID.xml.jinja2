@@ -1,0 +1,14 @@
+{#- -*- mode: sgml; tab-width: 1; indent-tabs-mode: nil -*-
+ #
+ # SPDX-License-Identifier: MIT
+-#}
+
+{%- macro printElementID(obj) -%}
+<SHORT-NAME>{{ obj.short_name }}</SHORT-NAME>
+{%- if obj.long_name %}
+<LONG-NAME>{{ obj.long_name|e }}</LONG-NAME>
+{%- endif %}
+{%- if obj.description %}
+<DESC>{{ obj.description }}</DESC>
+{%- endif %}
+{%- endmacro -%}

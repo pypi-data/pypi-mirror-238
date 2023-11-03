@@ -1,0 +1,13 @@
+{#- -*- mode: sgml; tab-width: 1; indent-tabs-mode: nil -*-
+ #
+ # SPDX-License-Identifier: MIT
+-#}
+
+{%- import('macros/printElementID.xml.jinja2') as peid %}
+
+{%- macro printEndOfPdu(eopdu) -%}
+<END-OF-PDU-FIELD ID="{{eopdu.odx_id.local_id}}">
+ {{ peid.printElementID(eopdu)|indent(1) }}
+ <BASIC-STRUCTURE-REF ID-REF="{{eopdu.structure_ref.ref_id}}" />
+</END-OF-PDU-FIELD>
+{%- endmacro -%}
