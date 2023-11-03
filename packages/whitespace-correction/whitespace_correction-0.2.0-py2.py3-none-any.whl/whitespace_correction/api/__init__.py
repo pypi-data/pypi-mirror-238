@@ -1,0 +1,1 @@
+from whitespace_correction.api.corrector import WhitespaceCorrector
