@@ -1,0 +1,28 @@
+
+#
+#	HOW TO PUBLISH:
+#
+#		(rm -rf dist && python3 -m build --sdist && twine upload dist/*)
+#		git push --set-upstream git@gitlab.com:reptilian_climates/modules_series_3/prevail.git climate
+#
+#		git@gitlab.com:modules_series_3/prevail.git
+#
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "prevail"
+version = "0.0.5"
+description = ""
+readme = "prevail.txt"
+
+[tool.setuptools.packages.find]
+where = [ "fields/structures" ]
+
+#
+#	https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+#
+[tool.setuptools.package-data]
+"*" = [ "*.html" ]
