@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: mathfuncs-parse
+Version: 1.1.1
+Summary: A small module for parsing and evaluating expressions of any number of variables
+Author: David Laeer
+Author-email: davidlaeer@gmail.com
+
+
+==================================================================================================
+How to use: after importing 'mathfuncs_parse', create a 'mathfuncs_parse.func(expr: str)' object.
+==================================================================================================
+-------------------------------
+Available member functions are:
+-------------------------------
+ * valid() -> bool                             
+    - Checks whether the expression is syntactically correct.
+    
+ * eval() -> float                             
+    - Evaluates the expression. Note: only works if no variables are present.
+    
+ * eval(vars: dict{str: float|int}) -> float   
+    - Evaluates the expression, substituting the variables present with the values passed in the dict.
+    
+ * vars() -> dict{str: float} 
+    - Returns a dict containing all variables that must be passed to eval().
+    
+ * add_func(name: str, func: <functionObj(float) -> float>) -> Null 
+    - Adds a user defined function to the objects internal state. Note: calling 'init(str)' does not reset this.
+    
+ * avail_funcs() -> dict{str: <functionObj>}
+    - Returns a dict of available functions which can be used in the current expression.
+    
