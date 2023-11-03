@@ -1,0 +1,26 @@
+name: ragna-dev
+channels:
+  - conda-forge
+dependencies:
+  - python =3.9
+  # FIXME: This is not available on Windows. We need to document this as part of the
+  #  dev installation
+  #  - redis-server
+  - pip
+  - pip:
+      - jupyter
+      - python-dotenv
+      - boto3
+      - pytest >=6
+      - pytest-mock
+      - mypy ==1.6.1
+      - pre-commit
+      - types-aiofiles
+      - sqlalchemy-stubs
+      # documentation
+      - mkdocs
+      - mkdocs-material
+      - mkdocstrings[python]
+      - mkdocs-gen-files
+      - material-plausible-plugin
+      - mktestdocs
