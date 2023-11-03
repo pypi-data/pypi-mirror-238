@@ -1,0 +1,102 @@
+Metadata-Version: 2.1
+Name: tfserver
+Version: 0.4.11
+Summary: Tensor Flow Model Server
+Home-page: https://gitlab.com/tfserver/tfserver
+Author: Hans Roh
+Author-email: hansroh@gmail.com
+License: MIT
+Download-URL: https://pypi.python.org/pypi/tfserver
+Platform: posix
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+License-File: LICENSE
+Requires-Dist: atila
+Requires-Dist: dill
+
+==========================================
+Tensorflow gRPC and RESTful API Server
+==========================================
+
+Introduce
+==============
+
+**tfserver** is an example for serving *gRPC* for Tensorflow/Pytorch thing's models.
+
+It can serve not only through **gRPC** but also **RESTful API** with `Skitai App Engine`_ and Atila_ WSGI container.
+
+This project is inspired by `issue #176`_.
+
+I'm so sorry about this soulless manual.
+
+
+Installation
+=====================
+
+- from version 0.3, it is now TensorFlow 2+ compatible (deprecated, no longer support)
+- from version 0.4, TensorFlow 2+ only
+
+
+Building Model and Deploy
+=======================================
+
+Please see https://gitlab.com/hansroh/skitai/-/blob/master/tests/level4-2/build_model.py
+
+It is mostly used tensorflow keras and dnn_.
+
+
+Creating Your Own gRPC Server
+========================================
+
+Please see https://gitlab.com/hansroh/skitai/-/blob/master/tests/examples/tfserve.py
+
+You can know how to serve gRPC service and make yoyr own APIs.
+
+
+APIs
+================
+
+Please see https://gitlab.com/hansroh/tfserver/-/blob/master/tfserver/export/skitai/\_\_export\_\_.py
+
+APIs to manage models and basic inference.
+
+And for usage see, https://gitlab.com/hansroh/skitai/-/blob/master/tests/level4-2/test_tfserver.py
+
+
+Release History
+=============================
+
+- 0.4 (2021. 4)
+
+  - upgrade for tensorflow 2
+
+- 0.3 (2020. 6. 28)
+
+  - add model management APIs
+  - reactivate project and compatible with TF2+
+
+- 0.2 (2020. 6. 26): integrated with dnn 0.3
+
+- 0.1b8 (2018. 4. 13): fix grpc trailers, skitai upgrade is required
+
+- 0.1b6 (2018. 3. 19): found works only grpcio 1.4.0
+
+- 0.1b3 (2018. 2. 4): add @app.umounted decorator for clearing resource
+
+- 0.1b2: remove self.tfsess.run (tf.global_variables_initializer())
+
+- 0.1b1 (2018. 1. 28): Beta release
+
+- 0.1a (2018. 1. 4): Alpha release
+
+
+.. _`issue #176` : https://github.com/tensorflow/serving/issues/176
+.. _`Skitai App Engine`: https://pypi.python.org/pypi/skitai
+.. _Atila: https://pypi.python.org/pypi/atila
+.. _dnn: https://pypi.python.org/pypi/dnn
+
+
