@@ -1,0 +1,37 @@
+Metadata-Version: 2.1
+Name: reahl-component
+Version: 7.0.1
+Summary: The component framework of Reahl.
+Author-email: Iwan Vosloo <iwan@reahl.org>, Craig Sparks <craig@reahl.org>
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Build Tools
+Requires-Python: >=3.8
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+License-File: COPYING
+Requires-Dist: Babel <2.12.999,>=2.1
+Requires-Dist: python-dateutil <2.8.999,>=2.8
+Requires-Dist: wrapt <1.15.999,>=1.11.0
+Requires-Dist: setuptools >=51.0.0
+Requires-Dist: pip >=21.1
+Requires-Dist: toml
+Requires-Dist: cached-property <1.5.999,>=1.5 ; python_version < "3.8"
+Provides-Extra: test
+Requires-Dist: pytest >=3.0 ; extra == 'test'
+Requires-Dist: graphviz ; extra == 'test'
+Requires-Dist: reahl-tofu ; extra == 'test'
+Requires-Dist: reahl-stubble ; extra == 'test'
+Requires-Dist: reahl-dev ; extra == 'test'
+Requires-Dist: reahl-sqlalchemysupport ; extra == 'test'
+Requires-Dist: reahl-sqlitesupport ; extra == 'test'
+Requires-Dist: reahl-mysqlsupport ; extra == 'test'
+
+ Reahl is a web application framework that allows a Python programmer to work in 
+ terms of useful abstractions - using a single programming language.
+
+ The reahl-component framework extends setuptools distribution packages to package
+ and distribute more than just code.
