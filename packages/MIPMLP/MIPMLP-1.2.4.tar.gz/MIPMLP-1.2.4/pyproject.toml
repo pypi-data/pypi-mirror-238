@@ -1,0 +1,32 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "MIPMLP"
+version = "1.2.4"
+description = ""
+authors = [{ name = "Oshrit Shtossel and Yuli Tshuva", email = "oshritvig@gmail.com" }]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = []
+dependencies = [
+    "numpy>=1.24.3",
+    "pandas>=1.3.4",
+    "scipy>=1.5.0",
+    "networkx>=2.5.1",
+    "matplotlib==3.3.4",
+    "scikit-learn",
+    'plotly',
+    'tqdm',
+    'igraph',
+    'math-pi',
+    'pytorch-lightning',
+    'torch'
+]
+requires-python = ">=3.7"
