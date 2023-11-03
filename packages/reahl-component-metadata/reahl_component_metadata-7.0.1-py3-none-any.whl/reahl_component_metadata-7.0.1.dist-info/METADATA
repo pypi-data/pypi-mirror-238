@@ -1,0 +1,24 @@
+Metadata-Version: 2.1
+Name: reahl-component-metadata
+Version: 7.0.1
+Summary: Plugin for build tools to be able to write reahl-component metadata.
+Author-email: Iwan Vosloo <iwan@reahl.org>, Craig Sparks <craig@reahl.org>
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Build Tools
+Requires-Python: >=3.8
+Description-Content-Type: text/x-rst
+Requires-Dist: toml
+
+ Reahl is a web application framework that allows a Python programmer to work in 
+ terms of useful abstractions - using a single programming language.
+
+ The reahl-component-metadata package extends setuptools's setup() call to take an
+ extra "component" keyword argument for packaging the extra metadata reahl-component
+ requires.
+
+ This package is very small and meant to be a build dependency of packages that are
+ Reahl components.
