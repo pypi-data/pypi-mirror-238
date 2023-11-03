@@ -1,0 +1,12 @@
+prefix=${pcfiledir}/../..
+exec_prefix=${pcfiledir}/../../casadi
+libdir=${pcfiledir}/../../lib
+includedir=${pcfiledir}/../../include
+
+Name: casadi
+Description: CasADi is a symbolic framework for automatic differentation and numeric optimization
+URL: http://casadi.org
+Version: 3.6.3
+Requires: 
+Libs: -L${libdir} -lcasadi
+Cflags: -I${includedir}
