@@ -1,0 +1,1237 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tracklib.algo.Geometrics &#8212; TrackLib 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/tracklib/algo/Geometrics';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../../_static/TracklibLogo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../../_static/TracklibLogo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <h1>Source code for tracklib.algo.Geometrics</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Class to manage general operations on a track</span>
+
+<span class="sd">.. code-block:: python</span>
+
+<span class="sd">    circle1 = Geometrics.fitCircle(trace2)</span>
+<span class="sd">    circle1.plot()</span>
+<span class="sd">    circle2 = Geometrics.minCircle(trace2)</span>
+<span class="sd">    circle2.plot()</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">tracklib.core.ObsCoords</span> <span class="kn">import</span> <span class="n">ENUCoords</span>
+<span class="kn">from</span> <span class="nn">tracklib.util.Geometry</span> <span class="kn">import</span> <span class="n">right</span><span class="p">,</span> <span class="n">inclusion</span><span class="p">,</span> <span class="n">collinear</span><span class="p">,</span> <span class="n">isSegmentIntersects</span>
+<span class="kn">from</span> <span class="nn">tracklib.util.Geometry</span> <span class="kn">import</span> <span class="n">transform</span><span class="p">,</span> <span class="n">transform_inverse</span>
+
+<span class="n">MODE_ENCLOSING_BBOX</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">MODE_ENCLOSING_MBR</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">MODE_ENCLOSING_CIRCLE</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">MODE_ENCLOSING_CONVEX</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="Circle"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Circle">[docs]</a><span class="k">class</span> <span class="nc">Circle</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A circle is defined by a center point with a radius</span>
+<span class="sd">    </span>
+<span class="sd">    .. code-block:: python</span>
+<span class="sd">    </span>
+<span class="sd">       moncircle = Geometrics.Circle(ENUCoords(3.55, 48.2), 3)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Circle.__init__"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Circle.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a circle by defining the center and the radius.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        center : Coords</span>
+<span class="sd">            The center of the circle</span>
+<span class="sd">            </span>
+<span class="sd">        radius : float</span>
+<span class="sd">            The radius of the circle</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">center</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span></div>
+
+<div class="viewcode-block" id="Circle.plot"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Circle.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sym</span><span class="o">=</span><span class="s2">&quot;r-&quot;</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="n">plt</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Draw the circle</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">append</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">append</span><span class="p">:</span>
+                <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ax1</span> <span class="o">=</span> <span class="n">append</span>
+
+        <span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">t</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+            <span class="n">Y</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">t</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">))</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+        <span class="n">X</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">Y</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">sym</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ax1</span></div>
+
+<div class="viewcode-block" id="Circle.contains"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Circle.contains">[docs]</a>    <span class="k">def</span> <span class="nf">contains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the point is in the cercle, false otherwise. </span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        point: ENUCoords</span>
+<span class="sd">            The point to test</span>
+<span class="sd">            </span>
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        </span>
+<span class="sd">        type: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">return</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">getX</span><span class="p">())</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span>
+            <span class="n">point</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span></div>
+
+<div class="viewcode-block" id="Circle.select"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Circle.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        track : TYPE</span>
+<span class="sd">            DESCRIPTION.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        t : TYPE</span>
+<span class="sd">            DESCRIPTION.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">tracklib.core.Track</span> <span class="kn">import</span> <span class="n">Track</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Track</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">obs</span> <span class="ow">in</span> <span class="n">track</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">obs</span><span class="o">.</span><span class="n">position</span><span class="p">):</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">addObs</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">t</span></div>
+
+<div class="viewcode-block" id="Circle.copy"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Circle.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Circle.translate"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Circle.translate">[docs]</a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Rectangle"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Rectangle">[docs]</a><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A rectangle is defined by two points</span>
+<span class="sd">    </span>
+<span class="sd">    .. code-block:: python</span>
+<span class="sd">    </span>
+<span class="sd">       ll = ENUCoords(Xmin, Ymin)</span>
+<span class="sd">       ur = ENUCoords(Xmax, Ymax)</span>
+<span class="sd">       bbox = Geometrics.Rectangle(ll, ur)</span>
+<span class="sd">       </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Rectangle.__init__"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Rectangle.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pmin</span><span class="p">,</span> <span class="n">pmax</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a rectangle from two points.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pmin : ENUCoords</span>
+<span class="sd">            first point, for example the left lower point of the rectangle</span>
+<span class="sd">        pmax : ENUCoords</span>
+<span class="sd">            second point, for example the right upper point of the rectangle</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">pmin</span> <span class="o">=</span> <span class="n">pmin</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pmax</span> <span class="o">=</span> <span class="n">pmax</span></div>
+
+<div class="viewcode-block" id="Rectangle.plot"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Rectangle.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sym</span><span class="o">=</span><span class="s2">&quot;r-&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Draw the rectangle</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">XR</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pmin</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pmax</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pmax</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pmin</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pmin</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span>
+        <span class="p">]</span>
+        <span class="n">YR</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pmin</span><span class="o">.</span><span class="n">getY</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pmin</span><span class="o">.</span><span class="n">getY</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pmax</span><span class="o">.</span><span class="n">getY</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pmax</span><span class="o">.</span><span class="n">getY</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pmin</span><span class="o">.</span><span class="n">getY</span><span class="p">(),</span>
+        <span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">XR</span><span class="p">,</span> <span class="n">YR</span><span class="p">,</span> <span class="n">sym</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Rectangle.contains"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Rectangle.contains">[docs]</a>    <span class="k">def</span> <span class="nf">contains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the point is in the rectangle, false otherwise. </span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        point: ENUCoords</span>
+<span class="sd">            The point to test</span>
+<span class="sd">            </span>
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        </span>
+<span class="sd">        type: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">inside_x</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pmin</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">point</span><span class="o">.</span><span class="n">getX</span><span class="p">())</span> <span class="ow">and</span> <span class="p">(</span>
+            <span class="n">point</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">pmax</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">inside_y</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pmin</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">point</span><span class="o">.</span><span class="n">getY</span><span class="p">())</span> <span class="ow">and</span> <span class="p">(</span>
+            <span class="n">point</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">pmax</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">inside_x</span> <span class="ow">and</span> <span class="n">inside_y</span></div>
+    
+<div class="viewcode-block" id="Rectangle.select"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Rectangle.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        track : TYPE</span>
+<span class="sd">            DESCRIPTION.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        t : TYPE</span>
+<span class="sd">            DESCRIPTION.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">tracklib.core.Track</span> <span class="kn">import</span> <span class="n">Track</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Track</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">obs</span> <span class="ow">in</span> <span class="n">track</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">obs</span><span class="o">.</span><span class="n">position</span><span class="p">):</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">addObs</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">t</span></div>
+
+<div class="viewcode-block" id="Rectangle.copy"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Rectangle.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+    <span class="c1"># --------------------------------------------------</span>
+    <span class="c1"># Translation (2D) of shape (dx, dy in ground units)</span>
+    <span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="Rectangle.translate"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Rectangle.translate">[docs]</a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pmin</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pmax</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span></div>
+
+    <span class="c1"># --------------------------------------------------</span>
+    <span class="c1"># Rotation (2D) of shape (theta in radians)</span>
+    <span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="Rectangle.rotate"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Rectangle.rotate">[docs]</a>    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theta</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pmin</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pmax</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span></div>
+
+    <span class="c1"># --------------------------------------------------</span>
+    <span class="c1"># Homothetic transformation (2D) of shape</span>
+    <span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="Rectangle.scale"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Rectangle.scale">[docs]</a>    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pmin</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pmax</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">h</span><span class="p">)</span></div></div>
+        
+
+<div class="viewcode-block" id="Polygon"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon">[docs]</a><span class="k">class</span> <span class="nc">Polygon</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A polygon is defined by two list of </span>
+<span class="sd">    </span>
+<span class="sd">    .. code-block:: python</span>
+<span class="sd">    </span>
+<span class="sd">       ll = ENUCoords(Xmin, Ymin)</span>
+<span class="sd">       ur = ENUCoords(Xmax, Ymax)</span>
+<span class="sd">       bbox = Geometrics.Rectangle(ll, ur)</span>
+<span class="sd">       </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Polygon.__init__"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="n">Y</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Polygon.plot"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sym</span><span class="o">=</span><span class="s2">&quot;r-&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">sym</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Polygon.contains"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon.contains">[docs]</a>    <span class="k">def</span> <span class="nf">contains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">inclusion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">point</span><span class="o">.</span><span class="n">getY</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Polygon.select"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        track : TYPE</span>
+<span class="sd">            DESCRIPTION.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        t : TYPE</span>
+<span class="sd">            DESCRIPTION.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">tracklib.core.Track</span> <span class="kn">import</span> <span class="n">Track</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Track</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">obs</span> <span class="ow">in</span> <span class="n">track</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">obs</span><span class="o">.</span><span class="n">position</span><span class="p">):</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">addObs</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">t</span></div>
+    
+<div class="viewcode-block" id="Polygon.copy"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+    <span class="c1"># --------------------------------------------------</span>
+    <span class="c1"># Translation (2D) of shape (dx, dy in ground units)</span>
+    <span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="Polygon.translate"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon.translate">[docs]</a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">dx</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">dy</span></div>
+
+    <span class="c1"># --------------------------------------------------</span>
+    <span class="c1"># Rotation (2D) of shape (theta in radians)</span>
+    <span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="Polygon.rotate"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon.rotate">[docs]</a>    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theta</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">cr</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="n">sr</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">)):</span>
+            <span class="n">xr</span> <span class="o">=</span> <span class="o">+</span><span class="n">cr</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">sr</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">yr</span> <span class="o">=</span> <span class="o">+</span><span class="n">sr</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">cr</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">yr</span></div>
+
+    <span class="c1"># --------------------------------------------------</span>
+    <span class="c1"># Homotehtic transformation (2D) of shape</span>
+    <span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="Polygon.scale"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon.scale">[docs]</a>    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="n">h</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="n">h</span></div>
+
+    <span class="c1"># --------------------------------------------------</span>
+    <span class="c1"># Polygon area</span>
+    <span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="Polygon.area"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon.area">[docs]</a>    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">aire</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">aire</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">aire</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span></div>
+
+    <span class="c1"># --------------------------------------------------</span>
+    <span class="c1"># Polygon centroid</span>
+    <span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="Polygon.centroid"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon.centroid">[docs]</a>    <span class="k">def</span> <span class="nf">centroid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        </span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        center : array[2]</span>
+<span class="sd">            DESCRIPTION.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">aire</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="o">-</span><span class="n">dx</span><span class="p">,</span> <span class="o">-</span><span class="n">dy</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">factor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">aire</span> <span class="o">+=</span> <span class="n">factor</span>
+            <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">factor</span>
+            <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">factor</span>
+        <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">aire</span>
+        <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">aire</span>
+        <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dx</span>
+        <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">center</span></div>
+
+    <span class="c1"># --------------------------------------------------</span>
+    <span class="c1"># Test if a polygon is star-shaped</span>
+    <span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="Polygon.isStarShaped"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon.isStarShaped">[docs]</a>    <span class="k">def</span> <span class="nf">isStarShaped</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-6</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">centroid</span><span class="p">()</span>
+        <span class="c1"># self.plot(&#39;k-&#39;)</span>
+        <span class="c1"># plt.plot(c[0], c[1], &#39;ro&#39;)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">visee</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">eps</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">eps</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="p">]</span>
+            <span class="n">S1</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">visee</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">visee</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="n">intersection</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">S2</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span>
+                <span class="k">if</span> <span class="n">isSegmentIntersects</span><span class="p">(</span><span class="n">S1</span><span class="p">,</span> <span class="n">S2</span><span class="p">):</span>
+                    <span class="n">intersection</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="n">intersection</span><span class="p">:</span>
+                <span class="c1"># plt.plot([c[0],visee[0]], [c[1],visee[1]], &#39;r--&#39;)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="c1"># else:</span>
+            <span class="c1"># plt.plot([c[0],visee[0]], [c[1],visee[1]], &#39;k--&#39;)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+    <span class="c1"># --------------------------------------------------</span>
+    <span class="c1"># Computes angular ratio of polygon star-shaped</span>
+    <span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="Polygon.starShapedRatio"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon.starShapedRatio">[docs]</a>    <span class="k">def</span> <span class="nf">starShapedRatio</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inf</span><span class="o">=</span><span class="mf">1e3</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">eps</span> <span class="o">=</span> <span class="n">inf</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">centroid</span><span class="p">()</span>
+        <span class="c1"># self.plot(&#39;k-&#39;)</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">theta</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">resolution</span><span class="p">)):</span>
+            <span class="n">visee</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">eps</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">),</span>
+                <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">eps</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">),</span>
+            <span class="p">]</span>
+            <span class="n">S1</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">visee</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">visee</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">D</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">S2</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span>
+                <span class="k">if</span> <span class="n">isSegmentIntersects</span><span class="p">(</span><span class="n">S1</span><span class="p">,</span> <span class="n">S2</span><span class="p">):</span>
+                    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">N</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="c1"># plt.plot([c[0],visee[0]], [c[1],visee[1]], &#39;r--&#39;)</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">N</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="c1"># plt.plot([c[0],visee[0]], [c[1],visee[1]], &#39;r--&#39;)</span>
+        <span class="k">return</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">N</span> <span class="o">/</span> <span class="n">D</span></div>
+
+    <span class="c1"># --------------------------------------------------</span>
+    <span class="c1"># Radial signature of a polygon</span>
+    <span class="c1"># --------------------------------------------------</span>
+<div class="viewcode-block" id="Polygon.signature"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.Polygon.signature">[docs]</a>    <span class="k">def</span> <span class="nf">signature</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">centroid</span><span class="p">()</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)]</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">)):</span>
+            <span class="n">S</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+                <span class="p">)</span>
+                <span class="o">+</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">R</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">R</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)):</span>
+            <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">S</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">N</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">S</span><span class="p">,</span> <span class="n">R</span><span class="p">]</span></div></div>
+
+
+<span class="c1"># ----------------------------------------</span>
+<span class="c1"># Function to get enclosing shape</span>
+<span class="c1"># ----------------------------------------</span>
+<div class="viewcode-block" id="boundingShape"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.boundingShape">[docs]</a><span class="k">def</span> <span class="nf">boundingShape</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">MODE_ENCLOSING_BBOX</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_ENCLOSING_BBOX</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">track</span><span class="o">.</span><span class="n">getBBox</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_ENCLOSING_MBR</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">minimumBoundingRectangle</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_ENCLOSING_CIRCLE</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">minCircle</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_ENCLOSING_CONVEX</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">convexHull</span><span class="p">(</span><span class="n">track</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="__convexHull"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.__convexHull">[docs]</a><span class="k">def</span> <span class="nf">__convexHull</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">    Finds the convex hull of a set of coordinates, returned as</span>
+<span class="sd">    a list of x an y coordinates : [x1, y1, x2, y2,...]</span>
+<span class="sd">    Computation is performed with Jarvis march algorithm</span>
+<span class="sd">    with O(n^2) time complexity. It may be needed to resample</span>
+<span class="sd">    track if computation is too long.&quot;&quot;&quot;</span>
+
+    <span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="p">[</span><span class="n">X</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X</span><span class="p">))]</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">H</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">H</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">right</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]],</span> <span class="n">T</span><span class="p">[</span><span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
+                <span class="n">H</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+
+    <span class="k">return</span> <span class="n">H</span></div>
+
+
+<div class="viewcode-block" id="convexHull"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.convexHull">[docs]</a><span class="k">def</span> <span class="nf">convexHull</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">    Finds the convex hull of a track, returned as</span>
+<span class="sd">    a list of x an y coordinates : [x1, y1, x2, y2,...]</span>
+<span class="sd">    Computation is performed with Jarvis march algorithm</span>
+<span class="sd">    with O(n^2) time complexity. It may be needed to resample</span>
+<span class="sd">    track if computation is too long.&quot;&quot;&quot;</span>
+
+    <span class="n">T</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)):</span>
+        <span class="n">T</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()])</span>
+
+    <span class="n">CH</span> <span class="o">=</span> <span class="n">__convexHull</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="n">T2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">CH</span><span class="p">)):</span>
+        <span class="n">T2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="n">CH</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">T2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="n">CH</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">T2</span></div>
+
+
+<div class="viewcode-block" id="diameter"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.diameter">[docs]</a><span class="k">def</span> <span class="nf">diameter</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">    Finds longest distance between points on track</span>
+<span class="sd">    The two selected points are returned in a vector</span>
+<span class="sd">    along with the minimal distance : [min_dist, idx_p1, idx_p2].</span>
+<span class="sd">    Exhaustive search in O(n^2) time complexity&quot;&quot;&quot;</span>
+
+    <span class="n">dmax</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">idmax</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)):</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="n">dmax</span><span class="p">:</span>
+                <span class="n">dmax</span> <span class="o">=</span> <span class="n">d</span>
+                <span class="n">idmax</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">dmax</span><span class="p">,</span> <span class="n">idmax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">idmax</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span></div>
+
+
+<div class="viewcode-block" id="__circle"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.__circle">[docs]</a><span class="k">def</span> <span class="nf">__circle</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">p3</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">    Finds circle through 1, 2 or 3 points</span>
+<span class="sd">    Returns Circle(C, R)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">ENUCoords</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: ENU coordinates are required for min circle computation&quot;</span><span class="p">)</span>
+        <span class="n">exit</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">p2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Circle</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">p3</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">centre</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">+</span> <span class="n">p2</span>
+        <span class="n">centre</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Circle</span><span class="p">(</span><span class="n">centre</span><span class="p">,</span> <span class="n">p1</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">collinear</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">p1</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">p1</span><span class="o">.</span><span class="n">getY</span><span class="p">()],</span> <span class="p">[</span><span class="n">p2</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">p2</span><span class="o">.</span><span class="n">getY</span><span class="p">()],</span> <span class="p">[</span><span class="n">p3</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">p3</span><span class="o">.</span><span class="n">getY</span><span class="p">()]</span>
+    <span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p3</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; are collinear&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">p1</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">p2</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e-10</span><span class="p">)</span>
+        <span class="n">p2</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e-10</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">p1</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">p3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">p3</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="n">p3</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e-10</span><span class="p">)</span>
+        <span class="n">p3</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="n">p3</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e-10</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">p2</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">p3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">p3</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="n">p3</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e-10</span><span class="p">)</span>
+        <span class="n">p3</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="n">p3</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e-10</span><span class="p">)</span>
+
+    <span class="n">C12</span> <span class="o">=</span> <span class="n">__circle</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
+    <span class="n">C23</span> <span class="o">=</span> <span class="n">__circle</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">)</span>
+    <span class="n">C13</span> <span class="o">=</span> <span class="n">__circle</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p3</span><span class="p">)</span>
+    <span class="n">CANDIDATS</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">C12</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">p3</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">C12</span><span class="o">.</span><span class="n">radius</span><span class="p">:</span>
+        <span class="n">CANDIDATS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">C12</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">C23</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">C23</span><span class="o">.</span><span class="n">radius</span><span class="p">:</span>
+        <span class="n">CANDIDATS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">C23</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">C13</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">C13</span><span class="o">.</span><span class="n">radius</span><span class="p">:</span>
+        <span class="n">CANDIDATS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">C13</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">CANDIDATS</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">min</span> <span class="o">=</span> <span class="n">CANDIDATS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">radius</span>
+        <span class="n">argmin</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">CANDIDATS</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">CANDIDATS</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">radius</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">:</span>
+                <span class="nb">min</span> <span class="o">=</span> <span class="n">CANDIDATS</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">radius</span>
+                <span class="n">argmin</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">return</span> <span class="n">CANDIDATS</span><span class="p">[</span><span class="n">argmin</span><span class="p">]</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">p1</span><span class="o">.</span><span class="n">getY</span><span class="p">())</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">p2</span><span class="o">.</span><span class="n">getY</span><span class="p">())</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">(</span><span class="n">p3</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">p3</span><span class="o">.</span><span class="n">getY</span><span class="p">())</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">z</span> <span class="o">-</span> <span class="n">x</span>
+    <span class="n">w</span> <span class="o">/=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">x</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="n">j</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span>
+    <span class="n">centre</span> <span class="o">=</span> <span class="n">p1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">centre</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+    <span class="n">centre</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">Circle</span><span class="p">(</span><span class="n">centre</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">c</span> <span class="o">+</span> <span class="n">x</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="__welzl"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.__welzl">[docs]</a><span class="k">def</span> <span class="nf">__welzl</span><span class="p">(</span><span class="n">C</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds minimal bounding circle with Welzl&#39;s algorithm</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">P</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">center</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">radius</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Circle</span><span class="p">(</span><span class="n">ENUCoords</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">__circle</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">__circle</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        
+        <span class="k">return</span> <span class="n">__circle</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">R</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span>
+    <span class="n">P2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">id</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">P2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">P2</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">__welzl</span><span class="p">(</span><span class="n">Circle</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">R</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">D</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="n">p</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">center</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">D</span><span class="o">.</span><span class="n">radius</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">D</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">R</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">__welzl</span><span class="p">(</span><span class="n">Circle</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">R</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="plotPolygon"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.plotPolygon">[docs]</a><span class="k">def</span> <span class="nf">plotPolygon</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to plot a polygon from a vector:</span>
+<span class="sd">    R = [x1,y1,x2,y2,x3,y3,...x1,y1]</span>
+<span class="sd">    Needs to call plt.show() after this function</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">XR</span> <span class="o">=</span> <span class="n">P</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">YR</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">XR</span><span class="p">,</span> <span class="n">YR</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="minCircle"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.minCircle">[docs]</a><span class="k">def</span> <span class="nf">minCircle</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds minimal bounding circle with Welzl&#39;s recursive</span>
+<span class="sd">    algorithm in O(n) complexity. </span>
+<span class="sd">    Output is given as a list [p, R], where p is a Coords object defining circle center</span>
+<span class="sd">    and R is its radius. Due to recursion limits, only tracks</span>
+<span class="sd">    with fewer than 800 points can be processed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">track</span><span class="o">.</span><span class="n">getSRID</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;ENU&quot;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: ENU coordinates are required for min circle computation&quot;</span><span class="p">)</span>
+        <span class="n">exit</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sys</span><span class="o">.</span><span class="n">getrecursionlimit</span><span class="p">():</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;Error: too many points in track to compute minimal enclosing circle. &quot;</span>
+        <span class="p">)</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39;Downsample track, or use &quot;sys.setrecursionlimit(&#39;</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">())</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">+</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;) or higher&quot;&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">exit</span><span class="p">()</span>
+
+    <span class="c1"># centre = track.getFirstObs().position.copy()</span>
+
+    <span class="n">P</span> <span class="o">=</span> <span class="p">[</span><span class="n">obs</span><span class="o">.</span><span class="n">position</span> <span class="k">for</span> <span class="n">obs</span> <span class="ow">in</span> <span class="n">track</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">getFirstObs</span><span class="p">()</span> <span class="o">==</span> <span class="n">track</span><span class="o">.</span><span class="n">getLastObs</span><span class="p">():</span>
+        <span class="c1"># Si la ligne est fermée ?</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="n">P</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">return</span> <span class="n">__welzl</span><span class="p">(</span><span class="n">Circle</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">R</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="minCircleMatrix"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.minCircleMatrix">[docs]</a><span class="k">def</span> <span class="nf">minCircleMatrix</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO</span>
+
+<span class="sd">    Computes matrix of all min circles in a track.</span>
+<span class="sd">    M[i,j] gives the radius of the min circle enclosing</span>
+<span class="sd">    points in track from obs i to obs j (included)&quot;&quot;&quot;</span>
+
+    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+        <span class="c1"># print(i, &quot;/&quot;, track.size())</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">minCircle</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span><span class="o">.</span><span class="n">radius</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">M</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">M</span></div>
+
+
+<div class="viewcode-block" id="fitCircle"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.fitCircle">[docs]</a><span class="k">def</span> <span class="nf">fitCircle</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">iter_max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getCentroid</span><span class="p">()</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+    <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+    <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+    <span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iter_max</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">position</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+            <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">R</span>
+            <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">R</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">J</span><span class="p">)</span> <span class="o">@</span> <span class="n">J</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">J</span><span class="p">)</span> <span class="o">@</span> <span class="n">B</span><span class="p">)</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span> <span class="o">+</span> <span class="n">dX</span>
+        <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Circle</span><span class="p">(</span><span class="n">ENUCoords</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">NX0</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dX</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">NX0</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">NX1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dX</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">NX1</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">NX2</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dX</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="n">X</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">NX2</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">NX0</span><span class="p">,</span> <span class="n">NX1</span><span class="p">),</span> <span class="n">NX2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">epsilon</span><span class="p">:</span>
+            <span class="k">break</span>
+
+    <span class="n">residuals</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">residuals</span><span class="p">)):</span>
+        <span class="n">residuals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="o">+</span> <span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="p">)</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">residuals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">residuals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">residuals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sign</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;#circle_residual&quot;</span><span class="p">,</span> <span class="n">residuals</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Circle</span><span class="p">(</span><span class="n">ENUCoords</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">X</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></div>
+
+
+<span class="sd">&quot;&quot;&quot;   </span>
+<span class="sd">def fitCircle(track):</span>
+<span class="sd">    #Computes optimal circle fit on track</span>
+<span class="sd">    #Beta version, with Kalman filter </span>
+<span class="sd">    I = np.identity(3)</span>
+<span class="sd">    P = I*1e10</span>
+<span class="sd">    H = -1*np.ones((1,3))</span>
+<span class="sd">    X = np.zeros((3,1)); </span>
+<span class="sd">    c = track.getCentroid()</span>
+<span class="sd">    X[0,0] = c.getX(); X[1,0] = c.getY(); </span>
+<span class="sd">    w = 1e-20</span>
+<span class="sd">    </span>
+<span class="sd">    L = list(range(len(track)))</span>
+<span class="sd">    random.shuffle(L)</span>
+
+<span class="sd">    for i in L:</span>
+<span class="sd">        obs = track[i].position; x = obs.getX(); y = obs.getY()</span>
+<span class="sd">        R = math.sqrt((x-X[0])**2 + (y-X[1])**2)</span>
+<span class="sd">        z = np.matrix(X[2]-R)</span>
+<span class="sd">        H[0,0] = (X[0]-x)/R;   H[0,1] = (X[1]-y)/R; </span>
+<span class="sd">        K =  P @ np.transpose(H) @ np.linalg.inv(H @ P @ np.transpose(H) + w)</span>
+<span class="sd">        X = X + K@z</span>
+<span class="sd">        P = (I - K@H) @ P</span>
+<span class="sd">            </span>
+<span class="sd">    return Circle(ENUCoords(X[0,0], X[1,0]), X[2,0])</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># ------------------------------------------------------------</span>
+<span class="c1"># Output :     R = [[x1,y1],[x2,y2],[x3,y3],[x4,y4], area, l, L]</span>
+<span class="c1"># ------------------------------------------------------------</span>
+<div class="viewcode-block" id="__mbr"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.__mbr">[docs]</a><span class="k">def</span> <span class="nf">__mbr</span><span class="p">(</span><span class="n">COORDS</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+
+    <span class="n">HULL</span> <span class="o">=</span> <span class="n">__convexHull</span><span class="p">(</span><span class="n">COORDS</span><span class="p">)</span>
+    <span class="n">XH</span> <span class="o">=</span> <span class="p">[</span><span class="n">COORDS</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">HULL</span><span class="p">]</span>
+    <span class="n">YH</span> <span class="o">=</span> <span class="p">[</span><span class="n">COORDS</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">HULL</span><span class="p">]</span>
+
+    <span class="n">BEST_RECTANGLE</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">RECTANGLE_AREA</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">301</span>
+    <span class="n">BEST_l</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">BEST_L</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">HULL</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+
+        <span class="c1"># param = cartesienne([XH[i], YH[i], XH[i+1], YH[i+1]])</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">((</span><span class="n">YH</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">YH</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">XH</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">XH</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+
+        <span class="c1"># 3 parameters transformation</span>
+        <span class="n">XHR</span><span class="p">,</span> <span class="n">YHR</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">XH</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">YH</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">XH</span><span class="p">,</span> <span class="n">YH</span><span class="p">)</span>
+
+        <span class="n">mx</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">XHR</span><span class="p">)</span>
+        <span class="n">my</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">YHR</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="n">YHR</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">YHR</span><span class="p">)):</span>
+            <span class="n">my</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">YHR</span><span class="p">)</span>
+        <span class="n">Mx</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">XHR</span><span class="p">)</span>
+
+        <span class="n">XRR</span> <span class="o">=</span> <span class="p">[</span><span class="n">mx</span><span class="p">,</span> <span class="n">Mx</span><span class="p">,</span> <span class="n">Mx</span><span class="p">,</span> <span class="n">mx</span><span class="p">,</span> <span class="n">mx</span><span class="p">]</span>
+        <span class="n">YRR</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">my</span><span class="p">,</span> <span class="n">my</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># 3 parameters inverse transformation</span>
+        <span class="n">XR</span><span class="p">,</span> <span class="n">YR</span> <span class="o">=</span> <span class="n">transform_inverse</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">XH</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">YH</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">XRR</span><span class="p">,</span> <span class="n">YRR</span><span class="p">)</span>
+
+        <span class="n">new_area</span> <span class="o">=</span> <span class="p">(</span><span class="n">Mx</span> <span class="o">-</span> <span class="n">mx</span><span class="p">)</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">my</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">new_area</span> <span class="o">&lt;</span> <span class="n">RECTANGLE_AREA</span><span class="p">:</span>
+            <span class="n">BEST_RECTANGLE</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">[</span><span class="n">XR</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">YR</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+                <span class="p">[</span><span class="n">XR</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">YR</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                <span class="p">[</span><span class="n">XR</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">YR</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span>
+                <span class="p">[</span><span class="n">XR</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">YR</span><span class="p">[</span><span class="mi">3</span><span class="p">]],</span>
+                <span class="p">[</span><span class="n">XR</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">YR</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+            <span class="p">]</span>
+            <span class="n">RECTANGLE_AREA</span> <span class="o">=</span> <span class="n">new_area</span>
+            <span class="n">BEST_l</span> <span class="o">=</span> <span class="n">Mx</span> <span class="o">-</span> <span class="n">mx</span>
+            <span class="n">BEST_L</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">my</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">BEST_L</span> <span class="o">&lt;</span> <span class="n">BEST_l</span><span class="p">:</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">BEST_l</span>
+        <span class="n">BEST_l</span> <span class="o">=</span> <span class="n">BEST_L</span>
+        <span class="n">BEST_L</span> <span class="o">=</span> <span class="n">G</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">BEST_RECTANGLE</span><span class="p">,</span> <span class="n">RECTANGLE_AREA</span><span class="p">,</span> <span class="n">BEST_l</span><span class="p">,</span> <span class="n">BEST_L</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="minimumBoundingRectangle"><a class="viewcode-back" href="../../../api/algo/algo-geometrics.html#tracklib.algo.Geometrics.minimumBoundingRectangle">[docs]</a><span class="k">def</span> <span class="nf">minimumBoundingRectangle</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+
+    <span class="n">T</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)):</span>
+        <span class="n">T</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()])</span>
+
+    <span class="k">return</span> <span class="n">__mbr</span><span class="p">(</span><span class="n">T</span><span class="p">)</span></div>
+</pre></div>
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2023, LASTIG lab, French National Institute of Geographic and Forest Information.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="theme-version">
+    Built with the
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">
+        PyData Sphinx Theme
+    </a>
+    0.12.0.
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

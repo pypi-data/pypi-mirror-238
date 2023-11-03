@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tracklib.core.Bbox &mdash; TrackLib 1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> TrackLib
+            <img src="../../../_static/TracklibLogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebook/index.html">Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TrackLib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tracklib.core.Bbox</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tracklib.core.Bbox</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains the class to manage bounding box</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># For type annotation</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">tracklib.algo.Geometrics</span> <span class="kn">import</span> <span class="n">Polygon</span>
+<span class="kn">from</span> <span class="nn">tracklib.core</span> <span class="kn">import</span> <span class="n">ObsCoords</span> <span class="k">as</span> <span class="n">Coords</span>
+
+
+<div class="viewcode-block" id="Bbox"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox">[docs]</a><span class="k">class</span> <span class="nc">Bbox</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class to represent a boundary box&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Bbox.__init__"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ll</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">GeoCoords</span><span class="p">],</span> 
+                 <span class="n">ur</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">GeoCoords</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor of :class:`Bbox`</span>
+
+<span class="sd">        :param ll: lower left point</span>
+<span class="sd">        :param ur: upper right point</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ll</span> <span class="o">=</span> <span class="n">ll</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ur</span> <span class="o">=</span> <span class="n">ur</span></div>
+
+<div class="viewcode-block" id="Bbox.__str__"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;String representation of :class:`Bbox`</span>
+
+<span class="sd">        :return: String representation of bbox</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;Bounding box: </span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">output</span> <span class="o">+=</span> <span class="s2">&quot; Lower left corner : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">output</span> <span class="o">+=</span> <span class="s2">&quot; Upper right corner: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ur</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+
+<div class="viewcode-block" id="Bbox.copy"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bbox</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Copy the current object</span>
+
+<span class="sd">        :return: Copy of bbox</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bbox.getLowerLeft"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.getLowerLeft">[docs]</a>    <span class="k">def</span> <span class="nf">getLowerLeft</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">GeoCoords</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the lower-left coordinates of :class:`Bbox`</span>
+
+<span class="sd">        :return: Lower-left coordinates</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span></div>
+
+<div class="viewcode-block" id="Bbox.getUpperRight"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.getUpperRight">[docs]</a>    <span class="k">def</span> <span class="nf">getUpperRight</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">GeoCoords</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the upper-right coordinates of :class:`Bbox`</span>
+
+<span class="sd">        :return: Upper-right coordinates</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ur</span></div>
+
+<div class="viewcode-block" id="Bbox.getXmin"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.getXmin">[docs]</a>    <span class="k">def</span> <span class="nf">getXmin</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the min X coordinate&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Bbox.getYmin"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.getYmin">[docs]</a>    <span class="k">def</span> <span class="nf">getYmin</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the min Y coordinate&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Bbox.getXmax"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.getXmax">[docs]</a>    <span class="k">def</span> <span class="nf">getXmax</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the max X coordinate&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Bbox.getYmax"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.getYmax">[docs]</a>    <span class="k">def</span> <span class="nf">getYmax</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the max Y coordinate&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Bbox.getDx"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.getDx">[docs]</a>    <span class="k">def</span> <span class="nf">getDx</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the difference of X coordinates&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getXmax</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">getXmin</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Bbox.getDy"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.getDy">[docs]</a>    <span class="k">def</span> <span class="nf">getDy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the difference of Y coordinates&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getYmax</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">getYmin</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Bbox.getDimensions"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.getDimensions">[docs]</a>    <span class="k">def</span> <span class="nf">getDimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return Dx and Dy</span>
+
+<span class="sd">        :return: Tuple with structure : (Dx, Dy)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getDx</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">getDy</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Bbox.setXmin"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.setXmin">[docs]</a>    <span class="k">def</span> <span class="nf">setXmin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set Xmin coordinate</span>
+
+<span class="sd">        :param xmin: Xmin coordinate</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="n">xmin</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bbox.setYmin"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.setYmin">[docs]</a>    <span class="k">def</span> <span class="nf">setYmin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ymin</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set Ymin coordinate</span>
+
+<span class="sd">        :param ymin: Ymin coordinate</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="n">ymin</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bbox.setXmax"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.setXmax">[docs]</a>    <span class="k">def</span> <span class="nf">setXmax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set Xmax coordinate</span>
+
+<span class="sd">        :param xmax: Xmax coordinate</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="n">xmax</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bbox.setYmax"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.setYmax">[docs]</a>    <span class="k">def</span> <span class="nf">setYmax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ymax</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set Ymax coordinate</span>
+
+<span class="sd">        :param ymax: Ymax coordinate</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="n">ymax</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bbox.plot"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sym</span><span class="o">=</span><span class="s2">&quot;b-&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getXmin</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getXmax</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getXmax</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getXmin</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getXmin</span><span class="p">(),</span>
+        <span class="p">]</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getYmin</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getYmin</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getYmax</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getYmax</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getYmin</span><span class="p">(),</span>
+        <span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">sym</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbox</span><span class="p">:</span> <span class="n">Bbox</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bbox</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Bounding boxes combination</span>
+
+<span class="sd">        :param bbox: Bbox 2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ll</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">ur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">xmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getXmin</span><span class="p">(),</span> <span class="n">bbox</span><span class="o">.</span><span class="n">getXmin</span><span class="p">())</span>
+        <span class="n">ymin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getYmin</span><span class="p">(),</span> <span class="n">bbox</span><span class="o">.</span><span class="n">getYmin</span><span class="p">())</span>
+        <span class="n">xmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getXmax</span><span class="p">(),</span> <span class="n">bbox</span><span class="o">.</span><span class="n">getXmax</span><span class="p">())</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getYmax</span><span class="p">(),</span> <span class="n">bbox</span><span class="o">.</span><span class="n">getYmax</span><span class="p">())</span>
+        <span class="n">ll</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="n">xmin</span><span class="p">)</span>
+        <span class="n">ll</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="n">ymin</span><span class="p">)</span>
+        <span class="n">ur</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="n">xmax</span><span class="p">)</span>
+        <span class="n">ur</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="n">ymax</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Bbox</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span> <span class="n">ur</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># TO DO</span>
+
+<div class="viewcode-block" id="Bbox.contains"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.contains">[docs]</a>    <span class="k">def</span> <span class="nf">contains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Check if a point is in the bbox&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="p">()</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">point</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bbox.translate"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.translate">[docs]</a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dy</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Translation (2D) of shape</span>
+
+<span class="sd">        :param dx: dx in ground units</span>
+<span class="sd">        :param dy: dy in ground units</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bbox.rotate"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.rotate">[docs]</a>    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Rotation (2D) of shape</span>
+
+<span class="sd">        :param theta: angle in radians</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bbox.scale"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.scale">[docs]</a>    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Homothetic transformation (2D) of shape</span>
+
+<span class="sd">        :param h: factor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">h</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bbox.geom"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.geom">[docs]</a>    <span class="k">def</span> <span class="nf">geom</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Polygon</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Convert to Geometrics (Polygon)</span>
+
+<span class="sd">        :return: Polygon</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getXmin</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getXmax</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getXmax</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getXmin</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getXmin</span><span class="p">(),</span>
+        <span class="p">]</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getYmin</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getYmin</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getYmax</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getYmax</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">getYmin</span><span class="p">(),</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bbox.toECEFCoords"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.toECEFCoords">[docs]</a>    <span class="k">def</span> <span class="nf">toECEFCoords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">GeoCoords</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Coordinate transformation to :class:`core.Coords.ECEFCoords`</span>
+
+<span class="sd">        :param base: base coordinates, defaults to None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">toECEFCoords</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">toECEFCoords</span><span class="p">(</span><span class="n">base</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bbox.toGeoCoords"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.toGeoCoords">[docs]</a>    <span class="k">def</span> <span class="nf">toGeoCoords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">GeoCoords</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Coordinate transformation to :class:`core.Coords.GeoCoords`</span>
+
+<span class="sd">        :param base: base coordinates, defaults to None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">toGeoCoords</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">toGeoCoords</span><span class="p">(</span><span class="n">base</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bbox.toENUCoords"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.toENUCoords">[docs]</a>    <span class="k">def</span> <span class="nf">toENUCoords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">ENUCoords</span><span class="p">,</span> <span class="n">Coords</span><span class="o">.</span><span class="n">GeoCoords</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Coordinate transformation to :class:`core.Coords.ENUCoords`</span>
+
+<span class="sd">        :param base: base coordinates, defaults to None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">.</span><span class="n">toENUCoords</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ur</span><span class="o">.</span><span class="n">toENUCoords</span><span class="p">(</span><span class="n">base</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bbox.addMargin"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.addMargin">[docs]</a>    <span class="k">def</span> <span class="nf">addMargin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">margin</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adding margin (relative float) to bounding box</span>
+
+<span class="sd">        :param margin: margin, defaults to 0.05</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getDimensions</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setXmin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getXmin</span><span class="p">()</span> <span class="o">-</span> <span class="n">margin</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setXmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getXmax</span><span class="p">()</span> <span class="o">+</span> <span class="n">margin</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setYmin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getYmin</span><span class="p">()</span> <span class="o">-</span> <span class="n">margin</span> <span class="o">*</span> <span class="n">dy</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setYmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getYmax</span><span class="p">()</span> <span class="o">+</span> <span class="n">margin</span> <span class="o">*</span> <span class="n">dy</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get value by index</span>
+
+<span class="sd">        - 0: xmin</span>
+<span class="sd">        - 1: xmax</span>
+<span class="sd">        - 2: ymin</span>
+<span class="sd">        - 3: ymax</span>
+
+<span class="sd">        :param index: index of coordinates</span>
+<span class="sd">        :return: coordinate</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="s2">&quot;xmin&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getXmin</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="s2">&quot;xmax&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getXmax</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="s2">&quot;ymin&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getYmin</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="s2">&quot;ymax&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getYmax</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set value by index</span>
+
+<span class="sd">        :param index: index of value</span>
+<span class="sd">        :pram value: value to set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="s2">&quot;xmin&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setXmin</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="s2">&quot;xmax&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setXmax</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="s2">&quot;ymin&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setYmin</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="s2">&quot;ymax&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setYmax</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Bbox.asTuple"><a class="viewcode-back" href="../../../api/core/core-bbox.html#tracklib.core.Bbox.Bbox.asTuple">[docs]</a>    <span class="k">def</span> <span class="nf">asTuple</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Transform the Bbox object in a tuple of coordinates</span>
+
+<span class="sd">        :return: Tuple of coordinates with this structure (x min, x max, y min, y max)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getXmin</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">getXmax</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">getYmin</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">getYmax</span><span class="p">())</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LASTIG lab, French National Institute of Geographic and Forest Information.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

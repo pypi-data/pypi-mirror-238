@@ -1,0 +1,1244 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Geometrics &#8212; TrackLib 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/algo/algo-geometrics';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Interpolation" href="algo-interpolation.html" />
+    <link rel="prev" title="Filtering" href="algo-filtering.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/TracklibLogo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/TracklibLogo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Section navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">
+    Section Navigation
+  </p>
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../algo.html">Module algo</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="algo-analytics.html">Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-cinematics.html">Cinematics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-comparison.html">Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-dynamics.html">Dynamics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-filtering.html">Filtering</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Geometrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-interpolation.html">Interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-mapping.html">Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-segmentation.html">Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-selection.html">Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-simplification.html">Simplification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-stochastics.html">Stochastics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-summarising.html">Summarising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algo-synthetics.html">Synthetics</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../core.html">Module core</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-bbox.html">Bbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-kernel.html">Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-network.html">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-obs.html">Obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-obscoords.html">ObsCoords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-obstime.html">ObsTime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-operator.html">Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-raster.html">Raster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-rasterband.html">RasterBand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-index.html">SpatialIndex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-track.html">Track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-trackcollection.html">TrackCollection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/core-utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../io.html">Module io</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-trackreader.html">TrackReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-trackwriter.html">TrackWriter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-networkreader.html">NetworkReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-networkwriter.html">NetworkWriter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-rasterreader.html">RasterReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-rasterwriter.html">RasterWriter</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../util.html">Module util</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../util/util-geometry.html">Geometry</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</nav>
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <section id="module-tracklib.algo.Geometrics">
+<span id="geometrics"></span><h1>Geometrics<a class="headerlink" href="#module-tracklib.algo.Geometrics" title="Permalink to this heading">#</a></h1>
+<p>Class to manage general operations on a track</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">circle1</span> <span class="o">=</span> <span class="n">Geometrics</span><span class="o">.</span><span class="n">fitCircle</span><span class="p">(</span><span class="n">trace2</span><span class="p">)</span>
+<span class="n">circle1</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">circle2</span> <span class="o">=</span> <span class="n">Geometrics</span><span class="o">.</span><span class="n">minCircle</span><span class="p">(</span><span class="n">trace2</span><span class="p">)</span>
+<span class="n">circle2</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Circle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">Circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Circle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Circle" title="Permalink to this definition">#</a></dt>
+<dd><p>A circle is defined by a center point with a radius</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">moncircle</span> <span class="o">=</span> <span class="n">Geometrics</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="n">ENUCoords</span><span class="p">(</span><span class="mf">3.55</span><span class="p">,</span> <span class="mf">48.2</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Circle.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Circle.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Circle.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Constructs a circle by defining the center and the radius.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>center<span class="classifier">Coords</span></dt><dd><p>The center of the circle</p>
+</dd>
+<dt>radius<span class="classifier">float</span></dt><dd><p>The radius of the circle</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Circle.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym='r-'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append=&lt;module</span> <span class="pre">'matplotlib.pyplot'</span> <span class="pre">from</span> <span class="pre">'/home/marie-dominique/.pyenv/versions/3.9.1/lib/python3.9/site-packages/matplotlib/pyplot.py'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Circle.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Circle.plot" title="Permalink to this definition">#</a></dt>
+<dd><p>Draw the circle</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Circle.contains">
+<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Circle.contains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Circle.contains" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns true if the point is in the cercle, false otherwise.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>point: ENUCoords</dt><dd><p>The point to test</p>
+</dd>
+</dl>
+</section>
+<section id="return">
+<h2>Return<a class="headerlink" href="#return" title="Permalink to this heading">#</a></h2>
+<p>type: bool</p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Circle.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Circle.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Circle.select" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>track<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>t<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Circle.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Circle.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Circle.copy" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Circle.translate">
+<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Circle.translate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Circle.translate" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Rectangle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">Rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pmax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Rectangle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Rectangle" title="Permalink to this definition">#</a></dt>
+<dd><p>A rectangle is defined by two points</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ll</span> <span class="o">=</span> <span class="n">ENUCoords</span><span class="p">(</span><span class="n">Xmin</span><span class="p">,</span> <span class="n">Ymin</span><span class="p">)</span>
+<span class="n">ur</span> <span class="o">=</span> <span class="n">ENUCoords</span><span class="p">(</span><span class="n">Xmax</span><span class="p">,</span> <span class="n">Ymax</span><span class="p">)</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="n">Geometrics</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span> <span class="n">ur</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Rectangle.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pmax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Rectangle.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Rectangle.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Construct a rectangle from two points.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>pmin<span class="classifier">ENUCoords</span></dt><dd><p>first point, for example the left lower point of the rectangle</p>
+</dd>
+<dt>pmax<span class="classifier">ENUCoords</span></dt><dd><p>second point, for example the right upper point of the rectangle</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Rectangle.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r-'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Rectangle.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Rectangle.plot" title="Permalink to this definition">#</a></dt>
+<dd><p>Draw the rectangle</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Rectangle.contains">
+<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Rectangle.contains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Rectangle.contains" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns true if the point is in the rectangle, false otherwise.</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>point: ENUCoords</dt><dd><p>The point to test</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h2>Return<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>type: bool</p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Rectangle.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Rectangle.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Rectangle.select" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>track<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>t<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Rectangle.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Rectangle.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Rectangle.copy" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Rectangle.translate">
+<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Rectangle.translate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Rectangle.translate" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Rectangle.rotate">
+<span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Rectangle.rotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Rectangle.rotate" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Rectangle.scale">
+<span class="sig-name descname"><span class="pre">scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Rectangle.scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Rectangle.scale" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">Polygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon" title="Permalink to this definition">#</a></dt>
+<dd><p>A polygon is defined by two list of</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ll</span> <span class="o">=</span> <span class="n">ENUCoords</span><span class="p">(</span><span class="n">Xmin</span><span class="p">,</span> <span class="n">Ymin</span><span class="p">)</span>
+<span class="n">ur</span> <span class="o">=</span> <span class="n">ENUCoords</span><span class="p">(</span><span class="n">Xmax</span><span class="p">,</span> <span class="n">Ymax</span><span class="p">)</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="n">Geometrics</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span> <span class="n">ur</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon.__init__" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r-'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon.plot" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon.contains">
+<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon.contains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon.contains" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon.select" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<section id="id8">
+<h2>Parameters<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>track<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h2>Returns<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>t<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon.copy" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon.translate">
+<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon.translate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon.translate" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon.rotate">
+<span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon.rotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon.rotate" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon.scale">
+<span class="sig-name descname"><span class="pre">scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon.scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon.scale" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon.area">
+<span class="sig-name descname"><span class="pre">area</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon.area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon.area" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon.centroid">
+<span class="sig-name descname"><span class="pre">centroid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon.centroid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon.centroid" title="Permalink to this definition">#</a></dt>
+<dd><section id="id10">
+<h2>Returns<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<dl class="simple">
+<dt>center<span class="classifier">array[2]</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon.isStarShaped">
+<span class="sig-name descname"><span class="pre">isStarShaped</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon.isStarShaped"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon.isStarShaped" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon.starShapedRatio">
+<span class="sig-name descname"><span class="pre">starShapedRatio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon.starShapedRatio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon.starShapedRatio" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.Polygon.signature">
+<span class="sig-name descname"><span class="pre">signature</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#Polygon.signature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.Polygon.signature" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.boundingShape">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">boundingShape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#boundingShape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.boundingShape" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.__convexHull">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">__convexHull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#__convexHull"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.__convexHull" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<p>Finds the convex hull of a set of coordinates, returned as
+a list of x an y coordinates : [x1, y1, x2, y2,…]
+Computation is performed with Jarvis march algorithm
+with O(n^2) time complexity. It may be needed to resample
+track if computation is too long.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.convexHull">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">convexHull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#convexHull"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.convexHull" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<p>Finds the convex hull of a track, returned as
+a list of x an y coordinates : [x1, y1, x2, y2,…]
+Computation is performed with Jarvis march algorithm
+with O(n^2) time complexity. It may be needed to resample
+track if computation is too long.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.diameter">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">diameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#diameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.diameter" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<p>Finds longest distance between points on track
+The two selected points are returned in a vector
+along with the minimal distance : [min_dist, idx_p1, idx_p2].
+Exhaustive search in O(n^2) time complexity</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.__circle">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">__circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#__circle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.__circle" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<p>Finds circle through 1, 2 or 3 points
+Returns Circle(C, R)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.__welzl">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">__welzl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">C</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#__welzl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.__welzl" title="Permalink to this definition">#</a></dt>
+<dd><p>Finds minimal bounding circle with Welzl’s algorithm</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.plotPolygon">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">plotPolygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">1]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#plotPolygon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.plotPolygon" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to plot a polygon from a vector:
+R = [x1,y1,x2,y2,x3,y3,…x1,y1]
+Needs to call plt.show() after this function</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.minCircle">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">minCircle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#minCircle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.minCircle" title="Permalink to this definition">#</a></dt>
+<dd><p>Finds minimal bounding circle with Welzl’s recursive
+algorithm in O(n) complexity. 
+Output is given as a list [p, R], where p is a Coords object defining circle center
+and R is its radius. Due to recursion limits, only tracks
+with fewer than 800 points can be processed</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.minCircleMatrix">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">minCircleMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#minCircleMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.minCircleMatrix" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+<p>Computes matrix of all min circles in a track.
+M[i,j] gives the radius of the min circle enclosing
+points in track from obs i to obs j (included)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.fitCircle">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">fitCircle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#fitCircle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.fitCircle" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.__mbr">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">__mbr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">COORDS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#__mbr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.__mbr" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tracklib.algo.Geometrics.minimumBoundingRectangle">
+<span class="sig-prename descclassname"><span class="pre">tracklib.algo.Geometrics.</span></span><span class="sig-name descname"><span class="pre">minimumBoundingRectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/algo/Geometrics.html#minimumBoundingRectangle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.algo.Geometrics.minimumBoundingRectangle" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+</section>
+
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="algo-filtering.html" title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">Filtering</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="algo-interpolation.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">Interpolation</p>
+  </div>
+  <i class="fa-solid fa-angle-right"></i>
+  </a>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Circle">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Circle
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Circle.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Circle.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Circle.plot">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Circle.plot()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Circle.contains">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Circle.contains()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Circle.select">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Circle.select()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Circle.copy">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Circle.copy()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Circle.translate">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Circle.translate()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Rectangle">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Rectangle
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Rectangle.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Rectangle.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Rectangle.plot">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Rectangle.plot()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Rectangle.contains">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Rectangle.contains()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Rectangle.select">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Rectangle.select()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Rectangle.copy">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Rectangle.copy()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Rectangle.translate">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Rectangle.translate()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Rectangle.rotate">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Rectangle.rotate()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Rectangle.scale">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Rectangle.scale()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Polygon
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Polygon.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon.plot">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Polygon.plot()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon.contains">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Polygon.contains()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon.select">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Polygon.select()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon.copy">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Polygon.copy()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon.translate">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Polygon.translate()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon.rotate">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Polygon.rotate()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon.scale">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Polygon.scale()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon.area">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Polygon.area()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon.centroid">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Polygon.centroid()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon.isStarShaped">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Polygon.isStarShaped()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon.starShapedRatio">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Polygon.starShapedRatio()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.Polygon.signature">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Polygon.signature()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.boundingShape">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     boundingShape()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.__convexHull">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     __convexHull()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.convexHull">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     convexHull()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.diameter">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     diameter()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.__circle">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     __circle()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.__welzl">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     __welzl()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.plotPolygon">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     plotPolygon()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.minCircle">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     minCircle()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.minCircleMatrix">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     minCircleMatrix()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.fitCircle">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     fitCircle()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.__mbr">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     __mbr()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.algo.Geometrics.minimumBoundingRectangle">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     minimumBoundingRectangle()
+    </span>
+   </code>
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../../_sources/api/algo/algo-geometrics.rst.txt">
+        <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2023, LASTIG lab, French National Institute of Geographic and Forest Information.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="theme-version">
+    Built with the
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">
+        PyData Sphinx Theme
+    </a>
+    0.12.0.
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

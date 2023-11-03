@@ -1,0 +1,1310 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Kernel &#8212; TrackLib 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/core/core-kernel';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Network" href="core-network.html" />
+    <link rel="prev" title="Bbox" href="core-bbox.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/TracklibLogo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/TracklibLogo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Section navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">
+    Section Navigation
+  </p>
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../algo.html">Module algo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-analytics.html">Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-cinematics.html">Cinematics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-comparison.html">Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-dynamics.html">Dynamics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-filtering.html">Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-geometrics.html">Geometrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-interpolation.html">Interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-mapping.html">Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-segmentation.html">Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-selection.html">Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-simplification.html">Simplification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-stochastics.html">Stochastics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-summarising.html">Summarising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-synthetics.html">Synthetics</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../core.html">Module core</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core-bbox.html">Bbox</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-network.html">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-obs.html">Obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-obscoords.html">ObsCoords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-obstime.html">ObsTime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-operator.html">Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-raster.html">Raster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-rasterband.html">RasterBand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-index.html">SpatialIndex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-track.html">Track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-trackcollection.html">TrackCollection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../io.html">Module io</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-trackreader.html">TrackReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-trackwriter.html">TrackWriter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-networkreader.html">NetworkReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-networkwriter.html">NetworkWriter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-rasterreader.html">RasterReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-rasterwriter.html">RasterWriter</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../util.html">Module util</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../util/util-geometry.html">Geometry</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</nav>
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <section id="module-tracklib.core.Kernel">
+<span id="kernel"></span><h1>Kernel<a class="headerlink" href="#module-tracklib.core.Kernel" title="Permalink to this heading">#</a></h1>
+<p>Kernels for filtering, smoothing and stochastics simulations.</p>
+<p>An example of Kernel simplification with an 
+<a class="reference external" href="https://tracklib.readthedocs.io/en/latest/api/core/core-kernel.html#tracklib.core.Kernel.GaussianKernel">Gaussian Filter</a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kernel</span> <span class="o">=</span> <span class="n">GaussianKernel</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">trace</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">FILTER</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="s2">&quot;x_filtered&quot;</span><span class="p">)</span>
+<span class="n">trace</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">FILTER</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="s2">&quot;y_filtered&quot;</span><span class="p">)</span>
+<span class="n">trace</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">append</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">sym</span><span class="o">=</span><span class="s1">&#39;g-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;original track&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">getAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;x_filtered&quot;</span><span class="p">),</span> <span class="n">trace</span><span class="o">.</span><span class="n">getAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;y_filtered&quot;</span><span class="p">),</span> 
+               <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;simplify:gaussian filter&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/simplify_gaussian_filter.png"><img alt="../../_images/simplify_gaussian_filter.png" src="../../_images/simplify_gaussian_filter.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-text">Figure 1: Simplification with a gaussian kernel filter</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.Kernel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.Kernel.</span></span><span class="sig-name descname"><span class="pre">Kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">support</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#Kernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.Kernel" title="Permalink to this definition">#</a></dt>
+<dd><p>Generic kernel class</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.Kernel.__filter_boundary">
+<span class="sig-name descname"><span class="pre">__filter_boundary</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#tracklib.core.Kernel.Kernel.__filter_boundary" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.Kernel.__kernel_function">
+<span class="sig-name descname"><span class="pre">__kernel_function</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tracklib.core.Kernel.Kernel.__kernel_function" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.Kernel.__support">
+<span class="sig-name descname"><span class="pre">__support</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#tracklib.core.Kernel.Kernel.__support" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.Kernel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">support</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#Kernel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.Kernel.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Kernel constructor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – Kernel function</p></li>
+<li><p><strong>support</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Kernel support</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.Kernel.setFilterBoundary">
+<span class="sig-name descname"><span class="pre">setFilterBoundary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#Kernel.setFilterBoundary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.Kernel.setFilterBoundary" title="Permalink to this definition">#</a></dt>
+<dd><p>Set filter boundary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bool</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – TODO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.Kernel.filterBoundary">
+<span class="sig-name descname"><span class="pre">filterBoundary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#Kernel.filterBoundary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.Kernel.filterBoundary" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the <cite>filterBoundary</cite> parameter value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>filterBoundary</cite> value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.Kernel.setFunction">
+<span class="sig-name descname"><span class="pre">setFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#Kernel.setFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.Kernel.setFunction" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the function used by Kernel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – A kernel function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.Kernel.getFunction">
+<span class="sig-name descname"><span class="pre">getFunction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#Kernel.getFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.Kernel.getFunction" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the function used by the kernel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A kernel function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.Kernel.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">append</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#Kernel.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.Kernel.plot" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot the kernel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>append</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – TODO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.Kernel.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#Kernel.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.Kernel.evaluate" title="Permalink to this definition">#</a></dt>
+<dd><p>Evaluate the kernel for a given value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Value to evaluate</p>
+</dd>
+<dt class="field-even">Retun</dt>
+<dd class="field-even"><p>Kernel value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.Kernel.toSlidingWindow">
+<span class="sig-name descname"><span class="pre">toSlidingWindow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#Kernel.toSlidingWindow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.Kernel.toSlidingWindow" title="Permalink to this definition">#</a></dt>
+<dd><p>Transform the kernel in a sliding windows</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A sliding windows</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.DiracKernel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.Kernel.</span></span><span class="sig-name descname"><span class="pre">DiracKernel</span></span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#DiracKernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.DiracKernel" title="Permalink to this definition">#</a></dt>
+<dd><p>Define a DiracKernel</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.DiracKernel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#DiracKernel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.DiracKernel.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Constructor of a dirac kernel</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.DiracKernel.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#DiracKernel.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.DiracKernel.__str__" title="Permalink to this definition">#</a></dt>
+<dd><p>Print the kernel type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.UniformKernel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.Kernel.</span></span><span class="sig-name descname"><span class="pre">UniformKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#UniformKernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.UniformKernel" title="Permalink to this definition">#</a></dt>
+<dd><p>Define a unifomr kernel</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.UniformKernel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#UniformKernel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.UniformKernel.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Constructor of a Uniform kernel</p>
+<p>The kernel’s function is :</p>
+<div class="math notranslate nohighlight">
+\[f(x)=\frac{1}{2 \cdot s}\]</div>
+<p>For a <span class="math notranslate nohighlight">\(\|x\| \leq 1\)</span> support</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The size (<span class="math notranslate nohighlight">\(s\)</span>) of the kernel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.UniformKernel.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#UniformKernel.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.UniformKernel.__str__" title="Permalink to this definition">#</a></dt>
+<dd><p>Print the kernel type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.TriangularKernel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.Kernel.</span></span><span class="sig-name descname"><span class="pre">TriangularKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#TriangularKernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.TriangularKernel" title="Permalink to this definition">#</a></dt>
+<dd><p>Define a triangular kernel</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.TriangularKernel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#TriangularKernel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.TriangularKernel.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Constructor of triangular Kernel</p>
+<p>The kernel’s function is :</p>
+<div class="math notranslate nohighlight">
+\[f(x)= \frac{s - \|x\|}{s^2}\]</div>
+<p>For a <span class="math notranslate nohighlight">\(\|x\| \leq 1\)</span> support</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The size (<span class="math notranslate nohighlight">\(s\)</span>) of the kernel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.TriangularKernel.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#TriangularKernel.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.TriangularKernel.__str__" title="Permalink to this definition">#</a></dt>
+<dd><p>Print the kernel type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.GaussianKernel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.Kernel.</span></span><span class="sig-name descname"><span class="pre">GaussianKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#GaussianKernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.GaussianKernel" title="Permalink to this definition">#</a></dt>
+<dd><p>Define a Gaussian Kernel</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.GaussianKernel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#GaussianKernel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.GaussianKernel.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Constructor of Gaussian kernel</p>
+<p>The kernel’s function is :</p>
+<div class="math notranslate nohighlight">
+\[f(x)=\frac{e^{-0.5 \cdot \left(x/\sigma \right)^2}}
+{\sigma \cdot \sqrt{2 \cdot \pi}}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sigma</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The sigma value (<span class="math notranslate nohighlight">\(\sigma\)</span>) for the kernel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.GaussianKernel.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#GaussianKernel.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.GaussianKernel.__str__" title="Permalink to this definition">#</a></dt>
+<dd><p>Print the kernel type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.ExponentialKernel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.Kernel.</span></span><span class="sig-name descname"><span class="pre">ExponentialKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#ExponentialKernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.ExponentialKernel" title="Permalink to this definition">#</a></dt>
+<dd><p>Define an Exponential Kernel</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.ExponentialKernel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#ExponentialKernel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.ExponentialKernel.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Constructor of Exponential Kernel</p>
+<p>The Kernel function is:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[f(x) = \frac{e^{-\|x\| / \sigma}}{2 \cdot \sigma}\]</div>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sigma</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The sigma value (<span class="math notranslate nohighlight">\(\sigma\)</span>) for the kernel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.ExponentialKernel.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#ExponentialKernel.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.ExponentialKernel.__str__" title="Permalink to this definition">#</a></dt>
+<dd><p>Print the kernel type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.EpanechnikovKernel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.Kernel.</span></span><span class="sig-name descname"><span class="pre">EpanechnikovKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#EpanechnikovKernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.EpanechnikovKernel" title="Permalink to this definition">#</a></dt>
+<dd><p>Define a Epanechnikov Kernel</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.EpanechnikovKernel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#EpanechnikovKernel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.EpanechnikovKernel.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Constructor of a Epanechnikov Kernel</p>
+<p>The kernel function is :</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[f(x) = \frac{3}{4} \cdot \left(1 - \left( \frac{x}{s} \right) ^2 \right)
+\cdot \frac{1}{s}\]</div>
+</div></blockquote>
+<p>For a <span class="math notranslate nohighlight">\(\|x\| \leq 1\)</span> support</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The size parameter (<span class="math notranslate nohighlight">\(s\)</span>) for the kernel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.EpanechnikovKernel.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#EpanechnikovKernel.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.EpanechnikovKernel.__str__" title="Permalink to this definition">#</a></dt>
+<dd><p>Print the kernel type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.SincKernel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.Kernel.</span></span><span class="sig-name descname"><span class="pre">SincKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#SincKernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.SincKernel" title="Permalink to this definition">#</a></dt>
+<dd><p>Define a Sinc Kernel</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.SincKernel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#SincKernel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.SincKernel.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Constructor of a Sinc Kernel</p>
+<p>The kernel function is :</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[f(x) = S \cdot \sin \left( \frac{x + \epsilon}{s} \right)
+\cdot \frac{1}{x + \epsilon}
+\cdot \frac{1}{\pi \cdot S}\]</div>
+</div></blockquote>
+<p>With <span class="math notranslate nohighlight">\(S\)</span> the scale (<span class="math notranslate nohighlight">\(S = s / 10\)</span>) and <span class="math notranslate nohighlight">\(\epsilon\)</span> a minimal
+non nul value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> – The size parameter (<span class="math notranslate nohighlight">\(s\)</span>) for the kernel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.SincKernel.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#SincKernel.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.SincKernel.__str__" title="Permalink to this definition">#</a></dt>
+<dd><p>Print the kernel type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.ExperimentalKernel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.Kernel.</span></span><span class="sig-name descname"><span class="pre">ExperimentalKernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DTW'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#ExperimentalKernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.ExperimentalKernel" title="Permalink to this definition">#</a></dt>
+<dd><p>Non-parametric estimator of Kernel based on GPS tracks.</p>
+<p>The experimental covariogram kernel is initialized with a maximal scope
+dmax and an optional resolution, both given in ground units as a distance
+along curvilinear abscissa or traks. The comparison between pairs of tracks
+is performed with either Nearest Neighbor (NN) or Dynamic Time Warping (DTM)
+method. Some tests are still to be conducted to determine which one is more
+suitable for a robust covariance estimation. If no resolution is input,
+the covariogram is estimated in 30 points as a default value. The covariogram
+is incrementally estimated with each data input with addSamples
+(track_collection) or addTrackPair(track1, track2). Note that track collection
+input into addSamples must contain at least two tracks.</p>
+<p>Once an experimental covariogram has been estimated, it is possible to fit
+a parametric estimation on one of the kernel models provided above (except
+UniformKernel which is not a positive-definite function). The estimation is
+performed with fit(kernel) function.</p>
+<p>The fitted kernel is returned as standard output.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.ExperimentalKernel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DTW'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#ExperimentalKernel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.ExperimentalKernel.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Constructor of Experimental kernel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dmax</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – TODO</p></li>
+<li><p><strong>method</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – TODO</p></li>
+<li><p><strong>r</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – TODO</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.ExperimentalKernel.addTrackPair">
+<span class="sig-name descname"><span class="pre">addTrackPair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#ExperimentalKernel.addTrackPair"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.ExperimentalKernel.addTrackPair" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.ExperimentalKernel.addTrackCollection">
+<span class="sig-name descname"><span class="pre">addTrackCollection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trackCollection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#ExperimentalKernel.addTrackCollection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.ExperimentalKernel.addTrackCollection" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.ExperimentalKernel.addDifferenceProfile">
+<span class="sig-name descname"><span class="pre">addDifferenceProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#ExperimentalKernel.addDifferenceProfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.ExperimentalKernel.addDifferenceProfile" title="Permalink to this definition">#</a></dt>
+<dd><p>add a Difference Profile</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>profile</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – TODO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.ExperimentalKernel.__getGamma">
+<span class="sig-name descname"><span class="pre">__getGamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracklib.core.Kernel.ExperimentalKernel.__getGamma" title="Permalink to this definition">#</a></dt>
+<dd><p>Return gamma value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>scale</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Scale value</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Gamma value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.Kernel.ExperimentalKernel.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'k+'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/Kernel.html#ExperimentalKernel.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.Kernel.ExperimentalKernel.plot" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot the kernel</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="core-bbox.html" title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">Bbox</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="core-network.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">Network</p>
+  </div>
+  <i class="fa-solid fa-angle-right"></i>
+  </a>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Kernel.Kernel">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Kernel
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.Kernel.__filter_boundary">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Kernel.__filter_boundary
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.Kernel.__kernel_function">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Kernel.__kernel_function
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.Kernel.__support">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Kernel.__support
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.Kernel.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Kernel.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.Kernel.setFilterBoundary">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Kernel.setFilterBoundary()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.Kernel.filterBoundary">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Kernel.filterBoundary()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.Kernel.setFunction">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Kernel.setFunction()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.Kernel.getFunction">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Kernel.getFunction()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.Kernel.plot">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Kernel.plot()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.Kernel.evaluate">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Kernel.evaluate()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.Kernel.toSlidingWindow">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Kernel.toSlidingWindow()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Kernel.DiracKernel">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     DiracKernel
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.DiracKernel.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DiracKernel.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.DiracKernel.__str__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DiracKernel.__str__()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Kernel.UniformKernel">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     UniformKernel
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.UniformKernel.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       UniformKernel.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.UniformKernel.__str__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       UniformKernel.__str__()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Kernel.TriangularKernel">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     TriangularKernel
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.TriangularKernel.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       TriangularKernel.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.TriangularKernel.__str__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       TriangularKernel.__str__()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Kernel.GaussianKernel">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     GaussianKernel
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.GaussianKernel.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GaussianKernel.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.GaussianKernel.__str__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GaussianKernel.__str__()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Kernel.ExponentialKernel">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     ExponentialKernel
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.ExponentialKernel.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ExponentialKernel.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.ExponentialKernel.__str__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ExponentialKernel.__str__()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Kernel.EpanechnikovKernel">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     EpanechnikovKernel
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.EpanechnikovKernel.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       EpanechnikovKernel.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.EpanechnikovKernel.__str__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       EpanechnikovKernel.__str__()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Kernel.SincKernel">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     SincKernel
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.SincKernel.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       SincKernel.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.SincKernel.__str__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       SincKernel.__str__()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.Kernel.ExperimentalKernel">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     ExperimentalKernel
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.ExperimentalKernel.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ExperimentalKernel.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.ExperimentalKernel.addTrackPair">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ExperimentalKernel.addTrackPair()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.ExperimentalKernel.addTrackCollection">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ExperimentalKernel.addTrackCollection()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.ExperimentalKernel.addDifferenceProfile">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ExperimentalKernel.addDifferenceProfile()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.ExperimentalKernel.__getGamma">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ExperimentalKernel.__getGamma()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.Kernel.ExperimentalKernel.plot">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ExperimentalKernel.plot()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../../_sources/api/core/core-kernel.rst.txt">
+        <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2023, LASTIG lab, French National Institute of Geographic and Forest Information.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="theme-version">
+    Built with the
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">
+        PyData Sphinx Theme
+    </a>
+    0.12.0.
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

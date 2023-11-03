@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tracklib.algo.Stochastics &mdash; TrackLib 1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> TrackLib
+            <img src="../../../_static/TracklibLogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebook/index.html">Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TrackLib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tracklib.algo.Stochastics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tracklib.algo.Stochastics</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Class to manage random operations of GPS tracks&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">tracklib.core.Obs</span> <span class="kn">import</span> <span class="n">Obs</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.Kernel</span> <span class="kn">import</span> <span class="n">DiracKernel</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.TrackCollection</span> <span class="kn">import</span> <span class="n">TrackCollection</span>
+
+<span class="kn">import</span> <span class="nn">tracklib.core.Utils</span> <span class="k">as</span> <span class="nn">utils</span>
+<span class="kn">import</span> <span class="nn">tracklib.core.Kernel</span> <span class="k">as</span> <span class="nn">Kernel</span>
+
+<span class="kn">import</span> <span class="nn">tracklib.algo.Cinematics</span> <span class="k">as</span> <span class="nn">Cinematics</span>
+<span class="kn">from</span> <span class="nn">tracklib.algo.Interpolation</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">gaussian_process</span> <span class="k">as</span> <span class="n">interpolation_gaussian_process</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">DISTRIBUTION_NORMAL</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">DISTRIBUTION_UNIFORM</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">DISTRIBUTION_LAPLACE</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">__KHI_SQUARED_TABLE</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># 0.10 	 0.05 	 0.025 	  0.01 	 0.005</span>
+    <span class="p">[</span><span class="mf">2.7060</span><span class="p">,</span> <span class="mf">3.8410</span><span class="p">,</span> <span class="mf">5.0240</span><span class="p">,</span> <span class="mf">6.6350</span><span class="p">,</span> <span class="mf">7.8790</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">4.6050</span><span class="p">,</span> <span class="mf">5.9910</span><span class="p">,</span> <span class="mf">7.3780</span><span class="p">,</span> <span class="mf">9.2100</span><span class="p">,</span> <span class="mf">10.597</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">6.2510</span><span class="p">,</span> <span class="mf">7.8150</span><span class="p">,</span> <span class="mf">9.3480</span><span class="p">,</span> <span class="mf">11.345</span><span class="p">,</span> <span class="mf">12.838</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">7.7790</span><span class="p">,</span> <span class="mf">9.4880</span><span class="p">,</span> <span class="mf">11.143</span><span class="p">,</span> <span class="mf">13.277</span><span class="p">,</span> <span class="mf">14.860</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">9.2360</span><span class="p">,</span> <span class="mf">11.070</span><span class="p">,</span> <span class="mf">12.833</span><span class="p">,</span> <span class="mf">15.086</span><span class="p">,</span> <span class="mf">16.750</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">10.645</span><span class="p">,</span> <span class="mf">12.592</span><span class="p">,</span> <span class="mf">14.449</span><span class="p">,</span> <span class="mf">16.812</span><span class="p">,</span> <span class="mf">18.548</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">12.017</span><span class="p">,</span> <span class="mf">14.067</span><span class="p">,</span> <span class="mf">16.013</span><span class="p">,</span> <span class="mf">18.475</span><span class="p">,</span> <span class="mf">20.278</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">13.362</span><span class="p">,</span> <span class="mf">15.507</span><span class="p">,</span> <span class="mf">17.535</span><span class="p">,</span> <span class="mf">20.090</span><span class="p">,</span> <span class="mf">21.955</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">14.684</span><span class="p">,</span> <span class="mf">16.919</span><span class="p">,</span> <span class="mf">19.023</span><span class="p">,</span> <span class="mf">21.666</span><span class="p">,</span> <span class="mf">23.589</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">15.987</span><span class="p">,</span> <span class="mf">18.307</span><span class="p">,</span> <span class="mf">20.483</span><span class="p">,</span> <span class="mf">23.209</span><span class="p">,</span> <span class="mf">25.188</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">17.275</span><span class="p">,</span> <span class="mf">19.675</span><span class="p">,</span> <span class="mf">21.920</span><span class="p">,</span> <span class="mf">24.725</span><span class="p">,</span> <span class="mf">26.757</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">18.549</span><span class="p">,</span> <span class="mf">21.026</span><span class="p">,</span> <span class="mf">23.337</span><span class="p">,</span> <span class="mf">26.217</span><span class="p">,</span> <span class="mf">28.300</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">19.812</span><span class="p">,</span> <span class="mf">22.362</span><span class="p">,</span> <span class="mf">24.736</span><span class="p">,</span> <span class="mf">27.688</span><span class="p">,</span> <span class="mf">29.819</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">21.064</span><span class="p">,</span> <span class="mf">23.685</span><span class="p">,</span> <span class="mf">26.119</span><span class="p">,</span> <span class="mf">29.141</span><span class="p">,</span> <span class="mf">31.319</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">22.307</span><span class="p">,</span> <span class="mf">24.996</span><span class="p">,</span> <span class="mf">27.488</span><span class="p">,</span> <span class="mf">30.578</span><span class="p">,</span> <span class="mf">32.801</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">23.542</span><span class="p">,</span> <span class="mf">26.296</span><span class="p">,</span> <span class="mf">28.845</span><span class="p">,</span> <span class="mf">32.000</span><span class="p">,</span> <span class="mf">34.267</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">24.769</span><span class="p">,</span> <span class="mf">27.587</span><span class="p">,</span> <span class="mf">30.191</span><span class="p">,</span> <span class="mf">33.409</span><span class="p">,</span> <span class="mf">35.718</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">25.989</span><span class="p">,</span> <span class="mf">28.869</span><span class="p">,</span> <span class="mf">31.526</span><span class="p">,</span> <span class="mf">34.805</span><span class="p">,</span> <span class="mf">37.156</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">27.204</span><span class="p">,</span> <span class="mf">30.144</span><span class="p">,</span> <span class="mf">32.852</span><span class="p">,</span> <span class="mf">36.191</span><span class="p">,</span> <span class="mf">38.582</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">28.412</span><span class="p">,</span> <span class="mf">31.410</span><span class="p">,</span> <span class="mf">34.170</span><span class="p">,</span> <span class="mf">37.566</span><span class="p">,</span> <span class="mf">39.997</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">29.615</span><span class="p">,</span> <span class="mf">32.671</span><span class="p">,</span> <span class="mf">35.479</span><span class="p">,</span> <span class="mf">38.932</span><span class="p">,</span> <span class="mf">41.401</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">30.813</span><span class="p">,</span> <span class="mf">33.924</span><span class="p">,</span> <span class="mf">36.781</span><span class="p">,</span> <span class="mf">40.289</span><span class="p">,</span> <span class="mf">42.796</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">32.007</span><span class="p">,</span> <span class="mf">35.172</span><span class="p">,</span> <span class="mf">38.076</span><span class="p">,</span> <span class="mf">41.638</span><span class="p">,</span> <span class="mf">44.181</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">33.196</span><span class="p">,</span> <span class="mf">36.415</span><span class="p">,</span> <span class="mf">39.364</span><span class="p">,</span> <span class="mf">42.980</span><span class="p">,</span> <span class="mf">45.559</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">34.382</span><span class="p">,</span> <span class="mf">37.652</span><span class="p">,</span> <span class="mf">40.646</span><span class="p">,</span> <span class="mf">44.314</span><span class="p">,</span> <span class="mf">46.928</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">35.563</span><span class="p">,</span> <span class="mf">38.885</span><span class="p">,</span> <span class="mf">41.923</span><span class="p">,</span> <span class="mf">45.642</span><span class="p">,</span> <span class="mf">48.290</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">36.741</span><span class="p">,</span> <span class="mf">40.113</span><span class="p">,</span> <span class="mf">43.195</span><span class="p">,</span> <span class="mf">46.963</span><span class="p">,</span> <span class="mf">49.645</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">37.916</span><span class="p">,</span> <span class="mf">41.337</span><span class="p">,</span> <span class="mf">44.461</span><span class="p">,</span> <span class="mf">48.278</span><span class="p">,</span> <span class="mf">50.993</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">39.087</span><span class="p">,</span> <span class="mf">42.557</span><span class="p">,</span> <span class="mf">45.722</span><span class="p">,</span> <span class="mf">49.588</span><span class="p">,</span> <span class="mf">52.336</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">40.256</span><span class="p">,</span> <span class="mf">43.773</span><span class="p">,</span> <span class="mf">46.979</span><span class="p">,</span> <span class="mf">50.892</span><span class="p">,</span> <span class="mf">53.672</span><span class="p">],</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="khi2cdf"><a class="viewcode-back" href="../../../api/algo/algo-stochastics.html#tracklib.algo.Stochastics.khi2cdf">[docs]</a><span class="k">def</span> <span class="nf">khi2cdf</span><span class="p">(</span><span class="n">dof</span><span class="p">,</span> <span class="n">prob</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">prob</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1e300</span>
+    <span class="k">if</span> <span class="n">dof</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: khi square distribution limited to 30 degrees of freedom&quot;</span><span class="p">)</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">prob</span> <span class="o">&gt;</span> <span class="mf">0.10</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">prob</span> <span class="o">&lt;</span> <span class="mf">0.005</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: khi square distribution only defined on [0.005; 0.10]&quot;</span><span class="p">)</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">PROBS</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">]</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">PROBS</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">__KHI_SQUARED_TABLE</span><span class="p">[</span><span class="n">dof</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="khi2test"><a class="viewcode-back" href="../../../api/algo/algo-stochastics.html#tracklib.algo.Stochastics.khi2test">[docs]</a><span class="k">def</span> <span class="nf">khi2test</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">SIGMA</span><span class="p">,</span> <span class="n">prob</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">SIGMA</span><span class="p">)</span> <span class="o">@</span> <span class="n">X</span> <span class="o">&gt;</span> <span class="n">khi2cdf</span><span class="p">(</span><span class="n">SIGMA</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">prob</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="NoiseProcess"><a class="viewcode-back" href="../../../api/algo/algo-stochastics.html#tracklib.algo.Stochastics.NoiseProcess">[docs]</a><span class="k">class</span> <span class="nc">NoiseProcess</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="NoiseProcess.__init__"><a class="viewcode-back" href="../../../api/algo/algo-stochastics.html#tracklib.algo.Stochastics.NoiseProcess.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kernels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distribution</span><span class="o">=</span><span class="n">DISTRIBUTION_NORMAL</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">amps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span> <span class="o">=</span> <span class="p">[</span><span class="n">DiracKernel</span><span class="p">()]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">listify</span><span class="p">(</span><span class="n">amps</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">listify</span><span class="p">(</span><span class="n">kernels</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="n">distribution</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;Error: amplitude and kernel lists must have same size in NoiseProcess&quot;</span>
+            <span class="p">)</span>
+            <span class="n">exit</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="NoiseProcess.__str__"><a class="viewcode-back" href="../../../api/algo/algo-stochastics.html#tracklib.algo.Stochastics.NoiseProcess.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;Noise process: &quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span><span class="p">)):</span>
+            <span class="n">output</span> <span class="o">+=</span> <span class="p">(</span>
+                <span class="s2">&quot;[&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="o">+</span> <span class="s2">&quot;-unit-amplitude &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="o">+</span> <span class="s2">&quot;] &quot;</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">output</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> + &quot;</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+
+<div class="viewcode-block" id="NoiseProcess.noise"><a class="viewcode-back" href="../../../api/algo/algo-stochastics.html#tracklib.algo.Stochastics.NoiseProcess.noise">[docs]</a>    <span class="k">def</span> <span class="nf">noise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">N</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">noise</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">collection</span> <span class="o">=</span> <span class="n">TrackCollection</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+                <span class="n">collection</span><span class="o">.</span><span class="n">addTrack</span><span class="p">(</span>
+                    <span class="n">noise</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">collection</span></div>
+
+<div class="viewcode-block" id="NoiseProcess.plot"><a class="viewcode-back" href="../../../api/algo/algo-stochastics.html#tracklib.algo.Stochastics.NoiseProcess.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">dh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">support</span> <span class="o">/</span> <span class="mf">500.0</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">support</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">support</span><span class="p">,</span> <span class="n">dh</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+            <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span><span class="p">)):</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">amplitudes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span>
+                <span class="n">i</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;b-&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="seed"><a class="viewcode-back" href="../../../api/algo/algo-stochastics.html#tracklib.algo.Stochastics.seed">[docs]</a><span class="k">def</span> <span class="nf">seed</span><span class="p">(</span><span class="n">integer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">integer</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gaussian_process"><a class="viewcode-back" href="../../../api/algo/algo-stochastics.html#tracklib.algo.Stochastics.gaussian_process">[docs]</a><span class="k">def</span> <span class="nf">gaussian_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestamps</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cp_var</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Track interpolation and smoothing with Gaussian Process (GP)</span>
+
+<span class="sd">    :param timestamps: points where interpolation must be computed. May be a list of</span>
+<span class="sd">        timestamps, a track or a number of seconds</span>
+<span class="sd">    :param kernel: a symetric function k(xi-xj) describing the statistical similarity</span>
+<span class="sd">        between the coordinates X,Y,Z taken in two points :</span>
+
+<span class="sd">        .. math::</span>
+
+<span class="sd">            k(t2-t1) = Cov(X(t1), X(t2))</span>
+
+<span class="sd">            k(t2-t1) = Cov(X(t1), X(t2))</span>
+
+<span class="sd">            k(t2-t1) = Cov(Z(t1), Z(t2))</span>
+
+
+<span class="sd">    :param factor: unit factor of variance if the kernel must be scaled</span>
+<span class="sd">    :param sigma: observation noise standard deviation (in coords units)</span>
+<span class="sd">    :param cp_var: compute covariance matrix and store pointwise sigmas</span>
+
+<span class="sd">    :return: interpolated/smoothed track (without AF)&quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">interpolation_gaussian_process</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">timestamps</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">cp_var</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="randomColor"><a class="viewcode-back" href="../../../api/algo/algo-stochastics.html#tracklib.algo.Stochastics.randomColor">[docs]</a><span class="k">def</span> <span class="nf">randomColor</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()]</span></div>
+
+
+<div class="viewcode-block" id="noise"><a class="viewcode-back" href="../../../api/algo/algo-stochastics.html#tracklib.algo.Stochastics.noise">[docs]</a><span class="k">def</span> <span class="nf">noise</span><span class="p">(</span>
+    <span class="n">track</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">kernel</span><span class="o">=</span><span class="p">[</span><span class="n">Kernel</span><span class="o">.</span><span class="n">DiracKernel</span><span class="p">()],</span> <span class="n">distribution</span><span class="o">=</span><span class="n">DISTRIBUTION_NORMAL</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Track noising with Cholesky factorization of gaussian process covariance matrix:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        h(x2-x1)=\\exp-\\left(\\frac{x2-x1}{scope}\\right)^2</span>
+
+<span class="sd">    If :math:`X` is a gaussian white noise, :math:`Cov(LX) = L^t*L` =&gt; if :math:`L` is a</span>
+<span class="sd">    Cholesky factorization of a semi-postive-definite matrix :math:`S`,</span>
+<span class="sd">    :math:`then Cov(LX) = L^T*L = S` and :math:`Y=LX`` has :math:`S` as covariance matrix.</span>
+
+<span class="sd">    :param track: the track to be smoothed (input track is not modified)</span>
+<span class="sd">    :param sigma: noise amplitude(s) (in observation coordinate units)</span>
+<span class="sd">    :param kernel: noise autocovariance function(s)</span>
+<span class="sd">	:param mode: &#39;linear&#39; (default), &#39;circular&#39; or &#39;euclidian&#39;</span>
+<span class="sd">	:param force: force definite-positive matrix with removal of negative eigen values&quot;&quot;&quot;</span>
+
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">listify</span><span class="p">(</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">listify</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sigma</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel</span><span class="p">):</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span>
+            <span class="s2">&quot;Error: amplitude and kernel arrays must have same size in &#39;noise&#39; function&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+    <span class="n">Cinematics</span><span class="o">.</span><span class="n">computeAbsCurv</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+
+    <span class="n">noised_track</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sigma</span><span class="p">)):</span>
+
+        <span class="n">SIGMA_S</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">makeCovarianceMatrixFromKernel</span><span class="p">(</span><span class="n">kernel</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">track</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+        <span class="n">SIGMA_S</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-12</span>
+        <span class="n">SIGMA_S</span> <span class="o">*=</span> <span class="n">sigma</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">SIGMA_S</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Cholesky decomposition</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">SIGMA_S</span><span class="p">)</span>
+
+        <span class="c1"># Noise simulation</span>
+        <span class="k">if</span> <span class="n">distribution</span> <span class="o">==</span> <span class="n">DISTRIBUTION_NORMAL</span><span class="p">:</span>
+            <span class="n">Xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+            <span class="n">Xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+            <span class="n">Xz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">distribution</span> <span class="o">==</span> <span class="n">DISTRIBUTION_UNIFORM</span><span class="p">:</span>
+            <span class="n">Xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">1.73205</span><span class="p">,</span> <span class="mf">1.73205</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+            <span class="n">Xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">1.73205</span><span class="p">,</span> <span class="mf">1.73205</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+            <span class="n">Xz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">1.73205</span><span class="p">,</span> <span class="mf">1.73205</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">distribution</span> <span class="o">==</span> <span class="n">DISTRIBUTION_LAPLACE</span><span class="p">:</span>
+            <span class="n">Xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">laplace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+            <span class="n">Xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">laplace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+            <span class="n">Xz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">laplace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="n">Yx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">Xx</span><span class="p">)</span>
+        <span class="n">Yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">Xy</span><span class="p">)</span>
+        <span class="n">Yz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">Xz</span><span class="p">)</span>
+
+        <span class="c1"># Building noised track</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">pt</span> <span class="o">=</span> <span class="n">noised_track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">position</span>
+            <span class="n">pt</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">+</span> <span class="n">Yx</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">pt</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">+</span> <span class="n">Yy</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">pt</span><span class="o">.</span><span class="n">setZ</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">getZ</span><span class="p">()</span> <span class="o">+</span> <span class="n">Yz</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">obs</span> <span class="o">=</span> <span class="n">Obs</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span>
+			
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;circular&#39;</span><span class="p">:</span>
+            <span class="n">noised_track</span><span class="o">.</span><span class="n">loop</span><span class="p">()</span>
+		   
+    <span class="k">return</span> <span class="n">noised_track</span></div>
+
+
+<div class="viewcode-block" id="randomizer"><a class="viewcode-back" href="../../../api/algo/algo-stochastics.html#tracklib.algo.Stochastics.randomizer">[docs]</a><span class="k">def</span> <span class="nf">randomizer</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">kernel</span><span class="o">=</span><span class="p">[</span><span class="n">Kernel</span><span class="o">.</span><span class="n">GaussianKernel</span><span class="p">(</span><span class="mi">650</span><span class="p">)],</span> <span class="n">N</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Randomizing traces for sensitivity analysis on output `f`</span>
+
+<span class="sd">    :param input: a track, or list of tracks to be randomized</span>
+<span class="sd">    :param f: a function taking a list of tracks as input</span>
+<span class="sd">    :param sigma: noise amplitude (in observation coordinate units)</span>
+<span class="sd">    :param N: number of simulations to generate (default is 100)</span>
+<span class="sd">    :param scope_s: spatial autocorrelation scope (measured along track</span>
+<span class="sd">        curvilinear abscissa in observation coordinate units)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">noised_output</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="nb">input</span> <span class="o">=</span> <span class="p">[</span><span class="nb">input</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">noised_input</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Randomizing tracks:&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">)(</span><span class="n">N</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">input</span><span class="p">)):</span>
+            <span class="n">noised_track</span> <span class="o">=</span> <span class="nb">input</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">noise</span><span class="p">(</span><span class="n">sigma</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span>
+            <span class="n">noised_input</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">noised_track</span><span class="p">)</span>
+        <span class="n">noised_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">noised_input</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">noised_output</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LASTIG lab, French National Institute of Geographic and Forest Information.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

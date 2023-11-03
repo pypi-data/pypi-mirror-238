@@ -1,0 +1,873 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tracklib.core.TrackCollection &#8212; TrackLib 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/tracklib/core/TrackCollection';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../../_static/TracklibLogo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../../_static/TracklibLogo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <h1>Source code for tracklib.core.TrackCollection</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This module contain a class to manage the collections of tracks&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>   
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">import</span> <span class="nn">tracklib.core.Utils</span> <span class="k">as</span> <span class="nn">Utils</span>
+
+
+<div class="viewcode-block" id="TrackCollection"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection">[docs]</a><span class="k">class</span> <span class="nc">TrackCollection</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TrackCollection.__init__"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">TRACES</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TRACES: list of Track</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span> <span class="o">=</span> <span class="n">TRACES</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spatial_index</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="TrackCollection.addTrack"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.addTrack">[docs]</a>    <span class="k">def</span> <span class="nf">addTrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TrackCollection.size"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.size">[docs]</a>    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TrackCollection.length"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.length">[docs]</a>    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">+=</span> <span class="n">track</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">length</span></div>
+
+<div class="viewcode-block" id="TrackCollection.duration"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.duration">[docs]</a>    <span class="k">def</span> <span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">duration</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">duration</span> <span class="o">+=</span> <span class="n">track</span><span class="o">.</span><span class="n">duration</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">duration</span></div>
+
+<div class="viewcode-block" id="TrackCollection.getTracks"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.getTracks">[docs]</a>    <span class="k">def</span> <span class="nf">getTracks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span></div>
+
+<div class="viewcode-block" id="TrackCollection.getTrack"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.getTrack">[docs]</a>    <span class="k">def</span> <span class="nf">getTrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TrackCollection.copy"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">TRACKS</span> <span class="o">=</span> <span class="n">TrackCollection</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+            <span class="n">TRACKS</span><span class="o">.</span><span class="n">addTrack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getTrack</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">TRACKS</span></div>
+
+<div class="viewcode-block" id="TrackCollection.setTimeZone"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.setTimeZone">[docs]</a>    <span class="k">def</span> <span class="nf">setTimeZone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zone</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setTimeZone</span><span class="p">(</span><span class="n">zone</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TrackCollection.convertToTimeZone"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.convertToTimeZone">[docs]</a>    <span class="k">def</span> <span class="nf">convertToTimeZone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zone</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">convertToZone</span><span class="p">(</span><span class="n">zone</span><span class="p">)</span></div>
+
+    <span class="c1"># Average frequency	of tracks</span>
+<div class="viewcode-block" id="TrackCollection.frequency"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.frequency">[docs]</a>    <span class="k">def</span> <span class="nf">frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;temporal&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">+=</span> <span class="n">track</span><span class="o">.</span><span class="n">frequency</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">m</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span>
+
+    <span class="c1"># =========================================================================</span>
+    <span class="c1"># Spatial index creation, export and import functions</span>
+    <span class="c1"># =========================================================================</span>
+
+<div class="viewcode-block" id="TrackCollection.createSpatialIndex"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.createSpatialIndex">[docs]</a>    <span class="k">def</span> <span class="nf">createSpatialIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">tracklib.core.SpatialIndex</span> <span class="kn">import</span> <span class="n">SpatialIndex</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">spatial_index</span> <span class="o">=</span> <span class="n">SpatialIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TrackCollection.exportSpatialIndex"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.exportSpatialIndex">[docs]</a>    <span class="k">def</span> <span class="nf">exportSpatialIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="c1"># from tracklib.core.SpatialIndex import SpatialIndex</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spatial_index</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TrackCollection.importSpatialIndex"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.importSpatialIndex">[docs]</a>    <span class="k">def</span> <span class="nf">importSpatialIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">tracklib.core.SpatialIndex</span> <span class="kn">import</span> <span class="n">SpatialIndex</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">spatial_index</span> <span class="o">=</span> <span class="n">SpatialIndex</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+
+    <span class="c1"># =========================================================================</span>
+    <span class="c1"># Track collection coordinate transformation</span>
+    <span class="c1"># =========================================================================</span>
+
+<div class="viewcode-block" id="TrackCollection.toECEFCoords"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.toECEFCoords">[docs]</a>    <span class="k">def</span> <span class="nf">toECEFCoords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getSRID</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Geo&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">:</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">toECEFCoords</span><span class="p">()</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getSRID</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;ENU&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">base</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Error: base coordinates should be specified for conversion ENU -&gt; ECEF&quot;</span>
+                <span class="p">)</span>
+                <span class="n">exit</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">:</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">toECEFCoords</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+            <span class="k">return</span></div>
+
+<div class="viewcode-block" id="TrackCollection.toENUCoords"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.toENUCoords">[docs]</a>    <span class="k">def</span> <span class="nf">toENUCoords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getSRID</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Geo&quot;</span><span class="p">,</span> <span class="s2">&quot;ECEF&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">base</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getFirstObs</span><span class="p">()</span><span class="o">.</span><span class="n">position</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Warning: no reference point (base) provided for local projection to ENU coordinates. &quot;</span>
+                <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;Arbitrarily used: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">:</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">toENUCoords</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getSRID</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;ENU&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">base</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Error: new base coordinates should be specified for conversion ENU -&gt; ENU&quot;</span>
+                <span class="p">)</span>
+                <span class="n">exit</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">base</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span>
+                        <span class="s2">&quot;Error: former base coordinates should be specified for conversion ENU -&gt; ENU&quot;</span>
+                    <span class="p">)</span>
+                    <span class="n">exit</span><span class="p">()</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">toENUCoords</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">base</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">base</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">toGeoCoords</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">base</span></div>
+
+<div class="viewcode-block" id="TrackCollection.toGeoCoords"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.toGeoCoords">[docs]</a>    <span class="k">def</span> <span class="nf">toGeoCoords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getSRID</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;ECEF&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">:</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">toGeoCoords</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getSRID</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;ENU&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">base</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Error: base coordinates should be specified for conversion ENU -&gt; Geo&quot;</span>
+                <span class="p">)</span>
+                <span class="n">exit</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">:</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">toGeoCoords</span><span class="p">(</span><span class="n">base</span><span class="p">)</span></div>
+
+    <span class="c1"># Function to convert track to ENUCoords if it is in GeoCoords. Returns None</span>
+    <span class="c1"># if no transformation operated, and returns used reference point otherwise</span>
+<div class="viewcode-block" id="TrackCollection.toENUCoordsIfNeeded"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.toENUCoordsIfNeeded">[docs]</a>    <span class="k">def</span> <span class="nf">toENUCoordsIfNeeded</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTrack</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">getSRID</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;GEO&quot;</span><span class="p">,</span> <span class="s2">&quot;Geo&quot;</span><span class="p">]:</span>
+            <span class="n">base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTrack</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">toENUCoords</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">base</span></div>
+
+    <span class="c1"># =========================================================================</span>
+    <span class="c1">#  Thin plates smoothing</span>
+    <span class="c1"># =========================================================================</span>
+<div class="viewcode-block" id="TrackCollection.smooth"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.smooth">[docs]</a>    <span class="k">def</span> <span class="nf">smooth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">constraint</span><span class="o">=</span><span class="mf">1e3</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="n">constraint</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TrackCollection.summary"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print summary (complete wkt below)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;-------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">output</span> <span class="o">+=</span> <span class="s2">&quot;Number of GPS track: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">output</span> <span class="o">+=</span> <span class="s2">&quot;-------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">SIZES</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">trace</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">:</span>
+            <span class="n">SIZES</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+        <span class="n">output</span> <span class="o">+=</span> <span class="s2">&quot;  Nb of pt(s):   &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">SIZES</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="c1"># output += &quot;  Nb of pt(s):   &quot; + str(len(self.__POINTS)) + &quot;\n&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TrackCollection.addAnalyticalFeature"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.addAnalyticalFeature">[docs]</a>    <span class="k">def</span> <span class="nf">addAnalyticalFeature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">trace</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">:</span>
+            <span class="n">trace</span><span class="o">.</span><span class="n">addAnalyticalFeature</span><span class="p">(</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+            
+            
+<div class="viewcode-block" id="TrackCollection.getAnalyticalFeature"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.getAnalyticalFeature">[docs]</a>    <span class="k">def</span> <span class="nf">getAnalyticalFeature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">af_name</span><span class="p">,</span> <span class="n">withNan</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">valuesAF</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getAnalyticalFeature</span><span class="p">(</span><span class="n">af_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">withNan</span><span class="p">:</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">.</span><span class="n">removeNan</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">valuesAF</span> <span class="o">=</span> <span class="n">valuesAF</span> <span class="o">+</span> <span class="n">values</span>
+        <span class="k">return</span> <span class="n">valuesAF</span></div>
+            
+<div class="viewcode-block" id="TrackCollection.operate"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.operate">[docs]</a>    <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">arg1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">arg2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">arg3</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">trace</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">:</span>
+            <span class="n">trace</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">arg3</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TrackCollection.plot"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">margin</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">symbols</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;r-&quot;</span><span class="p">,</span> <span class="s2">&quot;g-&quot;</span><span class="p">,</span> <span class="s2">&quot;b-&quot;</span><span class="p">,</span> <span class="s2">&quot;c-&quot;</span><span class="p">,</span> <span class="s2">&quot;m-&quot;</span><span class="p">,</span> <span class="s2">&quot;y-&quot;</span><span class="p">,</span> <span class="s2">&quot;k-&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">.</span><span class="n">listify</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span>
+        <span class="n">markersize</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">.</span><span class="n">listify</span><span class="p">(</span><span class="n">markersize</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">append</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span><span class="o">.</span><span class="n">asTuple</span><span class="p">()</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="n">margin</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span>
+            <span class="n">dy</span> <span class="o">=</span> <span class="n">margin</span> <span class="o">*</span> <span class="p">(</span><span class="n">ymax</span> <span class="o">-</span> <span class="n">ymin</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="n">xmin</span> <span class="o">-</span> <span class="n">dx</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">+</span> <span class="n">dx</span><span class="p">])</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="n">ymin</span> <span class="o">-</span> <span class="n">dy</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">+</span> <span class="n">dy</span><span class="p">])</span>
+        <span class="n">Ns</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span>
+        <span class="n">Ms</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">markersize</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">)):</span>
+            <span class="n">trace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span>
+            <span class="n">Y</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">symbols</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="n">Ns</span><span class="p">],</span> <span class="n">markersize</span><span class="o">=</span><span class="n">markersize</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="n">Ms</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="TrackCollection.filterOnBBox"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.filterOnBBox">[docs]</a>    <span class="k">def</span> <span class="nf">filterOnBBox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">asTuple</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">track</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)):</span>
+                <span class="n">inside</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">inside</span> <span class="o">=</span> <span class="n">inside</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">xmin</span><span class="p">)</span>
+                <span class="n">inside</span> <span class="o">=</span> <span class="n">inside</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">ymin</span><span class="p">)</span>
+                <span class="n">inside</span> <span class="o">=</span> <span class="n">inside</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">xmax</span><span class="p">)</span>
+                <span class="n">inside</span> <span class="o">=</span> <span class="n">inside</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">ymax</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">inside</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">removeTrack</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+                    <span class="k">break</span></div>
+
+<div class="viewcode-block" id="TrackCollection.bbox"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.bbox">[docs]</a>    <span class="k">def</span> <span class="nf">bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTrack</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+            <span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTrack</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">bbox</span></div>
+
+<div class="viewcode-block" id="TrackCollection.resample"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.resample">[docs]</a>    <span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">algo</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span><span class="n">Literal</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>   
+        <span class="sd">&quot;&quot;&quot;Resampling tracks with linear interpolation</span>
+
+
+<span class="sd">        :param delta: interpolation interval (time in sec if temporal mode is selected,</span>
+<span class="sd">                     space in meters if spatial).</span>
+
+<span class="sd">        :param mode: Mode of interpolation.</span>
+<span class="sd">            Available modes are:</span>
+
+<span class="sd">            - MODE_SPATIAL (*mode=1*)</span>
+<span class="sd">            - MODE_TEMPORAL (*mode=2*)</span>
+
+<span class="sd">        :params algorithm: of interpolation.</span>
+<span class="sd">            Available algorithm are :</span>
+
+<span class="sd">            - ALGO_LINEAR (*algo=1*)</span>
+<span class="sd">            - ALGO_THIN_SPLINES (*algo=2*)</span>
+<span class="sd">            - ALGO_B_SPLINES (*algo=3*)</span>
+<span class="sd">            - ALGO_GAUSSIAN_PROCESS (*algo=4*)</span>
+
+<span class="sd">        **NB**: In temporal mode, argument may be:</span>
+
+<span class="sd">            - an integer or float: interval in seconds</span>
+<span class="sd">            - a list of timestamps where interpolation should be computed</span>
+<span class="sd">            - a reference track</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">algo</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__collectionnify</span><span class="p">(</span><span class="n">tracks</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tracks</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">TrackCollection</span><span class="p">(</span><span class="n">tracks</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tracks</span>
+
+    <span class="c1"># =========================================================================</span>
+    <span class="c1"># Tracks simplification (returns a new track)</span>
+    <span class="c1"># Tolerance is in the unit of track observation coordinates</span>
+    <span class="c1">#   MODE_SIMPLIFY_DOUGLAS_PEUCKER (1)</span>
+    <span class="c1">#   MODE_SIMPLIFY_VISVALINGAM (2)</span>
+    <span class="c1"># =========================================================================</span>
+<div class="viewcode-block" id="TrackCollection.simplify"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.simplify">[docs]</a>    <span class="k">def</span> <span class="nf">simplify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">)):</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">tolerance</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span></div>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [+] Concatenation of two track collections</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">TrackCollection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span> <span class="o">+</span> <span class="n">collection</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [/] Even split track collection (returns n+1 collections)</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="n">number</span><span class="p">)</span>
+        <span class="c1"># R = self.size()-N*number</span>
+        <span class="n">SPLITS</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">id_ini</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">N</span>
+            <span class="n">id_fin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">())</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">SPLITS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TrackCollection</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">id_ini</span><span class="p">:</span><span class="n">id_fin</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()))</span>
+        <span class="k">return</span> <span class="n">SPLITS</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [&gt;] Removes first n points of track</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nb_points</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nb_points</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [&lt;] Removes last n points of track</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nb_points</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">nb_points</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [&gt;=] Available operator</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [&lt;=] Available operator</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [!=] Available operator</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="nf">__neq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [Unary -] Available operator</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [**] Resample (spatial) according to a number of points</span>
+    <span class="c1"># Linear interpolation and temporal resampling</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nb_points</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**=</span> <span class="n">nb_points</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [abs] Available operator</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [len] Number of tracks in track collection</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [-] Computes difference profile of 2 tracks</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available operator not implemented yet&quot;</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [*] Temporal resampling of tracks</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="n">number</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [%] Remove one point out of n (or according to list pattern)</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__mod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%=</span> <span class="n">sample</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [//] Time resample of a tracks according to another track</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">:</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>  <span class="c1"># Mode temporal / linear</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># [[n]] Get and set track number n</span>
+    <span class="c1"># May be tuple with uid, tid</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">tracks</span> <span class="o">=</span> <span class="n">TrackCollection</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">Utils</span><span class="o">.</span><span class="n">compLike</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">uid</span><span class="p">,</span> <span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="ow">and</span> <span class="p">(</span>
+                    <span class="n">Utils</span><span class="o">.</span><span class="n">compLike</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">tid</span><span class="p">,</span> <span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="p">):</span>
+                    <span class="n">tracks</span><span class="o">.</span><span class="n">addTrack</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tracks</span>
+        <span class="k">return</span> <span class="n">TrackCollection</span><span class="o">.</span><span class="n">__collectionnify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">track</span>
+
+    <span class="c1"># =========================================================================</span>
+<div class="viewcode-block" id="TrackCollection.removeTrack"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.removeTrack">[docs]</a>    <span class="k">def</span> <span class="nf">removeTrack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">track</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TrackCollection.removeEmptyTrack"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.removeEmptyTrack">[docs]</a>    <span class="k">def</span> <span class="nf">removeEmptyTrack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove tracks without observation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">removeTrack</span><span class="p">(</span><span class="n">track</span><span class="p">)</span></div>
+
+    <span class="c1"># =========================================================================</span>
+    <span class="c1">#    SEGMENTATION, EXTRACT, REMOVE</span>
+
+<div class="viewcode-block" id="TrackCollection.segmentation"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.segmentation">[docs]</a>    <span class="k">def</span> <span class="nf">segmentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">afs_input</span><span class="p">,</span> <span class="n">af_output</span><span class="p">,</span> <span class="n">thresholds_max</span><span class="p">,</span> <span class="n">mode_comparaison</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">:</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">segmentation</span><span class="p">(</span><span class="n">afs_input</span><span class="p">,</span> <span class="n">af_output</span><span class="p">,</span> <span class="n">thresholds_max</span><span class="p">,</span> <span class="n">mode_comparaison</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TrackCollection.split_segmentation"><a class="viewcode-back" href="../../../api/core/core-trackcollection.html#tracklib.core.TrackCollection.TrackCollection.split_segmentation">[docs]</a>    <span class="k">def</span> <span class="nf">split_segmentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">af_output</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Découpe les traces suivant la segmentation définie par le paramètre af_output ET</span>
+<span class="sd">        Remplace la trace par les traces splittées s&#39;il y a une segmentation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">NEW_TRACES</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span><span class="p">:</span>
+            <span class="n">TRACES_SPLIT</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">split_segmentation</span><span class="p">(</span><span class="n">af_output</span><span class="p">)</span>
+            <span class="c1"># Si le tableau est nulle pas de segmentation, on ne fait rien</span>
+            <span class="c1"># sinon on supprime la trace et on ajoute les traces splittées</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">TRACES_SPLIT</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">TRACES_SPLIT</span><span class="p">:</span>
+                    <span class="c1"># print (split.size())</span>
+                    <span class="n">NEW_TRACES</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">split</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">NEW_TRACES</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__TRACES</span> <span class="o">=</span> <span class="n">NEW_TRACES</span></div></div>
+</pre></div>
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2022, LASTIG lab, French National Institute of Geographic and Forest Information.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="theme-version">
+    Built with the
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">
+        PyData Sphinx Theme
+    </a>
+    0.12.0.
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

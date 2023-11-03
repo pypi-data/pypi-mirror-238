@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tracklib.algo.Dynamics &mdash; TrackLib 1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> TrackLib
+            <img src="../../../_static/TracklibLogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebook/index.html">Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TrackLib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tracklib.algo.Dynamics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tracklib.algo.Dynamics</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Class to manage cinematic computations on GPS tracks&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">progressbar</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">tracklib.core.Utils</span> <span class="k">as</span> <span class="nn">utils</span>
+<span class="kn">import</span> <span class="nn">tracklib.algo.Stochastics</span> <span class="k">as</span> <span class="nn">Stochastics</span>
+
+<span class="n">MODE_OBS_AS_SCALAR</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">MODE_OBS_AS_2D_POSITIONS</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">MODE_OBS_AS_3D_POSITIONS</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">MODE_OBS_AND_STATES_AS_2D_POSITIONS</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">MODE_OBS_AND_STATES_AS_3D_POSITIONS</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">MODE_STATES_AS_2D_POSITIONS</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">MODE_STATES_AS_3D_POSITIONS</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="n">MODE_VERBOSE_NONE</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">MODE_VERBOSE_ALL</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">MODE_VERBOSE_PROGRESS</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">MODE_VERBOSE_PROGRESS_BY_EPOCH</span> <span class="o">=</span> <span class="mi">3</span>
+
+
+<div class="viewcode-block" id="DYN_MAT_2D_CST_POS"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.DYN_MAT_2D_CST_POS">[docs]</a><span class="k">def</span> <span class="nf">DYN_MAT_2D_CST_POS</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span></div>
+
+
+<div class="viewcode-block" id="DYN_MAT_3D_CST_POS"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.DYN_MAT_3D_CST_POS">[docs]</a><span class="k">def</span> <span class="nf">DYN_MAT_3D_CST_POS</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span></div>
+
+
+<div class="viewcode-block" id="DYN_MAT_2D_CST_SPEED"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.DYN_MAT_2D_CST_SPEED">[docs]</a><span class="k">def</span> <span class="nf">DYN_MAT_2D_CST_SPEED</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dt</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span></div>
+
+
+<div class="viewcode-block" id="DYN_MAT_2D_CST_ACC"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.DYN_MAT_2D_CST_ACC">[docs]</a><span class="k">def</span> <span class="nf">DYN_MAT_2D_CST_ACC</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="n">dt2</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt2</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DYN_MAT_3D_CST_SPEED"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.DYN_MAT_3D_CST_SPEED">[docs]</a><span class="k">def</span> <span class="nf">DYN_MAT_3D_CST_SPEED</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dt</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DYN_MAT_3D_CST_ACC"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.DYN_MAT_3D_CST_ACC">[docs]</a><span class="k">def</span> <span class="nf">DYN_MAT_3D_CST_ACC</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="n">dt2</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt2</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dt</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DYN_MAT_2D_CST_SPEED_COV"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.DYN_MAT_2D_CST_SPEED_COV">[docs]</a><span class="k">def</span> <span class="nf">DYN_MAT_2D_CST_SPEED_COV</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">std_acc</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">dt</span><span class="p">],</span> <span class="p">[</span><span class="n">dt</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">std_acc</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">G</span> <span class="o">@</span> <span class="n">G</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="DYN_MAT_3D_CST_SPEED_COV"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.DYN_MAT_3D_CST_SPEED_COV">[docs]</a><span class="k">def</span> <span class="nf">DYN_MAT_3D_CST_SPEED_COV</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">std_acc</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">dt</span><span class="p">],</span> <span class="p">[</span><span class="n">dt</span><span class="p">],</span> <span class="p">[</span><span class="n">dt</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">std_acc</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">G</span> <span class="o">@</span> <span class="n">G</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="DYN_MAT_2D_CST_ACC_COV"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.DYN_MAT_2D_CST_ACC_COV">[docs]</a><span class="k">def</span> <span class="nf">DYN_MAT_2D_CST_ACC_COV</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">std_jrk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">[</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">6.0</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">3</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">6.0</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">3</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">dt</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">dt</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">std_jrk</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">G</span> <span class="o">@</span> <span class="n">G</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="DYN_MAT_3D_CST_ACC_COV"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.DYN_MAT_3D_CST_ACC_COV">[docs]</a><span class="k">def</span> <span class="nf">DYN_MAT_3D_CST_ACC_COV</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">std_jrk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">[</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">6.0</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">3</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">6.0</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">3</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">6.0</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">3</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="p">[</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">dt</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">dt</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">dt</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">std_jrk</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">G</span> <span class="o">@</span> <span class="n">G</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Kalman"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.Kalman">[docs]</a><span class="k">class</span> <span class="nc">Kalman</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class to define a Kalman filter&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Kalman.__init__"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.Kalman.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">F</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">H</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">X0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">P0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">spreading</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor of :class:`Kalman` class</span>
+
+<span class="sd">        Unscented Kalman Filter is designed to perform non-linear and non-gaussian</span>
+<span class="sd">        estimation on a sequence of unknown states, given a dynamic model F and an</span>
+<span class="sd">        observation model H</span>
+
+<span class="sd">        :param F: A function taking as input an [n x 1] state vector x(t) and returning</span>
+<span class="sd">                  x(t+1), the prior mean of state vector at time t+1. If F is a matrix</span>
+<span class="sd">                  transition is handled as standard KF or EKF.</span>
+<span class="sd">        :param Q: The [n x n] state transition covariance matrix where</span>
+<span class="sd">                  :math:`Qij = Cov(vi, vj)`, with: :math:`xi(t+1) = F(xi(t)) + vi`</span>
+<span class="sd">        :param H: A function taking as input an [nx1] state vector x(t) and returning an</span>
+<span class="sd">                  ``[m x 1]`` vector y(t), the observation vetcor at time t. If H is a matrix</span>
+<span class="sd">                  observation is handled as a standard KF or EKF.</span>
+<span class="sd">        :param R: The ``[m x m]`` state observation covariance matrix where</span>
+<span class="sd">                  :math:`Rij = Cov(wi, wj)`,  with: :math:`yi(t) = H(xi(t)) + wi`</span>
+<span class="sd">        :param X0: A :``[n x 1]`` initial state vector</span>
+<span class="sd">        :param P0: A :``[n x n]`` initial state covariance matrix</span>
+<span class="sd">        :param spreading: Parameter describing the distance between central mean and</span>
+<span class="sd">                          sampled sigma points. As a default 2n+1 sigma points are</span>
+<span class="sd">                          generated.</span>
+<span class="sd">        :param iter: TODO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">F</span> <span class="o">=</span> <span class="n">F</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">Q</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">=</span> <span class="n">H</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">R</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X0</span> <span class="o">=</span> <span class="n">X0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P0</span> <span class="o">=</span> <span class="n">P0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">restart</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iter</span> <span class="o">=</span> <span class="nb">iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spreading</span> <span class="o">=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Kalman.setTransition"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.Kalman.setTransition">[docs]</a>    <span class="k">def</span> <span class="nf">setTransition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">F</span> <span class="o">=</span> <span class="n">F</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Q</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">Q</span></div>
+
+<div class="viewcode-block" id="Kalman.setObservation"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.Kalman.setObservation">[docs]</a>    <span class="k">def</span> <span class="nf">setObservation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">=</span> <span class="n">H</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">R</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">R</span></div>
+
+<div class="viewcode-block" id="Kalman.setInitState"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.Kalman.setInitState">[docs]</a>    <span class="k">def</span> <span class="nf">setInitState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X0</span><span class="p">,</span> <span class="n">P0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X0</span> <span class="o">=</span> <span class="n">X0</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">P0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">P0</span> <span class="o">=</span> <span class="n">P0</span></div>
+
+<div class="viewcode-block" id="Kalman.setSpreading"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.Kalman.setSpreading">[docs]</a>    <span class="k">def</span> <span class="nf">setSpreading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spreading</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spreading</span> <span class="o">=</span> <span class="n">spreading</span></div>
+
+<div class="viewcode-block" id="Kalman.setRestart"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.Kalman.setRestart">[docs]</a>    <span class="k">def</span> <span class="nf">setRestart</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">restart</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">restart</span> <span class="o">=</span> <span class="n">restart</span></div>
+
+<div class="viewcode-block" id="Kalman.setIterations"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.Kalman.setIterations">[docs]</a>    <span class="k">def</span> <span class="nf">setIterations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">iter</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iter</span> <span class="o">=</span> <span class="nb">iter</span></div>
+
+<div class="viewcode-block" id="Kalman.setInnovationControl"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.Kalman.setInnovationControl">[docs]</a>    <span class="k">def</span> <span class="nf">setInnovationControl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="n">control</span></div>
+
+<div class="viewcode-block" id="Kalman.getQ"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.Kalman.getQ">[docs]</a>    <span class="k">def</span> <span class="nf">getQ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;function&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Kalman.getR"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.Kalman.getR">[docs]</a>    <span class="k">def</span> <span class="nf">getR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;function&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Kalman.summary"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.Kalman.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;function&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">)))</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">&quot;function&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">))):</span>
+            <span class="n">type_kalman</span> <span class="o">=</span> <span class="s2">&quot;unscented (UKF)&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">type_kalman</span> <span class="o">=</span> <span class="s2">&quot;standard (KF)&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===========================================================&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Kalman filter&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type:&quot;</span><span class="p">,</span> <span class="n">type_kalman</span><span class="p">)</span>
+        <span class="n">t_dyn</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span>
+        <span class="n">t_obs</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span>
+        <span class="k">if</span> <span class="n">type_kalman</span> <span class="o">==</span> <span class="s2">&quot;unscented (UKF)&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;function&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">)):</span>
+                <span class="n">t_dyn</span> <span class="o">=</span> <span class="s2">&quot;non-linear&quot;</span>
+            <span class="k">if</span> <span class="s2">&quot;function&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">)):</span>
+                <span class="n">t_obs</span> <span class="o">=</span> <span class="s2">&quot;non-linear&quot;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dyn model:&quot;</span><span class="p">,</span> <span class="n">t_dyn</span><span class="p">,</span> <span class="s2">&quot;/ Obs model:&quot;</span><span class="p">,</span> <span class="n">t_obs</span><span class="p">)</span>
+        <span class="n">stationarity</span> <span class="o">=</span> <span class="s2">&quot;Yes&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;function&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">stationarity</span> <span class="o">=</span> <span class="s2">&quot;No&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;function&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">stationarity</span> <span class="o">=</span> <span class="s2">&quot;No&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;function&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">stationarity</span> <span class="o">=</span> <span class="s2">&quot;No&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Stationnarity:&quot;</span><span class="p">,</span> <span class="n">stationarity</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">P0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;function&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">)):</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="s2">&quot;?&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of states         n =&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of observations   m =&quot;</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===========================================================&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dynamic model [n x n]:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">X0</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">t_dyn</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">F</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;E.g. x =&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="s2">&quot;=&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;F(x) =&quot;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;E.g. x =&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="s2">&quot;=&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;F(x) =&quot;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------------------------------&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dynamic model covariance matrix [n x n]:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===========================================================&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Observation model [m x n]:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="o">!=</span> <span class="s2">&quot;?&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">t_obs</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span><span class="p">:</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;E.g. x =&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="s2">&quot;=&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;H(x) =&quot;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;E.g. x =&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="s2">&quot;=&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;H(x) =&quot;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------------------------------&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Observation model covariance matrix [m x m]:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===========================================================&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initial state vector [n x 1]&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X0</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------------------------------&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initial state covariance matrix [n x n]&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">P0</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===========================================================&quot;</span><span class="p">)</span></div>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Internal function to calculate sigma points.</span>
+    <span class="c1"># Inputs:</span>
+    <span class="c1">#    - mu : distribution mean vector</span>
+    <span class="c1">#    - S: covariance matrix</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="nf">__sampleSigmaPts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="n">mu</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Cholesky decomposition</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">((</span><span class="n">n</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">spreading</span><span class="p">)</span> <span class="o">*</span> <span class="n">S</span><span class="p">)</span>
+
+        <span class="c1"># Sigma points computation</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">mu</span><span class="p">,</span> <span class="n">mu</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">L</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">mu</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">L</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">mu</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">L</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Internal function to calculate sigma point weights</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="nf">__sampleSigmaWeights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spreading</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">W</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">l</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">l</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">W</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">l</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">W</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Internal function to calculate mean of sigma points</span>
+    <span class="c1"># Inputs: sigma points matrix and weight vector</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="nf">__mean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">SIGMA</span><span class="p">,</span> <span class="n">W</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">SIGMA</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SIGMA</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="n">M</span> <span class="o">+</span> <span class="n">W</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">SIGMA</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">M</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Internal function to calculate covariance of sigma points</span>
+    <span class="c1"># Inputs: sigma points matrix and weight vector</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="nf">__cov</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">SIGMA</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">SIGMA</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">M</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mean</span><span class="p">(</span><span class="n">SIGMA</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SIGMA</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">M</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">SIGMA</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+            <span class="n">S</span> <span class="o">=</span> <span class="n">S</span> <span class="o">+</span> <span class="n">W</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">v</span> <span class="o">@</span> <span class="n">v</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">S</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Internal function to calculate cross covariance Cov(X,Z)</span>
+    <span class="c1"># Inputs: sigma points matrix and weight vector</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="nf">__cross_cov</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">MX</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">MZ</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">MX</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">MX</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">MZ</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">MZ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mean</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">vx</span> <span class="o">=</span> <span class="n">MX</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+            <span class="n">vz</span> <span class="o">=</span> <span class="n">MZ</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">Z</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="n">T</span> <span class="o">+</span> <span class="n">W</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">vx</span> <span class="o">@</span> <span class="n">vz</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">T</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Internal function to apply F or H to sigma points</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="nf">__apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">SIGMA</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;function&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">function</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">SIGMA</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">SIGMA</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                    <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">output</span><span class="p">,</span> <span class="n">function</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">SIGMA</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">())],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+                    <span class="p">)</span>
+            <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">SIGMA</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">k</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">SIGMA</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                    <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">output</span><span class="p">,</span> <span class="n">function</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">SIGMA</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">k</span><span class="p">)],</span>
+                        <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="p">)</span>
+            <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">SIGMA</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">SIGMA</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                    <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                        <span class="p">[</span>
+                            <span class="n">output</span><span class="p">,</span>
+                            <span class="n">function</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">SIGMA</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">),</span>
+                        <span class="p">],</span>
+                        <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">function</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">SIGMA</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">SIGMA</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">output</span><span class="p">,</span> <span class="n">function</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">SIGMA</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Internal function to get all observations at epoch k in a</span>
+    <span class="c1"># track, from a list of analytical feature names (obs)</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="nf">__getObs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">unlistify</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getObsAnalyticalFeatures</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Main function of Kalman object, to estimate the states</span>
+    <span class="c1"># Inputs:</span>
+    <span class="c1">#   - track: the track on which estimation is performed</span>
+    <span class="c1">#   - obs: the name of an analytical feature (may also a list</span>
+    <span class="c1">#     of analytical feature names for multi-dimensional input)</span>
+    <span class="c1">#     All the analytical features listed must be in the track</span>
+    <span class="c1">#   - out: names of estimated fields as recorded in AF</span>
+    <span class="c1">#   - mode: to specify how output states are used</span>
+    <span class="c1">#        - MODE_STATES_AS_2D_POSITIONS: the first two</span>
+    <span class="c1">#          fields of  output are used to make a Coords object</span>
+    <span class="c1">#        - MODE_STATES_AS_2D_POSITIONS: the first three</span>
+    <span class="c1">#          fields of  output are used to make a Coords object</span>
+    <span class="c1">#     For MODE_STATES_AS_XX_POSITIONS modes, coordinates SRID</span>
+    <span class="c1">#      is the same as track SRID.</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+    <span class="c1"># Estimated parameters are registered in AF listed in out</span>
+    <span class="c1"># and (&quot;kf_0&quot;, &quot;kf_1&quot;,..., &quot;kf_n&quot; otherwise if not provided).</span>
+    <span class="c1"># Kalman gain matrix is saved at each epoch in &quot;kf_gain&quot; AF</span>
+    <span class="c1"># Posterior covariance matrix Pk|k is saved in &quot;kf_P&quot; AF. It</span>
+    <span class="c1"># may be used as it is to plot 2D error ellipses, provided</span>
+    <span class="c1"># that first two states are x and y coordinates.</span>
+    <span class="c1"># ------------------------------------------------------------</span>
+<div class="viewcode-block" id="Kalman.estimate"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.Kalman.estimate">[docs]</a>    <span class="k">def</span> <span class="nf">estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="p">[],</span> <span class="n">mode</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">X0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">X0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;kf_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+        <span class="c1"># Output states</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">))</span>
+        <span class="c1"># Output states std values</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_std&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">))</span>
+        <span class="c1"># Measurements innovation</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">)):</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;kf_&quot;</span> <span class="o">+</span> <span class="n">obs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_inov&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">))</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span>
+                <span class="s2">&quot;kf_&quot;</span> <span class="o">+</span> <span class="n">obs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_inov_std&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Matrices AF (gain and covariance matrix)</span>
+        <span class="n">track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;kf_gain&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">))</span>
+        <span class="n">track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;kf_P&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">))</span>
+
+        <span class="c1"># Initialization</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sampleSigmaWeights</span><span class="p">()</span>
+
+        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X0</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">P0</span>
+        <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">OUTPUT</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">EPOCHS</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">EPOCHS</span> <span class="o">=</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">EPOCHS</span><span class="p">)</span>
+
+        <span class="c1"># Filter</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">EPOCHS</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">restart</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">restart</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iter</span><span class="p">):</span>
+
+                <span class="n">SIGMA_PTS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sampleSigmaPts</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+
+                <span class="c1"># Prediction step</span>
+                <span class="k">if</span> <span class="n">step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">SIGMA_PTS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="n">SIGMA_PTS</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+                    <span class="n">MU</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mean</span><span class="p">(</span><span class="n">SIGMA_PTS</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+                    <span class="n">COV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cov</span><span class="p">(</span><span class="n">SIGMA_PTS</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">MU</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">getQ</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+
+                <span class="c1"># Update step</span>
+                <span class="n">SIGMA_PTS2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="n">SIGMA_PTS</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+                <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getObs</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+                <span class="n">Z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mean</span><span class="p">(</span><span class="n">SIGMA_PTS2</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+                <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">z</span><span class="p">])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">-</span> <span class="n">Z</span>
+                <span class="n">S</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cov</span><span class="p">(</span><span class="n">SIGMA_PTS2</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">getR</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+
+                <span class="c1"># Innovation control</span>
+                <span class="k">if</span> <span class="n">Stochastics</span><span class="o">.</span><span class="n">khi2test</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+                <span class="n">T</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cross_cov</span><span class="p">(</span><span class="n">SIGMA_PTS</span><span class="p">,</span> <span class="n">SIGMA_PTS2</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">MU</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
+                <span class="n">K</span> <span class="o">=</span> <span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+
+                <span class="n">X</span> <span class="o">=</span> <span class="n">MU</span> <span class="o">+</span> <span class="n">K</span> <span class="o">@</span> <span class="n">I</span>
+                <span class="n">P</span> <span class="o">=</span> <span class="n">COV</span> <span class="o">-</span> <span class="n">K</span> <span class="o">@</span> <span class="n">S</span> <span class="o">@</span> <span class="n">K</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+                <span class="n">MU</span> <span class="o">=</span> <span class="n">X</span>
+                <span class="n">COV</span> <span class="o">=</span> <span class="n">P</span>
+
+            <span class="c1"># Output states</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">k</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_std&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]))</span>
+
+            <span class="c1"># Measurement innovations</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">)):</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;kf_&quot;</span> <span class="o">+</span> <span class="n">obs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_inov&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">I</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span>
+                    <span class="s2">&quot;kf_&quot;</span> <span class="o">+</span> <span class="n">obs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_inov_std&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">I</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Matrices AF</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;kf_gain&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;kf_P&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+
+        <span class="c1"># MODE_STATES_AS_XX_POSITIONS</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_STATES_AS_2D_POSITIONS</span><span class="p">:</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">setXFromAnalyticalFeature</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">setYFromAnalyticalFeature</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_STATES_AS_3D_POSITIONS</span><span class="p">:</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">setXFromAnalyticalFeature</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">setYFromAnalyticalFeature</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">setZFromAnalyticalFeature</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></div></div>
+
+
+<div class="viewcode-block" id="HMM"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.HMM">[docs]</a><span class="k">class</span> <span class="nc">HMM</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Hidden Markov Model is designed to estimate discrete</span>
+<span class="sd">    sequential variables on tracks, given a probabilistic</span>
+<span class="sd">    transition model Q and observation model P on S:</span>
+
+<span class="sd">        - S is a two-valued function, where S(t, k)</span>
+<span class="sd">            provides a list of all the possible states of</span>
+<span class="sd">            track t at epoch k.</span>
+<span class="sd">        - Q is a four-valued function, giving the (possibly</span>
+<span class="sd">          non-normalized) probability function Q(s1,s2,k,t)</span>
+<span class="sd">          to observe a transition from state s1 to state s2, at</span>
+<span class="sd">          in track t at epoch k.</span>
+<span class="sd">        - P is a four-valued function, giving the (possibly</span>
+<span class="sd">          non-normalized) probability P(s,y,k,t) = P(y|si),</span>
+<span class="sd">          the probability to observe y when (actual) state is</span>
+<span class="sd">          s in track t at epoch k.</span>
+
+<span class="sd">    Note that s1 and s2 arguments in transition Q must belong</span>
+<span class="sd">    to the sets S(t,k) and S(t,k+1), respectively.</span>
+<span class="sd">    Observation y may be  any value (continuous or discrete,</span>
+<span class="sd">    even string or boolean). It may also be a list of values</span>
+<span class="sd">    for multi-dimensional hidden markov model.</span>
+<span class="sd">    If the underlying Markov model is stationnary, then</span>
+<span class="sd">    Q, P and S do not depend on k. In this case, track t</span>
+<span class="sd">    and epoch k are no longer mandatory in S, Q and P</span>
+<span class="sd">    functions. They can be 0-valued (constant output),</span>
+<span class="sd">    2-valued and 2-valued (respectively), if the boolean</span>
+<span class="sd">    member value &quot;stationarity&quot; is set to True.</span>
+<span class="sd">    log: set to True if Q and P are already log values&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="HMM.__init__"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.HMM.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">P</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stationarity</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">S</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="n">P</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">Q</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stationarity</span> <span class="o">=</span> <span class="n">stationarity</span></div>
+
+<div class="viewcode-block" id="HMM.setLog"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.HMM.setLog">[docs]</a>    <span class="k">def</span> <span class="nf">setLog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span></div>
+
+<div class="viewcode-block" id="HMM.setStationarity"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.HMM.setStationarity">[docs]</a>    <span class="k">def</span> <span class="nf">setStationarity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stat</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stationarity</span> <span class="o">=</span> <span class="n">stat</span></div>
+
+<div class="viewcode-block" id="HMM.setStates"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.HMM.setStates">[docs]</a>    <span class="k">def</span> <span class="nf">setStates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">S</span></div>
+
+<div class="viewcode-block" id="HMM.setObservationModel"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.HMM.setObservationModel">[docs]</a>    <span class="k">def</span> <span class="nf">setObservationModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">P</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="n">P</span></div>
+
+<div class="viewcode-block" id="HMM.setTransitionModel"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.HMM.setTransitionModel">[docs]</a>    <span class="k">def</span> <span class="nf">setTransitionModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Q</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the transition model.</span>
+<span class="sd">        </span>
+<span class="sd">        :param Q: four-valued function, giving the probability function </span>
+<span class="sd">                  Q(s1,s2,k,t) to observe a transition from state s1 to state </span>
+<span class="sd">                  s2, at in track t at epoch k.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">Q</span></div>
+
+<div class="viewcode-block" id="HMM.Qlog"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.HMM.Qlog">[docs]</a>    <span class="k">def</span> <span class="nf">Qlog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">):</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">q</span> <span class="o">+</span> <span class="mf">1e-300</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">q</span></div>
+
+<div class="viewcode-block" id="HMM.Plog"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.HMM.Plog">[docs]</a>    <span class="k">def</span> <span class="nf">Plog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">):</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="mf">1e-300</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">p</span></div>
+
+    <span class="k">def</span> <span class="nf">__getObs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Internal function to get all observations at epoch k in a</span>
+<span class="sd">        track, from a list of analytical feature names (obs) and a</span>
+<span class="sd">        mode if retrieved values must be converted to positions</span>
+
+<span class="sd">        TODO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">y</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObsAnalyticalFeatures</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">[</span><span class="n">MODE_OBS_AS_2D_POSITIONS</span><span class="p">,</span> <span class="n">MODE_OBS_AND_STATES_AS_2D_POSITIONS</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: wrong number of observations in HMM to form 2D position&quot;</span><span class="p">)</span>
+                <span class="n">exit</span><span class="p">()</span>
+            <span class="n">ytemp</span> <span class="o">=</span> <span class="p">[</span><span class="n">utils</span><span class="o">.</span><span class="n">makeCoords</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">getSRID</span><span class="p">())]</span>
+            <span class="k">for</span> <span class="n">remain</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+                <span class="n">ytemp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">remain</span><span class="p">])</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">ytemp</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">[</span><span class="n">MODE_OBS_AS_3D_POSITIONS</span><span class="p">,</span> <span class="n">MODE_OBS_AND_STATES_AS_3D_POSITIONS</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: wrong number of observations in HMM to form 3D position&quot;</span><span class="p">)</span>
+                <span class="n">exit</span><span class="p">()</span>
+            <span class="n">ytemp</span> <span class="o">=</span> <span class="p">[</span><span class="n">utils</span><span class="o">.</span><span class="n">makeCoords</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">track</span><span class="o">.</span><span class="n">getSRID</span><span class="p">())]</span>
+            <span class="k">for</span> <span class="n">remain</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+                <span class="n">ytemp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">remain</span><span class="p">])</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">ytemp</span>
+
+        <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">unlistify</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># Method to deal with computation trace</span>
+<div class="viewcode-block" id="HMM.printTrace"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.HMM.printTrace">[docs]</a>    <span class="k">def</span> <span class="nf">printTrace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">importance</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">importance</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="HMM.printSeparator"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.HMM.printSeparator">[docs]</a>    <span class="k">def</span> <span class="nf">printSeparator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">importance</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">importance</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;--------------------------------------&quot;</span>
+            <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;======================================&quot;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">style</span> <span class="o">+</span> <span class="n">style</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HMM.estimate"><a class="viewcode-back" href="../../../api/algo/algo-dynamics.html#tracklib.algo.Dynamics.HMM.estimate">[docs]</a>    <span class="k">def</span> <span class="nf">estimate</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">MODE_OBS_AS_SCALAR</span><span class="p">,</span>
+                        <span class="n">verbose</span><span class="o">=</span><span class="n">MODE_VERBOSE_PROGRESS_BY_EPOCH</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Main function of HMM object, to estimate (decode) the</span>
+<span class="sd">        maximum a posteriori sequence of states given observations</span>
+<span class="sd">      </span>
+<span class="sd">        Inputs:</span>
+<span class="sd">        :param track: the track on which estimation is performed</span>
+<span class="sd">        :param obs: the name of an analytical feature (may also a list</span>
+<span class="sd">                    of analytical feature names for multi-dimensional HMM)</span>
+<span class="sd">                    All the analytical features listed must be in the track</span>
+<span class="sd">        :param mode: to specify how observations are used</span>
+<span class="sd">                     - MODE_OBS_AS_SCALAR: list of values (default)</span>
+<span class="sd">                     - MODE_OBS_AS_2D_POSITION: the first two fields</span>
+<span class="sd">                       of  obs are used to make a Coords object.</span>
+<span class="sd">                       Z component is set to 0 as default.</span>
+<span class="sd">                     - MODE_OBS_AS_3D_POSITIONS: the first three fields</span>
+<span class="sd">                       of obs are used to make a Coords object</span>
+<span class="sd">                     For MODE_OBS_AS_2D_POSITIONS / MODE_OBS_AS_3D_POSITIONS</span>
+<span class="sd">                     modes, coordinates SRID is the same as track SRID.</span>
+<span class="sd">        :return: void</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># -----------------------------------------------</span>
+        <span class="c1"># Preprocessing</span>
+        <span class="c1"># -----------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">printTrace</span><span class="p">(</span><span class="s2">&quot;Compilation of states on track&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">verbose</span><span class="p">)</span>
+
+        <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+        <span class="n">STATES</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+            <span class="n">STATES</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+        <span class="n">TAB_MRK</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">TAB_VAL</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">printTrace</span><span class="p">(</span><span class="s2">&quot;Cost and marker matrix initialization&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">verbose</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">TAB_MRK</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">STATES</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+            <span class="n">TAB_VAL</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">STATES</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">printTrace</span><span class="p">(</span><span class="s2">&quot;Compilation of observations on track&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">verbose</span><span class="p">)</span>
+
+        <span class="n">OBS</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">OBS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__getObs</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">mode</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">TAB_MRK</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+            <span class="n">TAB_MRK</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">TAB_VAL</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">Plog</span><span class="p">(</span><span class="n">STATES</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">l</span><span class="p">],</span> <span class="n">OBS</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+        
+        <span class="c1"># -----------------------------------------------</span>
+        <span class="c1"># Forward step</span>
+        <span class="c1"># -----------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">printTrace</span><span class="p">(</span><span class="s2">&quot;Optimal sequence computation&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">verbose</span><span class="p">)</span>
+
+        <span class="n">EPOCHS</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span> <span class="o">==</span> <span class="n">MODE_VERBOSE_PROGRESS</span><span class="p">:</span>
+            <span class="n">EPOCHS</span> <span class="o">=</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">EPOCHS</span><span class="p">)</span>
+            
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">EPOCHS</span><span class="p">:</span>
+
+            <span class="n">y</span> <span class="o">=</span> <span class="n">OBS</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">STATES_TO_TEST</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">TAB_MRK</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+
+            <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;Epoch &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">TAB_MRK</span><span class="p">)))</span>
+                <span class="o">+</span> <span class="s2">&quot; (&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">TAB_MRK</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+                <span class="o">+</span> <span class="s2">&quot; states)&quot;</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">printTrace</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">verbose</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">verbose</span> <span class="o">==</span> <span class="n">MODE_VERBOSE_PROGRESS_BY_EPOCH</span><span class="p">:</span>
+                <span class="n">STATES_TO_TEST</span> <span class="o">=</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">STATES_TO_TEST</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">STATES_TO_TEST</span><span class="p">:</span>
+
+                <span class="n">best_val</span> <span class="o">=</span> <span class="mf">1e300</span>
+                <span class="n">best_ant</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">s2</span> <span class="o">=</span> <span class="n">STATES</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">l</span><span class="p">]</span>
+                <span class="n">s1</span> <span class="o">=</span> <span class="n">STATES</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">l</span><span class="p">]</span> <span class="c1"># AJOUT MDVD</span>
+                <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">TAB_MRK</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])):</span>
+
+                    <span class="n">s1</span> <span class="o">=</span> <span class="n">STATES</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">m</span><span class="p">]</span>
+                    <span class="n">q</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">Qlog</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="n">q</span> <span class="o">+</span> <span class="n">TAB_VAL</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">m</span><span class="p">]</span>
+
+                    <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="s2">&quot;State &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; --&gt; &quot;</span>
+                    <span class="p">)</span>
+                    <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;state &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+                    <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot; TRANSITION COST = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">printTrace</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">verbose</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="n">best_val</span><span class="p">:</span>
+                        <span class="n">best_val</span> <span class="o">=</span> <span class="n">val</span>
+                        <span class="n">best_ant</span> <span class="o">=</span> <span class="n">m</span>
+
+                <span class="n">p</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">Plog</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+                <span class="n">TAB_MRK</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">best_ant</span>
+                <span class="n">TAB_VAL</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">best_val</span> <span class="o">+</span> <span class="n">p</span>
+
+                <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;State &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; to &quot;</span>
+                <span class="n">message</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;  OBS COST = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">printTrace</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">verbose</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">printSeparator</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">verbose</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">printSeparator</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">verbose</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># -----------------------------------------------</span>
+        <span class="c1"># Backward step</span>
+        <span class="c1"># -----------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">printTrace</span><span class="p">(</span><span class="s2">&quot;Backward reconstruction phase&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">verbose</span><span class="p">)</span>
+        <span class="n">track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;hmm_inference&quot;</span><span class="p">)</span>
+        <span class="n">track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;hmm_cost&quot;</span><span class="p">)</span>
+        
+        <span class="n">idk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">TAB_VAL</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="c1">#if len(TAB_VAL[k]) == 0:</span>
+            <span class="c1">#    continue</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">printTrace</span><span class="p">(</span>
+                <span class="s2">&quot;Step &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot;: state &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">idk</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot; (cost: &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">TAB_VAL</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">idk</span><span class="p">])</span>
+                <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">,</span>
+                <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="n">verbose</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;hmm_inference&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">STATES</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">idk</span><span class="p">])</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;hmm_cost&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">TAB_VAL</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">idk</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>
+                <span class="n">track</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">STATES</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">idk</span><span class="p">]</span>
+            <span class="n">idk</span> <span class="o">=</span> <span class="n">TAB_MRK</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">idk</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">printSeparator</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">verbose</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LASTIG lab, French National Institute of Geographic and Forest Information.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

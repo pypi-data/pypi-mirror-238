@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tracklib.io.NetworkReader &mdash; TrackLib 1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> TrackLib
+            <img src="../../../_static/TracklibLogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebook/index.html">Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TrackLib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tracklib.io.NetworkReader</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tracklib.io.NetworkReader</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Read network files&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">progressbar</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">xml.dom</span> <span class="kn">import</span> <span class="n">minidom</span>
+
+<span class="kn">from</span> <span class="nn">tracklib.core.ObsTime</span> <span class="kn">import</span> <span class="n">ObsTime</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.ObsCoords</span> <span class="kn">import</span> <span class="n">ENUCoords</span><span class="p">,</span> <span class="n">ECEFCoords</span><span class="p">,</span> <span class="n">GeoCoords</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.Obs</span> <span class="kn">import</span> <span class="n">Obs</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.Track</span> <span class="kn">import</span> <span class="n">Track</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.Network</span> <span class="kn">import</span> <span class="n">Network</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Edge</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.SpatialIndex</span> <span class="kn">import</span> <span class="n">SpatialIndex</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.Bbox</span> <span class="kn">import</span> <span class="n">Bbox</span>
+<span class="kn">from</span> <span class="nn">tracklib.io.NetworkFormat</span> <span class="kn">import</span> <span class="n">NetworkFormat</span>
+<span class="kn">import</span> <span class="nn">tracklib.algo.Cinematics</span> <span class="k">as</span> <span class="nn">Cinematics</span>
+
+
+<span class="k">class</span> <span class="nc">NetworkReader</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class offers static methods to load network from file or from a wfs service.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="NetworkReader.readFromFile"><a class="viewcode-back" href="../../../api/io/io-networkreader.html#tracklib.io.NetworkReader.NetworkReader.readFromFile">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">readFromFile</span><span class="p">(</span><span class="n">path</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">formatfile</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="s2">&quot;DEFAULT&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Network</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read a network from CSV file with geometry structured in coordinates.</span>
+<span class="sd">        </span>
+<span class="sd">        Before to load network data, you need to have a format defined</span>
+<span class="sd">        in **network_file_format** (in tracklib/resources directory) which </span>
+<span class="sd">        describes metadata of the file. If it doesn&#39;t exists, you need to create one format.</span>
+<span class="sd">        </span>
+<span class="sd">        For example, let&#39;s define a format call &#39;VTT&#39; in the file *network_file_format*</span>
+<span class="sd">        which corresponds to a network associated with mountain bike tracks.</span>
+<span class="sd">        So, you add a new line like this:</span>
+<span class="sd">        </span>
+<span class="sd">            *VTT, 1, 2, 3, 0, -1, 4, c, 1, True, UTF-8, GEO*</span>
+<span class="sd">        </span>
+<span class="sd">        where:</span>
+<span class="sd">            - the first value &#39;VTT&#39; represents the format name, </span>
+<span class="sd">            - the second value &#39;1&#39; represents the index of column containing edge identifier in the CSV file</span>
+<span class="sd">            - the third value &#39;2&#39; represents index of column containing source node identifier in the CSV file</span>
+<span class="sd">            - the fourth value &#39;3&#39; represents index of column containing target node identifier in the CSV file</span>
+<span class="sd">            - the fifth value &#39;0&#39; represents index of column containing geometry of edge in wkt format in the CSV file. You can specify also optional parameters:</span>
+<span class="sd">            - a path cost (arbitrarily set to be proportional to the length of the WKT if unlined (-1))</span>
+<span class="sd">            - an orientation index. An integer arbitrarily set to: 0 to indicate two-way, 1 direct way and -1 indirect way</span>
+<span class="sd">            - the separating characters (can be multiple characters). Can be: c (comma), b (blankspace), s (semi-column)</span>
+<span class="sd">            - the number of heading line in format </span>
+<span class="sd">            - true to manage double quote</span>
+<span class="sd">            - the encoding like utf-8</span>
+<span class="sd">            - srid: coordinate system of points (ENU, Geo or ECEF) </span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+<span class="sd">        </span>
+<span class="sd">        :param path: file or directory</span>
+<span class="sd">        :param formatfile: name of format which describes metadata of the file</span>
+<span class="sd">        :return: network.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Error: file not exists&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">network</span> <span class="o">=</span> <span class="n">Network</span><span class="p">()</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="n">NetworkFormat</span><span class="p">(</span><span class="n">formatfile</span><span class="p">)</span>
+
+        <span class="n">num_lines</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading network...&quot;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+            <span class="n">spamreader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">fmt</span><span class="o">.</span><span class="n">separator</span><span class="p">,</span> <span class="n">doublequote</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="c1"># Header</span>
+            <span class="n">cpt</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">spamreader</span><span class="p">:</span>
+                <span class="n">cpt</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">cpt</span> <span class="o">&gt;=</span> <span class="n">fmt</span><span class="o">.</span><span class="n">h</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="n">spamreader</span> <span class="o">=</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">spamreader</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="n">num_lines</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">spamreader</span><span class="p">:</span>
+                <span class="p">(</span><span class="n">edge</span><span class="p">,</span> <span class="n">noeudIni</span><span class="p">,</span> <span class="n">noeudFin</span><span class="p">)</span> <span class="o">=</span> <span class="n">readLineAndAddToNetwork</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">fmt</span><span class="p">)</span>
+                <span class="n">network</span><span class="o">.</span><span class="n">addEdge</span><span class="p">(</span><span class="n">edge</span><span class="p">,</span> <span class="n">noeudIni</span><span class="p">,</span> <span class="n">noeudFin</span><span class="p">)</span>
+
+        <span class="n">csvfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="c1"># Return network loaded</span>
+        <span class="k">return</span> <span class="n">network</span></div>
+    
+    
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">NB_PER_PAGE</span> <span class="o">=</span> <span class="mi">1000</span>
+
+    <span class="n">URL_SERVER</span> <span class="o">=</span> <span class="s2">&quot;https://wxs.ign.fr/choisirgeoportail/geoportail/wfs?&quot;</span>
+    <span class="n">URL_SERVER</span> <span class="o">+=</span> <span class="s2">&quot;service=WFS&amp;version=2.0.0&amp;request=GetFeature&amp;&quot;</span>
+    <span class="n">URL_SERVER</span> <span class="o">+=</span> <span class="s2">&quot;typeName=BDTOPO_V3:troncon_de_route&amp;&quot;</span>
+    <span class="c1"># URL_SERVER += &quot;srsName=EPSG:2154&amp;&quot;</span>
+    <span class="n">URL_SERVER</span> <span class="o">+=</span> <span class="s2">&quot;outputFormat=json&amp;&quot;</span>
+    <span class="c1"># URL_SERVER += &quot;BBOX=44.538617443499014,5.808794912294471,45.05505710140573,6.644301708889899&quot;</span>
+    <span class="c1"># URL_SERVER += &quot;&amp;count=3&amp;startIndex=0&quot;</span>
+    
+    
+
+    <span class="n">resource_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;../..&quot;</span><span class="p">)</span>
+    <span class="n">PROXY_FILE_FORMAT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">resource_path</span><span class="p">,</span> <span class="s2">&quot;resources/proxy&quot;</span><span class="p">)</span>
+
+    <span class="c1"># self.id = id</span>
+    <span class="c1"># self.coords = coords</span>
+    <span class="c1"># self.nature = nature</span>
+    <span class="c1"># self.sens = sens</span>
+    <span class="c1"># self.fictif = fictif</span>
+    <span class="c1"># self.pos = pos</span>
+
+    <span class="c1"># ===========================</span>
+    <span class="c1"># tolerance</span>
+    <span class="c1"># ===========================</span>
+<div class="viewcode-block" id="NetworkReader.requestFromIgnGeoportail"><a class="viewcode-back" href="../../../api/io/io-networkreader.html#tracklib.io.NetworkReader.NetworkReader.requestFromIgnGeoportail">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">requestFromIgnGeoportail</span><span class="p">(</span>
+        <span class="n">bbox</span><span class="p">:</span><span class="n">Bbox</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">spatialIndex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nomproxy</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Network</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+
+<span class="sd">        :param bbox: The bounding box of the selected area (The bounding box must</span>
+<span class="sd">            be expressed in WGS84).</span>
+<span class="sd">        :param proj: projection of results, optional. Only &#39;EPSG:4326&#39; is implemented</span>
+<span class="sd">        :param margin: f</span>
+<span class="sd">        :param tolerance: parameter specifies the maximum distance accepted for merging two nodes (edge ends)</span>
+<span class="sd">        :param nomproxy: name of proxy which describes parameter connexion defined in the tracklib/resources/proxy file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">xmin</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">getXmin</span><span class="p">()</span>
+        <span class="n">xmax</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">getXmax</span><span class="p">()</span>
+        <span class="n">ymin</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">getYmin</span><span class="p">()</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">getYmax</span><span class="p">()</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="p">(</span><span class="n">ymax</span> <span class="o">-</span> <span class="n">ymin</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        
+        <span class="c1"># Adding margin</span>
+        <span class="n">emprise</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">xmin</span> <span class="o">-</span> <span class="n">margin</span> <span class="o">*</span> <span class="n">dx</span><span class="p">,</span>
+            <span class="n">xmax</span> <span class="o">+</span> <span class="n">margin</span> <span class="o">*</span> <span class="n">dx</span><span class="p">,</span>
+            <span class="n">ymin</span> <span class="o">-</span> <span class="n">margin</span> <span class="o">*</span> <span class="n">dy</span><span class="p">,</span>
+            <span class="n">ymax</span> <span class="o">+</span> <span class="n">margin</span> <span class="o">*</span> <span class="n">dy</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">network</span> <span class="o">=</span> <span class="n">Network</span><span class="p">()</span>
+
+        <span class="n">cptNode</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="n">proj</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">proj</span> <span class="o">=</span> <span class="s2">&quot;EPSG:4326&quot;</span>
+
+        <span class="n">fmt</span> <span class="o">=</span> <span class="n">NetworkFormat</span><span class="p">()</span>
+        <span class="n">fmt</span><span class="o">.</span><span class="n">createFromDict</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;WFS&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;pos_edge_id&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;pos_source&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                <span class="s2">&quot;pos_target&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+                <span class="s2">&quot;pos_wkt&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;pos_poids&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="s2">&quot;pos_sens&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                <span class="s2">&quot;srid&quot;</span><span class="p">:</span> <span class="s2">&quot;GEO&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+        <span class="c1"># PROXY</span>
+        <span class="n">proxyDict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">nomproxy</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">NetworkReader</span><span class="o">.</span><span class="n">PROXY_FILE_FORMAT</span><span class="p">)</span> <span class="k">as</span> <span class="n">ffmt</span><span class="p">:</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">ffmt</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">while</span> <span class="n">line</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;#&quot;</span><span class="p">:</span>
+                        <span class="n">line</span> <span class="o">=</span> <span class="n">ffmt</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                        <span class="k">continue</span>
+                    <span class="n">tab</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">tab</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="n">nomproxy</span><span class="p">:</span>
+                        <span class="n">FIELDS</span> <span class="o">=</span> <span class="n">tab</span>
+                        <span class="n">proxyDict</span><span class="p">[</span><span class="n">FIELDS</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="n">FIELDS</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">ffmt</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">ffmt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="n">nbRoute</span> <span class="o">=</span> <span class="n">NetworkReader</span><span class="o">.</span><span class="n">__getNbRouteEmprise</span><span class="p">(</span><span class="n">emprise</span><span class="p">,</span> <span class="n">proxyDict</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">nbRoute</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        
+        <span class="n">nbiter</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nbRoute</span> <span class="o">/</span> <span class="n">NetworkReader</span><span class="o">.</span><span class="n">NB_PER_PAGE</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nbiter</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PAGE &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nbiter</span><span class="p">))</span>
+            <span class="n">URL_FEAT</span> <span class="o">=</span> <span class="n">NetworkReader</span><span class="o">.</span><span class="n">URL_SERVER</span>
+            <span class="n">URL_FEAT</span> <span class="o">+=</span> <span class="s2">&quot;BBOX=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">emprise</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">emprise</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">URL_FEAT</span> <span class="o">+=</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">emprise</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">emprise</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">URL_FEAT</span> <span class="o">+=</span> <span class="s2">&quot;&amp;count=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">NetworkReader</span><span class="o">.</span><span class="n">NB_PER_PAGE</span><span class="p">)</span>
+            <span class="n">URL_FEAT</span> <span class="o">+=</span> <span class="s2">&quot;&amp;startIndex=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+            <span class="n">URL_FEAT</span> <span class="o">+=</span> <span class="s2">&quot;&amp;RESULTTYPE=results&quot;</span>
+            <span class="n">URL_FEAT</span> <span class="o">+=</span> <span class="s2">&quot;&amp;srsname=&quot;</span> <span class="o">+</span> <span class="n">proj</span>
+            <span class="c1"># print (URL_FEAT)</span>
+
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">URL_FEAT</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="n">proxyDict</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">features</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
+
+                <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+
+                <span class="n">idd</span> <span class="o">=</span> <span class="n">feature</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+                <span class="c1"># nature = feature[&#39;properties&#39;][&#39;nature&#39;]</span>
+                <span class="n">fictif</span> <span class="o">=</span> <span class="n">feature</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;fictif&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">fictif</span> <span class="o">==</span> <span class="s2">&quot;True&quot;</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idd</span><span class="p">)</span>
+
+                <span class="c1"># TODO</span>
+                <span class="c1"># pos = feature[&#39;properties&#39;][&#39;position_par_rapport_au_sol&#39;]</span>
+
+                <span class="n">TAB_OBS</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">coords</span> <span class="o">=</span> <span class="n">feature</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">][</span><span class="s2">&quot;coordinates&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">feature</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;LineString&quot;</span><span class="p">:</span>
+                    <span class="c1"># print (str(len(coords)))</span>
+                    <span class="c1"># geom = coords</span>
+                    <span class="c1"># print (coords)</span>
+
+                    <span class="n">typeCoord</span> <span class="o">=</span> <span class="s2">&quot;GEOCOORDS&quot;</span>
+                    <span class="k">if</span> <span class="n">proj</span> <span class="o">==</span> <span class="s2">&quot;EPSG:2154&quot;</span><span class="p">:</span>
+                        <span class="n">typeCoord</span> <span class="o">=</span> <span class="s2">&quot;ENUCoords&quot;</span>
+                    <span class="n">TAB_OBS</span> <span class="o">=</span> <span class="n">tabCoordsLineStringToObs</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">typeCoord</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">TAB_OBS</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">track</span> <span class="o">=</span> <span class="n">Track</span><span class="p">(</span><span class="n">TAB_OBS</span><span class="p">)</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">toWKT</span><span class="p">())</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;ENU&quot;</span><span class="p">)</span>
+
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">length</span><span class="p">())</span>
+
+                <span class="c1"># Orientation</span>
+                <span class="n">sens</span> <span class="o">=</span> <span class="n">feature</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;sens_de_circulation&quot;</span><span class="p">]</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="n">Edge</span><span class="o">.</span><span class="n">DOUBLE_SENS</span>
+                <span class="k">if</span> <span class="n">sens</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">sens</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                    <span class="n">orientation</span> <span class="o">=</span> <span class="n">Edge</span><span class="o">.</span><span class="n">DOUBLE_SENS</span>
+                <span class="k">elif</span> <span class="n">sens</span> <span class="o">==</span> <span class="s2">&quot;Double sens&quot;</span> <span class="ow">or</span> <span class="n">sens</span> <span class="o">==</span> <span class="s2">&quot;Sans objet&quot;</span><span class="p">:</span>
+                    <span class="n">orientation</span> <span class="o">=</span> <span class="n">Edge</span><span class="o">.</span><span class="n">DOUBLE_SENS</span>
+                <span class="k">elif</span> <span class="n">sens</span> <span class="o">==</span> <span class="s2">&quot;Direct&quot;</span> <span class="ow">or</span> <span class="n">sens</span> <span class="o">==</span> <span class="s2">&quot;Sens direct&quot;</span><span class="p">:</span>
+                    <span class="n">orientation</span> <span class="o">=</span> <span class="n">Edge</span><span class="o">.</span><span class="n">SENS_DIRECT</span>
+                <span class="k">elif</span> <span class="n">sens</span> <span class="o">==</span> <span class="s2">&quot;Indirect&quot;</span> <span class="ow">or</span> <span class="n">sens</span> <span class="o">==</span> <span class="s2">&quot;Sens inverse&quot;</span><span class="p">:</span>
+                    <span class="n">orientation</span> <span class="o">=</span> <span class="n">Edge</span><span class="o">.</span><span class="n">SENS_INVERSE</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">sens</span><span class="p">)</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">orientation</span><span class="p">)</span>
+
+                <span class="c1"># Source node</span>
+                <span class="n">idNoeudIni</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">cptNode</span><span class="p">)</span>
+                <span class="n">p1</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getFirstObs</span><span class="p">()</span><span class="o">.</span><span class="n">position</span>
+                <span class="n">candidates</span> <span class="o">=</span> <span class="n">selectNodes</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">p1</span><span class="p">),</span> <span class="n">tolerance</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">c</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">idNoeudIni</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">id</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cptNode</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="c1"># Target node</span>
+                <span class="n">idNoeudFin</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">cptNode</span><span class="p">)</span>
+                <span class="n">p2</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getLastObs</span><span class="p">()</span><span class="o">.</span><span class="n">position</span>
+                <span class="n">candidates</span> <span class="o">=</span> <span class="n">selectNodes</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">p2</span><span class="p">),</span> <span class="n">tolerance</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">c</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">idNoeudFin</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">id</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cptNode</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idNoeudIni</span><span class="p">)</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idNoeudFin</span><span class="p">)</span>
+
+                <span class="p">(</span><span class="n">edge</span><span class="p">,</span> <span class="n">noeudIni</span><span class="p">,</span> <span class="n">noeudFin</span><span class="p">)</span> <span class="o">=</span> <span class="n">readLineAndAddToNetwork</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">fmt</span><span class="p">)</span>
+                <span class="n">network</span><span class="o">.</span><span class="n">addEdge</span><span class="p">(</span><span class="n">edge</span><span class="p">,</span> <span class="n">noeudIni</span><span class="p">,</span> <span class="n">noeudFin</span><span class="p">)</span>
+
+            <span class="c1">#</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">NetworkReader</span><span class="o">.</span><span class="n">NB_PER_PAGE</span>
+
+        <span class="k">if</span> <span class="n">spatialIndex</span><span class="p">:</span>
+            <span class="n">network</span><span class="o">.</span><span class="n">spatial_index</span> <span class="o">=</span> <span class="n">SpatialIndex</span><span class="p">(</span>
+                <span class="n">network</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="n">dx</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span> <span class="n">dy</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">),</span> <span class="n">margin</span><span class="o">=</span><span class="mf">0.4</span>
+            <span class="p">)</span>
+            
+            
+        <span class="k">return</span> <span class="n">network</span></div>
+
+    <span class="c1"># --------------------------------------------------------------------------</span>
+    <span class="c1"># Function to count road network features in bbox</span>
+    <span class="c1"># --------------------------------------------------------------------------</span>
+    <span class="c1"># Input :</span>
+    <span class="c1">#   - v: a float value</span>
+    <span class="c1"># --------------------------------------------------------------------------</span>
+    <span class="c1"># Output : number</span>
+    <span class="c1"># --------------------------------------------------------------------------</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__getNbRouteEmprise</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">proxyDict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+
+        <span class="n">nb</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">URL_HITS</span> <span class="o">=</span> <span class="n">NetworkReader</span><span class="o">.</span><span class="n">URL_SERVER</span>
+        <span class="n">URL_HITS</span> <span class="o">+=</span> <span class="s2">&quot;BBOX=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">URL_HITS</span> <span class="o">+=</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">URL_HITS</span> <span class="o">+=</span> <span class="s2">&quot;&amp;resulttype=hits&quot;</span>
+        <span class="c1">#print (URL_HITS)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">URL_HITS</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="n">proxyDict</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">status</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span><span class="p">:</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: Failed to establish connection&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        
+        <span class="c1"># x = requests.get(url, proxies = { &quot;https&quot; : &quot;https://1.1.0.1:80&quot;})</span>
+        <span class="c1"># print (&#39;---------&#39; + status, type(status))</span>
+        <span class="n">dom</span> <span class="o">=</span> <span class="n">minidom</span><span class="o">.</span><span class="n">parseString</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    
+        <span class="n">result</span> <span class="o">=</span> <span class="n">dom</span><span class="o">.</span><span class="n">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;wfs:FeatureCollection&quot;</span><span class="p">)</span>
+    
+        <span class="n">nb</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;numberMatched&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nb</span>
+        
+        
+
+        
+
+
+<span class="k">def</span> <span class="nf">readLineAndAddToNetwork</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">fmt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+    <span class="n">edge_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">fmt</span><span class="o">.</span><span class="n">pos_edge_id</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">fmt</span><span class="o">.</span><span class="n">pos_edge_id</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">edge_id</span> <span class="o">=</span> <span class="n">NetworkReader</span><span class="o">.</span><span class="n">counter</span>
+    <span class="n">NetworkReader</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="n">NetworkReader</span><span class="o">.</span><span class="n">counter</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="n">geom</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">fmt</span><span class="o">.</span><span class="n">pos_wkt</span><span class="p">])</span>
+    <span class="n">TAB_OBS</span> <span class="o">=</span> <span class="n">wktLineStringToObs</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">fmt</span><span class="o">.</span><span class="n">srid</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+
+    <span class="c1"># Au moins 2 points</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">TAB_OBS</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">track</span> <span class="o">=</span> <span class="n">Track</span><span class="p">(</span><span class="n">TAB_OBS</span><span class="p">)</span>
+    <span class="n">Cinematics</span><span class="o">.</span><span class="n">computeAbsCurv</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+
+    <span class="n">edge</span> <span class="o">=</span> <span class="n">Edge</span><span class="p">(</span><span class="n">edge_id</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+
+    <span class="c1"># Orientation</span>
+    <span class="n">orientation</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">fmt</span><span class="o">.</span><span class="n">pos_sens</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">orientation</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">Edge</span><span class="o">.</span><span class="n">DOUBLE_SENS</span><span class="p">,</span> <span class="n">Edge</span><span class="o">.</span><span class="n">SENS_DIRECT</span><span class="p">,</span> <span class="n">Edge</span><span class="o">.</span><span class="n">SENS_INVERSE</span><span class="p">]:</span>
+        <span class="n">orientation</span> <span class="o">=</span> <span class="n">Edge</span><span class="o">.</span><span class="n">DOUBLE_SENS</span>
+    <span class="n">edge</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">orientation</span>
+
+    <span class="c1"># Poids</span>
+    <span class="k">if</span> <span class="n">fmt</span><span class="o">.</span><span class="n">pos_poids</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">poids</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">poids</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">fmt</span><span class="o">.</span><span class="n">pos_poids</span><span class="p">])</span>
+    <span class="n">edge</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">poids</span>
+
+    <span class="c1"># Source node</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">fmt</span><span class="o">.</span><span class="n">pos_source</span><span class="p">])</span>
+    <span class="n">noeudIni</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">getFirstObs</span><span class="p">()</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+
+    <span class="c1"># Target node</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">fmt</span><span class="o">.</span><span class="n">pos_target</span><span class="p">])</span>
+    <span class="n">noeudFin</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">getLastObs</span><span class="p">()</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+
+    <span class="c1"># Return</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">edge</span><span class="p">,</span> <span class="n">noeudIni</span><span class="p">,</span> <span class="n">noeudFin</span><span class="p">)</span>
+    <span class="c1"># network.addEdge(edge, noeudIni, noeudFin)</span>
+
+
+<span class="k">def</span> <span class="nf">wktLineStringToObs</span><span class="p">(</span><span class="n">wkt</span><span class="p">,</span> <span class="n">srid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Une polyligne de n points est modélisée par une Track (timestamp = 1970/01/01 00 :00 :00)</span>
+<span class="sd">        Cas LINESTRING()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Creation d&#39;une liste vide</span>
+    <span class="n">TAB_OBS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="c1"># Separation de la chaine</span>
+    <span class="n">coords_string</span> <span class="o">=</span> <span class="n">wkt</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)</span>
+    <span class="n">coords_string</span> <span class="o">=</span> <span class="n">coords_string</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">coords_string</span> <span class="o">=</span> <span class="n">coords_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">coords_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">)):</span>
+        <span class="n">sl</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sl</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sl</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sl</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sl</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">srid</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="s2">&quot;ENUCOORDS&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ENU&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;GEOCOORDS&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;GEO&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ECEFCOORDS&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ECEF&quot;</span><span class="p">,</span>
+        <span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: unknown coordinate type [&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">srid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span><span class="p">)</span>
+            <span class="n">exit</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">srid</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ENUCOORDS&quot;</span><span class="p">,</span> <span class="s2">&quot;ENU&quot;</span><span class="p">]:</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">ENUCoords</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">srid</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;GEOCOORDS&quot;</span><span class="p">,</span> <span class="s2">&quot;GEO&quot;</span><span class="p">]:</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">GeoCoords</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">srid</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ECEFCOORDS&quot;</span><span class="p">,</span> <span class="s2">&quot;ECEF&quot;</span><span class="p">]:</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">ECEFCoords</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+
+        <span class="n">TAB_OBS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Obs</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">ObsTime</span><span class="p">()))</span>
+
+    <span class="k">return</span> <span class="n">TAB_OBS</span>
+
+<span class="k">def</span> <span class="nf">selectNodes</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">distance</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Selection des autres noeuds dans le cercle dont node.coord est le centre,</span>
+<span class="sd">    de rayon distance</span>
+
+<span class="sd">    :param node: le centre du cercle de recherche.</span>
+<span class="sd">    :param distance: le rayon du cercle de recherche.</span>
+
+<span class="sd">    :return: tableau de NODES liste des noeuds dans le cercle</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">NODES</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">network</span><span class="o">.</span><span class="n">spatial_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">network</span><span class="o">.</span><span class="n">getIndexNodes</span><span class="p">():</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">NODES</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">coord</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">coord</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">distance</span><span class="p">:</span>
+                <span class="n">NODES</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">vicinity_edges</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">spatial_index</span><span class="o">.</span><span class="n">neighborhood</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">coord</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">vicinity_edges</span><span class="p">:</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">EDGES</span><span class="p">[</span><span class="n">network</span><span class="o">.</span><span class="n">getEdgeId</span><span class="p">(</span><span class="n">e</span><span class="p">)]</span><span class="o">.</span><span class="n">source</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">EDGES</span><span class="p">[</span><span class="n">network</span><span class="o">.</span><span class="n">getEdgeId</span><span class="p">(</span><span class="n">e</span><span class="p">)]</span><span class="o">.</span><span class="n">target</span>
+            <span class="k">if</span> <span class="n">source</span><span class="o">.</span><span class="n">coord</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">coord</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">distance</span><span class="p">:</span>
+                <span class="n">NODES</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">target</span><span class="o">.</span><span class="n">coord</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">coord</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">distance</span><span class="p">:</span>
+                <span class="n">NODES</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">NODES</span>
+
+
+<span class="k">def</span> <span class="nf">tabCoordsLineStringToObs</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">srid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO&quot;&quot;&quot;</span>
+
+    <span class="c1"># Creation d&#39;une liste vide</span>
+    <span class="n">TAB_OBS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">)):</span>
+        <span class="n">sl</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sl</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sl</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sl</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sl</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">srid</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="s2">&quot;ENUCOORDS&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ENU&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;GEOCOORDS&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;GEO&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ECEFCOORDS&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ECEF&quot;</span><span class="p">,</span>
+        <span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: unknown coordinate type [&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">srid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span><span class="p">)</span>
+            <span class="n">exit</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">srid</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ENUCOORDS&quot;</span><span class="p">,</span> <span class="s2">&quot;ENU&quot;</span><span class="p">]:</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">ENUCoords</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">srid</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;GEOCOORDS&quot;</span><span class="p">,</span> <span class="s2">&quot;GEO&quot;</span><span class="p">]:</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">GeoCoords</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">srid</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ECEFCOORDS&quot;</span><span class="p">,</span> <span class="s2">&quot;ECEF&quot;</span><span class="p">]:</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">ECEFCoords</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+
+        <span class="n">TAB_OBS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Obs</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">ObsTime</span><span class="p">()))</span>
+
+    <span class="k">return</span> <span class="n">TAB_OBS</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LASTIG lab, French National Institute of Geographic and Forest Information.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

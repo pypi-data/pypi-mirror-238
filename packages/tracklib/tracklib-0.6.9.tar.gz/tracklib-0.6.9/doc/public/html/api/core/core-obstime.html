@@ -1,0 +1,1240 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>ObsTime &#8212; TrackLib 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/core/core-obstime';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Operator" href="core-operator.html" />
+    <link rel="prev" title="ObsCoords" href="core-obscoords.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/TracklibLogo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/TracklibLogo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Section navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">
+    Section Navigation
+  </p>
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../algo.html">Module algo</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-analytics.html">Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-cinematics.html">Cinematics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-comparison.html">Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-dynamics.html">Dynamics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-filtering.html">Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-geometrics.html">Geometrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-interpolation.html">Interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-mapping.html">Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-segmentation.html">Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-selection.html">Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-simplification.html">Simplification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-stochastics.html">Stochastics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-summarising.html">Summarising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algo/algo-synthetics.html">Synthetics</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../core.html">Module core</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core-bbox.html">Bbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-kernel.html">Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-network.html">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-obs.html">Obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-obscoords.html">ObsCoords</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">ObsTime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-operator.html">Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-raster.html">Raster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-rasterband.html">RasterBand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-index.html">SpatialIndex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-track.html">Track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-trackcollection.html">TrackCollection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core-utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../io.html">Module io</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-trackreader.html">TrackReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-trackwriter.html">TrackWriter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-networkreader.html">NetworkReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-networkwriter.html">NetworkWriter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-rasterreader.html">RasterReader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/io-rasterwriter.html">RasterWriter</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../util.html">Module util</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../util/util-geometry.html">Geometry</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</nav>
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <section id="module-tracklib.core.ObsTime">
+<span id="obstime"></span><h1>ObsTime<a class="headerlink" href="#module-tracklib.core.ObsTime" title="Permalink to this heading">#</a></h1>
+<p>This module contains the class to manage timestamps</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tracklib.core.ObsTime.</span></span><span class="sig-name descname"><span class="pre">ObsTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1970</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime" title="Permalink to this definition">#</a></dt>
+<dd><p>Class to represent the phenomenom time of an observation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.BASE_YEAR">
+<span class="sig-name descname"><span class="pre">BASE_YEAR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2000</span></em><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.BASE_YEAR" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.UNIX_BASE_YEAR">
+<span class="sig-name descname"><span class="pre">UNIX_BASE_YEAR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1970</span></em><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.UNIX_BASE_YEAR" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.ROUND_TO_SEC">
+<span class="sig-name descname"><span class="pre">ROUND_TO_SEC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.ROUND_TO_SEC" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__READ_FMT">
+<span class="sig-name descname"><span class="pre">__READ_FMT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'2D/2M/4Y</span> <span class="pre">2h:2m:2s'</span></em><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__READ_FMT" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__PRINT_FMT">
+<span class="sig-name descname"><span class="pre">__PRINT_FMT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'2D/2M/4Y</span> <span class="pre">2h:2m:2s'</span></em><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__PRINT_FMT" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__PRECOMPILED_READ_FMT">
+<span class="sig-name descname"><span class="pre">__PRECOMPILED_READ_FMT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('2D',</span> <span class="pre">0),</span> <span class="pre">('2M',</span> <span class="pre">3),</span> <span class="pre">('4Y',</span> <span class="pre">6),</span> <span class="pre">('2h',</span> <span class="pre">11),</span> <span class="pre">('2m',</span> <span class="pre">14),</span> <span class="pre">('2s',</span> <span class="pre">17)]</span></em><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__PRECOMPILED_READ_FMT" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__fmt_nd">
+<span class="sig-name descname"><span class="pre">__fmt_nd</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['{:01d}',</span> <span class="pre">'{:02d}',</span> <span class="pre">'{:03d}',</span> <span class="pre">'{:04d}']</span></em><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__fmt_nd" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__codes">
+<span class="sig-name descname"><span class="pre">__codes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['1D',</span> <span class="pre">'2D',</span> <span class="pre">'1M',</span> <span class="pre">'2M',</span> <span class="pre">'2Y',</span> <span class="pre">'4Y',</span> <span class="pre">'1h',</span> <span class="pre">'2h',</span> <span class="pre">'1m',</span> <span class="pre">'2m',</span> <span class="pre">'1s',</span> <span class="pre">'2s',</span> <span class="pre">'1z',</span> <span class="pre">'2z',</span> <span class="pre">'3z']</span></em><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__codes" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__day_per_month">
+<span class="sig-name descname"><span class="pre">__day_per_month</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[31,</span> <span class="pre">28,</span> <span class="pre">31,</span> <span class="pre">30,</span> <span class="pre">31,</span> <span class="pre">30,</span> <span class="pre">31,</span> <span class="pre">31,</span> <span class="pre">30,</span> <span class="pre">31,</span> <span class="pre">30,</span> <span class="pre">31]</span></em><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__day_per_month" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__month_names">
+<span class="sig-name descname"><span class="pre">__month_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Jan',</span> <span class="pre">'Feb',</span> <span class="pre">'Mar',</span> <span class="pre">'Apr',</span> <span class="pre">'May',</span> <span class="pre">'Jun',</span> <span class="pre">'Jul',</span> <span class="pre">'Aug',</span> <span class="pre">'Sep',</span> <span class="pre">'Oct',</span> <span class="pre">'Nov',</span> <span class="pre">'Dec']</span></em><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__month_names" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__day_names">
+<span class="sig-name descname"><span class="pre">__day_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Mon',</span> <span class="pre">'Tue',</span> <span class="pre">'Wed',</span> <span class="pre">'Thu',</span> <span class="pre">'Fri',</span> <span class="pre">'Sat',</span> <span class="pre">'Sun']</span></em><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__day_names" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__day_of_base_date">
+<span class="sig-name descname"><span class="pre">__day_of_base_date</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__day_of_base_date" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1970</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>__init__ Constructor of <a class="reference internal" href="#tracklib.core.ObsTime.ObsTime" title="tracklib.core.ObsTime.ObsTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObsTime</span></code></a> class</p>
+<p>Default value : 01/01/1970 00:00:00.000</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>year</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Year, defaults to 1970</p></li>
+<li><p><strong>month</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – month defaults to 1</p></li>
+<li><p><strong>day</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – day of month, defaults to 1</p></li>
+<li><p><strong>hour</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – your, defaults to 0</p></li>
+<li><p><strong>min</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – minute, defaults to 0</p></li>
+<li><p><strong>sec</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – second, defaults to 0</p></li>
+<li><p><strong>ms</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – millisecond, defaults to 0</p></li>
+<li><p><strong>zone</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – time zone, defaults to 0</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.copy" title="Permalink to this definition">#</a></dt>
+<dd><p>Copy the object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tracklib.core.ObsTime.ObsTime" title="tracklib.core.ObsTime.ObsTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObsTime</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>copy of current object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.setPrintFormat">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setPrintFormat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.setPrintFormat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.setPrintFormat" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the format for printing a ObsTime object</p>
+<p>The print format is use by the <a class="reference internal" href="#tracklib.core.ObsTime.ObsTime.__str__" title="tracklib.core.ObsTime.ObsTime.__str__"><code class="xref py py-func docutils literal notranslate"><span class="pre">ObsTime.__str__()</span></code></a> method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>format</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Format for printing ObsTime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.setReadFormat">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setReadFormat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.setReadFormat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.setReadFormat" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the format for reading a ObsTime object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>format</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Format for reading</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.getPrintFormat">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getPrintFormat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.getPrintFormat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.getPrintFormat" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the print format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The print format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.getReadFormat">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getReadFormat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.getReadFormat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.getReadFormat" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the read format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The read format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.readUnixTime">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">readUnixTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elapsed_seconds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.readUnixTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.readUnixTime" title="Permalink to this definition">#</a></dt>
+<dd><p>Converting elapsed float seconds since 01/01/1970 in ObsTime</p>
+<p><strong>Warning:</strong> does not consider leap seconds (31 since 1970)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>elapsed_seconds</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Elapsed seconds</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tracklib.core.ObsTime.ObsTime" title="tracklib.core.ObsTime.ObsTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObsTime</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Coverted time</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.toAbsTime">
+<span class="sig-name descname"><span class="pre">toAbsTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.toAbsTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.toAbsTime" title="Permalink to this definition">#</a></dt>
+<dd><p>Converting to elapsed float seconds since 01/01/1970 (or 01/01/UNIX_BASE_YEAR)</p>
+<p><strong>Warning:</strong> does not consider leap seconds since 1972</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>elapsed float seconds</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.random">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">random</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.random"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.random" title="Permalink to this definition">#</a></dt>
+<dd><p>Generate random date between 01/01/1970 and 01/01/2050</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tracklib.core.ObsTime.ObsTime" title="tracklib.core.ObsTime.ObsTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObsTime</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.now">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">now</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.now"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.now" title="Permalink to this definition">#</a></dt>
+<dd><p>Get Current Date and Time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tracklib.core.ObsTime.ObsTime" title="tracklib.core.ObsTime.ObsTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObsTime</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.printZone">
+<span class="sig-name descname"><span class="pre">printZone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.printZone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.printZone" title="Permalink to this definition">#</a></dt>
+<dd><p>Print zone code (Z if greenwhich) ISO 8601</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.timeWithZone">
+<span class="sig-name descname"><span class="pre">timeWithZone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.timeWithZone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.timeWithZone" title="Permalink to this definition">#</a></dt>
+<dd><p>Print as Gpx time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.convertToZone">
+<span class="sig-name descname"><span class="pre">convertToZone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.convertToZone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.convertToZone" title="Permalink to this definition">#</a></dt>
+<dd><p>Zone conversion</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>zone</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Time zone</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tracklib.core.ObsTime.ObsTime" title="tracklib.core.ObsTime.ObsTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObsTime</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Time for the set time zone</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.getDayOfWeek">
+<span class="sig-name descname"><span class="pre">getDayOfWeek</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.getDayOfWeek"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.getDayOfWeek" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the current day of week</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__fillMember">
+<span class="sig-name descname"><span class="pre">__fillMember</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__fillMember" title="Permalink to this definition">#</a></dt>
+<dd><p>Adding value in a field according to code</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__takeSecond">
+<span class="sig-name descname"><span class="pre">__takeSecond</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__takeSecond" title="Permalink to this definition">#</a></dt>
+<dd><p>Methods to prepare reading timestamp format</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__rep">
+<span class="sig-name descname"><span class="pre">__rep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">char</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__rep" title="Permalink to this definition">#</a></dt>
+<dd><p>Generate a string repeting a char</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>char</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Caracter to repeate</p></li>
+<li><p><strong>n</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number or repetitions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Retunr</dt>
+<dd class="field-even"><p>A string of <cite>n</cite> repetitions of <cite>c</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__precompileReadFmt">
+<span class="sig-name descname"><span class="pre">__precompileReadFmt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__precompileReadFmt" title="Permalink to this definition">#</a></dt>
+<dd><p>Precompile the reader</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>format</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A format string</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of precompiled symbols</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.readTimestamp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">readTimestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeAsString</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.readTimestamp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.readTimestamp" title="Permalink to this definition">#</a></dt>
+<dd><p>Build timestamp from string according to READ_FMT</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>timeAsString</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Timestamp in string format</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tracklib.core.ObsTime.ObsTime" title="tracklib.core.ObsTime.ObsTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObsTime</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__replace">
+<span class="sig-name descname"><span class="pre">__replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chaine</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__replace" title="Permalink to this definition">#</a></dt>
+<dd><p>Remplacing substring of length <cite>length</cite>, starting at pos <cite>id</cite>
+in string <cite>chaine</cite> with new string <cite>new</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chaine</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – String to remplace</p></li>
+<li><p><strong>id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Starting position of replacement</p></li>
+<li><p><strong>length</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Length of substring to remplace</p></li>
+<li><p><strong>new</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – String of replacement</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Replaced string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.__str__" title="Permalink to this definition">#</a></dt>
+<dd><p>Prints timestamp according to PRINT_FMT specification</p>
+<dl class="field-list simple">
+<dt class="field-odd">Retunr</dt>
+<dd class="field-odd"><p>the timestamp to print</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.addSec">
+<span class="sig-name descname"><span class="pre">addSec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.addSec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.addSec" title="Permalink to this definition">#</a></dt>
+<dd><p>Add <cite>nb</cite> seconds to current time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nb</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of seconds to add</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tracklib.core.ObsTime.ObsTime" title="tracklib.core.ObsTime.ObsTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObsTime</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="#tracklib.core.ObsTime.ObsTime" title="tracklib.core.ObsTime.ObsTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObsTime</span></code></a> incremented of <cite>nb</cite> second(s)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.addMin">
+<span class="sig-name descname"><span class="pre">addMin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.addMin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.addMin" title="Permalink to this definition">#</a></dt>
+<dd><p>Add <cite>nb</cite> minutes to current time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nb</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of minutes to add</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tracklib.core.ObsTime.ObsTime" title="tracklib.core.ObsTime.ObsTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObsTime</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="#tracklib.core.ObsTime.ObsTime" title="tracklib.core.ObsTime.ObsTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObsTime</span></code></a> incremented of <cite>nb</cite> minute(s)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.addHour">
+<span class="sig-name descname"><span class="pre">addHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.addHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.addHour" title="Permalink to this definition">#</a></dt>
+<dd><p>Add <cite>nb</cite> hours to current time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nb</strong> – Number of hours to add</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#tracklib.core.ObsTime.ObsTime" title="tracklib.core.ObsTime.ObsTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObsTime</span></code></a> incremented of <cite>nb</cite> hour(s)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tracklib.core.ObsTime.ObsTime.addDay">
+<span class="sig-name descname"><span class="pre">addDay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tracklib/core/ObsTime.html#ObsTime.addDay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tracklib.core.ObsTime.ObsTime.addDay" title="Permalink to this definition">#</a></dt>
+<dd><p>Add <cite>nb</cite> days to current time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nb</strong> – Number of days to add</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#tracklib.core.ObsTime.ObsTime" title="tracklib.core.ObsTime.ObsTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObsTime</span></code></a> incremented of <cite>nb</cite> day(s)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="core-obscoords.html" title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">ObsCoords</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="core-operator.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">Operator</p>
+  </div>
+  <i class="fa-solid fa-angle-right"></i>
+  </a>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     ObsTime
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.BASE_YEAR">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.BASE_YEAR
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.UNIX_BASE_YEAR">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.UNIX_BASE_YEAR
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.ROUND_TO_SEC">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.ROUND_TO_SEC
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__READ_FMT">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__READ_FMT
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__PRINT_FMT">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__PRINT_FMT
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__PRECOMPILED_READ_FMT">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__PRECOMPILED_READ_FMT
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__fmt_nd">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__fmt_nd
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__codes">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__codes
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__day_per_month">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__day_per_month
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__month_names">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__month_names
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__day_names">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__day_names
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__day_of_base_date">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__day_of_base_date
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__init__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__init__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.copy">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.copy()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.setPrintFormat">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.setPrintFormat()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.setReadFormat">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.setReadFormat()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.getPrintFormat">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.getPrintFormat()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.getReadFormat">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.getReadFormat()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.readUnixTime">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.readUnixTime()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.toAbsTime">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.toAbsTime()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.random">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.random()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.now">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.now()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.printZone">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.printZone()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.timeWithZone">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.timeWithZone()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.convertToZone">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.convertToZone()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.getDayOfWeek">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.getDayOfWeek()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__fillMember">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__fillMember()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__takeSecond">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__takeSecond()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__rep">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__rep()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__precompileReadFmt">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__precompileReadFmt()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.readTimestamp">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.readTimestamp()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__replace">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__replace()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.__str__">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.__str__()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.addSec">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.addSec()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.addMin">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.addMin()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.addHour">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.addHour()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracklib.core.ObsTime.ObsTime.addDay">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ObsTime.addDay()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../../_sources/api/core/core-obstime.rst.txt">
+        <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2023, LASTIG lab, French National Institute of Geographic and Forest Information.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="theme-version">
+    Built with the
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">
+        PyData Sphinx Theme
+    </a>
+    0.12.0.
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

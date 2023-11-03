@@ -1,0 +1,1286 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tracklib.algo.Segmentation &#8212; TrackLib 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/tracklib/algo/Segmentation';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../../_static/TracklibLogo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../../_static/TracklibLogo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../userguide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../notebook/index.html">
+                        Use Cases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <h1>Source code for tracklib.algo.Segmentation</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Class to manage segmentation of GPS tracks&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">progressbar</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">tracklib.core.Obs</span> <span class="kn">import</span> <span class="n">Obs</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.ObsCoords</span> <span class="kn">import</span> <span class="n">ENUCoords</span>
+<span class="kn">from</span> <span class="nn">tracklib.algo.Geometrics</span> <span class="kn">import</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">minCircle</span>
+
+<span class="kn">import</span> <span class="nn">tracklib.core.Utils</span> <span class="k">as</span> <span class="nn">utils</span>
+<span class="kn">from</span> <span class="nn">tracklib.algo.Interpolation</span> <span class="kn">import</span> <span class="n">ALGO_LINEAR</span><span class="p">,</span> <span class="n">MODE_SPATIAL</span>
+<span class="kn">import</span> <span class="nn">tracklib.core.Operator</span> <span class="k">as</span> <span class="nn">Operator</span>
+
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="c1"># Circular import (not satisfying solution)</span>
+<span class="c1"># --------------------------------------------------------------------------</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.Track</span> <span class="kn">import</span> <span class="n">Track</span>
+<span class="kn">from</span> <span class="nn">tracklib.core.TrackCollection</span> <span class="kn">import</span> <span class="n">TrackCollection</span>
+
+
+<span class="n">MODE_COMPARAISON_AND</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">MODE_COMPARAISON_OR</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">MODE_STOPS_LOCAL</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">MODE_STOPS_GLOBAL</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">MODE_STOPS_RTK</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">MODE_STOPS_ACC</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">MODE_SPLIT_RETURN_EXHAUSTIVE</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">MODE_SPLIT_RETURN_FAST</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">MODE_SEGMENTATION_MINIMIZE</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">MODE_SEGMENTATION_MAXIMIZE</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="c1"># Segmentation and Split track</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="segmentation"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.segmentation">[docs]</a><span class="k">def</span> <span class="nf">segmentation</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">afs_input</span><span class="p">,</span> <span class="n">af_output</span><span class="p">,</span> 
+                 <span class="n">thresholds_max</span><span class="p">,</span> <span class="n">mode_comparaison</span><span class="o">=</span><span class="n">MODE_COMPARAISON_AND</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method to divide a track into multiple according to analytical feaures value.</span>
+<span class="sd">    Creates an AF with 0 if change of division, 1 otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Gestion cas un seul AF</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">afs_input</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">afs_input</span> <span class="o">=</span> <span class="p">[</span><span class="n">afs_input</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">thresholds_max</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">thresholds_max</span> <span class="o">=</span> <span class="p">[</span><span class="n">thresholds_max</span><span class="p">]</span>
+
+    <span class="n">track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="n">af_output</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+
+        <span class="c1"># On cumule les comparaisons pour chaque af_input</span>
+        <span class="n">comp</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">af_input</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">afs_input</span><span class="p">):</span>
+            <span class="n">current_value</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObsAnalyticalFeature</span><span class="p">(</span><span class="n">af_input</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+            <span class="c1"># on compare uniquement si on peut</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">utils</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">current_value</span><span class="p">):</span>
+
+                <span class="n">seuil_max</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">max</span>
+                <span class="k">if</span> <span class="n">thresholds_max</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">thresholds_max</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">index</span><span class="p">:</span>
+                    <span class="n">seuil_max</span> <span class="o">=</span> <span class="n">thresholds_max</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">mode_comparaison</span> <span class="o">==</span> <span class="n">MODE_COMPARAISON_AND</span><span class="p">:</span>
+                    <span class="n">comp</span> <span class="o">=</span> <span class="n">comp</span> <span class="ow">and</span> <span class="p">(</span><span class="n">current_value</span> <span class="o">&lt;=</span> <span class="n">seuil_max</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">comp</span> <span class="o">=</span> <span class="n">comp</span> <span class="ow">or</span> <span class="p">(</span><span class="n">current_value</span> <span class="o">&lt;=</span> <span class="n">seuil_max</span><span class="p">)</span>
+
+        <span class="c1">#  On clot l&#39;intervalle, on le marque a 1</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">comp</span><span class="p">:</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="n">af_output</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="n">af_output</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="split"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.split">[docs]</a><span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TrackCollection</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Splits track according to :</span>
+
+<span class="sd">        - af name (considered as a marker) if `source` is a string</span>
+<span class="sd">        - list of index if `source` is a list</span>
+
+<span class="sd">    :return: No track if no segmentation, otherwise a TrackCollection object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">NEW_TRACES</span> <span class="o">=</span> <span class="n">TrackCollection</span><span class="p">()</span>
+
+    <span class="c1"># --------------------------------------------</span>
+    <span class="c1"># Split from analytical feature name</span>
+    <span class="c1"># --------------------------------------------</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Initialisation du compteur des étapes</span>
+        <span class="n">begin</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># indice du premier point de l&#39;étape</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+
+            <span class="k">if</span> <span class="n">track</span><span class="o">.</span><span class="n">getObsAnalyticalFeature</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># Nouvelle trajectoire</span>
+
+                <span class="c1"># L&#39;identifiant de la trace subdivisée est obtenue par concaténation</span>
+                <span class="c1"># de l&#39;identifiant de la trace initiale et du compteur</span>
+                <span class="n">new_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">uid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+
+                <span class="c1"># La liste de points correspondant à l&#39;intervalle de subdivision est créée</span>
+                <span class="n">new_traj</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                <span class="n">new_traj</span><span class="o">.</span><span class="n">setUid</span><span class="p">(</span><span class="n">new_id</span><span class="p">)</span>
+
+                <span class="n">NEW_TRACES</span><span class="o">.</span><span class="n">addTrack</span><span class="p">(</span><span class="n">new_traj</span><span class="p">)</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">begin</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1"># Si tous les points sont dans la même classe, la liste d&#39;étapes reste vide</span>
+        <span class="c1"># sinon, on clôt la derniere étape et on l&#39;ajoute à la liste</span>
+        <span class="k">if</span> <span class="n">begin</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">new_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">uid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+            <span class="n">new_traj</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">new_traj</span><span class="o">.</span><span class="n">setUid</span><span class="p">(</span><span class="n">new_id</span><span class="p">)</span>
+            <span class="n">NEW_TRACES</span><span class="o">.</span><span class="n">addTrack</span><span class="p">(</span><span class="n">new_traj</span><span class="p">)</span>
+
+    <span class="c1"># --------------------------------------------</span>
+    <span class="c1"># Split from list of indices</span>
+    <span class="c1"># --------------------------------------------</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">NEW_TRACES</span><span class="o">.</span><span class="n">addTrack</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">source</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">source</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>
+
+    <span class="k">return</span> <span class="n">NEW_TRACES</span></div>
+
+
+<span class="c1"># -------------------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1"># -------------------------------------------------------------------</span>
+<div class="viewcode-block" id="findStops"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.findStops">[docs]</a><span class="k">def</span> <span class="nf">findStops</span><span class="p">(</span><span class="n">track</span><span class="p">:</span> <span class="n">Track</span><span class="p">,</span> <span class="n">spatial</span><span class="p">,</span> <span class="n">temporal</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Track</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function to find stop positions from a track</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    track : Track</span>
+
+<span class="sd">    spatial : float</span>
+
+<span class="sd">    temporal : float</span>
+
+<span class="sd">    mode : MODE_STOPS_LOCAL, MODE_STOPS_GLOBAL, MODE_STOPS_RTK, MODE_STOPS_ACC</span>
+
+<span class="sd">    verbose : bool, optional</span>
+<span class="sd">        The default is True.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    TYPE</span>
+<span class="sd">        DESCRIPTION.</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_STOPS_LOCAL</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">findStopsLocal</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">spatial</span><span class="p">,</span> <span class="n">temporal</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_STOPS_GLOBAL</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">findStopsGlobal</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">spatial</span><span class="p">,</span> <span class="n">temporal</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_STOPS_RTK</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">findStopsGlobalForRTK</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">spatial</span><span class="p">,</span> <span class="n">temporal</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_STOPS_ACC</span><span class="p">:</span>
+        <span class="k">pass</span></div>
+
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Function to find stop positions from a track</span>
+<span class="c1"># Inputs:</span>
+<span class="c1">#     - duration: minimal stop duration (in seconds)</span>
+<span class="c1">#     - speed: maximal speed during stop (in ground units / sec)</span>
+<span class="c1"># Output: a track with centroids (and first time of stop sequence)</span>
+<span class="c1"># For classical standard GPS track set 1 m/s for 10 sec)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="findStopsLocal"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.findStopsLocal">[docs]</a><span class="k">def</span> <span class="nf">findStopsLocal</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+
+    <span class="n">track</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">stops</span> <span class="o">=</span> <span class="n">Track</span><span class="p">()</span>
+
+    <span class="n">segmentation</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="s2">&quot;speed&quot;</span><span class="p">,</span> <span class="s2">&quot;#mark&quot;</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span>
+    <span class="n">track</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">DIFFERENTIATOR</span><span class="p">,</span> <span class="s2">&quot;#mark&quot;</span><span class="p">)</span>
+    <span class="n">track</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">RECTIFIER</span><span class="p">,</span> <span class="s2">&quot;#mark&quot;</span><span class="p">)</span>
+
+    <span class="n">TRACES</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="s2">&quot;#mark&quot;</span><span class="p">)</span>
+
+    <span class="n">TMP_MEAN_X</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_MEAN_Y</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_MEAN_Z</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_STD_X</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_STD_Y</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_STD_Z</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_DURATION</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_NBPOINTS</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">TMP_SIGMA_X</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_SIGMA_Y</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_SIGMA_Z</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">TRACES</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">TRACES</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">duration</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">duration</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">stops</span><span class="o">.</span><span class="n">addObs</span><span class="p">(</span>
+            <span class="n">Obs</span><span class="p">(</span>
+                <span class="n">TRACES</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">getCentroid</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">TRACES</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">getFirstObs</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">TMP_SIGMA_X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TRACES</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">AVERAGER</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">))</span>
+        <span class="n">TMP_SIGMA_Y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TRACES</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">AVERAGER</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">))</span>
+        <span class="n">TMP_SIGMA_Z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TRACES</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">AVERAGER</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">))</span>
+        <span class="n">TMP_SIGMA_X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TRACES</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">STDDEV</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">))</span>
+        <span class="n">TMP_SIGMA_Y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TRACES</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">STDDEV</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">))</span>
+        <span class="n">TMP_SIGMA_Z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TRACES</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">STDDEV</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">))</span>
+        <span class="n">TMP_NBPOINTS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TRACES</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+        <span class="n">TMP_DURATION</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TRACES</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">duration</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">stops</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">stops</span>
+
+
+    <span class="c1"># stops.createAnalyticalFeature(&quot;radius&quot;, TMP_RADIUS)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;mean_x&quot;</span><span class="p">,</span> <span class="n">TMP_MEAN_X</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;mean_y&quot;</span><span class="p">,</span> <span class="n">TMP_MEAN_Y</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;mean_z&quot;</span><span class="p">,</span> <span class="n">TMP_MEAN_Z</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;sigma_x&quot;</span><span class="p">,</span> <span class="n">TMP_STD_X</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;sigma_y&quot;</span><span class="p">,</span> <span class="n">TMP_STD_Y</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;sigma_z&quot;</span><span class="p">,</span> <span class="n">TMP_STD_Z</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;duration&quot;</span><span class="p">,</span> <span class="n">TMP_DURATION</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;nb_points&quot;</span><span class="p">,</span> <span class="n">TMP_NBPOINTS</span><span class="p">)</span>
+
+    <span class="n">stops</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">QUAD_ADDER</span><span class="p">,</span> <span class="s2">&quot;sigma_x&quot;</span><span class="p">,</span> <span class="s2">&quot;sigma_y&quot;</span><span class="p">,</span> <span class="s2">&quot;rmse&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">stops</span></div>
+
+
+<span class="c1"># ----------------------------------------------------------------</span>
+<span class="c1"># Fonctions utilitaires</span>
+<span class="c1"># ----------------------------------------------------------------</span>
+<div class="viewcode-block" id="backtracking"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.backtracking">[docs]</a><span class="k">def</span> <span class="nf">backtracking</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)(</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">backtracking</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span> <span class="o">+</span> <span class="n">backtracking</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="backward"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.backward">[docs]</a><span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">B</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">backtracking</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="plotStops"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.plotStops">[docs]</a><span class="k">def</span> <span class="nf">plotStops</span><span class="p">(</span><span class="n">stops</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="s2">&quot;radius&quot;</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sym</span><span class="o">=</span><span class="s2">&quot;r-&quot;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stops</span><span class="p">)):</span>
+        <span class="n">Circle</span><span class="p">(</span><span class="n">ENUCoords</span><span class="p">(</span><span class="n">stops</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">stops</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">i</span><span class="p">]),</span> <span class="n">rf</span> <span class="o">*</span> <span class="n">stops</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sym</span><span class="p">)</span></div>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">def removeStops(track, stops=None):</span>
+<span class="sd">    if stops is None:</span>
+<span class="sd">        stops = extractStopsBis(track)</span>
+<span class="sd">    output = track.extract(0, stops[&quot;id_ini&quot;][0])</span>
+<span class="sd">    for i in range(len(stops) - 1):</span>
+<span class="sd">        output = output + track.extract(stops[&quot;id_end&quot;][i], stops[&quot;id_ini&quot;][i + 1])</span>
+<span class="sd">    output = output + track.extract(stops[&quot;id_end&quot;][-1], track.size() - 1)</span>
+<span class="sd">    return output</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="findStopsGlobal"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.findStopsGlobal">[docs]</a><span class="k">def</span> <span class="nf">findStopsGlobal</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">diameter</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">downsampling</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Find stop points in a track based on two parameters:</span>
+<span class="sd">    Maximal size of a stop (as the diameter of enclosing circle,</span>
+<span class="sd">    in ground units) and minimal time duration (in seconds).</span>
+<span class="sd">    Use downsampling parameter &gt; 1 to speed up the process</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    track : Track</span>
+<span class="sd">        track to detect stop points</span>
+<span class="sd">    diameter : float, optional</span>
+<span class="sd">        Maximal size of a stop (as the diameter of enclosing circle,</span>
+<span class="sd">        in ground units). The default is 20.</span>
+<span class="sd">    duration : float, optional</span>
+<span class="sd">        minimal time duration (in seconds). The default is 60.</span>
+<span class="sd">    downsampling : float, optional</span>
+<span class="sd">        to speed up the process, value need to be &gt; 1. The default is 1.</span>
+<span class="sd">    verbose : boolean, optional</span>
+<span class="sd">        verbose or not. The default is True.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    stops : Track</span>
+<span class="sd">        stops points constitute a new Track.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+
+    <span class="c1"># If down-sampling is required</span>
+    <span class="k">if</span> <span class="n">downsampling</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">track</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">track</span> <span class="o">**=</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="n">downsampling</span>
+
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="c1"># Computes cost matrix as :</span>
+    <span class="c1">#    Cij = 0 if size of enclosing circle of pi, pi+1, ... pj-1 is &gt; diameter</span>
+    <span class="c1">#    Cij = 0 if time duration between pi and pj-1 is &lt; duration</span>
+    <span class="c1">#    Cij = (j-i)**2 = square of the number of points of segment otherwise</span>
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()))</span>
+    <span class="n">RANGE</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimal enclosing circles computation:&quot;</span><span class="p">)</span>
+        <span class="n">RANGE</span> <span class="o">=</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">RANGE</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">RANGE</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">diameter</span><span class="p">:</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">break</span>
+            <span class="k">if</span> <span class="n">track</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&lt;=</span> <span class="n">duration</span><span class="p">:</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">continue</span>
+
+            <span class="n">cercle</span> <span class="o">=</span> <span class="n">minCircle</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">cercle</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">cercle</span><span class="o">.</span><span class="n">radius</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">diameter</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># TODO : à valider</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">continue</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">C</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="c1"># Computes optimal partition with dynamic programing</span>
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="n">segmentation</span> <span class="o">=</span> <span class="n">optimalPartition</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">MODE_SEGMENTATION_MAXIMIZE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+
+    <span class="n">stops</span> <span class="o">=</span> <span class="n">Track</span><span class="p">()</span>
+
+    <span class="n">TMP_RADIUS</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_MEAN_X</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_MEAN_Y</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_MEAN_Z</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_IDSTART</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_IDEND</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_STD_X</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_STD_Y</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_STD_Z</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_DURATION</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_NBPOINTS</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">segmentation</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">portion</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">segmentation</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">segmentation</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">minCircle</span><span class="p">(</span><span class="n">portion</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">C</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">radius</span> <span class="o">&gt;</span> <span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">portion</span><span class="o">.</span><span class="n">duration</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">duration</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">stops</span><span class="o">.</span><span class="n">addObs</span><span class="p">(</span><span class="n">Obs</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">center</span><span class="p">,</span> <span class="n">portion</span><span class="o">.</span><span class="n">getFirstObs</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">))</span>
+            <span class="n">TMP_RADIUS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">radius</span><span class="p">)</span>
+            <span class="n">TMP_MEAN_X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">AVERAGER</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">))</span>
+            <span class="n">TMP_MEAN_Y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">AVERAGER</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">))</span>
+            <span class="n">TMP_MEAN_Z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">AVERAGER</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">))</span>
+            <span class="n">TMP_STD_X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">STDDEV</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">))</span>
+            <span class="n">TMP_STD_Y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">STDDEV</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">))</span>
+            <span class="n">TMP_STD_Z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">STDDEV</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">))</span>
+            <span class="n">TMP_IDSTART</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">segmentation</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">downsampling</span><span class="p">)</span>
+            <span class="n">TMP_IDEND</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">segmentation</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">downsampling</span><span class="p">)</span>
+            <span class="n">TMP_NBPOINTS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">segmentation</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">segmentation</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">TMP_DURATION</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">portion</span><span class="o">.</span><span class="n">duration</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">stops</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">stops</span>
+
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;radius&quot;</span><span class="p">,</span> <span class="n">TMP_RADIUS</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;mean_x&quot;</span><span class="p">,</span> <span class="n">TMP_MEAN_X</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;mean_y&quot;</span><span class="p">,</span> <span class="n">TMP_MEAN_Y</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;mean_z&quot;</span><span class="p">,</span> <span class="n">TMP_MEAN_Z</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;id_ini&quot;</span><span class="p">,</span> <span class="n">TMP_IDSTART</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;id_end&quot;</span><span class="p">,</span> <span class="n">TMP_IDEND</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;sigma_x&quot;</span><span class="p">,</span> <span class="n">TMP_STD_X</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;sigma_y&quot;</span><span class="p">,</span> <span class="n">TMP_STD_Y</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;sigma_z&quot;</span><span class="p">,</span> <span class="n">TMP_STD_Z</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;duration&quot;</span><span class="p">,</span> <span class="n">TMP_DURATION</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;nb_points&quot;</span><span class="p">,</span> <span class="n">TMP_NBPOINTS</span><span class="p">)</span>
+
+    <span class="n">stops</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">QUAD_ADDER</span><span class="p">,</span> <span class="s2">&quot;sigma_x&quot;</span><span class="p">,</span> <span class="s2">&quot;sigma_y&quot;</span><span class="p">,</span> <span class="s2">&quot;rmse&quot;</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">base</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">base</span>
+
+    <span class="k">return</span> <span class="n">stops</span></div>
+
+
+<div class="viewcode-block" id="findStopsGlobalForRTK"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.findStopsGlobalForRTK">[docs]</a><span class="k">def</span> <span class="nf">findStopsGlobalForRTK</span><span class="p">(</span>
+    <span class="n">track</span><span class="p">,</span> <span class="n">std_max</span><span class="o">=</span><span class="mf">2e-2</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">downsampling</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Find stop points in a track based on maximal size of a stop and minimal</span>
+<span class="sd">    time duration</span>
+
+<span class="sd">    Two parameters:</span>
+
+<span class="sd">        - Maximal size of a stop (as the standard deviation per axis, in ground units)</span>
+<span class="sd">        - Minimal time duration (in seconds)</span>
+
+<span class="sd">    Use downsampling parameter &gt; 1 to speed up the process.</span>
+
+<span class="sd">    Default is set for precise RTK GNSS survey (2 cm for 5 sec)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># If down-sampling is required</span>
+    <span class="k">if</span> <span class="n">downsampling</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">track</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">track</span> <span class="o">**=</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="n">downsampling</span>
+
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="c1"># Computes cost matrix as :</span>
+    <span class="c1">#    Cij = 0 if sqrt(0.33*(std_x^2 + std_y^2 + std_Z^2)) &gt; std_max</span>
+    <span class="c1">#    Cij = 0 if time duration between pi and p-1 is &lt; duration</span>
+    <span class="c1">#    Cij = (j-i)**2 = square of the number of points of segment otherwise</span>
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()))</span>
+    <span class="n">RANGE</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimal enclosing circles computation:&quot;</span><span class="p">)</span>
+        <span class="n">RANGE</span> <span class="o">=</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">RANGE</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">RANGE</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">distanceTo</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">std_max</span><span class="p">:</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">break</span>
+            <span class="k">if</span> <span class="n">track</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&lt;=</span> <span class="n">duration</span><span class="p">:</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">continue</span>
+            <span class="n">portion</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">varx</span> <span class="o">=</span> <span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">VARIANCE</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span>
+            <span class="n">vary</span> <span class="o">=</span> <span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">VARIANCE</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span>
+            <span class="n">varz</span> <span class="o">=</span> <span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">VARIANCE</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">)</span>
+            <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">varx</span> <span class="o">+</span> <span class="n">vary</span> <span class="o">+</span> <span class="n">varz</span><span class="p">)</span>
+            <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">std_max</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">C</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="c1"># Computes optimal partition with dynamic programing</span>
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="n">segmentation</span> <span class="o">=</span> <span class="n">optimalPartition</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">MODE_SEGMENTATION_MAXIMIZE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+
+    <span class="n">stops</span> <span class="o">=</span> <span class="n">Track</span><span class="p">()</span>
+
+    <span class="n">TMP_RADIUS</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_MEAN_X</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_MEAN_Y</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_MEAN_Z</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_IDSTART</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_IDEND</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_STD_X</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_STD_Y</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_STD_Z</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_DURATION</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">TMP_NBPOINTS</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">segmentation</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">portion</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">segmentation</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">segmentation</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">radius</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">segmentation</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">segmentation</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="n">radius</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">xm</span> <span class="o">=</span> <span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">AVERAGER</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span>
+        <span class="n">ym</span> <span class="o">=</span> <span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">AVERAGER</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span>
+        <span class="n">zm</span> <span class="o">=</span> <span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">AVERAGER</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">)</span>
+
+        <span class="n">xv</span> <span class="o">=</span> <span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">VARIANCE</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span>
+        <span class="n">yv</span> <span class="o">=</span> <span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">VARIANCE</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span>
+        <span class="n">zv</span> <span class="o">=</span> <span class="n">portion</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">VARIANCE</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">)</span>
+
+        <span class="n">pt</span> <span class="o">=</span> <span class="n">portion</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">pt</span><span class="o">.</span><span class="n">setX</span><span class="p">(</span><span class="n">xm</span><span class="p">)</span>
+        <span class="n">pt</span><span class="o">.</span><span class="n">setY</span><span class="p">(</span><span class="n">ym</span><span class="p">)</span>
+        <span class="n">pt</span><span class="o">.</span><span class="n">setZ</span><span class="p">(</span><span class="n">zm</span><span class="p">)</span>
+        <span class="n">stops</span><span class="o">.</span><span class="n">addObs</span><span class="p">(</span><span class="n">Obs</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">portion</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span><span class="p">))</span>
+
+        <span class="n">TMP_RADIUS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">xv</span> <span class="o">+</span> <span class="n">yv</span> <span class="o">+</span> <span class="n">zv</span><span class="p">))</span>
+        <span class="n">TMP_MEAN_X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xm</span><span class="p">)</span>
+        <span class="n">TMP_MEAN_Y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ym</span><span class="p">)</span>
+        <span class="n">TMP_MEAN_Z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">zm</span><span class="p">)</span>
+        <span class="n">TMP_STD_X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xv</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">TMP_STD_Y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yv</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">TMP_STD_Z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">zv</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">TMP_IDSTART</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">segmentation</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">downsampling</span><span class="p">)</span>
+        <span class="n">TMP_IDEND</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">segmentation</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">downsampling</span><span class="p">)</span>
+        <span class="n">TMP_NBPOINTS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">segmentation</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">segmentation</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">TMP_DURATION</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">portion</span><span class="o">.</span><span class="n">duration</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">stops</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">stops</span>
+
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;radius&quot;</span><span class="p">,</span> <span class="n">TMP_RADIUS</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;mean_x&quot;</span><span class="p">,</span> <span class="n">TMP_MEAN_X</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;mean_y&quot;</span><span class="p">,</span> <span class="n">TMP_MEAN_Y</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;mean_z&quot;</span><span class="p">,</span> <span class="n">TMP_MEAN_Z</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;id_ini&quot;</span><span class="p">,</span> <span class="n">TMP_IDSTART</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;id_end&quot;</span><span class="p">,</span> <span class="n">TMP_IDEND</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;sigma_x&quot;</span><span class="p">,</span> <span class="n">TMP_STD_X</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;sigma_y&quot;</span><span class="p">,</span> <span class="n">TMP_STD_Y</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;sigma_z&quot;</span><span class="p">,</span> <span class="n">TMP_STD_Z</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;duration&quot;</span><span class="p">,</span> <span class="n">TMP_DURATION</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;nb_points&quot;</span><span class="p">,</span> <span class="n">TMP_NBPOINTS</span><span class="p">)</span>
+
+    <span class="n">stops</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">QUAD_ADDER</span><span class="p">,</span> <span class="s2">&quot;sigma_x&quot;</span><span class="p">,</span> <span class="s2">&quot;sigma_y&quot;</span><span class="p">,</span> <span class="s2">&quot;rmse&quot;</span><span class="p">)</span>
+    <span class="n">stops</span><span class="o">.</span><span class="n">base</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">base</span>
+
+    <span class="k">return</span> <span class="n">stops</span></div>
+
+
+<div class="viewcode-block" id="splitReturnTrip"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.splitReturnTrip">[docs]</a><span class="k">def</span> <span class="nf">splitReturnTrip</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_SPLIT_RETURN_EXHAUSTIVE</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">splitReturnTripExhaustive</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_SPLIT_RETURN_FAST</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">splitReturnTripFast</span><span class="p">(</span><span class="n">track</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="splitReturnTripExhaustive"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.splitReturnTripExhaustive">[docs]</a><span class="k">def</span> <span class="nf">splitReturnTripExhaustive</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Split track when there is a return trip to keep only the first part&quot;&quot;&quot;</span>
+
+    <span class="n">min_val</span> <span class="o">=</span> <span class="mf">1e300</span>
+    <span class="n">argmin</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">AVG</span> <span class="o">=</span> <span class="n">Operator</span><span class="o">.</span><span class="n">Operator</span><span class="o">.</span><span class="n">AVERAGER</span>
+    <span class="k">for</span> <span class="n">return_point</span> <span class="ow">in</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)):</span>
+
+        <span class="n">T1</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">return_point</span><span class="p">)</span>
+        <span class="n">T2</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">return_point</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">avg</span> <span class="o">=</span> <span class="p">(</span><span class="n">T1</span> <span class="o">-</span> <span class="n">T2</span><span class="p">)</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">AVG</span><span class="p">,</span> <span class="s2">&quot;diff&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">T2</span> <span class="o">-</span> <span class="n">T1</span><span class="p">)</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">AVG</span><span class="p">,</span> <span class="s2">&quot;diff&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">avg</span> <span class="o">&lt;</span> <span class="n">min_val</span><span class="p">:</span>
+            <span class="n">min_val</span> <span class="o">=</span> <span class="n">avg</span>
+            <span class="n">argmin</span> <span class="o">=</span> <span class="n">return_point</span>
+
+    <span class="n">first_part</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">argmin</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">second_part</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">argmin</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">TRACKS</span> <span class="o">=</span> <span class="n">TrackCollection</span><span class="p">()</span>
+    <span class="n">TRACKS</span><span class="o">.</span><span class="n">addTrack</span><span class="p">(</span><span class="n">first_part</span><span class="p">)</span>
+    <span class="n">TRACKS</span><span class="o">.</span><span class="n">addTrack</span><span class="p">(</span><span class="n">second_part</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">TRACKS</span></div>
+
+
+<div class="viewcode-block" id="splitReturnTripFast"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.splitReturnTripFast">[docs]</a><span class="k">def</span> <span class="nf">splitReturnTripFast</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">side_effect</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">sampling</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Split track when there is a return trip to keep only the first part.</span>
+<span class="sd">    Second version with Fast Fourier Transform&quot;&quot;&quot;</span>
+
+    <span class="n">track</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">track</span><span class="o">.</span><span class="n">toENUCoords</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getFirstObs</span><span class="p">()</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+    <span class="n">track_test</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">track_test</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">track_test</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">/</span> <span class="n">track_test</span><span class="o">.</span><span class="n">size</span><span class="p">())</span> <span class="o">/</span> <span class="n">sampling</span><span class="p">,</span> <span class="n">ALGO_LINEAR</span><span class="p">,</span> <span class="n">MODE_SPATIAL</span>
+    <span class="p">)</span>
+
+    <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">track_test</span><span class="o">.</span><span class="n">getY</span><span class="p">())</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">track_test</span><span class="o">.</span><span class="n">getY</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">H</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">G</span><span class="p">))))</span>
+
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span>
+        <span class="n">temp</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">side_effect</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">))</span> <span class="p">:</span> <span class="nb">int</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">side_effect</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">))]</span>
+    <span class="p">)</span>
+    <span class="n">pt</span> <span class="o">=</span> <span class="n">track_test</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">.</span><span class="n">position</span>
+
+    <span class="n">dmin</span> <span class="o">=</span> <span class="mf">1e300</span>
+    <span class="n">argmin</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">track</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="n">dmin</span><span class="p">:</span>
+            <span class="n">dmin</span> <span class="o">=</span> <span class="n">d</span>
+            <span class="n">argmin</span> <span class="o">=</span> <span class="n">i</span>
+
+    <span class="n">first_part</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">argmin</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">second_part</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">argmin</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">TRACKS</span> <span class="o">=</span> <span class="n">TrackCollection</span><span class="p">()</span>
+    <span class="n">TRACKS</span><span class="o">.</span><span class="n">addTrack</span><span class="p">(</span><span class="n">first_part</span><span class="p">)</span>
+    <span class="n">TRACKS</span><span class="o">.</span><span class="n">addTrack</span><span class="p">(</span><span class="n">second_part</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">TRACKS</span></div>
+
+
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="c1">#  Generic method to segment a track with dynamic programming</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="c1"># Inputs:</span>
+<span class="c1">#    - track: A track to segment (potentially with analytical features)</span>
+<span class="c1">#    - cost: a three or four-valued function taking as input a track, two</span>
+<span class="c1">#      integers i &lt; j and an optional global parameter, and returning</span>
+<span class="c1">#      the cost of a segment from i to j (both included) in track</span>
+<span class="c1">#      Note that cost function may as well be considered as a reward</span>
+<span class="c1">#      function, simply by setting mode to MODE_SEGMENTATION_MAXIMIZE</span>
+<span class="c1">#    - mode: a parameter inidcating wether cost function must be minnimized</span>
+<span class="c1">#      (MODE_SEGMENTATION_MINIMIZE) or maximized (MODE_SEGMENTATION_MAXIMIZE)</span>
+<span class="c1">#    - verbose: parameter to enable progress bar and console displays</span>
+<span class="c1"># Output:</span>
+<span class="c1">#    - A optimal segmentation, represented as a list of indices in track</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="optimalPartition"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.optimalPartition">[docs]</a><span class="k">def</span> <span class="nf">optimalPartition</span><span class="p">(</span><span class="n">cost_matrix</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">MODE_SEGMENTATION_MINIMIZE</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="n">cost_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+            <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+            <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="c1"># Computes optimal partition with dynamic programing</span>
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="n">RANGE</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Optimal split search:&quot;</span><span class="p">)</span>
+        <span class="n">RANGE</span> <span class="o">=</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">RANGE</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">diag</span> <span class="ow">in</span> <span class="n">RANGE</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">-</span> <span class="n">diag</span><span class="p">):</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">diag</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">D</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="ow">and</span> <span class="n">MODE_SEGMENTATION_MINIMIZE</span><span class="p">:</span>
+                    <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+                    <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>
+                <span class="k">if</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="ow">and</span> <span class="n">MODE_SEGMENTATION_MAXIMIZE</span><span class="p">:</span>
+                    <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+                    <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>
+
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="c1"># Backward phase to form optimal split</span>
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="k">return</span> <span class="n">backward</span><span class="p">(</span><span class="n">M</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="optimalSegmentation"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.optimalSegmentation">[docs]</a><span class="k">def</span> <span class="nf">optimalSegmentation</span><span class="p">(</span>
+    <span class="n">track</span><span class="p">,</span> <span class="n">cost</span><span class="p">,</span> <span class="n">glob_param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">MODE_SEGMENTATION_MINIMIZE</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">):</span>
+
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="c1"># Computes cost matrix as :</span>
+    <span class="c1">#    Cij = width of MBR of point set pi, pi+1, ... pj-1</span>
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()))</span>
+
+    <span class="n">RANGE</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cost matrix computation:&quot;</span><span class="p">)</span>
+        <span class="n">RANGE</span> <span class="o">=</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">progressbar</span><span class="p">(</span><span class="n">RANGE</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">RANGE</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">glob_param</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">glob_param</span><span class="p">)</span>
+
+    <span class="n">C</span> <span class="o">=</span> <span class="n">C</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">optimalPartition</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span></div>
+
+
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="c1">#  Method to split a track between two mark points</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="c1"># Inputs:</span>
+<span class="c1">#    - track      : a track to segment</span>
+<span class="c1">#    - pt1        : first point &#39;departure&#39;</span>
+<span class="c1">#    - pt2        : second point &#39;return&#39;</span>
+<span class="c1">#    - radius     : threshold distance (in ground units) around pt1 and pt2</span>
+<span class="c1">#    - nb_min_pts : minima number of points to form a track</span>
+<span class="c1"># If pt2 is not provided, it is set automatically equal to pt1</span>
+<span class="c1"># Output:</span>
+<span class="c1">#    - a track collection containing segmented tracks</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="splitAR"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.splitAR">[docs]</a><span class="k">def</span> <span class="nf">splitAR</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">nb_min_pts</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">pt2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pt2</span> <span class="o">=</span> <span class="n">pt1</span>
+
+    <span class="n">tracks</span> <span class="o">=</span> <span class="n">TrackCollection</span><span class="p">()</span>
+    <span class="n">subtrack</span> <span class="o">=</span> <span class="n">Track</span><span class="p">()</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">while</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">min</span><span class="p">(</span>
+                <span class="n">track</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">pt1</span><span class="p">),</span> <span class="n">track</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">distance2DTo</span><span class="p">(</span><span class="n">pt2</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="o">&lt;</span> <span class="n">radius</span>
+        <span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">nb_min_pts</span><span class="p">:</span>
+                <span class="n">tracks</span><span class="o">.</span><span class="n">addTrack</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span>
+                        <span class="s2">&quot;Add sub-track: &quot;</span><span class="p">,</span>
+                        <span class="n">subtrack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+                        <span class="n">subtrack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+                        <span class="s2">&quot;[&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tracks</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+            <span class="n">subtrack</span> <span class="o">=</span> <span class="n">Track</span><span class="p">()</span>
+        <span class="n">subtrack</span><span class="o">.</span><span class="n">addObs</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">nb_min_pts</span><span class="p">:</span>
+        <span class="n">tracks</span><span class="o">.</span><span class="n">addTrack</span><span class="p">(</span><span class="n">subtrack</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;Add sub-track: &quot;</span><span class="p">,</span>
+                <span class="n">subtrack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+                <span class="n">subtrack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+                <span class="s2">&quot;[&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tracks</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">tracks</span></div>
+
+
+
+<div class="viewcode-block" id="stdbscan"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.stdbscan">[docs]</a><span class="k">def</span> <span class="nf">stdbscan</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">eps1</span><span class="p">,</span> <span class="n">eps2</span><span class="p">,</span> <span class="n">minPts</span><span class="p">,</span> <span class="n">deltaT</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Birant, D., &amp; Kut, A. (2007). ST-DBSCAN: An algorithm for clustering</span>
+<span class="sd">    spatial–temporal data. Data &amp; Knowledge Engineering, 60(1), 208-221.</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    track : TYPE</span>
+<span class="sd">        DESCRIPTION.</span>
+<span class="sd">    eps1 : TYPE</span>
+<span class="sd">        DESCRIPTION.</span>
+<span class="sd">    eps2 : TYPE</span>
+<span class="sd">        DESCRIPTION.</span>
+<span class="sd">    minPts : TYPE</span>
+<span class="sd">        DESCRIPTION.</span>
+<span class="sd">    deltaT : float</span>
+<span class="sd">        threshold value to be included in a cluster.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Cluster in AF</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cluster_label</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="n">track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s1">&#39;stdbscan&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">track</span><span class="o">.</span><span class="n">createAnalyticalFeature</span><span class="p">(</span><span class="s1">&#39;noise&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">obs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+        
+        <span class="n">nocluster</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObsAnalyticalFeature</span><span class="p">(</span><span class="s1">&#39;stdbscan&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">nocluster</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        
+            <span class="n">neighbors_index</span> <span class="o">=</span> <span class="n">retrieveNeighbors</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">eps1</span><span class="p">,</span> <span class="n">eps2</span><span class="p">)</span>
+            <span class="c1">#print (len(neighbors_index))</span>
+            
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">neighbors_index</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">minPts</span><span class="p">:</span>
+                <span class="n">track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s1">&#39;noise&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                
+                <span class="n">cluster_label</span> <span class="o">+=</span> <span class="mi">1</span>
+                
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">neighbors_index</span><span class="p">:</span>
+                    <span class="n">track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s1">&#39;stdbscan&#39;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">cluster_label</span><span class="p">)</span>
+                
+                <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">neighbors_index</span><span class="p">:</span>
+                    <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+                    
+                <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                     <span class="n">io</span> <span class="o">=</span> <span class="n">stack</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                     <span class="n">stack</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">io</span><span class="p">)</span>
+                     
+                     <span class="n">neighbors_index2</span> <span class="o">=</span> <span class="n">retrieveNeighbors</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">io</span><span class="p">,</span> <span class="n">eps1</span><span class="p">,</span> <span class="n">eps2</span><span class="p">)</span>
+                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">neighbors_index2</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">minPts</span><span class="p">:</span>
+                         
+                         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">neighbors_index2</span><span class="p">:</span>
+                             <span class="n">nonoise</span> <span class="o">=</span>  <span class="n">track</span><span class="o">.</span><span class="n">getObsAnalyticalFeature</span><span class="p">(</span><span class="s1">&#39;noise&#39;</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+                             <span class="n">nocluster</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObsAnalyticalFeature</span><span class="p">(</span><span class="s1">&#39;stdbscan&#39;</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+                             <span class="k">if</span> <span class="n">nonoise</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">nocluster</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                                 <span class="n">track</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="s1">&#39;stdbscan&#39;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">cluster_label</span><span class="p">)</span></div>
+                                 
+
+<div class="viewcode-block" id="retrieveNeighbors"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.retrieveNeighbors">[docs]</a><span class="k">def</span> <span class="nf">retrieveNeighbors</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">eps1</span><span class="p">,</span> <span class="n">eps2</span><span class="p">):</span>
+    <span class="n">neighbors_index</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+            <span class="k">continue</span>
+        
+        <span class="n">dd</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">.</span><span class="n">distanceTo</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">()</span> <span class="o">-</span> <span class="n">track</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">toAbsTime</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">dd</span> <span class="o">&lt;=</span> <span class="n">eps1</span> <span class="ow">and</span> <span class="n">dt</span> <span class="o">&lt;=</span> <span class="n">eps2</span><span class="p">:</span>
+            <span class="n">neighbors_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">neighbors_index</span></div>
+
+
+<span class="c1">#def standardizing(neigh_ipm, ipm_cluster):</span>
+<span class="c1">#    return (neigh_ipm - ipm_cluster.mean()) / ipm_cluster.std(ddof=0)</span>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># =============================================================================</span>
+<span class="kn">from</span> <span class="nn">tracklib.algo.Analytics</span> <span class="kn">import</span> <span class="n">speed</span><span class="p">,</span> <span class="n">acceleration</span>
+
+<div class="viewcode-block" id="stop_point_with_acceleration_criteria"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.stop_point_with_acceleration_criteria">[docs]</a><span class="k">def</span> <span class="nf">stop_point_with_acceleration_criteria</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This algorithm detect stop point.</span>
+<span class="sd">    A point is a stop when speed is null and acceleration is negative.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="n">stop_point</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">speed</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">acceleration</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+    <span class="c1"># Si un point d&#39;indice [i] affiche une vitesse nulle suivant une deccelération,</span>
+    <span class="c1">#    on cherche le prochain point d&#39;accélération</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">acc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Initialisation d&#39;un compteur sur i</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="c1"># Tant qu&#39;aucun des points suivants n&#39;accélère, on ne marque pas le point d&#39;arrêt</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">track</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">acceleration</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c1"># Si on trouve un point d&#39;accélération, on donne la valeur 1</span>
+            <span class="c1">#     au paramètre du point d&#39;indice [i]</span>
+            <span class="k">if</span> <span class="n">acceleration</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">stop_point</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">stop_point</span></div>
+
+
+<span class="n">VAL_AF_TIME_WINDOW_STOP</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">VAL_AF_TIME_WINDOW_MOVE</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">VAL_AF_TIME_WINDOW_NONE</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+
+<div class="viewcode-block" id="stop_point_with_time_window_criteria"><a class="viewcode-back" href="../../../api/algo/algo-segmentation.html#tracklib.algo.Segmentation.stop_point_with_time_window_criteria">[docs]</a><span class="k">def</span> <span class="nf">stop_point_with_time_window_criteria</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This algorithm of stop detection is based on geographical moving distance in time windows.</span>
+
+<span class="sd">    The AF has value:</span>
+
+<span class="sd">        - stop (*1*)</span>
+<span class="sd">        - not stop (*0*)</span>
+<span class="sd">        - not yet examined (*-1*)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name_af</span> <span class="o">=</span> <span class="s2">&quot;stop_point_with_time_window_criteria&quot;</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+
+    <span class="n">val</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">getObsAnalyticalFeature</span><span class="p">(</span><span class="n">name_af</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">val</span>
+
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">trace</span><span class="o">.</span><span class="n">getObsAnalyticalFeature</span><span class="p">(</span><span class="n">name_af</span><span class="p">,</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">T</span> <span class="o">=</span> <span class="mi">15</span>  <span class="c1"># fenetre de 45s</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="mi">30</span>  <span class="c1"># 30 metres</span>
+
+    <span class="n">S</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">getAnalyticalFeature</span><span class="p">(</span><span class="s2">&quot;abs_curv&quot;</span><span class="p">)</span>
+
+    <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">ispause</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">tj</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span>
+    <span class="n">ti</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span>
+
+    <span class="c1"># On cherche la fin de la fenetre</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">tj</span> <span class="o">-</span> <span class="n">ti</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">T</span><span class="p">:</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">tj</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span>
+
+    <span class="c1">#print(S[j] - S[i])</span>
+
+    <span class="c1"># On agrandit la fenetre</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">tj</span> <span class="o">-</span> <span class="n">ti</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">T</span> <span class="ow">and</span> <span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">D</span><span class="p">:</span>
+        <span class="n">ispause</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># print (&#39;pause &#39; + str(i) + &#39;,&#39; + str(j))</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">tj</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">getObs</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span>
+
+    <span class="n">retour</span> <span class="o">=</span> <span class="n">VAL_AF_TIME_WINDOW_MOVE</span>
+    <span class="k">if</span> <span class="n">ispause</span><span class="p">:</span>
+        <span class="c1"># PAUSES.append([i, j-1])</span>
+        <span class="c1">#print (&#39;pause de &#39; + str(i) + &#39;,&#39; + str(j-1))</span>
+        <span class="n">retour</span> <span class="o">=</span> <span class="n">VAL_AF_TIME_WINDOW_STOP</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">trace</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="n">name_af</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">VAL_AF_TIME_WINDOW_STOP</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">trace</span><span class="o">.</span><span class="n">setObsAnalyticalFeature</span><span class="p">(</span><span class="n">name_af</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">VAL_AF_TIME_WINDOW_MOVE</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">retour</span></div>
+
+    
+    
+                           
+
+</pre></div>
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+<div class="toc-item">
+  
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2023, LASTIG lab, French National Institute of Geographic and Forest Information.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="theme-version">
+    Built with the
+    <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">
+        PyData Sphinx Theme
+    </a>
+    0.12.0.
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br>
+</p>
+
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>
