@@ -1,0 +1,75 @@
+Metadata-Version: 2.1
+Name: ThunderFlowPro
+Version: 0.1.2
+Summary: Consumption estimation EV battery
+Home-page: https://github.com/cordeiroandres/ThunderFlowPro
+Author: Andres Cordeiro
+Author-email: cordeiroandres@gmail.com
+License: MIT
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8.13
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: pandas (>=1.5.2)
+Requires-Dist: numpy (>=1.22.4)
+Requires-Dist: numba (>=0.56.4)
+Requires-Dist: requests (>=2.23.0)
+Requires-Dist: polyline (>=1.4.0)
+Requires-Dist: rasterio (>=1.2.10)
+Requires-Dist: meteostat (>=1.6.3)
+
+# ThunderFlowPro
+
+ThunderFlowPro
+EV-battery-estimation-calculator
+This code estimates electric vehicle (EV) battery consumption and speed based solely on GPS coordinates and timestamps. It processes the data to calculate distances and time intervals between points, allowing for the computation of average speeds. An energy consumption model is applied, considering speed and battery characteristics, to estimate energy usage. 
+
+## Installation
+
+You can install this package using pip:
+
+```bash
+pip install ThunderFlowPro
+```
+
+## Usage
+```python
+import ThunderFlowPro as T
+
+# Example usage
+
+lst_traj=T.consumption(df,
+                CreateTrajectories=True,                               
+                temporal_thr=1200,
+                spatial_thr=50,
+                minpoints=4,
+                MapMatching='valhalla',
+                ResultsByTrajectory=True
+                )
+```
+
+## Features
+
+Main Feature: EV Battery Consumption Estimation
+This package offers a comprehensive set of tools and functionalities for estimating the battery consumption of Electric Vehicles (EVs). This feature is invaluable for various stakeholders in the electric vehicle industry, including EV manufacturers, fleet managers, and EV users. It enables them to make informed decisions and optimize EV usage and charging strategies.
+
+
+## Documentation
+For more detailed information and usage examples, please refer to the documentation on the github page.
+
+
+## License
+This project is licensed under the MIT License.
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+## Contributing
+If you'd like to contribute to this project, please read our Contributing Guidelines.
+
+## Contact
+Author: Andres Cordeiro
+Email: cordeiroandres@gmail.com
+Project Homepage: https://github.com/cordeiroandres/ThunderFlowPro
