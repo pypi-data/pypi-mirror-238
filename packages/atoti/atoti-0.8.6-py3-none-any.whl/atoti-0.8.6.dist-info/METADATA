@@ -1,0 +1,64 @@
+Metadata-Version: 2.1
+Name: atoti
+Version: 0.8.6
+Summary: Design, explore and deploy efficient and flexible data models
+Home-page: https://www.atoti.io
+Author: ActiveViam
+Author-email: dev@atoti.io
+Project-URL: Documentation, https://docs.atoti.io/0.8.6
+Project-URL: Bug Tracker, https://github.com/atoti/atoti/issues
+Keywords: atoti,aggregation,calculation,chart,data,dataviz,pivot-table,visualization
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: Free To Use But Restricted
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Java
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Typing :: Typed
+License-File: atoti/LICENSE
+Requires-Dist: atoti-core
+Requires-Dist: atoti-query (==0.8.6)
+Requires-Dist: jdk4py (<18,>=17.0.7.0)
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: py4j (<0.11,>=0.10.9.7)
+Requires-Dist: pyarrow
+Requires-Dist: typeguard
+Requires-Dist: typing-extensions
+Provides-Extra: aws
+Requires-Dist: atoti-aws ; extra == 'aws'
+Provides-Extra: azure
+Requires-Dist: atoti-azure ; extra == 'azure'
+Provides-Extra: dev
+Requires-Dist: pyjwt[crypto] ; extra == 'dev'
+Requires-Dist: pyspark ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: requests ; extra == 'dev'
+Requires-Dist: scipy ; extra == 'dev'
+Requires-Dist: test-utils ; extra == 'dev'
+Provides-Extra: directquery-bigquery
+Requires-Dist: atoti-directquery-bigquery ; extra == 'directquery-bigquery'
+Provides-Extra: directquery-clickhouse
+Requires-Dist: atoti-directquery-clickhouse ; extra == 'directquery-clickhouse'
+Provides-Extra: directquery-databricks
+Requires-Dist: atoti-directquery-databricks ; extra == 'directquery-databricks'
+Provides-Extra: directquery-mssql
+Requires-Dist: atoti-directquery-mssql ; extra == 'directquery-mssql'
+Provides-Extra: directquery-redshift
+Requires-Dist: atoti-directquery-redshift ; extra == 'directquery-redshift'
+Provides-Extra: directquery-snowflake
+Requires-Dist: atoti-directquery-snowflake ; extra == 'directquery-snowflake'
+Provides-Extra: directquery-synapse
+Requires-Dist: atoti-directquery-synapse ; extra == 'directquery-synapse'
+Provides-Extra: gcp
+Requires-Dist: atoti-gcp ; extra == 'gcp'
+Provides-Extra: jupyterlab
+Requires-Dist: atoti-jupyterlab ; extra == 'jupyterlab'
+Provides-Extra: jupyterlab3
+Requires-Dist: atoti-jupyterlab3 (>=0.8.3) ; extra == 'jupyterlab3'
+Provides-Extra: kafka
+Requires-Dist: atoti-kafka ; extra == 'kafka'
+Provides-Extra: sql
+Requires-Dist: atoti-sql ; extra == 'sql'
+
