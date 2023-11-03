@@ -1,0 +1,16 @@
+from _typeshed import Incomplete
+from amsdal_data.connections.enums import CoreResource as CoreResource
+from amsdal_data.data_models.transaction_context import TransactionContext as TransactionContext
+from amsdal_data.transactions.constants import TRANSACTION_CLASS_NAME as TRANSACTION_CLASS_NAME
+from collections.abc import Callable as Callable
+from typing import Any
+
+def transaction(name: str | Callable[..., Any] | None = ...) -> Callable[..., Any]: ...
+
+class TransactionFlow:
+    return_value: Incomplete
+    context: Incomplete
+    def __init__(self, func: Callable[..., Any], *args: Any, **kwargs: Any) -> None: ...
+    def __enter__(self) -> TransactionFlow: ...
+    def set_return_value(self, value: Any) -> None: ...
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None: ...
