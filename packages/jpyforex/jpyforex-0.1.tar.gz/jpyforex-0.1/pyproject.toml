@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jpyforex"
+version = "0.1"
+description = "jpyforex: Retrieve the exchange rate quoted in Japanese Yen (JPY)."
+authors= [{name = "HideyukiO", email="hogawa098@gmail.com"}]
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT License" }
+keywords=["Japanese Yen"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    ]
+dependencies = ["pandas_datareader"]
+
+[project.urls]
+Repository = "https://github.com/mazarimono/JPYForex"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "isort",
+    "flake8",
+    "mypy",
+    "pytest",
+]
