@@ -1,0 +1,12 @@
+<!-- Filter -->
+<select
+    class="form-control data-query"
+    name="{{ QueryParam.FILTER_PREFIX }}{{ field_name }}"
+    style="width: auto;"
+    hx-get="{{ request.path }}"
+    hx-include="#{{ root_id }} .data-query"
+    hx-target="#{{ root_id }}-data-frame">
+    {% for value, label in filter_options %}
+        <option value="{{ value|urlencode }}">{{ label }}</option>
+    {% endfor %}
+</select>

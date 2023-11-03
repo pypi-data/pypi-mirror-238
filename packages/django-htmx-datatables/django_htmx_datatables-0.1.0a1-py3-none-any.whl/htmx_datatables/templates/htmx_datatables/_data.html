@@ -1,0 +1,114 @@
+<!-- htmx datatables data template -->
+{% load humanize %}
+{% load static %}
+
+<div hx-target="this" hx-indicator="#{{ root_id }} .spinner">
+
+	<!-- Data table -->
+	<div class="table-responsive">
+		<table id="{{ root_id }}-table" class="table table-striped" style="width:100%">
+
+			<!-- Header -->
+			<thead>
+				<tr>
+					{% for header in headers %}
+						{% if header.can_sort %}
+							<th
+								class="text-nowrap text-justify"
+								hx-get="{{ request.path }}?o={{ header.idx }}"
+								hx-include="#{{ root_id }} .data-query:not(#{{ root_id }}-orderby)"
+								hx-trigger="click">
+									{{ header.label }}
+									{% if header.asc %}▲{% elif header.desc %}▼{% else %}{% endif %}
+							</th>
+						{% else %}
+							<th>{{ header.label }}</td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+			</thead>
+
+			<!-- Body -->
+			<tbody>
+				{% for row in data %}
+					{% if row.group_title %}
+						<tr class="info">
+							<td colspan="{{ headers|length }}">
+								<strong>{{ row.group_title }}</strong>
+							</td>
+						</tr>
+					{% endif %}
+					<tr>
+						{% for cell in row.cells %}
+							<td>
+								{% if cell.formatter == ColumnFormatter.FLOATFORMAT %}
+									{{ cell.value|floatformat:cell.formatter_param }}
+
+								{% elif cell.formatter == ColumnFormatter.DATE %}
+									{{ cell.value|date:cell.formatter_param }}
+
+								{% elif cell.formatter == ColumnFormatter.YESNO %}
+									{{ cell.value|yesno }}
+
+								{% elif cell.formatter == ColumnFormatter.BOOLEAN %}
+									{% if cell.value %}
+										<span class="text-success">&#10003;</span>
+									{% else %}
+										<span class="text-danger">&#10005;</span>
+									{% endif %}
+
+								{% else %}
+									{{ cell.value }}
+								{% endif %}
+							</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</tbody>
+
+			<!-- Footer -->
+			<tfoot>
+				<tr>
+					{% for cell in totals.cells %}
+						<th>
+							{% if cell.formatter == ColumnFormatter.FLOATFORMAT %}
+								{{ cell.value|floatformat:cell.formatter_param }}
+							{% else %}
+								{{ cell.value }}
+							{% endif %}
+						</th>
+					{% endfor %}
+				</tr>
+			</tfoot>
+
+		</table>
+	</div>
+
+	{% if order_by %}
+		<input
+			id="{{ root_id }}-orderby"
+			type="hidden"
+			class="data-query"
+			name="{{ QueryParam.ORDER_BY }}"
+			value="{{ order_by }}">
+	{% endif %}
+
+	<!-- Pagination -->
+	{% if page_obj %}
+		<div class="form-inline">
+
+			<span>
+				Showing {{ page_obj.start_index|intcomma }} to {{ page_obj.end_index|intcomma }}
+				of {{ page_obj.paginator.count|intcomma }} entries
+			</span>
+
+			{% include "htmx_datatables/_spinner.html" %}
+
+			{% include "htmx_datatables/_pagination.html" %}
+
+		</div>
+		{% endif %}
+
+	</div>
+
+</div>

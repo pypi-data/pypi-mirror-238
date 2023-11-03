@@ -1,0 +1,7 @@
+{% load static %}
+
+{% if is_dark_mode %}
+    <img src="{% static 'htmx_datatables/img/bars-rotate-fade-white-36.svg' %}" alt="Spinner" class="htmx-indicator spinner">
+{% else %}
+    <img src="{% static 'htmx_datatables/img/bars-rotate-fade-black-36.svg' %}" alt="Spinner" class="htmx-indicator spinner">
+{% endif %}

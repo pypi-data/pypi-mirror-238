@@ -1,0 +1,7 @@
+<!-- Loading a data table via htmx. -->
+<div
+	hx-get="{% url url_name %}?v=main&dm={{ is_dark_mode }}"
+	hx-trigger="load"
+	hx-swap="outerHTML">
+		{% include "htmx_datatables/_spinner.html" %}
+</div>

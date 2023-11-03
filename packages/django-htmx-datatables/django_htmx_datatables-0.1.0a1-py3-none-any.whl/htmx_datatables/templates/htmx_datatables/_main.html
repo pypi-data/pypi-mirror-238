@@ -1,0 +1,80 @@
+<!-- htmx datatables main template -->
+{% load humanize %}
+{% load static %}
+
+<div id="{{ root_id }}" hx-indicator="#{{ root_id }} .spinner">
+
+	<!-- Filter drop downs -->
+	{% if filters %}
+		<form class="form-inline">
+			<label>Filter:</label>
+			{% for field_name, label in filters %}
+				<select
+					class="form-control"
+					name="{{ QueryParam.FILTER_PREFIX }}{{ field_name }}"
+					style="width: auto;"
+					hx-get="{{ request.path }}?v=filter"
+					hx-include="#{{ root_id }} .dm-query"
+					hx-trigger="load"
+					hx-target="this"
+					hx-swap="outerHTML">
+						<option value="">({{ label }})</option>
+						<option value="1" disabled>Loading...</option>
+				</select>
+			{% endfor %}
+
+			{% if not length_options and not search_enabled %}
+				{% include "htmx_datatables/_spinner.html" %}
+			{% endif %}
+		</form>
+
+	{% endif %}
+
+	{% if length_options or search_enabled %}
+		<form class="form-inline">
+
+			<!-- Page size selector -->
+			{% if length_options %}
+				<label forid="#{{ root_id }}-paginate">Entries:</label>
+				<select
+					class="form-control data-query"
+					name="{{ QueryParam.PAGINATE_BY }}"
+					id="{{ root_id }}-paginate"
+					hx-get="{{ request.path }}"
+					hx-include="#{{ root_id }} .data-query"
+					hx-target="#{{ root_id }}-data-frame">
+						{% for value, label in length_options %}
+							<option value="{{ value }}">{{ label }}</option>
+						{% endfor %}
+				</select>
+			{% endif %}
+
+			<!-- Search box -->
+			{% if search_enabled %}
+				<span class="pull-right">
+				<label forid="#{{ root_id }}-search">Search:</label>
+				<input
+					class="form-control data-query"
+					id="{{ root_id }}-search"
+					type="search"
+					name="{{ QueryParam.SEARCH }}"
+					size="30"
+					placeholder="Begin Typing To Search ..."
+					hx-get="{{ request.path }}"
+					hx-trigger="keyup changed delay:500ms, search"
+					hx-include="#{{ root_id }} .data-query"
+					hx-target="#{{ root_id }}-data-frame">
+				</span>
+			{% endif %}
+		</form>
+	{% endif %}
+
+	<form>
+		<input type="hidden" class="data-query dm-query" name="{{ QueryParam.DARK_MODE }}" value="{{ is_dark_mode }}">
+	</form>
+
+	<div id="{{ root_id }}-data-frame" hx-get="{{ request.path }}" hx-trigger="load" hx-include="#{{ root_id }} .data-query">
+		{% include "htmx_datatables/_spinner.html" %}
+	</div>
+
+</div>

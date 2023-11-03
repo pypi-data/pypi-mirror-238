@@ -1,0 +1,154 @@
+Metadata-Version: 2.1
+Name: django-htmx-datatables
+Version: 0.1.0a1
+Summary: Render a data table with Django and htmx..
+Author-email: Erik Kalkoken <kalkoken87@gmail.com>
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Classifier: Framework :: Django :: 4.2
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Requires-Dist: django>=3.2
+Project-URL: Home, https://gitlab.com/ErikKalkoken/django-htmxtools
+
+# django-data-table
+
+Render a data table with Django and htmx.
+
+[![release](https://img.shields.io/pypi/v/django-htmx-datatables?label=release)](https://pypi.org/project/django-htmx-datatables/)
+[![python](https://img.shields.io/pypi/pyversions/django-htmx-datatables)](https://pypi.org/project/django-htmx-datatables/)
+[![django](https://img.shields.io/pypi/djversions/django-htmx-datatables?label=django)](https://pypi.org/project/django-htmx-datatables/)
+[![pipeline](https://gitlab.com/ErikKalkoken/django-htmx-datatables/badges/master/pipeline.svg)](https://gitlab.com/ErikKalkoken/django-htmx-datatables/-/pipelines)
+[![codecov](https://codecov.io/gl/ErikKalkoken/django-htmx-datatables/graph/badge.svg?token=P8HJPOUY12)](https://codecov.io/gl/ErikKalkoken/django-htmx-datatables)
+[![license](https://img.shields.io/badge/license-MIT-green)](https://gitlab.com/ErikKalkoken/django-htmx-datatables/-/blob/master/LICENSE)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![chat](https://img.shields.io/discord/790364535294132234)](https://discord.gg/zmh52wnfvM)
+
+**!! This Django app is currently in development and not yet ready for production use !!**
+
+## Contents
+
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Comparison with DataTables JS](#comparison-with-datatables-js)
+- [How To Use](#how-to-use)
+- [Live example](#live-example)
+- [Change Log](CHANGELOG.md)
+
+## Features
+
+- Fundamentals
+  - Renders a data table widget on a webpage
+  - The widget is updated by user actions (e.g. next page) without page reloads
+  - All data is processed server side
+- UI
+  - User can navigate pages
+  - User can order by columns
+  - User can change how many entries are shown
+  - User can do an active text search
+  - User can apply filters to the entries.
+- Developer features
+  - Can show data from model field, a calculated DB field or calculated by Python function
+  - Custom header labels
+  - Custom formatter can be applies for each column (e.g. numeric)
+  - Optional generated totals footer
+  - Supports CSS styling of table via stable HTML table ID
+  - Styled using Bootstrap 3 & Font Awesome 5
+
+## Screenshots
+
+Here is an example:
+
+![Example](https://imgpile.com/images/G4OJ2c.png)
+
+## Comparison with DataTables JS
+
+This component aims to be a replacement for the popular DataTables JS:
+
+- Fast rendering of large tables compared to DataTables with server side processing
+- Easier implementation (e.g. not requiring any additional JavaScript code)
+- Provides most of same basic features (e.g. Paging, Selectable page size, search, ...)
+
+## How to use
+
+Here is a simple example for creating a data table for users of a Django site:
+
+### settings.py
+
+Add this Django app to your site:
+
+```python
+  INSTALLED_APPS = [
+    ...
+    "htmx_datatables",
+    ...
+  ]
+```
+
+### views.py
+
+Create a view:
+
+```python
+from htmx_datatables.views import HtmxDataTableView
+
+class MyDataTable(HtmxDataTableView):
+    model = User
+    columns = ["username", "date_joined", "is_superuser"]
+    paginate_by = 10
+```
+
+For more information about features and configuration please see the [source code](https://gitlab.com/ErikKalkoken/django-datatables/-/blob/master/datatables/views.py) for `HtmxDataTableView`.
+
+### urls.py
+
+Add the new view to your urls:
+
+```python
+
+  from .views import MyDataTable
+
+  ...
+
+  urlpatterns = [
+    ...
+    path("users_data_table/", MyDataTable.as_view(), name="users_data_table"),
+    ...
+  ]
+```
+
+### index.html
+
+Finally, include the new data table in your Django template:
+
+```django
+  {% load htmx_datatables %}
+  {# ... #}
+  {% render_htmx_datatable url="my_app:users_data_table" %}
+  {# ... #}
+  {% enable_htmx_js %}
+```
+
+The `render_htmx_datatable` template tag creates the widget.
+
+The `enable_htmx_js`template tag loads and enables htmx for this particular Django page (incl. error handling).
+
+## Live example
+
+To see how this widget works in practice you can check out out live example here: [Live example website](https://auth.kalkoken.net/datatables_example/bootstrap-3).
+
+The code for the live example can be found on the repo in the folder [example-app](https://gitlab.com/ErikKalkoken/django-htmx-datatables/-/tree/master/example-app?ref_type=heads).
+
