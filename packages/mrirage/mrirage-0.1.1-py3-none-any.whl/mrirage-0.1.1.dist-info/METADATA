@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: mrirage
+Version: 0.1.1
+Summary: MRI visualization
+Home-page: https://github.com/nx10/mrirage
+License: MIT
+Keywords: MRI,visualization
+Author: Florian Rupprecht
+Author-email: floruppr@gmail.com
+Requires-Python: >=3.10,<3.13
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Provides-Extra: docs
+Requires-Dist: fineslice (>=0.0.2,<0.0.3)
+Requires-Dist: matplotlib (>=3.8.0,<4.0.0)
+Requires-Dist: nibabel (>=5.1.0,<6.0.0)
+Requires-Dist: numpy (>=1.26.1,<2.0.0)
+Requires-Dist: scipy (>=1.11.3,<2.0.0)
+Project-URL: Documentation, https://github.com/nx10/mrirage/docs
+Project-URL: Repository, https://github.com/nx10/mrirage
+Description-Content-Type: text/markdown
+
+> This is completely experimental work in progress / MVP at the moment. There will be bugs and no APIs are stable.
+
+# `mrirage`
+
+[![Build](https://github.com/cmi-dair/mrirage/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/cmi-dair/mrirage/actions/workflows/test.yml?query=branch%3Amaster)
+[![codecov](https://codecov.io/gh/cmi-dair/mrirage/branch/master/graph/badge.svg?token=22HWWFWPW5)](https://codecov.io/gh/cmi-dair/mrirage)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+![stability-wip](https://img.shields.io/badge/stability-work_in_progress-lightgrey.svg)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/cmi-dair/mrirage/blob/master/LICENSE)
+[![pages](https://img.shields.io/badge/api-docs-blue)](https://cmi-dair.github.io/mrirage)
+
+`mrirage` (pronounced _mirage_) is a scientific visualization library for Python
+with the goal of creating and automating publication ready figures from 3D voxel MRI images.
+
+## Features
+
+- Highly customizable
+- Declarative API
+- Lightweight (only depends on common scientific Python packages)
+- Custom voxel image slicing engine
+- Custom layout and style systems built on `matplotlib`
+
+## Tutorials
+
+To get started [have a look at the tutorials](https://github.com/cmi-dair/mrirage/blob/master/examples/README.md).
+
