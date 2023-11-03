@@ -1,0 +1,63 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "host": "Host",
+          "adbkey": "Ścieżka do pliku klucza ADB (pozostaw puste, aby automatycznie wygenerować)",
+          "adb_server_ip": "Adres IP serwera ADB (pozostaw puste, aby nie używać)",
+          "adb_server_port": "Port serwera ADB",
+          "device_class": "Typ urządzenia",
+          "port": "Port"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "nie można połączyć",
+      "invalid_host": "nieprawidłowy host",
+      "adbkey_not_file": "Nie znaleziono pliku klucza ADB",
+      "key_and_server": "Podaj tylko klucz ADB lub serwer ADB",
+      "unknown": "błąd nieznany"
+    },
+    "abort": {
+      "already_configured": "już skonfigurowane urządzenie",
+      "invalid_unique_id": "Nie można określić prawidłowego unikalnego identyfikatora urządzenia"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "apps": "Skonfiguruj listę aplikacji",
+          "get_sources": "Pobierz uruchomione aplikacje jako listę źródeł",
+          "exclude_unnamed_apps": "Wyklucz aplikacje o nieznanej nazwie z listy źródeł",
+          "screencap": "Użyj przechwytywania ekranu dla okładek albumów",
+          "state_detection_rules": "Skonfiguruj reguły wykrywania stanu",
+          "turn_off_command": "Polecenie wyłączenia powłoki ADB (domyślnie pozostaw puste)",
+          "turn_on_command": "Polecenie włączania powłoki ADB (domyślnie pozostaw puste)"
+        }
+      },
+      "apps": {
+        "title": "Skonfiguruj aplikacje na Androida",
+        "description": "Skonfiguruj identyfikator aplikacji {app_id}",
+        "data": {
+          "app_name": "Nazwa aplikacji",
+          "app_id": "ID aplikacji",
+          "app_delete": "Zaznacz, aby usunąć tę aplikację"
+        }
+      },
+      "rules": {
+        "title": "Skonfiguruj reguły wykrywania stanu Androida",
+        "description": "Skonfiguruj regułę wykrywania dla identyfikatora aplikacji {rule_id}",
+        "data": {
+          "rule_id": "ID aplikacji",
+          "rule_values": "Lista reguł wykrywania stanu (patrz dokumentacja)",
+          "rule_delete": "Zaznacz, aby usunąć tę regułę"
+        }
+      }
+    },
+    "error": {
+      "invalid_det_rules": "Nieprawidłowe reguły wykrywania stanu"
+    }
+  }
+}

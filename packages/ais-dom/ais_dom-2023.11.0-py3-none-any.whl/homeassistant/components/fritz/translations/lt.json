@@ -1,0 +1,132 @@
+{
+    "config": {
+        "error": {
+            "upnp_not_configured": "\u012erenginyje tr\u016bksta UPnP nustatym\u0173."
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "is_connected": {
+                "name": "Ry\u0161ys"
+            },
+            "is_linked": {
+                "name": "Nuoroda"
+            }
+        },
+        "button": {
+            "cleanup": {
+                "name": "I\u0161valyti"
+            },
+            "firmware_update": {
+                "name": "Programin\u0117s \u012frangos atnaujinimas"
+            },
+            "reconnect": {
+                "name": "Prisijunkite i\u0161 naujo"
+            }
+        },
+        "sensor": {
+            "connection_uptime": {
+                "name": "Ry\u0161io veikimo laikas"
+            },
+            "device_uptime": {
+                "name": "Paskutinis paleidimas i\u0161 naujo"
+            },
+            "external_ip": {
+                "name": "I\u0161orinis IP"
+            },
+            "external_ipv6": {
+                "name": "I\u0161orinis IPv6"
+            },
+            "gb_received": {
+                "name": "GB gautas"
+            },
+            "gb_sent": {
+                "name": "GB i\u0161si\u0173stas"
+            },
+            "kb_s_received": {
+                "name": "Atsisiuntimo pralaidumas"
+            },
+            "kb_s_sent": {
+                "name": "\u012ek\u0117limo pralaidumas"
+            },
+            "link_attenuation_received": {
+                "name": "Atsisiuntimo nuoroda galios slopinimas"
+            },
+            "link_attenuation_sent": {
+                "name": "Nuorodos \u012fk\u0117limo galios slopinimas"
+            },
+            "link_kb_s_received": {
+                "name": "Nuorod\u0173 atsisiuntimo pralaidumas"
+            },
+            "link_kb_s_sent": {
+                "name": "Nuorodos \u012fk\u0117limo pralaidumas"
+            },
+            "link_noise_margin_received": {
+                "name": "Nuorodos atsisiuntimo triuk\u0161mo riba"
+            },
+            "link_noise_margin_sent": {
+                "name": "Nuorodos \u012fk\u0117limo triuk\u0161mo riba"
+            },
+            "max_kb_s_received": {
+                "name": "Maksimalus ry\u0161io atsisiuntimo pralaidumas"
+            },
+            "max_kb_s_sent": {
+                "name": "Maksimalus ry\u0161io \u012fk\u0117limo pralaidumas"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "old_discovery": "\u012egalinti sen\u0105 atradimo metod\u0105"
+                }
+            }
+        }
+    },
+    "services": {
+        "cleanup": {
+            "description": "Pa\u0161alinkite FRITZ!Box pasenusius device_tracker objektus.",
+            "fields": {
+                "device_id": {
+                    "description": "Nor\u0117dami patikrinti, pasirinkite Fritz!Box."
+                }
+            },
+            "name": "Pa\u0161alinkite pasenusius \u012frenginio steb\u0117jimo objektus"
+        },
+        "reboot": {
+            "description": "Perkrauna j\u016bs\u0173 FRITZ!Box.",
+            "fields": {
+                "device_id": {
+                    "description": "Pasirinkite Fritz!Box, kad paleistum\u0117te i\u0161 naujo."
+                }
+            },
+            "name": "Perkraukite"
+        },
+        "reconnect": {
+            "description": "I\u0161 naujo prijungia j\u016bs\u0173 FRITZ!Box interneto ry\u0161\u012f.",
+            "fields": {
+                "device_id": {
+                    "description": "Pasirinkite Fritz!Box, kad v\u0117l prisijungtum\u0117te.",
+                    "name": "Fritz!Box \u012frenginys"
+                }
+            }
+        },
+        "set_guest_wifi_password": {
+            "description": "Nustatomas naujas sve\u010dio \u201eWi-Fi\u201c slapta\u017eodis. Slapta\u017eodis turi b\u016bti nuo 8 iki 63 simboli\u0173 ilgio. Jei nenustatytas joks papildomas parametras, slapta\u017eodis bus automati\u0161kai sugeneruotas ir sudarys 12 simboli\u0173.",
+            "fields": {
+                "device_id": {
+                    "description": "Pasirinkite Fritz!Box, kur\u012f norite konfig\u016bruoti."
+                },
+                "length": {
+                    "description": "Naujo slapta\u017eod\u017eio ilgis. Jei slapta\u017eodis nenustatytas, slapta\u017eodis bus sugeneruotas automati\u0161kai.",
+                    "name": "Slapta\u017eod\u017eio ilgis"
+                },
+                "password": {
+                    "description": "Naujas sve\u010dio \u201eWi-Fi\u201c slapta\u017eodis."
+                }
+            },
+            "name": "Nustatykite sve\u010dio \u201eWi-Fi\u201c slapta\u017eod\u012f"
+        }
+    }
+}

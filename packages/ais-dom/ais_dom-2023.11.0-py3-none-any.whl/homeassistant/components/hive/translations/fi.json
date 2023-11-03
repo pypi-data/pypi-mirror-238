@@ -1,0 +1,57 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Tili on jo m\u00e4\u00e4ritetty",
+            "reauth_successful": "Uudelleentodennus onnistui"
+        },
+        "error": {
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "reauth": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                }
+            },
+            "user": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                }
+            }
+        }
+    },
+    "services": {
+        "boost_heating": {
+            "description": "(poistetaan tulevaisuudessa k\u00e4yt\u00f6st\u00e4) Ole hyv\u00e4 ja k\u00e4yt\u00e4: boost_heating_on.",
+            "fields": {
+                "temperature": {
+                    "description": "Aseta tavoitel\u00e4mp\u00f6tila tehostusjaksolle.",
+                    "name": "L\u00e4mp\u00f6tila"
+                },
+                "time_period": {
+                    "description": "Aseta tehostuksen aikajakso.",
+                    "name": "Ajanjakso"
+                }
+            },
+            "name": "Tehostettu l\u00e4mmitys (poistetaan tulevaisuudessa k\u00e4yt\u00f6st\u00e4)"
+        },
+        "boost_heating_off": {
+            "description": "Asettaa tehostustilan pois p\u00e4\u00e4lt\u00e4.",
+            "fields": {
+                "entity_id": {
+                    "description": "Valitse entity_id poistaaksesi tehostuksen k\u00e4yt\u00f6st\u00e4.",
+                    "name": "Kohteen tunniste"
+                }
+            }
+        },
+        "boost_hot_water": {
+            "fields": {
+                "on_off": {
+                    "name": "Tila"
+                }
+            }
+        }
+    }
+}

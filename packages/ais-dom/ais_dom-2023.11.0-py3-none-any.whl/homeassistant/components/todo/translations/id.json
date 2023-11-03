@@ -1,0 +1,92 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Daftar tugas"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "Selesai",
+                "needs_action": "Belum selesai"
+            }
+        }
+    },
+    "services": {
+        "add_item": {
+            "description": "Tambahkan item daftar tugas baru.",
+            "fields": {
+                "item": {
+                    "description": "Nama yang mewakili item tugas.",
+                    "name": "Nama item"
+                }
+            },
+            "name": "Tambahkan item daftar tugas"
+        },
+        "create_item": {
+            "description": "Tambahkan item daftar tugas baru.",
+            "fields": {
+                "status": {
+                    "description": "Status atau konfirmasi item tugas.",
+                    "name": "Status"
+                },
+                "summary": {
+                    "description": "Ringkasan singkat yang mewakili item tugas.",
+                    "name": "Ringkasan"
+                }
+            },
+            "name": "Buat item daftar tugas"
+        },
+        "delete_item": {
+            "description": "Hapus item daftar tugas yang ada berdasarkan ID unik atau ringkasannya.",
+            "fields": {
+                "summary": {
+                    "description": "Ringkasan singkat yang mewakili item tugas.",
+                    "name": "Ringkasan"
+                },
+                "uid": {
+                    "description": "Pengidentifikasi unik untuk item daftar tugas",
+                    "name": "ID unik item tugas"
+                }
+            },
+            "name": "Hapus item daftar tugas"
+        },
+        "remove_item": {
+            "description": "Hapus item daftar tugas yang ada berdasarkan namanya.",
+            "fields": {
+                "item": {
+                    "description": "Nama untuk item daftar tugas",
+                    "name": "Nama item"
+                }
+            },
+            "name": "Hapus item daftar tugas"
+        },
+        "update_item": {
+            "description": "Perbarui item daftar tugas yang ada berdasarkan namanya.",
+            "fields": {
+                "item": {
+                    "description": "Nama untuk item daftar tugas.",
+                    "name": "Nama item"
+                },
+                "rename": {
+                    "description": "Nama baru untuk item daftar tugas.",
+                    "name": "Ganti nama item"
+                },
+                "status": {
+                    "description": "Status atau konfirmasi item tugas.",
+                    "name": "Tetapkan status"
+                },
+                "summary": {
+                    "description": "Ringkasan singkat yang mewakili item tugas.",
+                    "name": "Ringkasan"
+                },
+                "uid": {
+                    "description": "Pengidentifikasi unik untuk item daftar tugas.",
+                    "name": "ID unik item daftar tugas"
+                }
+            },
+            "name": "Perbarui item daftar tugas"
+        }
+    },
+    "title": "Daftar tugas"
+}

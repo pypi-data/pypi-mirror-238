@@ -1,0 +1,55 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "Anna {entity_name} puhdistaa",
+            "dock": "Anna {entity_name} palata telakkaan"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} on siivoamassa",
+            "is_docked": "{entity_name} on telakoituna"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} aloitti siivouksen",
+            "docked": "{entity_name} telakoitu"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Imuri",
+            "state": {
+                "cleaning": "Siivoaa",
+                "docked": "Telakoituna",
+                "error": "Virhe",
+                "idle": "Lepotilassa",
+                "off": "Pois",
+                "on": "P\u00e4\u00e4ll\u00e4",
+                "paused": "Pys\u00e4ytetty",
+                "returning": "Palaamassa telakkaan"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "pause": {
+            "name": "Keskeyt\u00e4"
+        },
+        "start": {
+            "name": "K\u00e4ynnist\u00e4"
+        },
+        "stop": {
+            "name": "Pys\u00e4yt\u00e4"
+        },
+        "turn_off": {
+            "name": "Sammuta"
+        },
+        "turn_on": {
+            "name": "Laita p\u00e4\u00e4lle"
+        }
+    },
+    "title": "Imuri"
+}
