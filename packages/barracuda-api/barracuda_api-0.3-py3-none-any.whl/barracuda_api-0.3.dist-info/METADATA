@@ -1,0 +1,144 @@
+Metadata-Version: 2.1
+Name: barracuda-api
+Version: 0.3
+Summary: Barracuda REST API abstraction
+Home-page: 
+Author: Peter Gastinger
+Author-email: peter.gastinger@omv.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+
+# Barracuda API
+
+This is a more convenient wrapper around the Barracuda REST api than using plain REST API methods. Following methods are implemented:
+
+- add/get/delete lists
+- add/get/delete network objects
+- add/get/delete service objects
+- add/get/delete firewall rules
+
+## Tests
+
+```console
+(py310_venv) C:\Users\PETER210\OneDrive - OMV Group\Desktop\vscode\barracuda-api>coverage run -m pytest
+=========================== test session starts ===========================
+platform win32 -- Python 3.10.5, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
+rootdir: C:\Users\PETER210\OneDrive - OMV Group\Desktop\vscode\barracuda-api
+collected 19 items
+
+tests\test_01_box_info.py ...
+tests\test_02_ff_lists.py .....
+tests\test_03_ff_networks.py .......
+tests\test_04_ff_services.py ........
+tests\test_05_ff_rules.py ............
+
+=========================== 35 passed in 4.06s ===========================
+
+(py310_venv) C:\Users\PETER210\OneDrive - OMV Group\Desktop\vscode\barracuda-api>coverage report -m
+Name                           Stmts   Miss  Cover   Missing
+------------------------------------------------------------
+barracuda_api\__init__.py          9      0   100%
+barracuda_api\barracuda.py       199      2    99%   101, 112
+barracuda_api\endpoints.py        15      0   100%
+barracuda_api\exceptions.py       12      0   100%
+tests\__init__.py                  1      0   100%
+tests\test_01_box_info.py         22      0   100%
+tests\test_02_ff_lists.py         38      0   100%
+tests\test_03_ff_networks.py      64      0   100%
+tests\test_04_ff_services.py      56      0   100%
+tests\test_05_ff_rules.py         86      0   100%
+------------------------------------------------------------
+TOTAL                            502      2    99%
+
+```
+
+## Build wheel (recommended over an egg)
+
+```console
+
+(py310_venv) C:\Users\PETER210\OneDrive - OMV Group\Desktop\vscode\barracuda-api>pip wheel .
+Processing c:\users\peter210\onedrive - omv group\desktop\vscode\barracuda-api
+  Preparing metadata (setup.py) ... done
+Building wheels for collected packages: barracuda-api
+  Building wheel for barracuda-api (setup.py) ... done
+  Created wheel for barracuda-api: filename=barracuda_api-0.2-py3-none-any.whl size=13749 sha256=789fe40d9c08c1826e5c7a0d34168f68fa4cee5c16d59341bb4ff10b2998bb63
+  Stored in directory: c:\users\peter210\appdata\local\pip\cache\wheels\72\a4\9b\2789e9879d99a602283d1ae10b9abf2cba8442fd7cfbc876a5
+Successfully built barracuda-api
+```
+
+```console
+C:\Users\PETER210\OneDrive - OMV Group\Desktop\vscode\barracuda-api>python setup.py bdist_wheel
+
+running bdist_wheel
+running build
+running build_py
+installing to build\bdist.win-amd64\wheel
+running install
+running install_lib
+creating build\bdist.win-amd64\wheel
+creating build\bdist.win-amd64\wheel\barracuda_api
+copying build\lib\barracuda_api\barracuda.py -> build\bdist.win-amd64\wheel\.\barracuda_api
+copying build\lib\barracuda_api\endpoints.py -> build\bdist.win-amd64\wheel\.\barracuda_api
+copying build\lib\barracuda_api\exceptions.py -> build\bdist.win-amd64\wheel\.\barracuda_api
+copying build\lib\barracuda_api\__init__.py -> build\bdist.win-amd64\wheel\.\barracuda_api
+creating build\bdist.win-amd64\wheel\tests
+copying build\lib\tests\test_01_box_info.py -> build\bdist.win-amd64\wheel\.\tests
+copying build\lib\tests\test_02_ff_lists copy.py -> build\bdist.win-amd64\wheel\.\tests
+copying build\lib\tests\test_02_ff_lists.py -> build\bdist.win-amd64\wheel\.\tests
+copying build\lib\tests\test_03_ff_networks.py -> build\bdist.win-amd64\wheel\.\tests
+copying build\lib\tests\test_04_ff_services.py -> build\bdist.win-amd64\wheel\.\tests
+copying build\lib\tests\test_05_ff_rules.py -> build\bdist.win-amd64\wheel\.\tests
+copying build\lib\tests\__init__.py -> build\bdist.win-amd64\wheel\.\tests
+running install_egg_info
+running egg_info
+writing barracuda_api.egg-info\PKG-INFO
+writing dependency_links to barracuda_api.egg-info\dependency_links.txt
+writing top-level names to barracuda_api.egg-info\top_level.txt
+reading manifest file 'barracuda_api.egg-info\SOURCES.txt'
+writing manifest file 'barracuda_api.egg-info\SOURCES.txt'
+Copying barracuda_api.egg-info to build\bdist.win-amd64\wheel\.\barracuda_api-0.1-py3.10.egg-info
+running install_scripts
+creating build\bdist.win-amd64\wheel\barracuda_api-0.1.dist-info\WHEEL
+creating 'dist\barracuda_api-0.1-py3-none-any.whl' and adding 'build\bdist.win-amd64\wheel' to it
+adding 'barracuda_api/__init__.py'
+adding 'barracuda_api/barracuda.py'
+adding 'barracuda_api/endpoints.py'
+adding 'barracuda_api/exceptions.py'
+adding 'tests/__init__.py'
+adding 'tests/test_01_box_info.py'
+adding 'tests/test_02_ff_lists copy.py'
+adding 'tests/test_02_ff_lists.py'
+adding 'tests/test_03_ff_networks.py'
+adding 'tests/test_04_ff_services.py'
+adding 'tests/test_05_ff_rules.py'
+adding 'barracuda_api-0.1.dist-info/METADATA'
+adding 'barracuda_api-0.1.dist-info/WHEEL'
+adding 'barracuda_api-0.1.dist-info/top_level.txt'
+adding 'barracuda_api-0.1.dist-info/RECORD'
+removing build\bdist.win-amd64\wheel
+```
+
+## Installation
+
+```console
+(py310_venv) C:\Users\PETER210\OneDrive - OMV Group\Desktop\vscode\barracuda-api>pip install .
+Processing c:\users\peter210\onedrive - omv group\desktop\vscode\barracuda-api
+  Preparing metadata (setup.py) ... done
+Building wheels for collected packages: barracuda-api
+  Building wheel for barracuda-api (setup.py) ... done
+  Created wheel for barracuda-api: filename=barracuda_api-0.2-py3-none-any.whl size=13750 sha256=31750ac6cb23266159453a68d0e499b005a6208ea9db1bdaab1be35ab42ed13c
+  Stored in directory: c:\users\peter210\appdata\local\pip\cache\wheels\72\a4\9b\2789e9879d99a602283d1ae10b9abf2cba8442fd7cfbc876a5
+Successfully built barracuda-api
+Installing collected packages: barracuda-api
+  Attempting uninstall: barracuda-api
+    Found existing installation: barracuda-api 0.1
+    Uninstalling barracuda-api-0.1:
+      Successfully uninstalled barracuda-api-0.1
+Successfully installed barracuda-api-0.2
+```
+
+## Basic usage
+
+todo
