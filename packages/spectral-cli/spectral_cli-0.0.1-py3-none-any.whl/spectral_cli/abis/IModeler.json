@@ -1,0 +1,690 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "ipfsChallenge",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "submitter",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "round",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "randomness",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes",
+            "name": "signature",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "previous_signature",
+            "type": "bytes"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct DataTypes.DrandProof",
+        "name": "proof",
+        "type": "tuple"
+      }
+    ],
+    "name": "ChallengeGiven",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "validator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "ipfsResponse",
+        "type": "string"
+      }
+    ],
+    "name": "ChallengeResponded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "submitter",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "round",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "randomness",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes",
+            "name": "signature",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "previous_signature",
+            "type": "bytes"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct DataTypes.DrandProof",
+        "name": "proof",
+        "type": "tuple"
+      }
+    ],
+    "name": "DrandProofProvided",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "ipfsGraded",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "performanceResult",
+        "type": "uint256"
+      }
+    ],
+    "name": "GradedPosted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      }
+    ],
+    "name": "ModelerNetPerformanceResultUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      }
+    ],
+    "name": "ModelerOptedOut",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "modelCommitment",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "stakedAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "ModelerRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "ModelerSlashed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "futureRandSlot",
+        "type": "uint256"
+      }
+    ],
+    "name": "NextRandSlotSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "validator",
+        "type": "address"
+      }
+    ],
+    "name": "ValidatorEmergencyOptOut",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "validator",
+        "type": "address"
+      }
+    ],
+    "name": "ValidatorRegistered",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "allValidators",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "validator",
+        "type": "address"
+      }
+    ],
+    "name": "emergencyOptOutValidator",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      }
+    ],
+    "name": "getMedianPerformanceResults",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      }
+    ],
+    "name": "getModeler",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "modelCommitment",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "modelerSubmissionBlock",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "medianPerformanceResults",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "currentStake",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "optOutTime",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DataTypes.ModelerData",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_ipfsChallenge",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "submitter",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "round",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "randomness",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes",
+            "name": "signature",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "previous_signature",
+            "type": "bytes"
+          }
+        ],
+        "internalType": "struct DataTypes.DrandProof",
+        "name": "proof",
+        "type": "tuple"
+      }
+    ],
+    "name": "giveChallengeToModeler",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_competitionContract",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_validatorToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_validatorStakeAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxValidators",
+        "type": "uint256"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "isValidator",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "modelers",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "modelCommitment",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "modelerSubmissionBlock",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "medianPerformanceResults",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "currentStake",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "optOutTime",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DataTypes.ModelerData",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "optOutModeler",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_ipfsGraded",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_performanceResult",
+        "type": "uint256"
+      }
+    ],
+    "name": "postGraded",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "submitter",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "round",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "randomness",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes",
+            "name": "signature",
+            "type": "bytes"
+          },
+          {
+            "internalType": "bytes",
+            "name": "previous_signature",
+            "type": "bytes"
+          }
+        ],
+        "internalType": "struct DataTypes.DrandProof",
+        "name": "proof",
+        "type": "tuple"
+      }
+    ],
+    "name": "provideDrandProof",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_modelCommitment",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "stakedAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "registerModeler",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "registerValidator",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "validator",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_ipfsResponse",
+        "type": "string"
+      }
+    ],
+    "name": "respondToChallenge",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      }
+    ],
+    "name": "setModelerNetPerformanceResultAndUpdate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_modeler",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_futureRandSlot",
+        "type": "uint256"
+      }
+    ],
+    "name": "setNextRandSlot",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "modeler",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "slashModeler",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "validators",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "isRegistered",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "optOutTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "currentStake",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DataTypes.ValidatorData",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
