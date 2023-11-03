@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="http://localhost:3000/getting_started/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Getting Started - ScanEO</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Getting Started";
+        var mkdocs_page_input_path = "getting_started.md";
+        var mkdocs_page_url = "/getting_started/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> ScanEO
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Getting Started</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="../user_interface.md">User Interface</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="../images.md">Images</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="../saving_and_exporting.md">Saving and exporting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="../stac_compatibility.md">STAC compatibility</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">ScanEO</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Getting Started</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">#</a></h1>
+<p>You can install the library and CLI using pip.
+<code>pip install scaneo</code></p>
+<p>To verify the installation you can run the <code>help</code> command, which will give you a list of all the available commands in the CLI.
+<code>scaneo --help</code></p>
+<p>Until we hit a stable release (v1.0 is planned for October 2023) it is recommended to upgrade the cli regularly to get the latest changes.
+<code>pip install eotdl --upgrade</code></p>
+<blockquote>
+<p>The library and CLI require Python &gt;= 3.8.</p>
+</blockquote>
+<h1 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">#</a></h1>
+<pre><code class="language-python">pip install scaneo
+</code></pre>
+<p><img alt="" src="https://assets.cdn.prod.twilio.com/images/9u-nebu3e4qL8G-_qBcUMw0hk7Ga5DQqyHXNfeBDSCsa3W.width-500.gif" /></p>
+<p>You can pick a port to run the server on with the flag <code>--port</code> or <code>-p</code>.
+<code>scaneo --port 8080</code></p>
+<p>You can also specify the host with the flag <code>--host</code> or <code>-h</code>.
+<code>scaneo --host</code></p>
+<p>To run the server in reload mode you can use the flag <code>--reload</code> or <code>-r</code>.
+<code>scaneo --reload</code></p>
+<p>Find out which version of the CLI you are running with the flag <code>--version</code> or <code>-v</code>.
+<code>scaneo --version</code></p>
+<p>If you're working with local data, you can specify a path to a local file with the flag <code>--data</code> or <code>-d</code> before the path to the data.
+<code>scaneo --data ./path-to-data/</code></p>
+<p>Add a path to environment file with credentials to a cloud bucket (URL, ACCESS_KEY, SECRET_KEY, BUCKET, REGION) with the flag <code>--env</code>, <code>.env</code> or <code>-e</code>.
+<code>scaneo --env</code></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
