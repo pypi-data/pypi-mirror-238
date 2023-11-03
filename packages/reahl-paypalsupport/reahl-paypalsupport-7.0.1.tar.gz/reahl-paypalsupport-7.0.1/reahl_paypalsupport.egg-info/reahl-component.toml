@@ -1,0 +1,14 @@
+configuration = "reahl.paypalsupport.paypalconfig:PayPalSiteConfig"
+persisted = [ "reahl.paypalsupport.paypalsupport:PayPalOrder",]
+metadata_version = "1.1.0"
+
+[versions."6.1"]
+dependencies = [ "reahl-component>=6.1,<6.2", "reahl-sqlalchemysupport>=6.1,<6.2", "reahl-web>=6.1,<6.2", "reahl-web-declarative>=6.1,<6.2", "reahl-domain>=6.1,<6.2",]
+
+[versions."6.0"]
+migrations = [ "reahl.paypalsupport.migrations:AdjustJsonForMySqlCompatibility",]
+dependencies = [ "reahl-component>=6.0,<6.1", "reahl-sqlalchemysupport>=6.0,<6.1", "reahl-web>=6.0,<6.1", "reahl-web-declarative>=6.0,<6.1", "reahl-domain>=6.0,<6.1",]
+
+[versions."5.2"]
+dependencies = [ "reahl-component>=5.2,<5.3", "reahl-sqlalchemysupport>=5.2,<5.3", "reahl-web>=5.2,<5.3", "reahl-web-declarative>=5.2,<5.3", "reahl-domain>=5.2,<5.3",]
+migrations = [ "reahl.paypalsupport.migrations:CreatePaypal",]
