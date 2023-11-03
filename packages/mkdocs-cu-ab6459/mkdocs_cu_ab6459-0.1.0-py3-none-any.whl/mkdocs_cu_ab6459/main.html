@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <!-- Additional CSS Sources -->
+    <link href="{{ 'css/bootstrap.min.css'|url }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ 'css/custom.css'|url }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ 'css/diagram.css'|url }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ 'css/prism.css'|url }}" rel="stylesheet" type="text/css"/>
+    <!-- External CSS Sources -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet"
+          type="text/css"/>
+    <!-- Additional JavaScript Sources -->
+    <script src="{{ 'js/simple-diagram.js'|url }}"></script>
+    <!-- External JavaScript Sources -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/mermaid@10.6.0/dist/mermaid.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ config.module_code }} {{ config.site_name }}</title>
+</head>
+<body class="bg-body-tertiary">
+<div class="container-fluid min-100 d-flex flex-column">
+    <div class="row">
+        <div class="bg-header col-12 d-flex flex-row align-items-center py-3 px-3">
+            <a class="d-sm-none d-lg-block logo-coventry me-3" href="#">&nbsp;</a>
+            <div class="d-flex flex-column flex-grow-1">
+                <div class="d-flex flex-row">
+                    <h1 class="text-white fs-3 fw-bolder m-0 me-2">{{ config.module_code }}</h1>
+                    <h1 class="text-white fs-3 fw-lighter m-0">{{ config.module_title }}</h1>
+                </div>
+                <h2 class="text-white fs-6 fst-italic fw-normal mt-2">{{ page.title }}</h2>
+            </div>
+            <div class="d-flex flex-column">
+                <button class="btn fs-3" onclick="darkmode()">
+                    <i id="dark-mode-icon" class="bi bi-moon-fill text-white"></i>
+                </button>
+                <input class="form-check-input d-none" id="chkboxDarkMode" type="checkbox">
+            </div>
+        </div>
+    </div>
+    <div class="row flex-lg-fill">
+        <div class="bg-body-secondary col-sm-12 col-lg-2">
+
+            <ul class="d-flex d-lg-block list-unstyled py-2 mb-0
+                        flex-sm-row justify-content-sm-center align-items-sm-center
+                        flex-lg-column justify-content-lg-start align-items-lg-start pt-lg-2">
+
+                {% for nav_item in nav %}
+                {% if nav_item.children %}
+                <li class="nav-item px-2 py-1 col-lg-12">
+                    <a data-bs-toggle="collapse" href="#{{ nav_item.title.replace(' ', '-') }}"
+                       class="py-2 text-body text-truncate fw-bold text-decoration-none btn btn-sm bg-body-tertiary w-100
+                           justify-content-start align-items-start d-flex fs-6"
+                       aria-expanded="false" aria-controls="{{ nav_item.title.replace(' ', '-') }}">
+                        {% if nav_item.title == "Your Assessment" %}
+                        <i class="bi bi-journal-code me-sm-0 me-lg-2"></i>
+                        {% elif nav_item.title == "Lectures" %}
+                        <i class="bi bi-book me-sm-0 me-lg-2"></i>
+                        {% elif nav_item.title == "Lab Activities" %}
+                        <i class="bi bi-pen me-sm-0 me-lg-2"></i>
+                        {% elif nav_item.title == "Linux" %}
+                        <i class="bi-ubuntu me-sm-0 me-lg-2"></i>
+                        {% elif nav_item.title == "macOS" %}
+                        <i class="bi-apple me-sm-0 me-lg-2"></i>
+                        {% elif nav_item.title == "Windows" %}
+                        <i class="bi-windows me-sm-0 me-lg-2"></i>
+                        {% elif nav_item.title == "Markdown" %}
+                        <i class="bi-markdown me-sm-0 me-lg-2"></i>
+                        {% elif nav_item.title == "LaTeX" %}
+                        <i class="bi-code-slash me-sm-0 me-lg-2"></i>
+                        {% elif nav_item.title == "OpenCV" %}
+                        <i class="bi bi-cpu me-sm-0 me-lg-2"></i>
+                        {% elif nav_item.title == "Module Essentials" %}
+                        <i class="bi-bookmark me-sm-0 me-lg-2"></i>
+                        {% elif nav_item.title == "Getting Started" %}
+                        <i class="bi-exclamation-square me-sm-0 me-lg-2"></i>
+                        {% elif nav_item.title == "Additional Projects" %}
+                        <i class="bi-kanban me-sm-0 me-lg-2"></i>
+                        {% else %}
+                        <i class="bi bi-link me-sm-0 me-lg-2"></i>
+                        {% endif %}
+                        <span class="d-sm-none d-lg-block">{{ nav_item.title }}</span>
+                    </a>
+                    <div class="collapse bg-body-tertiary p-2 rounded-bottom-3" id="{{ nav_item.title.replace(' ', '-') }}">
+                        <ul class="list-unstyled px-lg-4">
+                            {% for child_item in nav_item.children %}
+                            <li class="mb-2 text-decoration-none">
+                                <a href="{{ child_item.url|url }}">{{ child_item.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item px-2 py-1 col-lg-12">
+                    <a href="{{ nav_item.url|url }}"
+                       class="py-2 text-body text-truncate fw-bold text-decoration-none btn btn-sm bg-body-tertiary w-100
+                           justify-content-start align-items-start d-flex fs-6">
+                        <i class="bi bi-link d-sm-none d-lg-block me-sm-2 me-lg-2"></i>
+                        {{ nav_item.title }}
+                    </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="bg-body-tertiary col-sm-12 col-lg-10 ">
+            <main class="pt-lg-2 pt-sm-2">
+                {% block content %}
+                {{ page.content }}
+                {% endblock %}
+            </main>
+        </div>
+    </div>
+</div>
+<script src="{{ 'js/bootstrap.bundle.js'|url }}"></script>
+<script src="{{ 'js/darkmode.js'|url }}"></script>
+<script src="{{ 'js/prism.js'|url }}"></script>
+<script type="module">
+    mermaid.initialize({ startOnLoad: true });
+</script>
+</body>
+</html>
