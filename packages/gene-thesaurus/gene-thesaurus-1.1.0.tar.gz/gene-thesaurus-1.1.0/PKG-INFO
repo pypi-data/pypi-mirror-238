@@ -1,0 +1,108 @@
+Metadata-Version: 2.1
+Name: gene-thesaurus
+Version: 1.1.0
+Summary: GeneThesaurus is a Python package that translates gene aliases and old gene symbols to the current HGNC standard gene symbols.
+Author-email: Mariya Lysenkova Wiklander <mariya.lysenkova@medsci.uu.se>
+License: MIT License
+        
+        Copyright (c) 2023 Uppsala University, Department of Medical Sciences, Molecular Precision Medicine
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/Molmed/gene-thesaurus
+Keywords: genomics,gene,HGNC
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests>=2.31.0
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: bumpver; extra == "dev"
+Requires-Dist: pip-tools; extra == "dev"
+Requires-Dist: freezegun; extra == "dev"
+Requires-Dist: flake8; extra == "dev"
+
+# GeneThesaurus v1.1.0
+
+GeneThesaurus is a Python package that translates gene aliases and old gene symbols to the current HGNC standard gene symbols. 
+
+# Installation
+
+You can install GeneThesaurus with:
+```
+pip install gene-thesaurus
+```
+
+# Usage
+
+## translate_genes(gene_names, nullify_missing=False)
+
+Parameters:
+- gene_names: list
+- nullify_missing: bool. By default, if a gene name cannot be found, the original gene name is used. If set to True, these missing genes will be set to None instead.
+
+Returns: a list where all possible values are updated to the latest HGNC standard gene symbols.
+
+## updated_genes(gene_names)
+
+Parameters:
+- gene_names: list
+
+Returns: a dict containing all genes that have a newer gene symbol available, in the format {'old_gene_symbol': 'new_gene_symbol'}
+
+
+## Examples
+```
+from gene_thesaurus import GeneThesaurus
+
+#########################
+### translate_genes() ###
+#########################
+
+gt = GeneThesaurus(data_dir='/tmp')
+genes = gt.translate_genes(['TNFSF2', 'ERBB1', 'VPF', 'ZSCAN5CP', 'MISSING_GENE'])
+
+print(genes)
+# ['TNF', 'EGFR', 'VEGFA', 'ZSCAN5C', 'MISSING_GENE']
+
+#####################################################
+### translate_genes() with nullify_missing = True ###
+#####################################################
+
+genes = gt.translate_genes(['TNFSF2', 'ERBB1', 'VPF', 'ZSCAN5CP', 'MISSING_GENE'], nullify_missing=True)
+
+print(genes)
+# ['TNF', 'EGFR', 'VEGFA', 'ZSCAN5C', None]
+
+#######################
+### updated_genes() ###
+#######################
+
+outdated_gene = 'TNFSF2'
+up_to_date_gene = 'ETV6'
+fake_gene = 'NOTAREALGENE'
+
+updated_genes = gt.updated_genes([outdated_gene, up_to_date_gene, fake_gene])
+print(updated_genes)
+# {'TNFSF2': 'TNF'}
+```
+
