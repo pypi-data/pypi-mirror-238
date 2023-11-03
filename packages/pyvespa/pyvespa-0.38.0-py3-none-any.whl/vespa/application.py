@@ -1,0 +1,1547 @@
+# Copyright Vespa.ai. Licensed under the terms of the Apache 2.0 license. See LICENSE in the project root.
+
+import sys
+import ssl
+import json
+import aiohttp
+import asyncio
+import requests
+import traceback
+import concurrent.futures
+from collections import Counter
+from typing import Any, Optional, Dict, List, IO, Iterable, Callable, Tuple,Union
+from concurrent.futures import ThreadPoolExecutor, Future
+from queue import Queue, Empty
+import threading
+from pandas import DataFrame
+from requests import Session
+from requests.models import Response
+from requests.exceptions import ConnectionError, HTTPError, JSONDecodeError
+from requests.adapters import HTTPAdapter
+from urllib3.util import Retry
+from tenacity import retry, wait_exponential, stop_after_attempt, RetryError
+from time import sleep
+from os import environ
+import traceback
+import time
+import warnings
+
+from vespa.exceptions import VespaError
+from vespa.io import VespaQueryResponse, VespaResponse
+from vespa.package import ApplicationPackage
+
+retry_strategy = Retry(
+    total=3,
+    backoff_factor=1,
+    raise_on_status=False, # we want to raise and wrap with VespaError instead to get the payload (if any)
+    status_forcelist=[429, 500, 502, 503, 504],
+    allowed_methods=["POST", "GET", "DELETE", "PUT"],
+)
+
+VESPA_CLOUD_SECRET_TOKEN: str = "VESPA_CLOUD_SECRET_TOKEN"
+
+def parse_feed_df(df: DataFrame, include_id: bool, id_field="id", id_prefix="") -> List[Dict[str, Any]]:
+    """
+    [Deprecated] Convert a DataFrame into batch format for feeding
+
+    :param df: DataFrame with the following required columns ["id"]. Additional columns are assumed to be fields.
+    :param include_id: Include id on the fields to be fed.
+    :param id_field: Name of the column containing the id field.
+    :param id_prefix: Add a string prefix to ID field, e.g. "id:namespace:schema::"
+    :return: List of Dict containing 'id' and 'fields'.
+    """
+    warnings.warn("parse_feed_df is deprecated and will be removed in a future version. No replacement is planned.", DeprecationWarning)
+    required_columns = [id_field]
+    assert all(
+        [x in list(df.columns) for x in required_columns]
+    ), "DataFrame needs at least the following columns: {}".format(required_columns)
+    records = df.to_dict(orient="records")
+    batch = [
+        {
+            "id": record[id_field] if id_prefix == "" else id_prefix + str(record[id_field]),
+            "fields": record
+            if include_id
+            else {k: v for k, v in record.items() if k not in [id_field]},
+        }
+        for record in records
+    ]
+    return batch
+
+
+def df_to_vespafeed(df: DataFrame, schema_name: str, id_field="id", namespace="") -> str:
+    """
+    [Deprecated] Convert a DataFrame into a string in Vespa JSON feed format,
+    see https://docs.vespa.ai/en/reference/document-json-format.html
+
+    :param df: DataFrame with the following required columns ["id"]. Additional columns are assumed to be fields.
+    :param schema_name: Schema name
+    :param id_field: Name of the column containing the id field.
+    :param namespace: Set if namespace != schema_name
+    :return: JSON string in Vespa feed format
+    """
+    warnings.warn("df_to_vespafeed is deprecated and will be removed in a future version. No replacement is planned.", DeprecationWarning)
+    return json.dumps(parse_feed_df(df, True, id_field,
+                                    "id:{}:{}::".format(schema_name if namespace == "" else namespace, schema_name)))
+
+
+def raise_for_status(response: Response) -> None:
+    """
+    Raises an appropriate error if necessary.
+
+    If the response contains an error message, VespaError is raised along with HTTPError to provide more details.
+
+    :param response: Response object from Vespa API.
+    :raises HTTPError: If status_code is between 400 and 599.
+    :raises VespaError: If the response JSON contains an error message.
+    """
+    try:
+        response.raise_for_status()
+    except HTTPError as http_error:
+        try:
+            response_json = response.json()
+        except JSONDecodeError:
+            raise http_error
+        errors = response_json.get("root", {}).get("errors", [])
+        error_message = response_json.get("message", None)
+        if errors:
+            raise VespaError(errors) from http_error
+        if error_message:
+            raise VespaError(error_message) from http_error
+        raise HTTPError(http_error) from http_error
+
+class Vespa(object):
+    def __init__(
+        self,
+        url: str,
+        port: Optional[int] = None,
+        deployment_message: Optional[List[str]] = None,
+        cert: Optional[str] = None,
+        key: Optional[str] = None,
+        vespa_cloud_secret_token: Optional[str] = None,
+        output_file: IO = sys.stdout,
+        application_package: Optional[ApplicationPackage] = None,
+    ) -> None:
+        """
+        Establish a connection with an existing Vespa application.
+
+        :param url: Vespa endpoint URL.
+        :param port: Vespa endpoint port.
+        :param deployment_message: Message returned by Vespa engine after deployment. Used internally by deploy methods.
+        :param cert: Path to data plane certificate and key file in case the 'key' parameter is none. If 'key' is not None, this
+            should be the path of the certificate file. Typically generated by Vespa-cli with 'vespa auth cert'
+        :param key: Path to the data plane key file. Typically generated by Vespa-cli with 'vespa auth cert'
+        :param vespa_cloud_secret_token: Vespa Cloud data plane secret token.
+        :param output_file: Output file to write output messages.
+        :param application_package: Application package definition used to deploy the application.
+
+        >>> Vespa(url = "https://cord19.vespa.ai")  # doctest: +SKIP
+
+        >>> Vespa(url = "http://localhost", port = 8080)
+        Vespa(http://localhost, 8080)
+
+        >>> Vespa(url="https://token-endpoint..z.vespa-app.cloud", vespa_cloud_secret_token="vespa_cloud_secret_token") # doctest: +SKIP
+
+        >>> Vespa(url = "https://mtls-endpoint..z.vespa-app.cloud", cert = "/path/to/cert.pem", key = "/path/to/key.pem")  # doctest: +SKIP
+
+        """
+        self.output_file = output_file
+        self.url = url
+        self.port = port
+        self.deployment_message = deployment_message
+        self.cert = cert
+        self.key = key
+        self.vespa_cloud_secret_token = vespa_cloud_secret_token
+        self._application_package = application_package
+
+        if port is None:
+            self.end_point = self.url
+        else:
+            self.end_point = str(url).rstrip("/") + ":" + str(port)
+        self.search_end_point = self.end_point + "/search/"
+        if vespa_cloud_secret_token is None:
+            token = environ.get(VESPA_CLOUD_SECRET_TOKEN, None)
+            if token is not None:
+                 self.vespa_cloud_secret_token = token
+
+    def asyncio(
+        self, connections: Optional[int] = 8, total_timeout: int = 10
+    ) -> "VespaAsync":
+        """
+        Access Vespa asynchronous connection layer
+
+        :param connections: Number of allowed concurrent connections
+        :param total_timeout: Total timeout in secs.
+        :return: Instance of Vespa asynchronous layer.
+        """
+        return VespaAsync(
+            app=self, connections=connections, total_timeout=total_timeout
+        )
+
+    def syncio(
+        self, connections: Optional[int] = 8
+    ) -> "VespaSync":
+        """
+        Access Vespa synchronous connection layer
+
+        :param connections: Number of allowed concurrent connections
+        :param total_timeout: Total timeout in secs.
+        :return: Instance of Vespa asynchronous layer.
+        """
+        return VespaSync(
+            app=self, pool_connections=connections, pool_maxsize=connections
+        )
+
+    @staticmethod
+    def _run_coroutine_new_event_loop(loop, coro):
+        asyncio.set_event_loop(loop)
+        return loop.run_until_complete(coro)
+
+    @staticmethod
+    def _check_for_running_loop_and_run_coroutine(coro):
+        try:
+            _ = asyncio.get_running_loop()
+            new_loop = asyncio.new_event_loop()
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(
+                    Vespa._run_coroutine_new_event_loop, new_loop, coro
+                )
+                return_value = future.result()
+                return return_value
+        except RuntimeError:
+            return asyncio.run(coro)
+
+    def http(self, pool_maxsize: int = 10):
+        return VespaSync(app=self, pool_maxsize=pool_maxsize, pool_connections=pool_maxsize)
+
+    def __repr__(self):
+        if self.port:
+            return "Vespa({}, {})".format(self.url, self.port)
+        else:
+            return "Vespa({})".format(self.url)
+
+    def _infer_schema_name(self):
+        if not self._application_package:
+            raise ValueError(
+                "Application Package not available. Not possible to infer schema name."
+            )
+
+        try:
+            schema = self._application_package.schema
+        except AssertionError:
+            raise ValueError(
+                "Application has more than one schema. Not possible to infer schema name."
+            )
+
+        if not schema:
+            raise ValueError(
+                "Application has no schema. Not possible to infer schema name."
+            )
+
+        return schema.name
+
+    def wait_for_application_up(self, max_wait: int) -> None:
+        """
+        Wait for application ready.
+
+        :param max_wait: Seconds to wait for the application endpoint
+        :raises RuntimeError: If not able to reach endpoint within :max_wait: param or the client fails to authenticate.
+        :return:
+        """
+        try_interval = 5
+        waited = 0
+        while waited < max_wait:
+            response = self.get_application_status()
+            if response is not None and response.status_code == 200:
+                print("Application is up!", file=self.output_file)
+                return
+            if response is not None and (response.status_code == 401 or response.status_code == 403):
+                auth_method = "token" if self.vespa_cloud_secret_token else "mtls"
+                raise RuntimeError(
+                    "Failued to authenticate client for endpoint {0}, Response code: {1}. Auth Method: {2}".format(
+                        self.url, response.status_code, auth_method
+                    )
+            )
+            print(
+                "Waiting for application status, {0}/{1} seconds...".format(
+                    waited, max_wait
+                ),
+                file=self.output_file,
+            )
+            sleep(try_interval)
+            waited += try_interval
+        
+        if waited >= max_wait:
+            raise RuntimeError(
+                "Could not reach endpoint {0}, waited for {1} seconds.".format(self.url, max_wait)
+            )
+
+    def get_application_status(self) -> Optional[Response]:
+        """
+        Get application status.
+
+        :return:
+        """
+        endpoint = "{}/ApplicationStatus".format(self.end_point)
+        try:
+            if self.vespa_cloud_secret_token:
+                print("Using Token Authentication against endpoint {}".format(endpoint), file=self.output_file)
+                return requests.get(
+                    endpoint,
+                    headers={"Authorization": f"Bearer {self.vespa_cloud_secret_token}"},
+                )
+            if self.key:
+                print("Using mTLS (key,cert) Authentication against endpoint {}".format(endpoint), file=self.output_file)
+                return requests.get(endpoint, cert=(self.cert, self.key))
+            elif self.cert:
+                print("Using mTLS (cert) Authentication against endpoint {}".format(endpoint), file=self.output_file)
+                return requests.get(endpoint, cert=self.cert)
+            else:
+                print("Using plain http against endpoint {}".format(endpoint), file=self.output_file)
+                return requests.get(endpoint)
+
+                
+        except ConnectionError:
+            return None
+
+
+    def get_model_endpoint(self, model_id: Optional[str] = None) -> Optional[Response]:
+        """Get model evaluation endpoints."""
+
+        with VespaSync(self) as sync_app:
+            return sync_app.get_model_endpoint(model_id=model_id)
+
+    def query(
+        self,
+        body: Optional[Dict] = None, **kwargs
+    ) -> VespaQueryResponse:
+        """
+        Send a query request to the Vespa application.
+
+        Send 'body' containing all the request parameters.
+
+        :param body: Dict containing all the request parameters.
+        param kwargs: Extra valid Vespa Query API parameters.
+        :return: The response from the Vespa application.
+        """
+        #Use one connection as this is a single query and 
+        #context manager is shutting down the connection after use
+        with VespaSync(self,pool_maxsize=1, pool_connections=1) as sync_app:
+            return sync_app.query(
+                body=body, **kwargs
+            )
+
+    def _query_batch_sync(
+        self,
+        body_batch: Optional[List[Dict]],
+    ):
+        """[Deprecated]"""
+        return [self.query(body=body) for body in body_batch]
+
+    async def _query_batch_async(
+        self,
+        body_batch: Optional[List[Dict]],
+        connections,
+        total_timeout,
+        **kwargs,
+    ):
+        async with VespaAsync(
+            app=self, connections=connections, total_timeout=total_timeout
+        ) as async_app:
+            return await async_app.query_batch(
+                body_batch=body_batch,
+                **kwargs,
+            )
+
+    @retry(wait=wait_exponential(multiplier=1), stop=stop_after_attempt(3))
+    def query_batch(
+        self,
+        body_batch: Optional[List[Dict]] = None,
+        asynchronous=True,
+        connections: Optional[int] = 8,
+        total_timeout: int = 100,
+        **kwargs,
+    ):
+        """
+        [Deprecated] Send queries in batch to a Vespa app.
+
+        :param body_batch: A list of dict containing all the request parameters. Set to None if using 'query_batch'.
+            of the field to use to recall and the second element is a list of the values to be recalled.
+        :param asynchronous: Set True to send data in async mode. Default to True.
+        :param connections: Number of allowed concurrent connections, valid only if `asynchronous=True`.
+        :param total_timeout: Total timeout in secs for each of the concurrent requests when using `asynchronous=True`.
+        :param kwargs: Additional parameters to be sent along the request.
+        :return: List of HTTP POST responses
+        """
+        warnings.warn("query_batch is deprecated and will be removed in a future version. No replacement is planned.", DeprecationWarning)
+        
+        if asynchronous:
+            coro = self._query_batch_async(
+                body_batch=body_batch,
+                connections=connections,
+                total_timeout=total_timeout,
+                **kwargs,
+            )
+            return Vespa._check_for_running_loop_and_run_coroutine(coro=coro)
+        else:
+            return self._query_batch_sync(
+                body_batch=body_batch,
+            )
+
+    def feed_data_point(
+        self, schema: str, data_id: str, fields: Dict, namespace: str = None, **kwargs
+    ) -> VespaResponse:
+        """
+        Feed a data point to a Vespa app. Will create a new Sync Session with
+        connection overhead.
+        ``` with VespaSync(app) as sync_app: sync_app.feed_data_point(...) ```
+
+        :param schema: The schema that we are sending data to.
+        :param data_id: Unique id associated with this data point.
+        :param fields: Dict containing all the fields required by the `schema`.
+        :param namespace: The namespace that we are sending data to.
+        :return: Response of the HTTP POST request.
+        """
+        if not namespace:
+            namespace = schema
+        # Use low low connection settings to avoid too much overhead for a 
+        # single data point
+        with VespaSync(app=self, pool_connections=1,pool_maxsize=1) as sync_app:
+            return sync_app.feed_data_point(
+                schema=schema, data_id=data_id, fields=fields, namespace=namespace, **kwargs
+            )
+
+    def _feed_batch_sync(
+        self, schema: str, batch: List[Dict], namespace: str
+    ) -> List[VespaResponse]:
+        """[Deprecated]"""
+        return [
+            self.feed_data_point(
+                schema, data_point["id"], data_point["fields"], namespace
+            )
+            for data_point in batch
+        ]
+
+    async def _feed_batch_async(
+        self, schema: str, batch: List[Dict], connections, total_timeout, namespace: str
+    ):
+        """[Deprecated]"""
+        async with VespaAsync(
+            app=self, connections=connections, total_timeout=total_timeout
+        ) as async_app:
+            return await async_app.feed_batch(
+                schema=schema, batch=batch, namespace=namespace
+            )
+
+    @retry(wait=wait_exponential(multiplier=1), stop=stop_after_attempt(3))
+    def _feed_batch(
+        self,
+        batch: List[Dict],
+        schema: Optional[str] = None,
+        asynchronous=True,
+        connections: Optional[int] = 8,
+        total_timeout: int = 240,
+        namespace: Optional[str] = None,
+    ):
+        """
+        [Deprecated] Feed a batch of data to a Vespa app.
+
+        :param batch: A list of dict containing the keys 'id' and 'fields' to be used in the :func:`feed_data_point`.
+        :param schema: The schema that we are sending data to. The schema is optional in case it is possible to infer
+            the schema from the application package.
+        :param asynchronous: Set True to send data in async mode. Default to True.
+        :param connections: Number of allowed concurrent connections, valid only if `asynchronous=True`.
+        :param total_timeout: Total timeout in secs for each of the concurrent requests when using `asynchronous=True`.
+        :param namespace: The namespace that we are sending data to. If no namespace is provided the schema is used.
+        :return: List of HTTP POST responses
+        """
+        if not schema:
+            try:
+                schema = self._infer_schema_name()
+            except ValueError:
+                raise ValueError(
+                    "Not possible to infer schema name. Specify schema parameter."
+                )
+
+        if not namespace:
+            namespace = schema
+
+        if asynchronous:
+            coro = self._feed_batch_async(
+                schema=schema,
+                batch=batch,
+                connections=connections,
+                total_timeout=total_timeout,
+                namespace=namespace,
+            )
+            return Vespa._check_for_running_loop_and_run_coroutine(coro=coro)
+        else:
+            return self._feed_batch_sync(
+                schema=schema, batch=batch, namespace=namespace
+            )
+
+    def feed_batch(
+        self,
+        batch: List[Dict],
+        schema: Optional[str] = None,
+        asynchronous=True,
+        connections: Optional[int] = 8,
+        total_timeout: int = 240,
+        namespace: Optional[str] = None,
+        batch_size=1000,
+        output: bool = True,
+    ):
+        """
+        [Deprecated] Feed a batch of data to a Vespa app.
+
+        :param batch: A list of dict containing the keys 'id' and 'fields' to be used in the :func:`feed_data_point`.
+        :param schema: The schema that we are sending data to. The schema is optional in case it is possible to infer
+            the schema from the application package.
+        :param asynchronous: Set True to send data in async mode. Default to True.
+        :param connections: Number of allowed concurrent connections, valid only if `asynchronous=True`.
+        :param total_timeout: Total timeout in secs for each of the concurrent requests when using `asynchronous=True`.
+        :param namespace: The namespace that we are sending data to. If no namespace is provided the schema is used.
+        :param batch_size: The number of documents to feed per batch.
+        :param output: Prints a final message about the feed result.
+        :return: List of HTTP POST responses
+        """
+        warnings.warn("feed_batch is deprecated and will be removed in a future version. No replacement is planned.", DeprecationWarning)
+        mini_batches = [
+            batch[i: i + batch_size] for i in range(0, len(batch), batch_size)
+        ]
+        batch_http_responses = []
+        for idx, mini_batch in enumerate(mini_batches):
+            feed_results = self._feed_batch(
+                batch=mini_batch,
+                schema=schema,
+                asynchronous=asynchronous,
+                connections=connections,
+                total_timeout=total_timeout,
+                namespace=namespace,
+            )
+            batch_http_responses.extend(feed_results)
+            status_code_summary = Counter([x.status_code for x in feed_results])
+
+            if output:
+                print(
+                    "Successful documents fed: {}/{}.\nBatch progress: {}/{}.".format(
+                        status_code_summary[200],
+                        len(mini_batch),
+                        idx + 1,
+                        len(mini_batches),
+                    )
+                )
+        return batch_http_responses
+
+    def feed_df(self, df: DataFrame, include_id: bool = True, id_field="id", **kwargs):
+        """
+        [Deprecated] Feed data contained in a DataFrame.
+
+        :param df: A DataFrame containing a required 'id' column and the remaining fields to be fed.
+        :param include_id: Include id on the fields to be fed. Default to True.
+        :param id_field: Name of the column containing the id field.
+        :param kwargs: Additional parameters are passed to :func:`feed_batch`.
+        :return: List of HTTP POST responses
+        """
+        warnings.warn("feed_df is deprecated and will be removed in a future version. No replacement is planned.", DeprecationWarning)
+        batch = parse_feed_df(df=df, include_id=include_id, id_field=id_field)
+        return self.feed_batch(batch=batch, **kwargs)
+  
+    def feed_iterable(self, 
+        iter:Iterable[Dict], 
+        schema:Optional[str] = None, 
+        namespace:Optional[str] = None, 
+        callback:Optional[Callable] = None, 
+        operation_type:Optional[str] = "feed",
+        max_queue_size:int = 1000,
+        max_workers:int = 8, 
+        max_connections:int = 16,
+        **kwargs
+    ):
+        """
+        Feed data from an Iterable of Dict with the keys 'id' and 'fields' to be used in the :func:`feed_data_point`.
+        
+        Uses a queue to feed data in parallel with a thread pool. The result of each operation is forwarded
+        to the user provided callback function that can process the returned `VespaResponse`. 
+
+        :param iter: An iterable of Dict containing the keys 'id' and 'fields' to be used in the :func:`feed_data_point`.
+        :param schema: The Vespa schema name that we are sending data to.
+        :param namespace: The Vespa document id namespace. If no namespace is provided the schema is used.
+        :param callback: A callback function to be called on each result. Signature `callback(response:VespaResponse, id:str)`
+        :param operation_type: The operation to perform. Default to `feed`. Valid are `feed`, `update` or `delete`.
+        :param max_queue_size: The maximum size of the blocking queue and max in-flight operations.
+        :param max_workers: The maximum number of workers in the threadpool executor.
+        :param max_connections: The maximum number of persisted connections to the Vespa endpoint.
+        :param kwargs: Additional parameters are passed to the respective operation type specific :func:`_data_point`.
+        """        
+        if operation_type not in ["feed", "update", "delete"]:
+            raise ValueError("Invalid operation type. Valid are `feed`, `update` or `delete`.")
+
+        if namespace is None:
+            namespace = schema
+        if not schema:
+            try:
+                schema = self._infer_schema_name()
+            except ValueError:
+                raise ValueError(
+                    "Not possible to infer schema name. Specify schema parameter."
+                )
+
+        def _consumer(queue:Queue, executor:ThreadPoolExecutor, sync_session:VespaSync, max_in_flight=2*max_queue_size):
+            in_flight = 0 # Single threaded consumer
+            futures:List[Future]= []
+            while True:
+                try:
+                    doc = queue.get(timeout=5)
+                except Empty:
+                    continue # producer has not produced anything
+                if doc is None: # producer is done
+                    queue.task_done()
+                    break #Break and wait for all futures to complete
+               
+                completed_futures = [future for future in futures if future.done()]
+                for future in completed_futures:
+                    futures.remove(future)
+                    in_flight -= 1
+                    _handle_result_callback(future, callback=callback)
+
+                while in_flight >= max_in_flight:
+                    # Check for completed tasks and reduce in-flight tasks
+                    for future in futures:
+                        if future.done():
+                            futures.remove(future)
+                            in_flight -= 1
+                            _handle_result_callback(future, callback=callback)
+                    sleep(0.01) # wait a bit for more futures to complete
+                
+                # we can submit a new doc to Vespa        
+                future:Future = executor.submit(_submit, doc, sync_session)
+                futures.append(future)
+                in_flight += 1
+                queue.task_done() # signal that we have consumed the doc from queue
+            
+            # make sure callback is called for all pending operations before 
+            # exiting the consumer thread
+            for future in futures:
+                _handle_result_callback(future, callback)
+            
+        def _submit(doc:dict, sync_session:VespaSync) -> Tuple[str, Union[VespaResponse, Exception]]:
+            id = doc.get("id", None)
+            if id is None:
+                return id, VespaResponse(status_code=499, 
+                    json={"id":id, "message":"Missing id in input dict"}, 
+                    url="n/a", operation_type=operation_type)
+            fields = doc.get('fields', None)
+            if fields is None and operation_type != "delete":
+                return id, VespaResponse(status_code=499, 
+                    json={"id":id, "message":"Missing fields in input dict"}, 
+                    url="n/a", operation_type=operation_type)
+            try:
+                if operation_type == "feed":
+                    response:VespaResponse = sync_session.feed_data_point(schema=schema, namespace=namespace, data_id=id, fields=fields, **kwargs)
+                    return (id, response)
+                elif operation_type == "update":
+                    response:VespaResponse = sync_session.update_data(schema=schema, namespace=namespace, data_id=id, fields=fields, **kwargs)
+                    return (id, response)
+                elif operation_type == "delete":
+                    response:VespaResponse = sync_session.delete_data(schema=schema, namespace=namespace, data_id=id, **kwargs)
+                    return (id, response)
+            except Exception as e:
+                return (id, e)
+
+        def _handle_result_callback(future:Future, callback:Callable):
+            id, response = future.result()
+            if isinstance(response, Exception): 
+                response = VespaResponse(
+                    status_code=599, 
+                    json={"Exception":str(response), "id":id, "message":"Exception during feed_data_point"},
+                    url="n/a", operation_type=operation_type)
+            if callback is not None:    
+                try:
+                    callback(response,id=id)
+                except Exception as e:
+                    print(f"Exception in user callback for id {id}", file=sys.stderr)
+                    traceback.print_exception(type(e), e, e.__traceback__, file=sys.stderr)
+            
+        with VespaSync(app=self,pool_maxsize=max_connections, pool_connections=max_connections) as session:
+            queue = Queue(maxsize=max_queue_size)   
+            with ThreadPoolExecutor(max_workers=max_workers) as executor: 
+                consumer_thread = threading.Thread(target=_consumer, args=(queue, executor, session, max_queue_size))
+                consumer_thread.start()  
+                for doc in iter:
+                    queue.put(doc, block=True)
+                queue.put(None, block=True)
+                queue.join() 
+                consumer_thread.join()
+
+    def delete_data(
+        self, schema: str, data_id: str, namespace: str = None, **kwargs
+    ) -> VespaResponse:
+        """
+        Delete a data point from a Vespa app.
+
+        :param schema: The schema that we are deleting data from.
+        :param data_id: Unique id associated with this data point.
+        :param namespace: The namespace that we are deleting data from. If no namespace is provided the schema is used.
+        :param kwargs: Additional arguments to be passed to the HTTP DELETE request https://docs.vespa.ai/en/reference/document-v1-api-reference.html#request-parameters
+        :return: Response of the HTTP DELETE request.
+        """
+        if not namespace:
+            namespace = schema
+
+        with VespaSync(self, pool_connections=1, pool_maxsize=1) as sync_app:
+            return sync_app.delete_data(
+                schema=schema, data_id=data_id, namespace=namespace, **kwargs
+            )
+
+    def _delete_batch_sync(self, schema: str, batch: List[Dict], namespace: str):
+        """[Deprecated]"""
+        return [
+            self.delete_data(schema, data_point["id"], namespace)
+            for data_point in batch
+        ]
+
+    async def _delete_batch_async(
+        self, schema: str, batch: List[Dict], connections, total_timeout, namespace: str
+    ):
+        """[Deprecated]"""
+        async with VespaAsync(
+            app=self, connections=connections, total_timeout=total_timeout
+        ) as async_app:
+            return await async_app.delete_batch(
+                schema=schema, batch=batch, namespace=namespace
+            )
+
+    def delete_batch(
+        self,
+        batch: List[Dict],
+        schema: Optional[str] = None,
+        asynchronous=True,
+        connections: Optional[int] = 8,
+        total_timeout: int = 100,
+        namespace: Optional[str] = None,
+    ):
+        """
+        [Deprecated] Delete a batch of data from a Vespa app.
+
+        :param batch: A list of dict containing the key 'id'.
+        :param schema: The schema that we are deleting data from. The schema is optional in case it is possible to infer
+            the schema from the application package.
+        :param asynchronous: Set True to get data in async mode. Default to True.
+        :param connections: Number of allowed concurrent connections, valid only if `asynchronous=True`.
+        :param total_timeout: Total timeout in secs for each of the concurrent requests when using `asynchronous=True`.
+        :param namespace: The namespace that we are deleting data from. If no namespace is provided the schema is used.
+        :return: List of HTTP POST responses
+        """
+        warnings.warn("delete_batch is deprecated and will be removed in a future version. No replacement is planned.", DeprecationWarning)
+        if not schema:
+            try:
+                schema = self._infer_schema_name()
+            except ValueError:
+                raise ValueError(
+                    "Not possible to infer schema name. Specify schema parameter."
+                )
+
+        if not namespace:
+            namespace = schema
+
+        if asynchronous:
+            coro = self._delete_batch_async(
+                schema=schema,
+                batch=batch,
+                connections=connections,
+                total_timeout=total_timeout,
+                namespace=namespace,
+            )
+            return Vespa._check_for_running_loop_and_run_coroutine(coro=coro)
+        else:
+            return self._delete_batch_sync(
+                schema=schema, batch=batch, namespace=namespace
+            )
+
+    def delete_all_docs(
+        self, content_cluster_name: str, schema: str, namespace: str = None, **kwargs
+    ) -> Response:
+        """
+        Delete all documents associated with the schema
+
+        :param content_cluster_name: Name of content cluster to GET from, or visit.
+        :param schema: The schema that we are deleting data from.
+        :param namespace: The  namespace that we are deleting data from. If no namespace is provided the schema is used.
+        :param kwargs: Additional arguments to be passed to the HTTP DELETE request https://docs.vespa.ai/en/reference/document-v1-api-reference.html#request-parameters
+        :return: Response of the HTTP DELETE request.
+        """
+        if not namespace:
+            namespace = schema
+
+        with VespaSync(self, pool_connections=1, pool_maxsize=1) as sync_app:
+            return sync_app.delete_all_docs(
+                content_cluster_name=content_cluster_name,
+                namespace=namespace,
+                schema=schema, **kwargs
+            )
+
+    def get_data(
+        self, schema: str, data_id: str, namespace: str = None, **kwargs
+    ) -> VespaResponse:
+        """
+        Get a data point from a Vespa app.
+
+        :param schema: The schema that we are getting data from.
+        :param data_id: Unique id associated with this data point.
+        :param namespace: The namespace that we are getting data from. If no namespace is provided the schema is used.
+        :param kwargs: Additional arguments to be passed to the HTTP GET request https://docs.vespa.ai/en/reference/document-v1-api-reference.html#request-parameters
+        :return: Response of the HTTP GET request.
+        """
+        if not namespace:
+            namespace = schema
+
+        with VespaSync(self,pool_connections=1,pool_maxsize=1) as sync_app:
+            return sync_app.get_data(
+                schema=schema, data_id=data_id, namespace=namespace, **kwargs
+            )
+
+    def _get_batch_sync(self, schema: str, batch: List[Dict], namespace: str):
+        """[Deprecated]"""
+        return [
+            self.get_data(schema, data_point["id"], namespace) for data_point in batch
+        ]
+
+    async def _get_batch_async(
+        self, schema: str, batch: List[Dict], connections, total_timeout, namespace: str
+    ):
+        """[Deprecated]"""
+        async with VespaAsync(
+            app=self, connections=connections, total_timeout=total_timeout
+        ) as async_app:
+            return await async_app.get_batch(
+                schema=schema, batch=batch, namespace=namespace
+            )
+
+    def get_batch(
+        self,
+        batch: List[Dict],
+        schema: Optional[str] = None,
+        asynchronous=True,
+        connections: Optional[int] = 100,
+        total_timeout: int = 100,
+        namespace: Optional[str] = None,
+    ):
+        """
+        [Deprecated] Get a batch of data from a Vespa app.
+
+        :param batch: A list of dict containing the key 'id'.
+        :param schema: The schema that we are getting data from. The schema is optional in case it is possible to infer
+            the schema from the application package.
+        :param asynchronous: Set True to get data in async mode. Default to True.
+        :param connections: Number of allowed concurrent connections, valid only if `asynchronous=True`.
+        :param total_timeout: Total timeout in secs for each of the concurrent requests when using `asynchronous=True`.
+        :param namespace: The namespace that we are getting data from. If no namespace is provided the schema is used.
+        :return: List of HTTP POST responses
+        """
+        warnings.warn("get_batch is deprecated and will be removed in a future version. No replacement is planned.", DeprecationWarning)
+        if not schema:
+            try:
+                schema = self._infer_schema_name()
+            except ValueError:
+                raise ValueError(
+                    "Not possible to infer schema name. Specify schema parameter."
+                )
+
+        if not namespace:
+            namespace = schema
+
+        if asynchronous:
+            coro = self._get_batch_async(
+                schema=schema,
+                batch=batch,
+                connections=connections,
+                total_timeout=total_timeout,
+                namespace=namespace,
+            )
+            return Vespa._check_for_running_loop_and_run_coroutine(coro=coro)
+        else:
+            return self._get_batch_sync(schema=schema, batch=batch, namespace=namespace)
+
+    def update_data(
+        self,
+        schema: str,
+        data_id: str,
+        fields: Dict,
+        create: bool = False,
+        namespace: str = None,
+        **kwargs
+    ) -> VespaResponse:
+        """
+        Update a data point in a Vespa app.
+
+        :param schema: The schema that we are updating data.
+        :param data_id: Unique id associated with this data point.
+        :param fields: Dict containing all the fields you want to update.
+        :param create: If true, updates to non-existent documents will create an empty document to update
+        :param namespace: The namespace that we are updating data. If no namespace is provided the schema is used.
+        :param kwargs: Additional arguments to be passed to the HTTP PUT request. https://docs.vespa.ai/en/reference/document-v1-api-reference.html#request-parameters
+        :return: Response of the HTTP PUT request.
+        """
+        if not namespace:
+            namespace = schema
+
+        with VespaSync(self,pool_connections=1,pool_maxsize=1) as sync_app:
+            return sync_app.update_data(
+                schema=schema,
+                data_id=data_id,
+                fields=fields,
+                create=create,
+                namespace=namespace, 
+                **kwargs
+            )
+
+    def _update_batch_sync(self, schema: str, batch: List[Dict], namespace: str):
+        """[Deprecated]"""
+        return [
+            self.update_data(
+                schema,
+                data_point["id"],
+                data_point["fields"],
+                data_point.get("create", False),
+                namespace,
+            )
+            for data_point in batch
+        ]
+
+    async def _update_batch_async(
+        self, schema: str, batch: List[Dict], connections, total_timeout, namespace: str
+    ):
+        """[Deprecated]"""
+        async with VespaAsync(
+            app=self, connections=connections, total_timeout=total_timeout
+        ) as async_app:
+            return await async_app.update_batch(
+                schema=schema, batch=batch, namespace=namespace
+            )
+
+    def update_batch(
+        self,
+        batch: List[Dict],
+        schema: Optional[str] = None,
+        asynchronous=True,
+        connections: Optional[int] = 100,
+        total_timeout: int = 100,
+        namespace: Optional[str] = None,
+    ):
+        """
+        [Deprecated] Update a batch of data in a Vespa app.
+
+        :param batch: A list of dict containing the keys 'id', 'fields' and 'create' (create defaults to False).
+        :param schema: The schema that we are updating data to. The schema is optional in case it is possible to infer
+            the schema from the application package.
+        :param asynchronous: Set True to update data in async mode. Default to True.
+        :param connections: Number of allowed concurrent connections, valid only if `asynchronous=True`.
+        :param total_timeout: Total timeout in secs for each of the concurrent requests when using `asynchronous=True`.
+        :param namespace: The namespace that we are updating data. If no namespace is provided the schema is used.
+        :return: List of HTTP POST responses
+        """
+        warnings.warn("update_batch is deprecated and will be removed in a future version. No replacement is planned.", DeprecationWarning)
+        if not schema:
+            try:
+                schema = self._infer_schema_name()
+            except ValueError:
+                raise ValueError(
+                    "Not possible to infer schema name. Specify schema parameter."
+                )
+
+        if not namespace:
+            namespace = schema
+
+        if asynchronous:
+            coro = self._update_batch_async(
+                schema=schema,
+                batch=batch,
+                connections=connections,
+                total_timeout=total_timeout,
+                namespace=namespace,
+            )
+            return Vespa._check_for_running_loop_and_run_coroutine(coro=coro)
+        else:
+            return self._update_batch_sync(
+                schema=schema, batch=batch, namespace=namespace
+            )
+
+    @property
+    def application_package(self):
+        """Get application package definition, if available."""
+        if not self._application_package:
+            raise ValueError("Application package not available.")
+        else:
+            return self._application_package
+
+    def get_model_from_application_package(self, model_name: str):
+        """Get model definition from application package, if available."""
+        app_package = self.application_package
+        model = app_package.get_model(model_id=model_name)
+        return model
+
+    def predict(self, x, model_id, function_name="output_0"):
+        """
+        Obtain a stateless model evaluation.
+
+        :param x: Input where the format depends on the task that the model is serving.
+        :param model_id: The id of the model used to serve the prediction.
+        :param function_name: The name of the output function to be evaluated.
+        :return: Model prediction.
+        """
+        model = self.get_model_from_application_package(model_id)
+        encoded_tokens = model.create_url_encoded_tokens(x=x)
+        with VespaSync(self) as sync_app:
+            return model.parse_vespa_prediction(
+                sync_app.predict(
+                    model_id=model_id,
+                    function_name=function_name,
+                    encoded_tokens=encoded_tokens,
+                )
+            )
+
+
+class VespaSync(object):
+    def __init__(self, app: Vespa, pool_maxsize: int = 100, pool_connections=100) -> None:
+        self.app = app
+        if self.app.key:
+            self.cert = (self.app.cert, self.app.key)
+        else:
+            self.cert = self.app.cert
+        if self.app.vespa_cloud_secret_token:
+            self.headers = {"Authorization": f"Bearer {self.app.vespa_cloud_secret_token}"}
+        self.http_session = None
+        self.adapter = HTTPAdapter(
+            max_retries=retry_strategy, pool_maxsize=pool_maxsize, pool_connections=pool_connections
+        )
+
+    def __enter__(self):
+        self._open_http_session()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self._close_http_session()
+
+    def _open_http_session(self):
+        if self.http_session is not None:
+            return
+
+        self.http_session = Session()
+        self.http_session.headers.update({"User-Agent": "pyvespa syncio client"})
+        self.http_session.mount("https://", self.adapter)
+        self.http_session.mount("http://", self.adapter)
+        if self.app.vespa_cloud_secret_token:
+            self.http_session.headers.update(self.headers)
+        else:
+            self.http_session.cert = self.cert
+
+        return self.http_session
+
+    def _close_http_session(self):
+        if self.http_session is None:
+            return
+        self.http_session.close()
+
+    def get_model_endpoint(self, model_id: Optional[str] = None) -> Optional[dict]:
+        """Get model evaluation endpoints."""
+        end_point = "{}/model-evaluation/v1/".format(self.app.end_point)
+        if model_id:
+            end_point = end_point + model_id
+        try:
+            response = self.http_session.get(end_point)
+            if response.status_code == 200:
+                return response.json()
+            else:
+                return {"status_code": response.status_code, "message": response.reason}
+        except ConnectionError:
+            response = None
+        return response
+
+    def predict(self, model_id, function_name, encoded_tokens):
+        """
+        Obtain a stateless model evaluation.
+
+        :param model_id: The id of the model used to serve the prediction.
+        :param function_name: The name of the output function to be evaluated.
+        :param encoded_tokens: URL-encoded input to the model
+        :return: Model prediction.
+        """
+        end_point = "{}/model-evaluation/v1/{}/{}/eval?{}".format(
+            self.app.end_point, model_id, function_name, encoded_tokens
+        )
+        try:
+            response = self.http_session.get(end_point)
+            if response.status_code == 200:
+                return response.json()
+            else:
+                return {"status_code": response.status_code, "message": response.reason}
+        except ConnectionError:
+            response = None
+        return response
+
+    def feed_data_point(
+        self, schema: str, data_id: str, fields: Dict, namespace: str = None, **kwargs
+    ) -> VespaResponse:
+        """
+        Feed a data point to a Vespa app.
+
+        :param schema: The schema that we are sending data to.
+        :param data_id: Unique id associated with this data point.
+        :param fields: Dict containing all the fields required by the `schema`.
+        :param namespace: The namespace that we are sending data to. If no namespace is provided the schema is used.
+        :param kwargs: Additional HTTP request parameters (https://docs.vespa.ai/en/reference/document-v1-api-reference.html#request-parameters)
+        :return: Response of the HTTP POST request.
+        :raises HTTPError: if one occurred
+        """
+
+        if not namespace:
+            namespace = schema
+
+        end_point = "{}/document/v1/{}/{}/docid/{}".format(
+            self.app.end_point, namespace, schema, str(data_id)
+        )
+        vespa_format = {"fields": fields}
+        response = self.http_session.post(end_point, json=vespa_format, params=kwargs)
+        raise_for_status(response)
+        return VespaResponse(
+            json=response.json(),
+            status_code=response.status_code,
+            url=str(response.url),
+            operation_type="feed",
+        )
+
+    def query(
+        self,
+        body: Optional[Dict] = None, 
+        **kwargs
+    ) -> VespaQueryResponse:
+        """
+        Send a query request to the Vespa application.
+
+        Send 'body' containing all the request parameters.
+
+        :param body: Dict containing all the request parameters.
+        :param kwargs: Additional Valid Vespa HTTP Query Api parameters (https://docs.vespa.ai/en/reference/query-api-reference.html)
+        :return: Either the request body if debug_request is True or the result from the Vespa application
+        :raises HTTPError: if one occurred
+        """
+        response = self.http_session.post(self.app.search_end_point, json=body, params=kwargs)
+        raise_for_status(response)
+        return VespaQueryResponse(
+            json=response.json(), status_code=response.status_code, url=str(response.url)
+        )
+
+    def delete_data(
+        self, schema: str, data_id: str, namespace: str = None, 
+        **kwargs
+    ) -> VespaResponse:
+        """
+        Delete a data point from a Vespa app.
+
+        :param schema: The schema that we are deleting data from.
+        :param data_id: Unique id associated with this data point.
+        :param namespace: The namespace that we are deleting data from.
+        :param kwargs: Additional HTTP request parameters (https://docs.vespa.ai/en/reference/document-v1-api-reference.html#request-parameters)
+        :return: Response of the HTTP DELETE request.
+        :raises HTTPError: if one occurred
+        """
+        if not namespace:
+            namespace = schema
+
+        end_point = "{}/document/v1/{}/{}/docid/{}".format(
+            self.app.end_point, namespace, schema, str(data_id)
+        )
+        response = self.http_session.delete(end_point, params=kwargs)
+        raise_for_status(response)
+        return VespaResponse(
+            json=response.json(),
+            status_code=response.status_code,
+            url=str(response.url),
+            operation_type="delete",
+        )
+
+    def delete_all_docs(
+        self, content_cluster_name: str, schema: str, namespace: str = None, **kwargs
+    ) -> Response:
+        """
+        Delete all documents associated with the schema.
+
+        :param content_cluster_name: Name of content cluster to GET from, or visit.
+        :param schema: The schema that we are deleting data from.
+        :param namespace: The namespace that we are deleting data from.
+        :param kwargs: Additional HTTP request parameters (https://docs.vespa.ai/en/reference/document-v1-api-reference.html#request-parameters)
+        :return: Response of the HTTP DELETE request.
+        :raises HTTPError: if one occurred
+        """
+        if not namespace:
+            namespace = schema
+
+        end_point = "{}/document/v1/{}/{}/docid/?cluster={}&selection=true".format(
+            self.app.end_point, namespace, schema, content_cluster_name
+        )
+        request_endpoint = end_point
+        last_response = None
+        while True:
+            try:
+                response = self.http_session.delete(request_endpoint, params=kwargs)
+                last_response = response
+                result = response.json()
+                if "continuation" in result:
+                    request_endpoint = "{}&continuation={}".format(
+                        end_point, result["continuation"]
+                    )
+                else:
+                    break
+            except Exception as e:
+                print(e)
+                last_response = None
+        return last_response
+
+    def get_data(
+        self, schema: str, data_id: str, namespace: str = None, **kwargs
+    ) -> VespaResponse:
+        """
+        Get a data point from a Vespa app.
+
+        :param schema: The schema that we are getting data from.
+        :param data_id: Unique id associated with this data point.
+        :param namespace: The namespace that we are getting data from.
+        :param kwargs: Additional HTTP request parameters (https://docs.vespa.ai/en/reference/document-v1-api-reference.html#request-parameters)
+        :return: Response of the HTTP GET request.
+        :raises HTTPError: if one occurred
+        """
+        if not namespace:
+            namespace = schema
+
+        end_point = "{}/document/v1/{}/{}/docid/{}".format(
+            self.app.end_point, namespace, schema, str(data_id)
+        )
+        response = self.http_session.get(end_point, params=kwargs)
+        raise_for_status(response) # This is questionable, since it will throw on 404 as well. 
+        return VespaResponse(
+            json=response.json(),
+            status_code=response.status_code,
+            url=str(response.url),
+            operation_type="get",
+        )
+
+    def update_data(
+        self,
+        schema: str,
+        data_id: str,
+        fields: Dict,
+        create: bool = False,
+        namespace: str = None,
+        **kwargs
+    ) -> VespaResponse:
+        """
+        Update a data point in a Vespa app.
+
+        :param schema: The schema that we are updating data.
+        :param data_id: Unique id associated with this data point.
+        :param fields: Dict containing all the fields you want to update.
+        :param create: If true, updates to non-existent documents will create an empty document to update
+        :param namespace: The namespace that we are updating data.
+        :param kwargs: Additional HTTP request parameters (https://docs.vespa.ai/en/reference/document-v1-api-reference.html#request-parameters)
+        :return: Response of the HTTP PUT request.
+        :raises HTTPError: if one occurred
+        """
+        if not namespace:
+            namespace = schema
+
+        end_point = "{}/document/v1/{}/{}/docid/{}?create={}".format(
+            self.app.end_point, namespace, schema, str(data_id), str(create).lower()
+        )
+        vespa_format = {"fields": {k: {"assign": v} for k, v in fields.items()}}
+        response = self.http_session.put(end_point, json=vespa_format, params=kwargs)
+        raise_for_status(response)
+        return VespaResponse(
+            json=response.json(),
+            status_code=response.status_code,
+            url=str(response.url),
+            operation_type="update",
+        )
+
+
+class VespaAsync(object):
+    def __init__(
+        self, app: Vespa, connections: Optional[int] = 100, total_timeout: int = 10
+    ) -> None:
+        self.app = app
+        self.aiohttp_session = None
+        self.connections = connections
+        self.total_timeout = total_timeout
+        if self.app.vespa_cloud_secret_token:
+            self.headers = {
+                "Authorization": f"Bearer {self.app.vespa_cloud_secret_token}",
+                "User-Agent": "pyvespa asyncio client",
+            }
+
+    async def __aenter__(self):
+        await self._open_aiohttp_session()
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await self._close_aiohttp_session()
+
+    async def _open_aiohttp_session(self):
+        if self.aiohttp_session is not None and not self.aiohttp_session.closed:
+            return
+        sslcontext = False
+        if self.app.cert is not None:
+            sslcontext = ssl.create_default_context()
+            sslcontext.load_cert_chain(self.app.cert, self.app.key)
+        conn = aiohttp.TCPConnector(ssl=sslcontext, limit=self.connections)
+        if self.app.vespa_cloud_secret_token:
+            self.aiohttp_session = aiohttp.ClientSession(
+                connector=conn,
+                timeout=aiohttp.ClientTimeout(total=self.total_timeout),
+                headers=self.headers,
+            )
+        else:
+            self.aiohttp_session = aiohttp.ClientSession(
+                connector=conn, timeout=aiohttp.ClientTimeout(total=self.total_timeout),
+                headers={"User-Agent": "pyvespa asyncio client"}
+            )
+        return self.aiohttp_session
+
+    async def _close_aiohttp_session(self):
+        if self.aiohttp_session is None:
+            return
+        return await self.aiohttp_session.close()
+
+    @staticmethod
+    async def _wait(f, args, **kwargs):
+        tasks = [asyncio.create_task(f(*arg, **kwargs)) for arg in args]
+        await asyncio.wait(tasks, return_when=asyncio.ALL_COMPLETED)
+        return [result for result in map(lambda task: task.result(), tasks)]
+
+    @retry(wait=wait_exponential(multiplier=1), stop=stop_after_attempt(3))
+    async def query(
+        self,
+        body: Optional[Dict] = None,
+    ):
+        r = await self.aiohttp_session.post(self.app.search_end_point, json=body)
+        return VespaQueryResponse(
+            json=await r.json(), status_code=r.status, url=str(r.url)
+        )
+
+    async def _query_semaphore(
+        self,
+        body: Optional[Dict],
+        semaphore: asyncio.Semaphore,
+    ):
+        async with semaphore:
+            return await self.query(body=body)
+
+    async def query_batch(
+        self,
+        body_batch: Optional[List[Dict]],
+        **kwargs,
+    ):
+        sem = asyncio.Semaphore(self.connections)
+        return await VespaAsync._wait(
+            self._query_semaphore,
+            [(body, sem) for body in body_batch],
+            **kwargs,
+        )
+
+    @retry(wait=wait_exponential(multiplier=1), stop=stop_after_attempt(3))
+    async def feed_data_point(
+        self, schema: str, data_id: str, fields: Dict, namespace: str = None
+    ) -> VespaResponse:
+        if not namespace:
+            namespace = schema
+        end_point = "{}/document/v1/{}/{}/docid/{}".format(
+            self.app.end_point, namespace, schema, str(data_id)
+        )
+        vespa_format = {"fields": fields}
+        response = await self.aiohttp_session.post(end_point, json=vespa_format)
+        return VespaResponse(
+            json=await response.json(),
+            status_code=response.status,
+            url=str(response.url),
+            operation_type="feed",
+        )
+
+    async def _feed_data_point_semaphore(
+        self,
+        schema: str,
+        data_id: str,
+        fields: Dict,
+        semaphore: asyncio.Semaphore,
+        namespace: str = None,
+    ):
+        if not namespace:
+            namespace = schema
+
+        async with semaphore:
+            try:
+                return await self.feed_data_point(
+                    schema=schema, data_id=data_id, fields=fields, namespace=namespace
+                )
+            except RetryError as e:
+                print("Unable to feed data point after retries. Giving up. Cause:", file=sys.stderr)
+                if e.__cause__:
+                    traceback.print_tb(e.__cause__.__traceback__)
+                e.reraise()
+
+    async def feed_batch(self, schema: str, batch: List[Dict], namespace=None):
+        if not namespace:
+            namespace = schema
+        sem = asyncio.Semaphore(self.connections)
+        return await VespaAsync._wait(
+            self._feed_data_point_semaphore,
+            [
+                (schema, data_point["id"], data_point["fields"], sem, namespace)
+                for data_point in batch
+            ],
+        )
+
+    @retry(wait=wait_exponential(multiplier=1), stop=stop_after_attempt(3))
+    async def delete_data(
+        self, schema: str, data_id: str, namespace: str = None
+    ) -> VespaResponse:
+        if not namespace:
+            namespace = schema
+
+        end_point = "{}/document/v1/{}/{}/docid/{}".format(
+            self.app.end_point, namespace, schema, str(data_id)
+        )
+        response = await self.aiohttp_session.delete(end_point)
+        return VespaResponse(
+            json=await response.json(),
+            status_code=response.status,
+            url=str(response.url),
+            operation_type="delete",
+        )
+
+    async def _delete_data_semaphore(
+        self,
+        schema: str,
+        data_id: str,
+        semaphore: asyncio.Semaphore,
+        namespace: str = None,
+    ):
+        if not namespace:
+            namespace = schema
+
+        async with semaphore:
+            return await self.delete_data(
+                schema=schema, data_id=data_id, namespace=namespace
+            )
+
+    async def delete_batch(self, schema: str, batch: List[Dict], namespace: str = None):
+        sem = asyncio.Semaphore(self.connections)
+        if not namespace:
+            namespace = schema
+        return await VespaAsync._wait(
+            self._delete_data_semaphore,
+            [(schema, data_point["id"], sem, namespace) for data_point in batch],
+        )
+
+    @retry(wait=wait_exponential(multiplier=1), stop=stop_after_attempt(3))
+    async def get_data(
+        self, schema: str, data_id: str, namespace: str = None
+    ) -> VespaResponse:
+        if not namespace:
+            namespace = schema
+        end_point = "{}/document/v1/{}/{}/docid/{}".format(
+            self.app.end_point, namespace, schema, str(data_id)
+        )
+        response = await self.aiohttp_session.get(end_point)
+        return VespaResponse(
+            json=await response.json(),
+            status_code=response.status,
+            url=str(response.url),
+            operation_type="get",
+        )
+
+    async def _get_data_semaphore(
+        self,
+        schema: str,
+        data_id: str,
+        semaphore: asyncio.Semaphore,
+        namespace: str = None,
+    ):
+        if not namespace:
+            namespace = schema
+
+        async with semaphore:
+            return await self.get_data(
+                schema=schema, data_id=data_id, namespace=namespace
+            )
+
+    async def get_batch(self, schema: str, batch: List[Dict], namespace: str = None):
+        if not namespace:
+            namespace = schema
+
+        sem = asyncio.Semaphore(self.connections)
+        return await VespaAsync._wait(
+            self._get_data_semaphore,
+            [(schema, data_point["id"], sem, namespace) for data_point in batch],
+        )
+
+    @retry(wait=wait_exponential(multiplier=1), stop=stop_after_attempt(3))
+    async def update_data(
+        self,
+        schema: str,
+        data_id: str,
+        fields: Dict,
+        create: bool = False,
+        namespace: str = None,
+    ) -> VespaResponse:
+        if not namespace:
+            namespace = schema
+
+        end_point = "{}/document/v1/{}/{}/docid/{}?create={}".format(
+            self.app.end_point, namespace, schema, str(data_id), str(create).lower()
+        )
+        vespa_format = {"fields": {k: {"assign": v} for k, v in fields.items()}}
+        response = await self.aiohttp_session.put(end_point, json=vespa_format)
+        return VespaResponse(
+            json=await response.json(),
+            status_code=response.status,
+            url=str(response.url),
+            operation_type="update",
+        )
+
+    async def _update_data_semaphore(
+        self,
+        schema: str,
+        data_id: str,
+        fields: Dict,
+        semaphore: asyncio.Semaphore,
+        create: bool = False,
+        namespace: str = None,
+    ):
+        if not namespace:
+            namespace = schema
+
+        async with semaphore:
+            return await self.update_data(
+                schema=schema,
+                data_id=data_id,
+                fields=fields,
+                create=create,
+                namespace=namespace,
+            )
+
+    async def update_batch(self, schema: str, batch: List[Dict], namespace: str = None):
+        if not namespace:
+            namespace = schema
+        sem = asyncio.Semaphore(self.connections)
+        return await VespaAsync._wait(
+            self._update_data_semaphore,
+            [
+                (
+                    schema,
+                    data_point["id"],
+                    data_point["fields"],
+                    sem,
+                    data_point.get("create", False),
+                    namespace,
+                )
+                for data_point in batch
+            ],
+        )
