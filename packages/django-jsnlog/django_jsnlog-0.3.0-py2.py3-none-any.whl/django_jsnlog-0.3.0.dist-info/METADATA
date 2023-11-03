@@ -1,0 +1,104 @@
+Metadata-Version: 2.1
+Name: django-jsnlog
+Version: 0.3.0
+Summary: A Django app to integrate client side javascript logging with JSNLog.
+Home-page: https://github.com/oruehenbeck/django-jsnlog
+Author: Tobias Funke
+Author-email: tfunke@bona-fide.it
+License: MIT
+Keywords: django-jsnlog
+Classifier: Development Status :: 3 - Alpha
+Classifier: Framework :: Django :: 3.2
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: Django ~=3.2
+
+=============================
+django-jsnlog
+=============================
+
+.. image:: https://badge.fury.io/py/django-jsnlog.svg
+    :target: https://badge.fury.io/py/django-jsnlog
+
+A django integration for client side logging for javascript with JSNLog https://jsnlog.com/.
+
+Documentation
+-------------
+
+The full documentation is at https://django-jsnlog.readthedocs.io.
+
+Quickstart
+----------
+
+Install django-jsnlog::
+
+    pip install django-jsnlog
+
+Add it to your `INSTALLED_APPS`:
+
+.. code-block:: python
+
+    INSTALLED_APPS = (
+        ...
+        'jsnlog',
+        ...
+    )
+
+Add django-jsnlog's URL patterns:
+
+.. code-block:: python
+
+    urlpatterns += [
+        path(r'jsnlog.logger', include('jsnlog.urls')),
+    ]
+
+Add django-jsnlog's javascript files to your template:
+
+.. code-block:: html
+
+    ...
+    <script type="text/javascript" src="{% static 'jsnlog/js/jsnlog.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'jsnlog/js/django-jsnlog.js' %}"></script>
+    ...
+
+Credits
+-------
+
+Tools used in rendering this package:
+
+*  Cookiecutter_
+*  `cookiecutter-djangopackage`_
+
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _`cookiecutter-djangopackage`: https://github.com/pydanny/cookiecutter-djangopackage
+
+
+
+
+History
+-------
+
+0.3.0 (2023-11-02)
+++++++++++++++++++
+
+* change status code from 200 to 204
+
+0.2.0 (2021-04-14)
+++++++++++++++++++
+
+* Second release on PyPI.
+* clean up the code
+
+
+0.1.0 (2021-04-14)
+++++++++++++++++++
+
+* First release on PyPI.
