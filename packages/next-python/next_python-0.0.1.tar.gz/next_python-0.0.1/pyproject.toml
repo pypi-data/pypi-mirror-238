@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "next-python"
+version = "0.0.1"
+description = ""
+authors = ["Oscar Bahamonde <o.bahamonde@globant.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "1.10.12"
+jinja2 = "^3.1.2"
+aiohttp = "^3.8.6"
+aiohttp-sse = "^2.1.0"
+rich = "^13.6.0"
+tenacity = "^8.2.3"
+
+
+[tool.poetry.group.dev.dependencies]
+pytailwindcss = "^0.2.0"
+aiohttp-devtools = "^1.1"
+arel = "^0.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
