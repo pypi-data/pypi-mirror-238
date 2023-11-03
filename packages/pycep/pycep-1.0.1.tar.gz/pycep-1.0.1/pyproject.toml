@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "pycep"
+version = "1.0.1"
+description = ""
+authors = ["Erick Duarte <erickod@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">= 3.10, < 3.12"
+pytest-asyncio = "^0.21.1"
+aiohttp = "^3.8.6"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.5.1"
+black = "^23.9.1"
+pytest = "^7.4.2"
+pytest-cov = "^4.1.0"
+ruff = "^0.1.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[tool.coverage.report]
+exclude_also = [
+    "class HttpClient(Protocol):"
+    ]
+
+[tool.coverage.run]
+omit = [
+    "*/protocols/*",
+    "*/__init__.py",
+    "*/tests/*",
+    ]
