@@ -1,0 +1,20 @@
+from setuptools import setup, find_packages
+import os
+
+# Read the contents of your README file
+this_directory = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(this_directory, "README.md"), encoding="utf-8") as f:
+    long_description = f.read()
+
+setup(
+    name="esa-python-sdk",
+    version="0.0.31",
+    description="The ESA SDK for Python.",
+    long_description="The ESA SDK for Python.",
+    long_description_content_type="text/markdown",
+    author="Michael Cloutier",
+    author_email="michael.cloutier@experian.com",
+    packages=find_packages(),
+    python_requires=">=3.10",
+    install_requires=["requests"],
+)
