@@ -1,0 +1,1 @@
+docker run -t $1 $2 -c "import sysconfig; print(sysconfig.get_path('include'))"
