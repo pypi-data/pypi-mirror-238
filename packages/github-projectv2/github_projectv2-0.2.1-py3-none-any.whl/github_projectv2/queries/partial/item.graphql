@@ -1,0 +1,63 @@
+id
+assignees(first: 100) {
+edges {
+    node {
+    id
+    email
+    login
+    name
+    }
+}
+}
+author {
+login
+... on User {
+    id
+    email
+    login
+    name
+}
+}
+body
+closed
+closedAt
+createdAt
+labels(first: 100) {
+edges {
+    node {
+    id
+    name
+    description
+    }
+}
+}
+number
+title
+updatedAt
+url
+{% if options['includeTrackedInIssues'] %}
+trackedInIssues(first: 100) {
+    edges {
+    node {
+        id
+        title
+        url
+        number
+        closed
+    }
+    }
+}
+{% endif %}
+{% if options['includeTrackedIssues'] %}
+trackedIssues(first: 100) {
+    edges {
+    node {
+        id
+        title
+        url
+        number
+        closed
+    }
+    }
+}
+{% endif %}
