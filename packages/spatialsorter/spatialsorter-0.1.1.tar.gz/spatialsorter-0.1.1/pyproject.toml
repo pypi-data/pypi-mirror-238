@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "spatialsorter"
+version = "0.1.1"
+description = "Package for spatially sorting 3d positions"
+authors = ["Gereon Tombrink <tombrink@igg.uni-bonn.de>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8.2,<3.12"
+networkx = ">=3.1"
+numpy = ">=1.24.4"
+scipy = ">=1.10.1"
+matplotlib = ">=3.7.3"
+yaml-dataclass = "^0.1.2"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.6.1"
+black = "^23.10.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
