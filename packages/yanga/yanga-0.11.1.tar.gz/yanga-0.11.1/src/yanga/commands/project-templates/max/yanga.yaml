@@ -1,0 +1,10 @@
+pipeline:
+  install:
+    - stage: YangaScoopInstall
+      description: Install dependencies
+      timeout_sec: 120
+  build:
+    - stage: MyStage
+      file: stages/my_stage.py
+    - stage: YangaBuildConfigure
+    - stage: YangaBuildRun
