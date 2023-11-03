@@ -1,0 +1,42 @@
+version: "3.9"
+services:
+  reahl:
+    volumes:
+      - type: bind
+        source: ~/.bash_history_docker
+        target: /home/developer/.bash_history
+      - $REAHL_EXAMPLE_CHECKOUT_DIR:/tmp/examples
+    environment:
+      BOOTSTRAP_REAHL_SOURCE: /home/developer/reahl
+#      http_proxy: http://192.168.88.20:3142
+
+  postgres:
+    container_name: postgres
+    image: postgres:12.3
+    restart: always
+    environment:
+        POSTGRES_PASSWORD: reahl
+        POSTGRES_USER: developer
+    
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    profiles:
+      - dontstart
+    environment:
+      MYSQL_ROOT_PASSWORD: reahl
+
+  apt-cacher-ng:
+    container_name: apt-cacher-ng
+    image: apt-cacher-ng:latest
+    restart: "no"
+    profiles:
+      - dontstart
+    ports:
+      - "3142:3142"
+    build:
+      context: .
+      dockerfile: Dockerfile.apt-cacher-ng
+    

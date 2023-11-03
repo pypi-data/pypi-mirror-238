@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+
+  # BUILDKIT_PROGRESS=plain COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build reahl
+  
+  reahl:
+    container_name: reahl
+    restart: always
+    init: true
+    image: iwanvosloo/reahl-dev:7.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+      - "8383:8383"
+    volumes:
+      - .:/home/developer/reahl
+      - type: bind
+        source: ~/.ssh/authorized_keys_docker
+        target: /home/developer/.ssh/authorized_keys2
+
