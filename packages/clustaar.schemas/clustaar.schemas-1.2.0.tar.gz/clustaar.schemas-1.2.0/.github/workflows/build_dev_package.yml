@@ -1,0 +1,50 @@
+# Build and publish .dev version package on our s3pypi
+
+name: Build .dev package
+
+# manual
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Set up code workspace
+        # To access git command
+        uses: actions/checkout@v3
+        # Not possible to use shallow clone as we need git describe
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: Create Tag
+        run: |
+          git config user.name 'dev_package'
+          VERSION=`echo $(git describe --tags --abbrev=0)`.dev.${{ github.run_number }}
+          git tag -am "$VERSION" "$VERSION"
+          echo "$(git describe --tags --abbrev=0)"
+
+      - name: Publish Package from branch ${{ github.ref_name }}
+        run: |
+          python -m pip install --upgrade pip
+          pip install s3pypi==$S3_PYPI_VERSION
+          s3pypi --region eu-west-1 --bucket pypi.clustaar.io --secret $CLUSTAAR_PYPI_SECRET
+          echo "clustaar.schemas==$(git describe --tags --abbrev=0) has been published using branch ${GITHUB_REF##*/}" >> $GITHUB_STEP_SUMMARY
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_CI_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_CI_SECRET }}
+          CLUSTAAR_PYPI_SECRET: ${{ secrets.CLUSTAAR_PYPI_SECRET }}
+          S3_PYPI_VERSION: "0.11.1"
