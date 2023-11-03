@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="container" type="containerType"/>
+    <xs:complexType name="containerType">
+        <xs:sequence>
+            <xs:element name="author" type="authorType"
+                minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="authorType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" />
+            <xs:element name="book" type="bookType"
+                minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="bookType">
+        <xs:sequence>
+            <xs:element name="author" type="authorType"/>
+            <!--
+            <xs:element name="author" type="xs:string"/>
+            -->
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="date" type="xs:date"/>
+        </xs:sequence>
+        <xs:attribute name="genre" type="xs:string"/>
+        <xs:attribute name="rating" type="xs:integer"/>
+    </xs:complexType>
+
+</xs:schema>

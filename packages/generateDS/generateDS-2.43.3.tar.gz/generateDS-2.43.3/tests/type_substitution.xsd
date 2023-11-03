@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
+
+<xs:element name="animalCollection" type="animalCollectionType"/>
+
+<xs:complexType name="animalCollectionType">
+    <xs:sequence>
+      <xs:element name="animal" type="animalType" maxOccurs="unbounded"/>
+    </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="animalType">
+      <xs:sequence>
+        <xs:element name="name" type="xs:string"/>
+      </xs:sequence>
+</xs:complexType>
+
+<xs:element name="animal" type="animalType"/>
+
+<xs:complexType name="dogType">
+  <xs:complexContent>
+    <xs:extension base="animalType">
+      <xs:sequence>
+        <xs:element name="size" type="dogSizeType"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+  <xs:attribute name="weight" type="dogWeightType"/>
+</xs:complexType>
+
+<xs:complexType name="catType">
+  <xs:complexContent>
+    <xs:extension base="animalType">
+      <xs:sequence>
+        <xs:element name="breed" type="catBreedType"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+  <xs:attribute name="personality" type="catPersonalityType"/>
+</xs:complexType>
+
+<xs:simpleType name="dogSizeType">
+    <xs:restriction base="xs:integer">
+        <xs:enumeration value="10"/>
+        <xs:enumeration value="20"/>
+        <xs:enumeration value="30"/>
+    </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="dogWeightType">
+    <xs:restriction base="xs:integer">
+        <xs:enumeration value="20"/>
+        <xs:enumeration value="30"/>
+        <xs:enumeration value="40"/>
+    </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="catBreedType">
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="shorthair"/>
+        <xs:enumeration value="longhair"/>
+        <xs:enumeration value="turkishvon"/>
+        <xs:enumeration value="abyssinian"/>
+        <xs:enumeration value="siamese"/>
+    </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="catPersonalityType">
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="playful"/>
+        <xs:enumeration value="shy"/>
+        <xs:enumeration value="frisky"/>
+        <xs:enumeration value="aloof"/>
+    </xs:restriction>
+</xs:simpleType>
+
+</xs:schema>
