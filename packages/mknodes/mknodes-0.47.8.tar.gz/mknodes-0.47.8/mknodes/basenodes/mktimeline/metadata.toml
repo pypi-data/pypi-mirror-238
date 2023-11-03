@@ -1,0 +1,42 @@
+[metadata]
+icon = "mdi:timeline"
+name = "MkTimeline"
+
+[[resources.css]]
+filename = "timeline.css"
+
+[[resources.js]]
+is_library = true
+link = "https://cdn.jsdelivr.net/npm/scrollreveal@3.4.0/dist/scrollreveal.min.js"
+
+[[resources.js]]
+link = "https://code.jquery.com/jquery-2.2.4.min.js"
+is_library = true
+
+[[resources.js]]
+filename = "timeline.js"
+
+[examples.toml]
+title = "From TOML format"
+jinja = """
+{{
+"
+['Step 1']
+title = 'test'
+content = 'Some **markdown**'
+image = 'https://picsum.photos/400'
+['Step 2']
+title = 'test'
+content = 'Some **markdown**'
+image = 'https://picsum.photos/401'
+
+" | load_toml | MkTimeline
+}}
+"""
+
+# [output.markdown]
+# template = """
+# <section class="timeline">
+# {{ node.items | join }}
+# </section>
+# """
