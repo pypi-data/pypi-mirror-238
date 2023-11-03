@@ -1,0 +1,18 @@
+{
+  "templateName": "{{ template_name }}",
+  "templateDescription": "{{ template_description }}",
+  "deviceType": "{{ device_type }}",
+  "deviceRole": "{{ device_role }}",
+  "configType": "template",
+  "factoryDefault": false,
+  "policyId": "",
+  "featureTemplateUidRange": [],
+  "connectionPreferenceRequired": true,
+  "connectionPreference": true,
+  "generalTemplates": [
+        {% for template in general_templates %}
+			{{ template | tojson }}
+		{% if not loop.last %},{% endif %}
+		{% endfor %}
+  ]
+}
