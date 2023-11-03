@@ -1,0 +1,184 @@
+Metadata-Version: 2.1
+Name: edv-dwh-connector
+Version: 0.14.1
+Summary: This module helps to connect to our data warehouse
+Home-page: https://github.com/endeavourmining/edv-dwh-connector
+Author: Endeavour Mining
+Author-email: github@endeavourmining.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+[![License](https://img.shields.io/badge/license-Endeavour%20Mining-orange.svg)](https://github.com/endeavourmining/edv-dwh-connector/blob/master/LICENSE.txt)
+[![codecov for extractors](https://codecov.io/gh/endeavourmining/edv-dwh-connector/branch/master/graph/badge.svg?token=c6I8wFFmZe)](https://codecov.io/gh/endeavourmining/edv-dwh-connector)
+
+This project helps to connect to our data warehouse.
+
+## Requirements
+
+* Python `3.8.x` or later.
+
+## Quick start
+
+### Synchronize tags
+Synchronize tags from PI server to Data warehouse on period `[01/01/2022 05:00:00 - 31/01/2022 05:00:00]`
+can be easily achieved by the code below:
+
+```python
+from datetime import datetime
+
+from edv_dwh_connector.pg_dwh import PgDwh
+from edv_dwh_connector.pi_web_api_client import PiWebAPIClient
+from edv_dwh_connector.pi.rest.rest_sync_pi_tags import RestSyncPITags
+from edv_dwh_connector.utils.periods import HourIntervals
+from edv_dwh_connector.pi.sync_pi_data import SyncPIDataRestToDwh
+from edv_dwh_connector.pi.db.pg_pi_tag import PgPITags
+
+# We should firstly declare the Data warehouse pool connection.
+dwh = PgDwh.from_connection(
+    name="dwh_db_name", host="dwh_server_name_or_ip",
+    user="dwh_user", password="dwh_password", port=5432
+)
+# Next, we should declare the PI server REST API client.
+client = PiWebAPIClient(
+    base_url="base/url/of/pi/server", username="admin_user",
+    password="admin_password", session_timeout=2.5
+)
+# Finally, we can synchronize tags measures.
+# The code below will automatically synchronize tags (create new tags),
+# split period provided into hour intervals and synchronize PI measures
+# on these intervals.
+SyncPIDataRestToDwh(
+    tags=RestSyncPITags(
+        server_id="F1DSmN2338899MpX8PREOtdbEZ56sypOOOKRZLVNSVi1QSS1ISTGt", # Fake server ID
+        client=client,
+        codes=['AI162003_SCLD', 'AI162007_SCLD', 'AI162014_SCLD'],
+        target=PgPITags(dwh)
+    ),
+    periods=HourIntervals(
+        datetime(2022, 1, 1, 5, 0, 0), datetime(2022, 1, 31, 5, 0, 0)
+    ),
+    client=client, dwh=dwh
+).synchronize()
+```
+
+To store data to a CSV file in `fact_pi_measure` format, you could do this:
+```python
+SyncPIDataRestToCSVDwhLike(
+    tags=RestSyncPITags(
+        server_id="F1DSmN2338899MpX8PREOtdbEZ56sypOOOKRZLVNSVi1QSS1ISTGt", # Fake server ID
+        client=client,
+        codes=['AI162003_SCLD', 'AI162007_SCLD', 'AI162014_SCLD'],
+        target=PgPITags(dwh)
+    ),
+    periods=HourIntervals(
+        datetime(2022, 1, 1, 5, 0, 0), datetime(2022, 1, 31, 5, 0, 0)
+    ),
+    client=client,
+    file="path/of/csv/file/where/to/store"
+).synchronize()
+```
+
+after importing `SyncPIDataRestToCSVDwhLike` from `edv_dwh_connector.pi.sync_pi_data`.
+It is very useful when you want to recover data of DWH table `fact_pi_measure` on a long period.
+
+**N.B.** You could also fetch on day intervals by using class `DayIntervals` instead of `HourIntervals`.
+But, `HourIntervals` could be faster than `DayIntervals` depending on the size of data to be imported.
+
+### Synchronize partially a CSV file for a tag
+To synchronize a CSV file with the latest data from interpolated data from DWH, we do like this:
+
+```python
+dwh = ...
+tag = "AI56222_SCDL"
+CsvWithLatestPIMeasuresDf(
+    path="my/path/data.csv",
+    tag=tag,
+    origin=PgMinuteInterpolatedPIMeasuresDf(tag, dwh)
+).frame(
+    datetime(2022, 1, 1, 5, 0, 0), datetime(2022, 1, 31, 5, 0, 0)
+)
+```
+
+If `data.csv` contains data for period `[01/01/2022 - 24/01/2022]`, this instruction will only add to the CSV file data of the last week.
+
+### Read tags and measures from DWH
+
+#### Read tags
+
+To get all tags, just do this:
+```python
+tags = PgCachedPITags(dwh).items()
+```
+
+#### Read measures
+To read measures of a tag on a period, just do this:
+```python
+tag = ... # get PI tag here
+measures = PgCachedPIMeasures(tag, dwh).items(
+    datetime(2022, 1, 1, 5, 0, 0), datetime(2022, 1, 31, 5, 0, 0)
+)
+# or use only tag code
+measures = PgCachedPIMeasures("AI162014_SCLD", dwh).items(
+    datetime(2022, 1, 1, 5, 0, 0), datetime(2022, 1, 31, 5, 0, 0)
+)
+# or use a data frame (by tag or tag code)
+dt = PgPIMeasuresDf(tag, dwh).frame(
+    datetime(2022, 1, 1, 5, 0, 0), datetime(2022, 1, 31, 5, 0, 0)
+)
+```
+
+### Synchronize blend proposals
+We easily synchronize by this code below:
+
+```python
+SyncBlendProposals(
+    src=ExcelBlendProposals(
+        file="path/of/excel/file/name",
+        start_date=date.fromisoformat("2022-10-18"),
+        end_date=date.fromisoformat("2022-10-20")
+    ),
+    target=PgBlendProposals(dwh)
+).synchronize()
+```
+
+### Read blend proposals from DWH
+
+```python
+blends = PgBlendProposals(dwh).items(
+    date(2022, 10, 18), datetime(2022, 10, 20)
+)
+```
+
+## Development environment
+
+It is recommended to start by creating a virtual environment. You could do it by following commands:
+
+```shell
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+**N.B.** We activate an environment on Windows by executing:
+```shell
+.venv\Scripts\activate.bat
+```
+
+## How to contribute
+
+Please read [contributing rules](https://github.com/endeavourmining/.github/blob/master/CONTRIBUTING.md).
+
+Fork repository, make changes, send us a pull request. We will review
+your changes and apply them to the `master` branch shortly, provided
+they don't violate our quality standards. To avoid frustration, before
+sending us your pull request please run these commands:
+
+```shell
+sh pyqulice.sh # Linux
+pyqulice.bat # Windows
+pytest tests/unit/
+```
