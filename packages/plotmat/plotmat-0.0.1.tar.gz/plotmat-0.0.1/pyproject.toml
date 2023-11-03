@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plotmat"
+version = "0.0.1"
+authors = [
+  { name="Hui Sun", email="suh960@psu.edu" },
+  { name="Adam Krajewski", email="ak@psu.edu" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+description = "A collection of Plotting tools for Materials data from Phases Research Lab at PennState; with pieces useful to the general audience published through PyPI."
+readme = "README.md"
+
+requires-python = ">=3.9"
+dependencies = [
+    "matplotlib",
+    "plotly"
+]
+
+[project.urls]
+"Research Page" = "https://phaseslab.com/"
+"Bug Tracker" = "https://github.com/PhasesResearchLab/PlotMat/issues"
