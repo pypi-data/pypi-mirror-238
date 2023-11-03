@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "p9hsci"
+version = "0.1.1"
+description = "HSCI theme for plotnine"
+authors = ["Eetu Mäkelä <eetu.makela@iki.fi>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+plotnine = "^0.12.3"
+
+[tool.poetry.group.dev.dependencies]
+autopep8 = "^2.0.4"
+pre-commit = "^3.5.0"
+pylint = "^3.0.2"
+Sphinx = "^7.2.6"
+sphinx-rtd-theme = "^1.3.0"
+pytest = "^7.4.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
