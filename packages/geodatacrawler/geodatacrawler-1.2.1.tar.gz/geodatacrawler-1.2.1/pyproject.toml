@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "geodatacrawler"
+version = "1.2.1"
+license = "MIT"
+description = "a crawler script to extract and author metadata of spatial datasets"
+authors = ["Paul van Genuchten <genuchten@yahoo.com>"]
+readme = "README.md"
+repository = "https://github.com/pvgenuchten/pyGeoDataCrawler"
+packages = [
+    { include = "geodatacrawler" },
+    { include = "geodatacrawler/templates/*" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+PyYAML = "^6.0"
+Fiona = "^1.8.21"
+rasterio = "^1.2.10"
+pysqlite3 = "^0.4.6"
+mappyfile = "^0.9.7"
+GDAL = "3.3.2"
+pyproj = "^3.4.0"
+OWSLib = "^0.27.2"
+pygeometa = "0.13.1"
+pandas = "^1.5.1"
+Jinja2 = "^3.1.2"
+jinja2-time = "^0.2.0"
+bibtexparser = "^1.4.0"
+pytest = "^7.4.0"
+openpyxl = "^3.1.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4.0"
+
+[tool.poetry.scripts]
+crawl-metadata = "geodatacrawler.metadata:indexDir"
+crawl-maps = "geodatacrawler.mapfile:mapForDir"
+crawl-etl = "geodatacrawler.etl:etl"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
