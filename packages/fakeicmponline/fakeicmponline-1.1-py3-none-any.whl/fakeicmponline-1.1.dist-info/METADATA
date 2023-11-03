@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: fakeicmponline
+Version: 1.1
+Summary: Fakes ICMP packets responder for IP's that don't exist
+Author-Email: vincenzogianfelice <developer.vincenzog@gmail.com>
+License: GPL
+Requires-Python: >=3.9
+Requires-Dist: termcolor>=2.3.0
+Requires-Dist: scapy>=2.5.0
+Requires-Dist: argparse>=1.4.0
+Description-Content-Type: text/markdown
+
+# fakeicmponline
+*Fakes ICMP packets responder for IP's that don't exist*
+
+# Installation
+```pip3 install fakeicmponline```
+or
+```
+cd fakeicmponline/dist
+pip3 install ./fakeicmponline*.whl
+```
+
+# Usage
+```
+fakeicmponline.py -i eth0 #Respond all ip from packet icmp other device
+```
