@@ -1,0 +1,3 @@
+from typing import Any
+
+def merge_schema(parent_schema: dict[str, Any], child_schema: dict[str, Any]) -> dict[str, Any]: ...
