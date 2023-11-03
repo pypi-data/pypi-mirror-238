@@ -1,0 +1,62 @@
+[metadata]
+icon = "octicon:info-16"
+name = "MkAdmonition"
+
+[requirements.extension.admonition]
+[requirements.extension."pymdownx.details"]
+[requirements.extension."pymdownx.superfences"]
+
+
+# [examples.annotations]
+# title = "Annotations"
+# jinja = """
+# !!! note annotate
+
+#     MkAdmonitions can carry annotations(1).
+
+# 1.  Super handy!
+
+# ``` py
+# node = mk.MkAdmonition("MkAdmonitions can carry annotations(1).")
+# node.annotations[1] = "Super handy!"
+# page += mk.MkReprRawRendered(node)
+# ```
+# """
+
+[examples.types]
+title = "Types"
+jinja = """
+{{ "Different types." | MkAdmonition(typ="warning") }}
+"""
+
+[examples.collapsible]
+title = "Collapsible and expandable"
+jinja = """
+{{ "Admonitions can also be collapsible." | MkAdmonition(collapsible=True, title="Expand me!", expanded=True) }}
+"""
+
+[examples.inlined]
+title = "Inlined"
+jinja = """
+{{ "Inlined" | MkAdmonition(inline="left") }}
+"""
+
+[output.markdown]
+template = """
+{{ node.title_line }}
+{{ node.items | join(node.block_separator) | indent(first=True) }}
+
+"""
+
+# [output.block]
+# template = """
+# /// admonition {{ node.typ }} | {{ node.title }}
+# {{ node.items | join }}
+# ///
+# """
+
+# [output.github]
+# template = """
+# > [!{{ node.typ | upper }}]\
+# {{ node.items | join | indent(width="> ", first=True) }}
+# """
