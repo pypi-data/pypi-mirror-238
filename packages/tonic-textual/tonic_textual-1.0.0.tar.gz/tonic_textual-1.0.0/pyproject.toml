@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "tonic-textual"
+version = "1.0.0"
+description = "Wrappers around the Tonic Textual API"
+authors = ["Adam Kamor <adam@tonic.ai>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://www.tonic.ai/"
+keywords = ["tonic.ai", "tonic", "tonic textual"]
+
+classifiers = [
+    "Operating System :: OS Independent"
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+requests = "^2.23.0"
+more-itertools = "^8.6.0"
+pandas = ">=1.0.0"
+tqdm = "^4.0.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
