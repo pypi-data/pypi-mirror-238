@@ -1,0 +1,136 @@
+[build-system]
+requires = [
+  "setuptools>=61.2",
+  "setuptools_scm[toml]>=6.2",
+]
+
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "unyt"
+description = "A package for handling numpy arrays with units"
+authors = [
+    { name = "The yt project", email = "yt-dev@python.org" },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+keywords = [
+    "unyt",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.19.3",
+    "sympy>=1.7",
+    "packaging>=20.9",
+]
+dynamic = [
+    "version",
+]
+
+[project.readme]
+file = "README.rst"
+content-type = "text/x-rst"
+
+[project.license]
+text = "BSD-3-Clause"
+
+[project.urls]
+Homepage = "https://github.com/yt-project/unyt"
+Documentation = "https://unyt.readthedocs.io/en/stable/index.html"
+Changelog = "https://unyt.readthedocs.io/en/stable/history.html"
+
+[tool.setuptools]
+include-package-data = true
+zip-safe = false
+license-files = [
+    "LICENSE",
+]
+
+[tool.setuptools.packages.find]
+include = [
+    "unyt",
+    "unyt.tests",
+    "unyt.tests.data",
+    "unyt._mpl_array_converter",
+]
+namespaces = false
+
+[tool.setuptools.package-data]
+unyt = [
+    "tests/data/old_json_registry.txt",
+]
+
+
+[tool.black]
+exclude = '''
+(
+  /(
+      \.eggs
+    | \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | _version.py
+  )
+)
+'''
+
+[tool.ruff]
+exclude = [
+    ".*/",
+    "benchmarks/*.py",
+    "paper/*.py",
+    "*/_version.py",
+    "*/__init__.py",
+]
+ignore = [
+    "E501",
+    "B904",
+]
+select = [
+    "E",
+    "F",
+    "W",
+    "C4",  # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "YTT", # flake8-2020
+    "I",   # isort
+    "UP",  # pyupgrade
+]
+
+[tool.ruff.isort]
+combine-as-imports = true
+
+[tool.setuptools_scm]
+write_to = "unyt/_version.py"
+version_scheme = "post-release"
+
+[tool.pytest.ini_options]
+addopts = "--ignore=benchmarks --ignore=paper --ignore=unyt/_mpl_array_converter --color=yes"
+filterwarnings = [
+    "error",
+    "ignore:Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.:UserWarning",
+    "ignore:FigureCanvasAgg is non-interactive, and thus cannot be shown:UserWarning",
+    "ignore:In accordance with NEP 32:DeprecationWarning",
+    "ignore:distutils Version classes are deprecated. Use packaging.version instead.:DeprecationWarning",
+    'ignore:datetime\.datetime\.utcfromtimestamp\(\) is deprecated:DeprecationWarning', # https://github.com/dateutil/dateutil/pull/1285
+]
+
+[tool.coverage.run]
+omit = [
+    "docs/*",
+    "unyt/_version.py",
+    "unyt/_on_demand_imports.py",
+    "unyt/tests/test_linters.py",
+]
