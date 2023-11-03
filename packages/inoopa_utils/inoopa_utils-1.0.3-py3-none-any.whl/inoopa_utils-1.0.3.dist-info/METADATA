@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: inoopa_utils
+Version: 1.0.3
+Summary: Collection of utils used at Inoopa.
+Home-page: https://bitbucket.org/inoopa/inoopa_utils/
+Author: Dev Inoop
+Author-email: dev@inoopa.com
+Requires-Python: >=3.11,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: PyMySQL (==1.1.0)
+Requires-Dist: SQLAlchemy (==2.0.22)
+Requires-Dist: iniconfig (==2.0.0)
+Requires-Dist: numpy (==1.26.1)
+Requires-Dist: packaging (==23.2)
+Requires-Dist: pamqp (==2.3.0)
+Requires-Dist: pandas (==2.1.2)
+Requires-Dist: pluggy (==1.3.0)
+Requires-Dist: pytest (==7.4.3)
+Requires-Dist: python-dateutil (==2.8.2)
+Requires-Dist: pytz (==2023.3.post1)
+Requires-Dist: rabbitpy (==2.0.1)
+Requires-Dist: six (==1.16.0)
+Requires-Dist: typing_extensions (==4.8.0)
+Requires-Dist: tzdata (==2023.3)
+Project-URL: Repository, https://bitbucket.org/inoopa/inoopa_utils/
+Description-Content-Type: text/markdown
+
+# Inoopa's helpers
+
+This repo contains helper functions we use in all of our python projects.
+
+# This is pushed publicly to Pypi, so NEVER commit any secret here!
+
+## How to publish package to Pypi
+
+After any code change, **update the package version** in [pyproject.toml](./pyproject.toml).
+
+Then, at the root of the repo:
+
+```bash
+# Login to Pypi
+poetry config pypi-token.pypi <Pypi API token here>
+
+# Build project
+poetry build
+
+# Publish
+poetry publish
+```
