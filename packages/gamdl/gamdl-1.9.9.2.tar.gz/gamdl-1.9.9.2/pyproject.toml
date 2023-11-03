@@ -1,0 +1,25 @@
+[project]
+name = "gamdl"
+description = "Download Apple Music songs/music videos/albums/playlists"
+requires-python = ">=3.7"
+authors = [{name = "glomatico"}]
+dependencies = [
+    "click",
+    "m3u8",
+    "pywidevine",
+    "pyyaml",
+    "yt-dlp"
+]
+readme = "README.md"
+dynamic = ["version"]
+
+[project.urls]
+homepage = "https://github.com/glomatico/gamdl"
+repository = "https://github.com/glomatico/gamdl"
+
+[build-system]
+requires = ["flit_core"]
+build-backend = "flit_core.buildapi"
+
+[project.scripts]
+gamdl = "gamdl.cli:main"
