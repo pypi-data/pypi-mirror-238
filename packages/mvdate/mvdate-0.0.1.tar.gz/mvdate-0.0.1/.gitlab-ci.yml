@@ -1,0 +1,98 @@
+---
+image: python:3.11
+
+variables:
+  # since we're not using merge request pipelines in this example,
+  # we will configure the pre-commit job to run on branch pipelines only.
+  # If you ARE using merge request pipelines, you can omit this section
+    PRE_COMMIT_AUTO_FIX: '1'
+    PRE_COMMIT_DEDUPLICATE_MR_AND_BRANCH: 'false'
+    PRE_COMMIT_AUTO_FIX_BRANCH_ONLY: 'false'
+
+
+before_script:
+    - python --version
+    - pip install .[dev,tests]
+    # Modify time file was last modified otherwise tests fail due to cloning https://stackoverflow.com/a/1066708
+    - touch -t 202310212110 tests/resources/test.txt
+    - ls -lha tests/resources/test.txt
+
+# pre-commit autofix (https://gitlab.com/yesolutions/gitlab-ci-templates /
+#                     https://stackoverflow.com/collectives/gitlab/articles/71270196/)
+include:
+    remote: https://gitlab.com/yesolutions/gitlab-ci-templates/raw/main/templates/pre-commit-autofix.yaml
+
+stages:
+    # - debug
+    - pylint
+    - pytest
+    # - pages
+    # - pypi
+
+# print-all-env-vars-job:
+#     stage: debug
+#     script:
+#         - echo "GitLab CI/CD | Print all environment variables"
+#         - env
+
+.pylint:
+    script:
+        - pip install pylint pytest
+        - pylint --rcfile .pylintrc mvdate/
+        - pylint --rcfile .pylintrc tests/
+
+pylint-3-10:
+    extends: .pylint
+    stage: pylint
+    image: python:3.10
+    allow_failure: true
+
+pylint-3-11:
+    extends: .pylint
+    stage: pylint
+    image: python:3.11
+    allow_failure: true
+
+.pytest:
+    script:
+        - pip install pytest pytest-cov
+        - python -m "pytest"
+
+pytest-3-10:
+    extends: .pytest
+    stage: pytest
+    image: python:3.10
+    allow_failure: true
+
+pytest-3-11:
+    extends: .pytest
+    stage: pytest
+    image: python:3.11
+    coverage: /(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/
+
+# pages:
+#     stage: pages
+#     rules:
+#         - if: $CI_COMMIT_BRANCH == "master"
+#     script:
+#         - pip install .[docs]
+#         - cd docs
+#         - git fetch --tags
+#         - git tag -l
+#         - make html
+#         - mkdir ../public
+#         - mv _build/html/* ../public/
+#     artifacts:
+#         paths:
+#             - public
+
+
+# pypi:
+#     stage: pypi
+#     rules:
+#         - if: $CI_COMMIT_TAG
+#     script:
+#         - pip install .[pypi]
+#         - pip install build
+#         - python -m build
+#         - twine upload --non-interactive --repository pypi dist/*

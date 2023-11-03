@@ -1,0 +1,177 @@
+[build-system]
+requires = [
+  "setuptools>=45",
+  "setuptools_scm[toml]>=6.2",
+  "wheel"
+  ]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mvdate"
+description = "Move files to directories based on created date"
+readme = "README.md"
+license = {text = "GNU Lesser GPLv3 only"}
+dynamic = ["version"]
+authors = [
+  {name = "Neil Shephard", email = "nshephard@gmail.com"},
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+]
+keywords = [
+  "files",
+  "date"
+]
+requires-python = ">=3.8"
+dependencies = [
+  "loguru",
+  "tqdm",
+  "pyfiglet",
+]
+
+[project.optional-dependencies]
+tests = [
+  "py",
+  "pytest",
+  "pytest-cov",
+  "pytest-mpl",
+  "pytest-tmp-files",
+  "filetype",
+]
+docs = [
+  "Sphinx",
+  "myst_parser",
+  "numpydoc",
+  "pydata_sphinx_theme",
+  "sphinx-autoapi",
+  "sphinx-autodoc-typehints",
+  "sphinx-multiversion",
+  "sphinx_markdown_tables",
+  "sphinx_rtd_theme",
+  "sphinxcontrib-mermaid",
+  "sphinxcontrib-napoleon",
+]
+dev = [
+  "Flake8-pyproject",
+  "black",
+  "flake8",
+  "flake8-print",
+  "pre-commit",
+  "pylint",
+  "pyupgrade",
+  "pytest-durations",
+  "pytest-xdist",
+]
+pypi = [
+  "build",
+  "wheel",
+  "setuptools_scm[toml]"
+]
+
+[project.urls]
+Source = "https://gitlab.com/nshephard/mvdate"
+Bug_Tracker = "https://gitlab.com/nshephard/mvdate/issues"
+
+[tool.flake8]
+max_line_length=120
+docstring-convention= "numpy"
+exclude = [
+  "*.ipynb",
+  ".git",
+  "__pycache__",
+  "build",
+  "dist",
+]
+extend-ignore = [
+    "E501",
+    "T201",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["mvdate"]
+exclude = ["tests"]
+namespaces = false
+
+
+[tool.setuptools_scm]
+write_to = "mvdate/_version.py"
+
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "--cov --mpl"
+testpaths = [
+    "tests",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+    "ignore::UserWarning"
+]
+
+[tool.coverage.run]
+source = ["mvdate"]
+omit = [
+  "mvdate/_version.py",
+  "*tests*",
+  "**/__init__*",
+]
+
+[tool.black]
+line-length = 120
+target-version = ['py312']
+exclude = '''
+
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.venv
+  )/
+)
+'''
+
+[tool.ruff]
+exclude = [
+  ".bzr",
+  ".direnv",
+  ".eggs",
+  ".git",
+  ".hg",
+  ".mypy_cache",
+  ".nox",
+  ".pants.d",
+  ".pytype",
+  ".ruff_cache",
+  ".svn",
+  ".tox",
+  ".venv",
+  "__pypackages__",
+  "_build",
+  "buck-out",
+  "build",
+  "dist",
+  "node_modules",
+  "venv",
+]
+# per-file-ignores = []
+line-length = 120
+target-version = "py312"
+# Allow autofix for all enabled rules (when `--fix`) is provided.
+fixable = ["A", "B", "C", "D", "E", "F", "R", "S", "W", "U"]
+unfixable = []
+
+[project.scripts]
+mvdate = "mvdate.mvdate:main"
