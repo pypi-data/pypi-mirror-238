@@ -1,0 +1,101 @@
+Metadata-Version: 2.1
+Name: ydf
+Version: 0.0.4
+Summary: YDF (short for Yggdrasil Decision Forests) is a library for training, serving, evaluating and analyzing decision forest models such as Random Forest and Gradient Boosted Trees.
+Home-page: https://github.com/google/yggdrasil-decision-forests
+Author: Mathieu Guillame-Bert, Richard Stotz, Jan Pfeifer
+Author-email: decision-forests-contact@google.com
+License: Apache 2.0
+Project-URL: Documentation, https://ydf.readthedocs.io/
+Project-URL: Source, https://github.com/google/yggdrasil-decision-forests.git
+Project-URL: Tracker, https://github.com/google/yggdrasil-decision-forests/issues
+Keywords: machine learning decision forests random forest gradient boosted decision trees classification regression ranking uplift
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: absl-py
+Requires-Dist: protobuf >=3.14
+Provides-Extra: pandas
+Requires-Dist: pandas ; extra == 'pandas'
+
+# Port of Yggdrasil / TensorFlow Decision Forests for Python
+
+The Python port of Yggdrasil Decision is a light-weight wrapper around Yggdrasil
+Decision Forests. It allows direct, fast access to YDF's methods and it also
+offers advanced import / export, evaluation and inspection methods. While the
+package is called YDF, the wrapping code is sometimes lovingly called *PYDF*.
+
+It is not a replacement for its sister project 
+[Tensorflow Decision Forests](https://github.com/tensorflow/decision-forests) 
+(TF-DF). Instead, it complements TF-DF for use cases that cannot be solved 
+through the Keras API.
+
+## Installation
+
+To install YDF, in Python, simply grab the package from pip:
+
+```
+pip install ydf
+```
+
+## Usage Example
+
+```python
+import ydf
+import pandas as pd
+
+ds_path = "https://raw.githubusercontent.com/google/yggdrasil-decision-forests/main/yggdrasil_decision_forests/test_data/dataset"
+train_ds = pd.read_csv(f"{ds_path}/adult_train.csv")
+test_ds = pd.read_csv(f"{ds_path}/adult_test.csv")
+
+model = ydf.GradientBoostedTreesLearner(label="income").train(train_ds)
+
+print(model.evaluate(test_ds))
+
+model.save("my_model")
+
+loaded_model = ydf.load_model("my_model")
+```
+
+## Compiling & Building
+
+To build the Python port of YDF, install GCC-9 and run the following command
+from the root of the port/python directory in the YDF repository
+
+```sh
+PYTHON_BIN=python3.9
+./tools/test_pydf.sh
+./tools/build_pydf.sh $PYTHON_BIN
+```
+
+## Frequently Asked Questions
+
+*   **Is it PYDF or YDF?** The name of the library is simply ydf, and so is the
+    name of the corresponding Pip package. Internally, the team sometimes uses
+    the name *PYDF* because it fits so well.
+*   **What is the status of PYDF?** PYDF is currently in Alpha development. Some
+    parts still work well (training models and generating predictions), others
+    are yet to be added. The API surface may still change without notice.
+*   **Where is the documentation for PYDF?** We are still creating the 
+    PYDF-specifc documentation, it will be hosted on https://ydf.readthedocs.org
+    soon.
+*   **How should I pronounce PYDF?** The preferred pronunciation is 
+    "Py-dee-eff" / ˈpaɪˈdiˈɛf (IPA)
+
