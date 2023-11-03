@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0", "numpy", "onnx", "onnxruntime", "onnxruntime-extensions", "faiss-cpu", "pytest", "pytest-cov"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "minivectordb"
+version = "1.0.4"
+authors = [
+  { name="Carlo Moro", email="cnmoro@gmail.com" },
+]
+description = "A python project aimed at extracting embeddings from textual data and performing semantic search."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/cnmoro/Mini-Vector-DB"
+"Bug Tracker" = "https://github.com/cnmoro/Mini-Vector-DB/issues"
