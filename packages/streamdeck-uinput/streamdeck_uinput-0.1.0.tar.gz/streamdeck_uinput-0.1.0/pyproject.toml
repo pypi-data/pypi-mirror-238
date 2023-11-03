@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "streamdeck_uinput"
+version = "0.1.0"
+description = "Basic implementation of UInput for the Elgato Stream Deck"
+authors = ["Julian reyes Escrigas <julian.reyes.escrigas@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "streamdeck_uinput" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+evdev = "^1.6.1"
+
+[build-system]
+requires = ["poetry-core", "setuptools"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.build]
+script = "build.py"
+generate-setup-file = true
