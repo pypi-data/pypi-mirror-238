@@ -1,0 +1,26 @@
+Metadata-Version: 2.1
+Name: atoti-query
+Version: 0.8.6
+Summary: Package to query Atoti sessions.
+Home-page: https://www.atoti.io
+Author: ActiveViam
+Author-email: dev@atoti.io
+Project-URL: Documentation, https://docs.atoti.io/0.8.6/api/atoti_query.html
+Project-URL: Bug Tracker, https://github.com/atoti/atoti/issues
+Keywords: atoti,query
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: Free To Use But Restricted
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Typing :: Typed
+Requires-Dist: atoti-core (==0.8.6)
+Requires-Dist: pandas
+Requires-Dist: pyarrow (>=11.0.0)
+Requires-Dist: typeguard (<3,>=2.13.3)
+Requires-Dist: typing-extensions
+Provides-Extra: dev
+Requires-Dist: atoti ; extra == 'dev'
+Requires-Dist: premailer ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: test-utils ; extra == 'dev'
+
