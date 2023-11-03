@@ -1,0 +1,14 @@
+[build-system]
+requires = [
+    "setuptools >= 44.1.1",
+    "setuptools_scm[toml]>=4",
+    "wheel >= 0.36",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "hab/version.py"
+version_scheme = "release-branch-semver"
+
+[tool.isort]
+profile = "black"

@@ -1,0 +1,58 @@
+{
+  "context": [
+    "not_set"
+  ],
+  "name": "distros",
+  "aliases": {
+    "windows": {
+      "dcc": "TEST_DIR_NAME\\the_dcc.exe"
+    },
+    "linux": {
+      "dcc": "TEST_DIR_NAME//the_dcc"
+    }
+  },
+  "versions": [
+    "the_dcc==1.2",
+    "the_dcc_plugin_a==1.1",
+    "the_dcc_plugin_e==1.1",
+    "the_dcc_plugin_d==1.1",
+    "the_dcc_plugin_b==1.1"
+  ],
+  "environment": {
+    "windows": {
+      "Test": [
+        "Case"
+      ],
+      "DCC_MODULE_PATH": [
+        "{config_root}/distros/the_dcc_plugin_a/1.1",
+        "{config_root}/distros/the_dcc_plugin_e/1.1",
+        "{config_root}/distros/the_dcc_plugin_d/1.1",
+        "{config_root}/distros/the_dcc_plugin_b/1.1"
+      ],
+      "DCC_CONFIG_PATH": [
+        "{config_root}/distros/the_dcc_plugin_b/1.1",
+        "{config_root}/distros/the_dcc_plugin_d/1.1",
+        "{config_root}/distros/the_dcc_plugin_a/1.1",
+        "{config_root}/distros/the_dcc_plugin_e/1.1"
+      ]
+    },
+    "linux": {
+      "Test": [
+        "Case"
+      ],
+      "DCC_MODULE_PATH": [
+        "{config_root}/distros/the_dcc_plugin_a/1.1",
+        "{config_root}/distros/the_dcc_plugin_e/1.1",
+        "{config_root}/distros/the_dcc_plugin_d/1.1",
+        "{config_root}/distros/the_dcc_plugin_b/1.1"
+      ],
+      "DCC_CONFIG_PATH": [
+        "{config_root}/distros/the_dcc_plugin_b/1.1",
+        "{config_root}/distros/the_dcc_plugin_d/1.1",
+        "{config_root}/distros/the_dcc_plugin_a/1.1",
+        "{config_root}/distros/the_dcc_plugin_e/1.1"
+      ]
+    }
+  },
+  "uri": "not_set/distros"
+}
