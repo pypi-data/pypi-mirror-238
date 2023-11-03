@@ -1,0 +1,13 @@
+from amsdal_framework.configs.constants import CORE_SCHEMAS_PATH as CORE_SCHEMAS_PATH, TYPE_SCHEMAS_PATH as TYPE_SCHEMAS_PATH
+from amsdal_framework.configs.main import settings as settings
+from pathlib import Path
+
+class BuildMixin:
+    @staticmethod
+    def build_models(user_schemas_path: Path) -> None: ...
+    @staticmethod
+    def build_transactions(cli_app_path: Path) -> None: ...
+    @staticmethod
+    def build_static_files(cli_app_path: Path) -> None: ...
+    @staticmethod
+    def build_fixtures(cli_app_path: Path) -> None: ...

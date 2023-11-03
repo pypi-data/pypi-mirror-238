@@ -1,0 +1,3 @@
+class ClassVersionsMixin:
+    @staticmethod
+    def init_class_versions() -> None: ...
