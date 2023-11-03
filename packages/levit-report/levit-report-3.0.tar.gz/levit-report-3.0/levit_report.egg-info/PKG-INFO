@@ -1,0 +1,109 @@
+Metadata-Version: 2.1
+Name: levit-report
+Version: 3.0
+Summary: Bring the power of relatorio to Django
+Home-page: http://levit.be
+Author: LevIT scs
+Author-email: foss@levit.be
+License: MIT License
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 4.2
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: Django>=4.2
+Requires-Dist: relatorio>=0.10.1
+
+# Levit-report
+
+This library makes it easy to manage and render a set of relatorio-based reports in a Django application
+
+## Compatibility Matrix
+
+**Levit-report** is compatible with the following matrix
+
+|                  | Py 3.5 | Py 3.6 | Py 3.7 | Py 3.8 |
+| ---------------  | ------ | ------ | ------ | ------ |
+| **Django 2.0**   | Yes    | Yes    | Yes    | Yes    |
+| **Django 2.1**   | Yes    | Yes    | Yes    | Yes    |
+| **Django 2.2**   | Yes    | Yes    | Yes    | Yes    |
+| **Django 3.0**   | **NO** | Yes    | Yes    | Yes    |
+
+## Installation
+
+`pip install levit-report`
+
+## Configuration
+
+Add `levit_report` to your `INSTALLED_APPS`:
+
+```
+## settings.py
+
+INSTALLED_APPS = (
+    ...
+    'levit_report',
+)
+```
+
+Import the built-in urls into your `urls.py`
+
+```
+## urls.py
+
+...
+from levit_report import urls as report_urls
+
+...
+urlpattern = [
+    ...
+    path('reports/', include(report_urls)),
+]
+```
+
+## Usage
+
+Before being able to use this package you will first have to create a
+[Relatorio](http://relatorio.readthedocs.io/en/latest/index.html) template. The "object"
+of the report will be available inside the report as `o` (as in object).
+
+Once you have created your templte, go to the admin and add a new `Document` (in the 
+`Levit_Report` section).
+
+![admin screenshot](./docs/document-admin.png)
+
+You'll then be able to upload your relatorio template and associate it with a ContentType.
+
+In order to use the "convert to" feature, you'll need you have LibreOffice headless installed.
+
+:warning: LibreOffice headless fails silently when a regular LibreOffice window is open on
+the same machine.
+
+In order to use the "Merge with tos" feature (only available for pdf's), you'll need:
+
+- to have pdfunite installed
+- have given the full path to a pdf `TOS_FILE` in your `settings.py` like this
+
+```
+## settings.py
+
+TOS_FILE = os.path.join(BASE_DIR, 'documents', 'tos.pdf')
+```
+
+Once this is done, you'll be able to download a rendered version of your report at
+http://localhost:8000/reports/&lt;document_slug&gt;/&lt;target_object_id&gt;/
+
+You'll also be able to download a ip containing several rendered reports by pointing
+your browser at
+http://localhost:8000/reports/&lt;document_slug&gt;/?ids[]=&lt;target_object_id&gt;&ids[]=&lt;target_object_2_id&gt;...
+
+
+This project is licensed under the [MIT License](http://opensource.org/licenses/MIT)
