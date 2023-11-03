@@ -1,0 +1,17 @@
+sqlalchemy<2.0.0,>=1.4.0
+snowflake-connector-python<4.0.0
+
+[:python_version < "3.8"]
+importlib-metadata
+
+[development]
+pytest
+pytest-cov
+pytest-rerunfailures
+pytest-timeout
+mock
+pytz
+numpy
+
+[pandas]
+snowflake-connector-python[pandas]<4.0.0
