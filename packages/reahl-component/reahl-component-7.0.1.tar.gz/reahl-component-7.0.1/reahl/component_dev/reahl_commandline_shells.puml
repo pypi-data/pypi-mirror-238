@@ -1,0 +1,15 @@
+' Copyright 2017-2022 Reahl Software Services (Pty) Ltd. All rights reserved.
+
+@startuml
+!include ../../../base.iuml
+
+title Reahl command line shells
+
+ReahlCommandLine -right- “*” Command : {discovered via entrypoints}
+Command <|-- ProductionCommand
+ReahlCommandLine <|-- ProductionCommandLine
+ProductionCommandLine -right- "*" ProductionCommand
+ProductionCommand -- SystemControl
+ProductionCommand -- Configuration
+
+@enduml
